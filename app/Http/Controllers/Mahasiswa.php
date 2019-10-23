@@ -4,8 +4,13 @@
             use Illuminate\Support\Facades\Validator;
             use Illuminate\Http\Request;
             use App\ MahasiswaModel;
+            use App\MahasiswaOrangtuaModel;
+            use App\MahasiswaOrangtuawaliModel;
+            use App\MahasiswaPendidikanModel;
             use Yajra\DataTables\DataTables;
-            class Mahasiswa extends Controller
+use PhpParser\Node\Expr\Print_;
+
+class Mahasiswa extends Controller
             {
                 static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
                     ];
@@ -25,6 +30,7 @@
 
                 }
                 public function create(){
+                    //print_r(implode( ',', DB::getSchemaBuilder()->getColumnListing("mahasiswa"))); exit;
                     $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
                     $table = array_diff(DB::getSchemaBuilder()->getColumnListing("mahasiswa"), static::$exclude);
                     $exclude = static::$exclude;
@@ -36,26 +42,64 @@
                 }
 
                 public function save(Request $request){
-                    $input = $request->all();
-                    $field = [];
-                    $data = [];
-                    $table = DB::getSchemaBuilder()->getColumnListing("mahasiswa");
-                    $fieldvalidatin = static::$html;
-                    foreach($table as $val){
-                        if(array_key_exists($val , $fieldvalidatin) && !in_array($val , static::$exclude)){
-                            $field[$val] = $fieldvalidatin[$val]["validation"];
-                            $data[$val] = $input[$val];
-                        }
+                    $data = $request->all();
+                    print_r($data['mahasiswa']); exit;
+                    $validation = Validator::make($data['mahasiswa'], [
+                        'nama' => 'required',
+                        'nama_ibu' => 'required',
+                        'tempat_lahir' => 'required',
+                        'tanggal_lahir' => 'required',
+                        'nik' => 'max:20',
+                        'nisn' => 'max:20',
+                        'email' => 'email|unique:mahasiswa',
+                        'nik' => 'required',
+                        'nisn' => 'required',
+                        'kewarganegaraan' => 'required',
+                        'alamat' => 'required',
+                    ]);
 
-                    }
-                    $validation = Validator::make($request->all(), $field);
                     if ($validation->fails()) {
-                        return json_encode(["status"=> "false", "message"=> $validation->messages()]);
+                        return json_encode(['status'=> 'false', 'message'=> $validation->messages()]);
                     }
-                    $save  = MahasiswaModel::firstOrCreate($data);
-                    if($save){
-                        return $this->success("Data berhasil disimpan.");
+
+                    $data['mahasiswa']['tanggal_lahir'] = date($data['mahasiswa']['tanggal_lahir']);
+                            if($data['mahasiswa']['is_penerima_kps'] == 'on'){
+                                $data['mahasiswa']['is_penerima_kps'] = '1';
+                            }else{
+                                $data['mahasiswa']['is_penerima_kps'] = '0';
+                            }
+                            $mahasiswa = new MahasiswaModel;
+                            $mahasiswa->fill($data['mahasiswa']);
+                            $mahasiswa->save();
+
+
+                    //$tablemhs = MahasiswaModel::firstOrCreate($data['mahasiswa']);
+                    //$tablemhs = MahasiswaModel::firstOrCreate($data['mahasiswa']);
+                    DB::beginTransaction();
+                    try{
+                        if(array_key_exists('mahasiswa' , $data)){
+                            // SAVE TO TABLE mahasiswa
+                            $data['mahasiswa']['tanggal_lahir'] = date($data['mahasiswa']['tanggal_lahir']);
+                            if($data['mahasiswa']['is_penerima_kps'] == 'on'){
+                                $data['mahasiswa']['is_penerima_kps'] = '1';
+                            }else{
+                                $data['mahasiswa']['is_penerima_kps'] = '0';
+                            }
+                            $mahasiswa = new MahasiswaModel;
+                            $mahasiswa->fill($data['mahasiswa']);
+                            $mahasiswa->save();
+                        }
+                        DB::commit();
+                    } catch(\Exception $e){
+                        DB::rollBack(); 
                     }
+
+                   // print_r($data['mahasiswa']);
+                   // print_r($data['mahasiswa_orang_tua_wali']);
+                   // print_r($data['mahasiswa_kh']);
+                   // print_r($data['ayah_kh']);
+                   // print_r($data['ibu_kh']);
+                    
                 }
 
                 public function edit(Request $request){
@@ -67,9 +111,9 @@
                 }
 
                 public function validatewizard(Request $request){
-                    //print_r($request->all());
+                    //print_r($request->all()); exit;
                     $data = $request->all();
-                   $stepvalidation = array(
+                    $stepvalidation = array(
                         'mahasiswa1' => array(
                             'nama' => 'required',
                             'nama_ibu' => 'required',
@@ -123,18 +167,18 @@
                    if(isset($data['step'])){
                         if($data['step'] == '1'){
                             $validation = Validator::make($data['mahasiswa'], [
-                                'nama' => 'required',
-                                'nama_ibu' => 'required',
-                                'tempat_lahir' => 'required',
-                                'tanggal_lahir' => 'required',
-                                'jk' => 'required',
-                                'agama' => 'required'
+                                'nama' => '',
+                                'nama_ibu' => '',
+                                'tempat_lahir' => '',
+                                'tanggal_lahir' => '',
+                                'jk' => '',
+                                'agama' => ''
                             ]);
                         }elseif($data['step'] == '2'){
                             $validation = Validator::make($data['mahasiswa'], [
-                                'nik' => 'required',
-                                'kewarganegaraan' => 'required',
-                                'alamat' => 'required'
+                                'nik' => '',
+                                'kewarganegaraan' => '',
+                                'alamat' => ''
                                /* 'nisn' => '',
                                 'dusun' => '',
                                 'rt' => '',

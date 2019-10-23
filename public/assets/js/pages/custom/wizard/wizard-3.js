@@ -192,37 +192,30 @@ var KTWizard3 = function () {
 
 			// Submit valid form
 			submitHandler: function (form) {
-
+                    
 			}
 		});
 	}
 
 	var initSubmit = function() {
 		var btn = formEl.find('[data-ktwizard-type="action-submit"]');
-
 		btn.on('click', function(e) {
-			e.preventDefault();
-
-			if (validator.form()) {
-				// See: src\js\framework\base\app.js
-				KTApp.progress(btn);
-				//KTApp.block(formEl);
-
-				// See: http://malsup.com/jquery/form/#ajaxSubmit
-				formEl.ajaxSubmit({
-					success: function() {
-						KTApp.unprogress(btn);
-						//KTApp.unblock(formEl);
-
-						swal.fire({
-							"title": "",
-							"text": "The application has been successfully submitted!",
-							"type": "success",
-							"confirmButtonClass": "btn btn-secondary"
-						});
-					}
-				});
-			}
+            e.preventDefault();
+            $.ajax({
+                type:'POST',
+                url:'/data/mahasiswa/save',
+                data:$('.form-mahasiswa').serialize()+'&_token='+$('#csrf_').val(),
+                success: function() {
+                    KTApp.unprogress(btn);
+                    //KTApp.unblock(formEl);
+                    swal.fire({
+                        "title": "",
+                        "text": "The application has been successfully submitted!",
+                        "type": "success",
+                        "confirmButtonClass": "btn btn-secondary"
+                    });
+                }
+            });
 		});
 	}
 

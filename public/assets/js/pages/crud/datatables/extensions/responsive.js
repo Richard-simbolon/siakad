@@ -288,9 +288,10 @@ var KTDatatablesExtensionsResponsive = function() {
 
     }
 
+    
     var initTable6 = function(a) {
 
-        var table = $('#Penghasilan');
+        var table = $('#KebutuhanKhusus');
 
         // begin first table
         table.DataTable({
@@ -298,7 +299,7 @@ var KTDatatablesExtensionsResponsive = function() {
             processing: true,
             serverSide: true,
             ajax: {
-                url:'/master/pendidikan/paging',
+                url:'/master/kebutuhankhusus/paging',
                 type:"POST",
                 //data:{"_token": $('#csrf_').val(),'table':key},
                 data: function ( d ) {
@@ -340,9 +341,10 @@ var KTDatatablesExtensionsResponsive = function() {
         });
 
     }
-    var initTable6 = function(a) {
 
-        var table = $('#KebutuhanKhusus');
+    var initTable7 = function(a) {
+
+        var table = $('#Penghasilan');
 
         // begin first table
         table.DataTable({
@@ -350,7 +352,7 @@ var KTDatatablesExtensionsResponsive = function() {
             processing: true,
             serverSide: true,
             ajax: {
-                url:'/master/kebutuhankhusus/paging',
+                url:'/master/penghasilan/paging',
                 type:"POST",
                 //data:{"_token": $('#csrf_').val(),'table':key},
                 data: function ( d ) {
@@ -405,6 +407,7 @@ var KTDatatablesExtensionsResponsive = function() {
             initTable4();
             initTable5();
             initTable6();
+            initTable7();
 		},
 
 	};

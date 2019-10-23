@@ -4,17 +4,20 @@
 
         use Illuminate\Database\Eloquent\Model;
 
-        class MahasiswaModel extends Model
+        class MahasiswaOrangtuawaliModel extends Model
         {
 
             protected $table = "mahasiswa";
 
-            //protected $fillable = ['id,row_status,nama,nama_ibu,password,nik,nisn,nim,npwp,email,jk,agama,tempat_lahir,tangal_lahir,alamat,dusun,kelurahan,kecamatan,rt,rw,kode_pos,jenis_tinggal,is_penerima_kps,no_kps,kewarganegaraan,no_telepon,no_hp,alat_transportasi,created_date,created_by,modified_date,modified_by'];
-            protected $guarded = [];
+            protected $fillable = [
+                "id","updated_at" ,"created_at","created_by", "update_by"
+            ];
+
+
 
             public function scopeget_row(){
                 return [
-                    'id,row_status,nama,nama_ibu,password,nik,nisn,nim,npwp,email,jk,agama,tempat_lahir,tangal_lahir,alamat,dusun,kelurahan,kecamatan,rt,rw,kode_pos,jenis_tinggal,is_penerima_kps,no_kps,kewarganegaraan,no_telepon,no_hp,alat_transportasi,created_date,created_by,modified_date,modified_by'
+                    "id","updated_at" ,"created_at","created_by", "update_by"
                  ];
              }
 
