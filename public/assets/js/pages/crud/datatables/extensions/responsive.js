@@ -22,7 +22,7 @@ var KTDatatablesExtensionsResponsive = function() {
             columns: [
                 { defaultContent: '<td></td>' },
                 { data: 'title', name: 'title' },
-                { data: 'status', name: 'status' },
+                { data: 'row_status', name: 'row_status' },
             ],
 			columnDefs: [
 				{
@@ -395,6 +395,325 @@ var KTDatatablesExtensionsResponsive = function() {
 
     }
 
+    var initTable8 = function(a) {
+
+        var table = $('#Jurusan');
+
+        // begin first table
+        table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url:'/master/jurusan/paging',
+                type:"POST",
+                //data:{"_token": $('#csrf_').val(),'table':key},
+                data: function ( d ) {
+                    d.myKey = "myValue";
+                    d._token = $('#csrf_').val()
+                    // d.custom = $('#myInput').val();
+                    // etc
+                }
+            },
+            columns: [
+                { defaultContent: '<td></td>' },
+                { data: 'title', name: 'title' },
+                { data: 'row_status', name: 'row_status' },
+            ],
+            columnDefs: [
+                {
+                    targets: 3,
+                    title: 'Actions',
+                    orderable: false,
+                    render: function(data, type, full, meta) {
+                        return `
+                        <span class="dropdown">
+                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
+                              <i class="la la-ellipsis-h"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
+                                <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
+                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
+                            </div>
+                        </span>
+                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+                          <i class="la la-edit"></i>
+                        </a>`;
+                    },
+                },
+
+            ],
+        });
+
+    }
+
+    var initTable9 = function(a) {
+
+        var table = $('#Jenispendaftaran');
+
+        // begin first table
+        table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url:'/master/jenispendaftaran/paging',
+                type:"POST",
+                //data:{"_token": $('#csrf_').val(),'table':key},
+                data: function ( d ) {
+                    d.myKey = "myValue";
+                    d._token = $('#csrf_').val()
+                    // d.custom = $('#myInput').val();
+                    // etc
+                }
+            },
+            columns: [
+                { defaultContent: '<td></td>' },
+                { data: 'title', name: 'title' },
+                { data: 'row_status', name: 'row_status' },
+            ],
+            columnDefs: [
+                {
+                    targets: 3,
+                    title: 'Actions',
+                    orderable: false,
+                    render: function(data, type, full, meta) {
+                        return `
+                        <span class="dropdown">
+                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
+                              <i class="la la-ellipsis-h"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
+                                <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
+                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
+                            </div>
+                        </span>
+                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+                          <i class="la la-edit"></i>
+                        </a>`;
+                    },
+                },
+
+            ],
+        });
+
+    }
+
+    var initTable10 = function(a) {
+
+        var table = $('#JalurPendaftaran');
+
+        // begin first table
+        table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url:'/master/jalurpendaftaran/paging',
+                type:"POST",
+                //data:{"_token": $('#csrf_').val(),'table':key},
+                data: function ( d ) {
+                    d.myKey = "myValue";
+                    d._token = $('#csrf_').val()
+                    // d.custom = $('#myInput').val();
+                    // etc
+                }
+            },
+            columns: [
+                { defaultContent: '<td></td>' },
+                { data: 'title', name: 'title' },
+                { data: 'row_status', name: 'row_status' },
+            ],
+            columnDefs: [
+                {
+                    targets: 3,
+                    title: 'Actions',
+                    orderable: false,
+                    render: function(data, type, full, meta) {
+                        return `
+                        <span class="dropdown">
+                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
+                              <i class="la la-ellipsis-h"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
+                                <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
+                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
+                            </div>
+                        </span>
+                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+                          <i class="la la-edit"></i>
+                        </a>`;
+                    },
+                },
+
+            ],
+        });
+
+    }
+
+    var initTable11 = function(a) {
+
+        var table = $('#JenisPembiayaan');
+
+        // begin first table
+        table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url:'/master/jenispembiayaan/paging',
+                type:"POST",
+                //data:{"_token": $('#csrf_').val(),'table':key},
+                data: function ( d ) {
+                    d.myKey = "myValue";
+                    d._token = $('#csrf_').val()
+                    // d.custom = $('#myInput').val();
+                    // etc
+                }
+            },
+            columns: [
+                { defaultContent: '<td></td>' },
+                { data: 'title', name: 'title' },
+                { data: 'row_status', name: 'row_status' },
+            ],
+            columnDefs: [
+                {
+                    targets: 3,
+                    title: 'Actions',
+                    orderable: false,
+                    render: function(data, type, full, meta) {
+                        return `
+                        <span class="dropdown">
+                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
+                              <i class="la la-ellipsis-h"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
+                                <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
+                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
+                            </div>
+                        </span>
+                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+                          <i class="la la-edit"></i>
+                        </a>`;
+                    },
+                },
+
+            ],
+        });
+
+    }
+
+    var initTable12 = function(a) {
+
+        var table = $('#AsalProgramStudi');
+
+        // begin first table
+        table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url:'/master/asalprogramstudi/paging',
+                type:"POST",
+                //data:{"_token": $('#csrf_').val(),'table':key},
+                data: function ( d ) {
+                    d.myKey = "myValue";
+                    d._token = $('#csrf_').val()
+                    // d.custom = $('#myInput').val();
+                    // etc
+                }
+            },
+            columns: [
+                { defaultContent: '<td></td>' },
+                { data: 'title', name: 'title' },
+                { data: 'row_status', name: 'row_status' },
+            ],
+            columnDefs: [
+                {
+                    targets: 3,
+                    title: 'Actions',
+                    orderable: false,
+                    render: function(data, type, full, meta) {
+                        return `
+                        <span class="dropdown">
+                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
+                              <i class="la la-ellipsis-h"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
+                                <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
+                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
+                            </div>
+                        </span>
+                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+                          <i class="la la-edit"></i>
+                        </a>`;
+                    },
+                },
+
+            ],
+        });
+
+    }
+
+
+    var initTable13 = function(a) {
+
+        var table = $('#Pekerjaan');
+
+        // begin first table
+        table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url:'/master/pekerjaan/paging',
+                type:"POST",
+                //data:{"_token": $('#csrf_').val(),'table':key},
+                data: function ( d ) {
+                    d.myKey = "myValue";
+                    d._token = $('#csrf_').val()
+                    // d.custom = $('#myInput').val();
+                    // etc
+                }
+            },
+            columns: [
+                { defaultContent: '<td></td>' },
+                { data: 'title', name: 'title' },
+                { data: 'row_status', name: 'row_status' },
+            ],
+            columnDefs: [
+                {
+                    targets: 3,
+                    title: 'Actions',
+                    orderable: false,
+                    render: function(data, type, full, meta) {
+                        return `
+                        <span class="dropdown">
+                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
+                              <i class="la la-ellipsis-h"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
+                                <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
+                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
+                            </div>
+                        </span>
+                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+                          <i class="la la-edit"></i>
+                        </a>`;
+                    },
+                },
+
+            ],
+        });
+
+    }
+
 
 
 	return {
@@ -408,6 +727,12 @@ var KTDatatablesExtensionsResponsive = function() {
             initTable5();
             initTable6();
             initTable7();
+            initTable8();
+            initTable9();
+            initTable10();
+            initTable11();
+            initTable12();
+            initTable13();
 		},
 
 	};

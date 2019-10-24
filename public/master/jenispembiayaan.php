@@ -1,0 +1,1 @@
+[{"id":1,"title":"Mandiri"},{"id":2,"title":"Beasiswa Tidak Penuh"},{"id":3,"title":"Beasiswa Penuh"},{"id":4,"title":"Bidikmisi"},{"id":5,"title":"Lainnya"}]

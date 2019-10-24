@@ -4,12 +4,14 @@
 
         use Illuminate\Database\Eloquent\Model;
 
-        class MahasiswaOrangtuawaliModel extends Model
+        class MahasiswaKebutuhanModel extends Model
         {
 
-            protected $table = "mahasiswa_orang_tua_wali";
-           // protected $fillable = ["id","updated_at" ,"created_at","created_by", "update_by"];
+            protected $table = "mahasiswa_kebutuhan_khusu";
             protected $guarded = [];
+
+
+
             public function scopeget_row(){
                 return [
                     "id","updated_at" ,"created_at","created_by", "update_by"

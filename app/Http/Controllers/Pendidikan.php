@@ -5,6 +5,7 @@
             use Illuminate\Http\Request;
             use App\ PendidikanModel;
             use Yajra\DataTables\DataTables;
+            Use File;
             class Pendidikan extends Controller
             {
                 static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
@@ -57,6 +58,15 @@
                         return json_encode(["status"=> "false", "message"=> $validation->messages()]);
                     }
                     $save  = PendidikanModel::firstOrCreate($data);
+
+                    $filedata = PendidikanModel::select('id' ,'title')
+                    ->where('row_status', '=', 'active')
+                    ->get();
+
+                    if($filedata){
+                        File::put(public_path().'/master/'.strtolower(static::$tablename).'.php',json_encode($filedata));
+                    }
+
                     if($save){
                         return $this->success("Data berhasil disimpan.");
                     }

@@ -3,6 +3,7 @@
 namespace Illuminate\Routing;
 
 use BadMethodCallException;
+use File;
 
 abstract class Controller
 {
@@ -28,6 +29,15 @@ abstract class Controller
 
     public function generalcreate($data){
         return view('master/Agama');
+    }
+
+
+    public function selectmaster($tablename){
+        if(!file_exists(public_path().'/master/'.strtolower($tablename).'.php')){
+          return ['msg' => "Silahkan tekan tombol refresh pada menu master"];
+        }else{
+            return file_get_contents(public_path().'/master/'.strtolower($tablename).'.php') ;
+        }
     }
 
     public function success($msg= '' , $data=[]){

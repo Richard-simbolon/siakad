@@ -1,0 +1,1 @@
+[{"id":1,"title":"Kurang dari Rp. 500,000"},{"id":2,"title":"Rp. 500,000 - Rp. 999,999"},{"id":3,"title":"Rp. 1,000,000 - Rp. 1,999,999"},{"id":4,"title":"Rp. 2,000,000 - Rp. 4,999,999"},{"id":5,"title":"Rp. 5,000,000 - Rp. 20,000,000"},{"id":6,"title":"Lebih dari Rp. 20,000,000"},{"id":7,"title":"Lainnya"}]

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDosen extends Migration
+class CreateMasterJenisPembiayaan extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,9 @@ class CreateDosen extends Migration
      * @return void
      */
     public function up(){
-        Schema::create("dosen", function (Blueprint $table) {
+        Schema::create("master_jenis_pembiayaan", function (Blueprint $table) {
             $table->bigIncrements("id")->unsigned();
+            $table->string("title" , 200);
             $table->enum("row_status", ["active", "deleted", "notactive"]);
             $table->timestamp("updated_at")->nullable();
             $table->timestamp("created_at")->nullable();
@@ -23,6 +24,6 @@ class CreateDosen extends Migration
     }
     public function down()
     {
-        Schema::dropIfExists("dosen");
+        Schema::dropIfExists("master_jenis_pembiayaan");
     }
 }

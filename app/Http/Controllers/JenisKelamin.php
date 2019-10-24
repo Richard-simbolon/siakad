@@ -4,6 +4,7 @@
             use Illuminate\Support\Facades\Validator;
             use Illuminate\Http\Request;
             use App\ JenisKelaminModel;
+            Use File;
             class JenisKelamin extends Controller
             {
                 static $Tableshow = [
@@ -51,6 +52,13 @@
                         return json_encode(["status"=> "false", "message"=> $validation->messages()]);
                     }
                     $save  = JenisKelaminModel::firstOrCreate($data);
+                    $filedata = JenisKelaminModel::select('id' ,'title')
+                        ->where('row_status', '=', 'active')
+                        ->get();
+
+                    if($filedata){
+                        File::put(public_path().'/master/'.strtolower(static::$tablename).'.php',json_encode($filedata));
+                    }
                     if($save){
                         return $this->success("Data berhasil disimpan.");
                     }

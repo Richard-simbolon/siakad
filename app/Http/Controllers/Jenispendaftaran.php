@@ -3,27 +3,29 @@
             use Illuminate\Support\Facades\DB;
             use Illuminate\Support\Facades\Validator;
             use Illuminate\Http\Request;
-            use App\ PenghasilanModel;
+            use App\ JenispendaftaranModel;
             use Yajra\DataTables\DataTables;
-            Use File;
-            class Penghasilan extends Controller
+            use File;
+            class Jenispendaftaran extends Controller
             {
                 static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
-                    "title" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Title"],
-                    "row_status" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Status"],
+                                    "row_status" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Status"],
+                                    "title" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Title"],
+                                    "deskripsi" => ["table" => ["tablename" =>"null" , "field"=> "deskripsi"] , "record"=>"Deskripsi"],
                     ];
-                static $html = ["id"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
+                static $html = ["id"=>["type"=>"" , "value"=>"null" , "validation" => ""] ,
+                                "row_status"=>["type"=>"radio" , "value"=>"active,notactive,deletd" , "validation" => "required"] ,
                                 "title"=>["type"=>"text" , "value"=>"null" , "validation" => "required"] ,
-                                "row_status"=>["type"=>"radio" , "value"=>"active,notactive,deleted" , "validation" => "required"] ,
                                 ];
                 static $exclude = ["id","created_at","updated_at","created_by","update_by"];
-                static $tablename = "Penghasilan";
+                static $tablename = "Jenispendaftaran";
+
                 public function index()
                 {
-                    $data = PenghasilanModel::get();
+                    $data = JenispendaftaranModel::get();
                     $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-                    $tableid = "Penghasilan";
-                    $table_display = DB::getSchemaBuilder()->getColumnListing("master_penghasilan");
+                    $tableid = "Jenispendaftaran";
+                    $table_display = DB::getSchemaBuilder()->getColumnListing("master_jenis_pendaftaran");
                     $exclude = static::$exclude;
                     $Tableshow = static::$Tableshow;
                     return view("setting/general_view" , compact("data" , "title" ,"table_display" ,"exclude" ,"Tableshow","tableid"));
@@ -31,7 +33,7 @@
                 }
                 public function create(){
                     $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-                    $table = array_diff(DB::getSchemaBuilder()->getColumnListing("master_penghasilan"), static::$exclude);
+                    $table = array_diff(DB::getSchemaBuilder()->getColumnListing("master_jenis_pendaftaran"), static::$exclude);
                     $exclude = static::$exclude;
                     $Tableshow = static::$Tableshow;
                     $html = static::$html;
@@ -44,7 +46,7 @@
                     $input = $request->all();
                     $field = [];
                     $data = [];
-                    $table = DB::getSchemaBuilder()->getColumnListing("master_penghasilan");
+                    $table = DB::getSchemaBuilder()->getColumnListing("master_jenis_pendaftaran");
                     $fieldvalidatin = static::$html;
                     foreach($table as $val){
                         if(array_key_exists($val , $fieldvalidatin) && !in_array($val , static::$exclude)){
@@ -54,13 +56,11 @@
 
                     }
                     $validation = Validator::make($request->all(), $field);
-                    
                     if ($validation->fails()) {
                         return json_encode(["status"=> "false", "message"=> $validation->messages()]);
                     }
-                    $save  = PenghasilanModel::firstOrCreate($data);
-
-                    $filedata = PenghasilanModel::select('id' ,'title')
+                    $save  = JenispendaftaranModel::firstOrCreate($data);
+                    $filedata = JenispendaftaranModel::select('id' ,'title')
                     ->where('row_status', '=', 'active')
                     ->get();
 
@@ -77,7 +77,8 @@
                 }
 
                 public function paging(Request $request){
-                    return Datatables::of(PenghasilanModel::all())->make(true);
+                    return Datatables::of(JenispendaftaranModel::all())->make(true);
                 }
 
             }
+        

@@ -1,0 +1,1 @@
+[{"id":1,"title":"S1 Teknik Informatika"},{"id":2,"title":"S1 FISIKA"},{"id":3,"title":"KIMIA"},{"id":4,"title":"IPA"},{"id":5,"title":"IPS"},{"id":6,"title":"SMK"}]

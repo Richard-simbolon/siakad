@@ -71,7 +71,7 @@ class SettingMenu extends Controller
             // GENERATE THE CONTROLLER
             File::put(app_path().'/Http/Controllers/'.ucfirst($filename).'.php',static::autocontroller($filename , $request->all()));
             // GENERATE THE MODEL
-            File::put(app_path().'/Providers/'.ucfirst($filename).'Model.php', static::automodel($filename , $request->all()));
+            File::put(app_path().'/'.ucfirst($filename).'Model.php', static::automodel($filename , $request->all()));
 
             // GENERATE MIGRATION FILE
 

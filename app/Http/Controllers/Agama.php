@@ -5,19 +5,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\ AgamaModel;
 use Yajra\DataTables\DataTables;
+use File;
 class Agama extends Controller
 {
-    static $Tableshow = [
-                            "id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"id"] ,
-                            "title" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Agama"] ,
-                            "status" => ["table" => ["tablename" =>"null" , "field"=> "status"] , "record"=>"Status"] ,
-                        ];
-    static $exclude = ['id','created_at','updated_at','created_by','updated_by'];
-    static $html = [
-                    "id"=>["type" => "null" , "value"=>"null" , "validation" => "required"] ,
-                    "title"=>["type" => "text" , "value"=>"text" , "validation" => "required"] ,
-                    "status"=>["type" => "radio" , "value"=>"enable,disable" , "validation" => "required"],
-                    ];
+            static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
+                "title" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Title"],
+                "row_status" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Status"],
+                ];
+            static $html = ["id"=>["type"=>"null" , "value"=>"null" , "validation" => "required"] ,
+                            "title"=>["type"=>"text" , "value"=>"null" , "validation" => ""] ,
+                            "row_status"=>["type"=>"radio" , "value"=>"active,notactive,deleted" , "validation" => "required"] ,
+                            ];
+            static $exclude = ["id","created_at","updated_at","created_by","updated_by"];
+            static $tablename = "agama";
     public function index()
     {
         $data = AgamaModel::get();
@@ -59,6 +59,15 @@ class Agama extends Controller
             return json_encode(["status"=> "false", "message"=> $validation->messages()]);
         }
         $save  = AgamaModel::firstOrCreate($data);
+
+        $filedata = AgamaModel::select('id' ,'title')
+                    ->where('row_status', '=', 'active')
+                    ->get();
+
+        if($filedata){
+            File::put(public_path().'/master/'.strtolower(static::$tablename).'.php',json_encode($filedata));
+        }
+                    
         if($save){
             return $this->success("Data berhasil disimpan.");
         }

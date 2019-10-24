@@ -5,6 +5,7 @@
             use Illuminate\Http\Request;
             use App\ DosenModel;
             use Yajra\DataTables\DataTables;
+            use File;
             class Dosen extends Controller
             {
                 static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
@@ -36,7 +37,7 @@
                     $Tableshow = static::$Tableshow;
                     $html = static::$html;
                     $column = 1;
-                    return view("data/Dosen_create" , compact("table" ,"exclude" , "Tableshow" , "title" , "html", "column"));
+                    return view("data/dosen_create" , compact("table" ,"exclude" , "Tableshow" , "title" , "html", "column"));
 
                 }
 
@@ -58,6 +59,16 @@
                         return json_encode(["status"=> "false", "message"=> $validation->messages()]);
                     }
                     $save  = DosenModel::firstOrCreate($data);
+
+                    $filedata = Dosen::select('id' ,'title')
+                        ->where('row_status', '=', 'active')
+                        ->get();
+
+                    if($filedata){
+                        File::put(public_path().'/master/'.strtolower(static::$tablename).'.php',json_encode($filedata));
+                    }
+
+
                     if($save){
                         return $this->success("Data berhasil disimpan.");
                     }

@@ -6,10 +6,10 @@
             use App\ MahasiswaModel;
             use App\MahasiswaOrangtuaModel;
             use App\MahasiswaOrangtuawaliModel;
+            use App\MahasiswaKebutuhanModel;
             use App\MahasiswaPendidikanModel;
             use Yajra\DataTables\DataTables;
-use PhpParser\Node\Expr\Print_;
-
+            
 class Mahasiswa extends Controller
             {
                 static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
@@ -43,15 +43,19 @@ class Mahasiswa extends Controller
 
                 public function save(Request $request){
                     $data = $request->all();
-                    print_r($data['mahasiswa']); exit;
+
+                   // print_r($data['mahasiswa']); exit;
+                    
                     $validation = Validator::make($data['mahasiswa'], [
                         'nama' => 'required',
+                        'jurusan_id' => 'required',
                         'nama_ibu' => 'required',
+                        'nim' => 'required',
                         'tempat_lahir' => 'required',
                         'tanggal_lahir' => 'required',
                         'nik' => 'max:20',
                         'nisn' => 'max:20',
-                        'email' => 'email|unique:mahasiswa',
+                        'email' => 'email',
                         'nik' => 'required',
                         'nisn' => 'required',
                         'kewarganegaraan' => 'required',
@@ -61,18 +65,42 @@ class Mahasiswa extends Controller
                     if ($validation->fails()) {
                         return json_encode(['status'=> 'false', 'message'=> $validation->messages()]);
                     }
-
+                    // SAVE DATA TO TABLE MAHASISWA
                     $data['mahasiswa']['tanggal_lahir'] = date($data['mahasiswa']['tanggal_lahir']);
-                            if($data['mahasiswa']['is_penerima_kps'] == 'on'){
-                                $data['mahasiswa']['is_penerima_kps'] = '1';
-                            }else{
-                                $data['mahasiswa']['is_penerima_kps'] = '0';
-                            }
-                            $mahasiswa = new MahasiswaModel;
-                            $mahasiswa->fill($data['mahasiswa']);
-                            $mahasiswa->save();
+                    if($data['mahasiswa']['is_penerima_kps'] == 'on'){
+                        $data['mahasiswa']['is_penerima_kps'] = '1';
+                    }else{
+                        $data['mahasiswa']['is_penerima_kps'] = '0';
+                    }
+                    $mahasiswa = MahasiswaModel::create($data['mahasiswa']);
+                    //return response()->json(['id' => $mahasiswa->id]);
+                    //exit;
 
+                    // SAVE DATA TO TABLE MAHASISWA_ORANG_TUA_WALI
+                    if(array_key_exists('mahasiswa_orang_tua_wali' , $data)){
+                        foreach($data['mahasiswa_orang_tua_wali'] as $key=>$val){
+                            $data['mahasiswa_orang_tua_wali'][$key]['mahasiswa_id'] = $mahasiswa->id;
+                            $data['mahasiswa_orang_tua_wali'][$key]['kategori'] = $key;
+                            MahasiswaOrangtuawaliModel::create($data['mahasiswa_orang_tua_wali'][$key]);
+                        }
+                    }
+                    
+                    $data_kebutuhan_khusus = array(
+                        'mahasiswa_id' => $mahasiswa->id,
+                        'row_status' => 'active',
+                        'created_by' => 1,
+                        'updated_by' => 1,
+                        'kebutuhan_mahasiswa' => array_key_exists('mahasiswa_kh' , $data) ? json_encode($data['mahasiswa_kh']) : json_encode(array()),
+                        'kebutuhan_ayah' =>array_key_exists('ayah_kh' , $data) ? json_encode($data['ayah_kh']) : json_encode(array()),
+                        'kebutuhan_ibu' =>array_key_exists('ibu_kh' , $data) ? json_encode($data['ibu_kh']) : json_encode(array()),
+                        'kebutuhan_wali' => array_key_exists('wali_kh' , $data) ? json_encode($data['wali_kh']) : json_encode(array())
 
+                    );
+                   // if(array_key_exists('mahasiswa_kh' , $data)){
+                       
+                        MahasiswaKebutuhanModel::create($data_kebutuhan_khusus);
+                    //}
+                    exit;
                     //$tablemhs = MahasiswaModel::firstOrCreate($data['mahasiswa']);
                     //$tablemhs = MahasiswaModel::firstOrCreate($data['mahasiswa']);
                     DB::beginTransaction();
@@ -111,7 +139,7 @@ class Mahasiswa extends Controller
                 }
 
                 public function validatewizard(Request $request){
-                    //print_r($request->all()); exit;
+                    print_r($request->all()); exit;
                     $data = $request->all();
                     $stepvalidation = array(
                         'mahasiswa1' => array(

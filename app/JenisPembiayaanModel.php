@@ -4,24 +4,34 @@
 
         use Illuminate\Database\Eloquent\Model;
 
-        class MahasiswaOrangtuawaliModel extends Model
+        class JenisPembiayaanModel extends Model
         {
 
-            protected $table = "mahasiswa_orang_tua_wali";
-           // protected $fillable = ["id","updated_at" ,"created_at","created_by", "update_by"];
-            protected $guarded = [];
+            protected $table = "master_jenis_pembiayaan";
+
+            protected $fillable = [
+                "id","title","row_status","updated_at" ,"created_at","created_by", "update_by"
+            ];
+
+
+
             public function scopeget_row(){
                 return [
-                    "id","updated_at" ,"created_at","created_by", "update_by"
+                    "id","title","row_status","updated_at" ,"created_at","created_by", "update_by"
                  ];
              }
+
+
+
 
             /**************************************/
             /*COPY THIS FUNCTION TO YOUR MIGRATION*/
             /**************************************/
             public function up(){
-                Schema::create("mahasiswa", function (Blueprint $table) {
+                Schema::create("master_jenis_pembiayaan", function (Blueprint $table) {
                     $table->bigIncrements("id")->unsigned();
+$table->string("title" , 200);
+
                     $table->enum("row_status", ["active", "deleted", "notactive"]);
                     $table->timestamp("updated_at")->nullable();
                     $table->timestamp("created_at")->nullable();
@@ -31,7 +41,7 @@
             }
             public function down()
             {
-                Schema::dropIfExists("mahasiswa");
+                Schema::dropIfExists("master_jenis_pembiayaan");
             }
 
 

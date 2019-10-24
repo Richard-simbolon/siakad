@@ -86,6 +86,27 @@
                                             <div class="row">
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
+                                                        <label>Jurusan</label>
+                                                        <div class="form-group">
+                                                            <select name="mahasiswa[jurusan_id]" class="form-control">
+                                                                <option value="">-- Pilih Jurusan --</option>
+                                                                <option value="1">Penyuluhan Perkebunan Presisi</option>
+                                                                <option value="2">Penyuluhan Pertanian Berkelanjutan</option>
+                                                                <option value="3">Teknologi Produksi Tanaman Perkebunan</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <label>NIM</label>
+                                                        <input type="text" class="form-control" name="mahasiswa[nim]" placeholder="Isikan NIM">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
                                                         <label>Nama Lengkap</label>
                                                         <input type="text" class="form-control" name="mahasiswa[nama]" placeholder="isikan nama lengkap">
                                                     </div>
@@ -138,6 +159,104 @@
                                                             <option value="hindu">Hindu</option>
                                                             <option value="budha">Budha</option>
                                                             <option value="konghucu">Konghucu</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <label>Jenis Pendaftaran *</label>
+                                                        <select name="mahasiswa[jenis_pendaftaran]" class="form-control">
+                                                            <option value="1">-- Pilih Jenis Pendaftaran --</option>
+                                                            <option value="2">Peserta Didik Baru</option>
+                                                            <option value="3">Pindahan</option>
+                                                            <option value="4">Alih Jenjang</option>
+                                                            <option value="5">Lintas Jalur</option>
+                                                            <option value="6">Rekognisi Pembelajaran Lampau (RPL)</option>
+                                                            <option value="7">Cource</option>
+                                                            <option value="8">Fast Track</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <label>Jalur Pendaftaran</label>
+                                                        <select name="mahasiswa[jalur_pendaftaran]" class="form-control">
+                                                            <option value="">-- Pilih Jalur Pendaftaran--</option>
+                                                            <option value="1">SBMPTN</option>
+                                                            <option value="2">SNMPTN</option>
+                                                            <option value="3">PMDK</option>
+                                                            <option value="4">Prestasi</option>
+                                                            <option value="5">Seleksi Mandiri PTN</option>
+                                                            <option value="6">Seleksi Mandiri PTS</option>
+                                                            <option value="7">Ujian Masuk Bersama PTN (UMB-PT)</option>
+                                                            <option value="8">Ujian Masuk Bersama PTS (UMB-PTS)</option>
+                                                            <option value="9">Program Internasional</option>
+                                                            <option value="11">Program Kerjasama Perusahaan/Institusi/Pemerintah</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <label>Tanggal Masuk *</label>
+                                                        <input type="date" class="form-control" name="mahasiswa[tanggal_masuk]" placeholder="Isikan nama ibu">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <label>Pembiayaan Awal</label>
+                                                        <select name="mahasiswa[jenis_pembiayaan]" class="form-control">
+                                                            <option value="">-- Pilih Jenis Pembiayaan--</option>
+                                                            <option value="1">Mandiri</option>
+                                                            <option value="2">Beasiswa Tidak Penuh</option>
+                                                            <option value="3">Beasiswa Penuh</option>
+                                                            <option value="4">Bidikmisi</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <label>Biaya Masuk </label>
+                                                        <input type="text" class="form-control" name="mahasiswa[biaya_masuk]" placeholder="Isikan Biaya Masuk">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
+
+                                            <div class="row">
+                                                <div class="col-xl-12">
+                                                    <div class="form-group">
+                                                        <div class="kt-wizard-v3__review-title">
+                                                            <b>Selain jenis pendaftaran peserta didik baru, Silahkan lengkapi data berikut</b>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <label>Jumlah sks di akui </label>
+                                                        <input type="text" class="form-control" name="mahasiswa[jumlah_sks_diakui]" placeholder="Isikan Jumlah sks di akui">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <label>Asal Perguruan Tinggi</label>
+                                                        <input type="text" class="form-control" name="mahasiswa[asal_perguruan_tinggi]" placeholder="Isikan Asal Perguruan Tinggi">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <label>Asal Program Studi</label>
+                                                        <select name="mahasiswa[asal_program_studi]" class="form-control">
+                                                            <option value="">-- Pilih PT Terlebih Dahulu --</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -294,20 +413,20 @@
                                             <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>NIK Ayah</label>
-                                                        <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ayah][nik_ayah]" placeholder="Isikan NIK">
+                                                        <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ayah][nik]" placeholder="Isikan NIK">
                                                         <span class="form-text text-muted">Nomor KTP tanpa tanda baca</span>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Nama Ayah</label>
-                                                        <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ayah][nama_ayah]" placeholder="Isikan Nama">
+                                                        <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ayah][nama]" placeholder="Isikan Nama">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Tanggal Lahir Ayah</label>
-                                                        <input type="date" class="form-control" name="mahasiswa_orang_tua_wali[ayah][tanggal_lahir_ayah]" placeholder="Isikan Tanggal Lahir">
+                                                        <input type="date" class="form-control" name="mahasiswa_orang_tua_wali[ayah][tanggal_lahir]" placeholder="Isikan Tanggal Lahir">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Pendidikan Ayah</label>
-                                                        <select name="mahasiswa_orang_tua_wali[ayah][pendidikan_ayah]" class="form-control kt-select2">
+                                                        <select name="mahasiswa_orang_tua_wali[ayah][pendidikan_id]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Jenjang --</option>
                                                             <option value="0">Tidak sekolah</option>
                                                             <option value="1">PAUD</option>
@@ -338,7 +457,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Pekerjaan Ayah</label>
-                                                        <select name="mahasiswa_orang_tua_wali[ayah][pekerjaan_ayah]" class="form-control kt-select2">
+                                                        <select name="mahasiswa_orang_tua_wali[ayah][pekerjaan_id]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Pekerjaan --</option>
                                                             <option value="1">Tidak bekerja</option>
                                                             <option value="2">Nelayan</option>
@@ -358,7 +477,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Penghasilan Ayah</label>
-                                                        <select name="mahasiswa_orang_tua_wali[ayah][penghasilan_ayah]" class="form-control kt-select2">
+                                                        <select name="mahasiswa_orang_tua_wali[ayah][penghasilan]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Penghasilan --</option>
                                                             <option value="0"> </option>
                                                             <option value="11">Kurang dari Rp. 500,000</option>
@@ -373,20 +492,20 @@
                                             <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>NIK Ibu</label>
-                                                        <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ibu][nik_ibu]" placeholder="Isikan NIK">
+                                                        <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ibu][nik]" placeholder="Isikan NIK">
                                                         <span class="form-text text-muted">Nomor KTP tanpa tanda baca</span>
                                                     </div>
-                                                    <!--<div class="form-group">
+                                                    <div class="form-group">
                                                         <label>Nama Ibu</label>
-                                                        <input type="text" class="form-control" name="nama_ibu" placeholder="Isikan Nama">
-                                                    </div>-->
+                                                        <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ibu][nama]" placeholder="Isikan Nama">
+                                                    </div>
                                                     <div class="form-group">
                                                         <label>Tanggal Lahir Ibu</label>
-                                                        <input type="date" class="form-control" name="mahasiswa_orang_tua_wali[ibu][tanggal_lahir_ibu]" placeholder="Isikan Tanggal Lahir">
+                                                        <input type="date" class="form-control" name="mahasiswa_orang_tua_wali[ibu][tanggal_lahir]" placeholder="Isikan Tanggal Lahir">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Pendidikan Ibu</label>
-                                                        <select name="mahasiswa_orang_tua_wali[ibu][pendidikan_ibu]" class="form-control kt-select2">
+                                                        <select name="mahasiswa_orang_tua_wali[ibu][pendidikan_id]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Jenjang --</option>
                                                             <option value="0">Tidak sekolah</option>
                                                             <option value="1">PAUD</option>
@@ -417,7 +536,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Pekerjaan Ibu</label>
-                                                        <select name="mahasiswa_orang_tua_wali[ibu][pekerjaan_ibu]" class="form-control kt-select2">
+                                                        <select name="mahasiswa_orang_tua_wali[ibu][pekerjaan_id]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Pekerjaan --</option>
                                                             <option value="1">Tidak bekerja</option>
                                                             <option value="2">Nelayan</option>
@@ -437,7 +556,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Penghasilan Ibu</label>
-                                                        <select name="mahasiswa_orang_tua_wali[ibu][penghasilan_ibu]" class="form-control kt-select2">
+                                                        <select name="mahasiswa_orang_tua_wali[ibu][penghasilan]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Penghasilan --</option>
                                                             <option value="0"> </option>
                                                             <option value="11">Kurang dari Rp. 500,000</option>
@@ -465,15 +584,15 @@
                                             <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Nama</label>
-                                                        <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[wali][nama_wali]" placeholder="Isikan Nama">
+                                                        <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[wali][nama]" placeholder="Isikan Nama">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Tanggal Lahir </label>
-                                                        <input type="date" class="form-control" name="mahasiswa_orang_tua_wali[wali][tanggal_lahir_wali]" placeholder="Isikan Tanggal Lahir">
+                                                        <input type="date" class="form-control" name="mahasiswa_orang_tua_wali[wali][tanggal_lahir]" placeholder="Isikan Tanggal Lahir">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Pendidikan</label>
-                                                        <select name="mahasiswa_orang_tua_wali[wali][pendidikan_wali]" class="form-control kt-select2">
+                                                        <select name="mahasiswa_orang_tua_wali[wali][pendidikan_id]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Jenjang --</option>
                                                             <option value="0">Tidak sekolah</option>
                                                             <option value="1">PAUD</option>
@@ -504,7 +623,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Pekerjaan</label>
-                                                        <select name="mahasiswa_orang_tua_wali[wali][pekerjaan_wali]" class="form-control">
+                                                        <select name="mahasiswa_orang_tua_wali[wali][pekerjaan_id]" class="form-control">
                                                             <option value="">-- Pilih Pekerjaan --</option>
                                                             <option value="1">Tidak bekerja</option>
                                                             <option value="2">Nelayan</option>
@@ -524,7 +643,7 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Penghasilan</label>
-                                                        <select name="mahasiswa_orang_tua_wali[wali][penghasilan_wali]" class="form-control kt-select2">
+                                                        <select name="mahasiswa_orang_tua_wali[wali][penghasilan]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Penghasilan --</option>
                                                             <option value="0"> </option>
                                                             <option value="11">Kurang dari Rp. 500,000</option>
