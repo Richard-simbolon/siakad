@@ -205,13 +205,14 @@ var KTWizard3 = function () {
                 type:'POST',
                 url:'/data/mahasiswa/save',
                 data:$('.form-mahasiswa').serialize()+'&_token='+$('#csrf_').val(),
-                success: function() {
+                success: function(result) {
+					var res = JSON.parse(result);
                     KTApp.unprogress(btn);
                     //KTApp.unblock(formEl);
                     swal.fire({
                         "title": "",
-                        "text": "The application has been successfully submitted!",
-                        "type": "success",
+                        "text": res.msg,
+                        "type": res.status,
                         "confirmButtonClass": "btn btn-secondary"
                     });
                 }

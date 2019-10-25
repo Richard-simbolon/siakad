@@ -36444,3 +36444,6 @@ body {
     padding: 0.5rem 0.25rem; }
     .my-custom-style .my-custom-element {
       margin-left: 0.5rem; } }
+.select2-label { 
+  display:block;
+}

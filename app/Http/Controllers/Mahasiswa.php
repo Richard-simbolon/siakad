@@ -7,6 +7,18 @@
             use App\MahasiswaOrangtuaModel;
             use App\MahasiswaOrangtuawaliModel;
             use App\MahasiswaKebutuhanModel;
+            use App\AgamaModel;
+            use App\AlatTransportasiModel;
+            use App\KebutuhanKhususModel;
+            use App\JurusanModel;
+            use App\JenispendaftaranModel;
+            use App\JenisPembiayaanModel;
+            use App\AsalProgramStudiModel;
+            use App\JalurPendaftaranModel;
+            use App\TinggalModel;
+            use App\PenghasilanModel;
+            use App\PendidikanModel;
+            use App\PekerjaanModel;
             use App\MahasiswaPendidikanModel;
             use Yajra\DataTables\DataTables;
             
@@ -20,6 +32,13 @@ class Mahasiswa extends Controller
                 static $tablename = "Mahasiswa";
                 public function index()
                 {
+                    /*$master = array(
+                        'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
+                        'jenis_kelamin' => array('Laki-Laki' , 'Perempuan'),
+                        'status_kuliah' => StatusMahasisiwa::where('row_status' , 'active')->get(),
+                        'angkatan' => Angkatan::where('row_status' , 'active')->get(),
+                        'agama' => AgamaModel::where('row_status' , 'active')->get()
+                    );*/
                     $data = MahasiswaModel::get();
                     $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
                     $tableid = "Mahasiswa";
@@ -31,14 +50,28 @@ class Mahasiswa extends Controller
                 }
                 public function create(){
                     //print_r(implode( ',', DB::getSchemaBuilder()->getColumnListing("mahasiswa"))); exit;
+
+                    $master = array(
+                        'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
+                        'jenis_pendaftaran' => JenisPendaftaranModel::where('row_status' , 'active')->get(),
+                        'jalur_pendaftaran' => JalurPendaftaranModel::where('row_status' , 'active')->get(),
+                        'asal_studi' => AsalProgramStudiModel::where('row_status' , 'active')->get(),
+                        'jenis_tinggal' => TinggalModel::where('row_status' , 'active')->get(),
+                        'alat_transportasi' => AlatTransportasiModel::where('row_status' , 'active')->get(),
+                        'pendidikan' => PendidikanModel::where('row_status' , 'active')->get(),
+                        'jenis_pembiayaan' => JenisPembiayaanModel::where('row_status' , 'active')->get(),
+                        'pekerjaan' => PekerjaanModel::where('row_status' , 'active')->get(),
+                        'penghasilan' => PenghasilanModel::where('row_status' , 'active')->get(),
+                        'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
+                        'agama' => AgamaModel::where('row_status' , 'active')->get()
+                    );
                     $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
                     $table = array_diff(DB::getSchemaBuilder()->getColumnListing("mahasiswa"), static::$exclude);
                     $exclude = static::$exclude;
                     $Tableshow = static::$Tableshow;
                     $html = static::$html;
                     $column = 1;
-                    return view("data/mhs_create" , compact("table" ,"exclude" , "Tableshow" , "title" , "html", "column"));
-
+                    return view("data/mhs_create" , compact("table" ,"exclude" , "Tableshow" , "title" , "html", "column" ,'master'));
                 }
 
                 public function save(Request $request){
@@ -65,46 +98,9 @@ class Mahasiswa extends Controller
                     if ($validation->fails()) {
                         return json_encode(['status'=> 'false', 'message'=> $validation->messages()]);
                     }
-                    // SAVE DATA TO TABLE MAHASISWA
-                    $data['mahasiswa']['tanggal_lahir'] = date($data['mahasiswa']['tanggal_lahir']);
-                    if($data['mahasiswa']['is_penerima_kps'] == 'on'){
-                        $data['mahasiswa']['is_penerima_kps'] = '1';
-                    }else{
-                        $data['mahasiswa']['is_penerima_kps'] = '0';
-                    }
-                    $mahasiswa = MahasiswaModel::create($data['mahasiswa']);
-                    //return response()->json(['id' => $mahasiswa->id]);
-                    //exit;
-
-                    // SAVE DATA TO TABLE MAHASISWA_ORANG_TUA_WALI
-                    if(array_key_exists('mahasiswa_orang_tua_wali' , $data)){
-                        foreach($data['mahasiswa_orang_tua_wali'] as $key=>$val){
-                            $data['mahasiswa_orang_tua_wali'][$key]['mahasiswa_id'] = $mahasiswa->id;
-                            $data['mahasiswa_orang_tua_wali'][$key]['kategori'] = $key;
-                            MahasiswaOrangtuawaliModel::create($data['mahasiswa_orang_tua_wali'][$key]);
-                        }
-                    }
-                    
-                    $data_kebutuhan_khusus = array(
-                        'mahasiswa_id' => $mahasiswa->id,
-                        'row_status' => 'active',
-                        'created_by' => 1,
-                        'updated_by' => 1,
-                        'kebutuhan_mahasiswa' => array_key_exists('mahasiswa_kh' , $data) ? json_encode($data['mahasiswa_kh']) : json_encode(array()),
-                        'kebutuhan_ayah' =>array_key_exists('ayah_kh' , $data) ? json_encode($data['ayah_kh']) : json_encode(array()),
-                        'kebutuhan_ibu' =>array_key_exists('ibu_kh' , $data) ? json_encode($data['ibu_kh']) : json_encode(array()),
-                        'kebutuhan_wali' => array_key_exists('wali_kh' , $data) ? json_encode($data['wali_kh']) : json_encode(array())
-
-                    );
-                   // if(array_key_exists('mahasiswa_kh' , $data)){
-                       
-                        MahasiswaKebutuhanModel::create($data_kebutuhan_khusus);
-                    //}
-                    exit;
-                    //$tablemhs = MahasiswaModel::firstOrCreate($data['mahasiswa']);
-                    //$tablemhs = MahasiswaModel::firstOrCreate($data['mahasiswa']);
                     DB::beginTransaction();
                     try{
+
                         if(array_key_exists('mahasiswa' , $data)){
                             // SAVE TO TABLE mahasiswa
                             $data['mahasiswa']['tanggal_lahir'] = date($data['mahasiswa']['tanggal_lahir']);
@@ -113,13 +109,34 @@ class Mahasiswa extends Controller
                             }else{
                                 $data['mahasiswa']['is_penerima_kps'] = '0';
                             }
-                            $mahasiswa = new MahasiswaModel;
-                            $mahasiswa->fill($data['mahasiswa']);
-                            $mahasiswa->save();
+                            $mahasiswa = MahasiswaModel::create($data['mahasiswa']);
                         }
+                        // SAVE TO TABLE mahasiswa_orang_tua_wali
+                        if(array_key_exists('mahasiswa_orang_tua_wali' , $data)){
+                            foreach($data['mahasiswa_orang_tua_wali'] as $key=>$val){
+                                $data['mahasiswa_orang_tua_wali'][$key]['mahasiswa_id'] = $mahasiswa->id;
+                                $data['mahasiswa_orang_tua_wali'][$key]['kategori'] = $key;
+                                MahasiswaOrangtuawaliModel::create($data['mahasiswa_orang_tua_wali'][$key]);
+                            }
+                        }
+                        // SAVE TO TABLE mahasiswa_kebutuhan_khusus
+                        $data_kebutuhan_khusus = array(
+                            'mahasiswa_id' => $mahasiswa->id,
+                            'row_status' => 'active',
+                            'created_by' => 1,
+                            'updated_by' => 1,
+                            'kebutuhan_mahasiswa' => array_key_exists('mahasiswa_kh' , $data) ? json_encode($data['mahasiswa_kh']) : json_encode(array()),
+                            'kebutuhan_ayah' =>array_key_exists('ayah_kh' , $data) ? json_encode($data['ayah_kh']) : json_encode(array()),
+                            'kebutuhan_ibu' =>array_key_exists('ibu_kh' , $data) ? json_encode($data['ibu_kh']) : json_encode(array()),
+                            'kebutuhan_wali' => array_key_exists('wali_kh' , $data) ? json_encode($data['wali_kh']) : json_encode(array())
+                        );
+                        MahasiswaKebutuhanModel::create($data_kebutuhan_khusus);
                         DB::commit();
+                        return json_encode(array('status' => 'success' , 'msg' => 'Data berhasil disimpan.'));
                     } catch(\Exception $e){
+                        
                         DB::rollBack(); 
+                        return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan saat menyimpan, silahkan coba lagi.'));
                     }
 
                    // print_r($data['mahasiswa']);
@@ -134,12 +151,40 @@ class Mahasiswa extends Controller
 
                 }
 
+                public function view($id){
+
+                    $master = array(
+                        'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
+                        'jenis_pendaftaran' => JenisPendaftaranModel::where('row_status' , 'active')->get(),
+                        'jalur_pendaftaran' => JalurPendaftaranModel::where('row_status' , 'active')->get(),
+                        'asal_studi' => AsalProgramStudiModel::where('row_status' , 'active')->get(),
+                        'jenis_tinggal' => TinggalModel::where('row_status' , 'active')->get(),
+                        'alat_transportasi' => AlatTransportasiModel::where('row_status' , 'active')->get(),
+                        'pendidikan' => PendidikanModel::where('row_status' , 'active')->get(),
+                        'jenis_pembiayaan' => JenisPembiayaanModel::where('row_status' , 'active')->get(),
+                        'pekerjaan' => PekerjaanModel::where('row_status' , 'active')->get(),
+                        'penghasilan' => PenghasilanModel::where('row_status' , 'active')->get(),
+                        'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
+                        'agama' => AgamaModel::where('row_status' , 'active')->get()
+                    );
+
+
+                    $data = MahasiswaModel::join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
+                    ->where('mahasiswa.id' , $id)->first();
+                    $orangtuawali = MahasiswaOrangtuawaliModel::where('mahasiswa_id' , $id)->get();
+                    $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+                    $tableid = "Mahasiswa";
+                    return view("data/mhs_view" , compact("data","master" ,"orangtuawali"));
+                }
+
                 public function paging(Request $request){
-                    return Datatables::of(MahasiswaModel::all())->make(true);
+                    return Datatables::of(MahasiswaModel::join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
+                    //->join('orders', 'users.id', '=', 'orders.user_id')
+                    ->select("mahasiswa.id" ,"nim" ,"jurusan_id" , "master_jurusan.title", "agama" , "mahasiswa.row_status","nama","nik","nisn","tanggal_lahir","jk")->get())->make(true);
                 }
 
                 public function validatewizard(Request $request){
-                    print_r($request->all()); exit;
+                    //print_r($request->all()); exit;
                     $data = $request->all();
                     $stepvalidation = array(
                         'mahasiswa1' => array(
@@ -234,6 +279,7 @@ class Mahasiswa extends Controller
 
                    return json_encode(['status'=> 'true', 'message'=> []]);
                 }
+                
 
 
             }

@@ -716,6 +716,86 @@ var KTDatatablesExtensionsResponsive = function() {
 
 
 
+    var mahasiswa = function(a) {
+        var table = $('#Mahasiswa');
+
+        $('#inputdata').unbind();
+        $('#inputdata').bind('keyup', function(e) {
+            if(e.keyCode == 13) {
+                tables.column(1).search($('#inputdata').val()).column(7).search($('#jurusan').val()).draw();
+            }
+        });
+        $('#search-button').on('click', function(e) {
+                tables.column(1).search($('#inputdata').val()).column(7).search($('#jurusan').val()).draw();
+        });
+        
+        //table.column(1).search('director').column(2).search('london').draw();
+		var tables = table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            "bFilter": true,
+            ajax: {
+                url:'/data/mahasiswa/paging',
+                type:"POST",
+                data:{"_token": $('#csrf_').val()}
+            },
+            columns: [
+
+                { data: 'nim'},
+                { data: 'nim', name: 'nim' },
+                { data: 'nama', name: 'nama' },
+                { data: 'tanggal_lahir', name: 'tanggal_lahir' },
+                { data: 'jk', name: 'jk' },
+                { data: 'agama', name: 'agama' },
+                { defaultContent: '-'},
+                { data: 'title', name: 'title' },
+                { data: 'row_status', name: 'row_status' },
+                { defaultContent: 'angkatan' }
+            ],
+			columnDefs: [
+				{
+					targets: 9,
+					title: 'Actions',
+					orderable: false,
+					render: function(data, type, full, meta) {
+                    	return `
+                        <span class="dropdown">
+                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
+                            <i class="la la-edit"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="mahasiswa/edit/`+full.id+`"><i class="la la-edit"></i> Edit</a>
+                                <a class="dropdown-item" href="mahasiswa/view/`+full.id+`""><i class="la la-leaf"></i>Lihat</a>
+                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
+                            </div>
+                        </span>
+                        `;
+					},
+                },
+                {
+					targets: 1,
+					render: function(data, type, full, meta) {
+						var row_status = {
+							1: {'title': 'active', 'state': 'danger'},
+							2: {'title': 'Retail', 'state': 'primary'},
+							3: {'title': 'Direct', 'state': 'success'},
+						};
+						if (typeof row_status[data] === 'undefined') {
+							return data;
+						}
+						return '<span class="kt-badge kt-badge--' + row_status[data].state + ' kt-badge--dot"></span>&nbsp;' +
+							'<span class="kt-font-bold kt-font-' + row_status[data].state + '">' + row_status[data].title + '</span>';
+					},
+				},
+
+			],
+        });
+
+    };
+
+
+
 	return {
 
 		//main function to initiate the module
@@ -733,6 +813,9 @@ var KTDatatablesExtensionsResponsive = function() {
             initTable11();
             initTable12();
             initTable13();
+
+
+            mahasiswa();
 		},
 
 	};
@@ -740,6 +823,6 @@ var KTDatatablesExtensionsResponsive = function() {
 }();
 
 jQuery(document).ready(function() {
-    //alert();
+    
 	KTDatatablesExtensionsResponsive.init($('.general-data-table').attr('id'));
 });

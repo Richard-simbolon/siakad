@@ -88,11 +88,11 @@
                                                     <div class="form-group">
                                                         <label>Jurusan</label>
                                                         <div class="form-group">
-                                                            <select name="mahasiswa[jurusan_id]" class="form-control">
+                                                            <select name="mahasiswa[jurusan_id]" class="form-control kt-select2">
                                                                 <option value="">-- Pilih Jurusan --</option>
-                                                                <option value="1">Penyuluhan Perkebunan Presisi</option>
-                                                                <option value="2">Penyuluhan Pertanian Berkelanjutan</option>
-                                                                <option value="3">Teknologi Produksi Tanaman Perkebunan</option>
+                                                               @foreach ($master['jurusan'] as $item)
+                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                               @endforeach
                                                             </select>
                                                         </div>
                                                     </div>
@@ -149,16 +149,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6">
-                                                    <div class="col-lg-4 col-md-9 col-sm-12">
+                                                    <div class="form-group">
                                                         <label>Agama:</label>
                                                         <select name="mahasiswa[agama]" class="form-control kt-select2">
                                                             <option value="">Select</option>
-                                                            <option value="islam">Islam</option>
-                                                            <option value="protestan">Protestan</option>
-                                                            <option value="katolik">Katolik</option>
-                                                            <option value="hindu">Hindu</option>
-                                                            <option value="budha">Budha</option>
-                                                            <option value="konghucu">Konghucu</option>
+                                                            @foreach ($master['agama'] as $item)
+                                                                <option value="{{$item['id']}}" > {{$item['title']}} </option>
+                                                               @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -167,33 +164,22 @@
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Jenis Pendaftaran *</label>
-                                                        <select name="mahasiswa[jenis_pendaftaran]" class="form-control">
-                                                            <option value="1">-- Pilih Jenis Pendaftaran --</option>
-                                                            <option value="2">Peserta Didik Baru</option>
-                                                            <option value="3">Pindahan</option>
-                                                            <option value="4">Alih Jenjang</option>
-                                                            <option value="5">Lintas Jalur</option>
-                                                            <option value="6">Rekognisi Pembelajaran Lampau (RPL)</option>
-                                                            <option value="7">Cource</option>
-                                                            <option value="8">Fast Track</option>
+                                                        <select name="mahasiswa[jenis_pendaftaran]" class="form-control kt-select2">
+                                                            <option value="">-- Pilih Jenis Pendaftaran --</option>
+                                                            @foreach ($master['jenis_pendaftaran'] as $item)
+                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                               @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Jalur Pendaftaran</label>
-                                                        <select name="mahasiswa[jalur_pendaftaran]" class="form-control">
+                                                        <select name="mahasiswa[jalur_pendaftaran]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Jalur Pendaftaran--</option>
-                                                            <option value="1">SBMPTN</option>
-                                                            <option value="2">SNMPTN</option>
-                                                            <option value="3">PMDK</option>
-                                                            <option value="4">Prestasi</option>
-                                                            <option value="5">Seleksi Mandiri PTN</option>
-                                                            <option value="6">Seleksi Mandiri PTS</option>
-                                                            <option value="7">Ujian Masuk Bersama PTN (UMB-PT)</option>
-                                                            <option value="8">Ujian Masuk Bersama PTS (UMB-PTS)</option>
-                                                            <option value="9">Program Internasional</option>
-                                                            <option value="11">Program Kerjasama Perusahaan/Institusi/Pemerintah</option>
+                                                            @foreach ($master['jalur_pendaftaran'] as $item)
+                                                            <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                           @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -208,12 +194,11 @@
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Pembiayaan Awal</label>
-                                                        <select name="mahasiswa[jenis_pembiayaan]" class="form-control">
+                                                        <select name="mahasiswa[jenis_pembiayaan]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Jenis Pembiayaan--</option>
-                                                            <option value="1">Mandiri</option>
-                                                            <option value="2">Beasiswa Tidak Penuh</option>
-                                                            <option value="3">Beasiswa Penuh</option>
-                                                            <option value="4">Bidikmisi</option>
+                                                            @foreach ($master['jenis_pembiayaan'] as $item)
+                                                            <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -255,8 +240,11 @@
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Asal Program Studi</label>
-                                                        <select name="mahasiswa[asal_program_studi]" class="form-control">
+                                                        <select name="mahasiswa[asal_program_studi]" class="form-control kt-select2">
                                                             <option value="">-- Pilih PT Terlebih Dahulu --</option>
+                                                            @foreach ($master['asal_studi'] as $item)
+                                                            <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                           @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -327,35 +315,34 @@
                                                 <label>Kecamatan</label>
                                                 <textarea type="text" class="form-control" name="mahasiswa[kecamatan]" placeholder="Isikan Kecamatan"></textarea>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Jenis Tinggal</label>
-                                                <select name="mahasiswa[jenis_tinggal]" class="form-control kt-select2">
-                                                    <option value="">Select</option>
-                                                    <option value="1">Bersama Orangtua</option>
-                                                    <option value="2">Wali</option>
-                                                    <option value="3">Kost</option>
-                                                    <option value="4">Asrama</option>
-                                                    <option value="5">Panti Asuhan</option>
-                                                    <option value="0">Lainnya</option>
-                                                </select>
+                                            <div class="row">
+                                                
+                                                <div class="form-group">
+                                                    <div class="col-xl-12">
+                                                        <label>Jenis Tinggal</label>
+                                                    </div>
+                                                    <div class="col-xl-12">
+                                                        <select name="mahasiswa[jenis_tinggal]" class="form-control kt-select2 col-lg-12" style="width:100%">
+                                                            <option value="">Select</option>
+                                                            @foreach ($master['jenis_tinggal'] as $item)
+                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Alat Transpostrasi</label>
-                                                <select name="mahasiswa[jenis_tinggal]" class="form-control kt-select2">
-                                                    <option value="">-- Pilih Alat Transportasi --</option>
-                                                    <option value="1">Jalan kaki</option>
-                                                    <option value="3">Angkutan umum/bus/pete-pete</option>
-                                                    <option value="4">Mobil/bus antar jemput</option>
-                                                    <option value="5">Kereta api</option>
-                                                    <option value="6">Ojek</option>
-                                                    <option value="7">Andong/bendi/sado/dokar/delman/becak</option>
-                                                    <option value="8">Perahu penyeberangan/rakit/getek</option>
-                                                    <option value="11">Kuda</option>
-                                                    <option value="12">Sepeda</option>
-                                                    <option value="13">Sepeda motor</option>
-                                                    <option value="14">Mobil pribadi</option>
-                                                    <option value="99">Lainnya</option>
-                                                </select>
+                                            <div class="row">
+                                                    <div class="col-xl-6">
+                                                <div class="form-group">
+                                                <label class="select2-label">Alat Transpostrasi</label>
+                                                    <select name="mahasiswa[alat_transportasi]" class="form-control kt-select2">
+                                                        <option value="">-- Pilih Alat Transportasi --</option>
+                                                        @foreach ($master['alat_transportasi'] as $item)
+                                                        <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xl-6">
@@ -428,64 +415,27 @@
                                                         <label>Pendidikan Ayah</label>
                                                         <select name="mahasiswa_orang_tua_wali[ayah][pendidikan_id]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Jenjang --</option>
-                                                            <option value="0">Tidak sekolah</option>
-                                                            <option value="1">PAUD</option>
-                                                            <option value="2">TK / sederajat</option>
-                                                            <option value="3">Putus SD</option>
-                                                            <option value="4">SD / sederajat</option>
-                                                            <option value="5">SMP / sederajat</option>
-                                                            <option value="6">SMA / sederajat</option>
-                                                            <option value="7">Paket A</option>
-                                                            <option value="8">Paket B</option>
-                                                            <option value="9">Paket C</option>
-                                                            <option value="20">D1</option>
-                                                            <option value="21">D2</option>
-                                                            <option value="22">D3</option>
-                                                            <option value="23">D4</option>
-                                                            <option value="30">S1</option>
-                                                            <option value="31">Profesi</option>
-                                                            <option value="32">Sp-1</option>
-                                                            <option value="35">S2</option>
-                                                            <option value="36">S2 Terapan</option>
-                                                            <option value="37">Sp-2</option>
-                                                            <option value="40">S3</option>
-                                                            <option value="41">S3 Terapan</option>
-                                                            <option value="90">Non formal</option>
-                                                            <option value="91">Informal</option>
-                                                            <option value="99">Lainnya</option>
+                                                            @foreach ($master['pendidikan'] as $item)
+                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                               @endforeach
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Pekerjaan Ayah</label>
                                                         <select name="mahasiswa_orang_tua_wali[ayah][pekerjaan_id]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Pekerjaan --</option>
-                                                            <option value="1">Tidak bekerja</option>
-                                                            <option value="2">Nelayan</option>
-                                                            <option value="3">Petani</option>
-                                                            <option value="4">Peternak</option>
-                                                            <option value="5">PNS/TNI/Polri</option>
-                                                            <option value="6">Karyawan Swasta</option>
-                                                            <option value="7">Pedagang Kecil</option>
-                                                            <option value="8">Pedagang Besar</option>
-                                                            <option value="9">Wiraswasta</option>
-                                                            <option value="10">Wirausaha</option>
-                                                            <option value="11">Buruh</option>
-                                                            <option value="12">Pensiunan</option>
-                                                            <option value="98">Sudah Meninggal</option>
-                                                            <option value="99">Lainnya</option>
+                                                            @foreach ($master['pekerjaan'] as $item)
+                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                               @endforeach
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Penghasilan Ayah</label>
                                                         <select name="mahasiswa_orang_tua_wali[ayah][penghasilan]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Penghasilan --</option>
-                                                            <option value="0"> </option>
-                                                            <option value="11">Kurang dari Rp. 500,000</option>
-                                                            <option value="12">Rp. 500,000 - Rp. 999,999</option>
-                                                            <option value="13">Rp. 1,000,000 - Rp. 1,999,999</option>
-                                                            <option value="14">Rp. 2,000,000 - Rp. 4,999,999</option>
-                                                            <option value="15">Rp. 5,000,000 - Rp. 20,000,000</option>
-                                                            <option value="16">Lebih dari Rp. 20,000,000</option>
+                                                            @foreach ($master['penghasilan'] as $item)
+                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                               @endforeach
                                                         </select>
                                                     </div>
                                             </div>
@@ -507,51 +457,18 @@
                                                         <label>Pendidikan Ibu</label>
                                                         <select name="mahasiswa_orang_tua_wali[ibu][pendidikan_id]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Jenjang --</option>
-                                                            <option value="0">Tidak sekolah</option>
-                                                            <option value="1">PAUD</option>
-                                                            <option value="2">TK / sederajat</option>
-                                                            <option value="3">Putus SD</option>
-                                                            <option value="4">SD / sederajat</option>
-                                                            <option value="5">SMP / sederajat</option>
-                                                            <option value="6">SMA / sederajat</option>
-                                                            <option value="7">Paket A</option>
-                                                            <option value="8">Paket B</option>
-                                                            <option value="9">Paket C</option>
-                                                            <option value="20">D1</option>
-                                                            <option value="21">D2</option>
-                                                            <option value="22">D3</option>
-                                                            <option value="23">D4</option>
-                                                            <option value="30">S1</option>
-                                                            <option value="31">Profesi</option>
-                                                            <option value="32">Sp-1</option>
-                                                            <option value="35">S2</option>
-                                                            <option value="36">S2 Terapan</option>
-                                                            <option value="37">Sp-2</option>
-                                                            <option value="40">S3</option>
-                                                            <option value="41">S3 Terapan</option>
-                                                            <option value="90">Non formal</option>
-                                                            <option value="91">Informal</option>
-                                                            <option value="99">Lainnya</option>
+                                                            @foreach ($master['pendidikan'] as $item)
+                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                               @endforeach
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Pekerjaan Ibu</label>
                                                         <select name="mahasiswa_orang_tua_wali[ibu][pekerjaan_id]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Pekerjaan --</option>
-                                                            <option value="1">Tidak bekerja</option>
-                                                            <option value="2">Nelayan</option>
-                                                            <option value="3">Petani</option>
-                                                            <option value="4">Peternak</option>
-                                                            <option value="5">PNS/TNI/Polri</option>
-                                                            <option value="6">Karyawan Swasta</option>
-                                                            <option value="7">Pedagang Kecil</option>
-                                                            <option value="8">Pedagang Besar</option>
-                                                            <option value="9">Wiraswasta</option>
-                                                            <option value="10">Wirausaha</option>
-                                                            <option value="11">Buruh</option>
-                                                            <option value="12">Pensiunan</option>
-                                                            <option value="98">Sudah Meninggal</option>
-                                                            <option value="99">Lainnya</option>
+                                                            @foreach ($master['pekerjaan'] as $item)
+                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                               @endforeach
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
@@ -559,12 +476,9 @@
                                                         <select name="mahasiswa_orang_tua_wali[ibu][penghasilan]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Penghasilan --</option>
                                                             <option value="0"> </option>
-                                                            <option value="11">Kurang dari Rp. 500,000</option>
-                                                            <option value="12">Rp. 500,000 - Rp. 999,999</option>
-                                                            <option value="13">Rp. 1,000,000 - Rp. 1,999,999</option>
-                                                            <option value="14">Rp. 2,000,000 - Rp. 4,999,999</option>
-                                                            <option value="15">Rp. 5,000,000 - Rp. 20,000,000</option>
-                                                            <option value="16">Lebih dari Rp. 20,000,000</option>
+                                                            @foreach ($master['penghasilan'] as $item)
+                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                               @endforeach
                                                         </select>
                                                     </div>
                                             </div>
@@ -594,64 +508,27 @@
                                                         <label>Pendidikan</label>
                                                         <select name="mahasiswa_orang_tua_wali[wali][pendidikan_id]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Jenjang --</option>
-                                                            <option value="0">Tidak sekolah</option>
-                                                            <option value="1">PAUD</option>
-                                                            <option value="2">TK / sederajat</option>
-                                                            <option value="3">Putus SD</option>
-                                                            <option value="4">SD / sederajat</option>
-                                                            <option value="5">SMP / sederajat</option>
-                                                            <option value="6">SMA / sederajat</option>
-                                                            <option value="7">Paket A</option>
-                                                            <option value="8">Paket B</option>
-                                                            <option value="9">Paket C</option>
-                                                            <option value="20">D1</option>
-                                                            <option value="21">D2</option>
-                                                            <option value="22">D3</option>
-                                                            <option value="23">D4</option>
-                                                            <option value="30">S1</option>
-                                                            <option value="31">Profesi</option>
-                                                            <option value="32">Sp-1</option>
-                                                            <option value="35">S2</option>
-                                                            <option value="36">S2 Terapan</option>
-                                                            <option value="37">Sp-2</option>
-                                                            <option value="40">S3</option>
-                                                            <option value="41">S3 Terapan</option>
-                                                            <option value="90">Non formal</option>
-                                                            <option value="91">Informal</option>
-                                                            <option value="99">Lainnya</option>
+                                                            @foreach ($master['pendidikan'] as $item)
+                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                               @endforeach
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Pekerjaan</label>
-                                                        <select name="mahasiswa_orang_tua_wali[wali][pekerjaan_id]" class="form-control">
+                                                        <select name="mahasiswa_orang_tua_wali[wali][pekerjaan_id]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Pekerjaan --</option>
-                                                            <option value="1">Tidak bekerja</option>
-                                                            <option value="2">Nelayan</option>
-                                                            <option value="3">Petani</option>
-                                                            <option value="4">Peternak</option>
-                                                            <option value="5">PNS/TNI/Polri</option>
-                                                            <option value="6">Karyawan Swasta</option>
-                                                            <option value="7">Pedagang Kecil</option>
-                                                            <option value="8">Pedagang Besar</option>
-                                                            <option value="9">Wiraswasta</option>
-                                                            <option value="10">Wirausaha</option>
-                                                            <option value="11">Buruh</option>
-                                                            <option value="12">Pensiunan</option>
-                                                            <option value="98">Sudah Meninggal</option>
-                                                            <option value="99">Lainnya</option>
+                                                            @foreach ($master['pekerjaan'] as $item)
+                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                               @endforeach
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Penghasilan</label>
                                                         <select name="mahasiswa_orang_tua_wali[wali][penghasilan]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Penghasilan --</option>
-                                                            <option value="0"> </option>
-                                                            <option value="11">Kurang dari Rp. 500,000</option>
-                                                            <option value="12">Rp. 500,000 - Rp. 999,999</option>
-                                                            <option value="13">Rp. 1,000,000 - Rp. 1,999,999</option>
-                                                            <option value="14">Rp. 2,000,000 - Rp. 4,999,999</option>
-                                                            <option value="15">Rp. 5,000,000 - Rp. 20,000,000</option>
-                                                            <option value="16">Lebih dari Rp. 20,000,000</option>
+                                                            @foreach ($master['penghasilan'] as $item)
+                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                               @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -673,82 +550,22 @@
                                                 </div>
                                                 <div class="kt-wizard-v3__review-content">
                                                     <div class="row">
-                                                        <div class="col-xl-4">
-                                                            <div class="kt-checkbox-list">
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input type="checkbox" name="mahasiswa_kh[1]" > A - Tuna netra
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[2]" type="checkbox"> B - Tuna rungu
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[3]" type="checkbox"> C - Tuna grahita ringan
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[4]" type="checkbox"> C1 - Tuna grahita ringan
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[5]" type="checkbox"> D - Tuna daksa ringan
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[6]" type="checkbox"> D1 - Tuna daksa sedang
-                                                                    <span></span>
-                                                                </label>
+
+                                                        <?php
+                                                            $kebutuhan =  array_chunk($master['kebutuhan']->toArray() , 6 , true);    
+                                                        ?>
+                                                        @foreach ($kebutuhan as $item)
+                                                            <div class="col-xl-4">
+                                                                <div class="kt-checkbox-list">
+                                                                    @foreach ($item as $value)
+                                                                        <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
+                                                                            <input type="checkbox" name="mahasiswa_kh[]" value="{{$value['id']}}" > {{$value['title']}}
+                                                                            <span></span>
+                                                                        </label>
+                                                                    @endforeach
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-xl-4">
-                                                            <div class="kt-checkbox-list">
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[mahasiswa]" type="checkbox"> E - Tuna laras
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[mahasiswa]" type="checkbox"> F - Tuna wicara
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[mahasiswa]" type="checkbox"> H - Hiperaktif
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[mahasiswa]" type="checkbox"> I - Cerdas Istimewa
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[mahasiswa]" type="checkbox"> J - Bakat Istimewa
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[mahasiswa]" type="checkbox"> K - Kesulitan Belajar
-                                                                    <span></span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-4">
-                                                            <div class="kt-checkbox-list">
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[mahasiswa]" type="checkbox"> N - Narkoba
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[mahasiswa]" type="checkbox"> O - Indigo
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[mahasiswa]" type="checkbox"> P - Down Syndrome
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[mahasiswa]" type="checkbox"> Q - Autis
-                                                                    <span></span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
+                                                        @endforeach
                                                     </div>
                                                 </div>
                                             </div>
@@ -758,82 +575,18 @@
                                                 </div>
                                                 <div class="kt-wizard-v3__review-content">
                                                     <div class="row">
+                                                        @foreach ($kebutuhan as $item)
                                                         <div class="col-xl-4">
                                                             <div class="kt-checkbox-list">
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input type="checkbox"> A - Tuna netra
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[1]" type="checkbox"> B - Tuna rungu
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[2]" type="checkbox"> C - Tuna grahita ringan
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[3]" type="checkbox"> C1 - Tuna grahita ringan
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[4]" type="checkbox"> D - Tuna daksa ringan
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[4]" type="checkbox"> D1 - Tuna daksa sedang
-                                                                    <span></span>
-                                                                </label>
+                                                                @foreach ($item as $value)
+                                                                    <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
+                                                                        <input type="checkbox" name="ayah_kh[]" value="{{$value['id']}}" > {{$value['title']}}
+                                                                        <span></span>
+                                                                    </label>
+                                                                @endforeach
                                                             </div>
                                                         </div>
-                                                        <div class="col-xl-4">
-                                                            <div class="kt-checkbox-list">
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> E - Tuna laras
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> F - Tuna wicara
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> H - Hiperaktif
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> I - Cerdas Istimewa
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> J - Bakat Istimewa
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> K - Kesulitan Belajar
-                                                                    <span></span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-4">
-                                                            <div class="kt-checkbox-list">
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> N - Narkoba
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> O - Indigo
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> P - Down Syndrome
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> Q - Autis
-                                                                    <span></span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
+                                                        @endforeach
                                                     </div>
                                                 </div>
                                             </div>
@@ -843,82 +596,18 @@
                                                 </div>
                                                 <div class="kt-wizard-v3__review-content">
                                                     <div class="row">
+                                                        @foreach ($kebutuhan as $item)
                                                         <div class="col-xl-4">
                                                             <div class="kt-checkbox-list">
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input type="checkbox"> A - Tuna netra
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[1]" type="checkbox"> B - Tuna rungu
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[2]" type="checkbox"> C - Tuna grahita ringan
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[3]" type="checkbox"> C1 - Tuna grahita ringan
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[4]" type="checkbox"> D - Tuna daksa ringan
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[5]" type="checkbox"> D1 - Tuna daksa sedang
-                                                                    <span></span>
-                                                                </label>
+                                                                @foreach ($item as $value)
+                                                                    <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
+                                                                        <input type="checkbox" name="ibu_kh[]" value="{{$value['id']}}" > {{$value['title']}}
+                                                                        <span></span>
+                                                                    </label>
+                                                                @endforeach
                                                             </div>
                                                         </div>
-                                                        <div class="col-xl-4">
-                                                            <div class="kt-checkbox-list">
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[]" type="checkbox"> E - Tuna laras
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[]" type="checkbox"> F - Tuna wicara
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[]" type="checkbox"> H - Hiperaktif
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[]" type="checkbox"> I - Cerdas Istimewa
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[]" type="checkbox"> J - Bakat Istimewa
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[]" type="checkbox"> K - Kesulitan Belajar
-                                                                    <span></span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-4">
-                                                            <div class="kt-checkbox-list">
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> N - Narkoba
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> O - Indigo
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> P - Down Syndrome
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> Q - Autis
-                                                                    <span></span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
+                                                        @endforeach
                                                     </div>
                                                 </div>
                                             </div>
