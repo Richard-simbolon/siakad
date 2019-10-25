@@ -86,21 +86,47 @@
                                             <div class="row">
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
-                                                        <label>Jurusan</label>
+                                                        <label>Angkatan</label>
                                                         <div class="form-group">
-                                                            <select name="mahasiswa[jurusan_id]" class="form-control kt-select2">
-                                                                <option value="">-- Pilih Jurusan --</option>
-                                                               @foreach ($master['jurusan'] as $item)
-                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
-                                                               @endforeach
+                                                            <select name="jenis_peringkat" class="form-control">
+                                                                <option value="">-- Pilih Angkatan --</option>
+                                                                <option value="1">2019</option>
+                                                                <option value="2">2018</option>
+                                                                <option value="3">2017</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
+                                                        <label>Jurusan</label>
+                                                        <div class="form-group">
+                                                            <select name="mahasiswa[jurusan_id]" class="form-control kt-select2">
+                                                                <option value="">-- Pilih Jurusan --</option>
+                                                                @foreach ($master['jurusan'] as $item)
+                                                                    <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
                                                         <label>NIM</label>
                                                         <input type="text" class="form-control" name="mahasiswa[nim]" placeholder="Isikan NIM">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <label>Agama:</label>
+                                                        <select name="mahasiswa[agama]" class="form-control kt-select2">
+                                                            <option value="">Select</option>
+                                                            @foreach ($master['agama'] as $item)
+                                                                <option value="{{$item['id']}}" > {{$item['title']}} </option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -148,18 +174,20 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-xl-6">
+                                            </div>
+
+                                            <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
+
+                                            <div class="row">
+                                                <div class="col-xl-12">
                                                     <div class="form-group">
-                                                        <label>Agama:</label>
-                                                        <select name="mahasiswa[agama]" class="form-control kt-select2">
-                                                            <option value="">Select</option>
-                                                            @foreach ($master['agama'] as $item)
-                                                                <option value="{{$item['id']}}" > {{$item['title']}} </option>
-                                                               @endforeach
-                                                        </select>
+                                                        <div class="kt-wizard-v3__review-title">
+                                                            <b>History Pendaftaran</b>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            
                                             <div class="row">
                                                 <div class="col-xl-6">
                                                     <div class="form-group">

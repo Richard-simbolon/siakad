@@ -161,6 +161,11 @@
                                                             <td>:</td>
                                                             <td><b>{{ucfirst($data['jk'])}}</b></td>
                                                         </tr>
+                                                        <tr>
+                                                            <td>Status</td>
+                                                            <td>:</td>
+                                                            <td><b>Aktif</b></td>
+                                                        </tr>
                                                     </table>
                                                 </div>
                                                 <div class="col-lg-3">
@@ -174,6 +179,11 @@
                                                             <td>Tempat Lahir</td>
                                                             <td>:</td>
                                                             <td><b>{{$data['tempat_lahir']}}</b></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Angkatan</td>
+                                                            <td>:</td>
+                                                            <td><b>2019</b></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -204,7 +214,12 @@
                                         <div class="kt-portlet__head-toolbar">
                                             <ul class="nav nav-tabs nav-tabs-bold nav-tabs-line   nav-tabs-line-right nav-tabs-line-brand" role="tablist">
                                                 <li class="nav-item">
-                                                    <a class="nav-link active" data-toggle="tab" href="#kt_portlet_alamat" role="tab">
+                                                    <a class="nav-link active" data-toggle="tab" href="#kt_portlet_history_pendaftaran" role="tab">
+                                                        History Pendaftaran
+                                                    </a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" data-toggle="tab" href="#kt_portlet_alamat" role="tab">
                                                         Alamat
                                                     </a>
                                                 </li>
@@ -228,6 +243,72 @@
                                     </div>
                                     <div class="kt-portlet__body">
                                         <div class="tab-content">
+                                            <div class="tab-pane active" id="kt_portlet_history_pendaftaran">
+                                                <div class="row">
+                                                    <div class="col-xl-6">
+                                                        <div class="form-group">
+                                                            <label>Jenis Pendaftaran *</label>
+                                                            <select name="jenis_pendaftaran" class="form-control">
+                                                                <option value="">-- Pilih Jenis Pendaftaran --</option>
+                                                                <option value="islam">Peserta Didik Baru</option>
+                                                                <option value="protestan">Pindahan</option>
+                                                                <option value="katolik">Alih Jenjang</option>
+                                                                <option value="hindu">Lintas Jalur</option>
+                                                                <option value="budha">Rekognisi Pembelajaran Lampau (RPL)</option>
+                                                                <option value="konghucu">Cource</option>
+                                                                <option value="konghucu">Fast Track</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6">
+                                                        <div class="form-group">
+                                                            <label>Jalur Pendaftaran</label>
+                                                            <select name="jalur_pendaftaran" class="form-control">
+                                                                <option value="">-- Pilih Jalur Pendaftaran--</option>
+                                                                <option value="1">SBMPTN</option>
+                                                                <option value="2">SNMPTN</option>
+                                                                <option value="3">PMDK</option>
+                                                                <option value="4">Prestasi</option>
+                                                                <option value="5">Seleksi Mandiri PTN</option>
+                                                                <option value="6">Seleksi Mandiri PTS</option>
+                                                                <option value="7">Ujian Masuk Bersama PTN (UMB-PT)</option>
+                                                                <option value="8">Ujian Masuk Bersama PTS (UMB-PTS)</option>
+                                                                <option value="9">Program Internasional</option>
+                                                                <option value="11">Program Kerjasama Perusahaan/Institusi/Pemerintah</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-6">
+                                                        <div class="form-group">
+                                                            <label>Tanggal Masuk *</label>
+                                                            <input type="date" class="form-control" name="tanggal_masuk" placeholder="Isikan nama ibu">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-6">
+                                                        <div class="form-group">
+                                                            <label>Pembiayaan Awal</label>
+                                                            <select name="jalur_pendaftaran" class="form-control">
+                                                                <option value="">-- Pilih Jenis Pembiayaan--</option>
+                                                                <option value="1">Mandiri</option>
+                                                                <option value="2">Beasiswa Tidak Penuh</option>
+                                                                <option value="3">Beasiswa Penuh</option>
+                                                                <option value="4">Bidikmisi</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-6">
+                                                        <div class="form-group">
+                                                            <label>Biaya Masuk </label>
+                                                            <input type="text" class="form-control" name="biaya_masuk" placeholder="Isikan Biaya Masuk">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div class="tab-pane active" id="kt_portlet_alamat">
                                                 <div class="row">
                                                     <div class="col-lg-6">
