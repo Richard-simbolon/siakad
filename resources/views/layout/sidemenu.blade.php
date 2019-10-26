@@ -52,7 +52,7 @@
                         <i class="kt-menu__section-icon flaticon-more-v2"></i>
                     </li>
                     <li class="kt-menu__item " aria-haspopup="true">
-                        <a target="_blank" href="#" class="kt-menu__link ">
+                        <a href="{{ url('/data/mahasiswa') }}" class="kt-menu__link ">
                             <span class="kt-menu__link-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -66,7 +66,7 @@
                         </a>
                     </li>
                     <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                        <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                        <a href="{{ url('/data/mahasiswa/create') }}" class="kt-menu__link kt-menu__toggle">
                             <span class="kt-menu__link-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -77,17 +77,7 @@
                                 </svg>
                             </span>
                             <span class="kt-menu__link-text">Tambah Mahasiswa</span>
-                            <i class="kt-menu__ver-arrow la la-angle-right"></i>
                         </a>
-                        <div class="kt-menu__submenu ">
-                            <span class="kt-menu__arrow"></span>
-                            <ul class="kt-menu__subnav">
-                                <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">General</span></span></li>
-                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Penyuluhan Perkebunan Presisi</span></a></li>
-                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Penyuluhan Pertanian Berkelanjutan</span></a></li>
-                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Teknologi Produksi Tanaman Perkebunan</span></a></li>
-                            </ul>
-                        </div>
                     </li>
                     <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                         <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
@@ -101,36 +91,29 @@
                                 </svg>
                             </span>
                             <span class="kt-menu__link-text">Mahasiswa Lulus / DO</span>
-                            <i class="kt-menu__ver-arrow la la-angle-right"></i>
                         </a>
-                        <div class="kt-menu__submenu ">
-                            <span class="kt-menu__arrow"></span>
-                            <ul class="kt-menu__subnav">
-                                <li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">General</span></span></li>
-                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Daftar Mahasiswa Lulus / DO</span></a></li>
-                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Tambah Mahasiswa Lulus / DO</span></a></li>
-                            </ul>
-                        </div>
                     </li>
 
                     <li class="kt-menu__section ">
                         <h4 class="kt-menu__section-text">Dosen</h4>
                         <i class="kt-menu__section-icon flaticon-more-v2"></i>
                     </li>
-                    <li class="kt-menu__item " aria-haspopup="true"><a target="_blank" href="#" class="kt-menu__link ">
-                        <span class="kt-menu__link-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <rect x="0" y="0" width="24" height="24" />
-                                    <path d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z" fill="#000000" />
-                                    <rect fill="#000000" opacity="0.3" x="2" y="4" width="5" height="16" rx="1" />
-                                </g>
-                            </svg>
-                        </span>
-                        <span class="kt-menu__link-text">Daftar Dosen</span></a>
+                    <li class="kt-menu__item " aria-haspopup="true">
+                        <a href="{{ url('/data/dosen') }}" class="kt-menu__link ">
+                            <span class="kt-menu__link-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <rect x="0" y="0" width="24" height="24" />
+                                        <path d="M10,4 L21,4 C21.5522847,4 22,4.44771525 22,5 L22,7 C22,7.55228475 21.5522847,8 21,8 L10,8 C9.44771525,8 9,7.55228475 9,7 L9,5 C9,4.44771525 9.44771525,4 10,4 Z M10,10 L21,10 C21.5522847,10 22,10.4477153 22,11 L22,13 C22,13.5522847 21.5522847,14 21,14 L10,14 C9.44771525,14 9,13.5522847 9,13 L9,11 C9,10.4477153 9.44771525,10 10,10 Z M10,16 L21,16 C21.5522847,16 22,16.4477153 22,17 L22,19 C22,19.5522847 21.5522847,20 21,20 L10,20 C9.44771525,20 9,19.5522847 9,19 L9,17 C9,16.4477153 9.44771525,16 10,16 Z" fill="#000000" />
+                                        <rect fill="#000000" opacity="0.3" x="2" y="4" width="5" height="16" rx="1" />
+                                    </g>
+                                </svg>
+                            </span>
+                            <span class="kt-menu__link-text">Daftar Dosen</span>
+                        </a>
                     </li>
                     <li class="kt-menu__item " aria-haspopup="true">
-                        <a target="_blank" href="#" class="kt-menu__link ">
+                        <a href="{{ url('/data/dosen/create') }}" class="kt-menu__link ">
                             <span class="kt-menu__link-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
                                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -142,28 +125,6 @@
                             </span>
                             <span class="kt-menu__link-text">Tambah Dosen</span>
                         </a>
-                    </li>
-                    <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                        <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
-                            <span class="kt-menu__link-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                        <rect x="0" y="0" width="24" height="24"/>
-                                        <path d="M22,8 C22,8.55228475 21.5522847,9 21,9 L19,9 L19,15 C19,18.3137085 16.3137085,21 13,21 L5,21 C3.8954305,21 3,20.1045695 3,19 L3,11 C3,7.6862915 5.6862915,5 9,5 L17,5 C18.1045695,5 19,5.8954305 19,7 L21,7 L21,6 L22,6 L22,8 Z M11,17 C13.209139,17 15,15.209139 15,13 C15,10.790861 13.209139,9 11,9 C8.790861,9 7,10.790861 7,13 C7,15.209139 8.790861,17 11,17 Z" fill="#000000"/>
-                                        <path d="M12,3 L15,3 C15.5522847,3 16,3.44771525 16,4 L16,5 L11,5 L11,4 C11,3.44771525 11.4477153,3 12,3 Z" fill="#000000" opacity="0.3"/>
-                                    </g>
-                                </svg>
-                            </span>
-                            <span class="kt-menu__link-text">Penugasan Dosen</span>
-                            <i class="kt-menu__ver-arrow la la-angle-right"></i>
-                        </a>
-                        <div class="kt-menu__submenu ">
-                            <span class="kt-menu__arrow"></span>
-                            <ul class="kt-menu__subnav">
-                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Daftar Penugasan</span></a></li>
-                                <li class="kt-menu__item " aria-haspopup="true"><a href="#" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">Tambah Penugasan</span></a></li>
-                            </ul>
-                        </div>
                     </li>
 
                     <li class="kt-menu__section ">

@@ -8715,13 +8715,13 @@ button.btn {
 
 .btn-brand {
   color: #fff;
-  background-color: #5d78ff;
-  border-color: #5d78ff;
+  background-color: #009688;
+  border-color: #009688;
   color: #ffffff; }
   .btn-brand:hover {
     color: #fff;
-    background-color: #3758ff;
-    border-color: #2a4eff; }
+    background-color: #607d8b;
+    border-color: #607d8b; }
   .btn-brand:focus, .btn-brand.focus {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(117, 140, 255, 0.5);
     box-shadow: 0 0 0 0.2rem rgba(117, 140, 255, 0.5); }
