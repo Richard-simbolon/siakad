@@ -672,12 +672,12 @@
 <style>
     .m-content{width:100%};
     </style>
-
-@section('js')
 <script>
-        var url = 'data/mahasiswa';
+        var url = '/data/mahasiswa';
         var form = 'form-add-mahasiswa';
     </script>
+@section('js')
+
 @stop
 
 @endsection

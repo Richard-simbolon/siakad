@@ -92,7 +92,7 @@
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Nama Lengkap</label>
-                                                        <input type="text" class="form-control" name="dosem[name]" placeholder="Isikan nama lengkap">
+                                                        <input type="text" class="form-control" name="dosen[name]" placeholder="Isikan nama lengkap">
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6">
@@ -178,7 +178,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Status Pegawai </label>
-                                                <select name="status_pegawai" class="form-control">
+                                                <select name="dosen[status_pegawai]" class="form-control">
                                                     <option value="">--Pilih Status--</option>
                                                     <option value="1">Aktif</option>
                                                     <option value="2">Tidak Aktif</option>
@@ -378,11 +378,11 @@
                                                 <div class="kt-wizard-v3__review-content">
                                                     <div class="kt-radio-inline">
                                                         <label class="kt-radio">
-                                                            <input type="radio" name="dosen_kh[handle_braile]" value="ya"> Ya
+                                                            <input type="radio" name="handle_braile]" value="ya"> Ya
                                                             <span></span>
                                                         </label>
                                                         <label class="kt-radio">
-                                                            <input type="radio" name="dosen_kh[handle_braile]" value="tidak"> Tidak
+                                                            <input type="radio" name="handle_braile" value="tidak"> Tidak
                                                             <span></span>
                                                         </label>
                                                     </div>
@@ -395,11 +395,11 @@
                                                 <div class="kt-wizard-v3__review-content">
                                                     <div class="kt-radio-inline">
                                                         <label class="kt-radio">
-                                                            <input type="radio" name="dosen_kh[handle_bahasa_isyarat]" value="ya"> Ya
+                                                            <input type="radio" name="handle_bahasa_isyarat" value="ya"> Ya
                                                             <span></span>
                                                         </label>
                                                         <label class="kt-radio">
-                                                            <input type="radio" name="dosen_kh[handle_bahasa_isyarat]" value="tidak"> Tidak
+                                                            <input type="radio" name="handle_bahasa_isyarat" value="tidak"> Tidak
                                                             <span></span>
                                                         </label>
                                                     </div>
@@ -439,12 +439,14 @@
     .m-content{width:100%};
     </style>
 
-@section('js')
-
 <script>
-    var url = 'data/dosen';
+    var url = '/data/dosen';
     var form = 'dosen-form';
 </script>
+
+@section('js')
+
+
 
 @stop
 

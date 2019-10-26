@@ -53,42 +53,49 @@
                 public function save(Request $request){
                     $data = $request->all();
 
-                    print_r($data); exit;
+                    //print_r($data); exit;
                     
-                    $validation = Validator::make($data['mahasiswa'], [
-                        'nama' => 'required',
-                        'nidn_nup_nidk' => 'required',
-                        'tempat_lahir' => 'required',
-                        'agama' => 'required'
+                    $validation = Validator::make($data['dosen'], [
+                        'nama' => '',
+                        'nidn_nup_nidk' => '',
+                        'tempat_lahir' => '',
+                        'agama' => ''
                     ]);
 
                     if ($validation->fails()) {
                         return json_encode(['status'=> 'false', 'message'=> $validation->messages()]);
                     }
+
+                    if(array_key_exists('dosen' , $data)){
+                        // SAVE TO TABLE mahasiswa
+                        $data['dosen']['tanggal_lahir'] = date($data['dosen']['tanggal_lahir']);
+                        $dosenid = DosenModel::create($data['dosen']);
+                    }
+                    exit;
                     DB::beginTransaction();
                     try{
 
                         if(array_key_exists('dosen' , $data)){
                             // SAVE TO TABLE mahasiswa
                             $data['dosen']['tanggal_lahir'] = date($data['mahasiswa']['tanggal_lahir']);
-                            $mahasiswa = DosenModel::create($data['dosen']);
+                            $dosenid = DosenModel::create($data['dosen']);
                         }
 
                         if(array_key_exists('keluarga' , $data)){
                             // SAVE TO TABLE mahasiswa
-                            $data['keluarga']['tanggal_lahir'] = date($data['keluarga']['tanggal_lahir']);
-                            $mahasiswa = DosenKeluargaModel::create($data['keluarga']);
+                            //$data['keluarga']['tanggal_lahir'] = date($data['keluarga']['tanggal_lahir']);
+                            DosenKeluargaModel::create($data['keluarga']);
                         }
                         
                         // SAVE TO TABLE mahasiswa_kebutuhan_khusus
                         $data_kebutuhan_khusus = array(
-                            'mahasiswa_id' => $mahasiswa->id,
+                            'mahasiswa_id' => $dosenid->id,
                             'row_status' => 'active',
                             'created_by' => 1,
                             'updated_by' => 1,
                             'kebutuhan_mahasiswa' => array_key_exists('dosen_kh' , $data) ? json_encode(array('dosen' => $data['dosen_kh'])) : json_encode(array('mahasiswa' =>[])),
-                            'handle_braile'=> $data['dosen_kh']['handle_braile'],
-                            'handle_bahasa_isyarat' => $data['dosen_kh']['handle_bahasa_isyarat'],
+                            'handle_braile'=> $data['handle_braile'],
+                            'handle_bahasa_isyarat' => $data['handle_bahasa_isyarat'],
                         );
                         DosenKebutuhanModel::create($data_kebutuhan_khusus);
                         DB::commit();
