@@ -18,7 +18,9 @@
             use App\TinggalModel;
             use App\PenghasilanModel;
             use App\PendidikanModel;
+            use App\StatusMahasiswaModel;
             use App\PekerjaanModel;
+            use App\AngkatanModel;
             use App\MahasiswaPendidikanModel;
             use Yajra\DataTables\DataTables;
             
@@ -32,6 +34,24 @@ class Mahasiswa extends Controller
                 static $tablename = "Mahasiswa";
                 public function index()
                 {
+
+                    $master = array(
+                        'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
+                        'jenis_pendaftaran' => JenisPendaftaranModel::where('row_status' , 'active')->get(),
+                        'jalur_pendaftaran' => JalurPendaftaranModel::where('row_status' , 'active')->get(),
+                        'asal_studi' => AsalProgramStudiModel::where('row_status' , 'active')->get(),
+                        'jenis_tinggal' => TinggalModel::where('row_status' , 'active')->get(),
+                        'alat_transportasi' => AlatTransportasiModel::where('row_status' , 'active')->get(),
+                        'pendidikan' => PendidikanModel::where('row_status' , 'active')->get(),
+                        'jenis_pembiayaan' => JenisPembiayaanModel::where('row_status' , 'active')->get(),
+                        'pekerjaan' => PekerjaanModel::where('row_status' , 'active')->get(),
+                        'penghasilan' => PenghasilanModel::where('row_status' , 'active')->get(),
+                        'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
+                        'agama' => AgamaModel::where('row_status' , 'active')->get(),
+                        'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+                        'status_mahasiswa' => StatusMahasiswaModel::where('row_status' , 'active')->get()
+                    );
+
                     /*$master = array(
                         'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
                         'jenis_kelamin' => array('Laki-Laki' , 'Perempuan'),
@@ -45,7 +65,7 @@ class Mahasiswa extends Controller
                     $table_display = DB::getSchemaBuilder()->getColumnListing("mahasiswa");
                     $exclude = static::$exclude;
                     $Tableshow = static::$Tableshow;
-                    return view("data/mahasiswa" , compact("data" , "title" ,"table_display" ,"exclude" ,"Tableshow","tableid"));
+                    return view("data/mahasiswa" , compact("data" , "title" ,"table_display" ,"exclude" ,"master","tableid"));
 
                 }
                 public function create(){
@@ -63,7 +83,8 @@ class Mahasiswa extends Controller
                         'pekerjaan' => PekerjaanModel::where('row_status' , 'active')->get(),
                         'penghasilan' => PenghasilanModel::where('row_status' , 'active')->get(),
                         'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
-                        'agama' => AgamaModel::where('row_status' , 'active')->get()
+                        'agama' => AgamaModel::where('row_status' , 'active')->get(),
+                        'angkatan' => AngkatanModel::where('row_status' , 'active')->get()
                     );
                     $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
                     $table = array_diff(DB::getSchemaBuilder()->getColumnListing("mahasiswa"), static::$exclude);
@@ -125,10 +146,10 @@ class Mahasiswa extends Controller
                             'row_status' => 'active',
                             'created_by' => 1,
                             'updated_by' => 1,
-                            'kebutuhan_mahasiswa' => array_key_exists('mahasiswa_kh' , $data) ? json_encode($data['mahasiswa_kh']) : json_encode(array()),
-                            'kebutuhan_ayah' =>array_key_exists('ayah_kh' , $data) ? json_encode($data['ayah_kh']) : json_encode(array()),
-                            'kebutuhan_ibu' =>array_key_exists('ibu_kh' , $data) ? json_encode($data['ibu_kh']) : json_encode(array()),
-                            'kebutuhan_wali' => array_key_exists('wali_kh' , $data) ? json_encode($data['wali_kh']) : json_encode(array())
+                            'kebutuhan_mahasiswa' => array_key_exists('mahasiswa_kh' , $data) ? json_encode(array('mahasiswa' => $data['mahasiswa_kh'])) : json_encode(array()),
+                            'kebutuhan_ayah' =>array_key_exists('ayah_kh' , $data) ? json_encode(array('ayah' =>$data['ayah_kh'])) : json_encode(array()),
+                            'kebutuhan_ibu' =>array_key_exists('ibu_kh' , $data) ? json_encode(array('ibu'=>$data['ibu_kh'])) : json_encode(array()),
+                            'kebutuhan_wali' => array_key_exists('wali_kh' , $data) ? json_encode(array('wali'=>$data['wali_kh'])) : json_encode(array())
                         );
                         MahasiswaKebutuhanModel::create($data_kebutuhan_khusus);
                         DB::commit();
@@ -165,16 +186,19 @@ class Mahasiswa extends Controller
                         'pekerjaan' => PekerjaanModel::where('row_status' , 'active')->get(),
                         'penghasilan' => PenghasilanModel::where('row_status' , 'active')->get(),
                         'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
-                        'agama' => AgamaModel::where('row_status' , 'active')->get()
+                        'agama' => AgamaModel::where('row_status' , 'active')->get(),
+                        'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+                        'status_mahasiswa' => StatusMahasiswaModel::where('row_status' , 'active')->get()
                     );
 
 
                     $data = MahasiswaModel::join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
                     ->where('mahasiswa.id' , $id)->first();
                     $orangtuawali = MahasiswaOrangtuawaliModel::where('mahasiswa_id' , $id)->get();
+                    $kebutuhan_selected = MahasiswaKebutuhanModel::where('mahasiswa_id' , $id)->first();
                     $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
                     $tableid = "Mahasiswa";
-                    return view("data/mhs_view" , compact("data","master" ,"orangtuawali"));
+                    return view("data/mhs_view" , compact("data","master" ,"orangtuawali" ,"kebutuhan_selected"));
                 }
 
                 public function paging(Request $request){

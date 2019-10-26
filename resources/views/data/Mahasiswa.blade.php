@@ -68,11 +68,11 @@
                                                 </div>
                                                 <div class="col-xl-4">
                                                     <div class="form-group">
-                                                        <select name="jenis_peringkat" id="jurusan" class="form-control">
+                                                        <select name="mahasiswa[jurusan_id]" id="jurusan" class="form-control kt-select2">
                                                             <option value="">-- Pilih Jurusan --</option>
-                                                            <option value="1">Penyuluhan Perkebunan Presisi</option>
-                                                            <option value="2">Penyuluhan Pertanian Berkelanjutan</option>
-                                                            <option value="Teknologi Produksi Tanaman Perkebunan">Teknologi Produksi Tanaman Perkebunan</option>
+                                                            @foreach ($master['jurusan'] as $item)
+                                                                <option value="{{$item['title']}}">{{$item['title']}}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>

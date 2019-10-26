@@ -88,11 +88,11 @@
                                                     <div class="form-group">
                                                         <label>Angkatan</label>
                                                         <div class="form-group">
-                                                            <select name="jenis_peringkat" class="form-control">
+                                                            <select name="mahasiswa[angkatan]" class="form-control kt-select2">
                                                                 <option value="">-- Pilih Angkatan --</option>
-                                                                <option value="1">2019</option>
-                                                                <option value="2">2018</option>
-                                                                <option value="3">2017</option>
+                                                                @foreach ($master['angkatan'] as $item)
+                                                                    <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                                @endforeach
                                                             </select>
                                                         </div>
                                                     </div>

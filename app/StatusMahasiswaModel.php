@@ -4,7 +4,7 @@
 
         use Illuminate\Database\Eloquent\Model;
 
-        class SatatusMahasiswaModel extends Model
+        class StatusMahasiswaModel extends Model
         {
 
             protected $table = "master_status_mahasiswa";
@@ -30,8 +30,7 @@
             public function up(){
                 Schema::create("master_status_mahasiswa", function (Blueprint $table) {
                     $table->bigIncrements("id")->unsigned();
-$table->enum("row_status" , 11);
-$table->string("title" , 200);
+                    $table->string("title" , 200);
 
                     $table->enum("row_status", ["active", "deleted", "notactive"]);
                     $table->timestamp("updated_at")->nullable();

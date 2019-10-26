@@ -68,6 +68,8 @@
 		<link href="{{asset('assets/plugins/general/@fortawesome/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{asset('assets/plugins/general/owl.carousel/dist/assets/owl.carousel.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{asset('assets/plugins/general/owl.carousel/dist/assets/owl.theme.default.css')}}" rel="stylesheet" type="text/css" />
+		<link href="{{asset('assets/plugins/general/plugins/flaticon/flaticon.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('assets/plugins/general/plugins/flaticon2/flaticon.css')}}" rel="stylesheet" type="text/css" /> 
 
 		<!--end:: Vendor Plugins for custom pages -->
 
@@ -296,6 +298,19 @@
 					}
 				}
 			};
+		</script>
+
+
+		<script>
+		$(document).ready(function(){
+			$(".form-mahasiswa input , .form-mahasiswa select , .form-mahasiswa textarea , .form-mahasiswa option").prop("disabled", true);
+
+			$(document).on('click','#editmahasiswa' , function(){
+				$(".form-mahasiswa input , .form-mahasiswa select , .form-mahasiswa textarea , .form-mahasiswa option").prop("disabled", false);
+				$("#informasidasar").show();
+				$("#info_dasar").hide();
+			});
+		})
 		</script>
         <script src="{{asset('assets/js/pages/dashboard.js')}}" type="text/javascript"></script>
 
