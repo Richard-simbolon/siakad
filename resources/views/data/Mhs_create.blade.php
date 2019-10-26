@@ -77,7 +77,7 @@
                         <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v3__wrapper">
 
                             <!--begin: Form Wizard Form-->
-                            <form class="kt-form form-mahasiswa" id="kt_form" >
+                            <form class="kt-form form-add-mahasiswa" id="kt_form" >
                                 <!--begin: Form Wizard Step 1 - Data Informasi Dasar-->
                                 <div class="kt-wizard-v3__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
                                     <div class="kt-heading kt-heading--md">Formulir Informasi Dasar Mahasiwa</div>
@@ -674,7 +674,10 @@
     </style>
 
 @section('js')
-
+<script>
+        var url = 'data/mahasiswa';
+        var form = 'form-add-mahasiswa';
+    </script>
 @stop
 
 @endsection
