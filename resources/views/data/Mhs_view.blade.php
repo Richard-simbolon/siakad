@@ -132,7 +132,7 @@
                             </div>
                         </div>
                         <!--begin::Form-->
-                        <form class="fkt-form form-mahasiswa" >
+                        <form class="fkt-form form-mahasiswa" id="form-update-mhs" >
                         <div class="kt-portlet__body">
                             <div class="kt-portlet kt-portlet--tabs">
                                 <div class="kt-portlet__head">
@@ -211,46 +211,58 @@
                                                     <div class="col-xl-4">
                                                         <div class="form-group">
                                                             <label>Nama</label>
-                                                        <input type="text" class="form-control" name="nama_wali" value="{{$data['nama']}}">
+                                                        <input type="text" class="form-control" name="mahasiswa[nama]" value="{{$data['nama']}}">
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4">
                                                         <div class="form-group">
                                                             <label>NIM</label>
-                                                            <input type="text" class="form-control" name="nama_wali" value="{{$data['nim']}}">
+                                                            <input type="text" class="form-control" name="mahasiswa[nim]" value="{{$data['nim']}}">
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4">
                                                         <div class="form-group">
                                                             <label>Jurusan</label>
-                                                            <input type="text" class="form-control" name="nama_wali" value="{{$data['title']}}">
+                                                            <select name="mahasiswa[jurusan_id]" class="form-control kt-select2">
+                                                                <option value="">-- Pilih Jurusan --</option>
+                                                                @foreach ($master['jurusan'] as $item)
+                                                                    <option value="{{$item['id']}}" {{$item['id'] == $data['id_jurusan'] ? 'selected' : ''}} >{{$item['title']}}</option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xl-4">
-                                                        <div class="form-group">
-                                                            <label>Jenis Kelamin</label>
-                                                        <input type="text" class="form-control" name="nama_wali" value="{{$data['jk']}}">
+                                                        <label>Jenis Kelamin</label>
+                                                        <div class="kt-radio-inline">
+                                                            <label class="kt-radio">
+                                                                <input type="radio" name="mahasiswa[jk]" value="laki-laki" {{$data['jk'] == 'laki-laki' ? 'checked' : ''}}>Laki-laki
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="kt-radio">
+                                                                <input type="radio" name="mahasiswa[jk]" value="perempuan" {{$data['jk'] == 'perempuan' ? 'checked' : ''}}> Perempuan
+                                                                <span></span>
+                                                            </label>
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4">
                                                         <div class="form-group">
                                                             <label>Tempat Lahir</label>
-                                                            <input type="text" class="form-control" name="nama_wali" value="{{$data['tempat_lahir']}}">
+                                                            <input type="text" class="form-control" name="mahasiswa[tempat_lahir]" value="{{$data['tempat_lahir']}}">
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4">
                                                         <div class="form-group">
                                                             <label>Tanggal Lahir</label>
-                                                            <input type="text" class="form-control" name="nama_wali" value="{{ date_format (new DateTime($data['tanggal_lahir']), 'd-m-Y')}}">
+                                                            <input type="text" class="form-control" name="mahasiswa[tanggal_lahir]" value="{{ date_format (new DateTime($data['tanggal_lahir']), 'Y-m-d')}}">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                 </div>
-                                
+                                <input type="hidden" class="form-control" name="mahasiswa[id]" value="{{$data['id']}}">
                             </div>
 
                                 <div class="kt-portlet kt-portlet--tabs">
@@ -292,7 +304,7 @@
                                                         <div class="col-xl-6">
                                                             <div class="form-group">
                                                                 <label>Jenis Pendaftaran *</label>
-                                                                <select name="jenis_tingal" class="form-control">
+                                                                <select name="mahasiswa[jenis_pendaftaran]"  class="form-control">
                                                                         <option value="">-- Jenis Pendaftaran --</option>
                                                                         @foreach ($master['jenis_pendaftaran'] as $item)
                                                                             <option value="{{$item['id']}}" {{$item['id'] == $data['jenis_pendaftaran'] ? 'selected' : ''}} >{{$item['title']}}</option>
@@ -303,8 +315,8 @@
                                                         <div class="col-xl-6">
                                                             <div class="form-group">
                                                                 <label>Jalur Pendaftaran</label>
-                                                                <select name="jalur_pendaftaran" class="form-control">
-                                                                        <option value="">-- Jenis Pendaftaran --</option>
+                                                                <select name="mahasiswa[jalur_pendaftaran]" class="form-control">
+                                                                        <option value="">-- Jalur Pendaftaran --</option>
                                                                         @foreach ($master['jalur_pendaftaran'] as $item)
                                                                             <option value="{{$item['id']}}" {{$item['id'] == $data['jalur_pendaftaran'] ? 'selected' : ''}} >{{$item['title']}}</option>
                                                                     @endforeach
@@ -316,14 +328,14 @@
                                                         <div class="col-xl-6">
                                                             <div class="form-group">
                                                                 <label>Tanggal Masuk *</label>
-                                                            <input type="date" class="form-control" name="tanggal_masuk" placeholder="Isikan nama ibu" value="{{$data['tanggal_masuk']}}">
+                                                            <input type="date" class="form-control" name="mahasiswa[tanggal_masuk]" placeholder="Tanggal Masuk" value="{{$data['tanggal_masuk']}}">
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-6">
                                                             <div class="form-group">
                                                                 <label>Pembiayaan Awal</label>
-                                                                <select name="jalur_pendaftaran" class="form-control">
-                                                                    <option value="">-- Jenis Pendaftaran --</option>
+                                                                <select name="mahasiswa[jenis_pembiayaan]" class="form-control">
+                                                                    <option value="">-- Jenis Pembiayaan --</option>
                                                                     @foreach ($master['jenis_pembiayaan'] as $item)
                                                                         <option value="{{$item['id']}}" {{$item['id'] == $data['jenis_pembiayaan'] ? 'selected' : ''}} >{{$item['title']}}</option>
                                                                     @endforeach
@@ -335,7 +347,7 @@
                                                         <div class="col-xl-6">
                                                             <div class="form-group">
                                                                 <label>Biaya Masuk </label>
-                                                            <input type="text" class="form-control" name="biaya_masuk" placeholder="Isikan Biaya Masuk" value="{{$data['biaya_masuk']}}">
+                                                            <input type="text" class="form-control" name="mahasiswa[biaya_masuk]" placeholder="Isikan Biaya Masuk" value="{{$data['biaya_masuk']}}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -346,14 +358,14 @@
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
                                                                 <label>NIK *</label>
-                                                            <input type="text" class="form-control" name="nik" placeholder="Isikan NIK" value="{{$data['nik']}}">
+                                                            <input type="text" class="form-control" name="mahasiswa[nik]" placeholder="Isikan NIK" value="{{$data['nik']}}">
                                                                 <span class="form-text text-muted">Nomor KTP tanpa tanda baca, Isikan Nomor Paspor untuk Warga Negara Asing</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
                                                                 <label>NISN</label>
-                                                                <input type="text" class="form-control" name="nisn" placeholder="Isikan NISN" value="{{$data['nisn']}}">
+                                                                <input type="text" class="form-control" name="mahasiswa[nisn]" placeholder="Isikan NISN" value="{{$data['nisn']}}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -361,7 +373,7 @@
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
                                                                 <label>Kewarganegaraan *</label>
-                                                                <input type="text" class="form-control" name="kewarganegaraan" placeholder="Isikan Kewarganegaraan" value="{{$data['kewarganegaraan']}}">
+                                                                <input type="text" class="form-control" name="mahasiswa[kewarganegaraan]" placeholder="Isikan Kewarganegaraan" value="{{$data['kewarganegaraan']}}">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
@@ -370,26 +382,26 @@
 
                                                     <div class="form-group">
                                                         <label>Jalan *</label>
-                                                    <textarea type="text" class="form-control" name="alamat" placeholder="Isikan Alamat">{{$data['alamat']}}</textarea>
+                                                    <textarea type="text" class="form-control" name="mahasiswa[alamat]" placeholder="Isikan Alamat">{{$data['alamat']}}</textarea>
                                                     </div>
 
                                                     <div class="row">
                                                         <div class="col-xl-4">
                                                             <div class="form-group">
                                                                 <label>Dusun</label>
-                                                                <input type="text" class="form-control" name="dusun" placeholder="Isikan Dusun" value="{{$data['dusun']}}">
+                                                                <input type="text" class="form-control" name="mahasiswa[dusun]" placeholder="Isikan Dusun" value="{{$data['dusun']}}">
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-4">
                                                             <div class="form-group">
                                                                 <label>RT</label>
-                                                                <input type="text" class="form-control" name="rt" placeholder="Isikan  RT" value="{{$data['rt']}}">
+                                                                <input type="text" class="form-control" name="mahasiswa[rt]" placeholder="Isikan  RT" value="{{$data['rt']}}">
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-4">
                                                             <div class="form-group">
                                                                 <label>RW</label>
-                                                                <input type="text" class="form-control" name="rw" placeholder="Isikan RW" value="{{$data['rw']}}">
+                                                                <input type="text" class="form-control" name="mahasiswa[rw]" placeholder="Isikan RW" value="{{$data['rw']}}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -397,13 +409,13 @@
                                                         <div class="col-xl-6">
                                                             <div class="form-group">
                                                                 <label>Kelurahan</label>
-                                                                <input type="text" class="form-control" name="kelurahan" placeholder="Isikan Kelurahan" value="{{$data['kelurahan']}}">
+                                                                <input type="text" class="form-control" name="mahasiswa[kelurahan]" placeholder="Isikan Kelurahan" value="{{$data['kelurahan']}}">
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-6">
                                                             <div class="form-group">
                                                                 <label>Kode Pos</label>
-                                                                <input type="text" class="form-control" name="kode_pos" placeholder="Isikan Kode Pos" value="{{$data['kode_pos']}}">
+                                                                <input type="text" class="form-control" name="mahasiswa[kode_pos]" placeholder="Isikan Kode Pos" value="{{$data['kode_pos']}}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -411,7 +423,7 @@
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
                                                                 <label>Kecamatan</label>
-                                                                <input type="text" class="form-control" name="kecamatan" placeholder="Isikan Kecamatan" value="{{$data['kecamatan']}}">
+                                                                <input type="text" class="form-control" name="mahasiswa[kecamatan]" placeholder="Isikan Kecamatan" value="{{$data['kecamatan']}}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -419,7 +431,7 @@
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
                                                                 <label>Jenis Tinggal</label>
-                                                                <select name="jenis_tingal" class="form-control">
+                                                                <select name="mahasiswa[jenis_tinggal]" class="form-control">
                                                                         <option value="">-- Jenis Tinggal --</option>
                                                                         @foreach ($master['jenis_tinggal'] as $item)
                                                                             <option value="{{$item['id']}}" {{$item['id'] == $data['jenis_tinggal'] ? 'selected' : ''}} >{{$item['title']}}</option>
@@ -430,7 +442,7 @@
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
                                                                 <label>Alat Transpostrasi</label>
-                                                                <select name="alat_transportasi" class="form-control">
+                                                                <select name="mahasiswa[alat_transportasi]" class="form-control">
                                                                         <option value="">-- Alat Transpostrasi --</option>
                                                                         @foreach ($master['alat_transportasi'] as $item)
                                                                             
@@ -446,13 +458,13 @@
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
                                                                 <label>Telepon</label>
-                                                            <input type="text" class="form-control" name="telepon" placeholder="Isikan Nomor Telepon" value="{{$data['no_telepon']}}">
+                                                            <input type="text" class="form-control" name="mahasiswa[no_telepon]" placeholder="Isikan Nomor Telepon" value="{{$data['no_telepon']}}">
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
                                                                 <label>Email</label>
-                                                                <input type="text" class="form-control" name="email" placeholder="Isikan Email" value="{{$data['email']}}">
+                                                                <input type="text" class="form-control" name="mahasiswa[email]" placeholder="Isikan Email" value="{{$data['email']}}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -463,11 +475,11 @@
                                                                 <label>Penerima KPS? *</label>
                                                                 <div class="kt-radio-inline">
                                                                     <label class="kt-radio">
-                                                                        <input type="radio" name="kps" {{$data['is_penerima_kps'] == 1 ? 'checked' : ''}}> Ya
+                                                                        <input type="radio" name="mahasiswa[is_penerima_kps]" {{$data['is_penerima_kps'] == 1 ? 'checked' : ''}}> Ya
                                                                         <span></span>
                                                                     </label>
                                                                     <label class="kt-radio">
-                                                                        <input type="radio" name="kps" {{$data['is_penerima_kps'] == 0 ? 'checked' : ''}}> Tidak
+                                                                        <input type="radio" name="mahasiswa[is_penerima_kps]" {{$data['is_penerima_kps'] == 0 ? 'checked' : ''}}> Tidak
                                                                         <span></span>
                                                                     </label>
                                                                 </div>
@@ -476,7 +488,7 @@
                                                         <div class="col-xl-6">
                                                             <div class="form-group">
                                                                 <label>No KPS:</label>
-                                                            <input type="text" class="form-control" name="no_kps" placeholder="Isikan Nomor KPS" value="{{$data['no_kps']}}">
+                                                            <input type="text" class="form-control" name="mahasiswa[no_kps]" placeholder="Isikan Nomor KPS" value="{{$data['no_kps']}}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -493,20 +505,20 @@
                                                         <div class="col-xl-6">
                                                             <div class="form-group">
                                                                 <label>NIK Ayah</label>
-                                                                <input type="text" class="form-control" name="nik_ayah" placeholder="Isikan NIK" value="{{$otw['ayah']['nik']}}">
+                                                                <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ayah][nik]" placeholder="Isikan NIK" value="{{$otw['ayah']['nik']}}">
                                                                 <span class="form-text text-muted">Nomor KTP tanpa tanda baca</span>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Nama Ayah</label>
-                                                                <input type="text" class="form-control" name="nama_ayah" placeholder="Isikan Nama" value="{{$otw['ayah']['nama']}}">
+                                                                <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ayah][nama]" placeholder="Isikan Nama" value="{{$otw['ayah']['nama']}}">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Tanggal Lahir Ayah</label>
-                                                                <input type="date" class="form-control" name="tanggal_lahir_ayah" placeholder="Isikan Tanggal Lahir" value="{{$otw['ayah']['tanggal_lahir']}}" >
+                                                                <input type="date" class="form-control" name="mahasiswa_orang_tua_wali[ayah][tanggal_lahir]" placeholder="Isikan Tanggal Lahir" value="{{$otw['ayah']['tanggal_lahir']}}" >
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Pendidikan Ayah</label>
-                                                                <select name="alat_transportasi" class="form-control">
+                                                                <select name="mahasiswa_orang_tua_wali[ayah][pendidikan_id]" class="form-control">
                                                                         <option value="">-- Pendidikan Ayah --</option>
                                                                         @foreach ($master['pendidikan'] as $item)
                                                                             <option value="{{$item['id']}}" {{$item['id'] == $otw['ayah']['pendidikan_id'] ? 'selected' : ''}} >{{$item['title']}}</option>
@@ -515,7 +527,7 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Pekerjaan Ayah</label>
-                                                                <select name="alat_transportasi" class="form-control">
+                                                                <select name="mahasiswa_orang_tua_wali[ayah][pekerjaan_id]" class="form-control">
                                                                         <option value="">-- Pekerjaan Ayah --</option>
                                                                         @foreach ($master['pekerjaan'] as $item)
                                                                             <option value="{{$item['id']}}" {{$item['id'] == $otw['ayah']['pekerjaan_id'] ? 'selected' : ''}} >{{$item['title']}}</option>
@@ -524,7 +536,7 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Penghasilan Ayah</label>
-                                                                <select name="alat_transportasi" class="form-control">
+                                                                <select name="mahasiswa_orang_tua_wali[ayah][penghasilan]" class="form-control">
                                                                         <option value="">-- Penghasilan Ayah --</option>
                                                                         @foreach ($master['penghasilan'] as $item)
                                                                             <option value="{{$item['id']}}" {{$item['id'] == $otw['ayah']['penghasilan'] ? 'selected' : ''}} >{{$item['title']}}</option>
@@ -535,20 +547,20 @@
                                                         <div class="col-xl-6">
                                                             <div class="form-group">
                                                                 <label>NIK Ibu</label>
-                                                                <input type="text" class="form-control" name="nik_ibu" placeholder="Isikan NIK" value="{{$otw['ibu']['nik']}}"> 
+                                                                <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ibu][nik]" placeholder="Isikan NIK" value="{{$otw['ibu']['nik']}}"> 
                                                                 <span class="form-text text-muted">Nomor KTP tanpa tanda baca</span>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Nama Ibu</label>
-                                                                <input type="text" class="form-control" name="nama_ibu" placeholder="Isikan Nama" value="{{$otw['ibu']['nama']}}">
+                                                                <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ibu][nama]" placeholder="Isikan Nama" value="{{$otw['ibu']['nama']}}">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Tanggal Lahir Ibu</label>
-                                                                <input type="date" class="form-control" name="tanggal_lahir_ibu" placeholder="Isikan Tanggal Lahir" value="{{$otw['ibu']['tanggal_lahir']}}">
+                                                                <input type="date" class="form-control" name="mahasiswa_orang_tua_wali[ibu][tanggal_lahir]" placeholder="Isikan Tanggal Lahir" value="{{$otw['ibu']['tanggal_lahir']}}">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Pendidikan Ibu</label>
-                                                                <select name="pendidikan_ibu" class="form-control">
+                                                                <select name="mahasiswa_orang_tua_wali[ibu][pendidikan_id]" class="form-control">
                                                                     <option value="">-- Pilih Jenjang --</option>
                                                                     @foreach ($master['pendidikan'] as $item)
                                                                             <option value="{{$item['id']}}" {{$item['id'] == $otw['ibu']['pendidikan_id'] ? 'selected' : ''}} >{{$item['title']}}</option>
@@ -557,7 +569,7 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Pekerjaan Ibu</label>
-                                                                <select name="pekerjaan_ibu" class="form-control">
+                                                                <select name="mahasiswa_orang_tua_wali[ibu][pekerjaan_id]" class="form-control">
                                                                     <option value="">-- Pilih Pekerjaan --</option>
                                                                         @foreach ($master['pekerjaan'] as $item)
                                                                             <option value="{{$item['id']}}" {{$item['id'] == $otw['ibu']['pekerjaan_id'] ? 'selected' : ''}} >{{$item['title']}}</option>
@@ -566,7 +578,7 @@
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Penghasilan Ibu</label>
-                                                                <select name="penghasilan_ibu" class="form-control">
+                                                                <select name="mahasiswa_orang_tua_wali[ibu][penghasilan]" class="form-control">
                                                                     <option value="">-- Pilih Penghasilan --</option>
                                                                     @foreach ($master['penghasilan'] as $item)
                                                                             <option value="{{$item['id']}}" {{$item['id'] == $otw['ibu']['penghasilan'] ? 'selected' : ''}} >{{$item['title']}}</option>
@@ -582,13 +594,13 @@
                                                         <div class="col-xl-6">
                                                             <div class="form-group">
                                                                 <label>Nama</label>
-                                                                <input type="text" class="form-control" name="nama_wali" placeholder="Isikan Nama"  value="{{$otw['wali']['nama']}}">
+                                                                <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[wali][nama]" placeholder="Isikan Nama"  value="{{$otw['wali']['nama']}}">
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-6">
                                                             <div class="form-group">
                                                                 <label>Tanggal Lahir </label>
-                                                                <input type="date" class="form-control" name="tanggal_lahir_wali" placeholder="Isikan Tanggal Lahir"  value="{{$otw['wali']['tanggal_lahir']}}">
+                                                                <input type="date" class="form-control" name="mahasiswa_orang_tua_wali[wali][tanggal_lahir]" placeholder="Isikan Tanggal Lahir"  value="{{$otw['wali']['tanggal_lahir']}}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -596,7 +608,7 @@
                                                         <div class="col-xl-6">
                                                             <div class="form-group">
                                                                 <label>Pendidikan</label>
-                                                                <select name="pendidikan_wali" class="form-control">
+                                                                <select name="mahasiswa_orang_tua_wali[wali][pendidikan_id]" class="form-control">
                                                                     <option value="">-- Pilih Jenjang --</option>
                                                                     @foreach ($master['pendidikan'] as $item)
                                                                             <option value="{{$item['id']}}" {{$item['id'] == $otw['wali']['pendidikan_id'] ? 'selected' : ''}} >{{$item['title']}}</option>
@@ -607,7 +619,7 @@
                                                         <div class="col-xl-6">
                                                             <div class="form-group">
                                                                 <label>Pekerjaan</label>
-                                                                <select name="pekerjaan_wali" class="form-control">
+                                                                <select name="mahasiswa_orang_tua_wali[wali][pekerjaan_id]" class="form-control">
                                                                     <option value="">-- Pilih Pekerjaan --</option>
                                                                     @foreach ($master['pekerjaan'] as $item)
                                                                         <option value="{{$item['id']}}" {{$item['id'] == $otw['wali']['pekerjaan_id'] ? 'selected' : ''}} >{{$item['title']}}</option>
@@ -620,7 +632,7 @@
                                                         <div class="col-xl-6">
                                                             <div class="form-group">
                                                                 <label>Penghasilan</label>
-                                                                <select name="penghasilan_wali" class="form-control">
+                                                                <select name="mahasiswa_orang_tua_wali[wali][penghasilan]" class="form-control">
                                                                     <option value="">-- Pilih Penghasilan --</option>
                                                                         @foreach ($master['penghasilan'] as $item)
                                                                             <option value="{{$item['id']}}" {{$item['id'] == $otw['wali']['penghasilan'] ? 'selected' : ''}} >{{$item['title']}}</option>
@@ -652,7 +664,7 @@
                                                                                     <div class="kt-checkbox-list">
                                                                                         @foreach ($item as $value)
                                                                                             <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                                                <input type="checkbox" name="mahasiswa_kh[]" {{in_array($value['id'] , $kebmahasiswa['mahasiswa']) ? 'checked' : ''}} > {{$value['title']}}
+                                                                                            <input type="checkbox" value="{{$value['id']}}" name="mahasiswa_kh[]" {{in_array($value['id'] , $kebmahasiswa['mahasiswa']) ? 'checked' : ''}} > {{$value['title']}}
                                                                                                 <span></span>
                                                                                             </label>
                                                                                         @endforeach
@@ -721,7 +733,7 @@
                             </div>
                             <div class="kt-portlet__foot">
                                 <div class="kt-form__actions">
-                                    <button type="reset" class="btn btn-primary">Submit</button>
+                                    <a id="updatemahasiswa" class="btn btn-primary">Submit</a>
                                     <button type="reset" class="btn btn-secondary">Cancel</button>
                                 </div>
                             </div>

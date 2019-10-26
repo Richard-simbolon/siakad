@@ -193,6 +193,7 @@ class Mahasiswa extends Controller
 
 
                     $data = MahasiswaModel::join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
+                    ->select('mahasiswa.*' , 'master_jurusan.title' ,'master_jurusan.id as id_jurusan')
                     ->where('mahasiswa.id' , $id)->first();
                     $orangtuawali = MahasiswaOrangtuawaliModel::where('mahasiswa_id' , $id)->get();
                     $kebutuhan_selected = MahasiswaKebutuhanModel::where('mahasiswa_id' , $id)->first();
@@ -305,5 +306,74 @@ class Mahasiswa extends Controller
                 }
                 
 
+
+                public function update(Request $request){
+                    $data = $request->all();
+                    //print_r( $data); exit;
+                    $id = $data['mahasiswa']['id'];
+                    unset($data['mahasiswa']['id']);
+                    if($id != '' ){
+                        $validation = Validator::make($data['mahasiswa'], [
+                            'nama' => 'required',
+                            'jurusan_id' => 'required',
+                            'nim' => 'required',
+                            'tempat_lahir' => 'required',
+                            'tanggal_lahir' => 'required',
+                            'nik' => 'max:20',
+                            'nisn' => 'max:20',
+                            'email' => 'email',
+                            'nik' => 'required',
+                            'nisn' => 'required',
+                            'kewarganegaraan' => 'required',
+                            'alamat' => 'required',
+                        ]);
+    
+                        if ($validation->fails()) {
+                            return json_encode(['status'=> 'false', 'message'=> $validation->messages()]);
+                        }
+                        
+                        DB::beginTransaction();
+                        try{
+    
+                            if(array_key_exists('mahasiswa' , $data)){
+                                // SAVE TO TABLE mahasiswa
+                                $data['mahasiswa']['tanggal_lahir'] = date($data['mahasiswa']['tanggal_lahir']);
+                                if($data['mahasiswa']['is_penerima_kps'] == 'on'){
+                                    $data['mahasiswa']['is_penerima_kps'] = '1';
+                                }else{
+                                    $data['mahasiswa']['is_penerima_kps'] = '0';
+                                }
+                                $mahasiswa = MahasiswaModel::where('id' , $id)->update($data['mahasiswa']);
+                            }
+                            // SAVE TO TABLE mahasiswa_orang_tua_wali
+                            if(array_key_exists('mahasiswa_orang_tua_wali' , $data)){
+                                foreach($data['mahasiswa_orang_tua_wali'] as $key=>$val){
+                                    $data['mahasiswa_orang_tua_wali'][$key]['kategori'] = $key;
+                                    MahasiswaOrangtuawaliModel::where('mahasiswa_id' , $id)->where('kategori' , $key)->update($data['mahasiswa_orang_tua_wali'][$key]);
+                                }
+                            }
+                            // SAVE TO TABLE mahasiswa_kebutuhan_khusus
+                            $data_kebutuhan_khusus = array(
+                                'row_status' => 'active',
+                                'created_by' => 1,
+                                'updated_by' => 1,
+                                'kebutuhan_mahasiswa' => array_key_exists('mahasiswa_kh' , $data) ? json_encode(array('mahasiswa' => $data['mahasiswa_kh'])) : json_encode(array('mahasiswa' =>[])),
+                                'kebutuhan_ayah' =>array_key_exists('ayah_kh' , $data) ? json_encode(array('ayah' =>$data['ayah_kh'])) : json_encode(array('ayah' =>[])),
+                                'kebutuhan_ibu' =>array_key_exists('ibu_kh' , $data) ? json_encode(array('ibu'=>$data['ibu_kh'])) : json_encode(array('ibu' =>[])),
+                                'kebutuhan_wali' => array_key_exists('wali_kh' , $data) ? json_encode(array('wali'=>$data['wali_kh'])) : json_encode(array('wali' =>[]))
+                            );
+                            MahasiswaKebutuhanModel::where('mahasiswa_id' , $id)->update($data_kebutuhan_khusus);
+                            DB::commit();
+                            return json_encode(array('status' => 'success' , 'msg' => 'Data berhasil disimpan.'));
+                        } catch(\Exception $e){
+                            
+                            DB::rollBack(); 
+                             throw $e;
+                            return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan saat menyimpan, silahkan coba lagi.'));
+                        }
+
+                    }
+                    
+                }
 
             }
