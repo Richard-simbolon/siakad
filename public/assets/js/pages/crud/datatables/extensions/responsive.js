@@ -720,13 +720,22 @@ var KTDatatablesExtensionsResponsive = function() {
         var table = $('#Mahasiswa');
 
         $('#inputdata').unbind();
+        var col = 1
         $('#inputdata').bind('keyup', function(e) {
+            //alert($('#nimnama').val());
+            if($('#nimnama').val() == '2'){
+                col = 2;
+            }
             if(e.keyCode == 13) {
-                tables.column(1).search($('#inputdata').val()).column(7).search($('#jurusan').val()).draw();
+                tables.column(col).search($('#inputdata').val()).column(7).search($('#jurusan').val()).draw();
             }
         });
         $('#search-button').on('click', function(e) {
-                tables.column(1).search($('#inputdata').val()).column(7).search($('#jurusan').val()).draw();
+            //alert($('#nimnama').val());
+                if($('#nimnama').val() == '2'){
+                    col = 2;
+                }
+                tables.column(col).search($('#inputdata').val()).column(7).search($('#jurusan').val()).draw();
         });
         
         //table.column(1).search('director').column(2).search('london').draw();
@@ -747,7 +756,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'nama', name: 'nama' },
                 { data: 'tanggal_lahir', name: 'tanggal_lahir' },
                 { data: 'jk', name: 'jk' },
-                { data: 'agama', name: 'agama' },
+                { data: 't_agama', name: 't_agama' },
                 { defaultContent: '-'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },

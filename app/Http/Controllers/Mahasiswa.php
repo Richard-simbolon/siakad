@@ -203,8 +203,8 @@ class Mahasiswa extends Controller
 
                 public function paging(Request $request){
                     return Datatables::of(MahasiswaModel::join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
-                    //->join('orders', 'users.id', '=', 'orders.user_id')
-                    ->select("mahasiswa.id" ,"nim" ,"jurusan_id" , "master_jurusan.title", "agama" , "mahasiswa.row_status","nama","nik","nisn","tanggal_lahir","jk")->get())->make(true);
+                    ->join('master_agama', 'mahasiswa.agama', '=', 'master_agama.id')
+                    ->select("mahasiswa.id" ,"master_agama.title as t_agama","nim" ,"jurusan_id" , "master_jurusan.title", "agama" , "mahasiswa.row_status","nama","nik","nisn","tanggal_lahir","jk")->get())->make(true);
                 }
 
                 public function validatewizard(Request $request){

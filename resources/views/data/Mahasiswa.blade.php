@@ -59,7 +59,7 @@
                                             <div class="row">
                                                 <div class="col-xl-4">
                                                     <div class="form-group">
-                                                        <select name="jenis_peringkat" class="form-control">
+                                                        <select name="jenis_peringkat" id="nimnama" class="form-control  kt-select2">
                                                             <option value="">-- Pilih Pencarian --</option>
                                                             <option value="1">NIM</option>
                                                             <option value="2">Nama</option>
@@ -78,10 +78,11 @@
                                                 </div>
                                                 <div class="col-xl-4">
                                                     <div class="form-group">
-                                                        <select name="tahun_angkatan" class="form-control">
-                                                            <option value="">-- Pilih Angkatan --</option>
-                                                            <option value="1">2018</option>
-                                                            <option value="2">2019</option>
+                                                        <select id="search-angkatan" class="form-control kt-select2">
+                                                            <option value="">Select</option>
+                                                            @foreach ($master['angkatan'] as $item)
+                                                                <option value="{{$item['title']}}" > {{$item['title']}} </option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
@@ -89,23 +90,17 @@
                                             <div class="row">
                                                 <div class="col-xl-4">
                                                     <div class="form-group">
-                                                        <select name="status" class="form-control">
-                                                            <option value="">-- Pilih Status --</option>
-                                                            <option value="1">AKTIF</option>
-                                                            <option value="2">Lulus</option>
-                                                            <option value="3">Mutasi</option>
-                                                            <option value="4">Dikeluarkan</option>
-                                                            <option value="5">Mengundurkan Diri</option>
-                                                            <option value="6">Putus Sekolah</option>
-                                                            <option value="7">Wafat</option>
-                                                            <option value="8">Hilang</option>
-                                                            <option value="3">Lainnya</option>
+                                                        <select  id="search-status" class="form-control kt-select2">
+                                                            <option value="">Select</option>
+                                                            @foreach ($master['status_mahasiswa'] as $item)
+                                                                <option value="{{$item['title']}}" > {{$item['title']}} </option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-4">
                                                     <div class="form-group">
-                                                        <select name="jenis_kelamin" class="form-control">
+                                                        <select name="jenis_kelamin" class="form-control kt-select2">
                                                             <option value="">-- Pilih Jenis Kelamin --</option>
                                                             <option value="1">Laki - laki</option>
                                                             <option value="2">Perempuan</option>
@@ -114,14 +109,11 @@
                                                 </div>
                                                 <div class="col-xl-4">
                                                     <div class="form-group">
-                                                        <select name="agama" class="form-control">
-                                                            <option value="">-- Pilih Agama --</option>
-                                                            <option value="islam">Islam</option>
-                                                            <option value="protestan">Protestan</option>
-                                                            <option value="katolik">Katolik</option>
-                                                            <option value="hindu">Hindu</option>
-                                                            <option value="budha">Budha</option>
-                                                            <option value="konghucu">Konghucu</option>
+                                                        <select name="mahasiswa[agama]" id="search-agama" class="form-control kt-select2">
+                                                            <option value="">Select</option>
+                                                            @foreach ($master['agama'] as $item)
+                                                                <option value="{{$item['title']}}" > {{$item['title']}} </option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>
