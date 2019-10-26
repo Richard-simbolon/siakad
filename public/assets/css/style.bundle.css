@@ -11523,12 +11523,12 @@ code {
   .nav-tabs.nav-tabs-line.nav-tabs-line-brand.nav.nav-tabs .nav-link:hover, .nav-tabs.nav-tabs-line.nav-tabs-line-brand.nav.nav-tabs .nav-link.active,
   .nav-tabs.nav-tabs-line.nav-tabs-line-brand a.nav-link:hover,
   .nav-tabs.nav-tabs-line.nav-tabs-line-brand a.nav-link.active {
-    color: #5d78ff;
-    border-bottom: 1px solid #5d78ff; }
+    color: #009688;
+    border-bottom: 1px solid #009688; }
     .nav-tabs.nav-tabs-line.nav-tabs-line-brand.nav.nav-tabs .nav-link:hover > i, .nav-tabs.nav-tabs-line.nav-tabs-line-brand.nav.nav-tabs .nav-link.active > i,
     .nav-tabs.nav-tabs-line.nav-tabs-line-brand a.nav-link:hover > i,
     .nav-tabs.nav-tabs-line.nav-tabs-line-brand a.nav-link.active > i {
-      color: #778dff; }
+      color: #009688; }
   .nav-tabs.nav-tabs-line.nav-tabs-line-brand.nav-tabs-line-2x, .nav-tabs.nav-tabs-line.nav-tabs-line-brand.nav-tabs-line-3x {
     border-bottom-color: rgba(93, 120, 255, 0.1); }
   .nav-tabs.nav-tabs-line.nav-tabs-line-light.nav.nav-tabs .nav-link:hover,
@@ -30679,9 +30679,9 @@ strong {
   height: 23px;
   width: 23px; }
   .kt-svg-icon g [fill] {
-    fill: #5d78ff; }
+    fill: #009688; }
   .kt-svg-icon.kt-svg-icon--brand g [fill] {
-    fill: #5d78ff !important; }
+    fill: #009688 !important; }
   .kt-svg-icon.kt-svg-icon--light g [fill] {
     fill: #ffffff !important; }
   .kt-svg-icon.kt-svg-icon--dark g [fill] {
@@ -36445,5 +36445,5 @@ body {
     .my-custom-style .my-custom-element {
       margin-left: 0.5rem; } }
 .select2-label { 
-  display:block;
+  display:block!important;
 }

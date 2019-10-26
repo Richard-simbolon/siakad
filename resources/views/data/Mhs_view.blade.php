@@ -73,74 +73,86 @@
         </div>
     </div>
     <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <!--begin::Portlet-->
-                    <div class="kt-portlet">
-                        <div class="kt-portlet__head">
-                            <div class="kt-portlet__head-label">
-                                <span class="kt-menu__link-icon">
-                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
-                                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                            <polygon points="0 0 24 0 24 24 0 24"/>
-                                            <path d="M12,11 C9.790861,11 8,9.209139 8,7 C8,4.790861 9.790861,3 12,3 C14.209139,3 16,4.790861 16,7 C16,9.209139 14.209139,11 12,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
-                                            <path d="M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z" fill="#000000" fill-rule="nonzero"/>
-                                        </g>
-                                    </svg>
-                                </span> &nbsp;
-                                <h3 class="kt-portlet__head-title">
-                                    Data Mahasiswa
-                                </h3>
-                            </div>
-                            <div class="kt-portlet__head-toolbar">
-                                <div class="dropdown dropdown-inline">
-                                    <button type="button" class="btn btn-clean btn-sm btn-icon-md btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="flaticon-more-1"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-fit dropdown-menu-md">
-                                        <!--begin::Nav-->
-                                        <ul class="kt-nav">
-                                            <li class="kt-nav__head">
-                                                Pilihan Aksi
-                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--brand kt-svg-icon--md1">
-                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                        <rect x="0" y="0" width="24" height="24" />
-                                                        <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10" />
-                                                        <rect fill="#000000" x="11" y="10" width="2" height="7" rx="1" />
-                                                        <rect fill="#000000" x="11" y="7" width="2" height="2" rx="1" />
-                                                    </g>
-                                                </svg>
-                                            </li>
-                                            <li class="kt-nav__separator"></li>
-                                            <li class="kt-nav__item">
-                                                <a class="kt-nav__link" id="editmahasiswa">
-                                                    <i class="kt-nav__link-icon flaticon-edit"></i>
-                                                    <span class="kt-nav__link-text">Edit</span>
-                                                </a>
-                                            </li>
-                                            <li class="kt-nav__item">
-                                                <a href="#" class="kt-nav__link">
-                                                    <i class="kt-nav__link-icon flaticon-delete"></i>
-                                                    <span class="kt-nav__link-text">Hapus</span>
-                                                </a>
-                                            </li>
-                                        </ul>
+        <div class="row">
+            <div class="col-lg-12">
+                <!--begin::Portlet-->
+                <div class="kt-portlet">
+                    <div class="kt-portlet__head">
+                        <div class="kt-portlet__head-label">
+                            <span class="kt-menu__link-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <polygon points="0 0 24 0 24 24 0 24"/>
+                                        <path d="M12,11 C9.790861,11 8,9.209139 8,7 C8,4.790861 9.790861,3 12,3 C14.209139,3 16,4.790861 16,7 C16,9.209139 14.209139,11 12,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"/>
+                                        <path d="M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z" fill="#000000" fill-rule="nonzero"/>
+                                    </g>
+                                </svg>
+                            </span> &nbsp;
+                            <h3 class="kt-portlet__head-title">
+                                Data Mahasiswa
+                            </h3>
+                        </div>
+                        <div class="kt-portlet__head-toolbar">
+                            <div class="dropdown dropdown-inline">
+                                <button type="button" class="btn btn-clean btn-sm btn-icon-md btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="flaticon-more-1"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-fit dropdown-menu-md">
+                                    <!--begin::Nav-->
+                                    <ul class="kt-nav">
+                                        <li class="kt-nav__head">
+                                            Pilihan Aksi
+                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--brand kt-svg-icon--md1">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <rect x="0" y="0" width="24" height="24" />
+                                                    <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10" />
+                                                    <rect fill="#000000" x="11" y="10" width="2" height="7" rx="1" />
+                                                    <rect fill="#000000" x="11" y="7" width="2" height="2" rx="1" />
+                                                </g>
+                                            </svg>
+                                        </li>
+                                        <li class="kt-nav__separator"></li>
+                                        <li class="kt-nav__item">
+                                            <a class="kt-nav__link" id="editmahasiswa">
+                                                <i class="kt-nav__link-icon flaticon-edit"></i>
+                                                <span class="kt-nav__link-text">Ubah Data</span>
+                                            </a>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link" data-toggle="modal" data-target="#kt_modal_ubah_status">
+                                                <i class="kt-nav__link-icon flaticon2-contract"></i>
+                                                <span class="kt-nav__link-text">Ubah Status</span>
+                                            </a>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link" data-toggle="modal" data-target="#kt_modal_reset_password">
+                                                <i class="kt-nav__link-icon flaticon2-refresh"></i>
+                                                <span class="kt-nav__link-text">Reset Password</span>
+                                            </a>
+                                        </li>
+                                        <li class="kt-nav__item">
+                                            <a href="#" class="kt-nav__link"  data-toggle="modal" data-target="#kt_modal_hapus_data">
+                                                <i class="kt-nav__link-icon flaticon-delete"></i>
+                                                <span class="kt-nav__link-text">Hapus</span>
+                                            </a>
+                                        </li>
+                                    </ul>
 
-                                        <!--end::Nav-->
-                                    </div>
+                                    <!--end::Nav-->
                                 </div>
                             </div>
                         </div>
-                        <!--begin::Form-->
-                        <form class="fkt-form form-mahasiswa" id="form-update-mhs" >
+                    </div>
+                    <!--begin::Form-->
+                    <form class="fkt-form form-mahasiswa" id="form-update-mhs" >
                         <div class="kt-portlet__body">
                             <div class="kt-portlet kt-portlet--tabs">
                                 <div class="kt-portlet__head">
                                     <div class="kt-portlet__head-toolbar">
                                         <ul class="nav nav-tabs nav-tabs-bold nav-tabs-line   nav-tabs-line-right nav-tabs-line-brand" role="tablist">
                                             <li class="nav-item">
-                                                <a class="nav-link active" data-toggle="tab" href="#info_dasar" role="tab">
-                                                    Informasi Dasar
+                                                <a class="nav-link active kt-font-bold" data-toggle="tab" href="#info_dasar" role="tab">
+                                                    <i class="flaticon2-information"></i> Informasi Dasar
                                                 </a>
                                             </li>
                                         </ul>
@@ -205,7 +217,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-content" id="informasidasar" style="display:none"> 
+                                    <div class="tab-content" id="informasidasar" style="display:none">
                                             <div class="tab-pane active" id="info_dasar">
                                                 <div class="row">
                                                     <div class="col-xl-4">
@@ -222,7 +234,7 @@
                                                     </div>
                                                     <div class="col-xl-4">
                                                         <div class="form-group">
-                                                            <label>Jurusan</label>
+                                                            <label class="select2-label">Jurusan</label>
                                                             <select name="mahasiswa[jurusan_id]" class="form-control kt-select2">
                                                                 <option value="">-- Pilih Jurusan --</option>
                                                                 @foreach ($master['jurusan'] as $item)
@@ -305,9 +317,9 @@
                                                             <div class="form-group">
                                                                 <label>Jenis Pendaftaran *</label>
                                                                 <select name="mahasiswa[jenis_pendaftaran]"  class="form-control">
-                                                                        <option value="">-- Jenis Pendaftaran --</option>
-                                                                        @foreach ($master['jenis_pendaftaran'] as $item)
-                                                                            <option value="{{$item['id']}}" {{$item['id'] == $data['jenis_pendaftaran'] ? 'selected' : ''}} >{{$item['title']}}</option>
+                                                                    <option value="">-- Jenis Pendaftaran --</option>
+                                                                    @foreach ($master['jenis_pendaftaran'] as $item)
+                                                                        <option value="{{$item['id']}}" {{$item['id'] == $data['jenis_pendaftaran'] ? 'selected' : ''}} >{{$item['title']}}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
@@ -316,9 +328,9 @@
                                                             <div class="form-group">
                                                                 <label>Jalur Pendaftaran</label>
                                                                 <select name="mahasiswa[jalur_pendaftaran]" class="form-control">
-                                                                        <option value="">-- Jalur Pendaftaran --</option>
-                                                                        @foreach ($master['jalur_pendaftaran'] as $item)
-                                                                            <option value="{{$item['id']}}" {{$item['id'] == $data['jalur_pendaftaran'] ? 'selected' : ''}} >{{$item['title']}}</option>
+                                                                    <option value="">-- Jalur Pendaftaran --</option>
+                                                                    @foreach ($master['jalur_pendaftaran'] as $item)
+                                                                        <option value="{{$item['id']}}" {{$item['id'] == $data['jalur_pendaftaran'] ? 'selected' : ''}} >{{$item['title']}}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
@@ -432,9 +444,9 @@
                                                             <div class="form-group">
                                                                 <label>Jenis Tinggal</label>
                                                                 <select name="mahasiswa[jenis_tinggal]" class="form-control">
-                                                                        <option value="">-- Jenis Tinggal --</option>
-                                                                        @foreach ($master['jenis_tinggal'] as $item)
-                                                                            <option value="{{$item['id']}}" {{$item['id'] == $data['jenis_tinggal'] ? 'selected' : ''}} >{{$item['title']}}</option>
+                                                                    <option value="">-- Jenis Tinggal --</option>
+                                                                    @foreach ($master['jenis_tinggal'] as $item)
+                                                                        <option value="{{$item['id']}}" {{$item['id'] == $data['jenis_tinggal'] ? 'selected' : ''}} >{{$item['title']}}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
@@ -443,10 +455,10 @@
                                                             <div class="form-group">
                                                                 <label>Alat Transpostrasi</label>
                                                                 <select name="mahasiswa[alat_transportasi]" class="form-control">
-                                                                        <option value="">-- Alat Transpostrasi --</option>
-                                                                        @foreach ($master['alat_transportasi'] as $item)
-                                                                            
-                                                                            <option value="{{$item['id']}}" {{$item['id'] == $data['alat_transportasi'] ? 'selected' : ''}} >{{$item['title']}}</option>
+                                                                    <option value="">-- Alat Transpostrasi --</option>
+                                                                    @foreach ($master['alat_transportasi'] as $item)
+
+                                                                        <option value="{{$item['id']}}" {{$item['id'] == $data['alat_transportasi'] ? 'selected' : ''}} >{{$item['title']}}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
@@ -499,7 +511,7 @@
                                                         $otw = [];
                                                         foreach($orangtuawali as $value){
                                                             $otw[$value['kategori']] = $value;
-                                                        }    
+                                                        }
                                                     ?>
                                                     <div class="row">
                                                         <div class="col-xl-6">
@@ -522,7 +534,7 @@
                                                                         <option value="">-- Pendidikan Ayah --</option>
                                                                         @foreach ($master['pendidikan'] as $item)
                                                                             <option value="{{$item['id']}}" {{$item['id'] == $otw['ayah']['pendidikan_id'] ? 'selected' : ''}} >{{$item['title']}}</option>
-                                                                    @endforeach
+                                                                        @endforeach
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
@@ -531,15 +543,15 @@
                                                                         <option value="">-- Pekerjaan Ayah --</option>
                                                                         @foreach ($master['pekerjaan'] as $item)
                                                                             <option value="{{$item['id']}}" {{$item['id'] == $otw['ayah']['pekerjaan_id'] ? 'selected' : ''}} >{{$item['title']}}</option>
-                                                                    @endforeach
+                                                                        @endforeach
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Penghasilan Ayah</label>
                                                                 <select name="mahasiswa_orang_tua_wali[ayah][penghasilan]" class="form-control">
-                                                                        <option value="">-- Penghasilan Ayah --</option>
-                                                                        @foreach ($master['penghasilan'] as $item)
-                                                                            <option value="{{$item['id']}}" {{$item['id'] == $otw['ayah']['penghasilan'] ? 'selected' : ''}} >{{$item['title']}}</option>
+                                                                    <option value="">-- Penghasilan Ayah --</option>
+                                                                    @foreach ($master['penghasilan'] as $item)
+                                                                        <option value="{{$item['id']}}" {{$item['id'] == $otw['ayah']['penghasilan'] ? 'selected' : ''}} >{{$item['title']}}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
@@ -547,7 +559,7 @@
                                                         <div class="col-xl-6">
                                                             <div class="form-group">
                                                                 <label>NIK Ibu</label>
-                                                                <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ibu][nik]" placeholder="Isikan NIK" value="{{$otw['ibu']['nik']}}"> 
+                                                                <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ibu][nik]" placeholder="Isikan NIK" value="{{$otw['ibu']['nik']}}">
                                                                 <span class="form-text text-muted">Nomor KTP tanpa tanda baca</span>
                                                             </div>
                                                             <div class="form-group">
@@ -563,7 +575,7 @@
                                                                 <select name="mahasiswa_orang_tua_wali[ibu][pendidikan_id]" class="form-control">
                                                                     <option value="">-- Pilih Jenjang --</option>
                                                                     @foreach ($master['pendidikan'] as $item)
-                                                                            <option value="{{$item['id']}}" {{$item['id'] == $otw['ibu']['pendidikan_id'] ? 'selected' : ''}} >{{$item['title']}}</option>
+                                                                        <option value="{{$item['id']}}" {{$item['id'] == $otw['ibu']['pendidikan_id'] ? 'selected' : ''}} >{{$item['title']}}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
@@ -573,7 +585,7 @@
                                                                     <option value="">-- Pilih Pekerjaan --</option>
                                                                         @foreach ($master['pekerjaan'] as $item)
                                                                             <option value="{{$item['id']}}" {{$item['id'] == $otw['ibu']['pekerjaan_id'] ? 'selected' : ''}} >{{$item['title']}}</option>
-                                                                    @endforeach
+                                                                        @endforeach
                                                                 </select>
                                                             </div>
                                                             <div class="form-group">
@@ -581,7 +593,7 @@
                                                                 <select name="mahasiswa_orang_tua_wali[ibu][penghasilan]" class="form-control">
                                                                     <option value="">-- Pilih Penghasilan --</option>
                                                                     @foreach ($master['penghasilan'] as $item)
-                                                                            <option value="{{$item['id']}}" {{$item['id'] == $otw['ibu']['penghasilan'] ? 'selected' : ''}} >{{$item['title']}}</option>
+                                                                        <option value="{{$item['id']}}" {{$item['id'] == $otw['ibu']['penghasilan'] ? 'selected' : ''}} >{{$item['title']}}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
@@ -634,8 +646,8 @@
                                                                 <label>Penghasilan</label>
                                                                 <select name="mahasiswa_orang_tua_wali[wali][penghasilan]" class="form-control">
                                                                     <option value="">-- Pilih Penghasilan --</option>
-                                                                        @foreach ($master['penghasilan'] as $item)
-                                                                            <option value="{{$item['id']}}" {{$item['id'] == $otw['wali']['penghasilan'] ? 'selected' : ''}} >{{$item['title']}}</option>
+                                                                    @foreach ($master['penghasilan'] as $item)
+                                                                        <option value="{{$item['id']}}" {{$item['id'] == $otw['wali']['penghasilan'] ? 'selected' : ''}} >{{$item['title']}}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
@@ -646,110 +658,194 @@
                                                 <div class="tab-pane" id="kt_portlet_kebutuhan_khusus">
                                                     <div class="kt-form__section kt-form__section--first">
                                                         <div class="kt-wizard-v3__review">
-                                                                <div class="kt-wizard-v3__review-item">
-                                                                    <div class="kt-wizard-v3__review-title"  style="padding:5px 0 5px 0;">
-                                                                        <b>Mahasiswa</b>
-                                                                        <?php
-                                                                            $kebmahasiswa = json_decode($kebutuhan_selected['kebutuhan_mahasiswa'] , true);
-                                                                        ?>
-                                                                    </div>
-                                                                    <div class="kt-wizard-v3__review-content">
-                                                                        <div class="row">
-                    
-                                                                            <?php
-                                                                                $kebutuhan =  array_chunk($master['kebutuhan']->toArray() , 6 , true);    
-                                                                            ?>
-                                                                            @foreach ($kebutuhan as $item)
-                                                                                <div class="col-xl-4">
-                                                                                    <div class="kt-checkbox-list">
-                                                                                        @foreach ($item as $value)
-                                                                                            <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                                            <input type="checkbox" value="{{$value['id']}}" name="mahasiswa_kh[]" {{in_array($value['id'] , $kebmahasiswa['mahasiswa']) ? 'checked' : ''}} > {{$value['title']}}
-                                                                                                <span></span>
-                                                                                            </label>
-                                                                                        @endforeach
-                                                                                    </div>
-                                                                                </div>
-                                                                            @endforeach
-                                                                        </div>
-                                                                    </div>
+                                                            <div class="kt-wizard-v3__review-item">
+                                                                <div class="kt-wizard-v3__review-title"  style="padding:5px 0 5px 0;">
+                                                                    <b>Mahasiswa</b>
+                                                                    <?php
+                                                                        $kebmahasiswa = json_decode($kebutuhan_selected['kebutuhan_mahasiswa'] , true);
+                                                                    ?>
                                                                 </div>
-                                                                <div class="kt-wizard-v3__review-item">
-                                                                    <div class="kt-wizard-v3__review-title"  style="padding:5px 0 5px 0;">
-                                                                        <b>Ayah</b>
+                                                                <div class="kt-wizard-v3__review-content">
+                                                                    <div class="row">
 
                                                                         <?php
-                                                                            $kebayah = json_decode($kebutuhan_selected['kebutuhan_ayah'] , true);
+                                                                            $kebutuhan =  array_chunk($master['kebutuhan']->toArray() , 6 , true);
                                                                         ?>
-                                                                    </div>
-                                                                    <div class="kt-wizard-v3__review-content">
-                                                                        <div class="row">
-                                                                            @foreach ($kebutuhan as $item)
+                                                                        @foreach ($kebutuhan as $item)
                                                                             <div class="col-xl-4">
                                                                                 <div class="kt-checkbox-list">
                                                                                     @foreach ($item as $value)
                                                                                         <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                                            <input type="checkbox" name="ayah_kh[]" value="{{$value['id']}}" {{in_array($value['id'] , $kebayah['ayah']) ? 'checked' : ''}}> {{$value['title']}}
+                                                                                        <input type="checkbox" value="{{$value['id']}}" name="mahasiswa_kh[]" {{in_array($value['id'] , $kebmahasiswa['mahasiswa']) ? 'checked' : ''}} > {{$value['title']}}
                                                                                             <span></span>
                                                                                         </label>
                                                                                     @endforeach
                                                                                 </div>
                                                                             </div>
-                                                                            @endforeach
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="kt-wizard-v3__review-item">
-                                                                    <div class="kt-wizard-v3__review-title"  style="padding:5px 0 5px 0;">
-                                                                        <b>Ibu</b>
-                                                                        <?php
-                                                                            $kebibu = json_decode($kebutuhan_selected['kebutuhan_ibu'] , true);
-                                                                        ?>
-                                                                    </div>
-                                                                    <div class="kt-wizard-v3__review-content">
-                                                                        <div class="row">
-                                                                            @foreach ($kebutuhan as $item)
-                                                                            <div class="col-xl-4">
-                                                                                <div class="kt-checkbox-list">
-                                                                                    @foreach ($item as $value)
-                                                                                        <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                                            <input type="checkbox" name="ibu_kh[]" value="{{$value['id']}}" {{in_array($value['id'] , $kebibu['ibu']) ? 'checked' : ''}} > {{$value['title']}}
-                                                                                            <span></span>
-                                                                                        </label>
-                                                                                    @endforeach
-                                                                                </div>
-                                                                            </div>
-                                                                            @endforeach
-                                                                        </div>
+                                                                        @endforeach
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                </div>           
+                                                            <div class="kt-wizard-v3__review-item">
+                                                                <div class="kt-wizard-v3__review-title"  style="padding:5px 0 5px 0;">
+                                                                    <b>Ayah</b>
+
+                                                                    <?php
+                                                                        $kebayah = json_decode($kebutuhan_selected['kebutuhan_ayah'] , true);
+                                                                    ?>
+                                                                </div>
+                                                                <div class="kt-wizard-v3__review-content">
+                                                                    <div class="row">
+                                                                        @foreach ($kebutuhan as $item)
+                                                                        <div class="col-xl-4">
+                                                                            <div class="kt-checkbox-list">
+                                                                                @foreach ($item as $value)
+                                                                                    <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
+                                                                                        <input type="checkbox" name="ayah_kh[]" value="{{$value['id']}}" {{in_array($value['id'] , $kebayah['ayah']) ? 'checked' : ''}}> {{$value['title']}}
+                                                                                        <span></span>
+                                                                                    </label>
+                                                                                @endforeach
+                                                                            </div>
+                                                                        </div>
+                                                                        @endforeach
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="kt-wizard-v3__review-item">
+                                                                <div class="kt-wizard-v3__review-title"  style="padding:5px 0 5px 0;">
+                                                                    <b>Ibu</b>
+                                                                    <?php
+                                                                        $kebibu = json_decode($kebutuhan_selected['kebutuhan_ibu'] , true);
+                                                                    ?>
+                                                                </div>
+                                                                <div class="kt-wizard-v3__review-content">
+                                                                    <div class="row">
+                                                                        @foreach ($kebutuhan as $item)
+                                                                        <div class="col-xl-4">
+                                                                            <div class="kt-checkbox-list">
+                                                                                @foreach ($item as $value)
+                                                                                    <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
+                                                                                        <input type="checkbox" name="ibu_kh[]" value="{{$value['id']}}" {{in_array($value['id'] , $kebibu['ibu']) ? 'checked' : ''}} > {{$value['title']}}
+                                                                                        <span></span>
+                                                                                    </label>
+                                                                                @endforeach
+                                                                            </div>
+                                                                        </div>
+                                                                        @endforeach
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            
                             </div>
                             <div class="kt-portlet__foot">
                                 <div class="kt-form__actions">
-                                    <a id="updatemahasiswa" class="btn btn-primary">Submit</a>
+                                    <button type="button" id="updatemahasiswa" class="btn btn-primary">Submit</button>
                                     <button type="reset" class="btn btn-secondary">Cancel</button>
                                 </div>
                             </div>
                             <!--end::Portlet-->
-                        </div>
-                    </div>
-                </form>
+                    </form>
                 </div>
-                
-            
             </div>
         </div>
+    </div>
+</div>
 
+<!--modal : ubah status-->
+<div class="modal fade" id="kt_modal_ubah_status" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ubah Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Form perubahan status</p>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label>Status sekarang: </label>
+                        <input type="text" class="form-control" value="Aktif" disabled="disabled">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label>Ubah Status ke: </label>
+                        <select name="status_change" class="form-control">
+                            <option value="">-- Pilih Status --</option>
+                            <option value="1">AKTIF</option>
+                            <option value="2">Lulus</option>
+                            <option value="3">Mutasi</option>
+                            <option value="4">Dikeluarkan</option>
+                            <option value="5">Mengundurkan Diri</option>
+                            <option value="6">Putus Sekolah</option>
+                            <option value="7">Wafat</option>
+                            <option value="8">Hilang</option>
+                            <option value="3">Lainnya</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger">Ubah Sekarang</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end modal-->
+
+<!--modal : ubah reset password-->
+<div class="modal fade" id="kt_modal_reset_password" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Reset Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Klik button Generate untuk membuat password baru</p>
+                <div class="form-group">
+                    <input type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-success pull-right">Generate</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end modal-->
+
+<!--modal : ubah hapus-->
+<div class="modal fade" id="kt_modal_hapus_data" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Hapus Mahasiswa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Apakah anda yakin menghapus data ini?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-danger">Hapus</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end modal-->
 
 <style>
-    .m-content{width:100%};
+    .m-content{width:100%;}
     </style>
 @section('js')
 
