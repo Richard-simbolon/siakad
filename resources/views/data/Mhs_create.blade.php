@@ -32,7 +32,7 @@
                                     <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step" data-ktwizard-state="current">
                                         <div class="kt-wizard-v3__nav-body">
                                             <div class="kt-wizard-v3__nav-label">
-                                                <span>1</span> Informasi Dasar
+                                                <span><i class="flaticon-rotate"></i> </span> Informasi Dasar
                                             </div>
                                             <div class="kt-wizard-v3__nav-bar"></div>
                                         </div>
@@ -40,7 +40,7 @@
                                     <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step">
                                         <div class="kt-wizard-v3__nav-body">
                                             <div class="kt-wizard-v3__nav-label">
-                                                <span>2</span> Alamat
+                                                <span><i class="flaticon-placeholder-3"></i> </span> Alamat
                                             </div>
                                             <div class="kt-wizard-v3__nav-bar"></div>
                                         </div>
@@ -48,7 +48,7 @@
                                     <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step">
                                         <div class="kt-wizard-v3__nav-body">
                                             <div class="kt-wizard-v3__nav-label">
-                                                <span>3</span> Orangtua
+                                                <span><i class="flaticon2-avatar"></i></span> Orangtua
                                             </div>
                                             <div class="kt-wizard-v3__nav-bar"></div>
                                         </div>
@@ -56,7 +56,7 @@
                                     <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step">
                                         <div class="kt-wizard-v3__nav-body">
                                             <div class="kt-wizard-v3__nav-label">
-                                                <span>4</span> Wali
+                                                <span><i class="flaticon-businesswoman"></i> </span> Wali
                                             </div>
                                             <div class="kt-wizard-v3__nav-bar"></div>
                                         </div>
@@ -64,7 +64,7 @@
                                     <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step">
                                         <div class="kt-wizard-v3__nav-body">
                                             <div class="kt-wizard-v3__nav-label">
-                                                <span>5</span> Kebutuhan Khusus
+                                                <span><i class="flaticon-bell"></i> </span> Kebutuhan Khusus
                                             </div>
                                             <div class="kt-wizard-v3__nav-bar"></div>
                                         </div>
@@ -75,12 +75,11 @@
                             <!--end: Form Wizard Nav -->
                         </div>
                         <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v3__wrapper">
-
                             <!--begin: Form Wizard Form-->
                             <form class="kt-form form-add-mahasiswa" id="kt_form" >
                                 <!--begin: Form Wizard Step 1 - Data Informasi Dasar-->
                                 <div class="kt-wizard-v3__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
-                                    <div class="kt-heading kt-heading--md">Formulir Informasi Dasar Mahasiwa</div>
+                                    <div class="kt-heading kt-heading--md"><i class="flaticon2-writing"> </i> Formulir Informasi Dasar Mahasiwa</div>
                                     <div class="kt-form__section kt-form__section--first">
                                         <div class="kt-wizard-v3__form">
                                             <div class="row">
@@ -285,7 +284,7 @@
 
                                 <!--begin: Form Wizard Step 2  - Data Alamat-->
                                 <div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
-                                    <div class="kt-heading kt-heading--md">Formulir Data Alamat Mahasiswa</div>
+                                    <div class="kt-heading kt-heading--md"><i class="flaticon2-writing"> </i> Formulir Data Alamat Mahasiswa</div>
                                     <div class="kt-form__section kt-form__section--first">
                                         <div class="kt-wizard-v3__form">
                                             <div class="form-group">
@@ -344,33 +343,32 @@
                                                 <textarea type="text" class="form-control" name="mahasiswa[kecamatan]" placeholder="Isikan Kecamatan"></textarea>
                                             </div>
                                             <div class="row">
-                                                
-                                                <div class="form-group">
-                                                    <div class="col-xl-12">
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
                                                         <label>Jenis Tinggal</label>
-                                                    </div>
-                                                    <div class="col-xl-12">
-                                                        <select name="mahasiswa[jenis_tinggal]" class="form-control kt-select2 col-lg-12" style="width:100%">
-                                                            <option value="">Select</option>
-                                                            @foreach ($master['jenis_tinggal'] as $item)
-                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
-                                                            @endforeach
-                                                        </select>
+                                                        <div class="form-group">
+                                                            <select name="mahasiswa[jenis_tinggal]" class="form-control kt-select2">
+                                                                <option value="">Select</option>
+                                                                @foreach ($master['jenis_tinggal'] as $item)
+                                                                    <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                    <div class="col-xl-6">
-                                                <div class="form-group">
-                                                <label class="select2-label">Alat Transpostrasi</label>
-                                                    <select name="mahasiswa[alat_transportasi]" class="form-control kt-select2">
-                                                        <option value="">-- Pilih Alat Transportasi --</option>
-                                                        @foreach ($master['alat_transportasi'] as $item)
-                                                        <option value="{{$item['id']}}">{{$item['title']}}</option>
-                                                        @endforeach
-                                                    </select>
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                    <label class="select2-label">Alat Transpostrasi</label>
+                                                        <select name="mahasiswa[alat_transportasi]" class="form-control kt-select2">
+                                                            <option value="">-- Pilih Alat Transportasi --</option>
+                                                            @foreach ($master['alat_transportasi'] as $item)
+                                                            <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                            </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xl-6">
@@ -421,94 +419,94 @@
 
                                 <!--begin: Form Wizard Step 3 - Data Orangtua-->
                                 <div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
-                                    <div class="kt-heading kt-heading--md">Formulir Data Orangtua Mahasiswa</div>
+                                    <div class="kt-heading kt-heading--md"><i class="flaticon2-writing"> </i> Formulir Data Orangtua Mahasiswa</div>
                                     <div class="kt-form__section kt-form__section--first">
                                         <div class="kt-wizard-v3__form">
                                         <div class="row">
                                             <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>NIK Ayah</label>
-                                                        <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ayah][nik]" placeholder="Isikan NIK">
-                                                        <span class="form-text text-muted">Nomor KTP tanpa tanda baca</span>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Nama Ayah</label>
-                                                        <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ayah][nama]" placeholder="Isikan Nama">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Tanggal Lahir Ayah</label>
-                                                        <input type="date" class="form-control" name="mahasiswa_orang_tua_wali[ayah][tanggal_lahir]" placeholder="Isikan Tanggal Lahir">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Pendidikan Ayah</label>
-                                                        <select name="mahasiswa_orang_tua_wali[ayah][pendidikan_id]" class="form-control kt-select2">
-                                                            <option value="">-- Pilih Jenjang --</option>
-                                                            @foreach ($master['pendidikan'] as $item)
-                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
-                                                               @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Pekerjaan Ayah</label>
-                                                        <select name="mahasiswa_orang_tua_wali[ayah][pekerjaan_id]" class="form-control kt-select2">
-                                                            <option value="">-- Pilih Pekerjaan --</option>
-                                                            @foreach ($master['pekerjaan'] as $item)
-                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
-                                                               @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Penghasilan Ayah</label>
-                                                        <select name="mahasiswa_orang_tua_wali[ayah][penghasilan]" class="form-control kt-select2">
-                                                            <option value="">-- Pilih Penghasilan --</option>
-                                                            @foreach ($master['penghasilan'] as $item)
-                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
-                                                               @endforeach
-                                                        </select>
-                                                    </div>
+                                                <div class="form-group">
+                                                    <label>NIK Ayah</label>
+                                                    <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ayah][nik]" placeholder="Isikan NIK">
+                                                    <span class="form-text text-muted">Nomor KTP tanpa tanda baca</span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Nama Ayah</label>
+                                                    <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ayah][nama]" placeholder="Isikan Nama">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Tanggal Lahir Ayah</label>
+                                                    <input type="date" class="form-control" name="mahasiswa_orang_tua_wali[ayah][tanggal_lahir]" placeholder="Isikan Tanggal Lahir">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Pendidikan Ayah</label>
+                                                    <select name="mahasiswa_orang_tua_wali[ayah][pendidikan_id]" class="form-control kt-select2">
+                                                        <option value="">-- Pilih Jenjang --</option>
+                                                        @foreach ($master['pendidikan'] as $item)
+                                                            <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                           @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Pekerjaan Ayah</label>
+                                                    <select name="mahasiswa_orang_tua_wali[ayah][pekerjaan_id]" class="form-control kt-select2">
+                                                        <option value="">-- Pilih Pekerjaan --</option>
+                                                        @foreach ($master['pekerjaan'] as $item)
+                                                            <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                           @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Penghasilan Ayah</label>
+                                                    <select name="mahasiswa_orang_tua_wali[ayah][penghasilan]" class="form-control kt-select2">
+                                                        <option value="">-- Pilih Penghasilan --</option>
+                                                        @foreach ($master['penghasilan'] as $item)
+                                                            <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                           @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>NIK Ibu</label>
-                                                        <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ibu][nik]" placeholder="Isikan NIK">
-                                                        <span class="form-text text-muted">Nomor KTP tanpa tanda baca</span>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Nama Ibu</label>
-                                                        <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ibu][nama]" placeholder="Isikan Nama">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Tanggal Lahir Ibu</label>
-                                                        <input type="date" class="form-control" name="mahasiswa_orang_tua_wali[ibu][tanggal_lahir]" placeholder="Isikan Tanggal Lahir">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Pendidikan Ibu</label>
-                                                        <select name="mahasiswa_orang_tua_wali[ibu][pendidikan_id]" class="form-control kt-select2">
-                                                            <option value="">-- Pilih Jenjang --</option>
-                                                            @foreach ($master['pendidikan'] as $item)
-                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
-                                                               @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Pekerjaan Ibu</label>
-                                                        <select name="mahasiswa_orang_tua_wali[ibu][pekerjaan_id]" class="form-control kt-select2">
-                                                            <option value="">-- Pilih Pekerjaan --</option>
-                                                            @foreach ($master['pekerjaan'] as $item)
-                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
-                                                               @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Penghasilan Ibu</label>
-                                                        <select name="mahasiswa_orang_tua_wali[ibu][penghasilan]" class="form-control kt-select2">
-                                                            <option value="">-- Pilih Penghasilan --</option>
-                                                            <option value="0"> </option>
-                                                            @foreach ($master['penghasilan'] as $item)
-                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
-                                                               @endforeach
-                                                        </select>
-                                                    </div>
+                                                <div class="form-group">
+                                                    <label>NIK Ibu</label>
+                                                    <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ibu][nik]" placeholder="Isikan NIK">
+                                                    <span class="form-text text-muted">Nomor KTP tanpa tanda baca</span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Nama Ibu</label>
+                                                    <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ibu][nama]" placeholder="Isikan Nama">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Tanggal Lahir Ibu</label>
+                                                    <input type="date" class="form-control" name="mahasiswa_orang_tua_wali[ibu][tanggal_lahir]" placeholder="Isikan Tanggal Lahir">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Pendidikan Ibu</label>
+                                                    <select name="mahasiswa_orang_tua_wali[ibu][pendidikan_id]" class="form-control kt-select2">
+                                                        <option value="">-- Pilih Jenjang --</option>
+                                                        @foreach ($master['pendidikan'] as $item)
+                                                            <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                           @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Pekerjaan Ibu</label>
+                                                    <select name="mahasiswa_orang_tua_wali[ibu][pekerjaan_id]" class="form-control kt-select2">
+                                                        <option value="">-- Pilih Pekerjaan --</option>
+                                                        @foreach ($master['pekerjaan'] as $item)
+                                                            <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                           @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Penghasilan Ibu</label>
+                                                    <select name="mahasiswa_orang_tua_wali[ibu][penghasilan]" class="form-control kt-select2">
+                                                        <option value="">-- Pilih Penghasilan --</option>
+                                                        <option value="0"> </option>
+                                                        @foreach ($master['penghasilan'] as $item)
+                                                            <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                           @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                         </div>
@@ -519,19 +517,25 @@
 
                                 <!--begin: Form Wizard Step 4 - Data wali-->
                                 <div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
-                                    <div class="kt-heading kt-heading--md">Formulir Data Wali Mahasiswa</div>
+                                    <div class="kt-heading kt-heading--md"><i class="flaticon2-writing"> </i> Formulir Data Wali Mahasiswa</div>
                                     <div class="kt-form__section kt-form__section--first">
                                         <div class="kt-wizard-v3__form">
-                                        <div class="row">
-                                            <div class="col-xl-6">
+                                            <div class="row">
+                                                <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Nama</label>
                                                         <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[wali][nama]" placeholder="Isikan Nama">
                                                     </div>
+                                                </div>
+                                                <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Tanggal Lahir </label>
                                                         <input type="date" class="form-control" name="mahasiswa_orang_tua_wali[wali][tanggal_lahir]" placeholder="Isikan Tanggal Lahir">
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Pendidikan</label>
                                                         <select name="mahasiswa_orang_tua_wali[wali][pendidikan_id]" class="form-control kt-select2">
@@ -541,6 +545,8 @@
                                                                @endforeach
                                                         </select>
                                                     </div>
+                                                </div>
+                                                <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Pekerjaan</label>
                                                         <select name="mahasiswa_orang_tua_wali[wali][pekerjaan_id]" class="form-control kt-select2">
@@ -550,6 +556,10 @@
                                                                @endforeach
                                                         </select>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Penghasilan</label>
                                                         <select name="mahasiswa_orang_tua_wali[wali][penghasilan]" class="form-control kt-select2">
@@ -561,15 +571,15 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
                                 <!--end: Form Wizard Step 4-->
 
                                 <!--begin: Form Wizard Step 5-->
                                 <div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
-                                    <div class="kt-heading kt-heading--md">Daftar Kebutuhan Khusus</div>
+                                    <div class="kt-heading kt-heading--md"><i class="flaticon2-writing"> </i> Daftar Kebutuhan Khusus</div>
                                     <div class="kt-form__section kt-form__section--first">
                                         <div class="kt-wizard-v3__review">
                                             <div class="kt-wizard-v3__review-item">
@@ -648,13 +658,13 @@
                                 <!--begin: Form Actions -->
                                 <div class="kt-form__actions">
                                     <button class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-prev">
-                                        Sebelumnya
+                                        <li class="la la-angle-left"></li> Sebelumnya
                                     </button>
                                     <button class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit">
-                                        Simpan
+                                        Simpan <i class="la la-save"></i>
                                     </button>
                                     <button class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next">
-                                        Selanjutnya
+                                        Selanjutnya <li class="la la-angle-right"></li>
                                     </button>
                                 </div>
 
