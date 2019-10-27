@@ -4,16 +4,20 @@
 
         use Illuminate\Database\Eloquent\Model;
 
-        class DosenKebutuhanModel extends Model
+        class StatusPegawaiModel extends Model
         {
 
-            protected $table = "dosen_kebutuhan_khusus"; 
-            //protected $fillable = ['dosen_id'];
-            protected $guarded = [];
+            protected $table = "master_status_pegawai";
+
+            protected $fillable = [
+                "id","row_status","title","updated_at" ,"created_at","created_by", "update_by"
+            ];
+
+
 
             public function scopeget_row(){
                 return [
-                    "id","row_status","updated_at" ,"created_at","created_by", "update_by"
+                    "id","row_status","title","updated_at" ,"created_at","created_by", "update_by"
                  ];
              }
 
@@ -24,10 +28,9 @@
             /*COPY THIS FUNCTION TO YOUR MIGRATION*/
             /**************************************/
             public function up(){
-                Schema::create("dosen", function (Blueprint $table) {
+                Schema::create("master_status_pegawai", function (Blueprint $table) {
                     $table->bigIncrements("id")->unsigned();
-            $table->enum("row_status" , 11);
-
+                    $table->string("title" , 200);
                     $table->enum("row_status", ["active", "deleted", "notactive"]);
                     $table->timestamp("updated_at")->nullable();
                     $table->timestamp("created_at")->nullable();
@@ -37,7 +40,7 @@
             }
             public function down()
             {
-                Schema::dropIfExists("dosen");
+                Schema::dropIfExists("master_status_pegawai");
             }
 
 

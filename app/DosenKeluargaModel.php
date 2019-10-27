@@ -8,24 +8,19 @@
         {
 
             protected $table = "dosen_keluarga";
-
-
+            protected $guarded = [];
             public function scopeget_row(){
                 return [
                     "id","row_status","updated_at" ,"created_at","created_by", "update_by"
                  ];
              }
-
-
-
-
             /**************************************/
             /*COPY THIS FUNCTION TO YOUR MIGRATION*/
             /**************************************/
             public function up(){
                 Schema::create("dosen", function (Blueprint $table) {
                     $table->bigIncrements("id")->unsigned();
-            $table->enum("row_status" , 11);
+                    $table->enum("row_status" , 11);
 
                     $table->enum("row_status", ["active", "deleted", "notactive"]);
                     $table->timestamp("updated_at")->nullable();

@@ -304,9 +304,18 @@
 		<script>
 		$(document).ready(function(){
 			$(".form-mahasiswa input , .form-mahasiswa select , .form-mahasiswa textarea , .form-mahasiswa option").prop("disabled", true);
-
+			$("#form-update-dosen input , #form-update-dosen select , #form-update-dosen textarea , #form-update-dosen option").prop("disabled", true);
+			
 			$(document).on('click','#editmahasiswa' , function(){
 				$(".form-mahasiswa input , .form-mahasiswa select , .form-mahasiswa textarea , .form-mahasiswa option").prop("disabled", false);
+				//$("#form-update-dosen input , #form-update-dosen select , #form-update-dosen textarea , #form-update-dosen option").prop("disabled", true);
+				$("#informasidasar").show();
+				$("#info_dasar").hide();
+			});
+
+			$(document).on('click','#editdosen' , function(){
+				//$(".form-mahasiswa input , .form-mahasiswa select , .form-mahasiswa textarea , .form-mahasiswa option").prop("disabled", false);
+				$("#form-update-dosen input , #form-update-dosen select , #form-update-dosen textarea , #form-update-dosen option").prop("disabled", false);
 				$("#informasidasar").show();
 				$("#info_dasar").hide();
 			});

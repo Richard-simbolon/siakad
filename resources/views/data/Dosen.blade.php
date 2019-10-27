@@ -60,7 +60,6 @@
                         </div>
                         <!--begin::Form-->
                         <div class="kt-portlet__body">
-                            <form class="kt-form">
                                 <div class="row">
                                     <div class="col-xl-4">
                                         <div class="form-group">
@@ -83,16 +82,16 @@
                                     </div>
                                     <div class="col-xl-4">
                                         <div class="form-group">
-                                            <select name="jenis_kelamin" class="form-control">
+                                            <select name="jenis_kelamin" id="jenis_kelamin" class="form-control">
                                                 <option value="">-- Pilih Jenis Kelamin --</option>
-                                                <option value="1">Laki - laki</option>
-                                                <option value="2">Perempuan</option>
+                                                <option value="laki-laki">Laki - laki</option>
+                                                <option value="perempuan">Perempuan</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-xl-4">
                                         <div class="form-group">
-                                            <select name="agama" class="form-control">
+                                            <select name="agama" id="search-agama" class="form-control">
                                                 <option value="">-- Pilih Agama --</option>
                                                 <option value="islam">Islam</option>
                                                 <option value="protestan">Protestan</option>
@@ -107,63 +106,31 @@
                                 <div class="row">
                                     <div class="col-xl-8">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="keyword" placeholder="Cari berdasarkan nama">
+                                            <input type="text" class="form-control" id="inputdata" name="keyword" placeholder="Cari berdasarkan nama">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="kt-form__actions">
-                                    <button type="reset" class="btn btn-primary"><i class="flaticon-search"></i>Cari</button>
+                                    <button type="button" class="btn btn-primary" id="search-button"><i class="flaticon-search"></i>Cari</button>
                                     <button type="reset" class="btn btn-secondary">Cancel</button>
                                 </div>
-                            </form>
 
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
 
                             <div>
-                                <table class="table table-striped- table-bordered table-hover table-checkable responsive no-wrap" id="kt_table_1">
+                                <table class="table table-striped- table-bordered table-hover table-checkable responsive no-wrap" id="TableDosen">
                                     <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>NIM</th>
-                                        <th>L/P</th>
+                                        <th>NIDN/NUP/NDIK</th>
+                                        <th>NIP</th>
+                                        <th>JK</th>
                                         <th>Agama</th>
-                                        <th>Total SKS</th>
                                         <th>Tanggal Lahir</th>
-                                        <th>Program Studi</th>
                                         <th>Status</th>
-                                        <th>Angkatan</th>
-                                        <th>Actions</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Agust</td>
-                                        <td>072122080</td>
-                                        <td>L</td>
-                                        <td>Kristen</td>
-                                        <td>12</td>
-                                        <td>2010-10-02</td>
-                                        <td>Sistem Informasi</td>
-                                        <td>Aktif</td>
-                                        <td>2019</td>
-                                        <td nowrap=""><a href="layout/skins/dosen-view-edit.html">view/edit</a> </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Neneng</td>
-                                        <td>072122081</td>
-                                        <td>P</td>
-                                        <td>Kristen</td>
-                                        <td>23</td>
-                                        <td>2019-10-10</td>
-                                        <td>Sistem Informasi</td>
-                                        <td>Aktif</td>
-                                        <td>2019</td>
-                                        <td nowrap=""><a href="layout/skins/dosen-view-edit.html">view/edit</a> </td>
-                                    </tr>
-                                    </tbody>
                                 </table>
                             </div>
                         </div>

@@ -22,6 +22,7 @@ Route::get('setting/save', 'SettingMenu@save')->name('save');
 Route::post('setting/mtable', 'SettingMenu@mtable')->name('mtable');
 Route::post('/data/mahasiswa/validatewizard', 'Mahasiswa@validatewizard')->name('validate_wizard');
 Route::post('/data/mahasiswa/update', 'Mahasiswa@update')->name('update');
+Route::post('/data/dosen/update', 'Dosen@update')->name('update');
 
 //oute::post('master/agama/paging', 'Agama@paging')->name('pagination');
 //Route::post('master/matakuliah/paging', 'MataKuliah@paging')->name('pagination');

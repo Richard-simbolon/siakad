@@ -92,7 +92,7 @@
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Nama Lengkap</label>
-                                                        <input type="text" class="form-control" name="dosen[name]" placeholder="Isikan nama lengkap">
+                                                        <input type="text" class="form-control" name="dosen[nama]" placeholder="Isikan nama lengkap">
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6">
@@ -112,7 +112,7 @@
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Tanggal lahir</label>
-                                                        <input type="date" class="form-control" name="dosen[tanggal_lahi]r" placeholder="Isikan nama ibu">
+                                                        <input type="date" class="form-control" name="dosen[tanggal_lahir]" placeholder="Isikan nama ibu">
                                                     </div>
                                                 </div>
                                             </div>
@@ -122,11 +122,11 @@
                                                         <label>Jenis Kelamin</label>
                                                         <div class="kt-radio-inline">
                                                             <label class="kt-radio">
-                                                                <input type="radio" name="dosen[jenis_kelamin]" checked=""> Laki-laki
+                                                                <input type="radio" name="dosen[jenis_kelamin]" value="laki-laki" checked=""> Laki-laki
                                                                 <span></span>
                                                             </label>
                                                             <label class="kt-radio">
-                                                                <input type="radio" name="dosen[jenis_kelamin]"> Perempuan
+                                                                <input type="radio" name="dosen[jenis_kelamin]" value="perempuan"> Perempuan
                                                                 <span></span>
                                                             </label>
                                                         </div>
@@ -180,30 +180,22 @@
                                                 <label>Status Pegawai </label>
                                                 <select name="dosen[status_pegawai]" class="form-control">
                                                     <option value="">--Pilih Status--</option>
-                                                    <option value="1">Aktif</option>
-                                                    <option value="2">Tidak Aktif</option>
-                                                    <option value="3">Keluar</option>
-                                                    <option value="4">Almarhum</option>
-                                                    <option value="5">Pensiun</option>
-                                                    <option value="6">Ijin Belajar</option>
-                                                    <option value="7">Tugas di Instansi Lain</option>
-                                                    <option value="8">Ganti NIDN</option>
-                                                    <option value="9">Tugas Belajar</option>
-                                                    <option value="10">Hapus NIDN</option>
-                                                    <option value="0">Lainnya</option>
+                                                    @foreach ($master['status_pegawai'] as $item)
+                                                        <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>No SK CPNS</label>
-                                                        <input type="text" class="form-control" name="dosen[no_sk_pns]" placeholder="Isikan No SK PNS">
+                                                        <input type="text" class="form-control" name="dosen[no_sk_cpns]" placeholder="Isikan No SK PNS">
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Tanggal SK CPNS</label>
-                                                        <input type="date" class="form-control" name="dosen[tanggal_sk_pns]">
+                                                        <input type="date" class="form-control" name="dosen[tanggal_sk_cpns]">
                                                     </div>
                                                 </div>
                                             </div>
@@ -211,19 +203,19 @@
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>No SK Pengangkatan</label>
-                                                        <input type="text" class="form-control" name="dosen[no_sk_pns]" placeholder="Isikan No SK Pengangkatan">
+                                                        <input type="text" class="form-control" name="dosen[no_sk_cpns]" placeholder="Isikan No SK Pengangkatan">
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Tanggal SK Pengangkatan</label>
-                                                        <input type="date" class="form-control" name="dosen[tanggal_sk_pengangkatan]">
+                                                        <input type="date" class="form-control" name="dosen[tgl_sk_pengangkatan]">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Lembaga Pengangkatan </label>
-                                                <input type="text" class="form-control" name="dosen[embaga_pengangkatan]" placeholder="Isikan Lembaga Pengangkatan">
+                                                <input type="text" class="form-control" name="dosen[lembaga_pengangkatan]" placeholder="Isikan Lembaga Pengangkatan">
                                             </div>
                                             <div class="form-group">
                                                 <label>Pangkat Golongan </label>
@@ -304,38 +296,38 @@
                                     <div class="kt-heading kt-heading--md">Formulir Data Keluarga Dosen</div>
                                     <div class="kt-form__section kt-form__section--first">
                                         <div class="kt-wizard-v3__form">
-                                        <div class="row">
-                                            <div class="col-xl-6">
-                                                <div class="form-group">
-                                                    <label>Status Pernikahan</label>
-                                                    <select name="keluarga[status_pernikahan]" class="form-control">
-                                                        <option value="">-- Pilih Status Pernikahan --</option>
-                                                        <option value="1">Belum Menikah</option>
-                                                        <option value="2">Sudah Menikah</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Nama Suami / Istri</label>
-                                                    <input type="text" class="form-control" name="keluarga[nama_pasangan]" placeholder="Isikan Nama Suami / Istri">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>NIP Suami / Istri</label>
-                                                    <input type="text" class="form-control" name="keluarga[nip_pasangan]" placeholder="Isikan Nama Suami / Istri">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>TMT PNS</label>
-                                                    <input type="date" class="form-control" name="keluarga[tmt_pns]" placeholder="Isikan Tanggal Lahir">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>Pekerjaan</label>
-                                                    <select name="keluarga[pekerjaan_pasangan]" class="form-control">
-                                                        @foreach ($master['pekerjaan'] as $item)
-                                                        <option value="{{$item['id']}}">{{$item['title']}}</option>
-                                                        @endforeach
-                                                    </select>
+                                            <div class="row">
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <label>Status Pernikahan</label>
+                                                        <select name="keluarga[status_pernikahan]" class="form-control">
+                                                            <option value="">-- Pilih Status Pernikahan --</option>
+                                                            <option value="1">Belum Menikah</option>
+                                                            <option value="2">Sudah Menikah</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Nama Suami / Istri</label>
+                                                        <input type="text" class="form-control" name="keluarga[nama_pasangan]" placeholder="Isikan Nama Suami / Istri">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>NIP Suami / Istri</label>
+                                                        <input type="text" class="form-control" name="keluarga[nip_pasangan]" placeholder="Isikan Nama Suami / Istri">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>TMT PNS</label>
+                                                        <input type="date" class="form-control" name="keluarga[tmt_pns]" placeholder="Isikan Tanggal Lahir">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Pekerjaan</label>
+                                                        <select name="keluarga[pekerjaan]" class="form-control">
+                                                            @foreach ($master['pekerjaan'] as $item)
+                                                            <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -352,24 +344,24 @@
                                                     Mampu Menghandle Kebutuhan Khusus :
                                                 </div>
                                                 <div class="kt-wizard-v3__review-content">
-                                                        <div class="row">
-                                                            <?php
-                                                                $kebutuhan =  array_chunk($master['kebutuhan']->toArray() , 6 , true);    
-                                                            ?>
-                                                            @foreach ($kebutuhan as $item)
-                                                                <div class="col-xl-4">
-                                                                    <div class="kt-checkbox-list">
-                                                                        @foreach ($item as $value)
-                                                                            <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                                <input type="checkbox" name="dosen_kh[]" value="{{$value['id']}}" > {{$value['title']}}
-                                                                                <span></span>
-                                                                            </label>
-                                                                        @endforeach
-                                                                    </div>
+                                                    <div class="row">
+                                                        <?php
+                                                            $kebutuhan =  array_chunk($master['kebutuhan']->toArray() , 6 , true);    
+                                                        ?>
+                                                        @foreach ($kebutuhan as $item)
+                                                            <div class="col-xl-4">
+                                                                <div class="kt-checkbox-list">
+                                                                    @foreach ($item as $value)
+                                                                        <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
+                                                                            <input type="checkbox" name="dosen_kh[]" value="{{$value['id']}}" > {{$value['title']}}
+                                                                            <span></span>
+                                                                        </label>
+                                                                    @endforeach
                                                                 </div>
-                                                            @endforeach
-                                                        </div>
+                                                            </div>
+                                                        @endforeach
                                                     </div>
+                                                </div>
                                             </div>
                                             <div class="kt-wizard-v3__review-item">
                                                 <div class="kt-wizard-v3__review-title">
@@ -378,11 +370,11 @@
                                                 <div class="kt-wizard-v3__review-content">
                                                     <div class="kt-radio-inline">
                                                         <label class="kt-radio">
-                                                            <input type="radio" name="handle_braile]" value="ya"> Ya
+                                                            <input type="radio" name="braile" value="ya"> Ya
                                                             <span></span>
                                                         </label>
                                                         <label class="kt-radio">
-                                                            <input type="radio" name="handle_braile" value="tidak"> Tidak
+                                                            <input type="radio" name="braile" value="tidak" checked> Tidak
                                                             <span></span>
                                                         </label>
                                                     </div>
@@ -395,11 +387,11 @@
                                                 <div class="kt-wizard-v3__review-content">
                                                     <div class="kt-radio-inline">
                                                         <label class="kt-radio">
-                                                            <input type="radio" name="handle_bahasa_isyarat" value="ya"> Ya
+                                                            <input type="radio" name="isyarat" value="ya" > Ya
                                                             <span></span>
                                                         </label>
                                                         <label class="kt-radio">
-                                                            <input type="radio" name="handle_bahasa_isyarat" value="tidak"> Tidak
+                                                            <input type="radio" name="isyarat" value="tidak" checked> Tidak
                                                             <span></span>
                                                         </label>
                                                     </div>

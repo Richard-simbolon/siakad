@@ -909,6 +909,144 @@ var KTDatatablesExtensionsResponsive = function() {
 
     }
 
+    var TableDosen = function(a) {
+        var table = $('#TableDosen');
+
+        $('#inputdata').unbind();
+        var col = 1
+        $('#inputdata').bind('keyup', function(e) {
+            
+            if(e.keyCode == 13) {
+                tables.column(1).search($('#inputdata').val())
+                .column(4).search($('#jenis_kelamin').val())
+                .column(5).search($('#search-agama').val())
+                .draw();
+            }
+        });
+        $('#search-button').on('click', function(e) {
+            //alert($('#nimnama').val());
+            tables.column(1).search($('#inputdata').val())
+            .column(4).search($('#jenis_kelamin').val())
+            .column(5).search($('#search-agama').val())
+            .draw();
+        });
+        
+        //table.column(1).search('director').column(2).search('london').draw();
+		var tables = table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            "bFilter": true,
+            ajax: {
+                url:'/data/dosen/paging',
+                type:"POST",
+                data:{"_token": $('#csrf_').val()}
+            },
+            columns: [
+
+                { data: 'nip'},
+                { data: 'nama', name: 'nama' },
+                { data: 'nidn_nup_nidk', name: 'nidn_nup_nidk' },
+                { data: 'nip', name: 'nip' },
+                { data: 'jenis_kelamin', name: 'jenis_kelamin' },
+                { data: 't_agama', name: 't_agama' },
+                { data: 'tanggal_lahir', name: 'tanggal_lahir' },
+                { data: 'row_status', name: 'row_status' },
+            ],
+			columnDefs: [
+				{
+					targets: 7,
+					title: 'Actions',
+					orderable: false,
+					render: function(data, type, full, meta) {
+                    	return `
+                        <span class="dropdown">
+                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
+                            <i class="la la-edit"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="dosen/edit/`+full.id+`"><i class="la la-edit"></i> Edit</a>
+                                <a class="dropdown-item" href="dosen/view/`+full.id+`""><i class="la la-leaf"></i>Lihat</a>
+                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
+                            </div>
+                        </span>
+                        `;
+					},
+                },
+                {
+					targets: 1,
+					render: function(data, type, full, meta) {
+						var row_status = {
+							1: {'title': 'active', 'state': 'danger'},
+							2: {'title': 'Retail', 'state': 'primary'},
+							3: {'title': 'Direct', 'state': 'success'},
+						};
+						if (typeof row_status[data] === 'undefined') {
+							return data;
+						}
+						return '<span class="kt-badge kt-badge--' + row_status[data].state + ' kt-badge--dot"></span>&nbsp;' +
+							'<span class="kt-font-bold kt-font-' + row_status[data].state + '">' + row_status[data].title + '</span>';
+					},
+				},
+
+			],
+        });
+
+    };
+
+    var statuspegawai = function(a) {
+
+        var table = $('#StatusPegawai');
+        // begin first table
+        table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url:'/master/statuspegawai/paging',
+                type:"POST",
+                //data:{"_token": $('#csrf_').val(),'table':key},
+                data: function ( d ) {
+                    d.myKey = "myValue";
+                    d._token = $('#csrf_').val()
+                    // d.custom = $('#myInput').val();
+                    // etc
+                }
+            },
+            columns: [
+                { defaultContent: '<td></td>' },
+                { data: 'title', name: 'title' },
+                { data: 'row_status', name: 'row_status' },
+            ],
+            columnDefs: [
+                {
+                    targets: 3,
+                    title: 'Actions',
+                    orderable: false,
+                    render: function(data, type, full, meta) {
+                        return `
+                        <span class="dropdown">
+                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
+                              <i class="la la-ellipsis-h"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
+                                <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
+                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
+                            </div>
+                        </span>
+                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+                          <i class="la la-edit"></i>
+                        </a>`;
+                    },
+                },
+
+            ],
+        });
+
+
+    };
+
 	return {
 
 		//main function to initiate the module
@@ -926,11 +1064,11 @@ var KTDatatablesExtensionsResponsive = function() {
             initTable11();
             initTable12();
             initTable13();
-
-
             mahasiswa();
             angkatan();
+            TableDosen();
             statusmhs();
+            statuspegawai();
 		},
 
 	};

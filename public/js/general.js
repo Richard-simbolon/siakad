@@ -75,6 +75,30 @@ $(document).ready(function(){
          });
     });
 
+    $(document).on('click' , '#actionupdatedosen' , function(){
+        //alert($(this).closest('form').attr('action'));
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        $.ajax({
+            type:'POST',
+            //dataType:'json',
+            url:'/data/dosen/update',
+            data:$(this).closest('form').serialize(),
+            success:function(result) {
+                var res = JSON.parse(result);
+                swal.fire({
+                    "title": "",
+                    "text": res.msg,
+                    "type": res.status,
+                    "confirmButtonClass": "btn btn-secondary"
+                });
+            }
+         });
+    });
+
     
 });
 
