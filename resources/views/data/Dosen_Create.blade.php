@@ -44,7 +44,7 @@
                                     <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step" data-ktwizard-state="done">
                                         <div class="kt-wizard-v3__nav-body">
                                             <div class="kt-wizard-v3__nav-label">
-                                                <span>1</span> Informasi Dasar
+                                                <span><i class="flaticon-rotate"></i></span> Informasi Dasar
                                             </div>
                                             <div class="kt-wizard-v3__nav-bar"></div>
                                         </div>
@@ -52,7 +52,7 @@
                                     <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step" data-ktwizard-state="current">
                                         <div class="kt-wizard-v3__nav-body">
                                             <div class="kt-wizard-v3__nav-label">
-                                                <span>2</span> Biodata
+                                                <span><i class="flaticon2-file"></i> </span> Biodata
                                             </div>
                                             <div class="kt-wizard-v3__nav-bar"></div>
                                         </div>
@@ -60,7 +60,7 @@
                                     <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step" data-ktwizard-state="pending">
                                         <div class="kt-wizard-v3__nav-body">
                                             <div class="kt-wizard-v3__nav-label">
-                                                <span>3</span> Keluarga
+                                                <span><i class="flaticon2-avatar"></i></span> Keluarga
                                             </div>
                                             <div class="kt-wizard-v3__nav-bar"></div>
                                         </div>
@@ -68,11 +68,12 @@
                                     <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step" data-ktwizard-state="pending">
                                         <div class="kt-wizard-v3__nav-body">
                                             <div class="kt-wizard-v3__nav-label">
-                                                <span>4</span> Kebutuhan Khusus
+                                                <span><i class="flaticon-bell"></i> </span> Kebutuhan Khusus
                                             </div>
                                             <div class="kt-wizard-v3__nav-bar"></div>
                                         </div>
                                     </div>
+                                    
                                 </div>
                             </div>
 
