@@ -23,8 +23,25 @@ Route::post('setting/mtable', 'SettingMenu@mtable')->name('mtable');
 Route::post('/data/mahasiswa/validatewizard', 'Mahasiswa@validatewizard')->name('validate_wizard');
 Route::post('/data/mahasiswa/update', 'Mahasiswa@update')->name('update');
 Route::post('/data/dosen/update', 'Dosen@update')->name('update');
+Route::get('dosen/penugasan/{id}', 'Dosen@penugasan')->name('penugasan');
+Route::get('dosen/pengangkatan/{id}', 'Dosen@pengangkatan')->name('riwayatpengangkatan');
+Route::post('dosen/tambahpenugasan', 'Dosen@tambahpenugasan')->name('tambah_penugasan');
+Route::post('dosen/tambahpengangkatan', 'Dosen@tambahpengangkatan')->name('tambah_pengangkatan');
 
-//oute::post('master/agama/paging', 'Agama@paging')->name('pagination');
+Route::get('dosen/pendidikan/{id}', 'Dosen@r_pendidikan')->name('riwayat_pendidikan');
+Route::post('dosen/tambah_r_pendidikan', 'Dosen@tambah_r_pendidikan')->name('tambah_riwayat_pendidikan');
+
+Route::get('dosen/sertifikasi/{id}', 'Dosen@r_sertifikasi')->name('riwayat_sertifikasi');
+Route::post('dosen/tambah_r_sertifikasi', 'Dosen@tambah_r_sertifikasi')->name('tambah_riwayat_sertifikasi');
+
+Route::get('dosen/penelitian/{id}', 'Dosen@r_penelitian')->name('riwayat_penelitian');
+Route::post('dosen/tambah_r_penelitian', 'Dosen@tambah_r_penelitian')->name('tambah_riwayat_penelitian');
+
+Route::get('dosen/fungsional/{id}', 'Dosen@r_fungsional')->name('riwayat_fungsional');
+Route::post('dosen/tambah_r_fungsional', 'Dosen@tambah_r_fungsional')->name('tambah_riwayat_fungsional');
+
+
+//Route::post('master/agama/paging', 'Agama@paging')->name('pagination');
 //Route::post('master/matakuliah/paging', 'MataKuliah@paging')->name('pagination');
 
 $results = DB::select('select * from module');
