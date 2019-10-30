@@ -10,14 +10,14 @@
             protected $table = "master_kelas";
 
             protected $fillable = [
-                "id","title","row_status","updated_at" ,"created_at","created_by", "update_by"
+                "id","title","jurusan_id","row_status","updated_at" ,"created_at","created_by", "update_by"
             ];
 
 
 
             public function scopeget_row(){
                 return [
-                    "id","title","row_status","updated_at" ,"created_at","created_by", "update_by"
+                    "id","title","jurusan_id","row_status","updated_at" ,"created_at","created_by", "update_by"
                  ];
              }
 
@@ -31,7 +31,7 @@
                 Schema::create("master_kelas", function (Blueprint $table) {
                     $table->bigInteger("id" , 11);
                     $table->string("title" , 200);
-
+                    $table->int("jurusan_id", 11);
                     $table->enum("row_status", ["active", "deleted", "notactive"]);
                     $table->timestamp("updated_at")->nullable();
                     $table->timestamp("created_at")->nullable();

@@ -1069,8 +1069,9 @@ var KTDatatablesExtensionsResponsive = function() {
             },
             columns: [
                 { defaultContent: '<td></td>' },
-                { data: 'title', name: 'title' },
-                { data: 'row_status', name: 'row_status' },
+                { data: 'nama', name: 'nama' },
+                { data: 'jurusan', name: 'jurusan' },
+                { data: 'row_status', name: 'row_status' }
             ],
             columnDefs: [
                 {
@@ -1085,19 +1086,14 @@ var KTDatatablesExtensionsResponsive = function() {
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
                             </div>
                         </span>
-                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
-                          <i class="la la-edit"></i>
-                        </a>`;
+                       `;
                     },
                 },
 
             ],
         });
-
     }
 
 	return {

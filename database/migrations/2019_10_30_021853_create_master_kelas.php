@@ -15,7 +15,7 @@ class CreateMasterKelas extends Migration
         Schema::create("master_kelas", function (Blueprint $table) {
             $table->bigInteger("id" , 11);
             $table->string("title" , 200);
-
+            $table->string("jurusan_id" , 11);
             $table->enum("row_status", ["active", "deleted", "notactive"]);
             $table->timestamp("updated_at")->nullable();
             $table->timestamp("created_at")->nullable();
