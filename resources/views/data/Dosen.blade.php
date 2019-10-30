@@ -118,7 +118,7 @@
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
 
                             <div>
-                                <table class="table table-striped- table-bordered table-hover table-checkable responsive no-wrap" id="TableDosen">
+                                <table class="table table-striped table-bordered table-hover table-checkable responsive no-wrap" id="TableDosen">
                                     <thead>
                                     <tr>
                                         <th>No</th>

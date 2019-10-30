@@ -131,7 +131,7 @@
 
                                         <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
 
-                                <table class="table table-striped- table-bordered table-hover table-checkable responsive no-wrap general-data-table" id="{{$tableid}}">
+                                <table class="table table-striped table-bordered table-hover table-checkable responsive no-wrap general-data-table" id="{{$tableid}}">
                                     <thead>
                                         <tr>
                                             <th>No</th>

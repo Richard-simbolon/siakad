@@ -1047,6 +1047,59 @@ var KTDatatablesExtensionsResponsive = function() {
 
     };
 
+    var initTableKelas = function(a) {
+
+        var table = $('#Kelas');
+
+        // begin first table
+        table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url:'/master/kelas/paging',
+                type:"POST",
+                //data:{"_token": $('#csrf_').val(),'table':key},
+                data: function ( d ) {
+                    d.myKey = "myValue";
+                    d._token = $('#csrf_').val()
+                    // d.custom = $('#myInput').val();
+                    // etc
+                }
+            },
+            columns: [
+                { defaultContent: '<td></td>' },
+                { data: 'title', name: 'title' },
+                { data: 'row_status', name: 'row_status' },
+            ],
+            columnDefs: [
+                {
+                    targets: 3,
+                    title: 'Actions',
+                    orderable: false,
+                    render: function(data, type, full, meta) {
+                        return `
+                        <span class="dropdown">
+                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
+                              <i class="la la-ellipsis-h"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
+                                <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
+                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
+                            </div>
+                        </span>
+                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
+                          <i class="la la-edit"></i>
+                        </a>`;
+                    },
+                },
+
+            ],
+        });
+
+    }
+
 	return {
 
 		//main function to initiate the module
@@ -1064,6 +1117,7 @@ var KTDatatablesExtensionsResponsive = function() {
             initTable11();
             initTable12();
             initTable13();
+            initTableKelas();
             mahasiswa();
             angkatan();
             TableDosen();
