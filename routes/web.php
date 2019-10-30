@@ -40,6 +40,9 @@ Route::post('dosen/tambah_r_penelitian', 'Dosen@tambah_r_penelitian')->name('tam
 Route::get('dosen/fungsional/{id}', 'Dosen@r_fungsional')->name('riwayat_fungsional');
 Route::post('dosen/tambah_r_fungsional', 'Dosen@tambah_r_fungsional')->name('tambah_riwayat_fungsional');
 
+Route::post('/master/kelas/edit', 'Kelas@edit')->name('edit');
+Route::post('master/kelas/delete', 'Kelas@delete')->name('delete');
+
 
 //Route::post('master/agama/paging', 'Agama@paging')->name('pagination');
 //Route::post('master/matakuliah/paging', 'MataKuliah@paging')->name('pagination');
