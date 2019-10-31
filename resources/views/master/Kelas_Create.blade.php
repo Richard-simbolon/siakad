@@ -94,6 +94,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
                                         <div class="kt-form__actions">
                                             <a class="btn btn-success generalsave">
                                                 Simpan <i class="la la-save"></i>

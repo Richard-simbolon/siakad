@@ -44,6 +44,11 @@ Route::post('/master/kelas/edit', 'Kelas@edit')->name('edit');
 Route::post('master/kelas/delete', 'Kelas@delete')->name('delete');
 
 
+//kelas perkuliahan
+Route::get('/data/kelasperkuliahan', 'KelasPerkuliahan@index')->name('index');
+Route::get('data/kelasperkuliahan/create', 'KelasPerkuliahan@create')->name('create');
+//end of kelas perkuliahan
+
 //Route::post('master/agama/paging', 'Agama@paging')->name('pagination');
 //Route::post('master/matakuliah/paging', 'MataKuliah@paging')->name('pagination');
 
