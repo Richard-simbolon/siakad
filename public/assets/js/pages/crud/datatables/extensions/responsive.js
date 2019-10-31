@@ -1090,6 +1090,42 @@ var KTDatatablesExtensionsResponsive = function() {
         });
     }
 
+    var initTableAktivitasPerkuliahan = function(a) {
+
+        var table = $('#AktivitasPerkuliahan');
+
+        // begin first table
+        table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url:'/data/aktivitasperkuliahan/paging',
+                type:"POST",
+                //data:{"_token": $('#csrf_').val(),'table':key},
+                data: function ( d ) {
+                    d.myKey = "myValue";
+                    d._token = $('#csrf_').val()
+                    // d.custom = $('#myInput').val();
+                    // etc
+                }
+            },
+            columns: [
+                { defaultContent: '<td></td>' },
+                { data: 'nim', name: 'nim' },
+                { data: 'nama', name: 'nama' },
+                { data: 'jurusan', name: 'jurusan' },
+                { data: 'angkatan', name: 'angkatan' },
+                { data: 'status', name: 'status' },
+                { data: 'semester', name: 'semester' },
+                { data: 'ips', name: 'ips' },
+                { data: 'ipk', name: 'ipk' },
+                { data: 'skssemester', name: 'skssemester' },
+                { data: 'total', name: 'total' },
+            ]
+        });
+    }
+
 	return {
 
 		//main function to initiate the module
@@ -1108,6 +1144,7 @@ var KTDatatablesExtensionsResponsive = function() {
             initTable12();
             initTable13();
             initTableKelas();
+            initTableAktivitasPerkuliahan();
             mahasiswa();
             angkatan();
             TableDosen();

@@ -49,6 +49,10 @@ Route::get('/data/kelasperkuliahan', 'KelasPerkuliahan@index')->name('index');
 Route::get('data/kelasperkuliahan/create', 'KelasPerkuliahan@create')->name('create');
 //end of kelas perkuliahan
 
+//aktivitas perkuliahan
+Route::get('/data/aktivitasperkuliahan', 'AktivitasPerkuliahan@index')->name('index');
+Route::post('data/aktivitasperkuliahan/paging', 'AktivitasPerkuliahan@paging')->name('pagination');
+//end of aktivitas perkuliahan
 
 Route::post('kurikulum/carimatakuliah', 'Kurikulum@carimatakuliah')->name('CariMatakuliah');
 Route::post('kurikulum/filtering_table', 'Kurikulum@filtering_table')->name('FilteringTable');
