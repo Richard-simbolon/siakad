@@ -23,13 +23,29 @@
                 static $tablename = "Kelas";
                 public function index()
                 {
-                    $data = KelasModel::get();
+                    $data = KelasModel::where('row_status', 'active')->get();
+
                     $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
                     $tableid = "Kelas";
                     $table_display = DB::getSchemaBuilder()->getColumnListing("master_kelas");
                     $exclude = static::$exclude;
                     $Tableshow = static::$Tableshow;
                     return view("master/kelas" , compact("data" , "title" ,"table_display" ,"exclude" ,"Tableshow","tableid"));
+
+                }
+                public function view($id)
+                {
+                    $data = KelasModel::where('id' , $id)->first();
+                    $master = array(
+                        'jurusan' => JurusanModel::where('row_status' , 'active')->get()
+                    );
+
+                    $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+                    $tableid = "Kelas";
+                    $table_display = DB::getSchemaBuilder()->getColumnListing("master_kelas");
+                    $exclude = static::$exclude;
+                    $Tableshow = static::$Tableshow;
+                    return view("master/kelas_edit" , compact("data" , "title" ,"table_display" ,"exclude" ,"Tableshow","tableid", "master"));
 
                 }
                 public function create(){
@@ -70,11 +86,34 @@
                 }
 
                 public function edit(Request $request){
+                    $this->validate($request,[
+                        'title' => 'required',
+                        'jurusan_id' => 'required'
+                    ]);
 
+                    $data =  KelasModel::where('id' , $request->id)->first();
+                    $data->title = $request->title;
+                    $data->jurusan_id = $request->jurusan_id;
+                    $data->row_status = $request->row_status;
+
+                    $data->save();
+                    return redirect('/master/kelas');
                 }
 
+                public function delete(Request $request){
+                    $data =  KelasModel::where('id', $request->id)->first();
+                    $data->row_status = 'deleted';
+
+                    if($data->save()){
+                        return $this->success("Data berhasil disimpan.");
+                    }else{
+                        return json_encode(["status"=> "false", "msg"=> "Mohon maaf, terjadi kesalahan sistem"]);
+                    }
+                }
+
+
                 public function paging(Request $request){
-                    return Datatables::of(KelasModel::join('master_jurusan', 'master_jurusan.id', '=', 'master_kelas.jurusan_id')
+                    return Datatables::of(KelasModel::where('master_kelas.row_status', 'active')->join('master_jurusan', 'master_jurusan.id', '=', 'master_kelas.jurusan_id')
                         ->select("master_kelas.id" ,"master_kelas.title as nama", "master_jurusan.title as jurusan", "master_kelas.row_status")->get())->make(true);
                 }
 

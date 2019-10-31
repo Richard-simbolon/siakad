@@ -18,7 +18,7 @@
                                 Kelas </a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="{{url()->current()}}" class="kt-subheader__breadcrumbs-link">
-                                Tambah </a>
+                                Edit </a>
                         </div>
                     </div>
                 </div>
@@ -40,13 +40,14 @@
                                     </svg>
                                 </span> &nbsp;
                                 <h3 class="kt-portlet__head-title">
-                                    {{$title}}
+                                    Edit {{$title}}
                                 </h3>
                             </div>
                         </div>
 
                         <div class="kt-portlet__body">
-                            <form class="kt-form kt-form--label-right" action="save" method="POST">
+                            <form class="kt-form kt-form--label-right" action="/master/kelas/edit" method="POST">
+                                {{ csrf_field() }}
                                 <div class="kt-portlet__body">
                                     <div class="kt-section kt-section--first">
                                         <div class="row">
@@ -54,7 +55,8 @@
                                                 <div class="form-group">
                                                     <label>Nama Kelas</label>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" name="title" placeholder="Isikan Nama Kelas">
+                                                        <input type="hidden" name="id" value="{{$data['id']}}">
+                                                        <input type="text" class="form-control" name="title" placeholder="Isikan Nama Kelas" value="{{$data['title']}}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -67,7 +69,7 @@
                                                         <select name="jurusan_id" class="form-control kt-select2">
                                                             <option value="">-- Pilih Jurusan --</option>
                                                             @foreach ($master['jurusan'] as $item)
-                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                                <option value="{{$item['id']}}" {{$item['id']==$data['jurusan_id']? "selected" : ""}}>{{$item['title']}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -80,13 +82,13 @@
                                                     <label>Status</label>
                                                     <div class="form-group">
                                                         <label class="kt-radio">
-                                                            <input type="radio" name="row_status" value="active" checked>
+                                                            <input type="radio" name="row_status" value="active" {{$data['row_status']=="active"? "checked" : ""}}>
                                                             Active
                                                             <span></span>
                                                         </label>
                                                         &nbsp;&nbsp;
                                                         <label class="kt-radio">
-                                                            <input type="radio" name="row_status" value="notactive">
+                                                            <input type="radio" name="row_status" value="notactive" {{$data['row_status']=="notactive"? "checked" : ""}}>
                                                             Not Active
                                                             <span></span>
                                                         </label>
@@ -94,11 +96,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
                                         <div class="kt-form__actions">
-                                            <a class="btn btn-success generalsave">
-                                                Simpan <i class="la la-save"></i>
-                                            </a>
+                                            {{--<a class="btn btn-success generaledit">--}}
+                                                {{--Simpan <i class="la la-save"></i>--}}
+                                            {{--</a>--}}
+                                            <button type="submit" class="btn btn-success"><i class="la la-save"></i> Edit</button>
+                                            <button type="button" class="btn btn-danger" id="btn_delete_kelas"><i class="flaticon-delete"></i> Hapus</button>
                                         </div>
                                     </div>
                                 </div>
@@ -111,8 +114,12 @@
         <!-- end:: Content -->
     </div>
 
+
+
 @section('js')
 
 @stop
 
 @endsection
+
+

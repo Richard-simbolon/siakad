@@ -65,7 +65,7 @@
         <!-- end:: Content -->
     </div>
 <style>
-    .m-content{width:100%};
+    .m-content{width:100%}
     </style>
 
 @section('js')

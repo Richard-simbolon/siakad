@@ -40,6 +40,14 @@ Route::post('dosen/tambah_r_penelitian', 'Dosen@tambah_r_penelitian')->name('tam
 Route::get('dosen/fungsional/{id}', 'Dosen@r_fungsional')->name('riwayat_fungsional');
 Route::post('dosen/tambah_r_fungsional', 'Dosen@tambah_r_fungsional')->name('tambah_riwayat_fungsional');
 
+Route::post('/master/kelas/edit', 'Kelas@edit')->name('edit');
+Route::post('master/kelas/delete', 'Kelas@delete')->name('delete');
+
+
+//kelas perkuliahan
+Route::get('/data/kelasperkuliahan', 'KelasPerkuliahan@index')->name('index');
+Route::get('data/kelasperkuliahan/create', 'KelasPerkuliahan@create')->name('create');
+//end of kelas perkuliahan
 
 
 Route::post('kurikulum/carimatakuliah', 'Kurikulum@carimatakuliah')->name('CariMatakuliah');

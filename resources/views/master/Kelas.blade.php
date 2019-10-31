@@ -36,7 +36,7 @@
                         <div class="kt-portlet__head kt-portlet__head--lg kt-portlet__head--noborder kt-portlet__head--break-sm">
                             <div class="kt-portlet__head-label">
                                 <h3 class="kt-portlet__head-title">
-                                    {{$title}}
+                                    Daftar &nbsp; {{$title}}
                                 </h3>
                             </div>
 
