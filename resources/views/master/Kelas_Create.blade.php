@@ -7,10 +7,21 @@
         <div class="kt-subheader  kt-grid__item" id="kt_subheader">
             <div class="kt-container  kt-container--fluid ">
                 <div class="kt-subheader__main">
-                    <h3 class="kt-subheader__title">Dashboard</h3>
-                    <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+                    <div class="kt-subheader__main">
+                        <h3 class="kt-subheader__title">
+                            Akademik </h3>
+                        <span class="kt-subheader__separator kt-hidden"></span>
+                        <div class="kt-subheader__breadcrumbs">
+                            <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                            <span class="kt-subheader__breadcrumbs-separator"></span>
+                            <a href="{{url('/master/kelas')}}" class="kt-subheader__breadcrumbs-link">
+                                Kelas </a>
+                            <span class="kt-subheader__breadcrumbs-separator"></span>
+                            <a href="{{url()->current()}}" class="kt-subheader__breadcrumbs-link">
+                                Tambah </a>
+                        </div>
+                    </div>
                 </div>
-
             </div>
         </div>
         <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
