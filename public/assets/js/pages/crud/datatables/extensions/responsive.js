@@ -1186,6 +1186,51 @@ var KTDatatablesExtensionsResponsive = function() {
         });
     }
 
+    var initTableSemester = function(a) {
+
+        var table = $('#Semester');
+
+        // begin first table
+        table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url:'/master/semester/paging',
+                type:"POST",
+                //data:{"_token": $('#csrf_').val(),'table':key},
+                data: function ( d ) {
+                    d.myKey = "myValue";
+                    d._token = $('#csrf_').val()
+                    // d.custom = $('#myInput').val();
+                    // etc
+                }
+            },
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                { data: 'title', name: 'title' },
+                { data: 'row_status', name: 'row_status' }
+            ],
+            columnDefs: [
+                {
+                    targets: 3,
+                    title: 'Actions',
+                    className: "text-center",
+                    orderable: false,
+                    render: function(data, type, full, meta) {
+                        return `
+                       <a class="btn btn-" href="kelas/view/`+full.id+`"><i class="la la-edit"></i></a>
+                       `;
+                    },
+                },
+                {
+                    targets: 0,
+                    className: "text-center"
+                },
+            ]
+        });
+    }
+
 	return {
 
 		//main function to initiate the module
@@ -1205,6 +1250,7 @@ var KTDatatablesExtensionsResponsive = function() {
             initTable13();
             initTableKelas();
             initTableAktivitasPerkuliahan();
+            initTableSemester();
             mahasiswa();
             angkatan();
             TableDosen();
