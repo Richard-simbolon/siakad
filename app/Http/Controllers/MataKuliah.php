@@ -137,6 +137,6 @@
                 }
 
                 public function paging(Request $request){
-                    return Datatables::of(MataKuliahModel::all())->make(true);
+                    return Datatables::of(MataKuliahModel::all())->addIndexColumn()->make(true);
                 }
             }

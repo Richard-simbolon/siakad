@@ -172,7 +172,7 @@ class Kurikulum extends Controller
                 }
 
                 public function paging(Request $request){
-                    return Datatables::of(KurikulumModel::all())->make(true);
+                    return Datatables::of(KurikulumModel::all())->addIndexColumn()->make(true);
                 }
 
                 public function carimatakuliah(Request $request){

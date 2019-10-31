@@ -32,6 +32,6 @@ class AktivitasPerkuliahan extends Controller
                                 INNER JOIN master_angkatan ma on ma.id = mahasiswa.angkatan
                                 INNER JOIN master_status_mahasiswa ms on ms.id = mahasiswa.status"
         );
-        return Datatables::of($sql)->make(true);
+        return Datatables::of($sql)->addIndexColumn()->make(true);
     }
 }

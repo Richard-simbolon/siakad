@@ -77,7 +77,7 @@
                 }
 
                 public function paging(Request $request){
-                    return Datatables::of(AlatTransportasiModel::all())->make(true);
+                    return Datatables::of(AlatTransportasiModel::all())->addIndexColumn()->make(true);
                 }
 
             }

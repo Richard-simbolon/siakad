@@ -80,7 +80,7 @@
                 }
 
                 public function paging(Request $request){
-                    return Datatables::of(AsalProgramStudiModel::all())->make(true);
+                    return Datatables::of(AsalProgramStudiModel::all())->addIndexColumn()->make(true);
                 }
 
             }

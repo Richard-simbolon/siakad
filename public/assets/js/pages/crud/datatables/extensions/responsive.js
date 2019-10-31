@@ -20,7 +20,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 }
             },
             columns: [
-                { defaultContent: '<td></td>' },
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
             ],
@@ -45,7 +45,10 @@ var KTDatatablesExtensionsResponsive = function() {
                           <i class="la la-edit"></i>
                         </a>`;
 					},
-				},
+				},{
+                    targets: 0,
+                    className: "text-center"
+                }
 
 			],
         });
@@ -69,7 +72,7 @@ var KTDatatablesExtensionsResponsive = function() {
             },
             columns: [
 
-                { defaultContent: '<td></td>' },
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'row_status', name: 'row_status' },
                 { data: 'kode_mata_kuliah', name: 'kode_mata_kuliah' },
                 { data: 'nama_mata_kuliah', name: 'nama_mata_kuliah' },
@@ -120,9 +123,11 @@ var KTDatatablesExtensionsResponsive = function() {
 						return '<span class="kt-badge kt-badge--' + row_status[data].state + ' kt-badge--dot"></span>&nbsp;' +
 							'<span class="kt-font-bold kt-font-' + row_status[data].state + '">' + row_status[data].title + '</span>';
 					},
-				},
-
-			],
+				},{
+                    targets: 0,
+                    className: "text-center"
+                },
+            ],
         });
 
     };
@@ -148,7 +153,7 @@ var KTDatatablesExtensionsResponsive = function() {
                     }
                 },
                 columns: [
-                    { defaultContent: '<td></td>' },
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                     { data: 'title', name: 'title' },
                     { data: 'row_status', name: 'row_status' },
                 ],
@@ -173,8 +178,10 @@ var KTDatatablesExtensionsResponsive = function() {
                               <i class="la la-edit"></i>
                             </a>`;
                         },
+                    },{
+                        targets: 0,
+                        className: "text-center"
                     },
-
                 ],
             });
 
@@ -202,7 +209,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 }
             },
             columns: [
-                { defaultContent: '<td></td>' },
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
             ],
@@ -228,7 +235,10 @@ var KTDatatablesExtensionsResponsive = function() {
                         </a>`;
                     },
                 },
-
+                {
+                    targets: 0,
+                    className: "text-center"
+                }
             ],
         });
 
@@ -256,7 +266,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 }
             },
             columns: [
-                { defaultContent: '<td></td>' },
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
             ],
@@ -282,7 +292,10 @@ var KTDatatablesExtensionsResponsive = function() {
                         </a>`;
                     },
                 },
-
+                {
+                    targets: 0,
+                    className: "text-center"
+                }
             ],
         });
 
@@ -310,7 +323,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 }
             },
             columns: [
-                { defaultContent: '<td></td>' },
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
             ],
@@ -318,6 +331,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 {
                     targets: 3,
                     title: 'Actions',
+                    className : 'text-center',
                     orderable: false,
                     render: function(data, type, full, meta) {
                         return `
@@ -335,8 +349,10 @@ var KTDatatablesExtensionsResponsive = function() {
                           <i class="la la-edit"></i>
                         </a>`;
                     },
-                },
-
+                },{
+                    targets: 0,
+                    className : 'text-center'
+                }
             ],
         });
 
@@ -363,7 +379,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 }
             },
             columns: [
-                { defaultContent: '<td></td>' },
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
             ],
@@ -389,7 +405,10 @@ var KTDatatablesExtensionsResponsive = function() {
                         </a>`;
                     },
                 },
-
+                {
+                    targets: 0,
+                    className: "text-center"
+                }
             ],
         });
 
@@ -416,7 +435,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 }
             },
             columns: [
-                { defaultContent: '<td></td>' },
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
             ],
@@ -442,7 +461,10 @@ var KTDatatablesExtensionsResponsive = function() {
                         </a>`;
                     },
                 },
-
+                {
+                    targets: 0,
+                    className: "text-center"
+                }
             ],
         });
 
@@ -469,7 +491,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 }
             },
             columns: [
-                { defaultContent: '<td></td>' },
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
             ],
@@ -495,7 +517,10 @@ var KTDatatablesExtensionsResponsive = function() {
                         </a>`;
                     },
                 },
-
+                {
+                    targets: 0,
+                    className: "text-center"
+                }
             ],
         });
 
@@ -522,7 +547,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 }
             },
             columns: [
-                { defaultContent: '<td></td>' },
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
             ],
@@ -548,7 +573,10 @@ var KTDatatablesExtensionsResponsive = function() {
                         </a>`;
                     },
                 },
-
+                {
+                    targets: 0,
+                    className: "text-center"
+                }
             ],
         });
 
@@ -575,7 +603,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 }
             },
             columns: [
-                { defaultContent: '<td></td>' },
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
             ],
@@ -601,7 +629,10 @@ var KTDatatablesExtensionsResponsive = function() {
                         </a>`;
                     },
                 },
-
+                {
+                    targets: 0,
+                    className: "text-center"
+                }
             ],
         });
 
@@ -628,7 +659,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 }
             },
             columns: [
-                { defaultContent: '<td></td>' },
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
             ],
@@ -654,7 +685,10 @@ var KTDatatablesExtensionsResponsive = function() {
                         </a>`;
                     },
                 },
-
+                {
+                    targets: 0,
+                    className: "text-center"
+                }
             ],
         });
 
@@ -682,7 +716,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 }
             },
             columns: [
-                { defaultContent: '<td></td>' },
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
             ],
@@ -708,7 +742,10 @@ var KTDatatablesExtensionsResponsive = function() {
                         </a>`;
                     },
                 },
-
+                {
+                    targets: 0,
+                    className: "text-center"
+                }
             ],
         });
 
@@ -751,7 +788,7 @@ var KTDatatablesExtensionsResponsive = function() {
             },
             columns: [
 
-                { data: 'nim'},
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'nim', name: 'nim' },
                 { data: 'nama', name: 'nama' },
                 { data: 'tanggal_lahir', name: 'tanggal_lahir' },
@@ -797,7 +834,10 @@ var KTDatatablesExtensionsResponsive = function() {
 							'<span class="kt-font-bold kt-font-' + row_status[data].state + '">' + row_status[data].title + '</span>';
 					},
 				},
-
+                {
+                    targets: 0,
+                    className: "text-center"
+                }
 			],
         });
 
@@ -824,7 +864,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 }
             },
             columns: [
-                { defaultContent: '<td></td>' },
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
             ],
@@ -850,7 +890,10 @@ var KTDatatablesExtensionsResponsive = function() {
                         </a>`;
                     },
                 },
-
+                {
+                    targets: 0,
+                    className: "text-center"
+                }
             ],
         });
 
@@ -877,7 +920,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 }
             },
             columns: [
-                { defaultContent: '<td></td>' },
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
             ],
@@ -903,7 +946,10 @@ var KTDatatablesExtensionsResponsive = function() {
                         </a>`;
                     },
                 },
-
+                {
+                    targets: 0,
+                    className: "text-center"
+                }
             ],
         });
 
@@ -943,8 +989,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 data:{"_token": $('#csrf_').val()}
             },
             columns: [
-
-                { data: 'nip'},
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'nama', name: 'nama' },
                 { data: 'nidn_nup_nidk', name: 'nidn_nup_nidk' },
                 { data: 'nip', name: 'nip' },
@@ -988,7 +1033,10 @@ var KTDatatablesExtensionsResponsive = function() {
 							'<span class="kt-font-bold kt-font-' + row_status[data].state + '">' + row_status[data].title + '</span>';
 					},
 				},
-
+                {
+                    targets: 0,
+                    className: "text-center"
+                }
 			],
         });
 
@@ -1014,7 +1062,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 }
             },
             columns: [
-                { defaultContent: '<td></td>' },
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
             ],
@@ -1040,7 +1088,10 @@ var KTDatatablesExtensionsResponsive = function() {
                         </a>`;
                     },
                 },
-
+                {
+                    targets: 0,
+                    className: "text-center"
+                }
             ],
         });
 
@@ -1068,7 +1119,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 }
             },
             columns: [
-                { defaultContent: '<td></td>' },
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'nama', name: 'nama' },
                 { data: 'jurusan', name: 'jurusan' },
                 { data: 'row_status', name: 'row_status' }
@@ -1081,12 +1132,15 @@ var KTDatatablesExtensionsResponsive = function() {
                     orderable: false,
                     render: function(data, type, full, meta) {
                         return `
-                       <a class="btn btn-" href="kelas/view/`+full.id+`"><i class="la la-edit"></i> Edit Details</a>
+                       <a class="btn btn-" href="kelas/view/`+full.id+`"><i class="la la-edit"></i></a>
                        `;
                     },
                 },
-
-            ],
+                {
+                    targets: 0,
+                    className: "text-center"
+                },
+            ]
         });
     }
 
@@ -1111,7 +1165,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 }
             },
             columns: [
-                { defaultContent: '<td></td>' },
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'nim', name: 'nim' },
                 { data: 'nama', name: 'nama' },
                 { data: 'jurusan', name: 'jurusan' },
@@ -1122,6 +1176,12 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'ipk', name: 'ipk' },
                 { data: 'skssemester', name: 'skssemester' },
                 { data: 'total', name: 'total' },
+            ],
+            columnDefs: [
+                {
+                    targets: 0,
+                    className: "text-center"
+                },
             ]
         });
     }

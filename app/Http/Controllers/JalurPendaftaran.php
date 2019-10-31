@@ -75,7 +75,7 @@
                 }
 
                 public function paging(Request $request){
-                    return Datatables::of(JalurPendaftaranModel::all())->make(true);
+                    return Datatables::of(JalurPendaftaranModel::all())->addIndexColumn()->make(true);
                 }
 
             }

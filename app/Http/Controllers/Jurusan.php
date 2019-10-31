@@ -80,7 +80,7 @@
                 }
 
                 public function paging(Request $request){
-                    return Datatables::of(JurusanModel::all())->make(true);
+                    return Datatables::of(JurusanModel::all())->addIndexColumn()->make(true);
                 }
 
             }

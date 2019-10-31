@@ -78,7 +78,7 @@ class Agama extends Controller
     }
 
     public function paging(Request $request){
-        return Datatables::of(AgamaModel::all())->make(true);
+        return Datatables::of(AgamaModel::all())->addIndexColumn()->make(true);
     }
 }
 

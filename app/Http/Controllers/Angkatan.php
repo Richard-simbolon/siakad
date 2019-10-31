@@ -67,7 +67,7 @@
                 }
 
                 public function paging(Request $request){
-                    return Datatables::of(AngkatanModel::all())->make(true);
+                    return Datatables::of(AngkatanModel::all())->addIndexColumn()->make(true);
                 }
 
             }

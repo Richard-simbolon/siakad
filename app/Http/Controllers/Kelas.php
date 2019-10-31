@@ -114,7 +114,7 @@
 
                 public function paging(Request $request){
                     return Datatables::of(KelasModel::where('master_kelas.row_status', 'active')->join('master_jurusan', 'master_jurusan.id', '=', 'master_kelas.jurusan_id')
-                        ->select("master_kelas.id" ,"master_kelas.title as nama", "master_jurusan.title as jurusan", "master_kelas.row_status")->get())->make(true);
+                        ->select("master_kelas.id" ,"master_kelas.title as nama", "master_jurusan.title as jurusan", "master_kelas.row_status")->get())->addIndexColumn()->make(true);
                 }
 
 

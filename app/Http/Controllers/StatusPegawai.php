@@ -67,7 +67,7 @@
                 }
 
                 public function paging(Request $request){
-                    return Datatables::of(StatusPegawaiModel::all())->make(true);
+                    return Datatables::of(StatusPegawaiModel::all())->addIndexColumn()->make(true);
                 }
 
             }
