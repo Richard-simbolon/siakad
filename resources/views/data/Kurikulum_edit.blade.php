@@ -61,7 +61,7 @@
                                 <div class="col-xl-4">
                                     <div class="form-group">
                                         <label>Nama Kurikulum * </label>
-                                        <input type="text" class="form-control" name="nama_kurikulum" placeholder="Isikan Nama Kurikulum">
+                                        <input type="text" class="form-control" value="{{$kurikulum['nama_kurikulum']}}" name="nama_kurikulum" placeholder="Isikan Nama Kurikulum">
                                     </div>
                                 </div>
                                 <div class="col-xl-4">
@@ -70,7 +70,7 @@
                                         <select name="program_studi_id" class="form-control update_list_matakuliah" >
                                             <option value="">-- Pilih Jurusan --</option>
                                             @foreach ($master['jurusan'] as $item)
-                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                <option attr="{{$item['id'].'-'.$kurikulum['program_studi_id']}}" value="{{$item['id']}}" {{ $item['id'] == $kurikulum['program_studi_id'] ? 'selected' : '' }}>{{$item['title']}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -91,13 +91,13 @@
                                 <div class="col-xl-4">
                                     <div class="form-group">
                                         <label>Jumlah Bobot Matakuliah Wajib *</label>
-                                        <input type="text" class="form-control" name="jumlah_bobot_mk_wajib" placeholder="Isikan Jumlah Bobot Matakuliah Wajib">
+                                        <input type="text" class="form-control" name="jumlah_bobot_mk_wajib" value="{{$kurikulum['jumlah_bobot_mata_kuliah_wajib']}}" placeholder="Isikan Jumlah Bobot Matakuliah Wajib">
                                     </div>
                                 </div>
                                 <div class="col-xl-4">
                                     <div class="form-group">
                                         <label>Jumlah Bobot Matakuliah Pilihan *</label>
-                                        <input type="text" class="form-control" name="jumlah_bobot_mk_pilihan" placeholder="Isikan Jumlah Bobot Matakuliah Pilihan">
+                                        <input type="text" class="form-control" name="jumlah_bobot_mk_pilihan" value="{{$kurikulum['jumlah_bobot_mata_kuliah_pilihan']}}" placeholder="Isikan Jumlah Bobot Matakuliah Pilihan">
                                     </div>
                                 </div>
                                 <!--<div class="col-xl-6">-->

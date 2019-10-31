@@ -326,5 +326,103 @@ $(document).ready(function(){
             }
          });
     });
+
+    $(document).on('change' ,'.update_list_matakuliah' ,function(){
+        var _id = $(this).val();
+        if(_id == ''){
+            alert('Silahkan pilih jurusan');
+        }
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        $.ajax({
+            type:'POST',
+            url:'/kurikulum/carimatakuliah',
+            data:{'id':_id},
+            success:function(result) {
+                $('.append_matakuliah').html(result);
+            }
+         });
+
+    });
+
+    $(document).on('click' , '.save-kurikulum' , function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        $.ajax({
+            type:'POST',
+            //dataType:'json',
+            url:'/data/kurikulum/save',
+            data:$(this).closest('form').serialize(),
+            success:function(result) {
+                var res = JSON.parse(result);
+                if(res.status == 'error'){
+                    var text = '';
+                    $.each(res.msg, function( index, value ) {
+                        text += '<p class="error">'+ value[0]+'</p>';
+                    });
+                    swal.fire({
+                        "title": "",
+                        "html": text,
+                        "type": "error",
+                        "confirmButtonClass": "btn btn-secondary"
+                    });
+                }else{
+                    swal.fire({
+                        "title": "",
+                        "text": res.msg,
+                        "type": res.status,
+                        "confirmButtonClass": "btn btn-secondary"
+                    });
+                }
+
+            }
+         });
+    });
+
+    $(document).on('change','.matakuliah-chck' , function(){
+        //alert('a');
+        var total = 0;
+        $('.matakuliah-chck').each(function(){
+            if($(this).is(':checked')){
+                //alert($(this).attr('attr'));
+                total += parseInt($(this).attr('attr'));
+            }
+        })
+        $('#semuasks').text(total);
+    });
+
+    $(document).on('change','.wajib-chck' , function(){
+        //alert('a');
+        var total = 0;
+        $('.wajib-chck').each(function(){
+            if($(this).is(':checked')){
+                //alert($(this).attr('attr'));
+                total += parseInt($(this).attr('attr'));
+            }
+        })
+        $('#skswajib').text(total);
+    });
+
+    $(document).on('change', '.kurikulum_filter' , function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        $.ajax({
+            type:'POST',
+            url:'/kurikulum/filtering_table',
+            data:{'id_p':$('#jurusan').val() , 'id_t':$('#tahun_berlaku').val()},
+            success:function(result) {
+                $('.kurikulum_table').html(result);
+            }
+         });
+    });
 });
 

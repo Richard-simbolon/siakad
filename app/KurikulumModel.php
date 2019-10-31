@@ -9,10 +9,8 @@
 
             protected $table = "kurikulum";
 
-            protected $fillable = [
-                "id","row_status","updated_at" ,"created_at","created_by", "update_by"
-            ];
-
+            //protected $fillable = ["id","row_status","updated_at" ,"created_at","created_by", "update_by"];
+            protected $guarded = [];
 
 
             public function scopeget_row(){

@@ -61,14 +61,16 @@
 
                 }
                 public function create(){
-                   // $i = 5;
-                    /*for($i = 5 ; $i<100;$i++){
+                    $i = 5;
+                    $program = array(1,2,3);
+                    $jenis = array(1,2);
+                    for($i = 6 ; $i<25;$i++){
                         $data = [
                                     'kode_mata_kuliah' => 'P000'.$i,
-                                    'nama_mata_kuliah' => 'Mata Kuliah 1',
+                                    'nama_mata_kuliah' => 'Mata Kuliah '.$i,
                                     'row_status' => 'active',
-                                    'program_studi_id' => '1',
-                                    'jenis_mata_kuliah_id' => '1',
+                                    'program_studi_id' => $program[array_rand($program, 1)],
+                                    'jenis_mata_kuliah_id' => $jenis[array_rand($jenis, 1)],
                                     'bobot_mata_kuliah' => '10',
                                     'bobot_tatap_muka' => '20',
                                     'bobot_praktikum' => '30',
@@ -89,7 +91,7 @@
                     //print_r(MataKuliahModel::get_row());
                     echo 'Success';
 
-                    exit;*/
+                    exit;
 
                     $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
 

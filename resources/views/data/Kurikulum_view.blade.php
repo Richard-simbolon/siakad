@@ -53,6 +53,45 @@
                                 &nbsp;Kurikulum
                             </h3>
                         </div>
+
+                        <div class="kt-portlet__head-toolbar">
+                                <div class="dropdown dropdown-inline">
+                                    <button type="button" class="btn btn-clean btn-sm btn-icon-md btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="flaticon-more-1"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-fit dropdown-menu-md">
+                                        <!--begin::Nav-->
+                                        <ul class="kt-nav">
+                                            <li class="kt-nav__head">
+                                                Pilihan Aksi
+                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--brand kt-svg-icon--md1">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <rect x="0" y="0" width="24" height="24" />
+                                                        <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10" />
+                                                        <rect fill="#000000" x="11" y="10" width="2" height="7" rx="1" />
+                                                        <rect fill="#000000" x="11" y="7" width="2" height="2" rx="1" />
+                                                    </g>
+                                                </svg>
+                                            </li>
+                                            <li class="kt-nav__separator"></li>
+                                            <li class="kt-nav__item">
+                                                <a href="{{url('data/kurikulum/edit/'.$kurikulum['id'].'')}}" class="kt-nav__link">
+                                                    <i class="kt-nav__link-icon flaticon-edit"></i>
+                                                    <span class="kt-nav__link-text">Ubah</span>
+                                                </a>
+                                            </li>
+                                            <li class="kt-nav__item">
+                                                <a href="#" class="kt-nav__link"  data-toggle="modal" data-target="#kt_modal_hapus_data">
+                                                    <i class="kt-nav__link-icon flaticon-delete"></i>
+                                                    <span class="kt-nav__link-text">Hapus</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <!--end::Nav-->
+                                    </div>
+                                </div>
+                            </div>
+
                     </div>
                     <!--begin::Form-->
                     <div class="kt-portlet__body">
@@ -61,7 +100,7 @@
                                 <div class="col-xl-4">
                                     <div class="form-group">
                                         <label>Nama Kurikulum * </label>
-                                        <input type="text" class="form-control" name="nama_kurikulum" placeholder="Isikan Nama Kurikulum">
+                                        <input type="text" class="form-control" value="{{$kurikulum['nama_kurikulum']}}" name="nama_kurikulum" placeholder="Isikan Nama Kurikulum">
                                     </div>
                                 </div>
                                 <div class="col-xl-4">
@@ -70,7 +109,7 @@
                                         <select name="program_studi_id" class="form-control update_list_matakuliah" >
                                             <option value="">-- Pilih Jurusan --</option>
                                             @foreach ($master['jurusan'] as $item)
-                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                <option attr="{{$item['id'].'-'.$kurikulum['program_studi_id']}}" value="{{$item['id']}}" {{ $item['id'] == $kurikulum['program_studi_id'] ? 'selected' : '' }}>{{$item['title']}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -91,13 +130,13 @@
                                 <div class="col-xl-4">
                                     <div class="form-group">
                                         <label>Jumlah Bobot Matakuliah Wajib *</label>
-                                        <input type="text" class="form-control" name="jumlah_bobot_mk_wajib" placeholder="Isikan Jumlah Bobot Matakuliah Wajib">
+                                        <input type="text" class="form-control" name="jumlah_bobot_mk_wajib" value="{{$kurikulum['jumlah_bobot_mata_kuliah_wajib']}}" placeholder="Isikan Jumlah Bobot Matakuliah Wajib">
                                     </div>
                                 </div>
                                 <div class="col-xl-4">
                                     <div class="form-group">
                                         <label>Jumlah Bobot Matakuliah Pilihan *</label>
-                                        <input type="text" class="form-control" name="jumlah_bobot_mk_pilihan" placeholder="Isikan Jumlah Bobot Matakuliah Pilihan">
+                                        <input type="text" class="form-control" name="jumlah_bobot_mk_pilihan" value="{{$kurikulum['jumlah_bobot_mata_kuliah_pilihan']}}" placeholder="Isikan Jumlah Bobot Matakuliah Pilihan">
                                     </div>
                                 </div>
                                 <!--<div class="col-xl-6">-->
@@ -108,25 +147,13 @@
                                 <!--</div>-->
                             </div>
 
-                            <div class="kt-separator kt-separator--border-dashed kt-separator--space-md kt-separator--portlet-fit"></div>
-
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="kt-wizard-v3__review-title">
-                                        <b>Silahkan checklist matakuliah yang dimasukkan dalam kurikulum</b>
-                                        <br/><p></p>
-                                        <p>Jumlah SKS wajib :<b id="skswajib"></b></p>
-                                        <p>Jumlah Semua SKS : <b id="semuasks"></b></p>
-                                    </div>
-                                </div>
-                            </div>
-
+                            <div class="kt-separator kt-separator--border-dashed kt-separator--space-md kt-separator--portlet-fit"></div>                      
                             <div class="row">
                                 <div class="col-lg-12">
                                     <table class="table table-striped table-bordered table-hover responsive" id="kt_table_1">
                                         <thead>
                                         <tr>
-                                            <th rowspan="2">Pilih</th>
+                                            <th rowspan="2">No</th>
                                             <th rowspan="2">Kode Matakuliah</th>
                                             <th rowspan="2">Nama Matakuliah</th>
                                             <th colspan="5" style="text-align: center">Bobot Matakuliah (SKS)</th>
@@ -141,32 +168,61 @@
                                             <th style="text-align: center">Simulasi</th>
                                         </tr>
                                         </thead>
-                                        <tbody class="append_matakuliah">
-                                        <tr>
-                                            <td colspan="10" style="text-align: center">Silahkan Pilih Program Studi</td>
-                                            
-                                            <!--dipakai untuk view-->
-                                            <!--<td align="center"><span class="flaticon2-check-mark"></span> </td>-->
-                                        </tr>
+                                        <tbody>
+                                            <?php $i=0;
+                                                $bobot_mata_kuliah = 0;
+                                                $bobot_tatap_muka = 0;
+                                                $bobot_praktikum = 0;
+                                                $bobot_praktek_lapangan = 0;
+                                                $bobot_simulasi = 0;
+                                            ?>
+                                            @foreach ($matakuliah as $item)
+
+                                                <?php 
+                                                $i++;
+                                                $bobot_mata_kuliah += $item->bobot_mata_kuliah;
+                                                $bobot_tatap_muka = $item->bobot_tatap_muka;
+                                                $bobot_praktikum = $item->bobot_praktikum;
+                                                $bobot_praktek_lapangan = $item->bobot_praktek_lapangan;
+                                                $bobot_simulasi = $item->bobot_simulasi;
+                                                ?>
+                                                <tr>
+                                                    <td>{{$i}}</td>
+                                                    <td>{{$item->kode_mata_kuliah}}</td>
+                                                    <td>{{$item->nama_mata_kuliah}}</td>
+                                                    <td align="center">{{$item->bobot_mata_kuliah}}</td>
+                                                    <td align="center">{{$item->bobot_tatap_muka}}</td>
+                                                    <td align="center">{{$item->bobot_praktikum}}</td>
+                                                    <td align="center">{{$item->bobot_praktek_lapangan}}</td>
+                                                    <td align="center">{{$item->bobot_simulasi}}</td>
+                                                    <td align="center">{{$item->semester}}</td>
+                                                    <td align="center"><?php if($item->is_wajib == '1'){echo '<i class="la la-check"></i>';} ?></td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td  align="right"colspan="3">
+                                                    <b>TOTAL SKS</b>
+                                                </td>
+                                                <td align="center"><b>{{$bobot_mata_kuliah}}</b></td>
+                                                <td align="center"><b>{{$bobot_tatap_muka}}</b></td>
+                                                <td align="center"><b>{{$bobot_praktikum}} </b></td>
+                                                <td align="center"><b>{{$bobot_praktek_lapangan}}</b></td>
+                                                <td align="center"><b>{{$bobot_simulasi}}</b></td>
+                                                <td colspan="2"></td>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
-
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-md kt-separator--portlet-fit"></div>
-
-                            <div class="root">
-                                <div class="kt-form__actions">
-                                    <button type="button" class="btn btn-success save-kurikulum"><i class="la la-save"></i>Simpan</button>
-                                </div>
-                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- end:: Content -->
 </div>
 
 <style>

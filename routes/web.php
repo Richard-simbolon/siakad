@@ -41,6 +41,10 @@ Route::get('dosen/fungsional/{id}', 'Dosen@r_fungsional')->name('riwayat_fungsio
 Route::post('dosen/tambah_r_fungsional', 'Dosen@tambah_r_fungsional')->name('tambah_riwayat_fungsional');
 
 
+
+Route::post('kurikulum/carimatakuliah', 'Kurikulum@carimatakuliah')->name('CariMatakuliah');
+Route::post('kurikulum/filtering_table', 'Kurikulum@filtering_table')->name('FilteringTable');
+
 //Route::post('master/agama/paging', 'Agama@paging')->name('pagination');
 //Route::post('master/matakuliah/paging', 'MataKuliah@paging')->name('pagination');
 

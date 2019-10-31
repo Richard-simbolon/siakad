@@ -67,7 +67,7 @@
                         <div class="col-xl-4">
                             <label class="select2-label">Tahun Ajaran</label>
                             <div class="form-group">
-                                <select name="jenis_peringkat" class="form-control kt-select2" id="kt_select2_1">
+                                <select id="tahun_berlaku" class="form-control kt-select2 kurikulum_filter" id="kt_select2_1">
                                     <option value="">-- Pilih Pencarian --</option>
                                     <option value="1">2019/2010</option>
                                     <option value="2"></option>
@@ -77,7 +77,7 @@
                         <div class="col-xl-4">
                             <label class="select2-label">Jurusan</label>
                             <div class="form-group">
-                                <select name="jenis_peringkat" class="form-control">
+                                <select id="jurusan" class="form-control kurikulum_filter">
                                     <option value="">-- Pilih Jurusan --</option>
                                     <option value="1">Penyuluhan Perkebunan Presisi</option>
                                     <option value="2">Penyuluhan Pertanian Berkelanjutan</option>
@@ -115,40 +115,22 @@
                                 <th style="text-align: center">Pilihan</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td align="center">1</td>
-                                <td>Kurikulum 2019</td>
-                                <td>Penyuluhan Perkebunan Presisi</td>
-                                <td>2019/2010 Ganjil</td>
-                                <td align="center">144</td>
-                                <td align="center">0</td>
-                                <td align="center">0</td>
-                                <td align="center">0</td>
-                                <td align="center">0</td>
-                            </tr>
-                            <tr>
-                                <td align="center">2</td>
-                                <td>Kurikulum 2019</td>
-                                <td>Penyuluhan Perkebunan Presisi</td>
-                                <td>2019/2010 Ganjil</td>
-                                <td align="center">144</td>
-                                <td align="center">0</td>
-                                <td align="center">0</td>
-                                <td align="center">0</td>
-                                <td align="center">0</td>
-                            </tr>
-                            <tr>
-                                <td align="center">3</td>
-                                <td>Kurikulum 2019</td>
-                                <td>Penyuluhan Perkebunan Presisi</td>
-                                <td>2019/2010 Ganjil</td>
-                                <td align="center">144</td>
-                                <td align="center">0</td>
-                                <td align="center">0</td>
-                                <td align="center">0</td>
-                                <td align="center">0</td>
-                            </tr>
+                            <tbody class="kurikulum_table">
+                                <?php $i=0;?>
+                                @foreach ($data as $item)
+                                <?php $i++;?>
+                                    <tr>
+                                        <td align="center">{{$i}}</td>
+                                        <td>{{$item['nama_kurikulum']}}</td>
+                                        <td>{{$item['title']}}</td>
+                                        <td>{{$item['mulai_berlaku']}}</td>
+                                        <td align="center">{{$item['jumlah_sks']}}</td>
+                                        <td align="center">{{$item['jumlah_bobot_mata_kuliah_wajib']}}</td>
+                                        <td align="center">{{$item['jumlah_bobot_mata_kuliah_pilihan']}}</td>
+                                        <td align="center">{{$item['total_matakuliah']}}</td>
+                                        <td align="center">{{$item['total_wajib']}}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
