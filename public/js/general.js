@@ -343,6 +343,10 @@ $(document).ready(function(){
             data:{'id':_id},
             success:function(result) {
                 $('.append_matakuliah').html(result);
+                $('#kurikulum_matakuliah').DataTable({
+                    "pageLength": false
+                });
+            
             }
          });
 
@@ -421,6 +425,10 @@ $(document).ready(function(){
             data:{'id_p':$('#jurusan').val() , 'id_t':$('#tahun_berlaku').val()},
             success:function(result) {
                 $('.kurikulum_table').html(result);
+               /* $('#kurikulum_matakuliah').DataTable({
+                    "pageLength": 100
+                });*/
+            
             }
          });
     });
@@ -478,6 +486,10 @@ $(document).ready(function(){
             
           })
 
+    });
+    //alert('a');
+    $('#kurikulum_matakuliah').DataTable({
+        "pageLength": 100
     });
 
 });

@@ -90,8 +90,10 @@
                                         <!--end::Nav-->
                                     </div>
                                 </div>
+                                <div class="kt-form__actions">
+                                    <a href="http://127.0.0.1:8000/data/kurikulum" style="align:right" type="button" class="btn btn-metal btn-outlane-metal"><i class="la la-arrow-left"></i>Kembali</a>
+                                </div>
                             </div>
-
                     </div>
                     <!--begin::Form-->
                     <div class="kt-portlet__body">
@@ -150,7 +152,7 @@
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-md kt-separator--portlet-fit"></div>                      
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <table class="table table-striped table-bordered table-hover responsive" id="kt_table_1">
+                                    <table class="table table-striped table-bordered table-hover responsive" id="kurikulum_matakuliah">
                                         <thead>
                                         <tr>
                                             <th rowspan="2">No</th>

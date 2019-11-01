@@ -97,7 +97,7 @@
                     </div>
 
                     <div>
-                        <table class="table table-striped table-bordered table-hover table-checkable responsive no-wrap">
+                        <table class="table table-striped table-bordered table-hover table-checkable responsive no-wrap" >
                             <thead>
                             <tr>
                                 <th style="vertical-align: middle" rowspan="2">NO</th>
@@ -105,7 +105,7 @@
                                 <th style="vertical-align: middle" rowspan="2">Program Studi</th>
                                 <th style="vertical-align: middle" rowspan="2">Mulai Berlaku</th>
                                 <th style="text-align: center" colspan="3">Aturan Jumlah SKS</th>
-                                <th style="text-align: center" colspan="2">Jumlah SKS Matakuliah	</th>
+                                <th style="text-align: center" colspan="3">Jumlah SKS Matakuliah	</th>
                             </tr>
                             <tr>
                                 <th style="text-align: center">Lulus</th>
@@ -113,6 +113,7 @@
                                 <th style="text-align: center">Pilihan</th>
                                 <th style="text-align: center">Wajib</th>
                                 <th style="text-align: center">Pilihan</th>
+                                <th style="text-align: center"></th>
                             </tr>
                             </thead>
                             <tbody class="kurikulum_table">
@@ -129,6 +130,16 @@
                                         <td align="center">{{$item['jumlah_bobot_mata_kuliah_pilihan']}}</td>
                                         <td align="center">{{$item['total_matakuliah']}}</td>
                                         <td align="center">{{$item['total_wajib']}}</td>
+                                        <td><span class="dropdown">
+                                                <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="false">
+                                                  <i class="la la la-edit"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-203px, 24px, 0px);">
+                                                    <a class="dropdown-item" href="{{url('/data/kurikulum/view/'.$item['id'])}}"><i class="la la-eye"></i> View</a>
+                                                    <a class="dropdown-item" href="{{url('/data/kurikulum/edit/'.$item['id'])}}"><i class="la la-edit"></i> Edit</a>
+                                                </div>
+                                            </span>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

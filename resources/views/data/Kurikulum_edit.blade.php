@@ -124,7 +124,7 @@
 
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <table class="table table-striped table-bordered table-hover responsive" id="kt_table_1">
+                                    <table class="table table-striped table-bordered table-hover responsive" id="kurikulum_matakuliah">
                                         <thead>
                                         <tr>
                                             <th rowspan="2">Pilih</th>
@@ -250,6 +250,7 @@
                             <div class="root">
                                 <div class="kt-form__actions">
                                     <button type="button" class="btn btn-success update-kurikulum"><i class="la la-save"></i>Simpan</button>
+                                    <a href="{{url('/data/kurikulum')}}" style="align:right" type="button" class="btn btn-metal btn-outlane-metal"><i class="la la-arrow-left"></i>Kembali</a>
                                 </div>
                             </div>
                         </form>
