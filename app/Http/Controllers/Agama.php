@@ -41,6 +41,19 @@ class Agama extends Controller
 
     }
 
+    public function view($id){
+        $data = AgamaModel::where('id' , $id)->first();
+
+        $title = "Edit ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+        $table = array_diff(DB::getSchemaBuilder()->getColumnListing("master_agama") , static::$exclude);
+        $exclude = static::$exclude;
+        $Tableshow = static::$Tableshow;
+        $html = static::$html;
+        $column = 1;
+        $controller = "agama";
+        return view("setting/master_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow","tableid", "column", "controller"));
+    }
+
     public function save(Request $request){
         $input = $request->all();
         $field = [];
@@ -73,8 +86,28 @@ class Agama extends Controller
         }
     }
 
-    public function edit(Request $request){
+    public function update(Request $request){
+        $this->validate($request,[
+            'title' => 'required'
+        ]);
 
+        $data =  AgamaModel::where('id' , $request->id)->first();
+        $data->title = $request->title;
+        $data->row_status = $request->row_status;
+
+        $data->save();
+        return redirect('/master/agama');
+    }
+
+    public function delete(Request $request){
+        $data =  AgamaModel::where('id', $request->id)->first();
+        $data->row_status = 'deleted';
+
+        if($data->save()){
+            return $this->success("Data berhasil disimpan.");
+        }else{
+            return json_encode(["status"=> "false", "msg"=> "Mohon maaf, terjadi kesalahan sistem"]);
+        }
     }
 
     public function paging(Request $request){
