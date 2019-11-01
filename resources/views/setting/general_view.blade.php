@@ -52,7 +52,7 @@
 
                     <div class="kt-portlet__body">
                         <div class="m-portlet__body">
-                            <table class="table table-striped- table-bordered table-hover table-checkable responsive no-wrap general-data-table" id="{{$tableid}}">
+                            <table class="table table-striped table-bordered table-hover table-sm responsive no-wrap general-data-table" id="{{$tableid}}">
                                 <thead>
                                     <tr>
                                         <th>
@@ -69,7 +69,7 @@
                                         @else
 
                                         @endif
-                                    @endforeach
+                                        @endforeach
                                     <th></th>
                                     </tr>
                                 </thead>

@@ -1231,6 +1231,55 @@ var KTDatatablesExtensionsResponsive = function() {
         });
     }
 
+    var initTableRuangan = function(a) {
+
+        var table = $('#Ruangan');
+
+        // begin first table
+        table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url:'/master/ruangan/paging',
+                type:"POST",
+                //data:{"_token": $('#csrf_').val(),'table':key},
+                data: function ( d ) {
+                    d.myKey = "myValue";
+                    d._token = $('#csrf_').val()
+                    // d.custom = $('#myInput').val();
+                    // etc
+                }
+            },
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                { data: 'row_status', name: 'row_status' },
+                { data: 'kode_ruangan', name: 'kode_ruangan'},
+                { data: 'nama_ruangan', name: 'nama_ruangan' },
+                { data: 'keterangan', name:'keterangan'},
+
+
+            ],
+            columnDefs: [
+                {
+                    targets: 5,
+                    title: 'Actions',
+                    className: "text-center",
+                    orderable: false,
+                    render: function(data, type, full, meta) {
+                        return `
+                       <a class="btn btn-" href="ruangan/view/`+full.id+`"><i class="la la-edit"></i></a>
+                       `;
+                    },
+                },
+                {
+                    targets: 0,
+                    className: "text-center"
+                },
+            ]
+        });
+    }
+
 	return {
 
 		//main function to initiate the module
@@ -1251,6 +1300,7 @@ var KTDatatablesExtensionsResponsive = function() {
             initTableKelas();
             initTableAktivitasPerkuliahan();
             initTableSemester();
+            initTableRuangan();
             mahasiswa();
             angkatan();
             TableDosen();
