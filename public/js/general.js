@@ -34,7 +34,7 @@ $(document).ready(function(){
     });
 
     $(document).on('click' , '.generalsave' , function(){
-        //alert($(this).closest('form').attr('action'));
+        var prev_url = $(this).attr("data-prev-url");
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('#csrf_').val()
@@ -42,11 +42,16 @@ $(document).ready(function(){
         });
         $.ajax({
             type:'POST',
-            //dataType:'json',
+            dataType:'json',
             url:'save',
             data:$(this).closest('form').serialize(),
             success:function(data) {
-                alert(data)
+                if(data.status==='success'){
+                    alert("Data berhasil disimpan!");
+                    window.location = prev_url;
+                }else {
+                    alert(data.msg);
+                }
             }
          });
     });

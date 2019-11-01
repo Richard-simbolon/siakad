@@ -130,7 +130,7 @@
                             <div class="kt-form__actions">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <a style="color:#ffffff;" class="btn btn-success generalsave">
+                                        <a style="color:#ffffff;" data-prev-url="{{url()->previous()}}" class="btn btn-success generalsave">
                                             Submit
                                         </a>
                                         <button type="reset" class="btn btn-secondary">Cancel</button>
