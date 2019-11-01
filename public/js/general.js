@@ -424,5 +424,61 @@ $(document).ready(function(){
             }
          });
     });
+
+
+
+    $(document).on('click', '.update-kurikulum' , function(){
+        var _this = $(this).closest('form');
+        Swal.fire({
+            title: 'Update data',
+            text: "Anda Yakin akan mngubah data ?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#08976d',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Update'
+          }).then((result) => {
+                if (result.value) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('#csrf_').val()
+                        }
+                    });
+                    $.ajax({
+                        type:'POST',
+                        //dataType:'json',
+                        url:'/data/kurikulum/update',
+                        data: _this.serialize(),
+                        success:function(response) {
+                            var res = JSON.parse(response);
+                            console.log(res);
+                            if(res.status == 'error'){
+                                var text = '';
+                                $.each(res.msg, function( index, value ) {
+                                    text += '<p class="error">'+ value[0]+'</p>';
+                                });
+                                swal.fire({
+                                    "title": "",
+                                    "html": text,
+                                    "type": "error",
+                                    "confirmButtonClass": "btn btn-secondary"
+                                });
+                            }else{
+                                swal.fire({
+                                    "title": "",
+                                    "text": res.msg,
+                                    "type": res.status,
+                                    "confirmButtonClass": "btn btn-secondary"
+                                });
+                            }
+            
+                        }
+                    });
+                }
+            
+          })
+
+    });
+
 });
 
