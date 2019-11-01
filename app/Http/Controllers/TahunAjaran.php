@@ -69,7 +69,7 @@
                 }
 
                 public function paging(Request $request){
-                    return Datatables::of(TahunAjaranModel::all())->make(true);
+                    return Datatables::of(TahunAjaranModel::all())->addIndexColumn()->make(true);
                 }
 
             }

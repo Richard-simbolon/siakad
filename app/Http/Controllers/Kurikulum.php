@@ -167,6 +167,12 @@ class Kurikulum extends Controller
         return view("data/kurikulum_view" , compact('master' ,'kurikulum' ,'matakuliah'));
     }
 
+<<<<<<< HEAD
+=======
+                public function paging(Request $request){
+                    return Datatables::of(KurikulumModel::all())->addIndexColumn()->make(true);
+                }
+>>>>>>> a368195460ab367c0f900257eef372de3a6a5bf2
 
 
     public function edit($id){

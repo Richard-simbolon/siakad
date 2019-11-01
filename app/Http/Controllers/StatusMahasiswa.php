@@ -67,7 +67,7 @@
                 }
 
                 public function paging(Request $request){
-                    return Datatables::of(StatusMahasiswaModel::all())->make(true);
+                    return Datatables::of(StatusMahasiswaModel::all())->addIndexColumn()->make(true);
                 }
 
             }

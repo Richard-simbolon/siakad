@@ -67,7 +67,7 @@
                 }
 
                 public function paging(Request $request){
-                    return Datatables::of(SemesterModel::all())->make(true);
+                    return Datatables::of(SemesterModel::all())->addIndexColumn()->make(true);
                 }
 
             }

@@ -77,7 +77,7 @@
                 }
 
                 public function paging(Request $request){
-                    return Datatables::of(PendidikanModel::all())->make(true);
+                    return Datatables::of(PendidikanModel::all())->addIndexColumn()->make(true);
                 }
 
             }

@@ -3,31 +3,30 @@
             use Illuminate\Support\Facades\DB;
             use Illuminate\Support\Facades\Validator;
             use Illuminate\Http\Request;
-            use App\JurusanModel;
+            use App\ RuanganModel;
             use Yajra\DataTables\DataTables;
-            Use File;
-            class Jurusan extends Controller
+            class Ruangan extends Controller
             {
                 static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
                     "row_status" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Status"],
-                    "title" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Title"],
-                    "deskripsi" => ["table" => ["tablename" =>"null" , "field"=> "deskripsi"] , "record"=>"Deskripsi"],
+                    "kode_ruangan" => ["table" => ["tablename" =>"null" , "field"=> "kode_ruangan"] , "record"=>"Kode Ruangan"],
+                    "nama_ruangan" => ["table" => ["tablename" =>"null" , "field"=> "nama_ruangan"] , "record"=>"Nama Ruangan"],
+                    "keterangan" => ["table" => ["tablename" =>"null" , "field"=> "keterangan"] , "record"=>"Keterangan"],
                     ];
-                static $html = ["id"=>["type"=>"" , "value"=>"null" , "validation" => ""] ,
-                                "row_status"=>["type"=>"radio" , "value"=>"active,notactive,deletd" , "validation" => "required"] ,
-                                "title"=>["type"=>"text" , "value"=>"null" , "validation" => "required"] ,
-                                ];
+                static $html = ["id"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
+                    "row_status"=>["type"=>"radio" , "value"=>"active,notactive" , "validation" => ""] ,
+                    "kode_ruangan"=>["type"=>"text" , "value"=>"null" , "validation" => ""] ,
+                    "nama_ruangan"=>["type"=>"text" , "value"=>"null" , "validation" => ""] ,
+                    "keterangan"=>["type"=>"text" , "value"=>"null" , "validation" => ""] ,
+                    ];
                 static $exclude = ["id","created_at","updated_at","created_by","update_by"];
-                static $tablename = "Jurusan";
-                
+                static $tablename = "Ruangan";
                 public function index()
                 {
-
-                    //echo 'asdasd'; exit;
-                    $data = JurusanModel::get();
+                    $data = RuanganModel::get();
                     $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-                    $tableid = "Jurusan";
-                    $table_display = DB::getSchemaBuilder()->getColumnListing("master_jurusan");
+                    $tableid = "Ruangan";
+                    $table_display = DB::getSchemaBuilder()->getColumnListing("master_ruangan");
                     $exclude = static::$exclude;
                     $Tableshow = static::$Tableshow;
                     return view("setting/general_view" , compact("data" , "title" ,"table_display" ,"exclude" ,"Tableshow","tableid"));
@@ -35,7 +34,7 @@
                 }
                 public function create(){
                     $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-                    $table = array_diff(DB::getSchemaBuilder()->getColumnListing("master_jurusan"), static::$exclude);
+                    $table = array_diff(DB::getSchemaBuilder()->getColumnListing("master_ruangan"), static::$exclude);
                     $exclude = static::$exclude;
                     $Tableshow = static::$Tableshow;
                     $html = static::$html;
@@ -48,7 +47,7 @@
                     $input = $request->all();
                     $field = [];
                     $data = [];
-                    $table = DB::getSchemaBuilder()->getColumnListing("master_jurusan");
+                    $table = DB::getSchemaBuilder()->getColumnListing("master_ruangan");
                     $fieldvalidatin = static::$html;
                     foreach($table as $val){
                         if(array_key_exists($val , $fieldvalidatin) && !in_array($val , static::$exclude)){
@@ -61,15 +60,7 @@
                     if ($validation->fails()) {
                         return json_encode(["status"=> "false", "message"=> $validation->messages()]);
                     }
-                    $save  = JurusanModel::firstOrCreate($data);
-
-                    $filedata = JurusanModel::select('id' ,'title')
-                    ->where('row_status', '=', 'active')
-                    ->get();
-
-                    if($filedata){
-                        File::put(public_path().'/master/'.strtolower(static::$tablename).'.php',json_encode($filedata));
-                    }
+                    $save  = RuanganModel::firstOrCreate($data);
                     if($save){
                         return $this->success("Data berhasil disimpan.");
                     }
@@ -80,7 +71,7 @@
                 }
 
                 public function paging(Request $request){
-                    return Datatables::of(JurusanModel::all())->addIndexColumn()->make(true);
+                    return Datatables::of(RuanganModel::all())->addIndexColumn()->make(true);
                 }
 
             }
