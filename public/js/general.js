@@ -47,8 +47,17 @@ $(document).ready(function(){
             data:$(this).closest('form').serialize(),
             success:function(data) {
                 if(data.status==='success'){
-                    alert("Data berhasil disimpan!");
-                    window.location = prev_url;
+                    Swal.fire({
+                        title: 'Berhasil',
+                        text: "Data sudah disimpan",
+                        type: 'success',
+                        confirmButtonColor: '#0abb87',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.value){
+                            window.location = prev_url;
+                        }
+                    });
                 }else {
                     alert(data.msg);
                 }

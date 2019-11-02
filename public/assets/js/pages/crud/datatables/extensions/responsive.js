@@ -33,7 +33,7 @@ var KTDatatablesExtensionsResponsive = function() {
                     className :"text-center",
                     render: function(data, type, full, meta) {
                         return `
-                       <a class="btn btn-" href="view/`+full.id+`"><i class="la la-edit"></i></a>
+                       <a class="btn btn-" href="agama/view/`+full.id+`"><i class="la la-edit"></i></a>
                        `;
                     },
 				},{
@@ -1184,7 +1184,54 @@ var KTDatatablesExtensionsResponsive = function() {
         });
     }
 
-	return {
+    var initJenismatakuliah = function(a) {
+
+        var table = $('#JenisMatakuliah');
+
+        // begin first table
+        table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url:'/master/jenismatakuliah/paging',
+                type:"POST",
+                //data:{"_token": $('#csrf_').val(),'table':key},
+                data: function ( d ) {
+                    d.myKey = "myValue";
+                    d._token = $('#csrf_').val()
+                    // d.custom = $('#myInput').val();
+                    // etc
+                }
+            },
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                { data: 'title', name: 'title' },
+                { data: 'row_status', name: 'row_status' },
+                { defaultContent : '<td></td>'}
+            ],
+            columnDefs: [
+                {
+                    targets: 3,
+                    title: 'Actions',
+                    orderable: false,
+                    className: "text-center",
+                    render: function(data, type, full, meta) {
+                        return `
+                       <a class="btn btn-" href="jenismatakuliah/view/`+full.id+`"><i class="la la-edit"></i></a>
+                       `;
+                    },
+                },
+                {
+                    targets: 0,
+                    className: "text-center"
+                },
+            ]
+        });
+    }
+
+
+    return {
 
 		//main function to initiate the module
 		init: function(a) {
@@ -1210,6 +1257,7 @@ var KTDatatablesExtensionsResponsive = function() {
             TableDosen();
             statusmhs();
             statuspegawai();
+            initJenismatakuliah();
 		},
 
 	};

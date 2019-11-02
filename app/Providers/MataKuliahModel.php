@@ -18,6 +18,12 @@
                 ];
             }
 
+            public static function tabel_column(){
+                return [
+                    "id","kode_mata_kuliah","nama_mata_kuliah","bobot_mata_kuliah","program_studi_id","jenis_mata_kuliah_id","row_status"
+                ];
+            }
+
             /**************************************/
             /*COPY THIS FUNCTION TO YOUR MIGRATION*/
             /**************************************/
