@@ -270,6 +270,7 @@
         <script src="{{asset('assets/js/pages/custom/wizard/wizard-3.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/plugins/general/select2/dist/js/select2.full.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/js/pages/kelas/kelas.js')}}" type="text/javascript"></script>
+        <script src="{{asset('assets/js/pages/master/delete.js')}}" type="text/javascript"></script>
         <script>
 			var KTAppOptions = {
 				"colors": {

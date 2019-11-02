@@ -1,1 +1,1 @@
-[{"id":1,"title":"Bersama Orang Tua"},{"id":2,"title":"Wali"},{"id":3,"title":"Kost"},{"id":4,"title":"Asrama"},{"id":5,"title":"Panti Asuhan"},{"id":6,"title":"Lainnya"},{"id":7,"title":"Kontrak Rumah"}]
+[{"id":1,"title":"Bersama Orang Tua"},{"id":2,"title":"Wali"},{"id":3,"title":"Kost"},{"id":4,"title":"Asrama"},{"id":5,"title":"Panti Asuhan"},{"id":6,"title":"Lainnya"},{"id":7,"title":"Kontrak Rumah"},{"id":8,"title":"Testing"}]

@@ -76,8 +76,45 @@
 
                 }
 
+                public function view($id){
+                    $data = KebutuhanKhususModel::where('id' , $id)->first();
+
+                    $title = "Edit ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+                    $table = array_diff(DB::getSchemaBuilder()->getColumnListing("master_kebutuhan_khusus") , static::$exclude);
+                    $exclude = static::$exclude;
+                    $Tableshow = static::$Tableshow;
+                    $html = static::$html;
+                    $column = 1;
+                    $controller = "kebutuhankhusus";
+                    return view("setting/master_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow","tableid", "column", "controller"));
+                }
+
+                public function update(Request $request){
+                    $this->validate($request,[
+                        'title' => 'required'
+                    ]);
+
+                    $data =  KebutuhanKhususModel::where('id' , $request->id)->first();
+                    $data->title = $request->title;
+                    $data->row_status = $request->row_status;
+
+                    $data->save();
+                    return redirect('/master/kebutuhankhusus');
+                }
+
+                public function delete(Request $request){
+                    $data =  KebutuhanKhususModel::where('id', $request->id)->first();
+                    $data->row_status = 'deleted';
+
+                    if($data->save()){
+                        return $this->success("Data berhasil disimpan.");
+                    }else{
+                        return json_encode(["status"=> "false", "msg"=> "Mohon maaf, terjadi kesalahan sistem"]);
+                    }
+                }
+
                 public function paging(Request $request){
-                    return Datatables::of(KebutuhanKhususModel::all())->addIndexColumn()->make(true);
+                    return Datatables::of(KebutuhanKhususModel::where('row_status', '!=', 'deleted')->get())->addIndexColumn()->make(true);
                 }
 
             }

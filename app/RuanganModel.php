@@ -10,14 +10,14 @@
             protected $table = "master_ruangan";
 
             protected $fillable = [
-                "id","row_status","kode_ruangan","nama_ruangan","keterangan","updated_at" ,"created_at","created_by", "update_by"
+                "id","kode_ruangan","nama_ruangan","keterangan","row_status","updated_at" ,"created_at","created_by", "update_by"
             ];
 
 
 
             public function scopeget_row(){
                 return [
-                    "id","row_status", "kode_ruangan","nama_ruangan","keterangan","updated_at" ,"created_at","created_by", "update_by"
+                    "id", "kode_ruangan","nama_ruangan","keterangan","row_status","updated_at" ,"created_at","created_by", "update_by"
                  ];
              }
 

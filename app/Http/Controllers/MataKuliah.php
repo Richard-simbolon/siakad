@@ -136,7 +136,44 @@
                     }
                 }
 
+                public function view($id){
+                    $data = MataKuliahModel::where('id' , $id)->first();
+
+                    $title = "Edit ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+                    $table = array_diff(DB::getSchemaBuilder()->getColumnListing("mata_kuliah") , static::$exclude);
+                    $exclude = static::$exclude;
+                    $Tableshow = static::$Tableshow;
+                    $html = static::$html;
+                    $column = 1;
+                    $controller = "matakuliah";
+                    return view("setting/master_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow","tableid", "column", "controller"));
+                }
+
+                public function update(Request $request){
+                    $this->validate($request,[
+                        'title' => 'required'
+                    ]);
+
+                    $data =  MataKuliahModel::where('id' , $request->id)->first();
+                    $data->title = $request->title;
+                    $data->row_status = $request->row_status;
+
+                    $data->save();
+                    return redirect('/master/matakuliah');
+                }
+
+                public function delete(Request $request){
+                    $data =  MataKuliahModel::where('id', $request->id)->first();
+                    $data->row_status = 'deleted';
+
+                    if($data->save()){
+                        return $this->success("Data berhasil disimpan.");
+                    }else{
+                        return json_encode(["status"=> "false", "msg"=> "Mohon maaf, terjadi kesalahan sistem"]);
+                    }
+                }
+
                 public function paging(Request $request){
-                    return Datatables::of(MataKuliahModel::all())->addIndexColumn()->make(true);
+                    return Datatables::of(MataKuliahModel::where('row_status', '!=', 'deleted')->get())->addIndexColumn()->make(true);
                 }
             }

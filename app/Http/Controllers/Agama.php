@@ -111,7 +111,7 @@ class Agama extends Controller
     }
 
     public function paging(Request $request){
-        return Datatables::of(AgamaModel::all())->addIndexColumn()->make(true);
+        return Datatables::of(AgamaModel::where('master_agama.row_status', '!=', 'deleted')->get())->addIndexColumn()->make(true);
     }
 }
 

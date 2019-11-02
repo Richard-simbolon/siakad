@@ -23,15 +23,17 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
+                { defaultContent : '<td></td>'}
             ],
 			columnDefs: [
 				{
 					targets: 3,
 					title: 'Actions',
 					orderable: false,
+                    className :"text-center",
                     render: function(data, type, full, meta) {
                         return `
-                       <a class="btn btn-" href="agama/view/`+full.id+`"><i class="la la-edit"></i></a>
+                       <a class="btn btn-" href="view/`+full.id+`"><i class="la la-edit"></i></a>
                        `;
                     },
 				},{
@@ -75,28 +77,19 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'metode_pembelajaran', name: 'metode_pembelajaran' },
                 { data: 'tanggal_mulai_efektif', name: 'tanggal_mulai_efektif' },
                 { data: 'taggal_akhir_efektif', name: 'taggal_akhir_efektif' },
+                { defaultContent : '<td></td>'}
             ],
 			columnDefs: [
 				{
 					targets: 14,
 					title: 'Actions',
 					orderable: false,
-					render: function(data, type, full, meta) {
-						return `
-                        <span class="dropdown">
-                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                              <i class="la la-ellipsis-h"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
-                            </div>
-                        </span>
-                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
-                          <i class="la la-edit"></i>
-                        </a>`;
-					},
+                    className :"text-center",
+                    render: function(data, type, full, meta) {
+                        return `
+                       <a class="btn btn-" href="matakuliah/view/`+full.id+`"><i class="la la-edit"></i></a>
+                       `;
+                    },
                 },
                 {
 					targets: 1,
@@ -145,27 +138,16 @@ var KTDatatablesExtensionsResponsive = function() {
                     { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                     { data: 'title', name: 'title' },
                     { data: 'row_status', name: 'row_status' },
+                    { defaultContent : '<td></td>'}
                 ],
                 columnDefs: [
                     {
                         targets: 3,
                         title: 'Actions',
                         orderable: false,
+                        className : 'text-center',
                         render: function(data, type, full, meta) {
-                            return `
-                            <span class="dropdown">
-                                <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                                  <i class="la la-ellipsis-h"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                    <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                    <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
-                                </div>
-                            </span>
-                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
-                              <i class="la la-edit"></i>
-                            </a>`;
+                            return `<a class="btn btn-" href="tinggal/view/`+full.id+`"><i class="la la-edit"></i></a>`;
                         },
                     },{
                         targets: 0,
@@ -201,31 +183,24 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
+                { defaultContent: '<td></td>'}
             ],
             columnDefs: [
                 {
                     targets: 3,
                     title: 'Actions',
                     orderable: false,
+                    className : 'text-center',
                     render: function(data, type, full, meta) {
-                        return `
-                        <span class="dropdown">
-                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                              <i class="la la-ellipsis-h"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
-                            </div>
-                        </span>
-                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
-                          <i class="la la-edit"></i>
-                        </a>`;
+                        return `<a class="btn btn-" href="alattransportasi/view/`+full.id+`"><i class="la la-edit"></i></a>`;
                     },
                 },
                 {
                     targets: 0,
+                    className: "text-center"
+                },
+                {
+                    targets: 2,
                     className: "text-center"
                 }
             ],
@@ -258,31 +233,24 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
+                { defaultContent: '<td></td>'}
             ],
             columnDefs: [
                 {
                     targets: 3,
                     title: 'Actions',
                     orderable: false,
+                    className : 'text-center',
                     render: function(data, type, full, meta) {
-                        return `
-                        <span class="dropdown">
-                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                              <i class="la la-ellipsis-h"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
-                            </div>
-                        </span>
-                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
-                          <i class="la la-edit"></i>
-                        </a>`;
+                        return `<a class="btn btn-" href="pendidikan/view/`+full.id+`"><i class="la la-edit"></i></a>`;
                     },
                 },
                 {
                     targets: 0,
+                    className: "text-center"
+                },
+                {
+                    targets: 2,
                     className: "text-center"
                 }
             ],
@@ -315,6 +283,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
+                { defaultContent: '<td></td>'}
             ],
             columnDefs: [
                 {
@@ -323,23 +292,14 @@ var KTDatatablesExtensionsResponsive = function() {
                     className : 'text-center',
                     orderable: false,
                     render: function(data, type, full, meta) {
-                        return `
-                        <span class="dropdown">
-                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                              <i class="la la-ellipsis-h"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
-                            </div>
-                        </span>
-                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
-                          <i class="la la-edit"></i>
-                        </a>`;
+                        return `<a class="btn btn-" href="kebutuhankhusus/view/`+full.id+`"><i class="la la-edit"></i></a>`;
                     },
                 },{
                     targets: 0,
+                    className : 'text-center'
+                }
+                ,{
+                    targets: 2,
                     className : 'text-center'
                 }
             ],
@@ -371,31 +331,24 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
+                { defaultContent: '<td></td>'}
             ],
             columnDefs: [
                 {
                     targets: 3,
                     title: 'Actions',
                     orderable: false,
+                    className : 'text-center',
                     render: function(data, type, full, meta) {
-                        return `
-                        <span class="dropdown">
-                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                              <i class="la la-ellipsis-h"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
-                            </div>
-                        </span>
-                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
-                          <i class="la la-edit"></i>
-                        </a>`;
+                        return `<a class="btn btn-" href="penghasilan/view/`+full.id+`"><i class="la la-edit"></i></a>`;
                     },
                 },
                 {
                     targets: 0,
+                    className: "text-center"
+                },
+                {
+                    targets: 2,
                     className: "text-center"
                 }
             ],
@@ -427,31 +380,24 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
+                { defaultContent:'<td></td>' }
             ],
             columnDefs: [
                 {
                     targets: 3,
                     title: 'Actions',
                     orderable: false,
+                    className : 'text-center',
                     render: function(data, type, full, meta) {
-                        return `
-                        <span class="dropdown">
-                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                              <i class="la la-ellipsis-h"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
-                            </div>
-                        </span>
-                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
-                          <i class="la la-edit"></i>
-                        </a>`;
+                        return `<a class="btn btn-" href="jurusan/view/`+full.id+`"><i class="la la-edit"></i></a>`;
                     },
                 },
                 {
                     targets: 0,
+                    className: "text-center"
+                },
+                {
+                    targets: 2,
                     className: "text-center"
                 }
             ],
@@ -708,31 +654,24 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
+                { defaultContent : '<td></td>'}
             ],
             columnDefs: [
                 {
                     targets: 3,
                     title: 'Actions',
                     orderable: false,
+                    className : 'text-center',
                     render: function(data, type, full, meta) {
-                        return `
-                        <span class="dropdown">
-                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                              <i class="la la-ellipsis-h"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
-                            </div>
-                        </span>
-                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
-                          <i class="la la-edit"></i>
-                        </a>`;
+                        return `<a class="btn btn-" href="pekerjaan/view/`+full.id+`"><i class="la la-edit"></i></a>`;
                     },
                 },
                 {
                     targets: 0,
+                    className: "text-center"
+                },
+                {
+                    targets: 2,
                     className: "text-center"
                 }
             ],
@@ -856,31 +795,24 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
+                { defaultContent: '<td></td>'}
             ],
             columnDefs: [
                 {
                     targets: 3,
                     title: 'Actions',
                     orderable: false,
+                    className : 'text-center',
                     render: function(data, type, full, meta) {
-                        return `
-                        <span class="dropdown">
-                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                              <i class="la la-ellipsis-h"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
-                            </div>
-                        </span>
-                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
-                          <i class="la la-edit"></i>
-                        </a>`;
+                        return `<a class="btn btn-" href="angkatan/view/`+full.id+`"><i class="la la-edit"></i></a>`;
                     },
                 },
                 {
                     targets: 0,
+                    className: "text-center"
+                },
+                {
+                    targets: 2,
                     className: "text-center"
                 }
             ],
@@ -912,27 +844,18 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
+                { defaultContent : '<td></td>'}
             ],
             columnDefs: [
                 {
                     targets: 3,
                     title: 'Actions',
                     orderable: false,
+                    className: "text-center",
                     render: function(data, type, full, meta) {
                         return `
-                        <span class="dropdown">
-                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                              <i class="la la-ellipsis-h"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
-                            </div>
-                        </span>
-                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
-                          <i class="la la-edit"></i>
-                        </a>`;
+                       <a class="btn btn-" href="statusmahasiswa/view/`+full.id+`"><i class="la la-edit"></i></a>
+                       `;
                     },
                 },
                 {
@@ -1054,27 +977,18 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
                 { data: 'row_status', name: 'row_status' },
+                { defaultContent : '<td></td>'}
             ],
             columnDefs: [
                 {
                     targets: 3,
                     title: 'Actions',
                     orderable: false,
+                    className: "text-center",
                     render: function(data, type, full, meta) {
                         return `
-                        <span class="dropdown">
-                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                              <i class="la la-ellipsis-h"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
-                            </div>
-                        </span>
-                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
-                          <i class="la la-edit"></i>
-                        </a>`;
+                       <a class="btn btn-" href="statuspegawai/view/`+full.id+`"><i class="la la-edit"></i></a>
+                       `;
                     },
                 },
                 {
@@ -1198,17 +1112,18 @@ var KTDatatablesExtensionsResponsive = function() {
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
-                { data: 'row_status', name: 'row_status' }
+                { data: 'row_status', name: 'row_status' },
+                { defaultContent : '<td></td>'}
             ],
             columnDefs: [
                 {
                     targets: 3,
                     title: 'Actions',
-                    className: "text-center",
                     orderable: false,
+                    className: "text-center",
                     render: function(data, type, full, meta) {
                         return `
-                       <a class="btn btn-" href="kelas/view/`+full.id+`"><i class="la la-edit"></i></a>
+                       <a class="btn btn-" href="semester/view/`+full.id+`"><i class="la la-edit"></i></a>
                        `;
                     },
                 },
@@ -1242,19 +1157,18 @@ var KTDatatablesExtensionsResponsive = function() {
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                { data: 'row_status', name: 'row_status' },
                 { data: 'kode_ruangan', name: 'kode_ruangan'},
                 { data: 'nama_ruangan', name: 'nama_ruangan' },
                 { data: 'keterangan', name:'keterangan'},
-
-
+                { data: 'row_status', name: 'row_status' },
+                {defaultContent : '<td></td>'}
             ],
             columnDefs: [
                 {
                     targets: 5,
                     title: 'Actions',
-                    className: "text-center",
                     orderable: false,
+                    className: "text-center",
                     render: function(data, type, full, meta) {
                         return `
                        <a class="btn btn-" href="ruangan/view/`+full.id+`"><i class="la la-edit"></i></a>
@@ -1263,6 +1177,10 @@ var KTDatatablesExtensionsResponsive = function() {
                 },
                 {
                     targets: 0,
+                    className: "text-center"
+                },
+                {
+                    targets: 4,
                     className: "text-center"
                 },
             ]
