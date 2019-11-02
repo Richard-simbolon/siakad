@@ -48,6 +48,7 @@ var KTDatatablesExtensionsResponsive = function() {
 
 
     var initTable2 = function(a) {
+
 		var table = $('#matakuliah');
 
 		// begin first table
@@ -58,30 +59,34 @@ var KTDatatablesExtensionsResponsive = function() {
             ajax: {
                 url:'/master/matakuliah/paging',
                 type:"POST",
-                data:{"_token": $('#csrf_').val()}
-
+                //data:{"_token": $('#csrf_').val(),'table':key},
+                data: function ( d ) {
+                    d.myKey = "myValue";
+                    d._token = $('#csrf_').val()
+                    // d.custom = $('#myInput').val();
+                    // etc
+                }
             },
             columns: [
-
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                { data: 'row_status', name: 'row_status' },
                 { data: 'kode_mata_kuliah', name: 'kode_mata_kuliah' },
                 { data: 'nama_mata_kuliah', name: 'nama_mata_kuliah' },
+                { data: 'bobot_mata_kuliah', name: 'bobot_mata_kuliah' },
                 { data: 'program_studi_id', name: 'program_studi_id' },
                 { data: 'jenis_mata_kuliah_id', name: 'jenis_mata_kuliah_id' },
-                { data: 'bobot_mata_kuliah', name: 'bobot_mata_kuliah' },
-                { data: 'bobot_tatap_muka', name: 'bobot_tatap_muka' },
-                { data: 'bobot_praktikum', name: 'bobot_praktikum' },
-                { data: 'bobot_praktek_lapangan', name: 'bobot_praktek_lapangan' },
-                { data: 'bobot_simulasi', name: 'bobot_simulasi' },
-                { data: 'metode_pembelajaran', name: 'metode_pembelajaran' },
-                { data: 'tanggal_mulai_efektif', name: 'tanggal_mulai_efektif' },
-                { data: 'taggal_akhir_efektif', name: 'taggal_akhir_efektif' },
-                { defaultContent : '<td></td>'}
+                { data: 'row_status', name: 'row_status' },
+                // { data: 'bobot_tatap_muka', name: 'bobot_tatap_muka' },
+                // { data: 'bobot_praktikum', name: 'bobot_praktikum' },
+                // { data: 'bobot_praktek_lapangan', name: 'bobot_praktek_lapangan' },
+                // { data: 'bobot_simulasi', name: 'bobot_simulasi' },
+                // { data: 'metode_pembelajaran', name: 'metode_pembelajaran' },
+                // { data: 'tanggal_mulai_efektif', name: 'tanggal_mulai_efektif' },
+                // { data: 'taggal_akhir_efektif', name: 'taggal_akhir_efektif' },
+                 { defaultContent : '<td></td>'}
             ],
 			columnDefs: [
 				{
-					targets: 14,
+					targets: 7,
 					title: 'Actions',
 					orderable: false,
                     className :"text-center",
@@ -92,23 +97,15 @@ var KTDatatablesExtensionsResponsive = function() {
                     },
                 },
                 {
-					targets: 1,
-					render: function(data, type, full, meta) {
-						var row_status = {
-							1: {'title': 'active', 'state': 'danger'},
-							2: {'title': 'Retail', 'state': 'primary'},
-							3: {'title': 'Direct', 'state': 'success'},
-						};
-						if (typeof row_status[data] === 'undefined') {
-							return data;
-						}
-						return '<span class="kt-badge kt-badge--' + row_status[data].state + ' kt-badge--dot"></span>&nbsp;' +
-							'<span class="kt-font-bold kt-font-' + row_status[data].state + '">' + row_status[data].title + '</span>';
-					},
-				},{
                     targets: 0,
                     className: "text-center"
-                },
+                },{
+                    targets: 3,
+                    className: "text-center"
+                },{
+                    targets: 6,
+                    className: "text-center"
+                }
             ],
         });
 

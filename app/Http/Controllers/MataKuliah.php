@@ -9,7 +9,6 @@
             class MataKuliah extends Controller
             {
                 static $Tableshow = [   "id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
-
                                         "kode_mata_kuliah"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Kode MK"],
                                         "nama_mata_kuliah"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Nama MK"],
                                         "program_studi_id"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Program Studi"],
@@ -48,14 +47,17 @@
                                 "updated_at"=>["type"=>"null" , "value"=>"null" , "validation" => "required"],
                                 ];
                 static $exclude = ["id","created_at","updated_at","created_by","modified_by"];
+                static $exclude_table = ["id","created_at","updated_at","created_by","modified_by", "bobot_tatap_muka", "bobot_praktikum", "bobot_praktek_lapangan", "bobot_simulasi", "metode_pembelajaran","tanggal_mulai_efektif","taggal_akhir_efektif"];
 
                 public function index()
                 {
                     $data = MataKuliahModel::get();// DB::getSchemaBuilder()->getColumnListing("mata_kuliah")
                     $tableid = 'matakuliah';
                     $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-                    $table_display = DB::getSchemaBuilder()->getColumnListing("mata_kuliah");
-                    $exclude = static::$exclude;
+                    $table_display = MataKuliahModel::tabel_column();
+
+                    $exclude = static::$exclude_table;
+
                     $Tableshow = static::$Tableshow;
                     return view("setting/general_view" , compact("data" , "title" ,"table_display" ,"exclude" ,"Tableshow","tableid"));
 
@@ -66,36 +68,29 @@
                     $jenis = array(1,2);
                     for($i = 6 ; $i<25;$i++){
                         $data = [
-                                    'kode_mata_kuliah' => 'P000'.$i,
-                                    'nama_mata_kuliah' => 'Mata Kuliah '.$i,
-                                    'row_status' => 'active',
-                                    'program_studi_id' => $program[array_rand($program, 1)],
-                                    'jenis_mata_kuliah_id' => $jenis[array_rand($jenis, 1)],
-                                    'bobot_mata_kuliah' => '10',
-                                    'bobot_tatap_muka' => '20',
-                                    'bobot_praktikum' => '30',
-                                    'bobot_praktek_lapangan' => '10',
-                                    'bobot_simulasi' => '10',
-                                    'metode_pembelajaran' => 'Tatap Muka',
-                                    'tanggal_mulai_efektif' => date('Y-m-d H:i:s'),
-                                    'taggal_akhir_efektif' => date('Y-m-d H:i:s'),
-                                    'created_by' => '1',
-                                    'modified_by' => '1'
-                                ];
+                            'kode_mata_kuliah' => 'P000'.$i,
+                            'nama_mata_kuliah' => 'Mata Kuliah '.$i,
+                            'row_status' => 'active',
+                            'program_studi_id' => $program[array_rand($program, 1)],
+                            'jenis_mata_kuliah_id' => $jenis[array_rand($jenis, 1)],
+                            'bobot_mata_kuliah' => '10',
+                            'bobot_tatap_muka' => '20',
+                            'bobot_praktikum' => '30',
+                            'bobot_praktek_lapangan' => '10',
+                            'bobot_simulasi' => '10',
+                            'metode_pembelajaran' => 'Tatap Muka',
+                            'tanggal_mulai_efektif' => date('Y-m-d H:i:s'),
+                            'taggal_akhir_efektif' => date('Y-m-d H:i:s'),
+                            'created_by' => '1',
+                            'modified_by' => '1'
+                        ];
 
                         MataKuliahModel::firstOrCreate($data);
 
                     }
 
-
-                    //print_r(MataKuliahModel::get_row());
-                    echo 'Success';
-
-                    exit;
-
                     $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
 
-                    // $table = DB::getSchemaBuilder()->getColumnListing("mata_kuliah");
                     $table = array_diff(MataKuliahModel::get_row() , static::$exclude);//array_diff(DB::getSchemaBuilder()->getColumnListing("mata_kuliah") , static::$exclude);
                     $exclude = static::$exclude;
                     $Tableshow = static::$Tableshow;
@@ -174,6 +169,8 @@
                 }
 
                 public function paging(Request $request){
-                    return Datatables::of(MataKuliahModel::where('row_status', '!=', 'deleted')->get())->addIndexColumn()->make(true);
+                    return Datatables::of(MataKuliahModel::where('mata_kuliah.row_status', 'active')->join('master_jurusan', 'master_jurusan.id', '=', 'mata_kuliah.program_studi_id')
+                        ->select("mata_kuliah.id", "kode_mata_kuliah", "nama_mata_kuliah", "bobot_mata_kuliah", "master_jurusan.title as program_studi_id", "jenis_mata_kuliah_id", "mata_kuliah.row_status")
+                        ->get())->addIndexColumn()->make(true);
                 }
             }
