@@ -92,7 +92,8 @@ var KTDatatablesExtensionsResponsive = function() {
                     className :"text-center",
                     render: function(data, type, full, meta) {
                         return `
-                       <a class="btn btn-" href="matakuliah/view/`+full.id+`"><i class="la la-edit"></i></a>
+                       <a class="btn btn-" href="matakuliah/view/`+full.id+`"><i class="la la-search"></i></a>
+                       <a class="btn btn-" href="matakuliah/edit/`+full.id+`"><i class="la la-edit"></i></a>
                        `;
                     },
                 },

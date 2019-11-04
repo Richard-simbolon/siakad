@@ -123,13 +123,13 @@
                     }
                     $save  = MataKuliahModel::firstOrCreate($data);
 
-                    $filedata = MataKuliahModel::select('id' ,'title')
-                    ->where('row_status', '=', 'active')
-                    ->get();
+//                    $filedata = MataKuliahModel::select('id' ,'title')
+//                    ->where('row_status', '=', 'active')
+//                    ->get();
 
-                    if($filedata){
-                        File::put(public_path().'/master/'.strtolower(static::$tablename).'.php',json_encode($filedata));
-                    }
+//                    if($filedata){
+//                        File::put(public_path().'/master/'.strtolower(static::$tablename).'.php',json_encode($filedata));
+//                    }
 
                     if($save){
                         return $this->success("Data berhasil disimpan.");
@@ -138,7 +138,26 @@
 
                 public function view($id){
                     $data = MataKuliahModel::where('id' , $id)->first();
+                    $master = array(
+                        'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
+                        'jenis' => JenisMatakuliahModel::where('row_status' , 'active')->get()
+                    );
+                    $title = "View ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+                    $table = array_diff(DB::getSchemaBuilder()->getColumnListing("mata_kuliah") , static::$exclude);
+                    $exclude = static::$exclude;
+                    $Tableshow = static::$Tableshow;
+                    $html = static::$html;
+                    $column = 1;
+                    $controller = "matakuliah";
+                    return view("master/matakuliah_view" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow","tableid", "column", "controller", "master"));
+                }
 
+                public function edit($id){
+                    $data = MataKuliahModel::where('id' , $id)->first();
+                    $master = array(
+                        'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
+                        'jenis' => JenisMatakuliahModel::where('row_status' , 'active')->get()
+                    );
                     $title = "Edit ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
                     $table = array_diff(DB::getSchemaBuilder()->getColumnListing("mata_kuliah") , static::$exclude);
                     $exclude = static::$exclude;
@@ -146,17 +165,54 @@
                     $html = static::$html;
                     $column = 1;
                     $controller = "matakuliah";
-                    return view("setting/master_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow","tableid", "column", "controller"));
+                    return view("master/matakuliah_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow","tableid", "column", "controller", "master"));
                 }
 
+
                 public function update(Request $request){
-                    $this->validate($request,[
-                        'title' => 'required'
-                    ]);
+//                    $this->validate($request,[
+//                        'kode_mata_kuliah' => 'kode_mata_kuliah',
+//                        'row_status' => 'row_status',
+//                        'nama_mata_kuliah' => 'nama_mata_kuliah',
+//                        'program_studi_id' => 'program_studi_id',
+//                        'jenis_mata_kuliah_id' => 'jenis_mata_kuliah_id',
+//                        'bobot_mata_kuliah' => 'bobot_mata_kuliah',
+//                        'bobot_tatap_muka' => 'bobot_tatap_muka',
+//                        'bobot_praktikum' => 'bobot_praktikum',
+//                        'bobot_praktek_lapangan' => 'bobot_praktek_lapangan',
+//                        'bobot_simulasi' => 'bobot_simulasi',
+//                        'metode_pembelajaran' => 'metode_pembelajaran',
+//                        'tanggal_mulai_efektif' => 'tanggal_mulai_efektif',
+//                        'taggal_akhir_efektif' => 'taggal_akhir_efektif',
+//                    ]);
+                    $input = $request->all();
+                    $table = DB::getSchemaBuilder()->getColumnListing("mata_kuliah");
+                    $fieldvalidatin = static::$html;
+                    foreach($table as $val){
+                        if(array_key_exists($val , $fieldvalidatin) && !in_array($val , static::$exclude)){
+                            $field[$val] = $fieldvalidatin[$val]["validation"];
+                            $data[$val] = $input[$val];
+                        }
+                    }
+                    $validation = Validator::make($request->all(), $field);
+                    if ($validation->fails()) {
+                        return json_encode(["status"=> "false", "message"=> $validation->messages()]);
+                    }
 
                     $data =  MataKuliahModel::where('id' , $request->id)->first();
-                    $data->title = $request->title;
+                    $data->kode_mata_kuliah = $request->kode_mata_kuliah;
                     $data->row_status = $request->row_status;
+                    $data->nama_mata_kuliah = $request->nama_mata_kuliah;
+                    $data->program_studi_id = $request->program_studi_id;
+                    $data->jenis_mata_kuliah_id = $request->jenis_mata_kuliah_id;
+                    $data->bobot_mata_kuliah = $request->bobot_mata_kuliah;
+                    $data->bobot_tatap_muka = $request->bobot_tatap_muka;
+                    $data->bobot_praktikum = $request->bobot_praktikum;
+                    $data->bobot_praktek_lapangan = $request->bobot_praktek_lapangan;
+                    $data->bobot_simulasi = $request->bobot_simulasi;
+                    $data->metode_pembelajaran = $request->metode_pembelajaran;
+                    $data->tanggal_mulai_efektif = $request->tanggal_mulai_efektif;
+                    $data->taggal_akhir_efektif = $request->taggal_akhir_efektif;
 
                     $data->save();
                     return redirect('/master/matakuliah');
