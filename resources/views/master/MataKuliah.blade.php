@@ -51,7 +51,7 @@
                         </div>
 
                         <div class="kt-portlet__body">
-                            <form class="kt-form kt-form--label-right" action="save" method="POST">
+                            <form id="form_matakuliah" class="kt-form kt-form--label-right" action="save" method="POST">
                                 <div class="kt-portlet__body">
                                     <div class="kt-section kt-section--first">
                                         <div class="row">
@@ -59,7 +59,7 @@
                                                 <div class="form-group">
                                                     <label>Kode Mata Kuliah *</label>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" name="kode_mata_kuliah" placeholder="Isikan Nama Kelas" required>
+                                                        <input type="text" class="form-control required" name="kode_mata_kuliah" placeholder="Isikan Nama Kelas" title="Kode Mata Harus Diisi" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -67,7 +67,7 @@
                                                 <div class="form-group">
                                                     <label>Nama Mata Kuliah *</label>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" name="nama_mata_kuliah" placeholder="Isikan Nama Kelas">
+                                                        <input type="text" class="form-control" name="nama_mata_kuliah" placeholder="Isikan Nama Kelas" required>
                                                     </div>
                                                 </div>
                                             </div>

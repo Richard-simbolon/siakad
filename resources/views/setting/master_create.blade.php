@@ -68,10 +68,11 @@
                                                 <div class="kt-radio-inline">
                                                     <?php $radio = explode("," , $html[$item]['value']);
                                                         foreach($radio as $radioitem){
+                                                            $checked = $radioitem=="active" ? "checked":"";
                                                             echo '
 
                                                                 <label class="kt-radio">
-                                                                    <input type="radio" name="'.$item.'" value="'.$radioitem.'">
+                                                                    <input type="radio" name="'.$item.'" value="'.$radioitem.'" '.$checked.'>
                                                                     '.$radioitem.'
                                                                     <span></span>
                                                                 </label>
@@ -106,8 +107,9 @@
                                                     <div class="kt-radio-inline">
                                                         <?php $radio = explode("," , $html[$val]['value']);
                                                             foreach($radio as $radioitem){
+                                                                $checked = $radioitem=="active" ? "checked":"";
                                                                 echo '<label class="kt-radio">
-                                                                        <input type="radio" name="'.$val.'" value="'.$radioitem.'">
+                                                                        <input type="radio" name="'.$val.'" value="'.$radioitem.'" '.$checked.'>
                                                                         '.$radioitem.'
                                                                         <span></span>
                                                                     </label>';

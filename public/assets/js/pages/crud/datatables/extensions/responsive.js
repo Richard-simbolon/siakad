@@ -1231,6 +1231,53 @@ var KTDatatablesExtensionsResponsive = function() {
         });
     }
 
+    var initTugasAkhir = function(a) {
+
+        var table = $('#TugasAkhir');
+
+        // begin first table
+        table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url:'/data/tugasakhir/paging',
+                type:"POST",
+                //data:{"_token": $('#csrf_').val(),'table':key},
+                data: function ( d ) {
+                    d.myKey = "myValue";
+                    d._token = $('#csrf_').val()
+                    // d.custom = $('#myInput').val();
+                    // etc
+                }
+            },
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                { data: 'nim', name: 'nim' },
+                { data: 'nama', name: 'nama' },
+                { data: 'jurusan', name: 'jurusan' },
+                { data: 'judul', name: 'judul' },
+                { defaultContent : '<td></td>'}
+            ],
+            columnDefs: [
+                {
+                    targets: 5,
+                    title: 'Actions',
+                    orderable: false,
+                    className: "text-center",
+                    render: function(data, type, full, meta) {
+                        return `
+                       <a class="btn btn-" href="tugasakhir/view/`+full.id+`"><i class="la la-edit"></i></a>
+                       `;
+                    },
+                },
+                {
+                    targets: 0,
+                    className: "text-center"
+                },
+            ]
+        });
+    }
 
     return {
 
@@ -1253,6 +1300,7 @@ var KTDatatablesExtensionsResponsive = function() {
             initTableAktivitasPerkuliahan();
             initTableSemester();
             initTableRuangan();
+            initTugasAkhir();
             mahasiswa();
             angkatan();
             TableDosen();

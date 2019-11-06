@@ -39,10 +39,15 @@ Route::post('dosen/tambah_r_penelitian', 'Dosen@tambah_r_penelitian')->name('tam
 
 Route::get('dosen/fungsional/{id}', 'Dosen@r_fungsional')->name('riwayat_fungsional');
 Route::post('dosen/tambah_r_fungsional', 'Dosen@tambah_r_fungsional')->name('tambah_riwayat_fungsional');
+Route::get('/data/dosen/getdosen_select2', 'Dosen@getdosen_select2')->name('getdosen_select2');
 
 Route::post('/master/kelas/edit', 'Kelas@edit')->name('edit');
 Route::post('master/kelas/delete', 'Kelas@delete')->name('delete');
 
+Route::get('/data/tugasakhir', 'TugasAkhir@index')->name('list');
+Route::post('/data/tugasakhir/paging', 'TugasAkhir@paging')->name('pagination');
+Route::get('/data/tugasakhir/create', 'TugasAkhir@create')->name('create');
+Route::get('data/tugasakhir/get/{nim}', 'TugasAkhir@get')->name('get');
 
 //kelas perkuliahan
 Route::get('/data/kelasperkuliahan', 'KelasPerkuliahan@index')->name('index');

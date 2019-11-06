@@ -59,7 +59,18 @@ $(document).ready(function(){
                         }
                     });
                 }else {
-                    alert(data.msg);
+                    // alert(data.msg);
+                    var text = '';
+                    $.each(data.message, function( index, value ) {
+                        text += '<p class="error">'+ value[0]+'</p>';
+                    });
+                    Swal.fire({
+                        title: 'Gagal',
+                        html: text,
+                        type: 'error',
+                        confirmButtonColor: '#0abb87',
+                        confirmButtonText: 'OK'
+                    })
                 }
             }
          });

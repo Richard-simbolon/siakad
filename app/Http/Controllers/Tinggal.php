@@ -72,13 +72,13 @@
                     }
                     $save  = TinggalModel::firstOrCreate($data);
 
-                    $filedata = TinggalModel::select('id' ,'title')
-                    ->where('row_status', '=', 'active')
-                    ->get();
-
-                    if($filedata){
-                        File::put(public_path().'/master/'.strtolower(static::$tablename).'.php',json_encode($filedata));
-                    }
+//                    $filedata = TinggalModel::select('id' ,'title')
+//                    ->where('row_status', '=', 'active')
+//                    ->get();
+//
+//                    if($filedata){
+//                        File::put(public_path().'/master/'.strtolower(static::$tablename).'.php',json_encode($filedata));
+//                    }
 
                     if($save){
                         return $this->success("Data berhasil disimpan.");
