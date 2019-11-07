@@ -42,11 +42,20 @@ Route::post('dosen/tambah_r_fungsional', 'Dosen@tambah_r_fungsional')->name('tam
 
 Route::post('/master/kelas/edit', 'Kelas@edit')->name('edit');
 Route::post('master/kelas/delete', 'Kelas@delete')->name('delete');
+Route::post('/kelas/listkurikulum', 'Kelas@listkurikulum')->name('ListKurikulum');
+Route::post('/kelas/listkelas', 'Kelas@listkelas')->name('ListKelas');
+
 
 
 //kelas perkuliahan
+Route::post('/kelasperkuliahan/update_kelas_perkuliahan', 'kelasperkuliahan@update_kelas_perkuliahan')->name('UpdateKelasPerkuliahan');
+Route::post('/kelasperkuliahan/save_kelas_perkuliahan', 'kelasperkuliahan@save_kelas_perkuliahan')->name('SimpanKelasPerkuliahan');
+Route::post('/kelasperkuliahan/filtering_kelas_perkuliahan_index', 'kelasperkuliahan@filtering_kelas_perkuliahan_index')->name('filtering_kelas_perkuliahan_index');
 Route::get('/data/kelasperkuliahan', 'KelasPerkuliahan@index')->name('index');
 Route::get('data/kelasperkuliahan/create', 'KelasPerkuliahan@create')->name('create');
+Route::get('data/kelasperkuliahan/view/{id}', 'KelasPerkuliahan@view')->name('view');
+Route::post('/kelasperkuliahan/listmatakuliah', 'KelasPerkuliahan@listmatakuliah')->name('Listmatakuliah');
+
 //end of kelas perkuliahan
 
 //aktivitas perkuliahan

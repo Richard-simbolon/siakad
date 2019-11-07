@@ -60,11 +60,8 @@
                                 <div class="col-xl-4">
                                     <label class="select2-label">Semester</label>
                                     <div class="form-group">
-                                        <select name="semester_id" id="search-semester" class="form-control kt-select2">
-                                            <option value="">Select</option>
-                                            @foreach ($master['semester'] as $item)
-                                                <option value="{{$item['id']}}" > {{$item['title']}} </option>
-                                            @endforeach
+                                        <select name="semester_id" id="search-semester" class="form-control">
+                                            <option value="{{$kurikulum->nama_semester}}">{{$kurikulum->nama_semester}}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -73,44 +70,37 @@
                                 <div class="col-xl-4">
                                     <div class="form-group">
                                         <label>Angkatan</label>
-                                        <select name="angkatan_id" id="angkatan-mahasiswa" class="form-control kt-select2 search-kurikulum search-kelas-perkuliahan">
-                                            <option value="0">Select</option>
-                                            @foreach ($master['angkatan'] as $item)
-                                                <option value="{{$item['id']}}" > {{$item['title']}} </option>
-                                            @endforeach
+                                        <select name="angkatan_id" id="angkatan-mahasiswa" class="form-control search-kurikulum search-kelas-perkuliahan">
+                                            <option value="{{$kurikulum->nama_semester}}">{{$kurikulum->nama_angkatan}}</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-xl-4">
                                     <label class="select2-label">Jurusan</label>
                                     <div class="form-group">
-                                        <select name="program_studi_id" id="jurusan-mahasiswa" class="form-control kt-select2 search-kurikulum search-kelas-perkuliahan">
-                                            <option value="0">-- Pilih Jurusan --</option>
-                                            @foreach ($master['jurusan'] as $item)
-                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
-                                            @endforeach
+                                        <select name="program_studi_id" id="jurusan-mahasiswa" class="form-control search-kurikulum search-kelas-perkuliahan">
+                                            <option value="{{$kurikulum->nama_semester}}">{{$kurikulum->nama_jurusan}}</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-xl-4">
                                         <label class="select2-label">Kelas</label>
                                         <div class="form-group">
-                                            <select name="kelas_id" id="kelas-mahasiswa" class="form-control search-kurikulum kt-select2">
-                                                <option value="">-- Pilih Kelas --</option>
-                                            
+                                            <select name="kelas_id" id="kelas-mahasiswa" class="form-control search-kurikulum">
+                                                <option value="{{$kurikulum->kelas_id}}">{{$kurikulum->kelas_id}}</option>
                                             </select>
                                         </div>
                                     </div>
                             </div>
-
+                            <input type="hidden" value="{{$kurikulum->id}}" name="update"/>
                         <div class="row">
                                 <div class="col-xl-4">
-                                    <button type="button" id="btn-search-kurikulum" class="btn btn-success btn-sm"><i class="flaticon2-search"></i>Cari Matakuliah</button>
+                                    
                                 </div>
                             </div>
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-md kt-separator--portlet-fit"></div>
                                 <div>
-                                    <p> <span class="kt-invoice__subtitle">Nama Kurikulum : <b id="nama-kurikulum"></b></span></p>
+                                    <p> <span class="kt-invoice__subtitle">Nama Kurikulum : <b id="nama-kurikulum">{{$kurikulum->nama_kurikulum}}</b></span></p>
                                         <br/>
                                 </div>
                                 
@@ -132,7 +122,49 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        
+                                            <?php
+                                                foreach($matakuliah as $item){
+                                                    $dosen_html = '<option value="0"> -- Pilih dosen --</option>';
+                                                    foreach($master['dosen'] as $dosen_item){
+                                                        $selected = $dosen_item['id'] ==  $item->dosen_id ? 'selected' :'';
+                                                        $dosen_html .= '<option value="'.$dosen_item['id'].'" '.$selected.'> '.$dosen_item['nama'].'</option>';
+                                                    }
+                                                    $checked = $item->mata_kuliah_id ? 'checked' : '';
+                                                echo'
+                                                    <tr>
+                                                        <td align="center"><input type="checkbox" '.$checked.' name="item['.$item->matakuliah_id.'][mata_kuliah_id]" value="'.$item->matakuliah_id.'" class="form-control-sm"></td></td>
+                                                        <td>'.$item->kode_mata_kuliah.'</td>
+                                                        <td>'.$item->nama_mata_kuliah.'</td>
+                                                        <td align="center">'.$item->bobot_mata_kuliah.'</td>
+                                                        <td align="center">'.$item->semester.'</td>
+                                                        <td>
+                                                            <select class="form-control form-control-sm kt-select2" name="item['.$item->matakuliah_id.'][dosen_id]">
+                                                                '.$dosen_html.'
+                                                            </select>
+                                                        </td>
+                                                        <td align="center"><input type="text" value="'.$item->asisten.'" name="item['.$item->matakuliah_id.'][asisten]" class="form-control form-control-sm" /> </td>
+                                                        <td align="center">
+                                                            <select class="form-control form-control-sm" name="item['.$item->matakuliah_id.'][hari_id]">
+                                                                <option value="1" '.(($item->hari_id) == "1" ? 'selected' : '') .' >Senin</option>
+                                                                <option value="2" '.(($item->hari_id) == "2" ? 'selected' : '') .' >Selasa</option>
+                                                                <option value="3" '.(($item->hari_id) == "3" ? 'selected' : '') .' >Rabu</option>
+                                                                <option value="4" '.(($item->hari_id) == "4" ? 'selected' : '') .' >Kamis</option>
+                                                                <option value="5" '.(($item->hari_id) == "5" ? 'selected' : '') .' >Jumat</option>
+                                                                <option value="6" '.(($item->hari_id) == "6" ? 'selected' : '') .' >Sabtu</option>
+                                                            </select>
+                                                        </td>
+                                                        <td align="center">
+                                                            <input type="text"class="form-control form-control-sm" value="'.$item->ruangan.'"  name="item['.$item->matakuliah_id.'][ruangan]"/>
+                                                        </td>
+                                                        <td align="center">
+                                                            <div class="input-group timepicker">
+                                                                <input type="text" name="item['.$item->matakuliah_id.'][jam]" value="'.$item->jam.'" class="form-control m-input time-picker" placeholder="Pilih Jam" type="text"/>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                            ';
+                                            }
+                                            ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -152,8 +184,8 @@
     <!-- end:: Content -->
 </div>
 <script>
-        var url_action = '/kelasperkuliahan/save_kelas_perkuliahan';
-    </script>
+    var url_action = '/kelasperkuliahan/update_kelas_perkuliahan';
+</script>
 <style>
     table tr td{
         vertical-align: middle;

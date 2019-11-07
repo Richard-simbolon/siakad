@@ -1314,5 +1314,6 @@ var KTDatatablesExtensionsResponsive = function() {
 
 jQuery(document).ready(function() {
     
-	KTDatatablesExtensionsResponsive.init($('.general-data-table').attr('id'));
+    KTDatatablesExtensionsResponsive.init($('.general-data-table').attr('id'));
+    
 });

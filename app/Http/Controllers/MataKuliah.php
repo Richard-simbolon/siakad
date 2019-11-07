@@ -61,7 +61,7 @@
 
                 }
                 public function create(){
-                    $i = 5;
+                  /*  $i = 5;
                     $program = array(1,2,3);
                     $jenis = array(1,2);
                     for($i = 6 ; $i<25;$i++){
@@ -91,7 +91,7 @@
                     //print_r(MataKuliahModel::get_row());
                     echo 'Success';
 
-                    exit;
+                    exit;*/
 
                     $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
 

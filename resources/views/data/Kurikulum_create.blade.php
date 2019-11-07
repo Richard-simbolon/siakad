@@ -142,12 +142,7 @@
                                         </tr>
                                         </thead>
                                         <tbody class="append_matakuliah">
-                                        <tr>
-                                            <td colspan="10" style="text-align: center">Silahkan Pilih Program Studi</td>
-                                            
-                                            <!--dipakai untuk view-->
-                                            <!--<td align="center"><span class="flaticon2-check-mark"></span> </td>-->
-                                        </tr>
+                                        
                                         </tbody>
                                     </table>
                                 </div>

@@ -53,7 +53,6 @@ $(document).ready(function(){
 
 
     $(document).on('click' , '#updatemahasiswa' , function(){
-        //alert($(this).closest('form').attr('action'));
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('#csrf_').val()
@@ -343,9 +342,7 @@ $(document).ready(function(){
             data:{'id':_id},
             success:function(result) {
                 $('.append_matakuliah').html(result);
-                $('#kurikulum_matakuliah').DataTable({
-                    "pageLength": false
-                });
+                $('#kurikulum_matakuliah').DataTable();
             
             }
          });
@@ -425,9 +422,7 @@ $(document).ready(function(){
             data:{'id_p':$('#jurusan').val() , 'id_t':$('#tahun_berlaku').val()},
             success:function(result) {
                 $('.kurikulum_table').html(result);
-               /* $('#kurikulum_matakuliah').DataTable({
-                    "pageLength": 100
-                });*/
+                $('#kurikulum_matakuliah').DataTable();
             
             }
          });
@@ -490,6 +485,160 @@ $(document).ready(function(){
     //alert('a');
     $('#kurikulum_matakuliah').DataTable({
         "pageLength": 100
+    });
+
+    $(document).on('change','.kelas-kurikulum-select', function(){
+        var _id = $(this).val();
+        if(_id == ''){
+            alert('Silahkan pilih jurusan');
+        }
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        $.ajax({
+            type:'POST',
+            url:'/kelas/listkurikulum',
+            data:{'id':_id},
+            success:function(result) {
+                $('#append_kurikulum').html(result);
+            }
+         });
+
+
+    });
+
+    $(document).on('click','#btn-search-kurikulum', function(){
+        var error_msg = '';
+        $(".search-kurikulum").each(function(){
+            //alert($(this).val());
+            if($(this).val() == '0'){
+                error_msg += '<p>Silahkan pilih '+$(this).attr('id').replace('-', ' ')+'.</p>';
+            }
+        });
+        if(error_msg != ''){
+            swal.fire({
+                "title": "",
+                "html": error_msg,
+                "type": "error",
+                "confirmButtonClass": "btn btn-secondary"
+            });
+            return false;
+        }
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+
+        //$('#kelasperkuliahan').DataTable();
+        $.ajax({
+            type:'POST',
+            url:'/kelasperkuliahan/listmatakuliah',
+            data:{'jurusan':$('#jurusan-mahasiswa').val() , 'angkatan':$('#angkatan-mahasiswa').val(),'kelas':$('#kelas-mahasiswa option:selected').attr('attr')},
+            success:function(result) {
+                $('#kelasperkuliahan').html('');
+                $('#kelasperkuliahan').html(result.html);
+                $('#nama-kurikulum').text(result.nama.nama_kurikulum);
+                //$('#table-matakuliah').html(result.html);
+                $('.kt-select2').select2({
+                    width:'100%'
+                });
+                $('#table-matakuliah').DataTable();
+                $('.time-picker').timepicker({
+                    minuteStep: 1,
+                    defaultTime: '10:45',
+                    showSeconds: false,
+                    showMeridian: false,
+                    snapToStep: true
+                });
+            }
+         });
+
+
+    });
+    
+
+    $(document).on('change' , '.search-kelas-perkuliahan' , function(){
+        if($('#jurusan-mahasiswa').val() == '' || $('#angkatan-mahasiswa').val() == ''){
+            return false;
+        }
+        //alert('a');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        $.ajax({
+            type:'POST',
+            url:'/kelas/listkelas',
+            data:{'jurusan':$('#jurusan-mahasiswa').val() , 'angkatan':$('#angkatan-mahasiswa').val()},
+            success:function(result) {
+                $('#kelas-mahasiswa').html(result);
+            }
+         });
+    });
+
+    $(document).on('click' , '#save-kelas-perkuliahan' , function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        $.ajax({
+            type:'POST',
+            //dataType:'json',
+            url:url_action,
+            data:$(this).closest('form').serialize(),
+            success:function(result) {
+                var res = JSON.parse(result);
+                if(res.status == 'error'){
+                    var text = '';
+                    $.each(res.message, function( index, value ) {
+                        console.log(value);
+                        text += '<p class="error">'+ value[0]+'</p>';
+                    });
+                    swal.fire({
+                        "title": "",
+                        "html": text,
+                        "type": "error",
+                        "confirmButtonClass": "btn btn-secondary"
+                    });
+                }else{
+                    swal.fire({
+                        "title": "",
+                        "text": res.message,
+                        "type": res.status,
+                        "confirmButtonClass": "btn btn-secondary"
+                    });
+                }
+
+            }
+         });
+    });
+
+    $(document).on('click' , '#btn-search-kelas-perkuliahan' , function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        var data = {};
+        $('.looping_class').each(function(){
+            if($(this).val() != '' || $(this).val() != null || $(this).val() != undefined || $(this).val() != '0' ){
+                data[$(this).attr('name')] = $(this).val();
+            }
+        });
+        $.ajax({
+            type:'POST',
+            url:'/kelasperkuliahan/filtering_kelas_perkuliahan_index',
+            data:{'filter':data},
+            success:function(result) {
+                $('#kelasperkuliahanbody').html(result);
+            }
+         });
+
     });
 
 });

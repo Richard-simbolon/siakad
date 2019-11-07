@@ -69,7 +69,9 @@
 		<link href="{{asset('assets/plugins/general/owl.carousel/dist/assets/owl.carousel.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{asset('assets/plugins/general/owl.carousel/dist/assets/owl.theme.default.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{asset('assets/plugins/general/plugins/flaticon/flaticon.css')}}" rel="stylesheet" type="text/css" />
-        <link href="{{asset('assets/plugins/general/plugins/flaticon2/flaticon.css')}}" rel="stylesheet" type="text/css" /> 
+		<link href="{{asset('assets/plugins/general/plugins/flaticon2/flaticon.css')}}" rel="stylesheet" type="text/css" /> 
+		<link href="{{asset('assets/plugins/general/bootstrap-datetime-picker/css/bootstrap-datetimepicker.css')}}" rel="stylesheet" type="text/css" />
+		<link href="{{asset('assets/plugins/general/bootstrap-timepicker/css/bootstrap-timepicker.css')}}" rel="stylesheet" type="text/css" />
 
 		<!--end:: Vendor Plugins for custom pages -->
 
@@ -261,7 +263,10 @@
 		<script src="{{asset('assets/plugins/custom/tinymce/tinymce.min.js')}}" type="text/javascript"></script>
 		<script src="{{asset('assets/plugins/custom/tinymce/themes/silver/theme.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/plugins/custom/tinymce/themes/mobile/theme.js')}}" type="text/javascript"></script>
-        <script src="{{asset('assets/plugins/general/owl.carousel/dist/owl.carousel.js')}}" type="text/javascript"></script>
+		<script src="{{asset('assets/plugins/general/owl.carousel/dist/owl.carousel.js')}}" type="text/javascript"></script>
+		<script src="{{asset('assets/plugins/general/bootstrap-timepicker/js/bootstrap-timepicker.min.js')}}" type="text/javascript"></script>
+		<script src="{{asset('assets/js/pages/plugins/bootstrap-timepicker.js')}}" type="text/javascript"></script>
+		<script src="{{asset('assets/plugins/general/js/global/integration/plugins/bootstrap-timepicker.init.js')}}" type="text/javascript"></script>
         <script src="{{asset('js/general.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/plugins/general/perfect-scrollbar/dist/perfect-scrollbar.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/plugins/general/sweetalert2/dist/sweetalert2.min.js')}}" type="text/javascript"></script>
@@ -269,7 +274,8 @@
         <script src="{{asset('assets/js/pages/crud/datatables/extensions/responsive.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/js/pages/custom/wizard/wizard-3.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/plugins/general/select2/dist/js/select2.full.js')}}" type="text/javascript"></script>
-        <script src="{{asset('assets/js/pages/kelas/kelas.js')}}" type="text/javascript"></script>
+		<script src="{{asset('assets/js/pages/kelas/kelas.js')}}" type="text/javascript"></script>
+		@yield('js')
         <script>
 			var KTAppOptions = {
 				"colors": {

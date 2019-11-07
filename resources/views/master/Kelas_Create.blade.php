@@ -62,9 +62,24 @@
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
+                                                    <label>Angkatan</label>
+                                                    <div class="form-group">
+                                                        <select name="angkatan_id" class="form-control kt-select2">
+                                                            <option value="">-- Pilih Angkatan --</option>
+                                                            @foreach ($master['angkatan'] as $item)
+                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
                                                     <label>Jurusan</label>
                                                     <div class="form-group">
-                                                        <select name="jurusan_id" class="form-control kt-select2">
+                                                        <select name="jurusan_id" class="form-control kt-select2 kelas-kurikulum-select">
                                                             <option value="">-- Pilih Jurusan --</option>
                                                             @foreach ($master['jurusan'] as $item)
                                                                 <option value="{{$item['id']}}">{{$item['title']}}</option>
@@ -74,6 +89,18 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>Kurikulum</label>
+                                                        <div class="form-group">
+                                                            <select name="kurikulum_id" class="form-control kt-select2" id="append_kurikulum">
+                                                            
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">

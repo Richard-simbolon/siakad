@@ -43,7 +43,7 @@
                                     </g>
                                 </svg>
                                 <h3 class="kt-portlet__head-title">
-                                    &nbsp;Daftar Kelas Perkuliahan
+                                    &nbsp;Nilai Perkuliahan
                                 </h3>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                                     <div class="form-group">
                                         <label>Semester</label>
                                         <div class="form-group">
-                                            <select name="semester_id" id="search-semester" class="form-control kt-select2 search-kelas-perkuliahan looping_class">
+                                            <select name="semester_id" id="search-semester" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
                                                 <option value="">Select</option>
                                                 @foreach ($master['semester'] as $item)
                                                     <option value="{{$item['id']}}" > {{$item['title']}} </option>
@@ -66,7 +66,7 @@
                                 <div class="col-xl-2">
                                     <div class="form-group">
                                         <label>Angkatan</label>
-                                        <select id="angkatan-mahasiswa" name="angkatan_id" class="form-control kt-select2 search-kelas-perkuliahan looping_class">
+                                        <select id="angkatan-mahasiswa" name="angkatan_id" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
                                             <option value="">Select</option>
                                             @foreach ($master['angkatan'] as $item)
                                                 <option value="{{$item['id']}}" > {{$item['title']}} </option>
@@ -77,7 +77,7 @@
                                 <div class="col-xl-4">
                                     <div class="form-group">
                                         <label>Jurusan</label>
-                                        <select name="jurusan_id" id="jurusan-mahasiswa" class="form-control kt-select2 search-kelas-perkuliahan looping_class">
+                                        <select name="jurusan_id" id="jurusan-mahasiswa" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
                                             <option value="">-- Pilih Jurusan --</option>
                                             @foreach ($master['jurusan'] as $item)
                                                 <option value="{{$item['id']}}">{{$item['title']}}</option>
@@ -89,7 +89,7 @@
                                 <div class="col-xl-2">
                                     <label class="select2-label">Kelas</label>
                                     <div class="form-group">
-                                        <select name="kelas_id" id="kelas-mahasiswa" class="form-control search-kurikulum kt-select2 looping_class">
+                                        <select name="kelas_id" id="kelas-mahasiswa" class="form-control search-kurikulum kt-select2 looping_class_input">
                                             <option value="">-- Pilih Kelas --</option>
                                         
                                         </select>
@@ -97,40 +97,40 @@
                                 </div>
                             </div>
                             <div class="kt-form__actions">
-                                <button class="btn btn-success btn-sm" id="btn-search-kelas-perkuliahan"><i class="flaticon-search"></i>Tampilkan</button>
+                                <button class="btn btn-success btn-sm" id="btn-search-nilai-matakuliah"><i class="flaticon-search"></i>Tampilkan</button>
                             </div>
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
 
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <table class="table table-striped table-bordered table-hover responsive" id="kt_table_1">
+                                <div class="col-lg-12" id="datatable_display">
+                                    <table class="table table-striped table-bordered table-hover responsive" id="nilaidatatable">
                                         <thead>
                                         <tr>
-                                            <th style="text-align: center">No</th>
+                                            {{-- <th style="text-align: center">No</th> --}}
+                                            <th style="text-align: center">Mata Kuliah</th>
                                             <th style="text-align: center">Angkatan</th>
                                             <th>Semester</th>
                                             <th>Jurusan </th>
                                             <th style="text-align: center">Kelas</th>
-                                            <th style="text-align: center">Jumlah SKS</th>
-                                            <th style="text-align: center">Jumlah Mahasiswa</th>
+                                            <th style="text-align: center">Dosen</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
-                                        <tbody id="kelasperkuliahanbody">
-                                                <?$i = 0?>;
+                                        <tbody>
+                                                {{-- < ?$i = 0?>
                                                 @foreach ($data as $item)
-                                                <? $i++ ?>
+                                                < ? $i++ ?>
                                                 <tr>
-                                                    <td align="center">{{$i}}</td>
-                                                    <td align="center">{{$item->angkatan}}</td>
-                                                    <td>{{$item->semester}}</td>
-                                                    <td style="vertical-align: center;">{{$item->jurusan}}t</td>
-                                                    <td align="center">{{$item->kelas}}</td>
-                                                    <td align="center">{{$item->sks}}</td>
-                                                    <td align="center">{{$item->total_mhs}}</td>
-                                                    <td><a href="{{url('data/kelasperkuliahan/view/'. $item->id)}}" > edit/view </a></td>
+                                                    <td align="center">{{$i}}</td> 
+                                                    <td align="center">{{$item->nama_mata_kuliah}}</td>
+                                                    <td align="center">{{$item->nama_angkatan}}</td>
+                                                    <td>{{$item->nama_semester}}</td>
+                                                    <td style="vertical-align: center;">{{$item->nama_jurusan}}t</td>
+                                                    <td align="center">{{$item->nama_kelas}}</td>
+                                                    <td align="center">{{$item->nama_dosen}}</td>
+                                                    <td><a href="{{url('data/nilaimahasiswa/view/'. $item->id)}}" > edit/view </a></td>
                                                 </tr>
-                                                @endforeach
+                                                @endforeach --}}
                                         </tbody>
                                     </table>
                                 </div>
@@ -146,8 +146,10 @@
         .m-content{width:100%}
     </style>
 
-@section('js')
-
-@stop
-
 @endsection
+
+
+@section('js')
+    <script src="{{asset('assets/js/pages/inputnilai/inputnilai.js')}}" type="text/javascript"></script>
+@endsection
+
