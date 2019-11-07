@@ -40,6 +40,19 @@
 
                 }
 
+                public function view($id){
+                    $data = TinggalModel::where('id' , $id)->first();
+
+                    $title = "Edit ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+                    $table = array_diff(DB::getSchemaBuilder()->getColumnListing("master_jenis_tinggal") , static::$exclude);
+                    $exclude = static::$exclude;
+                    $Tableshow = static::$Tableshow;
+                    $html = static::$html;
+                    $column = 1;
+                    $controller = "jenis/tinggal";
+                    return view("setting/master_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow","tableid", "column", "controller"));
+                }
+
                 public function save(Request $request){
                     $input = $request->all();
                     $field = [];
@@ -59,13 +72,13 @@
                     }
                     $save  = TinggalModel::firstOrCreate($data);
 
-                    $filedata = TinggalModel::select('id' ,'title')
-                    ->where('row_status', '=', 'active')
-                    ->get();
-
-                    if($filedata){
-                        File::put(public_path().'/master/'.strtolower(static::$tablename).'.php',json_encode($filedata));
-                    }
+//                    $filedata = TinggalModel::select('id' ,'title')
+//                    ->where('row_status', '=', 'active')
+//                    ->get();
+//
+//                    if($filedata){
+//                        File::put(public_path().'/master/'.strtolower(static::$tablename).'.php',json_encode($filedata));
+//                    }
 
                     if($save){
                         return $this->success("Data berhasil disimpan.");
@@ -76,8 +89,32 @@
 
                 }
 
+                public function update(Request $request){
+                    $this->validate($request,[
+                        'title' => 'required'
+                    ]);
+
+                    $data =  TinggalModel::where('id' , $request->id)->first();
+                    $data->title = $request->title;
+                    $data->row_status = $request->row_status;
+
+                    $data->save();
+                    return redirect('/master/jenis/tinggal');
+                }
+
+                public function delete(Request $request){
+                    $data =  TinggalModel::where('id', $request->id)->first();
+                    $data->row_status = 'deleted';
+
+                    if($data->save()){
+                        return $this->success("Data berhasil disimpan.");
+                    }else{
+                        return json_encode(["status"=> "false", "msg"=> "Mohon maaf, terjadi kesalahan sistem"]);
+                    }
+                }
+
                 public function paging(Request $request){
-                    return Datatables::of(TinggalModel::all())->addIndexColumn()->make(true);
+                    return Datatables::of(TinggalModel::where('master_jenis_tinggal.row_status', '!=', 'deleted')->get())->addIndexColumn()->make(true);
                 }
 
             }

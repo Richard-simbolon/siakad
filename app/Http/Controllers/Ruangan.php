@@ -8,16 +8,16 @@
             class Ruangan extends Controller
             {
                 static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
-                    "row_status" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Status"],
                     "kode_ruangan" => ["table" => ["tablename" =>"null" , "field"=> "kode_ruangan"] , "record"=>"Kode Ruangan"],
                     "nama_ruangan" => ["table" => ["tablename" =>"null" , "field"=> "nama_ruangan"] , "record"=>"Nama Ruangan"],
                     "keterangan" => ["table" => ["tablename" =>"null" , "field"=> "keterangan"] , "record"=>"Keterangan"],
+                    "row_status" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Status"],
                     ];
                 static $html = ["id"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
-                    "row_status"=>["type"=>"radio" , "value"=>"active,notactive" , "validation" => ""] ,
                     "kode_ruangan"=>["type"=>"text" , "value"=>"null" , "validation" => ""] ,
                     "nama_ruangan"=>["type"=>"text" , "value"=>"null" , "validation" => ""] ,
                     "keterangan"=>["type"=>"text" , "value"=>"null" , "validation" => ""] ,
+                    "row_status"=>["type"=>"radio" , "value"=>"active,notactive" , "validation" => ""] ,
                     ];
                 static $exclude = ["id","created_at","updated_at","created_by","update_by"];
                 static $tablename = "Ruangan";
@@ -70,8 +70,45 @@
 
                 }
 
+                public function view($id){
+                    $data = RuanganModel::where('id' , $id)->first();
+
+                    $title = "Edit ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+                    $table = array_diff(DB::getSchemaBuilder()->getColumnListing("master_ruangan") , static::$exclude);
+                    $exclude = static::$exclude;
+                    $Tableshow = static::$Tableshow;
+                    $html = static::$html;
+                    $column = 1;
+                    $controller = "ruangan";
+                    return view("setting/master_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow","tableid", "column", "controller"));
+                }
+
+                public function update(Request $request){
+                    $this->validate($request,[
+                        'title' => 'required'
+                    ]);
+
+                    $data =  RuanganModel::where('id' , $request->id)->first();
+                    $data->title = $request->title;
+                    $data->row_status = $request->row_status;
+
+                    $data->save();
+                    return redirect('/master/ruangan');
+                }
+
+                public function delete(Request $request){
+                    $data =  RuanganModel::where('id', $request->id)->first();
+                    $data->row_status = 'deleted';
+
+                    if($data->save()){
+                        return $this->success("Data berhasil disimpan.");
+                    }else{
+                        return json_encode(["status"=> "false", "msg"=> "Mohon maaf, terjadi kesalahan sistem"]);
+                    }
+                }
+
                 public function paging(Request $request){
-                    return Datatables::of(RuanganModel::all())->addIndexColumn()->make(true);
+                    return Datatables::of(RuanganModel::where('row_status', '!=', 'deleted')->get())->addIndexColumn()->make(true);
                 }
 
             }

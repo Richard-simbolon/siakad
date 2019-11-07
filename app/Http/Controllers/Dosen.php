@@ -462,5 +462,13 @@ class Dosen extends Controller
         
     }
 
+    public function getdosen_select2(){
+        $data = DosenModel::where('row_status' , 'active')
+            ->select("id as value", DB::raw("CONCAT(nik,' - ',nama) as text"))
+            ->get();
+
+        return json_encode($data);
+    }
+
 }
         

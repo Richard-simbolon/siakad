@@ -66,8 +66,45 @@
 
                 }
 
+                public function view($id){
+                    $data = AngkatanModel::where('id' , $id)->first();
+
+                    $title = "Edit ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+                    $table = array_diff(DB::getSchemaBuilder()->getColumnListing("master_angkatan") , static::$exclude);
+                    $exclude = static::$exclude;
+                    $Tableshow = static::$Tableshow;
+                    $html = static::$html;
+                    $column = 1;
+                    $controller = "angkatan";
+                    return view("setting/master_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow","tableid", "column", "controller"));
+                }
+
+                public function update(Request $request){
+                    $this->validate($request,[
+                        'title' => 'required'
+                    ]);
+
+                    $data =  AngkatanModel::where('id' , $request->id)->first();
+                    $data->title = $request->title;
+                    $data->row_status = $request->row_status;
+
+                    $data->save();
+                    return redirect('/master/angkatan');
+                }
+
+                public function delete(Request $request){
+                    $data =  AngkatanModel::where('id', $request->id)->first();
+                    $data->row_status = 'deleted';
+
+                    if($data->save()){
+                        return $this->success("Data berhasil disimpan.");
+                    }else{
+                        return json_encode(["status"=> "false", "msg"=> "Mohon maaf, terjadi kesalahan sistem"]);
+                    }
+                }
+
                 public function paging(Request $request){
-                    return Datatables::of(AngkatanModel::all())->addIndexColumn()->make(true);
+                    return Datatables::of(AngkatanModel::where('row_status', '!=', 'deleted')->get())->addIndexColumn()->make(true);
                 }
 
             }

@@ -34,7 +34,7 @@ $(document).ready(function(){
     });
 
     $(document).on('click' , '.generalsave' , function(){
-        //alert($(this).closest('form').attr('action'));
+        var prev_url = $(this).attr("data-prev-url");
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('#csrf_').val()
@@ -42,11 +42,36 @@ $(document).ready(function(){
         });
         $.ajax({
             type:'POST',
-            //dataType:'json',
+            dataType:'json',
             url:'save',
             data:$(this).closest('form').serialize(),
             success:function(data) {
-                alert(data)
+                if(data.status==='success'){
+                    Swal.fire({
+                        title: 'Berhasil',
+                        text: "Data sudah disimpan",
+                        type: 'success',
+                        confirmButtonColor: '#0abb87',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.value){
+                            window.location = prev_url;
+                        }
+                    });
+                }else {
+                    // alert(data.msg);
+                    var text = '';
+                    $.each(data.message, function( index, value ) {
+                        text += '<p class="error">'+ value[0]+'</p>';
+                    });
+                    Swal.fire({
+                        title: 'Gagal',
+                        html: text,
+                        type: 'error',
+                        confirmButtonColor: '#0abb87',
+                        confirmButtonText: 'OK'
+                    })
+                }
             }
          });
     });

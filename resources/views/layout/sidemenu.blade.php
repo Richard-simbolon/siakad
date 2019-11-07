@@ -289,7 +289,7 @@
                         </a>
                     </li>
                     <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                        <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                        <a href="{{url('/data/tugasakhir')}}" class="kt-menu__link kt-menu__toggle">
                             <span class="kt-menu__link-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -367,7 +367,7 @@
                                     $results = DB::select('select * from module where status != 0');
 
                                     foreach($results as $val){
-                                            echo '<li class="kt-menu__item " aria-haspopup="true"><a href="'.url(strtolower($val->link)).'" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">'.$val->mval.'</span></a></li>';
+                                            echo '<li class="kt-menu__item " aria-haspopup="true"><a href="'.url(strtolower($val->link)).'" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">'.$val->description.'</span></a></li>';
                                     }
                                 ?>
                             </ul>

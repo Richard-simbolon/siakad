@@ -7,7 +7,7 @@
         class PenghasilanModel extends Model
         {
 
-            protected $table = "master_penghasilan";
+                protected $table = "master_penghasilan";
 
             protected $fillable = [
                 "id","title","row_status","updated_at" ,"created_at","created_by", "update_by"

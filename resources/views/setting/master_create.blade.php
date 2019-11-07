@@ -68,10 +68,11 @@
                                                 <div class="kt-radio-inline">
                                                     <?php $radio = explode("," , $html[$item]['value']);
                                                         foreach($radio as $radioitem){
+                                                            $checked = $radioitem=="active" ? "checked":"";
                                                             echo '
 
                                                                 <label class="kt-radio">
-                                                                    <input type="radio" name="'.$item.'" value="'.$radioitem.'">
+                                                                    <input type="radio" name="'.$item.'" value="'.$radioitem.'" '.$checked.'>
                                                                     '.$radioitem.'
                                                                     <span></span>
                                                                 </label>
@@ -106,8 +107,9 @@
                                                     <div class="kt-radio-inline">
                                                         <?php $radio = explode("," , $html[$val]['value']);
                                                             foreach($radio as $radioitem){
+                                                                $checked = $radioitem=="active" ? "checked":"";
                                                                 echo '<label class="kt-radio">
-                                                                        <input type="radio" name="'.$val.'" value="'.$radioitem.'">
+                                                                        <input type="radio" name="'.$val.'" value="'.$radioitem.'" '.$checked.'>
                                                                         '.$radioitem.'
                                                                         <span></span>
                                                                     </label>';
@@ -130,7 +132,7 @@
                             <div class="kt-form__actions">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <a style="color:#ffffff;" class="btn btn-success generalsave">
+                                        <a style="color:#ffffff;" data-prev-url="{{url()->previous()}}" class="btn btn-success generalsave">
                                             Submit
                                         </a>
                                         <button type="reset" class="btn btn-secondary">Cancel</button>

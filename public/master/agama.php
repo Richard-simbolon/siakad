@@ -1,1 +1,1 @@
-[{"id":2,"title":"Kristen"},{"id":3,"title":"Islam"},{"id":4,"title":"Katolik"},{"id":5,"title":"Hindu"},{"id":6,"title":"Budha"},{"id":7,"title":"Konghucu"}]
+[{"id":2,"title":"Kristen"},{"id":3,"title":"Islam"},{"id":4,"title":"Katolik"},{"id":5,"title":"Hindu"},{"id":6,"title":"Budha"},{"id":8,"title":"Testing"}]

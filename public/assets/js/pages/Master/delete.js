@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $(document).on('click' , '#btn_delete_kelas' , function(){
+    $(document).on('click' , '#btn_delete_general' , function(){
         Swal.fire({
             title: 'Hapus',
             text: "Apakah anda yakin hapus data ini?",
@@ -19,7 +19,7 @@ $(document).ready(function() {
                 $.ajax({
                     type:'POST',
                     dataType:'json',
-                    url:'/master/kelas/delete',
+                    url:url + "delete",
                     data:$(this).closest('form').serialize(),
                     success:function(result) {
                         if(result.status){
@@ -28,7 +28,7 @@ $(document).ready(function() {
                                 'Data sudah dihapus.',
                                 'success'
                             )
-                            window.location="/master/kelas";
+                            window.location=url;
                         }
                         else{
                             alert(result.msg);
@@ -40,5 +40,4 @@ $(document).ready(function() {
         })
     });
 });
-
 
