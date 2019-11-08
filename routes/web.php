@@ -51,6 +51,11 @@ Route::get('/data/tugasakhir', 'TugasAkhir@index')->name('list');
 Route::post('/data/tugasakhir/paging', 'TugasAkhir@paging')->name('pagination');
 Route::get('/data/tugasakhir/create', 'TugasAkhir@create')->name('create');
 Route::get('data/tugasakhir/get/{nim}', 'TugasAkhir@get')->name('get');
+Route::get('data/tugasakhir/view/{id}', 'TugasAkhir@view')->name('get');
+Route::post('/data/tugasakhir/paging', 'TugasAkhir@paging')->name('pagination');
+Route::post('data/tugasakhir/save', 'TugasAkhir@save')->name('save');
+Route::post('data/tugasakhir/update', 'TugasAkhir@update')->name('update');
+
 
 //kelas perkuliahan
 Route::post('/kelasperkuliahan/update_kelas_perkuliahan', 'kelasperkuliahan@update_kelas_perkuliahan')->name('UpdateKelasPerkuliahan');

@@ -23,25 +23,72 @@ $(document).ready(function() {
             });
         }
     });
+
+    $(document).on('click' , '#update_tugas_akhir' , function(){
+        var prev_url = $(this).attr("data-prev-url");
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        $.ajax({
+            type:'POST',
+            dataType:'json',
+            url:'/data/tugasakhir/update',
+            data:$(this).closest('form').serialize(),
+            success:function(data) {
+                if(data.status==='success'){
+                    Swal.fire({
+                        title: 'Berhasil',
+                        text: "Data sudah disimpan",
+                        type: 'success',
+                        confirmButtonColor: '#0abb87',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.value){
+                            window.location = prev_url;
+                        }
+                    });
+                }else {
+                    // alert(data.msg);
+                    var text = '';
+                    $.each(data.message, function( index, value ) {
+                        text += '<p class="error">'+ value[0]+'</p>';
+                    });
+                    Swal.fire({
+                        title: 'Gagal',
+                        html: text,
+                        type: 'error',
+                        confirmButtonColor: '#0abb87',
+                        confirmButtonText: 'OK'
+                    })
+                }
+            }
+        });
+    });
+
 });
 
 function addrow() {
     var size = jQuery('table >tbody >tr').length + 1;
     var markup = "<tr id=\"rec-"+size+"\">\n" +
         "                                                    <td>\n" +
-        "                                                        <select class=\"form-control form-control-sm kt-select2 kt-select2-dosen\">\n" +
+        "                                                        <select name=\"detail["+size+"\][dosen]\" class=\"form-control form-control-sm kt-select2 kt-select2-dosen\">\n" +
         "                                                            <option></option>\n" +
         "                                                        </select>\n" +
         "                                                    </td>\n" +
         "                                                    <td>\n" +
-        "                                                        <select class=\"form-control form-control-sm kt-select2 kt-select2-dosen-status\">\n" +
-        "                                                            <option>Pembimbing 1</option>\n" +
-        "                                                            <option>Pembimbing 2</option>\n" +
-        "                                                            <option>Pembimbing 3</option>\n" +
-        "                                                            <option>Pembimbing 4</option>\n" +
-        "                                                            <option>Penguji 1</option>\n" +
-        "                                                            <option>Penguji 2</option>\n" +
-        "                                                            <option>Penguji 3</option>\n" +
+        "                                                        <input type=\"hidden\" name=\"row_status\" value=\"active\">\n" +
+        "                                                        <select name=\"detail["+size+"][status_dosen]\" class=\"form-control form-control-sm kt-select2 kt-select2-dosen-status\">\n" +
+        "                                                            <option value=\"\"></option>\n" +
+        "                                                            <option value=\"Pembimbing 1\">Pembimbing 1</option>\n" +
+        "                                                            <option value=\"Pembimbing 2\">Pembimbing 2</option>\n" +
+        "                                                            <option value=\"Pembimbing 3\">Pembimbing 3</option>\n" +
+        "                                                            <option value=\"Pembimbing 4\">Pembimbing 4</option>\n" +
+        "                                                            <option value=\"Penguji 1\">Penguji 1</option>\n" +
+        "                                                            <option value=\"Penguji 2\">Penguji 2</option>\n" +
+        "                                                            <option value=\"Penguji 3\">Penguji 3</option>\n" +
+        "                                                            <option value=\"Penguji 4\">Penguji 4</option>\n" +
         "                                                        </select>\n" +
         "                                                    </td>\n" +
         "                                                    <td width=\"150px\" align=\"center\" style=\"vertical-align: middle\">\n" +
@@ -49,7 +96,7 @@ function addrow() {
         "                                                        <a href=\"javascript:void(0)\" onclick=\"deleterow("+size+")\"><i class=\"la la-trash\" style=\"font-size: 16px;\"></i> </a>\n" +
         "                                                    </td>\n" +
         "                                                </tr>";
-    //$("table tbody").append('<tr>' + $("#rec-0").html() + '</tr>');
+
     $("table tbody").append(markup);
 
     var newSelect = $("#rec-"+size).find('.kt-select2-dosen');
