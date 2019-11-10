@@ -54,7 +54,7 @@ class TugasAkhir extends Controller
 
         $master = array(
             'dosen' => DosenModel::where('row_status' , 'active')->get(),
-            'detail' =>TugasAkhirDetailModel::where('tugas_akhir_id', $id)->get()
+            'detail' =>TugasAkhirDetailModel::where('tugas_akhir_id', $id)->where('row_status' , 'active')->get()
         );
 
         $title = "Edit Tugas Akhir";
@@ -148,6 +148,7 @@ class TugasAkhir extends Controller
             }
         }
         $data['id'] = $input['id'];
+        $where['id'] = $input['id'];
 
         $validation = Validator::make($request->all(), $field);
         if ($validation->fails()) {
@@ -172,16 +173,19 @@ class TugasAkhir extends Controller
             if ($validation->fails()) {
                 return json_encode(["status"=> "false", "message"=> $validation->messages()]);
             }
-
+            $itemDetail['id'] = $detail['detail_id'];
+            $itemDetail['row_status'] = $detail['row_status_detail'];
             array_push($arrDetail, $itemDetail);
         }
 
-        print_r($data);
         DB::beginTransaction();
         try{
-            TugasAkhirModel::updateOrInsert();
-            TugasAkhirDetailModel::updateOrInsert($arrDetail);
+            TugasAkhirModel::updateOrInsert($where , $data);
 
+            foreach ($arrDetail as $item){
+                $where_detail['id'] = $item['id'];
+                TugasAkhirDetailModel::updateOrInsert($where_detail, $item);
+            }
             DB::commit();
             return json_encode(array('status' => 'success' , 'msg' => 'Data berhasil disimpan.'));
         }catch(\Exception $e){
@@ -190,6 +194,18 @@ class TugasAkhir extends Controller
             return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan saat menyimpan, silahkan coba lagi.'));
         }
 
+    }
+
+    public function delete(Request $request)
+    {
+        $data =  TugasAkhirModel::where('id', $request->id)->first();
+        $data->row_status = 'deleted';
+
+        if($data->save()){
+            return $this->success("Data berhasil disimpan.");
+        }else{
+            return json_encode(["status"=> "false", "msg"=> "Mohon maaf, terjadi kesalahan sistem"]);
+        }
     }
 
     public function paging(Request $request){

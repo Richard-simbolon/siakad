@@ -67,6 +67,46 @@ $(document).ready(function() {
         });
     });
 
+    $(document).on('click' , '#delete_tugas_akhir' , function(){
+        Swal.fire({
+            title: 'Hapus',
+            text: "Apakah anda yakin hapus data ini?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#0abb87',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus data!'
+        }).then((result) => {
+            if (result.value) {
+                var url = $(this).attr("data-url");
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('#csrf_').val()
+                    }
+                });
+                $.ajax({
+                    type:'POST',
+                    dataType:'json',
+                    url: "/data/tugasakhir/delete",
+                    data:$(this).closest('form').serialize(),
+                    success:function(result) {
+                        if(result.status==='success'){
+                            Swal.fire(
+                                'Deleted!',
+                                'Data sudah dihapus.',
+                                'success'
+                            )
+                            window.location="/data/tugasakhir";
+                        }
+                        else{
+                            alert(result.msg);
+                        }
+                    }
+                });
+
+            }
+        })
+    });
 });
 
 function addrow() {
@@ -78,7 +118,8 @@ function addrow() {
         "                                                        </select>\n" +
         "                                                    </td>\n" +
         "                                                    <td>\n" +
-        "                                                        <input type=\"hidden\" name=\"row_status\" value=\"active\">\n" +
+        "                                                        <input type=\"hidden\" name=\"detail["+size+"\][row_status_detail]\" value=\"active\">\n" +
+        "                                                        <input type=\"hidden\" name=\"detail["+size+"\][detail_id]\" value=\"0\">\n" +
         "                                                        <select name=\"detail["+size+"][status_dosen]\" class=\"form-control form-control-sm kt-select2 kt-select2-dosen-status\">\n" +
         "                                                            <option value=\"\"></option>\n" +
         "                                                            <option value=\"Pembimbing 1\">Pembimbing 1</option>\n" +
@@ -118,6 +159,23 @@ function deleterow(id) {
     }).then((result) => {
         if (result.value) {
             jQuery('#rec-' + id).remove();
+        }
+    })
+}
+
+function deleterow_exist(id) {
+    Swal.fire({
+        title: 'Hapus',
+        text: "Apakah anda yakin hapus data ini?",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#0abb87',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, hapus data!'
+    }).then((result) => {
+        if (result.value) {
+            $("#row_status_"+id).val("deleted");
+            jQuery('#' + id).css("display", "none");
         }
     })
 }

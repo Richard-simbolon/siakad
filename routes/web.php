@@ -55,6 +55,7 @@ Route::get('data/tugasakhir/view/{id}', 'TugasAkhir@view')->name('get');
 Route::post('/data/tugasakhir/paging', 'TugasAkhir@paging')->name('pagination');
 Route::post('data/tugasakhir/save', 'TugasAkhir@save')->name('save');
 Route::post('data/tugasakhir/update', 'TugasAkhir@update')->name('update');
+Route::post('data/tugasakhir/delete', 'TugasAkhir@delete')->name('delete');
 
 
 //kelas perkuliahan

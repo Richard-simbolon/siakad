@@ -12,19 +12,19 @@
                             Master </h3>
                         <span class="kt-subheader__separator kt-hidden"></span>
                         <div class="kt-subheader__breadcrumbs">
-                            <a href="{{url()->previous()}}" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                            <a href="{{url('data/tugasakhir')}}" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
-                            <a href="{{url()->previous()}}" class="kt-subheader__breadcrumbs-link">
+                            <a href="{{url('data/tugasakhir')}}" class="kt-subheader__breadcrumbs-link">
                                 {{$title}} </a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
-                            <a href="{{url()->current()}}" class="kt-subheader__breadcrumbs-link">
+                            <a href="{{url('data/tugasakhir/create')}}" class="kt-subheader__breadcrumbs-link">
                                 Tambah </a>
                         </div>
                     </div>
                 </div>
                 <div class="kt-subheader__toolbar">
                     <div class="kt-subheader__wrapper">
-                        <a href="{{url()->previous()}}" class="btn btn-success"><i class="la la-bars"></i> Daftar</a>
+                        <a href="{{url('data/tugasakhir')}}" class="btn btn-success"><i class="la la-bars"></i> Daftar</a>
                     </div>
                 </div>
             </div>
@@ -88,7 +88,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-8">
+                                            <div class="col-lg-12">
                                                 <div class="form-group ">
                                                     <label>Judul Tugas Akhir</label>
                                                     <div class="form-group">

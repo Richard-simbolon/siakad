@@ -12,19 +12,19 @@
                             Master </h3>
                         <span class="kt-subheader__separator kt-hidden"></span>
                         <div class="kt-subheader__breadcrumbs">
-                            <a href="{{url()->previous()}}" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                            <a href="{{url('data/tugasakhir')}}" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
-                            <a href="{{url()->previous()}}" class="kt-subheader__breadcrumbs-link">
+                            <a href="{{url('data/tugasakhir')}}" class="kt-subheader__breadcrumbs-link">
                                 {{$title}} </a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
-                            <a href="{{url()->current()}}" class="kt-subheader__breadcrumbs-link">
+                            <a href="{{url('data/tugasakhir/create')}}" class="kt-subheader__breadcrumbs-link">
                                 Tambah </a>
                         </div>
                     </div>
                 </div>
                 <div class="kt-subheader__toolbar">
                     <div class="kt-subheader__wrapper">
-                        <a href="{{url()->previous()}}" class="btn btn-success"><i class="la la-bars"></i> Daftar</a>
+                        <a href="{{url('data/tugasakhir')}}" class="btn btn-success"><i class="la la-bars"></i> Daftar</a>
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-lg-8">
+                                            <div class="col-lg-12">
                                                 <div class="form-group ">
                                                     <label>Judul Tugas Akhir</label>
                                                     <div class="form-group">
@@ -108,13 +108,15 @@
                                                     <tbody>
 
                                                     @foreach ($master['detail'] as $detail)
-                                                        <tr id="{{$detail['id']}}}">
+                                                        <tr id="{{$detail['id']}}">
                                                             <td>
-                                                                <input type="hidden" name="row_status" value="{{$detail['row_status']}}">
-                                                                <input type="hidden" name="detail[{{$detail['id']}}][id]" value="{{$detail['id']}}">
+                                                                <input type="hidden" name="detail[{{$detail['id']}}][row_status_detail]" id="row_status_{{$detail['id']}}" value="{{$detail['row_status']}}">
+                                                                <input type="hidden" name="detail[{{$detail['id']}}][detail_id]" value="{{$detail['id']}}">
                                                                 <select name="detail[{{$detail['id']}}][dosen]" class="form-control form-control-sm kt-select2">
                                                                     @foreach ($master['dosen'] as $item)
-                                                                        <option value="{{$item['id']}}" {{$detail['dosen_id'] == $item['id']? "selected": ""}}> {{$item['nik']. ' - ' . $item['nama']}} </option>
+                                                                        @if($detail['dosen_id'] == $item['id'])
+                                                                        <option value="{{$item['id']}}" selected> {{$item['nik']. ' - ' . $item['nama']}} </option>
+                                                                        @endif
                                                                     @endforeach
                                                                 </select>
                                                             </td>
@@ -132,7 +134,7 @@
                                                             </td>
                                                             <td width="150px" align="center" style="vertical-align: middle">
                                                             <a href="javascript:void(0)" onclick="addrow()"><i class="la la-plus" style="font-size: 16px;"></i> </a> &nbsp;
-                                                            <a href="javascript:void(0)" onclick="deleterow(0)"><i class="la la-trash" style="font-size: 16px;"></i> </a>
+                                                            <a href="javascript:void(0)" onclick="deleterow_exist({{$detail['id']}})"><i class="la la-trash" style="font-size: 16px;"></i> </a>
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -143,7 +145,10 @@
                                         <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
                                         <div class="kt-form__actions">
                                             <a style="color:#ffffff;" data-prev-url="{{url()->previous()}}" class="btn btn-success" id="update_tugas_akhir">
-                                                Edit <i class="la la-save"></i>
+                                                 <i class="la la-save"></i> Edit
+                                            </a>
+                                            <a style="color:#ffffff;" data-prev-url="{{url()->previous()}}" class="btn btn-danger" id="delete_tugas_akhir">
+                                                 <i class="la la-trash"></i> Hapus
                                             </a>
                                         </div>
                                     </div>
