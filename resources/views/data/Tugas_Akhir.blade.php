@@ -53,7 +53,7 @@
                         </div>
                         <div class="kt-portlet__body">
                             <div class="m-portlet__body">
-                                <table class="table table-striped table-bordered table-hover table-sm responsive no-wrap general-data-table" id="{{$tableid}}">
+                                <table class="table table-striped table-bordered table-sm responsive no-wrap general-data-table" id="{{$tableid}}">
                                     <thead>
                                     <tr>
                                         <th>No</th>
@@ -72,7 +72,7 @@
             </div>
         </div>
     </div>
-
+    <script src="{{asset('assets/js/pages/tugasakhir/index.js')}}" type="text/javascript"></script>
 @section('js')
 
 @stop
