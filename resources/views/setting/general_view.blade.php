@@ -84,6 +84,10 @@
 </div>
 <style>
     .m-content{width:100%}
+    table thead tr th{
+        color:#ffffff!important;
+        font-weight: 400;
+    }
     </style>
 
 @section('js')

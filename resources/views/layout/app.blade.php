@@ -335,6 +335,17 @@
 		})
 		</script>
         <script src="{{asset('assets/js/pages/dashboard.js')}}" type="text/javascript"></script>
-
+        <style>
+            table thead tr{
+                background-color:#4cad82!important;
+            }
+            table thead tr th{
+                color:#ffffff!important;
+                font-weight: 400;
+            }
+            .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__heading .kt-menu__link-text, .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__link .kt-menu__link-text {
+                color: #1a1b1a!important;
+            }
+        </style>
     <input type="hidden" id="csrf_" value="{{csrf_token()}} "/>
 </html>
