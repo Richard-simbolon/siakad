@@ -181,7 +181,7 @@ class Dosen extends Controller
         //return Datatables::of(DosenModel::all())->make(true);
 
         return Datatables::of(DosenModel::join('master_agama', 'dosen.agama', '=', 'master_agama.id')
-        ->select("dosen.id" ,"master_agama.title as t_agama","nip" ,"nidn_nup_nidk", "agama" , "dosen.status","nama","tanggal_lahir","jenis_kelamin")->get())->make(true);
+        ->select("dosen.id" ,"master_agama.title as t_agama","nip" ,"nidn_nup_nidk", "agama" , "dosen.status","nama","tanggal_lahir","jenis_kelamin")->get())->addIndexColumn()->make(true);
     }
 
     public function view($id){
