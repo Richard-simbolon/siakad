@@ -18,827 +18,406 @@
 
     <!-- begin:: Content -->
     <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
-            <div class="kt-portlet">
-                <div class="kt-portlet__body kt-portlet__body--fit">
-                    <div class="kt-grid kt-wizard-v3 kt-wizard-v3--white" id="kt_wizard_v3" data-ktwizard-state="step-first">
-                        <div class="kt-grid__item">
+        <div class="row">
+            <div class="col-xl-12">
 
-                            <!--begin: Form Wizard Nav -->
-                            <div class="kt-wizard-v3__nav">
-                                <div class="kt-wizard-v3__nav-items kt-wizard-v3__nav-items--clickable">
+                <!--begin:: Widgets/Applications/User/Profile3-->
+                <div class="kt-portlet kt-portlet--height-fluid">
+                    <div class="kt-portlet__body">
+                        <div class="kt-widget kt-widget--user-profile-3">
+                            <div class="kt-widget__top">
+                                <div class="kt-widget__media kt-hidden-">
+                                    <img src="assets/media/users/100_13.jpg" alt="image">
+                                </div>
+                                <div class="kt-widget__pic kt-widget__pic--danger kt-font-danger kt-font-boldest kt-font-light kt-hidden">
+                                    JM
+                                </div>
+                                <div class="kt-widget__content">
+                                    <div class="kt-widget__head">
+                                        <a href="#" class="kt-widget__username">
+                                            Jason Muller
+                                            <i class="flaticon2-correct"></i>
+                                        </a>
+                                        <div class="kt-widget__action">
+                                            <button type="button" class="btn btn-label-success btn-sm btn-upper"><i class="fa fa-edit"></i> Ubah</button>&nbsp;
+                                        </div>
+                                    </div>
+                                    <div class="kt-widget__subhead">
+                                        <a href="#"><i class="flaticon-user"></i>07212.2080</a>
+                                        <a href="#"><i class="flaticon2-new-email"></i>jason@siastudio.com</a>
+                                        <a href="#"><i class="flaticon2-calendar-3"></i>Kelas A</a>
+                                    </div>
+                                    <div class="kt-widget__info">
+                                        <div class="kt-widget__desc" style="display: inline-block!important;width: 100%;">
+                                            <!--<div class="kt-widget__subhead">-->
+                                            <!--<a href="#"><i class="flaticon2-calendar-3"></i>Teknologi Produksi Tanaman Perkebunan</a>-->
+                                            <!--</div>-->
+                                            Angkatan 2019 <br/> Teknologi Produksi Tanaman Perkebunan <br/>
 
-                                    <!--doc: Replace A tag with SPAN tag to disable the step link click -->
-                                    <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step" data-ktwizard-state="current">
-                                        <div class="kt-wizard-v3__nav-body">
-                                            <div class="kt-wizard-v3__nav-label">
-                                                <span>1</span> Informasi Dasar
-                                            </div>
-                                            <div class="kt-wizard-v3__nav-bar"></div>
                                         </div>
-                                    </div>
-                                    <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step">
-                                        <div class="kt-wizard-v3__nav-body">
-                                            <div class="kt-wizard-v3__nav-label">
-                                                <span>2</span> Alamat
+                                        <div class="kt-widget__progress">
+                                            <div class="progress" style="height: 5px;width: 100%;">
+                                                <div class="progress-bar kt-bg-success" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
-                                            <div class="kt-wizard-v3__nav-bar"></div>
-                                        </div>
-                                    </div>
-                                    <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step">
-                                        <div class="kt-wizard-v3__nav-body">
-                                            <div class="kt-wizard-v3__nav-label">
-                                                <span>3</span> Orangtua
-                                            </div>
-                                            <div class="kt-wizard-v3__nav-bar"></div>
-                                        </div>
-                                    </div>
-                                    <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step">
-                                        <div class="kt-wizard-v3__nav-body">
-                                            <div class="kt-wizard-v3__nav-label">
-                                                <span>4</span> Wali
-                                            </div>
-                                            <div class="kt-wizard-v3__nav-bar"></div>
-                                        </div>
-                                    </div>
-                                    <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step">
-                                        <div class="kt-wizard-v3__nav-body">
-                                            <div class="kt-wizard-v3__nav-label">
-                                                <span>5</span> Kebutuhan Khusus
-                                            </div>
-                                            <div class="kt-wizard-v3__nav-bar"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <!--end: Form Wizard Nav -->
-                        </div>
-                        <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v3__wrapper">
-
-                            <!--begin: Form Wizard Form-->
-                            <form class="kt-form" id="kt_form">
-
-                                <!--begin: Form Wizard Step 1 - Data Informasi Dasar-->
-                                <div class="kt-wizard-v3__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
-                                    <div class="kt-heading kt-heading--md">Formulir Informasi Dasar Mahasiwa</div>
-                                    <div class="kt-form__section kt-form__section--first">
-                                        <div class="kt-wizard-v3__form">
-                                            <div class="row">
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Nama Lengkap</label>
-                                                        <input type="text" class="form-control" name="name" placeholder="isikan nama lengkap">
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Nama Ibu</label>
-                                                        <input type="text" class="form-control" name="nama_ibu" placeholder="isikan nama ibu">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Tempat lahir</label>
-                                                        <input type="text" class="form-control" name="tempat_lahir" placeholder="isikan tempat lahir">
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Tanggal lahir</label>
-                                                        <input type="date" class="form-control" name="tanggal_lahir" placeholder="isikan nama ibu">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Jenis Kelamin</label>
-                                                        <div class="kt-radio-inline">
-                                                            <label class="kt-radio">
-                                                                <input type="radio" name="sex" checked> Laki-laki
-                                                                <span></span>
-                                                            </label>
-                                                            <label class="kt-radio">
-                                                                <input type="radio" name="sex"> Perempuan
-                                                                <span></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Agama:</label>
-                                                        <select name="agama" class="form-control">
-                                                            <option value="">Select</option>
-                                                            <option value="islam">Islam</option>
-                                                            <option value="protestan">Protestan</option>
-                                                            <option value="katolik">Katolik</option>
-                                                            <option value="hindu">Hindu</option>
-                                                            <option value="budha">Budha</option>
-                                                            <option value="konghucu">Konghucu</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <div class="kt-widget__bottom">
+                                <div class="kt-widget__item">
+                                    <div class="kt-widget__icon">
+                                        <i class="flaticon-medal"></i>
+                                    </div>
+                                    <div class="kt-widget__details">
+                                        <span class="kt-widget__title">IP Kumulatif</span>
+                                        <span class="kt-widget__value">3.51</span>
+                                    </div>
+                                </div>
+                                <div class="kt-widget__item">
+                                    <div class="kt-widget__icon">
+                                        <i class="flaticon-customer"></i>
+                                    </div>
+                                    <div class="kt-widget__details">
+                                        <span class="kt-widget__title">IP Semester</span>
+                                        <span class="kt-widget__value">3.90</span>
+                                    </div>
+                                </div>
+                                <div class="kt-widget__item">
+                                    <div class="kt-widget__icon">
+                                        <i class="flaticon-calendar-with-a-clock-time-tools"></i>
+                                    </div>
+                                    <div class="kt-widget__details">
+                                        <span class="kt-widget__title">Total SKS</span>
+                                        <span class="kt-widget__value">130</span>
+                                    </div>
+                                </div>
+                                <div class="kt-widget__item">
+                                    <div class="kt-widget__icon">
+                                        <i class="flaticon-time"></i>
+                                    </div>
+                                    <div class="kt-widget__details">
+                                        <span class="kt-widget__title">Sisa SKS</span>
+                                        <span class="kt-widget__value">10</span>
                                     </div>
                                 </div>
 
-                                <!--end: Form Wizard Step 1  - Data Informasi Dasar-->
-
-                                <!--begin: Form Wizard Step 2  - Data Alamat-->
-                                <div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
-                                    <div class="kt-heading kt-heading--md">Formulir Data Alamat Mahasiswa</div>
-                                    <div class="kt-form__section kt-form__section--first">
-                                        <div class="kt-wizard-v3__form">
-                                            <div class="form-group">
-                                                <label>NIK *</label>
-                                                <input type="text" class="form-control" name="nik" placeholder="Isikan NIK">
-                                                <span class="form-text text-muted">Nomor KTP tanpa tanda baca, Isikan Nomor Paspor untuk Warga Negara Asing</span>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>NISN</label>
-                                                <input type="text" class="form-control" name="nisn" placeholder="Isikan NISN">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Kewarganegaraan *</label>
-                                                <input type="text" class="form-control" name="kewarganegaraan" placeholder="Isikan Kewarganegaraan">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Jalan *</label>
-                                                <textarea type="text" class="form-control" name="alamat" placeholder="Isikan Alamat"></textarea>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xl-4">
-                                                    <div class="form-group">
-                                                        <label>Dusun</label>
-                                                        <input type="text" class="form-control" name="dusun" placeholder="Isikan Dusun">
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-4">
-                                                    <div class="form-group">
-                                                        <label>RT</label>
-                                                        <input type="text" class="form-control" name="rt" placeholder="Isikan  RT">
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-4">
-                                                    <div class="form-group">
-                                                        <label>RW</label>
-                                                        <input type="text" class="form-control" name="rw" placeholder="Isikan RW">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Kelurahan</label>
-                                                        <input type="text" class="form-control" name="kelurahan" placeholder="Isikan Kelurahan">
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Kode Pos</label>
-                                                        <input type="text" class="form-control" name="kode_pos" placeholder="Isikan Kode Pos">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Kecamatan</label>
-                                                <textarea type="text" class="form-control" name="kecamatan" placeholder="Isikan Kecamatan"></textarea>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Jenis Tinggal</label>
-                                                <select name="jenis_tingal" class="form-control">
-                                                    <option value="">Select</option>
-                                                    <option value="1">Bersama Orangtua</option>
-                                                    <option value="2">Wali</option>
-                                                    <option value="3">Kost</option>
-                                                    <option value="4">Asrama</option>
-                                                    <option value="5">Panti Asuhan</option>
-                                                    <option value="0">Lainnya</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Alat Transpostrasi</label>
-                                                <select name="jenis_tingal" class="form-control">
-                                                    <option value="">-- Pilih Alat Transportasi --</option>
-                                                    <option value="1">Jalan kaki</option>
-                                                    <option value="3">Angkutan umum/bus/pete-pete</option>
-                                                    <option value="4">Mobil/bus antar jemput</option>
-                                                    <option value="5">Kereta api</option>
-                                                    <option value="6">Ojek</option>
-                                                    <option value="7">Andong/bendi/sado/dokar/delman/becak</option>
-                                                    <option value="8">Perahu penyeberangan/rakit/getek</option>
-                                                    <option value="11">Kuda</option>
-                                                    <option value="12">Sepeda</option>
-                                                    <option value="13">Sepeda motor</option>
-                                                    <option value="14">Mobil pribadi</option>
-                                                    <option value="99">Lainnya</option>
-                                                </select>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Telepon</label>
-                                                        <input type="text" class="form-control" name="telepon" placeholder="Isikan Nomor Telepon">
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Kode Pos</label>
-                                                        <input type="text" class="form-control" name="no_hp" placeholder="Isikan Nomor HP">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Email</label>
-                                                <input type="text" class="form-control" name="email" placeholder="Isikan Email">
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Penerima KPS? *</label>
-                                                        <div class="kt-radio-inline">
-                                                            <label class="kt-radio">
-                                                                <input type="radio" name="kps" checked> Ya
-                                                                <span></span>
-                                                            </label>
-                                                            <label class="kt-radio">
-                                                                <input type="radio" name="kps"> Tidak
-                                                                <span></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>No KPS:</label>
-                                                        <input type="text" class="form-control" name="no_kps" placeholder="Isikan Nomor KPS">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!--end: Form Wizard Step 2 - Data Alamat-->
-
-                                <!--begin: Form Wizard Step 3 - Data Orangtua-->
-                                <div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
-                                    <div class="kt-heading kt-heading--md">Formulir Data Orangtua Mahasiswa</div>
-                                    <div class="kt-form__section kt-form__section--first">
-                                        <div class="kt-wizard-v3__form">
-                                        <div class="row">
-                                            <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>NIK Ayah</label>
-                                                        <input type="text" class="form-control" name="nik_ayah" placeholder="Isikan NIK">
-                                                        <span class="form-text text-muted">Nomor KTP tanpa tanda baca</span>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Nama Ayah</label>
-                                                        <input type="text" class="form-control" name="nama_ayah" placeholder="Isikan Nama">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Tanggal Lahir Ayah</label>
-                                                        <input type="date" class="form-control" name="tanggal_lahir_ayah" placeholder="Isikan Tanggal Lahir">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Pendidikan Ayah</label>
-                                                        <select name="pendidikan_ayah" class="form-control">
-                                                            <option value="">-- Pilih Jenjang --</option>
-                                                            <option value="0">Tidak sekolah</option>
-                                                            <option value="1">PAUD</option>
-                                                            <option value="2">TK / sederajat</option>
-                                                            <option value="3">Putus SD</option>
-                                                            <option value="4">SD / sederajat</option>
-                                                            <option value="5">SMP / sederajat</option>
-                                                            <option value="6">SMA / sederajat</option>
-                                                            <option value="7">Paket A</option>
-                                                            <option value="8">Paket B</option>
-                                                            <option value="9">Paket C</option>
-                                                            <option value="20">D1</option>
-                                                            <option value="21">D2</option>
-                                                            <option value="22">D3</option>
-                                                            <option value="23">D4</option>
-                                                            <option value="30">S1</option>
-                                                            <option value="31">Profesi</option>
-                                                            <option value="32">Sp-1</option>
-                                                            <option value="35">S2</option>
-                                                            <option value="36">S2 Terapan</option>
-                                                            <option value="37">Sp-2</option>
-                                                            <option value="40">S3</option>
-                                                            <option value="41">S3 Terapan</option>
-                                                            <option value="90">Non formal</option>
-                                                            <option value="91">Informal</option>
-                                                            <option value="99">Lainnya</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Pekerjaan Ayah</label>
-                                                        <select name="pekerjaan_ayah" class="form-control">
-                                                            <option value="">-- Pilih Pekerjaan --</option>
-                                                            <option value="1">Tidak bekerja</option>
-                                                            <option value="2">Nelayan</option>
-                                                            <option value="3">Petani</option>
-                                                            <option value="4">Peternak</option>
-                                                            <option value="5">PNS/TNI/Polri</option>
-                                                            <option value="6">Karyawan Swasta</option>
-                                                            <option value="7">Pedagang Kecil</option>
-                                                            <option value="8">Pedagang Besar</option>
-                                                            <option value="9">Wiraswasta</option>
-                                                            <option value="10">Wirausaha</option>
-                                                            <option value="11">Buruh</option>
-                                                            <option value="12">Pensiunan</option>
-                                                            <option value="98">Sudah Meninggal</option>
-                                                            <option value="99">Lainnya</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Penghasilan Ayah</label>
-                                                        <select name="penghasilan_ayah" class="form-control">
-                                                            <option value="">-- Pilih Penghasilan --</option>
-                                                            <option value="0"> </option>
-                                                            <option value="11">Kurang dari Rp. 500,000</option>
-                                                            <option value="12">Rp. 500,000 - Rp. 999,999</option>
-                                                            <option value="13">Rp. 1,000,000 - Rp. 1,999,999</option>
-                                                            <option value="14">Rp. 2,000,000 - Rp. 4,999,999</option>
-                                                            <option value="15">Rp. 5,000,000 - Rp. 20,000,000</option>
-                                                            <option value="16">Lebih dari Rp. 20,000,000</option>
-                                                        </select>
-                                                    </div>
-                                            </div>
-                                            <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>NIK Ibu</label>
-                                                        <input type="text" class="form-control" name="nik_ibu" placeholder="Isikan NIK">
-                                                        <span class="form-text text-muted">Nomor KTP tanpa tanda baca</span>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Nama Ibu</label>
-                                                        <input type="text" class="form-control" name="nama_ibu" placeholder="Isikan Nama">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Tanggal Lahir Ibu</label>
-                                                        <input type="date" class="form-control" name="tanggal_lahir_ibu" placeholder="Isikan Tanggal Lahir">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Pendidikan Ibu</label>
-                                                        <select name="pendidikan_ibu" class="form-control">
-                                                            <option value="">-- Pilih Jenjang --</option>
-                                                            <option value="0">Tidak sekolah</option>
-                                                            <option value="1">PAUD</option>
-                                                            <option value="2">TK / sederajat</option>
-                                                            <option value="3">Putus SD</option>
-                                                            <option value="4">SD / sederajat</option>
-                                                            <option value="5">SMP / sederajat</option>
-                                                            <option value="6">SMA / sederajat</option>
-                                                            <option value="7">Paket A</option>
-                                                            <option value="8">Paket B</option>
-                                                            <option value="9">Paket C</option>
-                                                            <option value="20">D1</option>
-                                                            <option value="21">D2</option>
-                                                            <option value="22">D3</option>
-                                                            <option value="23">D4</option>
-                                                            <option value="30">S1</option>
-                                                            <option value="31">Profesi</option>
-                                                            <option value="32">Sp-1</option>
-                                                            <option value="35">S2</option>
-                                                            <option value="36">S2 Terapan</option>
-                                                            <option value="37">Sp-2</option>
-                                                            <option value="40">S3</option>
-                                                            <option value="41">S3 Terapan</option>
-                                                            <option value="90">Non formal</option>
-                                                            <option value="91">Informal</option>
-                                                            <option value="99">Lainnya</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Pekerjaan Ibu</label>
-                                                        <select name="pekerjaan_ibu" class="form-control">
-                                                            <option value="">-- Pilih Pekerjaan --</option>
-                                                            <option value="1">Tidak bekerja</option>
-                                                            <option value="2">Nelayan</option>
-                                                            <option value="3">Petani</option>
-                                                            <option value="4">Peternak</option>
-                                                            <option value="5">PNS/TNI/Polri</option>
-                                                            <option value="6">Karyawan Swasta</option>
-                                                            <option value="7">Pedagang Kecil</option>
-                                                            <option value="8">Pedagang Besar</option>
-                                                            <option value="9">Wiraswasta</option>
-                                                            <option value="10">Wirausaha</option>
-                                                            <option value="11">Buruh</option>
-                                                            <option value="12">Pensiunan</option>
-                                                            <option value="98">Sudah Meninggal</option>
-                                                            <option value="99">Lainnya</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Penghasilan Ibu</label>
-                                                        <select name="penghasilan_ibu" class="form-control">
-                                                            <option value="">-- Pilih Penghasilan --</option>
-                                                            <option value="0"> </option>
-                                                            <option value="11">Kurang dari Rp. 500,000</option>
-                                                            <option value="12">Rp. 500,000 - Rp. 999,999</option>
-                                                            <option value="13">Rp. 1,000,000 - Rp. 1,999,999</option>
-                                                            <option value="14">Rp. 2,000,000 - Rp. 4,999,999</option>
-                                                            <option value="15">Rp. 5,000,000 - Rp. 20,000,000</option>
-                                                            <option value="16">Lebih dari Rp. 20,000,000</option>
-                                                        </select>
-                                                    </div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!--end: Form Wizard Step 3 - Data Orangtua -->
-
-                                <!--begin: Form Wizard Step 4 - Data wali-->
-                                <div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
-                                    <div class="kt-heading kt-heading--md">Formulir Data Wali Mahasiswa</div>
-                                    <div class="kt-form__section kt-form__section--first">
-                                        <div class="kt-wizard-v3__form">
-                                        <div class="row">
-                                            <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Nama</label>
-                                                        <input type="text" class="form-control" name="nama_wali" placeholder="Isikan Nama">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Tanggal Lahir </label>
-                                                        <input type="date" class="form-control" name="tanggal_lahir_wali" placeholder="Isikan Tanggal Lahir">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Pendidikan</label>
-                                                        <select name="pendidikan_wali" class="form-control">
-                                                            <option value="">-- Pilih Jenjang --</option>
-                                                            <option value="0">Tidak sekolah</option>
-                                                            <option value="1">PAUD</option>
-                                                            <option value="2">TK / sederajat</option>
-                                                            <option value="3">Putus SD</option>
-                                                            <option value="4">SD / sederajat</option>
-                                                            <option value="5">SMP / sederajat</option>
-                                                            <option value="6">SMA / sederajat</option>
-                                                            <option value="7">Paket A</option>
-                                                            <option value="8">Paket B</option>
-                                                            <option value="9">Paket C</option>
-                                                            <option value="20">D1</option>
-                                                            <option value="21">D2</option>
-                                                            <option value="22">D3</option>
-                                                            <option value="23">D4</option>
-                                                            <option value="30">S1</option>
-                                                            <option value="31">Profesi</option>
-                                                            <option value="32">Sp-1</option>
-                                                            <option value="35">S2</option>
-                                                            <option value="36">S2 Terapan</option>
-                                                            <option value="37">Sp-2</option>
-                                                            <option value="40">S3</option>
-                                                            <option value="41">S3 Terapan</option>
-                                                            <option value="90">Non formal</option>
-                                                            <option value="91">Informal</option>
-                                                            <option value="99">Lainnya</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Pekerjaan</label>
-                                                        <select name="pekerjaan_wali" class="form-control">
-                                                            <option value="">-- Pilih Pekerjaan --</option>
-                                                            <option value="1">Tidak bekerja</option>
-                                                            <option value="2">Nelayan</option>
-                                                            <option value="3">Petani</option>
-                                                            <option value="4">Peternak</option>
-                                                            <option value="5">PNS/TNI/Polri</option>
-                                                            <option value="6">Karyawan Swasta</option>
-                                                            <option value="7">Pedagang Kecil</option>
-                                                            <option value="8">Pedagang Besar</option>
-                                                            <option value="9">Wiraswasta</option>
-                                                            <option value="10">Wirausaha</option>
-                                                            <option value="11">Buruh</option>
-                                                            <option value="12">Pensiunan</option>
-                                                            <option value="98">Sudah Meninggal</option>
-                                                            <option value="99">Lainnya</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Penghasilan</label>
-                                                        <select name="penghasilan_wali" class="form-control">
-                                                            <option value="">-- Pilih Penghasilan --</option>
-                                                            <option value="0"> </option>
-                                                            <option value="11">Kurang dari Rp. 500,000</option>
-                                                            <option value="12">Rp. 500,000 - Rp. 999,999</option>
-                                                            <option value="13">Rp. 1,000,000 - Rp. 1,999,999</option>
-                                                            <option value="14">Rp. 2,000,000 - Rp. 4,999,999</option>
-                                                            <option value="15">Rp. 5,000,000 - Rp. 20,000,000</option>
-                                                            <option value="16">Lebih dari Rp. 20,000,000</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!--end: Form Wizard Step 4-->
-
-                                <!--begin: Form Wizard Step 5-->
-                                <div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
-                                    <div class="kt-heading kt-heading--md">Daftar Kebutuhan Khusus</div>
-                                    <div class="kt-form__section kt-form__section--first">
-                                        <div class="kt-wizard-v3__review">
-                                            <div class="kt-wizard-v3__review-item">
-                                                <div class="kt-wizard-v3__review-title">
-                                                    Mahasiswa
-                                                </div>
-                                                <div class="kt-wizard-v3__review-content">
-                                                    <div class="row">
-                                                        <div class="col-xl-4">
-                                                            <div class="kt-checkbox-list">
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input type="checkbox"> A - Tuna netra
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> B - Tuna rungu
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> C - Tuna grahita ringan
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> C1 - Tuna grahita ringan
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> D - Tuna daksa ringan
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> D1 - Tuna daksa sedang
-                                                                    <span></span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-4">
-                                                            <div class="kt-checkbox-list">
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> E - Tuna laras
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> F - Tuna wicara
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> H - Hiperaktif
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> I - Cerdas Istimewa
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> J - Bakat Istimewa
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> K - Kesulitan Belajar
-                                                                    <span></span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-4">
-                                                            <div class="kt-checkbox-list">
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> N - Narkoba
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> O - Indigo
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> P - Down Syndrome
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> Q - Autis
-                                                                    <span></span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="kt-wizard-v3__review-item">
-                                                <div class="kt-wizard-v3__review-title">
-                                                    Ayah
-                                                </div>
-                                                <div class="kt-wizard-v3__review-content">
-                                                    <div class="row">
-                                                        <div class="col-xl-4">
-                                                            <div class="kt-checkbox-list">
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input type="checkbox"> A - Tuna netra
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> B - Tuna rungu
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> C - Tuna grahita ringan
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> C1 - Tuna grahita ringan
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> D - Tuna daksa ringan
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> D1 - Tuna daksa sedang
-                                                                    <span></span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-4">
-                                                            <div class="kt-checkbox-list">
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> E - Tuna laras
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> F - Tuna wicara
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> H - Hiperaktif
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> I - Cerdas Istimewa
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> J - Bakat Istimewa
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> K - Kesulitan Belajar
-                                                                    <span></span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-4">
-                                                            <div class="kt-checkbox-list">
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> N - Narkoba
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> O - Indigo
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> P - Down Syndrome
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ayah_kh[]" type="checkbox"> Q - Autis
-                                                                    <span></span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="kt-wizard-v3__review-item">
-                                                <div class="kt-wizard-v3__review-title">
-                                                    Ibu
-                                                </div>
-                                                <div class="kt-wizard-v3__review-content">
-                                                    <div class="row">
-                                                        <div class="col-xl-4">
-                                                            <div class="kt-checkbox-list">
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input type="checkbox"> A - Tuna netra
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[]" type="checkbox"> B - Tuna rungu
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[]" type="checkbox"> C - Tuna grahita ringan
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[]" type="checkbox"> C1 - Tuna grahita ringan
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[]" type="checkbox"> D - Tuna daksa ringan
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[]" type="checkbox"> D1 - Tuna daksa sedang
-                                                                    <span></span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-4">
-                                                            <div class="kt-checkbox-list">
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[]" type="checkbox"> E - Tuna laras
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[]" type="checkbox"> F - Tuna wicara
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[]" type="checkbox"> H - Hiperaktif
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[]" type="checkbox"> I - Cerdas Istimewa
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[]" type="checkbox"> J - Bakat Istimewa
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="ibu_kh[]" type="checkbox"> K - Kesulitan Belajar
-                                                                    <span></span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-4">
-                                                            <div class="kt-checkbox-list">
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> N - Narkoba
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> O - Indigo
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> P - Down Syndrome
-                                                                    <span></span>
-                                                                </label>
-                                                                <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                    <input name="mahasiswa_kh[]" type="checkbox"> Q - Autis
-                                                                    <span></span>
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!--end: Form Wizard Step 5-->
-
-                                <!--begin: Form Actions -->
-                                <div class="kt-form__actions">
-                                    <button class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-prev">
-                                        Sebelumnya
-                                    </button>
-                                    <button class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit">
-                                        Simpan
-                                    </button>
-                                    <button class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next">
-                                        Selanjutnya
-                                    </button>
-                                </div>
-
-                                <!--end: Form Actions -->
-                            </form>
-
-                            <!--end: Form Wizard Form-->
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!--end:: Widgets/Applications/User/Profile3-->
             </div>
         </div>
+        <!--<div class="row">-->
+        <!--<div class="col-xl-3">-->
+
+        <!--&lt;!&ndash;begin:: Portlet&ndash;&gt;-->
+        <!--<div class="kt-portlet kt-portlet&#45;&#45;height-fluid">-->
+        <!--<div class="kt-portlet__body kt-portlet__body&#45;&#45;fit">-->
+
+        <!--&lt;!&ndash;begin::Widget &ndash;&gt;-->
+        <!--<div class="kt-widget kt-widget&#45;&#45;project-1">-->
+        <!--<div class="kt-widget__head d-flex">-->
+        <!--<div class="kt-widget__label">-->
+        <!--<div class="kt-widget__media kt-widget__media&#45;&#45;m">-->
+        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden-">-->
+        <!--<img src="assets/media/project-logos/1.png" alt="image">-->
+        <!--&lt;!&ndash;<i class="la la-trash"></i>&ndash;&gt;-->
+        <!--</span>-->
+        <!--&lt;!&ndash;<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden">&ndash;&gt;-->
+        <!--&lt;!&ndash;<img src="assets/media/users/100_12.jpg" alt="image">&ndash;&gt;-->
+        <!--&lt;!&ndash;</span>&ndash;&gt;-->
+        <!--</div>-->
+        <!--<div class="kt-widget__info kt-padding-0 kt-margin-l-15">-->
+        <!--<a href="#" class="kt-widget__title">-->
+        <!--3.14-->
+        <!--</a>-->
+        <!--<span class="kt-widget__desc">-->
+        <!--Indeks Prestasi Kumulatif-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;end::Widget &ndash;&gt;-->
+
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash;end:: Portlet&ndash;&gt;-->
+        <!--</div>-->
+
+        <!--<div class="col-xl-3">-->
+
+        <!--&lt;!&ndash;begin:: Portlet&ndash;&gt;-->
+        <!--<div class="kt-portlet kt-portlet&#45;&#45;height-fluid">-->
+        <!--<div class="kt-portlet__body kt-portlet__body&#45;&#45;fit">-->
+
+        <!--&lt;!&ndash;begin::Widget &ndash;&gt;-->
+        <!--<div class="kt-widget kt-widget&#45;&#45;project-1">-->
+        <!--<div class="kt-widget__head d-flex">-->
+        <!--<div class="kt-widget__label">-->
+        <!--<div class="kt-widget__media kt-widget__media&#45;&#45;m">-->
+        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden-">-->
+        <!--<img src="assets/media/project-logos/1.png" alt="image">-->
+        <!--</span>-->
+        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden">-->
+        <!--<img src="assets/media/users/100_12.jpg" alt="image">-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--<div class="kt-widget__info kt-padding-0 kt-margin-l-15">-->
+        <!--<a href="#" class="kt-widget__title">-->
+        <!--3.4-->
+        <!--</a>-->
+        <!--<span class="kt-widget__desc">-->
+        <!--Indeks Prestasi Sementara-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;end::Widget &ndash;&gt;-->
+
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash;end:: Portlet&ndash;&gt;-->
+        <!--</div>-->
+
+        <!--<div class="col-xl-3">-->
+
+        <!--&lt;!&ndash;begin:: Portlet&ndash;&gt;-->
+        <!--<div class="kt-portlet kt-portlet&#45;&#45;height-fluid">-->
+        <!--<div class="kt-portlet__body kt-portlet__body&#45;&#45;fit">-->
+
+        <!--&lt;!&ndash;begin::Widget &ndash;&gt;-->
+        <!--<div class="kt-widget kt-widget&#45;&#45;project-1">-->
+        <!--<div class="kt-widget__head d-flex">-->
+        <!--<div class="kt-widget__label">-->
+        <!--<div class="kt-widget__media kt-widget__media&#45;&#45;m">-->
+        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden-">-->
+        <!--<img src="assets/media/project-logos/1.png" alt="image">-->
+        <!--</span>-->
+        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden">-->
+        <!--<img src="assets/media/users/100_12.jpg" alt="image">-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--<div class="kt-widget__info kt-padding-0 kt-margin-l-15">-->
+        <!--<a href="#" class="kt-widget__title">-->
+        <!--130-->
+        <!--</a>-->
+        <!--<span class="kt-widget__desc">-->
+        <!--Jumlah SKS-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;end::Widget &ndash;&gt;-->
+
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash;end:: Portlet&ndash;&gt;-->
+        <!--</div>-->
+
+        <!--<div class="col-xl-3">-->
+
+        <!--&lt;!&ndash;begin:: Portlet&ndash;&gt;-->
+        <!--<div class="kt-portlet kt-portlet&#45;&#45;height-fluid">-->
+        <!--<div class="kt-portlet__body kt-portlet__body&#45;&#45;fit">-->
+
+        <!--&lt;!&ndash;begin::Widget &ndash;&gt;-->
+        <!--<div class="kt-widget kt-widget&#45;&#45;project-1">-->
+        <!--<div class="kt-widget__head d-flex">-->
+        <!--<div class="kt-widget__label">-->
+        <!--<div class="kt-widget__media kt-widget__media&#45;&#45;m">-->
+        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden-">-->
+        <!--<img src="assets/media/project-logos/1.png" alt="image">-->
+        <!--</span>-->
+        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden">-->
+        <!--<img src="assets/media/users/100_12.jpg" alt="image">-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--<div class="kt-widget__info kt-padding-0 kt-margin-l-15">-->
+        <!--<a href="#" class="kt-widget__title">-->
+        <!--<h3>3</h3>-->
+        <!--</a>-->
+        <!--<span class="kt-widget__desc">-->
+        <!--Sisa SKS-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;end::Widget &ndash;&gt;-->
+
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash;end:: Portlet&ndash;&gt;-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="row">-->
+        <!--<div class="col-xl-6">-->
+
+        <!--&lt;!&ndash;begin:: Portlet&ndash;&gt;-->
+        <!--<div class="kt-portlet kt-portlet&#45;&#45;height-fluid">-->
+        <!--<div class="kt-portlet__body kt-portlet__body&#45;&#45;fit">-->
+
+        <!--&lt;!&ndash;begin::Widget &ndash;&gt;-->
+        <!--<div class="kt-widget kt-widget&#45;&#45;project-1">-->
+        <!--<div class="kt-widget__head d-flex">-->
+        <!--<div class="kt-widget__label">-->
+        <!--<div class="kt-widget__media kt-widget__media&#45;&#45;m">-->
+        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden-">-->
+        <!--<img src="assets/media/project-logos/3.png" alt="image">-->
+        <!--</span>-->
+        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden">-->
+        <!--<img src="assets/media/users/100_12.jpg" alt="image">-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--<div class="kt-widget__info kt-padding-0 kt-margin-l-15">-->
+        <!--<a href="#" class="kt-widget__title">-->
+        <!--Pengumuman-->
+        <!--</a>-->
+        <!--<span class="kt-widget__desc">-->
+        <!--Creates Limitless possibilities-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--<div class="kt-widget__body">-->
+        <!--<span class="kt-widget__text kt-margin-t-0 kt-padding-t-5">-->
+        <!--Objecttives could be merely i distinguish three<br>-->
+        <!--main text objective-->
+        <!--</span>-->
+        <!--<div class="kt-widget__stats kt-margin-t-20">-->
+        <!--<div class="kt-widget__item d-flex align-items-center kt-margin-r-30">-->
+        <!--<span class="kt-widget__date kt-padding-0 kt-margin-r-10">-->
+        <!--Start-->
+        <!--</span>-->
+        <!--<div class="kt-widget__label">-->
+        <!--<span class="btn btn-label-brand btn-sm btn-bold btn-upper">14 dec, 18</span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="kt-widget__item d-flex align-items-center kt-padding-l-0">-->
+        <!--<span class="kt-widget__date kt-padding-0 kt-margin-r-10 ">-->
+        <!--Due-->
+        <!--</span>-->
+        <!--<div class="kt-widget__label">-->
+        <!--<span class="btn btn-label-danger btn-sm btn-bold btn-upper">07 oct, 18</span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="kt-widget__stats kt-margin-t-20">-->
+        <!--<div class="kt-widget__item d-flex align-items-center kt-margin-r-30">-->
+        <!--<span class="kt-widget__date kt-padding-0 kt-margin-r-10">-->
+        <!--Start-->
+        <!--</span>-->
+        <!--<div class="kt-widget__label">-->
+        <!--<span class="btn btn-label-brand btn-sm btn-bold btn-upper">14 dec, 18</span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="kt-widget__item d-flex align-items-center kt-padding-l-0">-->
+        <!--<span class="kt-widget__date kt-padding-0 kt-margin-r-10 ">-->
+        <!--Due-->
+        <!--</span>-->
+        <!--<div class="kt-widget__label">-->
+        <!--<span class="btn btn-label-danger btn-sm btn-bold btn-upper">07 oct, 18</span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div class="kt-widget__container">-->
+        <!--<span class="kt-widget__subtitel">Progress</span>-->
+        <!--<div class="kt-widget__progress d-flex align-items-center flex-fill">-->
+        <!--<div class="progress" style="height: 5px;width: 100%;">-->
+        <!--<div class="progress-bar kt-bg-success" role="progressbar" style="width: 44%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>-->
+        <!--</div>-->
+        <!--<span class="kt-widget__stat">-->
+        <!--44%-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;end::Widget &ndash;&gt;-->
+
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash;end:: Portlet&ndash;&gt;-->
+        <!--</div>-->
+        <!--<div class="col-xl-6">-->
+
+        <!--&lt;!&ndash;begin:: Portlet&ndash;&gt;-->
+        <!--<div class="kt-portlet kt-portlet&#45;&#45;height-fluid">-->
+        <!--<div class="kt-portlet__body kt-portlet__body&#45;&#45;fit">-->
+
+        <!--&lt;!&ndash;begin::Widget &ndash;&gt;-->
+        <!--<div class="kt-widget kt-widget&#45;&#45;project-1">-->
+        <!--<div class="kt-widget__head d-flex">-->
+        <!--<div class="kt-widget__label">-->
+        <!--<div class="kt-widget__media kt-widget__media&#45;&#45;m">-->
+        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden-">-->
+        <!--<img src="assets/media/project-logos/3.png" alt="image">-->
+        <!--</span>-->
+        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden">-->
+        <!--<img src="assets/media/users/100_12.jpg" alt="image">-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--<div class="kt-widget__info kt-padding-0 kt-margin-l-15">-->
+        <!--<a href="#" class="kt-widget__title">-->
+        <!--Kalender Akademik-->
+        <!--</a>-->
+        <!--<span class="kt-widget__desc">-->
+        <!--Creates Limitless possibilities-->
+        <!--</span>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;end::Widget &ndash;&gt;-->
+
+        <!--</div>-->
+        <!--</div>-->
+
+        <!--&lt;!&ndash;end:: Portlet&ndash;&gt;-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <div class="row">
+            <div class="col-xl-12">
+                <!--begin:: Portlet-->
+                <div class="kt-portlet kt-portlet--height-fluid">
+                    <div class="kt-portlet__body kt-portlet__body--fit">
+                        <div class="kt-widget kt-widget--project-1">
+                            <div class="kt-widget__head d-flex">
+                                <div id="kt_calendar" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--end:: Portlet-->
+            </div>
+        </div>
+    </div>
+    <!-- end:: Content -->
 </div>
 
 <style>
-    .m-content{width:100%};
+    .m-content{width:100%}
     </style>
+
+
+@endsection
 
 @section('js')
 
-@stop
-
 @endsection
+
+

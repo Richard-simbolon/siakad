@@ -52,6 +52,11 @@
 		<link href="{{asset('assets/plugins/custom/datatables.net-fixedheader-bs4/css/fixedHeader.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{asset('assets/plugins/custom/datatables.net-keytable-bs4/css/keyTable.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
 -->
+        <link href="{{asset('assets/plugins/custom/@fullcalendar/core/main.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('assets/plugins/custom/@fullcalendar/daygrid/main.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('assets/plugins/custom/@fullcalendar/list/main.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('assets/plugins/custom/@fullcalendar/timegrid/main.css')}}" rel="stylesheet" type="text/css" />
+
         <link href="{{asset('assets/plugins/general/select2/dist/css/select2.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/plugins/general/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" type="text/css" />
         <link href="{{asset('assets/css/pages/wizard/wizard-3.css')}}" rel="stylesheet" type="text/css" />
@@ -258,6 +263,12 @@
 		<script src="{{asset('assets/js/pages/dashboard.js')}}assets/plugins/custom/jqvmap/dist/maps/jquery.vmap.germany.js" type="text/javascript"></script>
         <script src="{{asset('assets/js/pages/dashboard.js')}}assets/plugins/custom/jqvmap/dist/maps/jquery.vmap.europe.js" type="text/javascript"></script>-->
 
+        <script src="{{asset('assets/plugins/custom/@fullcalendar/core/main.js')}}" type="text/javascript"></script>
+        <script src="{{asset('assets/plugins/custom/@fullcalendar/daygrid/main.js')}}" type="text/javascript"></script>
+        <script src="{{asset('assets/plugins/custom/@fullcalendar/google-calendar/main.js')}}" type="text/javascript"></script>
+        <script src="{{asset('assets/plugins/custom/@fullcalendar/interaction/main.js')}}" type="text/javascript"></script>
+        <script src="{{asset('assets/plugins/custom/@fullcalendar/list/main.js')}}" type="text/javascript"></script>
+
         <script src="{{asset('assets/plugins/general/jquery-validation/dist/jquery.validate.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/plugins/custom/datatables.net/js/jquery.dataTables.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/plugins/custom/datatables.net-bs4/js/dataTables.bootstrap4.js')}}" type="text/javascript"></script>
@@ -281,7 +292,7 @@
 		@yield('js')
         <script src="{{asset('assets/js/pages/master/delete.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/js/pages/master/matakuliah.js')}}" type="text/javascript"></script>
-
+    <script src="{{asset('assets/js/pages/components/calendar/list-view.js')}}" type="text/javascript"></script>
         <script>
 			var KTAppOptions = {
 				"colors": {
@@ -336,7 +347,7 @@
 		</script>
         <script src="{{asset('assets/js/pages/dashboard.js')}}" type="text/javascript"></script>
         <style>
-            table thead tr{
+            .dataTable thead tr{
                 background-color:#4cad82!important;
             }
             table thead tr th{
