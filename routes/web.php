@@ -74,6 +74,9 @@ Route::post('kurikulum/filtering_table', 'Kurikulum@filtering_table')->name('Fil
 //Route::post('master/agama/paging', 'Agama@paging')->name('pagination');
 //Route::post('master/matakuliah/paging', 'MataKuliah@paging')->name('pagination');
 
+// ABSENSI
+Route::get('/data/absensimahasiswa/absensi/{id}', 'AbsensiMahasiswa@absensi')->name('index');
+
 $results = DB::select('select * from module');
 foreach($results as $val){
     Route::get(strtolower($val->link), $val->mval.'@index')->name($val->mval);

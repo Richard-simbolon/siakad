@@ -4,6 +4,7 @@ namespace Illuminate\Routing;
 
 use BadMethodCallException;
 use File;
+use Illuminate\Support\Facades\Cache;
 
 abstract class Controller
 {
@@ -29,6 +30,10 @@ abstract class Controller
 
     public function generalcreate($data){
         return view('master/Agama');
+    }
+
+    public function store_memcached($key = null , $data = ''){
+        Cache::forever($key , $data);
     }
 
 
