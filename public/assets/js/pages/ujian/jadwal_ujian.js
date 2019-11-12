@@ -84,7 +84,7 @@ $(document).ready(function() {
         ],
     });
 
-    $(document).on('click' , '#save-absensi-perkuliahan' , function(){
+    $(document).on('click' , '#save-jadwal-ujian' , function(){
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('#csrf_').val()
@@ -93,7 +93,7 @@ $(document).ready(function() {
         $.ajax({
             type:'POST',
             //dataType:'json',
-            url:'/data/absensimahasiswa/save',
+            url:'/data/jadwalujian/save',
             data:$(this).closest('form').serialize(),
             success:function(result) {
                 //console.log(result);

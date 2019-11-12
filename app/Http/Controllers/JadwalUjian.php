@@ -9,6 +9,7 @@ use App\JurusanModel;
 use App\AngkatanModel;
 use App\KelasModel;
 use App\SemesterModel;
+use App\MahasiswaModel;
 
 class JadwalUjian extends Controller
 {
@@ -87,6 +88,32 @@ class JadwalUjian extends Controller
             return Datatables::of(DB::table('view_input_nilai_mahasiswa')->where($where)->get())->make(true);
         }
         return Datatables::of(DB::table('view_input_nilai_mahasiswa')->get())->make(true);
+
+    }
+
+    public function form($id){
+
+        //echo $id; exit;
+        $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+        
+        $data = DB::table('view_input_nilai_mahasiswa')->where('id' , $id)->first();
+        if(!$data->kelas_id){
+            echo 'Data Tidak Ditemukan.';
+        }
+        if(DB::table('nilai_mahasiswa')
+        ->where('kelas_perkuliahan_detail_id' , $id)->exists())
+        {
+            $mahasiswa = DB::table('nilai_mahasiswa')
+            ->leftjoin('mahasiswa' , 'mahasiswa.id' , '=' ,'nilai_mahasiswa.mahasiswa_id')
+            ->where('nilai_mahasiswa.kelas_perkuliahan_detail_id' , $id)->get();
+            
+        }else{
+            $mahasiswa = MahasiswaModel::where('kelas_id' , $data->kelas_id)->where('status' , '1')->get();
+        }
+
+        //print_r($mahasiswa); exit;
+
+        return view("data/ujian_create" , compact("title" , "mahasiswa", "data"));
 
     }
 

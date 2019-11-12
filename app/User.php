@@ -19,6 +19,7 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
+    protected $table = 'auth';
     /**
      * The attributes that should be hidden for arrays.
      *

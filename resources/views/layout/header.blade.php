@@ -415,7 +415,7 @@
                 <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="0px,0px">
                     <div class="kt-header__topbar-user">
                         <span class="kt-header__topbar-welcome kt-hidden-mobile">Hi,</span>
-                        <span class="kt-header__topbar-username kt-hidden-mobile">Sean</span>
+                        <span class="kt-header__topbar-username kt-hidden-mobile">{{ Auth::user()->nama }} </span>
                         <img class="kt-hidden" alt="Pic" src="assets/media/users/300_25.jpg" />
 
                         <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
@@ -459,7 +459,17 @@
                         </a>
 
                         <div class="kt-notification__custom kt-space-between">
-                            <a href="custom/user/login-v2.html" target="_blank" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</a>
+
+                            @guest
+                            @else
+                            <a href="{{ route('logout') }}"  onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                            @endguest
+
+                            
                         </div>
                     </div>
 

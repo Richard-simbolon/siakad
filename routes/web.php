@@ -11,10 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', 'HomeController@index')->name('Index');
 Route::get('/setting_menu', 'SettingMenu@index')->name('setting_menu');
 Route::get('setting/create', 'SettingMenu@create')->name('create');
 Route::get('/list', 'SettingMenu@list')->name('list');
@@ -83,6 +80,8 @@ Route::post('kurikulum/filtering_table', 'Kurikulum@filtering_table')->name('Fil
 // ABSENSI
 Route::get('/data/absensimahasiswa/absensi/{id}', 'AbsensiMahasiswa@absensi')->name('index');
 
+Route::get('/data/jadwalujian/form/{id}', 'JadwalUjian@form')->name('index');
+
 $results = DB::select('select * from module');
 foreach($results as $val){
     Route::get(strtolower($val->link), $val->mval.'@index')->name($val->mval);
@@ -96,3 +95,7 @@ foreach($results as $val){
     Route::post(strtolower($val->link).'/paging', $val->mval.'@'.'paging')->name('pagination');
 }
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -23,6 +23,11 @@ abstract class Controller
      * @return \Illuminate\Routing\ControllerMiddlewareOptions
      */
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
      public function generalsave($data)
     {
         print_r($data);

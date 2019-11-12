@@ -43,7 +43,7 @@
                                     </g>
                                 </svg>
                                 <h3 class="kt-portlet__head-title">
-                                    &nbsp;Nilai Perkuliahan
+                                    &nbsp;Jadwal Ujian Mahasiswa
                                 </h3>
                             </div>
                         </div>
