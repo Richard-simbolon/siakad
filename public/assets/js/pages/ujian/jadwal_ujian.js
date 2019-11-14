@@ -85,43 +85,59 @@ $(document).ready(function() {
     });
 
     $(document).on('click' , '#save-jadwal-ujian' , function(){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('#csrf_').val()
-            }
-        });
-        $.ajax({
-            type:'POST',
-            //dataType:'json',
-            url:'/data/jadwalujian/save',
-            data:$(this).closest('form').serialize(),
-            success:function(result) {
-                //console.log(result);
-                //console.log(result);
-                var res = JSON.parse(result);
-                if(res.status == 'error'){
-                    var text = '';
-                    $.each(res.message, function( index, value ) {
-                        console.log(value);
-                        text += '<p class="error">'+ value[0]+'</p>';
+        var _this = $(this).closest('form');
+        Swal.fire({
+            title: 'Tambah/Ubah Jadwal Ujian',
+            text: "Anda Yakin akan mngubah data ?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#08976d',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Simpan'
+          }).then((result) => {
+                if (result.value) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('#csrf_').val()
+                        }
                     });
-                    swal.fire({
-                        "title": "",
-                        "html": text,
-                        "type": "error",
-                        "confirmButtonClass": "btn btn-secondary"
-                    });
-                }else{
-                    swal.fire({
-                        "title": "",
-                        "text": res.message,
-                        "type": res.status,
-                        "confirmButtonClass": "btn btn-secondary"
-                    });
+                    $.ajax({
+                        type:'POST',
+                        //dataType:'json',
+                        url:'/data/jadwalujian/save',
+                        data:$(this).closest('form').serialize(),
+                        success:function(result) {
+                            //console.log(result);
+                            var res = JSON.parse(result);
+                            if(res.status == 'error'){
+                                var text = '';
+                                $.each(res.message, function( index, value ) {
+                                    //console.log(value);
+                                    text += '<p class="error">'+ value[0]+'</p>';
+                                });
+                                swal.fire({
+                                    "title": "",
+                                    "html": text,
+                                    "type": "error",
+                                    "confirmButtonClass": "btn btn-secondary"
+                                });
+                            }else{
+                                swal.fire({
+                                    "title": "",
+                                    "text": res.message,
+                                    "type": res.status,
+                                    "confirmButtonClass": "btn btn-secondary"
+                                });
+                            }
+            
+                        }
+                     });
                 }
+            
+          })
 
-            }
-         });
+
+        
     });
 
     $(document).on('click' , '#update-absensi-perkuliahan' , function(){

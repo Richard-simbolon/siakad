@@ -9,7 +9,8 @@ var BootstrapTimepicker = function () {
             minuteStep: 1,
             showSeconds: true,
             showMeridian: false,
-            snapToStep: true
+            snapToStep: true,
+            defaultTime:'00:00:00'
         });
 
 

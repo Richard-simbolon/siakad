@@ -4,13 +4,13 @@
 
         use Illuminate\Database\Eloquent\Model;
 
-        class JadwalUjianModel extends Model
+        class KalenderAkademikModel extends Model
         {
 
-            protected $table = "jadwal_ujian_mahasiswa";
+            protected $table = "kalender_akademik";
 
             protected $fillable = [
-                'id','row_status','program_studi_id','kelas_perkuliahan_detail_id','semester_id','kelas_id','semester_kelas','mahsiswa_id','angkatan_id','tanggal_ujian','jam','catatan','created_by','created_at','modified_by','updated_at'
+                "id","updated_at" ,"created_at","created_by", "update_by"
             ];
 
 
@@ -28,8 +28,8 @@
             /*COPY THIS FUNCTION TO YOUR MIGRATION*/
             /**************************************/
             public function up(){
-                Schema::create("jadwal_ujian", function (Blueprint $table) {
-                    $table->bigInteger("id" , 11);
+                Schema::create("kalender_akademik", function (Blueprint $table) {
+                    $table->null("id" , 11);
 
                     $table->enum("row_status", ["active", "deleted", "notactive"]);
                     $table->timestamp("updated_at")->nullable();
@@ -40,7 +40,7 @@
             }
             public function down()
             {
-                Schema::dropIfExists("jadwal_ujian");
+                Schema::dropIfExists("kalender_akademik");
             }
 
 

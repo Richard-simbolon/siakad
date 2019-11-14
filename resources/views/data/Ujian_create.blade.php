@@ -117,27 +117,25 @@
                                                         <div class="form-group">
                                                             <label>Tanggal Ujian</label>
                                                             <div class="form-group">
-                                                                <input type="date" name="tanggal_perkulian" class="form-control">
+                                                                <input type="date" name="tanggal_ujian" class="form-control">
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
                                                             <label>Jam</label>
                                                             <div class="form-group">
-                                                                <input type="date" name="tanggal_perkulian" class="form-control">
+                                                                <input type="text" name="jam" class="form-control m-input time-picker" placeholder="Pilih Jam" type="text"/>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-lg-6">
+                                                    <div class="col-lg-12">
                                                         <div class="form-group">
                                                             <label>Catatan</label>
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control" name="catatan"  placeholder="Catatan">
+                                                                    <textarea type="text" class="form-control" name="catatan" placeholder="Catatan"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -146,10 +144,8 @@
                                                 <div class="row">
                                                     <input type="hidden" name="kelas_perkuliahan_detail_id" value="{{$data->id}}" />
                                                     <input type="hidden" name="semester_id" value="{{$data->semester_id}}" />
-                                                    <input type="hidden" name="mata_kuliah_id" value="{{$data->mata_kuliah_id}}" />
-                                                    <input type="hidden" name="jurusan_id" value="{{$data->jurusan_id}}" />
                                                     <input type="hidden" name="angkatan_id" value="{{$data->angkatan_id}}" />
-                                                    <input type="hidden" name="kelas_perkuliahan_id" value="{{$data->kelas_perkuliahan_id}}" />
+
                                                     <div class="col-lg-12">
                                                         <table class="table table-striped table-bordered table-hover responsive">
                                                             <thead>
@@ -164,13 +160,15 @@
                                                             <tbody>
                                                                     <?$i = 0?>
                                                                     @foreach ($mahasiswa as $item)
-                                                                    <? $i++ ?>
+                                                                    <? $i++ ;
+                                                                    print_r($item);
+                                                                    ?>
                                                                     <tr>
                                                                         <td align="center">{{$i}}</td> 
                                                                         <td align="center">{{ucfirst($item->nama)}}</td>
                                                                         <td align="center">{{ucfirst($item->nim)}}</td>
                                                                         <td align="center">{{ucfirst($item->jk)}}</td>
-                                                                        <td><input type="text" value="" class="form-control" name="mahasiswa[{{$item->id}}][ruangan]" placeholder="Ruangan"></td>
+                                                                        <td><input type="text" value="{{$item->ruangan}}" class="form-control" name="mahasiswa[{{$item->id}}][ruangan]" placeholder="Ruangan"></td>
                                                                         
                                                                     </tr>
                                                                     @endforeach
@@ -181,7 +179,7 @@
                                                 <div class="root">
                                                     <div class="kt-form__actions">
                                                         <button type="button" class="btn btn-success" id="save-jadwal-ujian"><i class="la la-save"></i>Simpan</button>
-                                                        <a href="{{url('data/absensimahasiswa')}}" style="align:right" type="button" class="btn btn-metal btn-outlane-metal"><i class="la la-arrow-left"></i>Kembali</a>
+                                                        <a href="{{url('data/jadwalujian')}}" style="align:right" type="button" class="btn btn-metal btn-outlane-metal"><i class="la la-arrow-left"></i>Kembali</a>
                                                     </div>
                                                 </div>
                                             </div>
