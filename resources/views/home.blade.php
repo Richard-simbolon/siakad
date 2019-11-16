@@ -49,9 +49,6 @@
                                     </div>
                                     <div class="kt-widget__info">
                                         <div class="kt-widget__desc" style="display: inline-block!important;width: 100%;">
-                                            <!--<div class="kt-widget__subhead">-->
-                                            <!--<a href="#"><i class="flaticon2-calendar-3"></i>Teknologi Produksi Tanaman Perkebunan</a>-->
-                                            <!--</div>-->
                                             Angkatan 2019 <br/> Teknologi Produksi Tanaman Perkebunan <br/>
 
                                         </div>
@@ -109,285 +106,6 @@
                 <!--end:: Widgets/Applications/User/Profile3-->
             </div>
         </div>
-        <!--<div class="row">-->
-        <!--<div class="col-xl-3">-->
-
-        <!--&lt;!&ndash;begin:: Portlet&ndash;&gt;-->
-        <!--<div class="kt-portlet kt-portlet&#45;&#45;height-fluid">-->
-        <!--<div class="kt-portlet__body kt-portlet__body&#45;&#45;fit">-->
-
-        <!--&lt;!&ndash;begin::Widget &ndash;&gt;-->
-        <!--<div class="kt-widget kt-widget&#45;&#45;project-1">-->
-        <!--<div class="kt-widget__head d-flex">-->
-        <!--<div class="kt-widget__label">-->
-        <!--<div class="kt-widget__media kt-widget__media&#45;&#45;m">-->
-        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden-">-->
-        <!--<img src="assets/media/project-logos/1.png" alt="image">-->
-        <!--&lt;!&ndash;<i class="la la-trash"></i>&ndash;&gt;-->
-        <!--</span>-->
-        <!--&lt;!&ndash;<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden">&ndash;&gt;-->
-        <!--&lt;!&ndash;<img src="assets/media/users/100_12.jpg" alt="image">&ndash;&gt;-->
-        <!--&lt;!&ndash;</span>&ndash;&gt;-->
-        <!--</div>-->
-        <!--<div class="kt-widget__info kt-padding-0 kt-margin-l-15">-->
-        <!--<a href="#" class="kt-widget__title">-->
-        <!--3.14-->
-        <!--</a>-->
-        <!--<span class="kt-widget__desc">-->
-        <!--Indeks Prestasi Kumulatif-->
-        <!--</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--&lt;!&ndash;end::Widget &ndash;&gt;-->
-
-        <!--</div>-->
-        <!--</div>-->
-
-        <!--&lt;!&ndash;end:: Portlet&ndash;&gt;-->
-        <!--</div>-->
-
-        <!--<div class="col-xl-3">-->
-
-        <!--&lt;!&ndash;begin:: Portlet&ndash;&gt;-->
-        <!--<div class="kt-portlet kt-portlet&#45;&#45;height-fluid">-->
-        <!--<div class="kt-portlet__body kt-portlet__body&#45;&#45;fit">-->
-
-        <!--&lt;!&ndash;begin::Widget &ndash;&gt;-->
-        <!--<div class="kt-widget kt-widget&#45;&#45;project-1">-->
-        <!--<div class="kt-widget__head d-flex">-->
-        <!--<div class="kt-widget__label">-->
-        <!--<div class="kt-widget__media kt-widget__media&#45;&#45;m">-->
-        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden-">-->
-        <!--<img src="assets/media/project-logos/1.png" alt="image">-->
-        <!--</span>-->
-        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden">-->
-        <!--<img src="assets/media/users/100_12.jpg" alt="image">-->
-        <!--</span>-->
-        <!--</div>-->
-        <!--<div class="kt-widget__info kt-padding-0 kt-margin-l-15">-->
-        <!--<a href="#" class="kt-widget__title">-->
-        <!--3.4-->
-        <!--</a>-->
-        <!--<span class="kt-widget__desc">-->
-        <!--Indeks Prestasi Sementara-->
-        <!--</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--&lt;!&ndash;end::Widget &ndash;&gt;-->
-
-        <!--</div>-->
-        <!--</div>-->
-
-        <!--&lt;!&ndash;end:: Portlet&ndash;&gt;-->
-        <!--</div>-->
-
-        <!--<div class="col-xl-3">-->
-
-        <!--&lt;!&ndash;begin:: Portlet&ndash;&gt;-->
-        <!--<div class="kt-portlet kt-portlet&#45;&#45;height-fluid">-->
-        <!--<div class="kt-portlet__body kt-portlet__body&#45;&#45;fit">-->
-
-        <!--&lt;!&ndash;begin::Widget &ndash;&gt;-->
-        <!--<div class="kt-widget kt-widget&#45;&#45;project-1">-->
-        <!--<div class="kt-widget__head d-flex">-->
-        <!--<div class="kt-widget__label">-->
-        <!--<div class="kt-widget__media kt-widget__media&#45;&#45;m">-->
-        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden-">-->
-        <!--<img src="assets/media/project-logos/1.png" alt="image">-->
-        <!--</span>-->
-        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden">-->
-        <!--<img src="assets/media/users/100_12.jpg" alt="image">-->
-        <!--</span>-->
-        <!--</div>-->
-        <!--<div class="kt-widget__info kt-padding-0 kt-margin-l-15">-->
-        <!--<a href="#" class="kt-widget__title">-->
-        <!--130-->
-        <!--</a>-->
-        <!--<span class="kt-widget__desc">-->
-        <!--Jumlah SKS-->
-        <!--</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--&lt;!&ndash;end::Widget &ndash;&gt;-->
-
-        <!--</div>-->
-        <!--</div>-->
-
-        <!--&lt;!&ndash;end:: Portlet&ndash;&gt;-->
-        <!--</div>-->
-
-        <!--<div class="col-xl-3">-->
-
-        <!--&lt;!&ndash;begin:: Portlet&ndash;&gt;-->
-        <!--<div class="kt-portlet kt-portlet&#45;&#45;height-fluid">-->
-        <!--<div class="kt-portlet__body kt-portlet__body&#45;&#45;fit">-->
-
-        <!--&lt;!&ndash;begin::Widget &ndash;&gt;-->
-        <!--<div class="kt-widget kt-widget&#45;&#45;project-1">-->
-        <!--<div class="kt-widget__head d-flex">-->
-        <!--<div class="kt-widget__label">-->
-        <!--<div class="kt-widget__media kt-widget__media&#45;&#45;m">-->
-        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden-">-->
-        <!--<img src="assets/media/project-logos/1.png" alt="image">-->
-        <!--</span>-->
-        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden">-->
-        <!--<img src="assets/media/users/100_12.jpg" alt="image">-->
-        <!--</span>-->
-        <!--</div>-->
-        <!--<div class="kt-widget__info kt-padding-0 kt-margin-l-15">-->
-        <!--<a href="#" class="kt-widget__title">-->
-        <!--<h3>3</h3>-->
-        <!--</a>-->
-        <!--<span class="kt-widget__desc">-->
-        <!--Sisa SKS-->
-        <!--</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--&lt;!&ndash;end::Widget &ndash;&gt;-->
-
-        <!--</div>-->
-        <!--</div>-->
-
-        <!--&lt;!&ndash;end:: Portlet&ndash;&gt;-->
-        <!--</div>-->
-        <!--</div>-->
-
-        <!--<div class="row">-->
-        <!--<div class="col-xl-6">-->
-
-        <!--&lt;!&ndash;begin:: Portlet&ndash;&gt;-->
-        <!--<div class="kt-portlet kt-portlet&#45;&#45;height-fluid">-->
-        <!--<div class="kt-portlet__body kt-portlet__body&#45;&#45;fit">-->
-
-        <!--&lt;!&ndash;begin::Widget &ndash;&gt;-->
-        <!--<div class="kt-widget kt-widget&#45;&#45;project-1">-->
-        <!--<div class="kt-widget__head d-flex">-->
-        <!--<div class="kt-widget__label">-->
-        <!--<div class="kt-widget__media kt-widget__media&#45;&#45;m">-->
-        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden-">-->
-        <!--<img src="assets/media/project-logos/3.png" alt="image">-->
-        <!--</span>-->
-        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden">-->
-        <!--<img src="assets/media/users/100_12.jpg" alt="image">-->
-        <!--</span>-->
-        <!--</div>-->
-        <!--<div class="kt-widget__info kt-padding-0 kt-margin-l-15">-->
-        <!--<a href="#" class="kt-widget__title">-->
-        <!--Pengumuman-->
-        <!--</a>-->
-        <!--<span class="kt-widget__desc">-->
-        <!--Creates Limitless possibilities-->
-        <!--</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-
-        <!--<div class="kt-widget__body">-->
-        <!--<span class="kt-widget__text kt-margin-t-0 kt-padding-t-5">-->
-        <!--Objecttives could be merely i distinguish three<br>-->
-        <!--main text objective-->
-        <!--</span>-->
-        <!--<div class="kt-widget__stats kt-margin-t-20">-->
-        <!--<div class="kt-widget__item d-flex align-items-center kt-margin-r-30">-->
-        <!--<span class="kt-widget__date kt-padding-0 kt-margin-r-10">-->
-        <!--Start-->
-        <!--</span>-->
-        <!--<div class="kt-widget__label">-->
-        <!--<span class="btn btn-label-brand btn-sm btn-bold btn-upper">14 dec, 18</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="kt-widget__item d-flex align-items-center kt-padding-l-0">-->
-        <!--<span class="kt-widget__date kt-padding-0 kt-margin-r-10 ">-->
-        <!--Due-->
-        <!--</span>-->
-        <!--<div class="kt-widget__label">-->
-        <!--<span class="btn btn-label-danger btn-sm btn-bold btn-upper">07 oct, 18</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="kt-widget__stats kt-margin-t-20">-->
-        <!--<div class="kt-widget__item d-flex align-items-center kt-margin-r-30">-->
-        <!--<span class="kt-widget__date kt-padding-0 kt-margin-r-10">-->
-        <!--Start-->
-        <!--</span>-->
-        <!--<div class="kt-widget__label">-->
-        <!--<span class="btn btn-label-brand btn-sm btn-bold btn-upper">14 dec, 18</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="kt-widget__item d-flex align-items-center kt-padding-l-0">-->
-        <!--<span class="kt-widget__date kt-padding-0 kt-margin-r-10 ">-->
-        <!--Due-->
-        <!--</span>-->
-        <!--<div class="kt-widget__label">-->
-        <!--<span class="btn btn-label-danger btn-sm btn-bold btn-upper">07 oct, 18</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--<div class="kt-widget__container">-->
-        <!--<span class="kt-widget__subtitel">Progress</span>-->
-        <!--<div class="kt-widget__progress d-flex align-items-center flex-fill">-->
-        <!--<div class="progress" style="height: 5px;width: 100%;">-->
-        <!--<div class="progress-bar kt-bg-success" role="progressbar" style="width: 44%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>-->
-        <!--</div>-->
-        <!--<span class="kt-widget__stat">-->
-        <!--44%-->
-        <!--</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--&lt;!&ndash;end::Widget &ndash;&gt;-->
-
-        <!--</div>-->
-        <!--</div>-->
-
-        <!--&lt;!&ndash;end:: Portlet&ndash;&gt;-->
-        <!--</div>-->
-        <!--<div class="col-xl-6">-->
-
-        <!--&lt;!&ndash;begin:: Portlet&ndash;&gt;-->
-        <!--<div class="kt-portlet kt-portlet&#45;&#45;height-fluid">-->
-        <!--<div class="kt-portlet__body kt-portlet__body&#45;&#45;fit">-->
-
-        <!--&lt;!&ndash;begin::Widget &ndash;&gt;-->
-        <!--<div class="kt-widget kt-widget&#45;&#45;project-1">-->
-        <!--<div class="kt-widget__head d-flex">-->
-        <!--<div class="kt-widget__label">-->
-        <!--<div class="kt-widget__media kt-widget__media&#45;&#45;m">-->
-        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden-">-->
-        <!--<img src="assets/media/project-logos/3.png" alt="image">-->
-        <!--</span>-->
-        <!--<span class="kt-media kt-media&#45;&#45;md kt-media&#45;&#45;circle kt-hidden">-->
-        <!--<img src="assets/media/users/100_12.jpg" alt="image">-->
-        <!--</span>-->
-        <!--</div>-->
-        <!--<div class="kt-widget__info kt-padding-0 kt-margin-l-15">-->
-        <!--<a href="#" class="kt-widget__title">-->
-        <!--Kalender Akademik-->
-        <!--</a>-->
-        <!--<span class="kt-widget__desc">-->
-        <!--Creates Limitless possibilities-->
-        <!--</span>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--&lt;!&ndash;end::Widget &ndash;&gt;-->
-
-        <!--</div>-->
-        <!--</div>-->
-
-        <!--&lt;!&ndash;end:: Portlet&ndash;&gt;-->
-        <!--</div>-->
-        <!--</div>-->
 
         <div class="row">
             <div class="col-xl-12">
@@ -401,13 +119,40 @@
                         </div>
                     </div>
                 </div>
-
                 <!--end:: Portlet-->
             </div>
         </div>
     </div>
     <!-- end:: Content -->
 </div>
+
+<!--modal : ubah hapus-->
+<div class="modal fade" id="kt_modal_kalender" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-md modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kalender Detail</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5 id="title">Pengisian KRS</h5>
+                <small id="tanggal">
+                    Tanggal : 11 Oktober 2019
+                </small>
+                <div style="margin-top: 15px;">
+                    <p>Keterangan :</p>
+                    <p id="keterangan"></p>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end modal-->
 
 <style>
     .m-content{width:100%}
@@ -417,7 +162,7 @@
 @endsection
 
 @section('js')
-
+    <script src="{{asset('assets/js/pages/components/calendar/list-view.js')}}" type="text/javascript"></script>
 @endsection
 
 

@@ -82,6 +82,9 @@ Route::get('/data/absensimahasiswa/absensi/{id}', 'AbsensiMahasiswa@absensi')->n
 
 Route::get('/data/jadwalujian/form/{id}', 'JadwalUjian@form')->name('index');
 
+Route::get('/data/kalenderakademik/get/{id}', 'kalenderakademik@get')->name('get');
+Route::get('data/kalenderakademik/getall', 'kalenderakademik@getall')->name('getall');
+
 $results = DB::select('select * from module');
 foreach($results as $val){
     Route::get(strtolower($val->link), $val->mval.'@index')->name($val->mval);
