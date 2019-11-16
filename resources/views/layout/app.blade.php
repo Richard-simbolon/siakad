@@ -268,7 +268,7 @@
         <script src="{{asset('assets/plugins/custom/@fullcalendar/google-calendar/main.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/plugins/custom/@fullcalendar/interaction/main.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/plugins/custom/@fullcalendar/list/main.js')}}" type="text/javascript"></script>
-
+        <script src="{{asset('assets/plugins/custom/@fullcalendar/list/locales-all.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/plugins/general/jquery-validation/dist/jquery.validate.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/plugins/custom/datatables.net/js/jquery.dataTables.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/plugins/custom/datatables.net-bs4/js/dataTables.bootstrap4.js')}}" type="text/javascript"></script>
@@ -292,7 +292,13 @@
 		@yield('js')
         <script src="{{asset('assets/js/pages/master/delete.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/js/pages/master/matakuliah.js')}}" type="text/javascript"></script>
-    <script src="{{asset('assets/js/pages/components/calendar/list-view.js')}}" type="text/javascript"></script>
+
+    {{--<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>--}}
+    {{--<script>--}}
+        {{--tinymce.init({--}}
+            {{--selector: '#keterangan'--}}
+        {{--});--}}
+    {{--</script>--}}
         <script>
 			var KTAppOptions = {
 				"colors": {

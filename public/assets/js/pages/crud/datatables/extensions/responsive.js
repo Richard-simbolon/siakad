@@ -1279,6 +1279,55 @@ var KTDatatablesExtensionsResponsive = function() {
         });
     }
 
+    var initKalenderAkademik = function(a) {
+
+        var table = $('#KalenderAkademik');
+
+        // begin first table
+        table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url:'/data/kalenderakademik/paging',
+                type:"POST",
+                //data:{"_token": $('#csrf_').val(),'table':key},
+                data: function ( d ) {
+                    d.myKey = "myValue";
+                    d._token = $('#csrf_').val()
+                    // d.custom = $('#myInput').val();
+                    // etc
+                }
+            },
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                { data: 'title', name: 'title' },
+                { data: 'keterangan', name: 'keterangan' },
+                { data: 'start', name: 'start' },
+                { data: 'end', name: 'end' },
+                { data: 'warna', name: 'warna' },
+                { defaultContent : '<td></td>'}
+            ],
+            columnDefs: [
+                {
+                    targets: 6,
+                    title: 'Actions',
+                    orderable: false,
+                    className: "text-center",
+                    render: function(data, type, full, meta) {
+                        return `
+                       <a class="btn btn-" href="kalenderakademik/view/`+full.id+`"><i class="la la-edit"></i></a>
+                       `;
+                    },
+                },
+                {
+                    targets: 0,
+                    className: "text-center"
+                },
+            ]
+        });
+    }
+
     return {
 
 		//main function to initiate the module
@@ -1307,6 +1356,7 @@ var KTDatatablesExtensionsResponsive = function() {
             statusmhs();
             statuspegawai();
             initJenismatakuliah();
+            initKalenderAkademik();
 		},
 
 	};

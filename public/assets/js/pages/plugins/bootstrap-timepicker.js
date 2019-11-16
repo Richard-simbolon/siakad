@@ -6,11 +6,11 @@ var BootstrapTimepicker = function () {
     var demos = function () {
         // minimum setup
         $('.time-picker').timepicker({
-            minuteStep: 1,
-            showSeconds: true,
+            minuteStep: 5,
+            showSeconds: false,
             showMeridian: false,
             snapToStep: true,
-            defaultTime:'00:00:00'
+            defaultTime:'00:00'
         });
 
 

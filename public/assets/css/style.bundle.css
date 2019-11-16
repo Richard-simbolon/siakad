@@ -12495,9 +12495,9 @@ code {
     border: 1px solid #ebedf2;
     color: #74788d; }
   .fc-unthemed .fc-toolbar .fc-button:focus, .fc-unthemed .fc-toolbar .fc-button:active, .fc-unthemed .fc-toolbar .fc-button.fc-button-active {
-    background: #5d78ff;
-    color: #ffffff;
-    border: 1px solid #5d78ff;
+    background: #ebf8f2;
+    color: #009688;
+    border: 1px solid #ebf8f2;
     -webkit-box-shadow: none;
     box-shadow: none;
     text-shadow: none; }

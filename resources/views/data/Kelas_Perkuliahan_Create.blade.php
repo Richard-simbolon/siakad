@@ -97,7 +97,7 @@
                                         <div class="form-group">
                                             <select name="kelas_id" id="kelas-mahasiswa" class="form-control search-kurikulum kt-select2">
                                                 <option value="">-- Pilih Kelas --</option>
-                                            
+
                                             </select>
                                         </div>
                                     </div>
@@ -113,7 +113,7 @@
                                     <p> <span class="kt-invoice__subtitle">Nama Kurikulum : <b id="nama-kurikulum"></b></span></p>
                                         <br/>
                                 </div>
-                                
+
                             <div class="row">
                                 <div class="col-lg-12" id="kelasperkuliahan">
                                     <table class="table table-striped table-bordered table-hover responsive" id="table-matakuliah">
@@ -132,7 +132,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        
+
                                         </tbody>
                                     </table>
                                 </div>
