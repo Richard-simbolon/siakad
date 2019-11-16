@@ -38,6 +38,13 @@ Route::get('dosen/fungsional/{id}', 'Dosen@r_fungsional')->name('riwayat_fungsio
 Route::post('dosen/tambah_r_fungsional', 'Dosen@tambah_r_fungsional')->name('tambah_riwayat_fungsional');
 Route::get('/data/dosen/getdosen_select2', 'Dosen@getdosen_select2')->name('getdosen_select2');
 
+
+// KRS
+Route::get('mahasiswa/krs', 'JadwalPerkuliahan@krs')->name('krs');
+
+Route::get('mahasiswa/khs', 'JadwalPerkuliahan@khs')->name('khs');
+
+
 Route::post('/master/kelas/edit', 'Kelas@edit')->name('edit');
 Route::post('master/kelas/delete', 'Kelas@delete')->name('delete');
 Route::post('/kelas/listkurikulum', 'Kelas@listkurikulum')->name('ListKurikulum');

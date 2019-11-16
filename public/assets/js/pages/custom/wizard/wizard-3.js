@@ -25,6 +25,7 @@ var KTWizard3 = function () {
                 data:formEl.serialize()+'&step='+wizardObj.currentStep+'&_token='+$('#csrf_').val(),
                 success:function(result) {
                     var res = JSON.parse(result);
+                    console.log(result);
                     if(res.status == 'false'){
 
                         var text = '';
@@ -99,15 +100,33 @@ var KTWizard3 = function () {
                 url: url+'/save',
                 data:$('.'+form).serialize()+'&_token='+$('#csrf_').val(),
                 success: function(result) {
-					var res = JSON.parse(result);
+                    var res = JSON.parse(result);
+                    //console.log(res);
                     KTApp.unprogress(btn);
                     //KTApp.unblock(formEl);
-                    swal.fire({
-                        "title": "",
-                        "text": res.msg,
-                        "type": res.status,
-                        "confirmButtonClass": "btn btn-secondary"
-                    });
+                    if(res.status == 'false'){
+
+                        var text = '';
+
+                        $.each(res.message, function( index, value ) {
+
+                            text += '<p class="error">'+ value[0]+'</p>';
+                        });
+                        swal.fire({
+                            "title": "",
+                            "html": text,
+                            "type": "error",
+                            "confirmButtonClass": "btn btn-secondary"
+                        });
+
+                    }else{
+                        swal.fire({
+                            "title": "",
+                            "text": res.message,
+                            "type": res.status,
+                            "confirmButtonClass": "btn btn-secondary"
+                        });
+                    }
                 }
             });
 		});

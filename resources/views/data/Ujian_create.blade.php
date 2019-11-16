@@ -117,7 +117,7 @@
                                                         <div class="form-group">
                                                             <label>Tanggal Ujian</label>
                                                             <div class="form-group">
-                                                                <input type="date" name="tanggal_ujian" class="form-control">
+                                                                <input type="date" value="{{$data->tanggal_ujian}}" name="tanggal_ujian" class="form-control">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -125,7 +125,7 @@
                                                         <div class="form-group">
                                                             <label>Jam</label>
                                                             <div class="form-group">
-                                                                <input type="text" name="jam" class="form-control m-input time-picker" placeholder="Pilih Jam" type="text"/>
+                                                                <input type="text" value="{{$data->jam}}" name="jam" class="form-control m-input time-picker" placeholder="Pilih Jam" type="text"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -135,7 +135,7 @@
                                                         <div class="form-group">
                                                             <label>Catatan</label>
                                                             <div class="form-group">
-                                                                    <textarea type="text" class="form-control" name="catatan" placeholder="Catatan"></textarea>
+                                                            <textarea type="text" class="form-control" name="catatan" placeholder="Catatan">{{$data->catatan}}</textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -161,7 +161,7 @@
                                                                     <?$i = 0?>
                                                                     @foreach ($mahasiswa as $item)
                                                                     <? $i++ ;
-                                                                    print_r($item);
+                                                                    //print_r($item);
                                                                     ?>
                                                                     <tr>
                                                                         <td align="center">{{$i}}</td> 

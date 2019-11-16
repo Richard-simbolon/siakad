@@ -119,10 +119,10 @@
                                                 </div>
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
-                                                        <label>Agama:</label>
-                                                        <select name="mahasiswa[agama]" class="form-control kt-select2">
+                                                        <label>Kelas:</label>
+                                                        <select name="mahasiswa[kelas_id]" class="form-control kt-select2">
                                                             <option value="">Select</option>
-                                                            @foreach ($master['agama'] as $item)
+                                                            @foreach ($master['kelas'] as $item)
                                                                 <option value="{{$item['id']}}" > {{$item['title']}} </option>
                                                             @endforeach
                                                         </select>
@@ -160,6 +160,17 @@
                                             <div class="row">
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
+                                                        <label>Agama:</label>
+                                                        <select name="mahasiswa[agama]" class="form-control kt-select2">
+                                                            <option value="">Select</option>
+                                                            @foreach ($master['agama'] as $item)
+                                                                <option value="{{$item['id']}}" > {{$item['title']}} </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
                                                         <label>Jenis Kelamin</label>
                                                         <div class="kt-radio-inline">
                                                             <label class="kt-radio">
@@ -173,6 +184,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                
                                             </div>
 
                                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>

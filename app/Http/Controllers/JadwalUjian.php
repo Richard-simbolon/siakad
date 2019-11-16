@@ -92,7 +92,7 @@ class JadwalUjian extends Controller
             Cache::forever('jadwal_ujian_'.$id , $mahsiswa_cahce);
             Cache::forever('jadwal_ujian_'.$id.'_detail' , $mahsiswa_detail_cahce);
 
-            print_r(Cache::get('jadwal_ujian_'.$id));
+            //print_r(Cache::get('jadwal_ujian_'.$id));
             return json_encode(array('status' => 'success' , 'message' => 'Data berhasil disimpan.'));
         } catch(\Exception $e){
             

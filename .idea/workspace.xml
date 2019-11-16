@@ -4,10 +4,15 @@
     <list default="true" id="00e87a05-a820-445b-ab4f-2023d057921c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/JadwalUjian.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/JadwalUjian.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/JadwalUjianModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/JadwalUjianModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/pages/plugins/bootstrap-timepicker.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/pages/plugins/bootstrap-timepicker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/pages/ujian/jadwal_ujian.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/pages/ujian/jadwal_ujian.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Mahasiswa.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Mahasiswa.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SettingMenu.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SettingMenu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/global.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/global.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/pages/crud/datatables/advanced/row-grouping.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/pages/crud/datatables/advanced/row-grouping.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/js/pages/custom/wizard/wizard-3.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/pages/custom/wizard/wizard-3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/data/Mhs_create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/data/Mhs_create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/data/Mhs_view.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/data/Mhs_view.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/data/Ujian_create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/data/Ujian_create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

@@ -177,7 +177,7 @@
                                                         <tr>
                                                             <td>Status</td>
                                                             <td>:</td>
-                                                            <td><b>Aktif</b></td>
+                                                            <td><b>{{$data['status_mhs']}}</b></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -196,7 +196,7 @@
                                                         <tr>
                                                             <td>Angkatan</td>
                                                             <td>:</td>
-                                                            <td><b>2019</b></td>
+                                                            <td><b>{{$data['angkatan_title']}}</b></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -211,6 +211,11 @@
                                                             <td>Tanggal Lahir</td>
                                                             <td>:</td>
                                                             <td><b>{{ date_format (new DateTime($data['tanggal_lahir']), 'd-m-Y')}}</b></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Kelas</td>
+                                                            <td>:</td>
+                                                            <td><b>{{ $data['kelas_title']}}</b></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -245,6 +250,17 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
+                                                    <div class="col-xl-4">
+                                                        <div class="form-group">
+                                                            <label>Kelas:</label>
+                                                            <select name="mahasiswa[kelas_id]" class="form-control kt-select2">
+                                                                <option value="">Select</option>
+                                                                @foreach ($master['kelas'] as $item)
+                                                                    <option value="{{$item['id']}}" {{$item['id'] == $data['kelas_id'] ? 'selected' : ''}}> {{$item['title']}} </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-xl-4">
                                                         <label>Jenis Kelamin</label>
                                                         <div class="kt-radio-inline">

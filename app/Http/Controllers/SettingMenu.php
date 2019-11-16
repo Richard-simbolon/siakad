@@ -64,17 +64,23 @@ class SettingMenu extends Controller
             $path = implode('/', $menuname);
 
             // GENERATE THE VIEW
-            File::makeDirectory(resource_path().'/views/'.strtolower($path), $mode = 0777, true, true);
-            File::put(resource_path().'/views/'.strtolower($path).'/'.$filename.'.blade.php','Your View Controller will put here');
-            //Storage::disk('local')->put(resource_path().'/file.txt', 'Contents');
-
-            // GENERATE THE CONTROLLER
-            File::put(app_path().'/Http/Controllers/'.ucfirst($filename).'.php',static::autocontroller($filename , $request->all()));
-            // GENERATE THE MODEL
-            File::put(app_path().'/'.ucfirst($filename).'Model.php', static::automodel($filename , $request->all()));
-
-            // GENERATE MIGRATION FILE
-
+            if(!file_exists( public_path(resource_path().'/views/'.strtolower($path).'/'.$filename.'.blade.php'))
+            && !file_exists( app_path().'/Http/Controllers/'.ucfirst($filename).'.php')
+            && !file_exists( app_path().'/'.ucfirst($filename).'Model.php')
+            ){
+                File::makeDirectory(resource_path().'/views/'.strtolower($path), $mode = 0777, true, true);
+                File::put(resource_path().'/views/'.strtolower($path).'/'.$filename.'.blade.php','Your View Controller will put here');
+                //Storage::disk('local')->put(resource_path().'/file.txt', 'Contents');
+    
+                // GENERATE THE CONTROLLER
+                File::put(app_path().'/Http/Controllers/'.ucfirst($filename).'.php',static::autocontroller($filename , $request->all()));
+                // GENERATE THE MODEL
+                File::put(app_path().'/'.ucfirst($filename).'Model.php', static::automodel($filename , $request->all()));
+    
+                // GENERATE MIGRATION FILE
+    
+            }
+           
         }
     }
 
