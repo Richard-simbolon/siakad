@@ -86,6 +86,8 @@ Route::post('kurikulum/filtering_table', 'Kurikulum@filtering_table')->name('Fil
 
 // ABSENSI
 Route::get('/data/absensimahasiswa/absensi/{id}', 'AbsensiMahasiswa@absensi')->name('index');
+// DOSEN
+Route::get('/dosen/absensi/absensi/{id}', 'DosenAbsensi@absensi')->name('index');
 
 Route::get('/data/jadwalujian/form/{id}', 'JadwalUjian@form')->name('index');
 
@@ -94,15 +96,21 @@ Route::get('data/kalenderakademik/getall', 'kalenderakademik@getall')->name('get
 
 $results = DB::select('select * from module');
 foreach($results as $val){
-    Route::get(strtolower($val->link), $val->mval.'@index')->name($val->mval);
-    Route::post(strtolower($val->link).'/save', $val->mval.'@'.'save')->name($val->mval.'save');
-    Route::get(strtolower($val->link).'/create', $val->mval.'@'.'create')->name($val->mval.'create');
-    Route::post(strtolower($val->link).'/update', $val->mval.'@'.'update')->name($val->mval.'update');
-    Route::get(strtolower($val->link).'/edit/{id}', $val->mval.'@'.'edit')->name($val->mval.'edit');
-    Route::get(strtolower($val->link).'/view/{id}', $val->mval.'@'.'view')->name($val->mval.'view');
-    Route::get(strtolower($val->link).'/delete', $val->mval.'@'.'delete')->name($val->mval.'delete');
-    Route::post(strtolower($val->link).'/delete', $val->mval.'@'.'delete')->name($val->mval.'delete');
-    Route::post(strtolower($val->link).'/paging', $val->mval.'@'.'paging')->name('pagination');
+    if($val->crud == 1){
+        Route::get(strtolower($val->link), $val->mval.'@index')->name($val->mval);
+        Route::post(strtolower($val->link).'/save', $val->mval.'@'.'save')->name($val->mval.'save');
+        Route::get(strtolower($val->link).'/create', $val->mval.'@'.'create')->name($val->mval.'create');
+        Route::post(strtolower($val->link).'/update', $val->mval.'@'.'update')->name($val->mval.'update');
+        Route::get(strtolower($val->link).'/edit/{id}', $val->mval.'@'.'edit')->name($val->mval.'edit');
+        Route::get(strtolower($val->link).'/view/{id}', $val->mval.'@'.'view')->name($val->mval.'view');
+        Route::get(strtolower($val->link).'/delete', $val->mval.'@'.'delete')->name($val->mval.'delete');
+        Route::post(strtolower($val->link).'/delete', $val->mval.'@'.'delete')->name($val->mval.'delete');
+        Route::post(strtolower($val->link).'/paging', $val->mval.'@'.'paging')->name('pagination');
+    }else{
+        Route::get(strtolower($val->link), $val->mval.'@index')->name($val->mval);
+        Route::post(strtolower($val->link).'/paging', $val->mval.'@'.'paging')->name('pagination');
+    }
+    
 }
 
 

@@ -5,6 +5,7 @@ namespace Illuminate\Routing;
 use BadMethodCallException;
 use File;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Auth;
 
 abstract class Controller
 {
@@ -14,7 +15,7 @@ abstract class Controller
      * @var array
      */
     protected $middleware = [];
-
+    protected $user;
     /**
      * Register middleware on the controller.
      *
@@ -25,7 +26,9 @@ abstract class Controller
 
     public function __construct()
     {
+        
         $this->middleware('auth');
+        
     }
     
      public function generalsave($data)
