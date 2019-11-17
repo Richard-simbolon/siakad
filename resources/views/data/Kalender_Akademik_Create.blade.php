@@ -63,7 +63,7 @@
                                                 <input type="hidden" class="form-control" name="row_status" value="active" />
                                                 <div class="row">
                                                     <div class="col-xl-12">
-                                                        <label class="select2-label">Judul</label>
+                                                        <label>Judul</label>
                                                         <div class="form-group">
                                                             <input type="text" class="form-control" name="title" placeholder="Isikan Judul" />
                                                         </div>
@@ -71,13 +71,13 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xl-4">
-                                                        <label class="select2-label">Tanggal</label>
+                                                        <label>Tanggal</label>
                                                         <div class="form-group">
-                                                            <input type="date" class="form-control" name="end" />
+                                                            <input type="date" class="form-control" name="start" />
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-3">
-                                                        <label class="select2-label">Jam</label>
+                                                        <label>Jam</label>
                                                         <div class="form-group">
                                                             <input type="text" class="form-control time-picker" name="time-start" />
                                                         </div>
@@ -85,13 +85,13 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xl-4">
-                                                        <label class="select2-label">Sampai dengan</label>
+                                                        <label>Sampai dengan</label>
                                                         <div class="form-group">
                                                             <input type="date" class="form-control" name="end" />
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-3">
-                                                        <label class="select2-label">Jam</label>
+                                                        <label>Jam</label>
                                                         <div class="form-group">
                                                             <input type="text" class="form-control time-picker" name="time-end" />
                                                         </div>
@@ -109,18 +109,28 @@
                                                             </select>
                                                         </div>
                                                     </div>
+                                                    <div class="col-xl-4">
+                                                        <label class="select2-label">Tampilkan ke</label>
+                                                        <div class="form-group">
+                                                            <select class="form-control" name="display" >
+                                                                <option value="Semua">Semua</option>
+                                                                <option value="Dosen">Dosen</option>
+                                                                <option value="Mahasiswa">Mahasiwa</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xl-12">
                                                         <div class="form-group">
                                                             <label>Keterangan</label>
-                                                            <textarea id="keterangan" rows="5" type="text" class="form-control" name="keterangan" placeholder="Isikan Keterangan" ></textarea>
+                                                            <textarea id="summernote" name="keterangan"></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="kt-separator kt-separator--border-dashed kt-separator--space-md kt-separator--portlet-fit"></div>
                                                 <div class="kt-form__actions">
-                                                    <a style="color:#ffffff;" data-prev-url="{{url()->previous()}}" class="btn btn-success generalsave">
+                                                    <a style="color:#ffffff;" data-prev-url="{{url()->previous()}}" class="btn btn-success" id="saveKalender">
                                                         Simpan <i class="la la-save"></i>
                                                     </a>
                                                 </div>
@@ -138,7 +148,9 @@
     </div>
 
 @section('js')
-
+    <script src="{{asset('assets/plugins/custom/summernote/summernote.js')}}" type="text/javascript"></script>
+    <script src="{{asset('assets/plugins/custom/summernote/lang/summernote-id-ID.js')}}" type="text/javascript"></script>
+    <script src="{{asset('assets/js/pages/kalender/kalender.js')}}" type="text/javascript"></script>
 @stop
 
 @endsection

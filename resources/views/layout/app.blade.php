@@ -77,6 +77,7 @@
 		<link href="{{asset('assets/plugins/general/plugins/flaticon2/flaticon.css')}}" rel="stylesheet" type="text/css" /> 
 		<link href="{{asset('assets/plugins/general/bootstrap-datetime-picker/css/bootstrap-datetimepicker.css')}}" rel="stylesheet" type="text/css" />
 		<link href="{{asset('assets/plugins/general/bootstrap-timepicker/css/bootstrap-timepicker.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('assets/plugins/custom/summernote/summernote.css')}}" rel="stylesheet" type="text/css" />
 
 		<!--end:: Vendor Plugins for custom pages -->
 
@@ -99,7 +100,7 @@
     <body class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--enabled kt-subheader--fixed kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">
         <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
             <div class="kt-header-mobile__logo">
-                <a href="index.html">
+                <a href="/">
                 <img alt="Logo" src="{{asset('assets/media/logos/logo-polbangtan.png')}}" width="60%" />
                 </a>
             </div>

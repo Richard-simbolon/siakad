@@ -188,6 +188,7 @@ th {
   text-align: inherit; }
 
 label {
+    font-weight: 600;
   display: inline-block;
   margin-bottom: 0.5rem; }
 
@@ -10765,7 +10766,7 @@ code {
     margin-bottom: 0px; }
   .form-group label {
     font-size: 1rem;
-    font-weight: 400; }
+    font-weight: 600; }
   .form-group .invalid-feedback,
   .form-group .valid-feedback {
     font-weight: 400; }
@@ -36446,4 +36447,36 @@ body {
       margin-left: 0.5rem; } }
 .select2-label { 
   display:block!important;
+}
+.blue-kalender{
+    background-color: #5867dd;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 20px;
+    width: 80%;
+    margin: auto;
+}
+.green-kalender{
+    background-color: #0abb87;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 20px;
+    width: 80%;
+    margin: auto;
+}
+.orange-kalender{
+    background-color: #ffb822;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 20px;
+    width: 80%;
+    margin: auto;
+}
+.red-kalender{
+    background-color: #fd397a;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 20px;
+    width: 80%;
+    margin: auto;
 }

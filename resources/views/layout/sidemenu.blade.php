@@ -3,8 +3,8 @@
         <!-- begin:: Aside -->
         <div class="kt-aside__brand kt-grid__item " id="kt_aside_brand">
             <div class="kt-aside__brand-logo">
-                <a href="index.html">
-                    <img alt="Logo" src="{{asset('assets/media/logos/logo-polbangtan.png')}}" width="75%" />
+                <a href="/">
+                    <img alt="Logo" src="{{asset('assets/media/logos/logo-polbangtan.png')}}" width="80%" />
                 </a>
             </div>
             <div class="kt-aside__brand-tools">
