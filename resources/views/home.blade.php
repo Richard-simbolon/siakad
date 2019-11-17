@@ -43,13 +43,13 @@
                                         </div>
                                     </div>
                                     <div class="kt-widget__subhead">
-                                        <a href="#"><i class="flaticon-user"></i>07212.2080</a>
-                                        <a href="#"><i class="flaticon2-new-email"></i>jason@siastudio.com</a>
-                                        <a href="#"><i class="flaticon2-calendar-3"></i>Kelas A</a>
+                                        <a href="#"><i class="flaticon-user"></i>{{$data['nim']}}</a>
+                                        <a href="#"><i class="flaticon2-new-email"></i>{{$data['email']}}</a>
+                                        <a href="#"><i class="flaticon2-calendar-3"></i>Kelas {{$data['kelas']}}</a>
                                     </div>
                                     <div class="kt-widget__info">
                                         <div class="kt-widget__desc" style="display: inline-block!important;width: 100%;">
-                                            Angkatan 2019 <br/> Teknologi Produksi Tanaman Perkebunan <br/>
+                                            Angkatan {{$data['angkatan']}} <br/> {{$data['jurusan']}} <br/>
 
                                         </div>
                                         <div class="kt-widget__progress">

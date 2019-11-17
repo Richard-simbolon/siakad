@@ -103,7 +103,7 @@
 
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <table class="table table-striped table-bordered table-hover responsive" id="kt_table_1">
+                                    <table class="dataTable table table-striped table-bordered table-hover responsive" id="kt_table_1">
                                         <thead>
                                         <tr>
                                             <th style="text-align: center">No</th>

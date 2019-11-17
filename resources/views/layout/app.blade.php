@@ -4,7 +4,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>SIAKAD</title>
-
+        <link href="https://polbangtanmedan.ac.id/themes/stpp/img/favicon-48.png" rel="apple-touch-icon-precomposed" sizes="48x48">
+        <link href="https://polbangtanmedan.ac.id/themes/stpp/img/favicon-32.png" rel="apple-touch-icon-precomposed">
+        <link href="https://polbangtanmedan.ac.id/themes/stpp/img/favicon.png" rel="shortcut icon">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700">
 		<!-- Fonts<link href="public/assets/plugins/general/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet" type="text/css" />
 		<link href="public/assets/plugins/general/tether/dist/css/tether.css" rel="stylesheet" type="text/css" />
