@@ -9,6 +9,8 @@
             <div class="kt-subheader__main">
                 <h3 class="kt-subheader__title">Dashboard</h3>
                 <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+                <a href="" class="kt-subheader__breadcrumbs-link">
+                    Semester 2019/2020 Genap </a>
             </div>
 
         </div>
@@ -35,7 +37,7 @@
                                 <div class="kt-widget__content">
                                     <div class="kt-widget__head">
                                         <a href="#" class="kt-widget__username">
-                                                {{ Auth::user()->nama }} 
+                                                {{ Auth::user()->nama }}
                                             <i class="flaticon2-correct"></i>
                                         </a>
                                         <div class="kt-widget__action">
