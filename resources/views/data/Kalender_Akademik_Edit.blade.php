@@ -56,7 +56,7 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <!--begin::Portlet-->
-                                        <div class="kt-portlet">
+                                        <div>
                                             <!--begin::Form-->
                                             <div class="kt-portlet__body">
                                                 <input type="hidden" class="form-control" name="row_status" value="active" />
@@ -71,35 +71,60 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xl-4">
+                                                        <label>Tanggal</label>
+                                                        <div class="form-group">
+                                                            <input type="date" style="letter-spacing: 1px" class="form-control" name="start" value="{{date('Y-m-d', strtotime($data['start']))}}" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3">
+                                                        <label>Jam</label>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control time-picker" name="time_start" value="{{$data['time_start']}}"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-4">
+                                                        <label>Tanggal</label>
+                                                        <div class="form-group">
+                                                            <input type="date" style="letter-spacing: 1px" class="form-control" name="end" value="{{date('Y-m-d', strtotime($data['end']))}}" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-3">
+                                                        <label>Jam</label>
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control time-picker" name="time_end" value="{{$data['time_end']}}" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-4">
                                                         <label class="select2-label">Warna</label>
                                                         <div class="form-group">
                                                             <select class="form-control" name="warna" >
-                                                                <option value="1" {{$data['start']=="1"?"selected" : ""}}>Biru</option>
-                                                                <option value="2" {{$data['start']=="2"?"selected" : ""}}>Jingga</option>
-                                                                <option value="3" {{$data['start']=="3"?"selected" : ""}}>Merah</option>
-                                                                <option value="4" {{$data['start']=="4"?"selected" : ""}}>Hijau</option>
+                                                                <option value="1" {{$data['warna']=="1"?"selected" : ""}}>Biru</option>
+                                                                <option value="2" {{$data['warna']=="2"?"selected" : ""}}>Jingga</option>
+                                                                <option value="3" {{$data['warna']=="3"?"selected" : ""}}>Merah</option>
+                                                                <option value="4" {{$data['warna']=="4"?"selected" : ""}}>Hijau</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4">
-                                                        <label class="select2-label">Tanggal</label>
+                                                        <label class="select2-label">Tampilkan kepada</label>
                                                         <div class="form-group">
-                                                            <input type="datetime-local" class="form-control" name="start" value="{{date('Y-m-d\TH:i', strtotime($data['start']))}}" />
+                                                            <select class="form-control" name="display" >
+                                                                <option value="Semua" {{$data['display']=="Semua"?"selected" : ""}}>Semua</option>
+                                                                <option value="Dosen" {{$data['display']=="Dosen"?"selected" : ""}}>Dosen</option>
+                                                                <option value="Mahasiswa" {{$data['display']=="Mahasiswa"?"selected" : ""}}>Mahasiswa</option>
+                                                            </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-4">
-                                                        <label class="select2-label">Sampai dengan</label>
-                                                        <div class="form-group">
-                                                            <input type="datetime-local" class="form-control" name="end" value="{{date('Y-m-d\TH:i', strtotime($data['end']))}}" />
-                                                        </div>
-                                                    </div>
-
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xl-12">
                                                         <div class="form-group">
                                                             <label>Keterangan</label>
-                                                            <textarea id="keterangan" rows="5" type="text" class="form-control" name="keterangan" placeholder="Isikan Keterangan">{{$data['keterangan']}}</textarea>
+                                                            <textarea id="summernote" name="keterangan">{{$data['keterangan']}}</textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -126,6 +151,8 @@
     </div>
 
 @section('js')
+    <script src="{{asset('assets/plugins/custom/summernote/summernote.js')}}" type="text/javascript"></script>
+    <script src="{{asset('assets/plugins/custom/summernote/lang/summernote-id-ID.js')}}" type="text/javascript"></script>
     <script src="{{asset('assets/js/pages/kalender/kalender.js')}}" type="text/javascript"></script>
 @stop
 

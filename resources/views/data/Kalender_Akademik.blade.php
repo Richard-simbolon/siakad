@@ -58,10 +58,11 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Judul</th>
-                                        <th>Keterangan</th>
+                                        {{--<th>Keterangan</th>--}}
                                         <th>Tanggal Mulai</th>
                                         <th>Tanggal Selesai</th>
                                         <th>Warna</th>
+                                        <th>Ditampilkan ke</th>
                                         <th></th>
                                     </tr>
                                     </thead>

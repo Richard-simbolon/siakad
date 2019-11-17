@@ -14,6 +14,7 @@
                     "start" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"start"],
                     "end" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"end"],
                     "warna" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"warna"],
+                    "display" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"display"],
                     ];
                 static $html = ["id"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
                     "title"=>["type"=>"text" , "value"=>"null" , "validation" => "required"] ,
@@ -21,6 +22,7 @@
                     "start"=>["type"=>"date" , "value"=>"null" , "validation" => "required"] ,
                     "end"=>["type"=>"date" , "value"=>"null" , "validation" => "required"],
                     "keterangan"=>["type"=>"date" , "value"=>"null" , "validation" => "required"],
+                    "display"=>["type"=>"text" , "value"=>"null" , "validation" => "required"],
                 ];
                 static $exclude = ["id","created_at","updated_at","created_by","update_by"];
                 static $tablename = "KalenderAkademik";
@@ -48,7 +50,8 @@
 
                 public function view($id){
                     $data = KalenderAkademikModel::where('id' , $id)->first();
-
+                    $data['time_start'] = date('H:i', strtotime($data['start']));
+                    $data['time_end'] = date('H:i', strtotime($data['end']));
                     $title = "Edit Kalender";
                     $table = array_diff(DB::getSchemaBuilder()->getColumnListing("master_jurusan") , static::$exclude);
                     $exclude = static::$exclude;
@@ -56,7 +59,21 @@
                     $html = static::$html;
                     $column = 1;
                     $controller = "jurusan";
-                    return view("data/kalender_akademik_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow","tableid", "column", "controller"));
+                    return view("data/kalender_akademik_view" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow", "column", "controller"));
+                }
+
+                public function edit($id){
+                    $data = KalenderAkademikModel::where('id' , $id)->first();
+                    $data['time_start'] = date('H:i', strtotime($data['start']));
+                    $data['time_end'] = date('H:i', strtotime($data['end']));
+                    $title = "Edit Kalender";
+                    $table = array_diff(DB::getSchemaBuilder()->getColumnListing("master_jurusan") , static::$exclude);
+                    $exclude = static::$exclude;
+                    $Tableshow = static::$Tableshow;
+                    $html = static::$html;
+                    $column = 1;
+                    $controller = "jurusan";
+                    return view("data/kalender_akademik_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow", "column", "controller"));
                 }
 
                 public function save(Request $request){
@@ -76,6 +93,7 @@
                     if ($validation->fails()) {
                         return json_encode(["status"=> "false", "message"=> $validation->messages()]);
                     }
+
                     $save  = KalenderAkademikModel::firstOrCreate($data);
                     if($save){
                         return $this->success("Data berhasil disimpan.");
@@ -100,7 +118,10 @@
                     if ($validation->fails()) {
                         return json_encode(["status"=> "false", "message"=> $validation->messages()]);
                     }
-//print_r($data);
+
+                    $data->start = $data->start . ' '  .$input['time_start'];
+                    $data->end = $data->end . ' '  .$input['time_end'];
+
                     if($data->save()){
                         return $this->success("Data berhasil disimpan.");
                     }else{
@@ -137,7 +158,7 @@
                 }
 
                 public function getall(){
-                    $arrClass= ['','fc-event-light fc-event-solid-primary','fc-event-danger fc-event-solid-warning','fc-event-solid-danger fc-event-light', 'fc-event-light fc-event-solid-success' ];
+                    $arrClass= ['','fc-event-light fc-event-solid-primary','fc-event-warning fc-event-solid-warning','fc-event-solid-danger fc-event-light', 'fc-event-light fc-event-solid-success' ];
                     $data = KalenderAkademikModel::where('row_status' , 'active')
                         ->select("id","title", "start","end", "warna as className")
                         ->get();

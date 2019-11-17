@@ -51,7 +51,7 @@
                         </div>
                         <!--begin::Form-->
                         <div class="kt-portlet__body">
-                            <table class="table table-striped table-bordered table-hover table-checkable responsive no-wrap" id="{{$tableid}}">
+                            <table class="dataTable table table-striped table-bordered table-hover table-checkable responsive no-wrap" id="{{$tableid}}">
                                 <thead>
                                 <tr>
                                     <th>No</th>

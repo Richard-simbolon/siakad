@@ -99,7 +99,7 @@
                                             <div class="col-lg-12">
                                                 <div class="kt-separator kt-separator--border-dashed kt-separator--space-sm kt-separator--portlet-fit"></div>
                                                 <br/>
-                                                <table class="table table-striped table-bordered table-hover responsive no-wrap">
+                                                <table class="dataTable table table-striped table-bordered table-hover responsive no-wrap">
                                                     <thead>
                                                     <th width="60%">Nama Dosen</th>
                                                     <th>Status</th>

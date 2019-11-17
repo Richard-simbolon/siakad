@@ -12,8 +12,25 @@
     <div class="kt-subheader  kt-grid__item" id="kt_subheader">
         <div class="kt-container  kt-container--fluid ">
             <div class="kt-subheader__main">
-                <h3 class="kt-subheader__title">Dashboard</h3>
-                <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+                <h3 class="kt-subheader__title">
+                    Mahasiswa </h3>
+                <span class="kt-subheader__separator kt-hidden"></span>
+                <div class="kt-subheader__breadcrumbs">
+                    <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                    <span class="kt-subheader__breadcrumbs-separator"></span>
+                    <a href="{{url('data/mahasiswa')}}" class="kt-subheader__breadcrumbs-link">
+                        Daftar </a>
+                    <span class="kt-subheader__breadcrumbs-separator"></span>
+                    <a href="" class="kt-subheader__breadcrumbs-link">
+                        Tambah </a>
+                </div>
+            </div>
+            <div class="kt-subheader__toolbar">
+                <div class="kt-subheader__wrapper">
+                    <a href="{{url('data/mahasiswa')}}" class="btn btn-success">
+                        <i class="la la-bars"></i> Daftar Mahasiswa &nbsp;
+                    </a>
+                </div>
             </div>
 
         </div>

@@ -1302,10 +1302,11 @@ var KTDatatablesExtensionsResponsive = function() {
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
-                { data: 'keterangan', name: 'keterangan' },
+                // { data: 'keterangan', name: 'keterangan' },
                 { data: 'start', name: 'start' },
                 { data: 'end', name: 'end' },
                 { data: 'warna', name: 'warna' },
+                { data: 'display', name: 'display' },
                 { defaultContent : '<td></td>'}
             ],
             columnDefs: [
@@ -1316,12 +1317,33 @@ var KTDatatablesExtensionsResponsive = function() {
                     className: "text-center",
                     render: function(data, type, full, meta) {
                         return `
-                       <a class="btn btn-" href="kalenderakademik/view/`+full.id+`"><i class="la la-edit"></i></a>
+                       <a class="btn btn-" href="kalenderakademik/view/`+full.id+`"><i class="la la-search"></i></a>
+                       <a class="btn btn-" href="kalenderakademik/edit/`+full.id+`"><i class="la la-edit"></i></a>
                        `;
                     },
                 },
                 {
+                    targets: 4,
+                    className: "text-center",
+                    render: function(data, type, full, meta) {
+                        if(data == "1"){
+                            return '<div class="blue-kalender">Biru</div>';
+                        }else if(data =="2"){
+                            return '<div class="orange-kalender">Jingga</div>';
+                        }
+                        else if(data =="3"){
+                            return '<div class="green-kalender">Hijau</div>';
+                        }
+                        else if(data =="4"){
+                            return '<div class="red-kalender">Merah</div>';
+                        }
+                    },
+                },
+                {
                     targets: 0,
+                    className: "text-center"
+                },{
+                    targets: 5,
                     className: "text-center"
                 },
             ]

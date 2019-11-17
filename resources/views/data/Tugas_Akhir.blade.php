@@ -53,7 +53,7 @@
                         </div>
                         <div class="kt-portlet__body">
                             <div class="m-portlet__body">
-                                <table class="table table-striped table-bordered table-sm responsive no-wrap general-data-table" id="{{$tableid}}">
+                                <table class="dataTable table table-striped table-bordered table-sm responsive no-wrap general-data-table" id="{{$tableid}}">
                                     <thead>
                                     <tr>
                                         <th>No</th>

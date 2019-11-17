@@ -97,7 +97,7 @@
                     </div>
 
                     <div>
-                        <table class="table table-striped table-bordered table-hover table-checkable responsive no-wrap" >
+                        <table class="dataTable table table-striped table-bordered table-hover table-checkable responsive no-wrap" >
                             <thead>
                             <tr>
                                 <th style="vertical-align: middle" rowspan="2">NO</th>

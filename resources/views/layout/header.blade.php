@@ -419,7 +419,7 @@
                         <img class="kt-hidden" alt="Pic" src="assets/media/users/300_25.jpg" />
 
                         <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
-                        <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold">S</span>
+                        <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold">{{ substr(Auth::user()->nama, 0, 1)}}</span>
                     </div>
                 </div>
                 <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl">
@@ -430,13 +430,13 @@
                             <img class="kt-hidden" alt="Pic" src="assets/media/users/300_25.jpg" />
 
                             <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
-                            <span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">S</span>
+                            <span class="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">{{ substr(Auth::user()->nama, 0, 1)}}</span>
                         </div>
                         <div class="kt-user-card__name">
-                            Sean Stone
+                           {{Auth::user()->nama}}
                         </div>
                         <div class="kt-user-card__badge">
-                            <span class="btn btn-success btn-sm btn-bold btn-font-md">07.212.0765</span>
+                            <span class="btn btn-success btn-sm btn-bold btn-font-md">{{Auth::user()->id}}</span>
                         </div>
                     </div>
 
@@ -450,10 +450,10 @@
                             </div>
                             <div class="kt-notification__item-details">
                                 <div class="kt-notification__item-title kt-font-bold">
-                                    My Profile
+                                    Profil Saya
                                 </div>
                                 <div class="kt-notification__item-time">
-                                    Account settings and more
+                                    Ubah data dan biodata
                                 </div>
                             </div>
                         </a>
@@ -463,7 +463,7 @@
                             @guest
                             @else
                             <a href="{{ route('logout') }}"  onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();" class="btn btn-label btn-label-brand btn-sm btn-bold">Sign Out</a>
+                            document.getElementById('logout-form').submit();" class="btn btn-label btn-label-brand btn-sm btn-bold">Keluar</a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>

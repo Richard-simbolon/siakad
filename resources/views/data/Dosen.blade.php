@@ -13,25 +13,19 @@
         <div class="kt-container  kt-container--fluid ">
             <div class="kt-subheader__main">
                 <h3 class="kt-subheader__title">
-                    Flaticon </h3>
+                    Dosen </h3>
                 <span class="kt-subheader__separator kt-hidden"></span>
                 <div class="kt-subheader__breadcrumbs">
                     <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                     <span class="kt-subheader__breadcrumbs-separator"></span>
                     <a href="" class="kt-subheader__breadcrumbs-link">
-                        Components </a>
-                    <span class="kt-subheader__breadcrumbs-separator"></span>
-                    <a href="" class="kt-subheader__breadcrumbs-link">
-                        Icons </a>
-                    <span class="kt-subheader__breadcrumbs-separator"></span>
-                    <a href="" class="kt-subheader__breadcrumbs-link">
-                        Flaticon </a>
+                        Daftar </a>
                 </div>
             </div>
             <div class="kt-subheader__toolbar">
                 <div class="kt-subheader__wrapper">
-                    <a href="dosen/create" class="btn btn-primary">
-                        <i class="flaticon-user-add"></i> Tambah Dosen &nbsp;
+                    <a href="dosen/create" class="btn btn-success">
+                        <i class="la la-plus"></i> Tambah Dosen &nbsp;
                     </a>
                 </div>
             </div>
@@ -62,6 +56,7 @@
                         <div class="kt-portlet__body">
                                 <div class="row">
                                     <div class="col-xl-4">
+                                        <label>Status</label>
                                         <div class="form-group">
                                             <select name="status" class="form-control">
                                                 <option value="">-- Pilih Status --</option>
@@ -81,6 +76,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xl-4">
+                                        <label>Jenis Kelamin</label>
                                         <div class="form-group">
                                             <select name="jenis_kelamin" id="jenis_kelamin" class="form-control">
                                                 <option value="">-- Pilih Jenis Kelamin --</option>
@@ -90,6 +86,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xl-4">
+                                        <label>Agama</label>
                                         <div class="form-group">
                                             <select name="agama" id="search-agama" class="form-control">
                                                 <option value="">-- Pilih Agama --</option>
@@ -111,8 +108,7 @@
                                     </div>
                                 </div>
                                 <div class="kt-form__actions">
-                                    <button type="button" class="btn btn-primary" id="search-button"><i class="flaticon-search"></i>Cari</button>
-                                    <button type="reset" class="btn btn-secondary">Cancel</button>
+                                    <button type="button" class="btn btn-success" id="search-button"><i class="flaticon-search"></i>Cari</button>
                                 </div>
 
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>

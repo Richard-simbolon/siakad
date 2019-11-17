@@ -10,14 +10,14 @@
             protected $table = "kalender_akademik";
 
             protected $fillable = [
-                "id","row_status","start","end","title","keterangan","warna","updated_at" ,"created_at","created_by", "update_by"
+                "id","row_status","start","end","title","keterangan","warna","display","updated_at" ,"created_at","created_by", "update_by"
             ];
 
 
 
             public function scopeget_row(){
                 return [
-                    "id","row_status","start","end","title","keterangan","warna","updated_at" ,"created_at","created_by", "update_by"
+                    "id","row_status","start","end","title","keterangan","warna","display","updated_at" ,"created_at","created_by", "update_by"
                  ];
              }
 

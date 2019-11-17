@@ -33,7 +33,7 @@ var KTCalendarListView = function() {
                     listWeek: { buttonText: 'Perminggu' }
                 },
 
-                defaultView: 'listWeek',
+                defaultView: 'dayGridMonth',
                 defaultDate: TODAY,
 
                 editable: true,
@@ -84,7 +84,7 @@ function opendetail(id, start) {
             if(result.status){
                 $("#title").text(result.data[0]['title']);
                 $("#tanggal").text("Tanggal publikasi : " + result.data[0]['created_at']);
-                $("#keterangan").text(result.data[0]['keterangan']);
+                $("#keterangan").html(result.data[0]['keterangan']);
                 $("#kt_modal_kalender").modal();
             }
             else{
