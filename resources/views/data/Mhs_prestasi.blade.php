@@ -35,31 +35,25 @@
                         <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right">
                             <ul class="kt-nav">
                                 <li class="kt-nav__item">
-                                    <a href="#" class="kt-nav__link">
+                                    <a href="{{url('data/mahasiswa/view/'.$data['id'])}}" class="kt-nav__link">
                                         <i class="kt-nav__link-icon flaticon2-user"></i>
                                         <span class="kt-nav__link-text">Detail Mahasiswa</span>
                                     </a>
                                 </li>
                                 <li class="kt-nav__item">
-                                    <a href="#" class="kt-nav__link">
+                                    <a href="{{url('admin/mahasiswa/krs/'.$data['id'])}}" class="kt-nav__link">
                                         <i class="kt-nav__link-icon flaticon2-digital-marketing"></i>
                                         <span class="kt-nav__link-text">KRS</span>
                                     </a>
                                 </li>
                                 <li class="kt-nav__item">
-                                    <a href="#" class="kt-nav__link">
+                                    <a href="{{url('admin/mahasiswa/khs/'.$data['id'])}}" class="kt-nav__link">
                                         <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
                                         <span class="kt-nav__link-text">History Nilai</span>
                                     </a>
                                 </li>
                                 <li class="kt-nav__item">
-                                    <a href="#" class="kt-nav__link">
-                                        <i class="kt-nav__link-icon flaticon2-cardiogram"></i>
-                                        <span class="kt-nav__link-text">Aktivitas Perkuliahan</span>
-                                    </a>
-                                </li>
-                                <li class="kt-nav__item">
-                                    <a href="#" class="kt-nav__link">
+                                    <a href="{{url('mahasiswa/prestasi/'.$data['id'])}}" class="kt-nav__link">
                                         <i class="kt-nav__link-icon flaticon2-indent-dots"></i>
                                         <span class="kt-nav__link-text">Prestasi</span>
                                     </a>
@@ -181,31 +175,17 @@
                                     <thead>
                                     <tr>
                                         {{-- <th style="text-align: center">No</th> --}}
-                                        <th style="text-align: center">Mata Kuliah</th>
-                                        <th style="text-align: center">Angkatan</th>
-                                        <th>Semester</th>
-                                        <th>Jurusan </th>
-                                        <th style="text-align: center">Kelas</th>
-                                        <th style="text-align: center">Ruangan</th>
-                                        <th style="text-align: center">Dosen</th>
-                                        <th>Action</th>
+                                        <th style="text-align: center">Jenis Prestasi</th>
+                                        <th style="text-align: center">Tahun</th>
+                                        <th>Tingkat Prestasi</th>
+                                        <th>Penyelenggara </th>
+                                        <th style="text-align: center">Nama Prestasi</th>
+                                        <th style="text-align: center">Peringkat</th>
+                                        <th>Aksi</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                            {{-- < ?$i = 0?>
-                                            @foreach ($data as $item)
-                                            < ? $i++ ?>
-                                            <tr>
-                                                <td align="center">{{$i}}</td> 
-                                                <td align="center">{{$item->nama_mata_kuliah}}</td>
-                                                <td align="center">{{$item->nama_angkatan}}</td>
-                                                <td>{{$item->nama_semester}}</td>
-                                                <td style="vertical-align: center;">{{$item->nama_jurusan}}t</td>
-                                                <td align="center">{{$item->nama_kelas}}</td>
-                                                <td align="center">{{$item->nama_dosen}}</td>
-                                                <td><a href="{{url('data/nilaimahasiswa/view/'. $item->id)}}" > edit/view </a></td>
-                                            </tr>
-                                            @endforeach --}}
+                                            
                                     </tbody>
                                 </table>
                             </div>
@@ -279,11 +259,11 @@
                             </div>
                             <div class="kt-portlet__foot">
                                 <div class="kt-form__actions">
-                                    <button type="button" id="save_prestasi" class="btn btn-primary">Submit</button>
+                                    <button type="button" id="save_prestasi" class="btn btn-success">Submit</button>
                                     <button type="reset" class="btn btn-secondary">Cancel</button>
                                 </div>
                             </div>
-                            <input type="hidden" class="form-control" name="id" value="{{$data['id']}}">
+                            <input type="hidden" class="form-control" id="id_mahasiswa" name="id" value="{{$data['id']}}">
                         </div>
                     </div>  
                 </form>   

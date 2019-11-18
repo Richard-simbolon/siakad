@@ -25,6 +25,10 @@ use App\MahasiswaPendidikanModel;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
 use App\KelasModel;
+use App\SemesterModel;
+use App\JadwalPerkuliahanModel;
+use App\KurikulumModel;
+use PhpParser\Node\Expr\Print_;
 
 class Mahasiswa extends Controller
 {
@@ -209,7 +213,8 @@ class Mahasiswa extends Controller
         $kebutuhan_selected = MahasiswaKebutuhanModel::where('mahasiswa_id' , $id)->first();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $tableid = "Mahasiswa";
-        return view("data/mhs_view" , compact("data","master" ,"orangtuawali" ,"kebutuhan_selected"));
+        $global['id'] = $id;
+        return view("data/mhs_view" , compact("data","master" ,"orangtuawali" ,"kebutuhan_selected" ,"global"));
     }
 
     public function paging(Request $request){
@@ -614,10 +619,10 @@ public function profile()
                 'tahun' => 'required|numeric',
                 'penyelenggara' => 'required',
                 'peringkat' => 'max:20',
-                'updated_at' => date('Y-m-d H:i:s'),
-                'created_at' => date('Y-m-d H:i:s')
             ]);
                 $data['mahasiswa_id'] = $id;
+                $data['updated_at'] = date('Y-m-d H:i:s');
+                $data['created_at'] = date('Y-m-d H:i:s');
             if ($validation->fails()) {
                 return json_encode(['status'=> 'error', 'message'=> $validation->messages()]);
             }
@@ -636,6 +641,60 @@ public function profile()
 
         }
         
+    }
+
+    public function paging_prestasi(Request $request){
+        //print_r($request->all()); exit;
+        $post = $request->all();
+        return Datatables::of(DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $post['id'])->get())->addIndexColumn()->make(true);
+    }
+
+
+    public function krs($ids)
+    {
+        //$mahasiswa_id = Auth::user()->id;
+        $semester_active = SemesterModel::where('status_semester' ,'enable')->first();
+        $mahasiswa = MahasiswaModel::where('id' , $ids)->first();
+        $data = JadwalPerkuliahanModel::where('kelas_id' , $mahasiswa->kelas_id)
+        ->where('semester_id' , $semester_active->id)
+        ->get();
+        $select2 = JadwalPerkuliahanModel::select('semester_id' ,'semseter_title')
+        ->where('kelas_id' , $mahasiswa->kelas_id)
+        //->where('mahasiswa_id' , $semester_active->id)
+        ->groupBy('semester_id')
+        ->orderBy('semester_id' ,'ASC')
+        ->get();
+        $global['id'] = $ids;
+        $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+        //return view("mahasiswa/krs" , compact("data" , "title" ,"mahasiswa" ,'select2'));
+        return view("data/Mhs_Krs" , compact("data" , "title" ,"mahasiswa" ,'select2' ,"global"));
+
+    }
+
+    public function khs($ids)
+    {
+        $kurikulum = MahasiswaModel::join('master_kelas' ,'master_kelas.id' ,'mahasiswa.kelas_id')
+        ->select('master_kelas.*','mahasiswa.nama','mahasiswa.id')
+        ->where('mahasiswa.id' , $ids)->first();
+
+        //Print_r($kurikulum); exit;
+        $id = $kurikulum->id;
+        $mahasiswa = DB::table('view_profile_mahasiswa')->where('id' , $id)->first();
+        //Print_r($mahasiswa); exit;
+        $data = KurikulumModel::rightJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.kurikulum_id','=' ,'kurikulum.id')
+        ->join('mata_kuliah' ,'mata_kuliah.id' , '=' ,'kurikulum_mata_kuliah.mata_kuliah_id')
+        ->leftJoin('nilai_mahasiswa', function ($join) use($id) {
+            $join->on('nilai_mahasiswa.mata_kuliah_id' ,'=','kurikulum_mata_kuliah.mata_kuliah_id')
+            ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $id);
+        })
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir')
+        ->where('kurikulum.id' , $kurikulum->kurikulum_id)->get();
+        $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+
+        $global['id'] = $ids;
+        return view("data/Mhs_Khs" , compact("data" , "title" ,"mahasiswa" ,'select2' ,"global"));
+        //return view("mahasiswa/khs" , compact("data" , "title" ,"mahasiswa"));
+
     }
 
 }

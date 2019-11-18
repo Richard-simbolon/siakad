@@ -35,31 +35,25 @@
                         <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right">
                             <ul class="kt-nav">
                                 <li class="kt-nav__item">
-                                    <a href="#" class="kt-nav__link">
+                                    <a href="{{url('data/mahasiswa/view/'.$global['id'])}}" class="kt-nav__link">
                                         <i class="kt-nav__link-icon flaticon2-user"></i>
                                         <span class="kt-nav__link-text">Detail Mahasiswa</span>
                                     </a>
                                 </li>
                                 <li class="kt-nav__item">
-                                    <a href="#" class="kt-nav__link">
+                                    <a href="{{url('admin/mahasiswa/krs/'.$global['id'])}}" class="kt-nav__link">
                                         <i class="kt-nav__link-icon flaticon2-digital-marketing"></i>
                                         <span class="kt-nav__link-text">KRS</span>
                                     </a>
                                 </li>
                                 <li class="kt-nav__item">
-                                    <a href="#" class="kt-nav__link">
+                                    <a href="{{url('admin/mahasiswa/khs/'.$global['id'])}}" class="kt-nav__link">
                                         <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
                                         <span class="kt-nav__link-text">History Nilai</span>
                                     </a>
                                 </li>
                                 <li class="kt-nav__item">
-                                    <a href="#" class="kt-nav__link">
-                                        <i class="kt-nav__link-icon flaticon2-cardiogram"></i>
-                                        <span class="kt-nav__link-text">Aktivitas Perkuliahan</span>
-                                    </a>
-                                </li>
-                                <li class="kt-nav__item">
-                                    <a href="#" class="kt-nav__link">
+                                    <a href="{{url('mahasiswa/prestasi/'.$global['id'])}}" class="kt-nav__link">
                                         <i class="kt-nav__link-icon flaticon2-indent-dots"></i>
                                         <span class="kt-nav__link-text">Prestasi</span>
                                     </a>

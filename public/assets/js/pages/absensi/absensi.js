@@ -31,7 +31,8 @@ $(document).ready(function() {
     });
 
     $('#nilaidatatable').DataTable({
-        "pageLength": 50,responsive: true,
+        "pageLength": 50,
+        responsive: true,
         processing: true,
         serverSide: true,
         ajax: {
