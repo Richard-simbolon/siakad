@@ -27,7 +27,6 @@ class HomeController extends Controller
     {
         $login_type = Auth::user()->login_type;
 
-
         if(strtolower($login_type)=="mahasiswa"){
             $data = MahasiswaModel::where('nim' , '=',Auth::user()->id)
                 ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')
@@ -36,7 +35,7 @@ class HomeController extends Controller
                 ->select('mahasiswa.id', 'mahasiswa.nik', 'mahasiswa.nama', 'mahasiswa.nim','mahasiswa.email','mahasiswa.angkatan', 'master_kelas.title as kelas', 'master_angkatan.title as angkatan', 'master_jurusan.title as jurusan')
                 ->first();
 
-        }else if(strtolower($login_type)=="mahasiswa") {
+        }else if(strtolower($login_type)=="dosen") {
 
         }
         //$model= "app\\".ucfirst($login_type).'Model';
