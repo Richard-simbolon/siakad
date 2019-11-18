@@ -30,6 +30,7 @@
             </div>
         </div>
         <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+
             <div class="row">
                 <div class="col-lg-12">
                     <div class="kt-portlet">
@@ -71,6 +72,7 @@
                 </div>
             </div>
         </div>
+
     </div>
     <script src="{{asset('assets/js/pages/tugasakhir/index.js')}}" type="text/javascript"></script>
 @section('js')

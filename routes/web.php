@@ -20,7 +20,17 @@ Route::post('setting/mtable', 'SettingMenu@mtable')->name('mtable');
 Route::post('/data/mahasiswa/validatewizard', 'Mahasiswa@validatewizard')->name('validate_wizard');
 Route::post('/data/mahasiswa/update', 'Mahasiswa@update')->name('update');
 
+
 Route::get('mahasiswa/prestasi/{id}', 'Mahasiswa@prestasi')->name('prestasi mahasiswa');
+Route::get('/data/mahasiswa/profile', 'Mahasiswa@profile')->name('profile');
+Route::get('/data/mahasiswa/alamat', 'Mahasiswa@alamat')->name('alamat');
+Route::get('/data/mahasiswa/orangtua', 'Mahasiswa@orangtua')->name('orangtua');
+Route::get('/data/mahasiswa/wali', 'Mahasiswa@wali')->name('wali');
+Route::get('/data/mahasiswa/prestasi', 'Mahasiswa@prestasi')->name('prestasi');
+Route::get('/data/mahasiswa/kebutuhankhusus', 'Mahasiswa@kebutuhankhusus')->name('kebutuhankhusus');
+Route::get('/data/mahasiswa/gantipassword', 'Mahasiswa@gantipassword')->name('gantipassword');
+Route::post('/data/mahasiswa/submit_gantipassword', 'Mahasiswa@submit_gantipassword')->name('submit_gantipassword');
+
 
 
 Route::post('/data/dosen/update', 'Dosen@update')->name('update');
