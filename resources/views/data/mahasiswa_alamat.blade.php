@@ -167,7 +167,7 @@
                                                     Prestasi
                                                 </span>
                                             </span>
-                                            <span class="kt-badge kt-badge--unified-danger kt-badge--sm kt-badge--rounded kt-badge--bolder">5</span>
+                                            <span class="kt-badge kt-badge--unified-danger kt-badge--sm kt-badge--rounded kt-badge--bolder">{{$count}}</span>
                                         </a>
                                         <a href="{{url('data/mahasiswa/gantipassword')}}" class="kt-widget__item">
                                             <span class="kt-widget__section">

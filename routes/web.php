@@ -35,6 +35,7 @@ Route::get('/data/mahasiswa/prestasi', 'MahasiswaModule@prestasi')->name('presta
 Route::get('/data/mahasiswa/kebutuhankhusus', 'MahasiswaModule@kebutuhankhusus')->name('kebutuhankhusus');
 Route::get('/data/mahasiswa/gantipassword', 'MahasiswaModule@gantipassword')->name('gantipassword');
 Route::post('/data/mahasiswa/submit_gantipassword', 'MahasiswaModule@submit_gantipassword')->name('submit_gantipassword');
+Route::post('/data/mahasiswa/prestasipaging', 'MahasiswaModule@prestasipaging')->name('prestasipaging');
 // MODULE MAHASISWA END
 
 
