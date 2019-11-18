@@ -862,9 +862,10 @@
 
 <style>
     .m-content{width:100%;}
-    </style>
+</style>
+
+@endsection
+
 @section('js')
-
-@stop
-
+    <script src="{{asset('assets/js/pages/mahasiswa/mahasiswa.js')}}" type="text/javascript"></script>
 @endsection

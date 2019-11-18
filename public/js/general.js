@@ -77,7 +77,7 @@ $(document).ready(function(){
     });
 
 
-    $(document).on('click' , '#updatemahasiswa' , function(){
+    /*$(document).on('click' , '#updatemahasiswa' , function(){
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('#csrf_').val()
@@ -98,7 +98,7 @@ $(document).ready(function(){
                 });
             }
          });
-    });
+    });*/
 
     $(document).on('click' , '#actionupdatedosen' , function(){
         //alert($(this).closest('form').attr('action'));

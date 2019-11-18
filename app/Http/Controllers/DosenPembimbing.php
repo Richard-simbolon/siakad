@@ -12,6 +12,7 @@ class DosenPembimbing extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
+            $this->middleware('auth');
             $this->user= Auth::user();
             //print_r($this->user->login_type);
             if($this->user->login_type != 'dosen'){

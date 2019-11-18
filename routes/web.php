@@ -19,6 +19,10 @@ Route::get('setting/save', 'SettingMenu@save')->name('save');
 Route::post('setting/mtable', 'SettingMenu@mtable')->name('mtable');
 Route::post('/data/mahasiswa/validatewizard', 'Mahasiswa@validatewizard')->name('validate_wizard');
 Route::post('/data/mahasiswa/update', 'Mahasiswa@update')->name('update');
+
+Route::get('mahasiswa/prestasi/{id}', 'Mahasiswa@prestasi')->name('prestasi mahasiswa');
+
+
 Route::post('/data/dosen/update', 'Dosen@update')->name('update');
 Route::get('dosen/penugasan/{id}', 'Dosen@penugasan')->name('penugasan');
 Route::get('dosen/pengangkatan/{id}', 'Dosen@pengangkatan')->name('riwayatpengangkatan');
