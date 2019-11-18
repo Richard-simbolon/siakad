@@ -167,7 +167,7 @@
                                                     Prestasi
                                                 </span>
                                             </span>
-                                            <span class="kt-badge kt-badge--unified-danger kt-badge--sm kt-badge--rounded kt-badge--bolder">5</span>
+                                            <span class="kt-badge kt-badge--unified-danger kt-badge--sm kt-badge--rounded kt-badge--bolder">{{$count}}</span>
                                         </a>
                                         <a href="{{url('data/mahasiswa/gantipassword')}}" class="kt-widget__item" data-toggle="kt-tooltip">
                                             <span class="kt-widget__section">
@@ -203,74 +203,43 @@
                             <div class="kt-portlet">
                                 <div class="kt-portlet__head">
                                     <div class="kt-portlet__head-label">
-                                        <h3 class="kt-portlet__head-title">Alamat <small>formulir perubahan data wali mahasiswa</small></h3>
+                                        <h3 class="kt-portlet__head-title">Prestasi <small>formulir perubahan data prestasi mahasiswa</small></h3>
                                     </div>
                                 </div>
-                                <?php
-                                $otw = [];
-                                foreach($orangtuawali as $value){
-                                    $otw[$value['kategori']] = $value;
-                                }
-                                ?>
                                 <form class="kt-form kt-form--label-right">
                                     <div class="kt-portlet__body">
                                         <div class="kt-section kt-section--first">
                                             <div class="kt-section__body">
-                                                <div class="form-group row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Nama</label>
+                                                <div class="row">
+                                                    {{--<label class="col-xl-3"></label>--}}
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ibu][nama]" placeholder="Isikan Nama" value="{{$otw['wali']['nama']}}">
+                                                        <h4 class="kt-section__title kt-section__title-sm">Daftar prestasi : </h4>
                                                     </div>
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Tanggal Lahir</label>
-                                                    <div class="col-lg-9 col-xl-6">
-                                                        <input type="date" class="form-control" name="mahasiswa_orang_tua_wali[ibu][tanggal_lahir]" placeholder="Isikan Tanggal Lahir" value="{{$otw['wali']['tanggal_lahir']}}">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Pendidikan</label>
-                                                    <div class="col-lg-9 col-xl-6">
-                                                        <select name="mahasiswa_orang_tua_wali[ibu][pendidikan_id]" class="form-control kt-select2">
-                                                            <option value="">-- Pilih Jenjang --</option>
-                                                            @foreach ($master['pendidikan'] as $item)
-                                                                <option value="{{$item['id']}}" {{$item['id'] == $otw['wali']['pendidikan_id'] ? 'selected' : ''}}>{{$item['title']}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Pekerjaan</label>
-                                                    <div class="col-lg-9 col-xl-6">
-                                                        <select name="mahasiswa_orang_tua_wali[ibu][pekerjaan_id]" class="form-control kt-select2">
-                                                            <option value="">-- Pilih Pekerjaan --</option>
-                                                            @foreach ($master['pekerjaan'] as $item)
-                                                                <option value="{{$item['id']}}" {{$item['id'] == $otw['wali']['pekerjaan_id'] ? 'selected' : ''}} >{{$item['title']}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group form-group-last row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Penghasilan</label>
-                                                    <div class="col-lg-9 col-xl-6">
-                                                        <select name="mahasiswa_orang_tua_wali[ibu][penghasilan]" class="form-control kt-select2">
-                                                            <option value="">-- Pilih Penghasilan --</option>
-                                                            @foreach ($master['penghasilan'] as $item)
-                                                                <option value="{{$item['id']}}" {{$item['id'] == $otw['wali']['penghasilan'] ? 'selected' : ''}}>{{$item['title']}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
+                                                <input type="hidden" name="id" id="id" value="{{$data['id']}}">
+                                                <table class="dataTable table table-striped table-bordered table-sm responsive no-wrap general-data-table" id="tbl_mhs_prestasi">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>Jenis Prestasi</th>
+                                                        <th>Nama</th>
+                                                        <th>Tahun</th>
+                                                        <th>Penyelenggara</th>
+                                                        <th>Peringkat</th>
+                                                        <th></th>
+                                                    </tr>
+                                                    </thead>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="kt-portlet__foot">
                                         <div class="kt-form__actions">
                                             <div class="row">
-                                                <div class="col-lg-3 col-xl-3">
-                                                </div>
+                                                {{--<div class="col-lg-3 col-xl-3">--}}
+                                                {{--</div>--}}
                                                 <div class="col-lg-9 col-xl-9">
-                                                    <button type="reset" class="btn btn-success">Ubah</button>&nbsp;
+                                                    <button type="reset" class="btn btn-success"><i class="fa fa-plus"></i> Tambah</button>&nbsp;
                                                 </div>
                                             </div>
                                         </div>

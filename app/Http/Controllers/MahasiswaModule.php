@@ -87,10 +87,11 @@ class MahasiswaModule extends Controller
         );
 
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+        $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
 
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
-        return view("data/profile_mahasiswa" , compact("data" , "title"  ,"exclude" ,"Tableshow", "master"));
+        return view("data/profile_mahasiswa" , compact("data" , "title"  ,"exclude" ,"Tableshow", "master", "count"));
 
     }
 
@@ -109,10 +110,11 @@ class MahasiswaModule extends Controller
         );
 
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+        $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
 
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
-        return view("data/mahasiswa_alamat" , compact("data" , "title"  ,"exclude" ,"Tableshow", "master"));
+        return view("data/mahasiswa_alamat" , compact("data" , "title"  ,"exclude" ,"Tableshow", "master", "count"));
 
     }
 
@@ -133,10 +135,11 @@ class MahasiswaModule extends Controller
         );
 
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+        $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
 
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
-        return view("data/mahasiswa_orangtua" , compact("data","orangtuawali" , "title"  ,"exclude" ,"Tableshow", "master"));
+        return view("data/mahasiswa_orangtua" , compact("data","orangtuawali" , "title"  ,"exclude" ,"Tableshow", "master", "count"));
 
     }
 
@@ -155,12 +158,12 @@ class MahasiswaModule extends Controller
             'penghasilan' => PenghasilanModel::where('row_status' , 'active')->get(),
             'pendidikan' => PendidikanModel::where('row_status' , 'active')->get(),
         );
-
+        $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
 
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
-        return view("data/mahasiswa_wali" , compact("data","orangtuawali", "title"  ,"exclude" ,"Tableshow", "master"));
+        return view("data/mahasiswa_wali" , compact("data","orangtuawali", "title"  ,"exclude" ,"Tableshow", "master", "count"));
 
     }
 
@@ -180,10 +183,11 @@ class MahasiswaModule extends Controller
         );
         $kebutuhan_selected = MahasiswaKebutuhanModel::where('mahasiswa_id' , $data['id'])->first();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+        $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
 
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
-        return view("data/mahasiswa_prestasi" , compact("data" , "title"  ,"exclude" ,"Tableshow", "master", "kebutuhan_selected"));
+        return view("data/mahasiswa_kebutuhan_khusus" , compact("data" , "title"  ,"exclude" ,"Tableshow", "master", "kebutuhan_selected", "count"));
 
     }
 
@@ -202,11 +206,16 @@ class MahasiswaModule extends Controller
         );
 
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-
+        $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
-        return view("data/mahasiswa_prestasi" , compact("data" , "title"  ,"exclude" ,"Tableshow", "master"));
+        return view("data/mahasiswa_prestasi" , compact("data" , "title"  ,"exclude" ,"Tableshow", "master", "count"));
 
+    }
+
+    public function prestasipaging(Request $request){
+        $post = $request->all();
+        return Datatables::of(DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $post['id'])->get())->addIndexColumn()->make(true);
     }
 
     public function gantipassword()
@@ -219,11 +228,12 @@ class MahasiswaModule extends Controller
             ->first();
 
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+        $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
 
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
-        return view("data/mahasiswa_ganti_password" , compact("data" , "title"  ,"exclude" ,"Tableshow"));
 
+        return view("data/mahasiswa_ganti_password" , compact("data" , "title"  ,"exclude" ,"Tableshow", "count"));
     }
 
     public function submit_gantipassword(Request $request){

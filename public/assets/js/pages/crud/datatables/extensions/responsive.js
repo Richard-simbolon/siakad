@@ -1350,6 +1350,59 @@ var KTDatatablesExtensionsResponsive = function() {
         });
     }
 
+    var initPrestasiMahasiswa = function(a) {
+
+        var table = $('#tbl_mhs_prestasi');
+
+        // begin first table
+        table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url:'/data/mahasiswa/prestasipaging',
+                type:"POST",
+                //data:{"_token": $('#csrf_').val(),'table':key},
+                data: function ( d ) {
+                    d.myKey = "myValue";
+                    d._token = $('#csrf_').val()
+                    d.id = $('#id').val();
+                    // etc
+                }
+            },
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                { data: 'jenis_prestasi', name: 'jenis_prestasi' },
+                { data: 'nama_prestasi', name: 'nama_prestasi' },
+                { data: 'tahun', name: 'tahun' },
+                { data: 'penyelenggara', name: 'penyelenggara' },
+                { data: 'peringkat', name: 'peringkat' },
+                { defaultContent : '<td></td>'}
+            ],
+            columnDefs: [
+                {
+                    targets: 6,
+                    title: 'Actions',
+                    orderable: false,
+                    className: "text-center",
+                    render: function(data, type, full, meta) {
+                        return `
+                       <a class="btn btn-" href="tugasakhir/view/`+full.id+`"><i class="la la-edit"></i></a>
+                       `;
+                    },
+                },
+                {
+                    targets: 0,
+                    className: "text-center"
+                },
+                {
+                    targets: 5,
+                    className: "text-center"
+                },
+            ]
+        });
+    }
+
     return {
 
 		//main function to initiate the module
@@ -1379,6 +1432,7 @@ var KTDatatablesExtensionsResponsive = function() {
             statuspegawai();
             initJenismatakuliah();
             initKalenderAkademik();
+            initPrestasiMahasiswa();
 		},
 
 	};
