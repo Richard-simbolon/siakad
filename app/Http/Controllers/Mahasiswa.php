@@ -597,4 +597,45 @@ public function profile()
 
     }
 
+
+
+    public function save_prestasi(Request $request){
+        $data = $request->all();
+        //print_r( $data); exit;
+
+        $id = $data['id'];
+        unset($data['id']);
+
+        if($id != '' ){
+            $validation = Validator::make($data, [
+                'jenis_prestasi' => 'required',
+                'tingkat_prestasi' => 'required',
+                'nama_prestasi' => 'required',
+                'tahun' => 'required|numeric',
+                'penyelenggara' => 'required',
+                'peringkat' => 'max:20',
+                'updated_at' => date('Y-m-d H:i:s'),
+                'created_at' => date('Y-m-d H:i:s')
+            ]);
+                $data['mahasiswa_id'] = $id;
+            if ($validation->fails()) {
+                return json_encode(['status'=> 'error', 'message'=> $validation->messages()]);
+            }
+            
+            DB::beginTransaction();
+            try{
+                DB::table('mahasiswa_prestasi')->insert($data);
+                DB::commit();
+                return json_encode(array('status' => 'success' , 'message' => 'Data berhasil disimpan.'));
+            } catch(\Exception $e){
+                
+                DB::rollBack(); 
+                    throw $e;
+                return json_encode(array('status' => 'error' , 'message' => 'Terjadi kesalahan saat menyimpan, silahkan coba lagi.'));
+            }
+
+        }
+        
+    }
+
 }

@@ -94,193 +94,200 @@
                         </div>
                         <div class="kt-portlet__head-toolbar">
                             <div class="dropdown dropdown-inline">
-                                <button type="button" class="btn btn-clean btn-sm btn-icon-md btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="flaticon-more-1"></i>
-                                </button>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-fit dropdown-menu-md">
-                                    <!--begin::Nav-->
-                                    <ul class="kt-nav">
-                                        <li class="kt-nav__head">
-                                            Pilihan Aksi
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon kt-svg-icon--brand kt-svg-icon--md1">
-                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                    <rect x="0" y="0" width="24" height="24" />
-                                                    <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="10" />
-                                                    <rect fill="#000000" x="11" y="10" width="2" height="7" rx="1" />
-                                                    <rect fill="#000000" x="11" y="7" width="2" height="2" rx="1" />
-                                                </g>
-                                            </svg>
-                                        </li>
-                                        <li class="kt-nav__separator"></li>
-                                        <li class="kt-nav__item">
-                                            <a class="kt-nav__link" id="editmahasiswa">
-                                                <i class="kt-nav__link-icon flaticon-edit"></i>
-                                                <span class="kt-nav__link-text">Ubah Data</span>
-                                            </a>
-                                        </li>
-                                        <li class="kt-nav__item">
-                                            <a href="#" class="kt-nav__link" data-toggle="modal" data-target="#kt_modal_ubah_status">
-                                                <i class="kt-nav__link-icon flaticon2-contract"></i>
-                                                <span class="kt-nav__link-text">Ubah Status</span>
-                                            </a>
-                                        </li>
-                                        <li class="kt-nav__item">
-                                            <a href="#" class="kt-nav__link" data-toggle="modal" data-target="#kt_modal_reset_password">
-                                                <i class="kt-nav__link-icon flaticon2-refresh"></i>
-                                                <span class="kt-nav__link-text">Reset Password</span>
-                                            </a>
-                                        </li>
-                                        <li class="kt-nav__item">
-                                            <a href="#" class="kt-nav__link"  data-toggle="modal" data-target="#kt_modal_hapus_data">
-                                                <i class="kt-nav__link-icon flaticon-delete"></i>
-                                                <span class="kt-nav__link-text">Hapus</span>
+                            </div>
+                        </div>
+                </div>
+                    <div class="kt-portlet__body">
+                        <div class="kt-portlet kt-portlet--tabs">
+                            <div class="kt-portlet__head">
+                                <div class="kt-portlet__head-toolbar">
+                                    <ul class="nav nav-tabs nav-tabs-bold nav-tabs-line   nav-tabs-line-right nav-tabs-line-brand" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active kt-font-bold" data-toggle="tab" href="#info_dasar" role="tab">
+                                                <i class="flaticon2-information"></i> Informasi Dasar
                                             </a>
                                         </li>
                                     </ul>
-
-                                    <!--end::Nav-->
+                                </div>
+                            </div>
+                            <div class="kt-portlet__body">
+                                <div class="tab-pane">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <table cellpadding="5">
+                                                <tr>
+                                                    <td width="107px">Nama</td>
+                                                    <td>:</td>
+                                                    <td><b>{{$data['nama']}}</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Jenis Kelamin</td>
+                                                    <td>:</td>
+                                                    <td><b>{{ucfirst($data['jk'])}}</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Status</td>
+                                                    <td>:</td>
+                                                    <td><b>{{$data['status_mhs']}}</b></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <table cellpadding="5">
+                                                <tr>
+                                                    <td>NIM</td>
+                                                    <td>:</td>
+                                                    <td><b>{{$data['nim']}}</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tempat Lahir</td>
+                                                    <td>:</td>
+                                                    <td><b>{{$data['tempat_lahir']}}</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Angkatan</td>
+                                                    <td>:</td>
+                                                    <td><b>{{$data['angkatan_title']}}</b></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <table cellpadding="5">
+                                                <tr>
+                                                    <td>Jurusan</td>
+                                                    <td>:</td>
+                                                    <td><b>{{$data['title']}}</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tanggal Lahir</td>
+                                                    <td>:</td>
+                                                    <td><b>{{ date_format (new DateTime($data['tanggal_lahir']), 'd-m-Y')}}</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Kelas</td>
+                                                    <td>:</td>
+                                                    <td><b>{{ $data['kelas_title']}}</b></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!--begin::Form-->
-                    <form class="fkt-form" >
-                        <div class="kt-portlet__body">
-                            <div class="kt-portlet kt-portlet--tabs">
-                                <div class="kt-portlet__head">
-                                    <div class="kt-portlet__head-toolbar">
-                                        <ul class="nav nav-tabs nav-tabs-bold nav-tabs-line   nav-tabs-line-right nav-tabs-line-brand" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active kt-font-bold" data-toggle="tab" href="#info_dasar" role="tab">
-                                                    <i class="flaticon2-information"></i> Informasi Dasar
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="kt-portlet__body">
-                                    <div class="tab-pane">
-                                        <div class="row">
-                                            <div class="col-lg-4">
-                                                <table cellpadding="5">
-                                                    <tr>
-                                                        <td width="107px">Nama</td>
-                                                        <td>:</td>
-                                                        <td><b>{{$data['nama']}}</b></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Jenis Kelamin</td>
-                                                        <td>:</td>
-                                                        <td><b>{{ucfirst($data['jk'])}}</b></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Status</td>
-                                                        <td>:</td>
-                                                        <td><b>{{$data['status_mhs']}}</b></td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <table cellpadding="5">
-                                                    <tr>
-                                                        <td>NIM</td>
-                                                        <td>:</td>
-                                                        <td><b>{{$data['nim']}}</b></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Tempat Lahir</td>
-                                                        <td>:</td>
-                                                        <td><b>{{$data['tempat_lahir']}}</b></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Angkatan</td>
-                                                        <td>:</td>
-                                                        <td><b>{{$data['angkatan_title']}}</b></td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                            <div class="col-lg-5">
-                                                <table cellpadding="5">
-                                                    <tr>
-                                                        <td>Jurusan</td>
-                                                        <td>:</td>
-                                                        <td><b>{{$data['title']}}</b></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Tanggal Lahir</td>
-                                                        <td>:</td>
-                                                        <td><b>{{ date_format (new DateTime($data['tanggal_lahir']), 'd-m-Y')}}</b></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Kelas</td>
-                                                        <td>:</td>
-                                                        <td><b>{{ $data['kelas_title']}}</b></td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <br/><br/>
-                                    <div class="row">
-                                        <div class="col-xl-6">
-                                            <div class="form-group">
-                                                <label>Jenis Prestasi</label>
-                                                <select name="jenis_peringkat" class="form-control">
-                                                    <option value="">-- Pilih Jenis Prestasi --</option>
-                                                    <option value="1">Sains</option>
-                                                    <option value="2">Seni</option>
-                                                    <option value="3">Olahraga</option>
-                                                    <option value="0">Lainnya</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Tingkat Prestasi</label>
-                                                <select name="tingkat_prestasi" class="form-control">
-                                                    <option value="">-- Pilih Tingkat Prestasi --</option>
-                                                    <option value="1">Sekolah</option>
-                                                    <option value="2">Kecamatan</option>
-                                                    <option value="3">Kabupaten / Kota</option>
-                                                    <option value="4">Propinsi</option>
-                                                    <option value="5">Nasional</option>
-                                                    <option value="6">International</option>
-                                                    <option value="0">Lainnya</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Nama Prestasi:</label>
-                                                <textarea class="form-control" name="nama_prestasi" placeholder="Enter full name"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-6">
-                                            <div class="form-group">
-                                                <label>Tahun</label>
-                                                <input type="text" class="form-control" name="tahun" placeholder="Isikan Tahun">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Penyelenggara</label>
-                                                <input type="text" class="form-control" name="penyelenggara" placeholder="Isikan Penyelenggara">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Peringkat</label>
-                                                <input type="text" class="form-control" name="peringkat" placeholder="Isikan Peringkat">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    </div>
-                                </div>
-                                <input type="hidden" class="form-control" name="mahasiswa[id]" value="{{$data['id']}}">
+                        
+                        <div class="row">
+                            <div class="col-lg-12" id="datatable_display">
+                                <table class="table table-striped table-bordered table-hover responsive" id="prestasimahasiswa">
+                                    <thead>
+                                    <tr>
+                                        {{-- <th style="text-align: center">No</th> --}}
+                                        <th style="text-align: center">Mata Kuliah</th>
+                                        <th style="text-align: center">Angkatan</th>
+                                        <th>Semester</th>
+                                        <th>Jurusan </th>
+                                        <th style="text-align: center">Kelas</th>
+                                        <th style="text-align: center">Ruangan</th>
+                                        <th style="text-align: center">Dosen</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                            {{-- < ?$i = 0?>
+                                            @foreach ($data as $item)
+                                            < ? $i++ ?>
+                                            <tr>
+                                                <td align="center">{{$i}}</td> 
+                                                <td align="center">{{$item->nama_mata_kuliah}}</td>
+                                                <td align="center">{{$item->nama_angkatan}}</td>
+                                                <td>{{$item->nama_semester}}</td>
+                                                <td style="vertical-align: center;">{{$item->nama_jurusan}}t</td>
+                                                <td align="center">{{$item->nama_kelas}}</td>
+                                                <td align="center">{{$item->nama_dosen}}</td>
+                                                <td><a href="{{url('data/nilaimahasiswa/view/'. $item->id)}}" > edit/view </a></td>
+                                            </tr>
+                                            @endforeach --}}
+                                    </tbody>
+                                </table>
                             </div>
-                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <form class="fkt-form" id="prestasimahasiswa" >
+                    <div class="kt-portlet__body">
+                        <div class="kt-portlet kt-portlet--tabs">
+                            <div class="kt-portlet__head">
+                                <div class="kt-portlet__head-toolbar">
+                                    <ul class="nav nav-tabs nav-tabs-bold nav-tabs-line   nav-tabs-line-right nav-tabs-line-brand" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active kt-font-bold" data-toggle="tab" href="#info_dasar" role="tab">
+                                                <i class="flaticon2-information"></i> Tambah Prestasi
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="kt-portlet__body" id="modal-body">
+                                <div class="row">
+                                    <div class="col-xl-6">
+                                        <div class="form-group">
+                                            <label>Jenis Prestasi</label>
+                                            <select name="jenis_prestasi" class="form-control">
+                                                <option value="">-- Pilih Jenis Prestasi --</option>
+                                                <option value="Sains">Sains</option>
+                                                <option value="Seni">Seni</option>
+                                                <option value="Olahraga">Olahraga</option>
+                                                <option value="Lainnya">Lainnya</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Tingkat Prestasi</label>
+                                            <select name="tingkat_prestasi" class="form-control">
+                                                <option value="">-- Pilih Tingkat Prestasi --</option>
+                                                <option value="Sekolah">Sekolah</option>
+                                                <option value="Kecamatan">Kecamatan</option>
+                                                <option value="Kabupaten / Kota">Kabupaten / Kota</option>
+                                                <option value="Propinsi">Propinsi</option>
+                                                <option value="Nasional">Nasional</option>
+                                                <option value="International">International</option>
+                                                <option value="Lainnya">Lainnya</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Nama Prestasi:</label>
+                                            <textarea class="form-control" name="nama_prestasi" placeholder="Enter full name"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <div class="form-group">
+                                            <label>Tahun</label>
+                                            <input type="text" class="form-control" name="tahun" placeholder="Isikan Tahun">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Penyelenggara</label>
+                                            <input type="text" class="form-control" name="penyelenggara" placeholder="Isikan Penyelenggara">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Peringkat</label>
+                                            <input type="text" class="form-control" name="peringkat" placeholder="Isikan Peringkat">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="kt-portlet__foot">
                                 <div class="kt-form__actions">
-                                    <button type="button" class="btn btn-primary">Submit</button>
+                                    <button type="button" id="save_prestasi" class="btn btn-primary">Submit</button>
                                     <button type="reset" class="btn btn-secondary">Cancel</button>
                                 </div>
                             </div>
-                            <!--end::Portlet-->
-                    </form>
-                </div>
-            </div>
+                            <input type="hidden" class="form-control" name="id" value="{{$data['id']}}">
+                        </div>
+                    </div>  
+                </form>   
+            </div>     
         </div>
     </div>
 </div>

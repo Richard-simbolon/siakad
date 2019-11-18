@@ -22,6 +22,7 @@ Route::post('/data/mahasiswa/update', 'Mahasiswa@update')->name('update');
 
 
 Route::get('mahasiswa/prestasi/{id}', 'Mahasiswa@prestasi')->name('prestasi mahasiswa');
+Route::post('/data/mahasiswa/save_prestasi', 'Mahasiswa@save_prestasi')->name('save prestasi');
 
 
 
