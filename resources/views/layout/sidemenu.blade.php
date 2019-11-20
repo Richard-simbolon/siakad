@@ -108,7 +108,7 @@
                                 <span class="kt-menu__link-text">Mahasiswa Lulus / DO</span>
                             </a>
                         </li>
-                    
+
                     <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                         <a href="{{url('mahasiswa/khs')}}" class="kt-menu__link kt-menu__toggle">
                             <span class="kt-menu__link-icon">

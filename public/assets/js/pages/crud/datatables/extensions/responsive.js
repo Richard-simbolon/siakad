@@ -1387,7 +1387,7 @@ var KTDatatablesExtensionsResponsive = function() {
                     className: "text-center",
                     render: function(data, type, full, meta) {
                         return `
-                       <a class="btn btn-" href="tugasakhir/view/`+full.id+`"><i class="la la-edit"></i></a>
+                       <a class="btn btn-" onclick="editPrestasi(`+full.id+`)" href="javascript:void(0)"><i class="la la-edit"></i></a>
                        `;
                     },
                 },

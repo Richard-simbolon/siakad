@@ -138,7 +138,7 @@
                                                 </span>
                                             </span>
                                         </a>
-                                        <a href="{{url('data/mahasiswa/kebutuhankhusus')}}" class="kt-widget__item ">
+                                        <a href="{{url('data/mahasiswa/kebutuhankhusus')}}" class="kt-widget__item kt-widget__item--active">
                                             <span class="kt-widget__section">
                                                 <span class="kt-widget__icon">
                                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -153,7 +153,7 @@
                                                 </span>
                                             </span>
                                         </a>
-                                        <a href="{{url('data/mahasiswa/prestasi')}}" class="kt-widget__item" class="kt-widget__item--active">
+                                        <a href="{{url('data/mahasiswa/prestasi')}}" class="kt-widget__item">
                                             <span class="kt-widget__section">
                                                 <span class="kt-widget__icon">
                                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -247,7 +247,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <?php
-                                                    $kebmahasiswa = json_decode($kebutuhan_selected['kebutuhan_mahasiswa'] , true);
+                                                    $kebAyah = json_decode($kebutuhan_selected['kebutuhan_ayah'] , true);
                                                     ?>
                                                     <?php
                                                     $kebutuhan =  array_chunk($master['kebutuhan']->toArray() , 6 , true);
@@ -257,7 +257,7 @@
                                                             <div class="kt-checkbox-list">
                                                                 @foreach ($item as $value)
                                                                     <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                        <input type="checkbox" value="{{$value['id']}}" name="mahasiswa_kh[]" {{in_array($value['id'] , $kebmahasiswa['mahasiswa']) ? 'checked' : ''}} > {{$value['title']}}
+                                                                        <input type="checkbox" value="{{$value['id']}}" name="ayah_kh[]" {{in_array($value['id'] , $kebAyah['ayah']) ? 'checked' : ''}} > {{$value['title']}}
                                                                         <span></span>
                                                                     </label>
                                                                 @endforeach
@@ -274,7 +274,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <?php
-                                                    $kebmahasiswa = json_decode($kebutuhan_selected['kebutuhan_mahasiswa'] , true);
+                                                    $kebIbu = json_decode($kebutuhan_selected['kebutuhan_ibu'] , true);
                                                     ?>
                                                     <?php
                                                     $kebutuhan =  array_chunk($master['kebutuhan']->toArray() , 6 , true);
@@ -284,7 +284,7 @@
                                                             <div class="kt-checkbox-list">
                                                                 @foreach ($item as $value)
                                                                     <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                        <input type="checkbox" value="{{$value['id']}}" name="mahasiswa_kh[]" {{in_array($value['id'] , $kebmahasiswa['mahasiswa']) ? 'checked' : ''}} > {{$value['title']}}
+                                                                        <input type="checkbox" value="{{$value['id']}}" name="ibu_kh[]" {{in_array($value['id'] , $kebIbu['ibu']) ? 'checked' : ''}} > {{$value['title']}}
                                                                         <span></span>
                                                                     </label>
                                                                 @endforeach
@@ -301,7 +301,7 @@
                                                 {{--<div class="col-lg-3 col-xl-3">--}}
                                                 {{--</div>--}}
                                                 <div class="col-lg-9 col-xl-9">
-                                                    <button type="reset" class="btn btn-success">Ubah</button>&nbsp;
+                                                    <button type="button" id="btn_edit_kebutuhan_khusus" class="btn btn-success">Ubah</button>&nbsp;
                                                 </div>
                                             </div>
                                         </div>
@@ -320,6 +320,7 @@
 
 @section('js')
     <script src="{{asset('/assets/js/pages/custom/user/profile.js')}}" type="text/javascript"></script>
+    <script src="{{asset('/assets/js/pages/profile/mahasiswa.js')}}" type="text/javascript"></script>
 @stop
 
 @endsection

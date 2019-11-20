@@ -187,7 +187,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6">
-                                                    <div class="form-group">
+                                                    <div class="form-group form-group-last">
                                                         <label>Jenis Kelamin</label>
                                                         <div class="kt-radio-inline">
                                                             <label class="kt-radio">
@@ -201,110 +201,109 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
                                             </div>
 
-                                            <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
+                                            {{--<div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>--}}
 
-                                            <div class="row">
-                                                <div class="col-xl-12">
-                                                    <div class="form-group">
-                                                        <div class="kt-wizard-v3__review-title">
-                                                            <b>History Pendaftaran</b>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="row">
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Jenis Pendaftaran *</label>
-                                                        <select name="mahasiswa[jenis_pendaftaran]" class="form-control kt-select2">
-                                                            <option value="">-- Pilih Jenis Pendaftaran --</option>
-                                                            @foreach ($master['jenis_pendaftaran'] as $item)
-                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
-                                                               @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Jalur Pendaftaran</label>
-                                                        <select name="mahasiswa[jalur_pendaftaran]" class="form-control kt-select2">
-                                                            <option value="">-- Pilih Jalur Pendaftaran--</option>
-                                                            @foreach ($master['jalur_pendaftaran'] as $item)
-                                                            <option value="{{$item['id']}}">{{$item['title']}}</option>
-                                                           @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Tanggal Masuk *</label>
-                                                        <input type="date" class="form-control" name="mahasiswa[tanggal_masuk]" placeholder="Isikan nama ibu">
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Pembiayaan Awal</label>
-                                                        <select name="mahasiswa[jenis_pembiayaan]" class="form-control kt-select2">
-                                                            <option value="">-- Pilih Jenis Pembiayaan--</option>
-                                                            @foreach ($master['jenis_pembiayaan'] as $item)
-                                                            <option value="{{$item['id']}}">{{$item['title']}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Biaya Masuk </label>
-                                                        <input type="text" class="form-control" name="mahasiswa[biaya_masuk]" placeholder="Isikan Biaya Masuk">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
+                                            {{--<div class="row">--}}
+                                                {{--<div class="col-xl-12">--}}
+                                                    {{--<div class="form-group">--}}
+                                                        {{--<div class="kt-wizard-v3__review-title">--}}
+                                                            {{--<b>History Pendaftaran</b>--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+                                            {{----}}
+                                            {{--<div class="row">--}}
+                                                {{--<div class="col-xl-6">--}}
+                                                    {{--<div class="form-group">--}}
+                                                        {{--<label>Jenis Pendaftaran *</label>--}}
+                                                        {{--<select name="mahasiswa[jenis_pendaftaran]" class="form-control kt-select2">--}}
+                                                            {{--<option value="">-- Pilih Jenis Pendaftaran --</option>--}}
+                                                            {{--@foreach ($master['jenis_pendaftaran'] as $item)--}}
+                                                                {{--<option value="{{$item['id']}}">{{$item['title']}}</option>--}}
+                                                               {{--@endforeach--}}
+                                                        {{--</select>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                                {{--<div class="col-xl-6">--}}
+                                                    {{--<div class="form-group">--}}
+                                                        {{--<label>Jalur Pendaftaran</label>--}}
+                                                        {{--<select name="mahasiswa[jalur_pendaftaran]" class="form-control kt-select2">--}}
+                                                            {{--<option value="">-- Pilih Jalur Pendaftaran--</option>--}}
+                                                            {{--@foreach ($master['jalur_pendaftaran'] as $item)--}}
+                                                            {{--<option value="{{$item['id']}}">{{$item['title']}}</option>--}}
+                                                           {{--@endforeach--}}
+                                                        {{--</select>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="row">--}}
+                                                {{--<div class="col-xl-6">--}}
+                                                    {{--<div class="form-group">--}}
+                                                        {{--<label>Tanggal Masuk *</label>--}}
+                                                        {{--<input type="date" class="form-control" name="mahasiswa[tanggal_masuk]" placeholder="Isikan nama ibu">--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                                {{--<div class="col-xl-6">--}}
+                                                    {{--<div class="form-group">--}}
+                                                        {{--<label>Pembiayaan Awal</label>--}}
+                                                        {{--<select name="mahasiswa[jenis_pembiayaan]" class="form-control kt-select2">--}}
+                                                            {{--<option value="">-- Pilih Jenis Pembiayaan--</option>--}}
+                                                            {{--@foreach ($master['jenis_pembiayaan'] as $item)--}}
+                                                            {{--<option value="{{$item['id']}}">{{$item['title']}}</option>--}}
+                                                            {{--@endforeach--}}
+                                                        {{--</select>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="row">--}}
+                                                {{--<div class="col-xl-6">--}}
+                                                    {{--<div class="form-group">--}}
+                                                        {{--<label>Biaya Masuk </label>--}}
+                                                        {{--<input type="text" class="form-control" name="mahasiswa[biaya_masuk]" placeholder="Isikan Biaya Masuk">--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>--}}
 
-                                            <div class="row">
-                                                <div class="col-xl-12">
-                                                    <div class="form-group">
-                                                        <div class="kt-wizard-v3__review-title">
-                                                            <b>Selain jenis pendaftaran peserta didik baru, Silahkan lengkapi data berikut</b>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Jumlah sks di akui </label>
-                                                        <input type="text" class="form-control" name="mahasiswa[jumlah_sks_diakui]" placeholder="Isikan Jumlah sks di akui">
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Asal Perguruan Tinggi</label>
-                                                        <input type="text" class="form-control" name="mahasiswa[asal_perguruan_tinggi]" placeholder="Isikan Asal Perguruan Tinggi">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Asal Program Studi</label>
-                                                        <select name="mahasiswa[asal_program_studi]" class="form-control kt-select2">
-                                                            <option value="">-- Pilih PT Terlebih Dahulu --</option>
-                                                            @foreach ($master['asal_studi'] as $item)
-                                                            <option value="{{$item['id']}}">{{$item['title']}}</option>
-                                                           @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            {{--<div class="row">--}}
+                                                {{--<div class="col-xl-12">--}}
+                                                    {{--<div class="form-group">--}}
+                                                        {{--<div class="kt-wizard-v3__review-title">--}}
+                                                            {{--<b>Selain jenis pendaftaran peserta didik baru, Silahkan lengkapi data berikut</b>--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="row">--}}
+                                                {{--<div class="col-xl-6">--}}
+                                                    {{--<div class="form-group">--}}
+                                                        {{--<label>Jumlah sks di akui </label>--}}
+                                                        {{--<input type="text" class="form-control" name="mahasiswa[jumlah_sks_diakui]" placeholder="Isikan Jumlah sks di akui">--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                                {{--<div class="col-xl-6">--}}
+                                                    {{--<div class="form-group">--}}
+                                                        {{--<label>Asal Perguruan Tinggi</label>--}}
+                                                        {{--<input type="text" class="form-control" name="mahasiswa[asal_perguruan_tinggi]" placeholder="Isikan Asal Perguruan Tinggi">--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="row">--}}
+                                                {{--<div class="col-xl-6">--}}
+                                                    {{--<div class="form-group">--}}
+                                                        {{--<label>Asal Program Studi</label>--}}
+                                                        {{--<select name="mahasiswa[asal_program_studi]" class="form-control kt-select2">--}}
+                                                            {{--<option value="">-- Pilih PT Terlebih Dahulu --</option>--}}
+                                                            {{--@foreach ($master['asal_studi'] as $item)--}}
+                                                            {{--<option value="{{$item['id']}}">{{$item['title']}}</option>--}}
+                                                           {{--@endforeach--}}
+                                                        {{--</select>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
                                         </div>
                                     </div>
                                 </div>

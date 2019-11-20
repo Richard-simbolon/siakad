@@ -203,7 +203,7 @@
                             <div class="kt-portlet">
                                 <div class="kt-portlet__head">
                                     <div class="kt-portlet__head-label">
-                                        <h3 class="kt-portlet__head-title">Alamat <small>formulir perubahan data orangtua mahasiswa</small></h3>
+                                        <h3 class="kt-portlet__head-title">Orangtua <small>formulir perubahan data orangtua mahasiswa</small></h3>
                                     </div>
                                 </div>
                                 <?php
@@ -217,6 +217,8 @@
                                         <div class="kt-section kt-section--first">
                                             <div class="kt-section__body">
                                                 <input type="hidden" name="mahasiswa_id" value="{{$data['id']}}">
+                                                <input type="hidden" name="mahasiswa_orang_tua_wali[ayah][id]" value="{{$otw['ayah']['id']}}">
+                                                <input type="hidden" name="mahasiswa_orang_tua_wali[ibu][id]" value="{{$otw['ibu']['id']}}">
                                                 <div class="row">
                                                     <label class="col-xl-3"></label>
                                                     <div class="col-lg-9 col-xl-6">
@@ -343,7 +345,7 @@
                                                 <div class="col-lg-3 col-xl-3">
                                                 </div>
                                                 <div class="col-lg-9 col-xl-9">
-                                                    <button type="reset" class="btn btn-success">Ubah</button>&nbsp;
+                                                    <button type="button" id="btn_edit_orangtua" class="btn btn-success">Ubah</button>&nbsp;
                                                 </div>
                                             </div>
                                         </div>
@@ -362,6 +364,7 @@
 
 @section('js')
     <script src="{{asset('/assets/js/pages/custom/user/profile.js')}}" type="text/javascript"></script>
+    <script src="{{asset('/assets/js/pages/profile/mahasiswa.js')}}" type="text/javascript"></script>
 @stop
 
 @endsection

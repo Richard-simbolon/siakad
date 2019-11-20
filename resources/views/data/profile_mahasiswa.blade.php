@@ -211,12 +211,12 @@
                                         <div class="kt-section kt-section--first">
                                             <div class="kt-section__body">
                                                 <div class="form-group row">
-                                                    <input type="hidden" value="{{$data['id']}}">
+                                                    <input type="hidden" name="id" value="{{$data['id']}}">
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Photo</label>
                                                     <div class="col-lg-9 col-xl-6">
                                                         <div class="kt-avatar kt-avatar--outline" id="kt_user_avatar">
-                                                            <div class="kt-avatar__holder" style="background-image: url(assets/media/users/100_13.jpg)"></div>
-                                                            <label class="kt-avatar__upload" data-toggle="kt-tooltip" title="" data-original-title="Change avatar">
+                                                            <div class="kt-avatar__holder" style="background-image: url({{asset('assets/media/users/100_13.jpg')}})"></div>
+                                                            <label class="kt-avatar__upload" data-toggle="kt-tooltip" title="" data-original-title="Ganti photo">
                                                                 <i class="fa fa-pen"></i>
                                                                 <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg">
                                                             </label>
@@ -229,7 +229,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-xl-3 col-lg-3 col-form-label">NIK</label>
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <input class="form-control" type="text" name="nama" value="{{$data['nik']}}">
+                                                        <input class="form-control" type="text" name="nik" value="{{$data['nik']}}">
                                                         <span class="form-text text-muted">Isi sesuai dengan KTP</span>
                                                     </div>
                                                 </div>
@@ -269,11 +269,11 @@
                                                     <div class="col-lg-9 col-xl-6">
                                                         <div class="kt-checkbox-inline">
                                                             <label class="kt-radio">
-                                                                <input type="radio" name="jk" {{$data['jk']=='laki-laki' ? 'checked':''}}> Laki-laki
+                                                                <input type="radio" name="jk" value="{{$data['jk']}}" {{$data['jk']=='laki-laki' ? 'checked':''}}> Laki-laki
                                                                 <span></span>
                                                             </label> &nbsp;
                                                             <label class="kt-radio">
-                                                                <input type="radio" name="jk" {{$data['jk']=='perempuan' ? 'checked' :''}}> Perempuan
+                                                                <input type="radio" name="jk" value="{{$data['jk']}}" {{$data['jk']=='perempuan' ? 'checked' :''}}> Perempuan
                                                                 <span></span>
                                                             </label>
                                                         </div>
@@ -306,7 +306,7 @@
                                                 <div class="col-lg-3 col-xl-3">
                                                 </div>
                                                 <div class="col-lg-9 col-xl-9">
-                                                    <button type="reset" class="btn btn-success">Ubah</button>&nbsp;
+                                                    <button type="button" id="btn_edit_profile" class="btn btn-success">Ubah</button>&nbsp;
                                                 </div>
                                             </div>
                                         </div>
@@ -325,6 +325,7 @@
 
 @section('js')
     <script src="{{asset('/assets/js/pages/custom/user/profile.js')}}" type="text/javascript"></script>
+    <script src="{{asset('/assets/js/pages/profile/mahasiswa.js')}}" type="text/javascript"></script>
 @stop
 
 @endsection

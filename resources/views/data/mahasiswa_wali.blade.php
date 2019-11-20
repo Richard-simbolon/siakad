@@ -213,25 +213,27 @@
                                 }
                                 ?>
                                 <form class="kt-form kt-form--label-right">
+                                    <input type="hidden" class="form-control" name="mahasiswa_orang_tua_wali[wali][id]" value="{{$otw['wali']['id']}}">
+                                    <input type="hidden" class="form-control" name="mahasiswa_id" value="{{$otw['wali']['mahasiswa_id']}}">
                                     <div class="kt-portlet__body">
                                         <div class="kt-section kt-section--first">
                                             <div class="kt-section__body">
                                                 <div class="form-group row">
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Nama</label>
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ibu][nama]" placeholder="Isikan Nama" value="{{$otw['wali']['nama']}}">
+                                                        <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[wali][nama]" placeholder="Isikan Nama" value="{{$otw['wali']['nama']}}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Tanggal Lahir</label>
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <input type="date" class="form-control" name="mahasiswa_orang_tua_wali[ibu][tanggal_lahir]" placeholder="Isikan Tanggal Lahir" value="{{$otw['wali']['tanggal_lahir']}}">
+                                                        <input type="date" class="form-control" name="mahasiswa_orang_tua_wali[wali][tanggal_lahir]" placeholder="Isikan Tanggal Lahir" value="{{$otw['wali']['tanggal_lahir']}}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Pendidikan</label>
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <select name="mahasiswa_orang_tua_wali[ibu][pendidikan_id]" class="form-control kt-select2">
+                                                        <select name="mahasiswa_orang_tua_wali[wali][pendidikan_id]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Jenjang --</option>
                                                             @foreach ($master['pendidikan'] as $item)
                                                                 <option value="{{$item['id']}}" {{$item['id'] == $otw['wali']['pendidikan_id'] ? 'selected' : ''}}>{{$item['title']}}</option>
@@ -242,7 +244,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Pekerjaan</label>
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <select name="mahasiswa_orang_tua_wali[ibu][pekerjaan_id]" class="form-control kt-select2">
+                                                        <select name="mahasiswa_orang_tua_wali[wali][pekerjaan_id]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Pekerjaan --</option>
                                                             @foreach ($master['pekerjaan'] as $item)
                                                                 <option value="{{$item['id']}}" {{$item['id'] == $otw['wali']['pekerjaan_id'] ? 'selected' : ''}} >{{$item['title']}}</option>
@@ -253,7 +255,7 @@
                                                 <div class="form-group form-group-last row">
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Penghasilan</label>
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <select name="mahasiswa_orang_tua_wali[ibu][penghasilan]" class="form-control kt-select2">
+                                                        <select name="mahasiswa_orang_tua_wali[wali][penghasilan]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Penghasilan --</option>
                                                             @foreach ($master['penghasilan'] as $item)
                                                                 <option value="{{$item['id']}}" {{$item['id'] == $otw['wali']['penghasilan'] ? 'selected' : ''}}>{{$item['title']}}</option>
@@ -270,7 +272,7 @@
                                                 <div class="col-lg-3 col-xl-3">
                                                 </div>
                                                 <div class="col-lg-9 col-xl-9">
-                                                    <button type="reset" class="btn btn-success">Ubah</button>&nbsp;
+                                                    <button type="button" id="btn_edit_wali" class="btn btn-success">Ubah</button>&nbsp;
                                                 </div>
                                             </div>
                                         </div>
@@ -289,6 +291,7 @@
 
 @section('js')
     <script src="{{asset('/assets/js/pages/custom/user/profile.js')}}" type="text/javascript"></script>
+    <script src="{{asset('/assets/js/pages/profile/mahasiswa.js')}}" type="text/javascript"></script>
 @stop
 
 @endsection

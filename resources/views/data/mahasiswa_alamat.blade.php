@@ -207,6 +207,7 @@
                                     </div>
                                 </div>
                                 <form class="kt-form kt-form--label-right">
+                                    <input type="hidden" name="id" value="{{$data['id']}}">
                                     <div class="kt-portlet__body">
                                         <div class="kt-section kt-section--first">
                                             <div class="kt-section__body">
@@ -295,11 +296,11 @@
                                                     <div class="col-lg-9 col-xl-6">
                                                         <div class="kt-checkbox-inline">
                                                             <label class="kt-radio">
-                                                                <input type="radio" name="is_penerima_kps" {{$data['is_penerima_kps']=='1' ? 'checked':''}}> Ya
+                                                                <input type="radio" name="is_penerima_kps" value="{{$data['is_penerima_kps']}}" {{$data['is_penerima_kps']=='1' ? 'checked':''}}> Ya
                                                                 <span></span>
                                                             </label> &nbsp;
                                                             <label class="kt-radio">
-                                                                <input type="radio" name="is_penerima_kps" {{$data['is_penerima_kps']=='0' ? 'checked' :''}}> Tidak
+                                                                <input type="radio" name="is_penerima_kps" value="{{$data['is_penerima_kps']}}" {{$data['is_penerima_kps']=='0' ? 'checked' :''}}> Tidak
                                                                 <span></span>
                                                             </label>
                                                         </div>
@@ -320,7 +321,7 @@
                                                 <div class="col-lg-3 col-xl-3">
                                                 </div>
                                                 <div class="col-lg-9 col-xl-9">
-                                                    <button type="reset" class="btn btn-success">Ubah</button>&nbsp;
+                                                    <button type="button" id="btn_edit_alamat" class="btn btn-success">Ubah</button>&nbsp;
                                                 </div>
                                             </div>
                                         </div>
@@ -339,6 +340,7 @@
 
 @section('js')
     <script src="{{asset('/assets/js/pages/custom/user/profile.js')}}" type="text/javascript"></script>
+    <script src="{{asset('/assets/js/pages/profile/mahasiswa.js')}}" type="text/javascript"></script>
 @stop
 
 @endsection

@@ -41,7 +41,8 @@
                                             <i class="flaticon2-correct"></i>
                                         </a>
                                         <div class="kt-widget__action">
-                                            <button type="button" class="btn btn-label-success btn-sm btn-upper"><i class="fa fa-edit"></i> Ubah</button>&nbsp;
+                                            {{--<button type="button" class="btn btn-label-success btn-sm btn-upper"><i class="fa fa-edit"></i> Ubah</button>&nbsp;--}}
+                                            <a href="{{url('data/mahasiswa/profile')}}" class="btn btn-label-success btn-sm btn-upper"><i class="fa fa-edit"></i> Ubah</a>&nbsp;
                                         </div>
                                     </div>
                                     <div class="kt-widget__subhead">
@@ -138,9 +139,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <h5 id="title">Pengisian KRS</h5>
+                <h5 id="title"></h5>
                 <small id="tanggal">
-                    Tanggal : 11 Oktober 2019
+
                 </small>
                 <div style="margin-top: 15px;">
                     <p>Keterangan :</p>
