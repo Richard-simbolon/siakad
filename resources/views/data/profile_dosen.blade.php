@@ -65,7 +65,7 @@
                                         <h3 class="kt-portlet__head-title">Informasi Pribadi <small>formulir perubahan data dosen</small></h3>
                                     </div>
                                 </div>
-                                <form class="kt-form kt-form--label-right">
+                                <form class="kt-form kt-form--label-right" enctype="multipart/form-data">
                                     <div class="kt-portlet__body">
                                         <div class="kt-section kt-section--first">
                                             <div class="kt-section__body">
@@ -134,11 +134,11 @@
                                                     <div class="col-lg-9 col-xl-6">
                                                         <div class="kt-checkbox-inline">
                                                             <label class="kt-radio">
-                                                                <input type="radio" name="jk" value="{{$data['jenis_kelamin']}}" {{$data['jenis_kelamin']=='laki-laki' ? 'checked':''}}> Laki-laki
+                                                                <input type="radio" name="jenis_kelamin" value="{{$data['jenis_kelamin']}}" {{$data['jenis_kelamin']=='laki-laki' ? 'checked':''}}> Laki-laki
                                                                 <span></span>
                                                             </label> &nbsp;
                                                             <label class="kt-radio">
-                                                                <input type="radio" name="jk" value="{{$data['jenis_kelamin']}}" {{$data['jenis_kelamin']=='perempuan' ? 'checked' :''}}> Perempuan
+                                                                <input type="radio" name="jenis_kelamin" value="{{$data['jenis_kelamin']}}" {{$data['jenis_kelamin']=='perempuan' ? 'checked' :''}}> Perempuan
                                                                 <span></span>
                                                             </label>
                                                         </div>
@@ -149,7 +149,7 @@
                                                     <div class="col-lg-9 col-xl-6">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend"><span class="input-group-text"><i class="la la-phone"></i></span></div>
-                                                            <input type="text" class="form-control" name="no_telepon" value="{{$data['no_hp']}}" placeholder="Isi Nomor Handphone" aria-describedby="basic-addon1">
+                                                            <input type="text" class="form-control" name="no_hp" value="{{$data['no_hp']}}" placeholder="Isi Nomor Handphone" aria-describedby="basic-addon1">
                                                         </div>
                                                     </div>
                                                 </div>

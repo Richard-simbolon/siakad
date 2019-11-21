@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\DosenKeluargaModel;
 use App\DosenModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -21,8 +22,8 @@ use App\PenghasilanModel;
 use App\PendidikanModel;
 use App\StatusMahasiswaModel;
 use App\PekerjaanModel;
-use App\AngkatanModel;
-use App\MahasiswaPendidikanModel;
+use App\StatusPegawaiModel;
+use App\DosenKebutuhanModel;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
 use App\KelasModel;
@@ -38,19 +39,13 @@ class DosenModule extends Controller
 
     public function profile()
     {
-        $data = DosenModel::where('nik' , '=',Auth::user()->id)
-//            ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')
-//            ->join('master_angkatan', 'master_angkatan.id', '=', 'mahasiswa.angkatan')
-//            ->join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
-//            ->select('mahasiswa.*', 'master_kelas.title as kelas', 'master_angkatan.title as angkatan', 'master_jurusan.title as jurusan')
-            ->first();
+        $data = DosenModel::where('nik' , '=',Auth::user()->id)->first();
 
         $master = array(
             'agama' => AgamaModel::where('row_status' , 'active')->get()
         );
         $menu['submenu'] = "profile";
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        //$count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
 
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
@@ -58,32 +53,10 @@ class DosenModule extends Controller
 
     }
 
-    public function biodata()
-    {
-        $data = DosenModel::where('nik' , '=',Auth::user()->id)
-//            ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')
-//            ->join('master_angkatan', 'master_angkatan.id', '=', 'mahasiswa.angkatan')
-//            ->join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
-//            ->select('mahasiswa.*', 'master_kelas.title as kelas', 'master_angkatan.title as angkatan', 'master_jurusan.title as jurusan')
-            ->first();
-
-        $master = array(
-            'agama' => AgamaModel::where('row_status' , 'active')->get()
-        );
-        $menu['submenu'] = "biodata";
-        $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        //$count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
-
-        $exclude = static::$exclude;
-        $Tableshow = static::$Tableshow;
-        return view("data/dosen_biodata" , compact("data" , "title"  ,"exclude" ,"Tableshow", "master", "menu"));
-
-    }
-
-
     public function submitprofile(Request $request){
         $input = $request->all();
-        $data = MahasiswaModel::where('id','=',$input['id'])->first();
+
+        $data = DosenModel::where('id','=',$input['id'])->first();
 
         if($data){
             $data->nik = $input['nik'];
@@ -91,8 +64,8 @@ class DosenModule extends Controller
             $data->tempat_lahir = $input['tempat_lahir'];
             $data->tanggal_lahir = $input['tanggal_lahir'];
             $data->agama = $input['agama'];
-            $data->jk = $input['jk'];
-            $data->no_telepon = $input['no_telepon'];
+            $data->jenis_kelamin = $input['jenis_kelamin'];
+            $data->no_hp = $input['no_hp'];
             $data->email = $input['email'];
 
             if($data->save()){
@@ -105,13 +78,64 @@ class DosenModule extends Controller
         }
     }
 
+    public function biodata()
+    {
+        $data = DosenModel::where('nik' , '=',Auth::user()->id)->first();
+
+        $master = array(
+            'agama' => AgamaModel::where('row_status' , 'active')->get(),
+            'status_pegawai' => StatusPegawaiModel::where('row_status' , 'active')->get(),
+        );
+        $menu['submenu'] = "biodata";
+        $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+
+        $exclude = static::$exclude;
+        $Tableshow = static::$Tableshow;
+        return view("data/dosen_biodata" , compact("data" , "title"  ,"exclude" ,"Tableshow", "master", "menu"));
+
+    }
+
+    public function submitbiodata(Request $request){
+        $input = $request->all();
+        $data = DosenModel::where('id','=',$input['id'])->first();
+
+        if($data){
+            $data->nip = $input['nip'];
+            $data->npwp = $input['npwp'];
+            $data->ikatan_kerja = $input['ikatan_kerja'];
+            $data->status_pegawai = $input['status_pegawai'];
+            $data->jenis_pegawai = $input['jenis_pegawai'];
+            $data->no_sk_cpns = $input['no_sk_cpns'];
+            $data->tanggal_sk_cpns = $input['tanggal_sk_cpns'];
+            $data->no_sk_pengangkatan = $input['no_sk_pengangkatan'];
+            $data->tgl_sk_pengangkatan = $input['tgl_sk_pengangkatan'];
+            $data->lembaga_pengangkatan = $input['lembaga_pengangkatan'];
+            $data->pangkat_golongan = $input['pangkat_golongan'];
+            $data->sumber_gaji = $input['sumber_gaji'];
+            $data->alamat = $input['alamat'];
+            $data->dusun = $input['dusun'];
+            $data->rt = $input['rt'];
+            $data->rw = $input['rw'];
+            $data->kelurahan = $input['kelurahan'];
+            $data->kecamatan = $input['kecamatan'];
+            $data->kode_pos = $input['kode_pos'];
+
+            if($data->save()){
+                return $this->success("Data berhasil disimpan.");
+            }else{
+                return json_encode(["status"=> false, "msg"=> "Mohon maaf, terjadi kesalahan sistem"]);
+            }
+        }else{
+            return json_encode(["status"=> false, "message"=> "Data tidak ditemukan"]);
+        }
+    }
+
+
     public function keluarga()
     {
         $data = DosenModel::where('nik' , '=',Auth::user()->id)
-//            ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')
-//            ->join('master_angkatan', 'master_angkatan.id', '=', 'mahasiswa.angkatan')
-//            ->join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
-//            ->select('mahasiswa.*', 'master_kelas.title as kelas', 'master_angkatan.title as angkatan', 'master_jurusan.title as jurusan')
+            ->join('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
+            ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan')
             ->first();
 
         $master = array(
@@ -120,12 +144,32 @@ class DosenModule extends Controller
 
         $menu['submenu'] = "keluarga";
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
 
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
         return view("data/dosen_keluarga" , compact("data" , "title"  ,"exclude" ,"Tableshow", "master", "menu"));
 
+    }
+
+    public function submitkeluarga(Request $request){
+        $input = $request->all();
+        $data = DosenKeluargaModel::where('dosen_id','=',$input['id'])->first();
+
+        if($data){
+            $data->status_pernikahan = $input['status_pernikahan'];
+            $data->nama_pasangan = $input['nama_pasangan'];
+            $data->nip_pasangan = $input['nip_pasangan'];
+            $data->tmt_pns = $input['tmt_pns'];
+            $data->pekerjaan = $input['pekerjaan'];
+
+            if($data->save()){
+                return $this->success("Data berhasil disimpan.");
+            }else{
+                return json_encode(["status"=> false, "msg"=> "Mohon maaf, terjadi kesalahan sistem"]);
+            }
+        }else{
+            return json_encode(["status"=> false, "message"=> "Data tidak ditemukan"]);
+        }
     }
 
     public function kebutuhankhusus()
@@ -153,12 +197,13 @@ class DosenModule extends Controller
         try{
             $data_kebutuhan_khusus = array(
                 'row_status' => 'active',
-                'updated_by' => Auth::user()->id,
-                'kebutuhan_mahasiswa' => array_key_exists('mahasiswa_kh' , $data) ? json_encode(array('mahasiswa' => $data['mahasiswa_kh'])) : json_encode(array('mahasiswa' =>[])),
-                'kebutuhan_ayah' =>array_key_exists('ayah_kh' , $data) ? json_encode(array('ayah' =>$data['ayah_kh'])) : json_encode(array('ayah' =>[])),
-                'kebutuhan_ibu' =>array_key_exists('ibu_kh' , $data) ? json_encode(array('ibu'=>$data['ibu_kh'])) : json_encode(array('ibu' =>[])),
+                'created_by' => 1,
+                'updated_by' => 1,
+                'kebutuhan_khusus' => array_key_exists('dosen_kh' , $data) ? json_encode(array('dosen' => $data['dosen_kh'])) : json_encode(array('dosen' =>[])),
+                'braile'=> $data['braile'],
+                'isyarat' => $data['isyarat'],
             );
-            MahasiswaKebutuhanModel::where('mahasiswa_id' , $data['mahasiswa_id'])->update($data_kebutuhan_khusus);
+            DosenKebutuhanModel::where('dosen_id' , $data['id'])->update($data_kebutuhan_khusus);
 
             return json_encode(array('status' => true , 'message' => 'Data berhasil disimpan.'));
         } catch(\Exception $e){
@@ -169,12 +214,7 @@ class DosenModule extends Controller
 
     public function gantipassword()
     {
-        $data = MahasiswaModel::where('nim' , '=',Auth::user()->id)
-            ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')
-            ->join('master_angkatan', 'master_angkatan.id', '=', 'mahasiswa.angkatan')
-            ->join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
-            ->select('mahasiswa.*', 'master_kelas.title as kelas', 'master_angkatan.title as angkatan', 'master_jurusan.title as jurusan')
-            ->first();
+        $data = DosenModel::where('nik' , '=',Auth::user()->id)->first();
 
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
 
@@ -187,7 +227,7 @@ class DosenModule extends Controller
 
     public function submit_gantipassword(Request $request){
         $input = $request->all();
-        $data = MahasiswaModel::where('id' , '=',$input['id'])->first();
+        $data = DosenModel::where('id' , '=',$input['id'])->first();
 
         if($data){
             $password_old = $data->password;

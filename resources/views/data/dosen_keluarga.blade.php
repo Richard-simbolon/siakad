@@ -73,7 +73,13 @@
                                                 <div class="form-group row">
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Status Pernikahan</label>
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <input class="form-control" type="text" name="status_pernikahan" value="{{$data['status_pernikahan']}}">
+                                                        <select name="status_pernikahan" class="form-control kt-select2">
+                                                            <option value="">-- Pilih --</option>
+                                                            <option value="'lajang'" {{$data['status_pernikahan'] == 'lajang' ? "selected" : ""}}>Lajang</option>
+                                                            <option value="'menikah'" {{$data['status_pernikahan'] == 'menikah' ? "selected" : ""}}>Menikah</option>
+                                                            <option value="'duda'" {{$data['status_pernikahan'] == 'duda' ? "selected" : ""}}>Duda</option>
+                                                            <option value="'janda'" {{$data['status_pernikahan'] == 'janda' ? "selected" : ""}}>Janda</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -91,13 +97,13 @@
                                                 <div class="form-group row">
                                                     <label class="col-xl-3 col-lg-3 col-form-label">TMT PNS</label>
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <input class="form-control" type="date" name="tmt_pasangan" value="{{$data['tmt_pasangan']}}">
+                                                        <input class="form-control" type="date" name="tmt_pns" value="{{$data['tmt_pns']}}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row form-group-last">
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Pekerjaan</label>
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <select name="keluarga[pekerjaan]" class="form-control ">
+                                                        <select name="pekerjaan" class="form-control kt-select2">
                                                             @foreach ($master['pekerjaan'] as $item)
                                                                 <option value="{{$item['id']}}">{{$item['title']}}</option>
                                                             @endforeach
@@ -113,7 +119,7 @@
                                                 <div class="col-lg-3 col-xl-3">
                                                 </div>
                                                 <div class="col-lg-9 col-xl-9">
-                                                    <button type="button" id="btn_edit_profile" class="btn btn-success">Ubah</button>&nbsp;
+                                                    <button type="button" id="btn_edit_keluarga" class="btn btn-success">Ubah</button>&nbsp;
                                                 </div>
                                             </div>
                                         </div>

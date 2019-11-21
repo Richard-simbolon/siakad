@@ -104,11 +104,11 @@
                                                     <div class="col-lg-9 col-xl-6">
                                                         <div class="kt-checkbox-inline">
                                                             <label class="kt-radio">
-                                                                <input type="radio" name="braile" value="{{$data['braile']}}" {{$data['braile']=='ya' ? 'checked':''}}> Ya
+                                                                <input type="radio" name="braile" value="ya" {{$data['braile']=='ya' ? 'checked':''}}> Ya
                                                                 <span></span>
                                                             </label> &nbsp;
                                                             <label class="kt-radio">
-                                                                <input type="radio" name="braile" value="{{$data['braile']}}" {{$data['braile']=='tidak' ? 'checked' :''}}> Tidak
+                                                                <input type="radio" name="braile" value="tidak" {{$data['braile']=='tidak' ? 'checked' :''}}> Tidak
                                                                 <span></span>
                                                             </label>
                                                         </div>
@@ -124,11 +124,11 @@
                                                     <div class="col-lg-9 col-xl-6">
                                                         <div class="kt-checkbox-inline">
                                                             <label class="kt-radio">
-                                                                <input type="radio" name="isyarat" value="{{$data['isyarat']}}" {{$data['isyarat']=='ya' ? 'checked':''}}> YA
+                                                                <input type="radio" name="isyarat" value="ya" {{$data['isyarat']=='ya' ? 'checked':''}}> YA
                                                                 <span></span>
                                                             </label> &nbsp;
                                                             <label class="kt-radio">
-                                                                <input type="radio" name="isyarat" value="{{$data['isyarat']}}" {{$data['isyarat']=='tidak' ? 'checked' :''}}> Tidak
+                                                                <input type="radio" name="isyarat" value="tidak" {{$data['isyarat']=='tidak' ? 'checked' :''}}> Tidak
                                                                 <span></span>
                                                             </label>
                                                         </div>
@@ -141,7 +141,7 @@
                                         <div class="kt-form__actions">
                                             <div class="row">
                                                 <div class="col-lg-9 col-xl-9">
-                                                    <button type="button" id="btn_edit_profile" class="btn btn-success">Ubah</button>&nbsp;
+                                                    <button type="button" id="btn_edit_kebutuhan_khusus" class="btn btn-success">Ubah</button>&nbsp;
                                                 </div>
                                             </div>
                                         </div>

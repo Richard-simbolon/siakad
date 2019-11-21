@@ -73,13 +73,13 @@
                                                 <div class="form-group row">
                                                     <label class="col-xl-3 col-lg-3 col-form-label">NIP</label>
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <input class="form-control" type="text" name="nama" value="{{$data['nip']}}">
+                                                        <input class="form-control" type="text" name="nip" value="{{$data['nip']}}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-xl-3 col-lg-3 col-form-label">NPWP</label>
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <input class="form-control" type="text" name="nama" value="{{$data['npwp']}}">
+                                                        <input class="form-control" type="text" name="npwp" value="{{$data['npwp']}}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -91,7 +91,12 @@
                                                 <div class="form-group row">
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Status Pegawai</label>
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <input class="form-control" type="text" name="status_pegawai" value="{{$data['status_pegawai']}}">
+                                                        <select name="status_pegawai" class="form-control kt-select2">
+                                                            <option value="">--Pilih Status--</option>
+                                                            @foreach ($master['status_pegawai'] as $item)
+                                                                <option value="{{$item['id']}}" {{$item['id']==$data['status_pegawai']?"selected" : ""}}>{{$item['title']}}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -121,7 +126,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Tanggal SK Pengangkatan</label>
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <input class="form-control" type="date" name="no_sk_pengangkatan" value="{{$data['no_sk_pengangkatan']}}">
+                                                        <input class="form-control" type="date" name="tgl_sk_pengangkatan" value="{{$data['no_sk_pengangkatan']}}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -193,7 +198,7 @@
                                                 <div class="col-lg-3 col-xl-3">
                                                 </div>
                                                 <div class="col-lg-9 col-xl-9">
-                                                    <button type="button" id="btn_edit_profile" class="btn btn-success">Ubah</button>&nbsp;
+                                                    <button type="button" id="btn_edit_biodata" class="btn btn-success">Ubah</button>&nbsp;
                                                 </div>
                                             </div>
                                         </div>

@@ -53,20 +53,11 @@ Route::get('/data/dosen/keluarga', 'DosenModule@keluarga')->name('keluarga');
 Route::get('/data/dosen/kebutuhankhusus', 'DosenModule@kebutuhankhusus')->name('kebutuhankhusus');
 Route::get('/data/dosen/biodata', 'DosenModule@biodata')->name('biodata');
 Route::get('/data/dosen/gantipassword', 'DosenModule@gantipassword')->name('gantipassword');
-//Route::get('/data/mahasiswa/alamat', 'MahasiswaModule@alamat')->name('alamat');
-//Route::get('/data/mahasiswa/orangtua', 'MahasiswaModule@orangtua')->name('orangtua');
-//Route::get('/data/mahasiswa/wali', 'MahasiswaModule@wali')->name('wali');
-//Route::get('/data/mahasiswa/prestasi', 'MahasiswaModule@prestasi')->name('prestasi');
-//Route::get('/data/mahasiswa/kebutuhankhusus', 'MahasiswaModule@kebutuhankhusus')->name('kebutuhankhusus');
-//Route::get('/data/mahasiswa/gantipassword', 'MahasiswaModule@gantipassword')->name('gantipassword');
-//Route::post('/data/mahasiswa/submit_gantipassword', 'MahasiswaModule@submit_gantipassword')->name('submit_gantipassword');
-//Route::post('/data/mahasiswa/prestasipaging', 'MahasiswaModule@prestasipaging')->name('prestasipaging');
-//Route::post('/data/mahasiswa/submitprestasi', 'MahasiswaModule@submitprestasi')->name('submitprestasi');
-//Route::post('/data/mahasiswa/submitprofile', 'MahasiswaModule@submitprofile')->name('submitprofile');
-//Route::post('/data/mahasiswa/submitalamat', 'MahasiswaModule@submitalamat')->name('submitalamat');
-//Route::post('/data/mahasiswa/submitorangtua', 'MahasiswaModule@submitorangtua')->name('submitorangtua');
-//Route::post('/data/mahasiswa/submitwali', 'MahasiswaModule@submitwali')->name('submitwali');
-//Route::post('/data/mahasiswa/submitkebutuhankhusus', 'MahasiswaModule@submitkebutuhankhusus')->name('submitkebutuhankhusus');
+Route::post('/data/dosen/submitprofile', 'DosenModule@submitprofile')->name('submitprofile');
+Route::post('/data/dosen/submitbiodata', 'DosenModule@submitbiodata')->name('submitbiodata');
+Route::post('/data/dosen/submitkeluarga', 'DosenModule@submitkeluarga')->name('submitkeluarga');
+Route::post('/data/dosen/submitkebutuhankhusus', 'DosenModule@submitkebutuhankhusus')->name('submitkebutuhankhusus');
+Route::post('/data/dosen/submit_gantipassword', 'DosenModule@submit_gantipassword')->name('submit_gantipassword');
 // MODULE MAHASISWA END
 
 
