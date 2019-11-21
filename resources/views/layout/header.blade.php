@@ -3,8 +3,8 @@
             <div id="kt_header_menu" class="kt-header-menu kt-header-menu-mobile  kt-header-menu--layout-default ">
                 <div class="kt-section__content kt-section__content--solid">
                     <h3 style="line-height: 64px;color:#23714f;">
-                        Sistem Informasi Akademik
-                        <small class="text-muted">Polbangtan Medan</small>
+                        SIAPDUDIK
+                        <small class="text-muted">Sistem Aplikasi Terpadu Pendidikan</small>
                     </h3>
                 </div>
 
