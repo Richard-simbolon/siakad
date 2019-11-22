@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>SIAKAD</title>
+        <title>Polbangtan Medan | SIAPDUDIK</title>
         <link href="https://polbangtanmedan.ac.id/themes/stpp/img/favicon-48.png" rel="apple-touch-icon-precomposed" sizes="48x48">
         <link href="https://polbangtanmedan.ac.id/themes/stpp/img/favicon-32.png" rel="apple-touch-icon-precomposed">
         <link href="https://polbangtanmedan.ac.id/themes/stpp/img/favicon.png" rel="shortcut icon">
@@ -364,7 +364,7 @@
                 font-weight: 400;
             }
             .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__heading .kt-menu__link-text, .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__link .kt-menu__link-text {
-                color: #1a1b1a!important;
+                color: #1a1b1aba!important;
             }
         </style>
     <input type="hidden" id="csrf_" value="{{csrf_token()}} "/>

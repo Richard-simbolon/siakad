@@ -10,13 +10,13 @@
                     <div class="kt-subheader__main">
                         <h3 class="kt-subheader__title">
                             <button class="kt-subheader__mobile-toggle kt-subheader__mobile-toggle--left" id="kt_subheader_mobile_toggle"><span></span></button>
-                            Mahasiswa </h3>
+                            Dosen </h3>
                         <span class="kt-subheader__separator kt-hidden"></span>
                         <div class="kt-subheader__breadcrumbs">
                             <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="" class="kt-subheader__breadcrumbs-link">
-                                Alamat
+                                Biodata
                             </a>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                         <div class="kt-portlet__body kt-portlet__body--fit-y">
 
                             <!--begin::Widget -->
-                            @include('layout.mahasiswa_profile')
+                                @include('layout.dosen_profile')
                             <!--end::Widget -->
 
                         </div>
@@ -62,7 +62,7 @@
                             <div class="kt-portlet">
                                 <div class="kt-portlet__head">
                                     <div class="kt-portlet__head-label">
-                                        <h3 class="kt-portlet__head-title">Alamat <small>formulir perubahan data alamat mahasiswa</small></h3>
+                                        <h3 class="kt-portlet__head-title">Biodata <small>formulir perubahan data dosen</small></h3>
                                     </div>
                                 </div>
                                 <form class="kt-form kt-form--label-right">
@@ -71,21 +71,86 @@
                                         <div class="kt-section kt-section--first">
                                             <div class="kt-section__body">
                                                 <div class="form-group row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">NISN</label>
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">NIP</label>
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <input class="form-control" type="text" name="nisn" value="{{$data['nisn']}}">
+                                                        <input class="form-control" type="text" name="nip" value="{{$data['nip']}}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Kewarganegaraan</label>
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">NPWP</label>
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <input class="form-control" type="text" name="kewarganegaraan" value="{{$data['kewarganegaraan']}}">
+                                                        <input class="form-control" type="text" name="npwp" value="{{$data['npwp']}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">Ikatan Kerja</label>
+                                                    <div class="col-lg-9 col-xl-6">
+                                                        <input class="form-control" type="text" name="ikatan_kerja" value="{{$data['ikatan_kerja']}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">Status Pegawai</label>
+                                                    <div class="col-lg-9 col-xl-6">
+                                                        <select name="status_pegawai" class="form-control kt-select2">
+                                                            <option value="">--Pilih Status--</option>
+                                                            @foreach ($master['status_pegawai'] as $item)
+                                                                <option value="{{$item['id']}}" {{$item['id']==$data['status_pegawai']?"selected" : ""}}>{{$item['title']}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">Jenis Pegawai</label>
+                                                    <div class="col-lg-9 col-xl-6">
+                                                        <input class="form-control" type="text" name="jenis_pegawai" value="{{$data['jenis_pegawai']}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">No SK CPNS</label>
+                                                    <div class="col-lg-9 col-xl-6">
+                                                        <input class="form-control" type="text" name="no_sk_cpns" value="{{$data['no_sk_cpns']}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">Tanggal SK CPNS</label>
+                                                    <div class="col-lg-9 col-xl-6">
+                                                        <input class="form-control" type="date" name="tanggal_sk_cpns" value="{{$data['tanggal_sk_cpns']}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">No SK Pengangkatan</label>
+                                                    <div class="col-lg-9 col-xl-6">
+                                                        <input class="form-control" type="text" name="no_sk_pengangkatan" value="{{$data['no_sk_pengangkatan']}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">Tanggal SK Pengangkatan</label>
+                                                    <div class="col-lg-9 col-xl-6">
+                                                        <input class="form-control" type="date" name="tgl_sk_pengangkatan" value="{{$data['no_sk_pengangkatan']}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">Lembaga Pengangkatan</label>
+                                                    <div class="col-lg-9 col-xl-6">
+                                                        <input class="form-control" type="text" name="lembaga_pengangkatan" value="{{$data['lembaga_pengangkatan']}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">Pangkat Golongan</label>
+                                                    <div class="col-lg-9 col-xl-6">
+                                                        <input class="form-control" type="text" name="pangkat_golongan" value="{{$data['pangkat_golongan']}}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">Sumber Gaji</label>
+                                                    <div class="col-lg-9 col-xl-6">
+                                                        <input class="form-control" type="text" name="sumber_gaji" value="{{$data['sumber_gaji']}}">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Alamat</label>
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <textarea class="form-control" type="text" name="alamat" rows="3">{{$data['alamat']}}</textarea>
+                                                        <textarea class="form-control" type="text" name="alamat">{{$data['alamat']}}</textarea>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -118,57 +183,10 @@
                                                         <input class="form-control" type="text" name="kecamatan" value="{{$data['kecamatan']}}">
                                                     </div>
                                                 </div>
-                                                <div class="form-group row">
+                                                <div class="form-group form-group-last row">
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Kode Pos</label>
                                                     <div class="col-lg-9 col-xl-6">
                                                         <input class="form-control" type="text" name="kode_pos" value="{{$data['kode_pos']}}">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Jenis Tinggal</label>
-                                                    <div class="col-lg-9 col-xl-6">
-                                                        <div class="input-group">
-                                                            <select name="jenis_tinggal" class="form-control kt-select2">
-                                                                <option value="">Select</option>
-                                                                @foreach ($master['jenis_tinggal'] as $item)
-                                                                    <option value="{{$item['id']}}" {{$item['id'] == $data['jenis_tinggal'] ? "selected" : ""}}> {{$item['title']}} </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Alat Transpostrasi</label>
-                                                    <div class="col-lg-9 col-xl-6">
-                                                        <div class="input-group">
-                                                            <select name="alat_transportasi" class="form-control kt-select2">
-                                                                <option value="">Select</option>
-                                                                @foreach ($master['alat_transportasi'] as $item)
-                                                                    <option value="{{$item['id']}}" {{$item['id'] == $data['alat_transportasi'] ? "selected" : ""}}> {{$item['title']}} </option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Penerima KPS?</label>
-                                                    <div class="col-lg-9 col-xl-6">
-                                                        <div class="kt-checkbox-inline">
-                                                            <label class="kt-radio">
-                                                                <input type="radio" name="is_penerima_kps" value="{{$data['is_penerima_kps']}}" {{$data['is_penerima_kps']=='1' ? 'checked':''}}> Ya
-                                                                <span></span>
-                                                            </label> &nbsp;
-                                                            <label class="kt-radio">
-                                                                <input type="radio" name="is_penerima_kps" value="{{$data['is_penerima_kps']}}" {{$data['is_penerima_kps']=='0' ? 'checked' :''}}> Tidak
-                                                                <span></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group form-group-last row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">NO KPS</label>
-                                                    <div class="col-lg-9 col-xl-6">
-                                                        <input class="form-control" type="text" name="no_kps" value="{{$data['no_kps']}}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -180,7 +198,7 @@
                                                 <div class="col-lg-3 col-xl-3">
                                                 </div>
                                                 <div class="col-lg-9 col-xl-9">
-                                                    <button type="button" id="btn_edit_alamat" class="btn btn-success">Ubah</button>&nbsp;
+                                                    <button type="button" id="btn_edit_biodata" class="btn btn-success">Ubah</button>&nbsp;
                                                 </div>
                                             </div>
                                         </div>
@@ -199,7 +217,7 @@
 
 @section('js')
     <script src="{{asset('/assets/js/pages/custom/user/profile.js')}}" type="text/javascript"></script>
-    <script src="{{asset('/assets/js/pages/profile/mahasiswa.js')}}" type="text/javascript"></script>
+    <script src="{{asset('/assets/js/pages/profile/dosen.js')}}" type="text/javascript"></script>
 @stop
 
 @endsection

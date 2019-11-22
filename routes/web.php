@@ -39,12 +39,37 @@ Route::get('/data/mahasiswa/kebutuhankhusus', 'MahasiswaModule@kebutuhankhusus')
 Route::get('/data/mahasiswa/gantipassword', 'MahasiswaModule@gantipassword')->name('gantipassword');
 Route::post('/data/mahasiswa/submit_gantipassword', 'MahasiswaModule@submit_gantipassword')->name('submit_gantipassword');
 Route::post('/data/mahasiswa/prestasipaging', 'MahasiswaModule@prestasipaging')->name('prestasipaging');
+
 // KRS
 //Route::get('mahasiswa/krs', 'JadwalPerkuliahan@krs')->name('krs');
 //Route::get('mahasiswa/khs', 'JadwalPerkuliahan@khs')->name('khs');
 
+Route::post('/data/mahasiswa/submitprestasi', 'MahasiswaModule@submitprestasi')->name('submitprestasi');
+Route::post('/data/mahasiswa/submitprofile', 'MahasiswaModule@submitprofile')->name('submitprofile');
+Route::post('/data/mahasiswa/submitalamat', 'MahasiswaModule@submitalamat')->name('submitalamat');
+Route::post('/data/mahasiswa/submitorangtua', 'MahasiswaModule@submitorangtua')->name('submitorangtua');
+Route::post('/data/mahasiswa/submitwali', 'MahasiswaModule@submitwali')->name('submitwali');
+Route::post('/data/mahasiswa/submitkebutuhankhusus', 'MahasiswaModule@submitkebutuhankhusus')->name('submitkebutuhankhusus');
 // MODULE MAHASISWA END
 
+// Module Dosen
+Route::get('/data/dosen/profile', 'DosenModule@profile')->name('profile');
+Route::get('/data/dosen/keluarga', 'DosenModule@keluarga')->name('keluarga');
+Route::get('/data/dosen/kebutuhankhusus', 'DosenModule@kebutuhankhusus')->name('kebutuhankhusus');
+Route::get('/data/dosen/biodata', 'DosenModule@biodata')->name('biodata');
+Route::get('/data/dosen/gantipassword', 'DosenModule@gantipassword')->name('gantipassword');
+Route::get('/data/dosen/penugasan_dosen', 'DosenModule@penugasan_dosen')->name('penugasan_dosen');
+Route::get('/data/dosen/fungsional_dosen', 'DosenModule@fungsional_dosen')->name('fungsional_dosen');
+Route::get('/data/dosen/kepangkatan_dosen', 'DosenModule@kepangkatan_dosen')->name('kepangkatan_dosen');
+Route::get('/data/dosen/pendidikan_dosen', 'DosenModule@pendidikan_dosen')->name('pendidikan_dosen');
+Route::get('/data/dosen/sertifikasi_dosen', 'DosenModule@sertifikasi_dosen')->name('sertifikasi_dosen');
+Route::get('/data/dosen/fungsional_dosen', 'DosenModule@fungsional_dosen')->name('fungsional_dosen');
+Route::get('/data/dosen/penelitian_dosen', 'DosenModule@penelitian_dosen')->name('penelitian_dosen');
+Route::post('/data/dosen/submitprofile', 'DosenModule@submitprofile')->name('submitprofile');
+Route::post('/data/dosen/submitbiodata', 'DosenModule@submitbiodata')->name('submitbiodata');
+Route::post('/data/dosen/submitkeluarga', 'DosenModule@submitkeluarga')->name('submitkeluarga');
+Route::post('/data/dosen/submitkebutuhankhusus', 'DosenModule@submitkebutuhankhusus')->name('submitkebutuhankhusus');
+Route::post('/data/dosen/submit_gantipassword', 'DosenModule@submit_gantipassword')->name('submit_gantipassword');
 
 Route::post('/data/dosen/update', 'Dosen@update')->name('update');
 Route::get('dosen/penugasan/{id}', 'Dosen@penugasan')->name('penugasan');

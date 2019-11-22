@@ -10,13 +10,13 @@
                     <div class="kt-subheader__main">
                         <h3 class="kt-subheader__title">
                             <button class="kt-subheader__mobile-toggle kt-subheader__mobile-toggle--left" id="kt_subheader_mobile_toggle"><span></span></button>
-                            Mahasiswa </h3>
+                            Dosen </h3>
                         <span class="kt-subheader__separator kt-hidden"></span>
                         <div class="kt-subheader__breadcrumbs">
                             <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="" class="kt-subheader__breadcrumbs-link">
-                                Data Orangtua
+                                Ubah Password
                             </a>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                         <div class="kt-portlet__body kt-portlet__body--fit-y">
 
                             <!--begin::Widget -->
-                            @include('layout.mahasiswa_profile')
+                                @include('layout.dosen_profile')
                             <!--end::Widget -->
 
                         </div>
@@ -62,64 +62,30 @@
                             <div class="kt-portlet">
                                 <div class="kt-portlet__head">
                                     <div class="kt-portlet__head-label">
-                                        <h3 class="kt-portlet__head-title">Alamat <small>formulir perubahan data wali mahasiswa</small></h3>
+                                        <h3 class="kt-portlet__head-title">Password <small>formulir perubahan data password dosen</small></h3>
                                     </div>
                                 </div>
-                                <?php
-                                $otw = [];
-                                foreach($orangtuawali as $value){
-                                    $otw[$value['kategori']] = $value;
-                                }
-                                ?>
                                 <form class="kt-form kt-form--label-right">
-                                    <input type="hidden" class="form-control" name="mahasiswa_orang_tua_wali[wali][id]" value="{{$otw['wali']['id']}}">
-                                    <input type="hidden" class="form-control" name="mahasiswa_id" value="{{$otw['wali']['mahasiswa_id']}}">
                                     <div class="kt-portlet__body">
                                         <div class="kt-section kt-section--first">
+                                            <input type="hidden" name="id" value="{{$data["id"]}}">
                                             <div class="kt-section__body">
                                                 <div class="form-group row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Nama</label>
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">Password Lama</label>
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[wali][nama]" placeholder="Isikan Nama" value="{{$otw['wali']['nama']}}">
+                                                        <input type="password" class="form-control" autocomplete="off" name="password_lama" placeholder="Isikan password lama">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Tanggal Lahir</label>
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">Password Baru</label>
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <input type="date" class="form-control" name="mahasiswa_orang_tua_wali[wali][tanggal_lahir]" placeholder="Isikan Tanggal Lahir" value="{{$otw['wali']['tanggal_lahir']}}">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Pendidikan</label>
-                                                    <div class="col-lg-9 col-xl-6">
-                                                        <select name="mahasiswa_orang_tua_wali[wali][pendidikan_id]" class="form-control kt-select2">
-                                                            <option value="">-- Pilih Jenjang --</option>
-                                                            @foreach ($master['pendidikan'] as $item)
-                                                                <option value="{{$item['id']}}" {{$item['id'] == $otw['wali']['pendidikan_id'] ? 'selected' : ''}}>{{$item['title']}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Pekerjaan</label>
-                                                    <div class="col-lg-9 col-xl-6">
-                                                        <select name="mahasiswa_orang_tua_wali[wali][pekerjaan_id]" class="form-control kt-select2">
-                                                            <option value="">-- Pilih Pekerjaan --</option>
-                                                            @foreach ($master['pekerjaan'] as $item)
-                                                                <option value="{{$item['id']}}" {{$item['id'] == $otw['wali']['pekerjaan_id'] ? 'selected' : ''}} >{{$item['title']}}</option>
-                                                            @endforeach
-                                                        </select>
+                                                        <input type="password" class="form-control" autocomplete="off" name="password_baru" placeholder="Isikan password baru">
                                                     </div>
                                                 </div>
                                                 <div class="form-group form-group-last row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label">Penghasilan</label>
+                                                    <label class="col-xl-3 col-lg-3 col-form-label">Konfirmasi</label>
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <select name="mahasiswa_orang_tua_wali[wali][penghasilan]" class="form-control kt-select2">
-                                                            <option value="">-- Pilih Penghasilan --</option>
-                                                            @foreach ($master['penghasilan'] as $item)
-                                                                <option value="{{$item['id']}}" {{$item['id'] == $otw['wali']['penghasilan'] ? 'selected' : ''}}>{{$item['title']}}</option>
-                                                            @endforeach
-                                                        </select>
+                                                        <input type="password" class="form-control" autocomplete="off" name="konfirmasi" placeholder="Ketik ulang password baru">
                                                     </div>
                                                 </div>
                                             </div>
@@ -131,7 +97,7 @@
                                                 <div class="col-lg-3 col-xl-3">
                                                 </div>
                                                 <div class="col-lg-9 col-xl-9">
-                                                    <button type="button" id="btn_edit_wali" class="btn btn-success">Ubah</button>&nbsp;
+                                                    <button type="button" id="btn_ganti_password" class="btn btn-success">Ubah</button>&nbsp;
                                                 </div>
                                             </div>
                                         </div>
@@ -150,7 +116,7 @@
 
 @section('js')
     <script src="{{asset('/assets/js/pages/custom/user/profile.js')}}" type="text/javascript"></script>
-    <script src="{{asset('/assets/js/pages/profile/mahasiswa.js')}}" type="text/javascript"></script>
+    <script src="{{asset('/assets/js/pages/profile/dosen.js')}}" type="text/javascript"></script>
 @stop
 
 @endsection
