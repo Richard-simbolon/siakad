@@ -34,44 +34,6 @@ class MahasiswaModule extends Controller
 ];
     static $exclude = ["id","created_at","updated_at","created_by","update_by"];
     static $tablename = "Mahasiswa";
-    public function index()
-    {
-
-        $master = array(
-            'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
-            'jenis_pendaftaran' => JenisPendaftaranModel::where('row_status' , 'active')->get(),
-            'jalur_pendaftaran' => JalurPendaftaranModel::where('row_status' , 'active')->get(),
-            'asal_studi' => AsalProgramStudiModel::where('row_status' , 'active')->get(),
-            'jenis_tinggal' => TinggalModel::where('row_status' , 'active')->get(),
-            'alat_transportasi' => AlatTransportasiModel::where('row_status' , 'active')->get(),
-            'pendidikan' => PendidikanModel::where('row_status' , 'active')->get(),
-            'jenis_pembiayaan' => JenisPembiayaanModel::where('row_status' , 'active')->get(),
-            'kelas' => KelasModel::where('row_status' , 'active')->get(),
-            'pekerjaan' => PekerjaanModel::where('row_status' , 'active')->get(),
-            'penghasilan' => PenghasilanModel::where('row_status' , 'active')->get(),
-            'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
-            'agama' => AgamaModel::where('row_status' , 'active')->get(),
-            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
-            'status_mahasiswa' => StatusMahasiswaModel::where('row_status' , 'active')->get()
-        );
-        
-
-        /*$master = array(
-            'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
-            'jenis_kelamin' => array('Laki-Laki' , 'Perempuan'),
-            'status_kuliah' => StatusMahasisiwa::where('row_status' , 'active')->get(),
-            'angkatan' => Angkatan::where('row_status' , 'active')->get(),
-            'agama' => AgamaModel::where('row_status' , 'active')->get()
-        );*/
-        $data = MahasiswaModel::get();
-        $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        $tableid = "Mahasiswa";
-        $table_display = DB::getSchemaBuilder()->getColumnListing("mahasiswa");
-        $exclude = static::$exclude;
-        $Tableshow = static::$Tableshow;
-        return view("data/mahasiswa" , compact("data" , "title" ,"table_display" ,"exclude" ,"master","tableid"));
-
-    }
 
     public function profile()
     {
@@ -86,12 +48,13 @@ class MahasiswaModule extends Controller
             'agama' => AgamaModel::where('row_status' , 'active')->get()
         );
 
+        $menu['submenu'] = "profile";
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
 
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
-        return view("data/profile_mahasiswa" , compact("data" , "title"  ,"exclude" ,"Tableshow", "master", "count"));
+        return view("data/profile_mahasiswa" , compact("data" , "title"  ,"exclude" ,"Tableshow", "master", "count" , "menu"));
 
     }
 
@@ -135,10 +98,10 @@ class MahasiswaModule extends Controller
 
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
-
+        $menu['submenu'] = "alamat";
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
-        return view("data/mahasiswa_alamat" , compact("data" , "title"  ,"exclude" ,"Tableshow", "master", "count"));
+        return view("data/mahasiswa_alamat" , compact("data" , "title"  ,"exclude" ,"Tableshow", "master", "count", "menu"));
 
     }
 
@@ -186,13 +149,13 @@ class MahasiswaModule extends Controller
             'penghasilan' => PenghasilanModel::where('row_status' , 'active')->get(),
             'pendidikan' => PendidikanModel::where('row_status' , 'active')->get(),
         );
-
+        $menu['submenu'] = "orangtua";
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
 
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
-        return view("data/mahasiswa_orangtua" , compact("data","orangtuawali" , "title"  ,"exclude" ,"Tableshow", "master", "count"));
+        return view("data/mahasiswa_orangtua" , compact("data","orangtuawali" , "title"  ,"exclude" ,"Tableshow", "master", "count", "menu"));
 
     }
 
@@ -230,10 +193,10 @@ class MahasiswaModule extends Controller
         );
         $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-
+        $menu['submenu'] = "wali";
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
-        return view("data/mahasiswa_wali" , compact("data","orangtuawali", "title"  ,"exclude" ,"Tableshow", "master", "count"));
+        return view("data/mahasiswa_wali" , compact("data","orangtuawali", "title"  ,"exclude" ,"Tableshow", "master", "count", "wali", "menu"));
 
     }
 
@@ -269,12 +232,13 @@ class MahasiswaModule extends Controller
             'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
         );
         $kebutuhan_selected = MahasiswaKebutuhanModel::where('mahasiswa_id' , $data['id'])->first();
+        $menu['submenu'] = "kebutuhan_khusus";
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
 
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
-        return view("data/mahasiswa_kebutuhan_khusus" , compact("data" , "title"  ,"exclude" ,"Tableshow", "master", "kebutuhan_selected", "count"));
+        return view("data/mahasiswa_kebutuhan_khusus" , compact("data" , "title"  ,"exclude" ,"Tableshow", "master", "kebutuhan_selected", "count", "menu"));
 
     }
 
@@ -313,9 +277,10 @@ class MahasiswaModule extends Controller
 
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
+        $menu['submenu'] = "prestasi";
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
-        return view("data/mahasiswa_prestasi" , compact("data" , "title"  ,"exclude" ,"Tableshow", "master", "count"));
+        return view("data/mahasiswa_prestasi" , compact("data" , "title"  ,"exclude" ,"Tableshow", "master", "count", "menu"));
 
     }
 
@@ -365,11 +330,11 @@ class MahasiswaModule extends Controller
 
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
-
+        $menu['submenu'] = "ganti_password";
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
 
-        return view("data/mahasiswa_ganti_password" , compact("data" , "title"  ,"exclude" ,"Tableshow", "count"));
+        return view("data/mahasiswa_ganti_password" , compact("data" , "title"  ,"exclude" ,"Tableshow", "count", "menu"));
     }
 
     public function submit_gantipassword(Request $request){
