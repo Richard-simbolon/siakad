@@ -22,7 +22,7 @@ class AktivitasPerkuliahan extends Controller
         $table_display = DB::getSchemaBuilder()->getColumnListing('Mahasiswa');
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
-        return view("data/aktivitas_perkuliahan" , compact("data" , "title" ,"table_display" ,"exclude" ,"Tableshow","tableid"));
+        return view("data/aktivitas_perkuliahan" , compact( "title" ,"table_display" ,"exclude" ,"Tableshow","tableid"));
     }
 
     public function paging(Request $request){
