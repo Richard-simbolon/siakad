@@ -12,7 +12,7 @@
                 <div class="kt-container  kt-container--fluid ">
                     <div class="kt-subheader__main">
                         <h3 class="kt-subheader__title">
-                            Flaticon </h3>
+                            Dosen </h3>
                         <span class="kt-subheader__separator kt-hidden"></span>
                         <div class="kt-subheader__breadcrumbs">
                             <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
@@ -33,70 +33,7 @@
                                 <a href="#" class="btn btn-label-success btn-sm btn-bold dropdown-toggle" data-toggle="dropdown">
                                     <i class="kt-nav__link-icon flaticon2-layers-2"></i> Menu Lainnya
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right">
-                                    <ul class="kt-nav">
-                                        <li class="kt-nav__item">
-                                            <a href="{{url('data/dosen/view/'.$data['id'])}}" class="kt-nav__link">
-                                                <i class="kt-nav__link-icon flaticon2-user"></i>
-                                                <span class="kt-nav__link-text">Detail Dosen</span>
-                                            </a>
-                                        </li>
-                                        <li class="kt-nav__item">
-                                            <a href="{{url('dosen/penugasan/'.$data['id'])}}" class="kt-nav__link">
-                                                <i class="kt-nav__link-icon flaticon2-digital-marketing"></i>
-                                                <span class="kt-nav__link-text">Penugasan Dosen</span>
-                                            </a>
-                                        </li>
-                                        <li class="kt-nav__item">
-                                            <a href="" class="kt-nav__link">
-                                                <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
-                                                <span class="kt-nav__link-text">Aktivitas Mengajar Dosen</span>
-                                            </a>
-                                        </li>
-                                        <li class="kt-nav__item">
-                                            <a href="{{url('dosen/fungsional/'.$data['id'])}}" class="kt-nav__link">
-                                                <i class="kt-nav__link-icon flaticon2-cardiogram"></i>
-                                                <span class="kt-nav__link-text">Riwayat Fungsional</span>
-                                            </a>
-                                        </li>
-                                        <li class="kt-nav__item">
-                                            <a href="{{url('dosen/pengangkatan/'.$data['id'])}}" class="kt-nav__link">
-                                                <i class="kt-nav__link-icon flaticon2-indent-dots"></i>
-                                                <span class="kt-nav__link-text">Riwayat Kepangkatan</span>
-                                            </a>
-                                        </li>
-                                        <li class="kt-nav__item">
-                                            <a href="{{url('dosen/pendidikan/'.$data['id'])}}" class="kt-nav__link">
-                                                <i class="kt-nav__link-icon flaticon2-graphic"></i>
-                                                <span class="kt-nav__link-text">Riwayat Pendidikan</span>
-                                            </a>
-                                        </li>
-                                        <li class="kt-nav__item">
-                                            <a href="{{url('dosen/sertifikasi/'.$data['id'])}}" class="kt-nav__link">
-                                                <i class="kt-nav__link-icon flaticon2-crisp-icons"></i>
-                                                <span class="kt-nav__link-text">Riwayat Sertifikasi</span>
-                                            </a>
-                                        </li>
-                                        <li class="kt-nav__item">
-                                            <a href="{{url('dosen/penelitian/'.$data['id'])}}" class="kt-nav__link">
-                                                <i class="kt-nav__link-icon flaticon2-graph-2"></i>
-                                                <span class="kt-nav__link-text">Riwayat Penelitian</span>
-                                            </a>
-                                        </li>
-                                        <li class="kt-nav__item">
-                                            <a href="layout/skins/dosen-pembimbing.html" class="kt-nav__link">
-                                                <i class="kt-nav__link-icon flaticon2-avatar"></i>
-                                                <span class="kt-nav__link-text">Pembimbing Aktivitas Mahasiswa</span>
-                                            </a>
-                                        </li>
-                                        <li class="kt-nav__item">
-                                            <a href="layout/skins/dosen-penguji.html" class="kt-nav__link">
-                                                <i class="kt-nav__link-icon flaticon2-infographic"></i>
-                                                <span class="kt-nav__link-text">Penguji Aktivitas Mahasiswa</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                @include('layout.dosen_detail');
                             </div>
                         </div>
                     </div>
@@ -277,7 +214,7 @@
                             </div>
                             <div class="kt-portlet__body">
                                 <div class="kt-section kt-section--first">
-                                    <table class="table table-striped- table-bordered table-hover table-checkable responsive no-wrap" id="kt_table_1">
+                                    <table class="dataTable table table-striped- table-bordered table-hover table-checkable responsive no-wrap" id="kt_table_1">
                                         <thead>
                                         <tr>
                                             <th>No</th>
@@ -319,7 +256,7 @@
     </div>
 </div>
 <div class="modal fade" id="kt_modal_penugasan_data" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog modal-xl" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
@@ -340,18 +277,7 @@
                                     <!--begin::Portlet-->
                                     <input type="hidden" value="{{$data['id']}}" name="dosen_id"/>
                                     <div class="kt-portlet__body">
-                                        <div class="kt-portlet">
-                                            <div class="kt-portlet__head">
-                                                <div class="kt-portlet__head-toolbar">
-                                                    <ul class="nav nav-tabs nav-tabs-bold nav-tabs-line   nav-tabs-line-right nav-tabs-line-brand" role="tablist">
-                                                        <li class="nav-item">
-                                                            <a class="nav-link active" data-toggle="tab" href="#info_dasar" role="tab">
-                                                                <i class="flaticon-clipboard"></i> Formulir Riwayat Penelitian
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                        <div>
                                             <div class="kt-portlet__body">
                                                 <div class="row">
                                                     <div class="col-xl-6">
@@ -391,7 +317,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                        <button type="button" class="btn btn-danger savepenelitian">Simpan</button>
+                        <button type="button" class="btn btn-success savepenelitian">Simpan</button>
                     </div>
                 </form>
             </div>

@@ -15,12 +15,12 @@ use App\KebutuhanKhususModel;
 use App\JurusanModel;
 use App\JenispendaftaranModel;
 use App\JenisPembiayaanModel;
-use App\AsalProgramStudiModel;
-use App\JalurPendaftaranModel;
-use App\TinggalModel;
-use App\PenghasilanModel;
-use App\PendidikanModel;
-use App\StatusMahasiswaModel;
+use App\PengangkatanModel;
+use App\RiwayatPendidikanModel;
+use App\RiwayatSertifikasiModel;
+use App\RiwayatPenelitianModel;
+use App\RiwayatFungsionalModel;
+use App\PenugasanModel;
 use App\PekerjaanModel;
 use App\StatusPegawaiModel;
 use App\DosenKebutuhanModel;
@@ -247,5 +247,131 @@ class DosenModule extends Controller
         }else{
             return json_encode(["status"=> false, "message"=> "Data tidak ditemukan"]);
         }
+    }
+
+    public function penugasan_dosen(){
+        $master = array(
+            'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
+            'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
+            'agama' => AgamaModel::where('row_status' , 'active')->get(),
+            'pekerjaan' => PekerjaanModel::where('row_status' , 'active')->get(),
+            'status_pegawai' => StatusPegawaiModel::where('row_status' , 'active')->get(),
+            'jenis_kelamin' => config('global.jenis_kelamin')
+        );
+        $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
+            ->join('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
+            ->join('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
+            ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
+            ->where('dosen.nik' , Auth::user()->id)->first();
+
+        $penugasan = PenugasanModel::join('master_jurusan' , 'master_jurusan.id','=', 'dosen_penugasan.program_studi_id')
+            ->join('master_tahun_ajaran' , 'master_tahun_ajaran.id' , '=' , 'dosen_penugasan.tahun_ajaran')
+            ->select('dosen_penugasan.*' , 'master_jurusan.title as program_studi_title' ,'master_tahun_ajaran.title as tahun_ajaran_title')
+            ->where('dosen_penugasan.dosen_id' , $data['id'])->where('dosen_penugasan.row_status' , 'active')->get();
+
+
+        return view('/data/dosen_penugasan' , compact('data' , 'master' , 'penugasan'));
+    }
+
+    public function kepangkatan_dosen(){
+        $nik = Auth::user()->id;
+        $master = array(
+            'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
+            'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
+            'agama' => AgamaModel::where('row_status' , 'active')->get(),
+            'pekerjaan' => PekerjaanModel::where('row_status' , 'active')->get(),
+            'status_pegawai' => StatusPegawaiModel::where('row_status' , 'active')->get(),
+            'jenis_kelamin' => config('global.jenis_kelamin')
+        );
+
+        $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
+            ->join('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
+            ->join('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
+            ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
+            ->where('dosen.nik' , $nik)->first();
+
+        $pengangkatan = PengangkatanModel::where('dosen_riwayat_kepangkatan.dosen_id' , $data['id'])->where('dosen_riwayat_kepangkatan.row_status' , 'active')->get();
+
+        return view('/data/dosen_kepangkatan' , compact('data' , 'master' , 'pengangkatan'));
+    }
+
+    public function pendidikan_dosen(){
+        $nik = Auth::user()->id;
+        $master = array(
+            'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
+            'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
+            'agama' => AgamaModel::where('row_status' , 'active')->get(),
+            'pekerjaan' => PekerjaanModel::where('row_status' , 'active')->get(),
+            'status_pegawai' => StatusPegawaiModel::where('row_status' , 'active')->get(),
+            'jenis_kelamin' => config('global.jenis_kelamin')
+        );
+        $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
+            ->join('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
+            ->join('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
+            ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
+            ->where('dosen.nik' , $nik)->first();
+        $pendidikan = RiwayatPendidikanModel::where('dosen_riwayat_pendidikan.dosen_id' , $data['id'])->where('dosen_riwayat_pendidikan.row_status' , 'active')->get();
+
+        return view('/data/dosen_pendidikan' , compact('data' , 'master' , 'pendidikan'));
+    }
+
+    public function sertifikasi_dosen(){
+        $nik = Auth::user()->id;
+        $master = array(
+            'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
+            'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
+            'agama' => AgamaModel::where('row_status' , 'active')->get(),
+            'pekerjaan' => PekerjaanModel::where('row_status' , 'active')->get(),
+            'status_pegawai' => StatusPegawaiModel::where('row_status' , 'active')->get(),
+            'jenis_kelamin' => config('global.jenis_kelamin')
+        );
+        $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
+            ->join('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
+            ->join('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
+            ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
+            ->where('dosen.nik' , $nik)->first();
+        $sertifikasi = RiwayatSertifikasiModel::where('dosen_riwayat_sertifikasi.dosen_id' , $data['id'])->where('dosen_riwayat_sertifikasi.row_status' , 'active')->get();
+
+        return view('/data/dosen_sertifikasi' , compact('data' , 'master' , 'sertifikasi'));
+    }
+
+    public function penelitian_dosen(){
+        $nik = Auth::user()->id;
+        $master = array(
+            'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
+            'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
+            'agama' => AgamaModel::where('row_status' , 'active')->get(),
+            'pekerjaan' => PekerjaanModel::where('row_status' , 'active')->get(),
+            'status_pegawai' => StatusPegawaiModel::where('row_status' , 'active')->get(),
+            'jenis_kelamin' => config('global.jenis_kelamin')
+        );
+        $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
+            ->join('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
+            ->join('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
+            ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
+            ->where('dosen.nik' , $nik)->first();
+        $penelitian = RiwayatPenelitianModel::where('dosen_riwayat_penelitian.dosen_id' , $data['id'])->where('dosen_riwayat_penelitian.row_status' , 'active')->get();
+
+        return view('/data/dosen_penelitian' , compact('data' , 'master' , 'penelitian'));
+    }
+
+    public function fungsional_dosen(){
+        $nik = Auth::user()->id;
+        $master = array(
+            'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
+            'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
+            'agama' => AgamaModel::where('row_status' , 'active')->get(),
+            'pekerjaan' => PekerjaanModel::where('row_status' , 'active')->get(),
+            'status_pegawai' => StatusPegawaiModel::where('row_status' , 'active')->get(),
+            'jenis_kelamin' => config('global.jenis_kelamin')
+        );
+        $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
+            ->join('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
+            ->join('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
+            ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
+            ->where('dosen.nik' , $nik)->first();
+        $fungsional = RiwayatFungsionalModel::where('dosen_riwayat_fungsional.dosen_id' , $data['id'])->where('dosen_riwayat_fungsional.row_status' , 'active')->get();
+
+        return view('/data/dosen_fungsional' , compact('data' , 'master' , 'fungsional'));
     }
 }

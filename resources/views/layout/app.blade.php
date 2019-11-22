@@ -364,7 +364,7 @@
                 font-weight: 400;
             }
             .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__heading .kt-menu__link-text, .kt-aside-menu .kt-menu__nav > .kt-menu__item > .kt-menu__link .kt-menu__link-text {
-                color: #1a1b1a!important;
+                color: #1a1b1aba!important;
             }
         </style>
     <input type="hidden" id="csrf_" value="{{csrf_token()}} "/>
