@@ -11,19 +11,16 @@
         <div class="kt-container  kt-container--fluid ">
             <div class="kt-subheader__main">
                 <h3 class="kt-subheader__title">
-                    Flaticon </h3>
+                    Dosen </h3>
                 <span class="kt-subheader__separator kt-hidden"></span>
                 <div class="kt-subheader__breadcrumbs">
                     <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                     <span class="kt-subheader__breadcrumbs-separator"></span>
-                    <a href="" class="kt-subheader__breadcrumbs-link">
-                        Components </a>
+                    <a href="{{url('data/dosen')}}" class="kt-subheader__breadcrumbs-link">
+                        Daftar </a>
                     <span class="kt-subheader__breadcrumbs-separator"></span>
-                    <a href="" class="kt-subheader__breadcrumbs-link">
-                        Icons </a>
-                    <span class="kt-subheader__breadcrumbs-separator"></span>
-                    <a href="" class="kt-subheader__breadcrumbs-link">
-                        Flaticon </a>
+                    <a href="#" class="kt-subheader__breadcrumbs-link">
+                        Detail </a>
                 </div>
             </div>
             <div class="kt-subheader__toolbar">
@@ -432,62 +429,68 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label>Alamat *</label>
-                                                    <textarea type="text" class="form-control" name="dosen[alamat]" value="{{$data['alamat']}}" placeholder="Isikan Alamat"></textarea>
-                                                </div>
                                                 <div class="row">
                                                     <div class="col-xl-6">
+                                                        <div class="form-group">
+                                                            <label>Alamat *</label>
+                                                            <textarea type="text" class="form-control" name="dosen[alamat]" value="{{$data['alamat']}}" placeholder="Isikan Alamat"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-4">
                                                         <div class="form-group">
                                                             <label>Dusun</label>
                                                             <input type="text" class="form-control" name="dosen[dusun]" value="{{$data['dusun']}}" placeholder="Isikan Dusun">
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-6">
-                                                        <div class="form-group">
-                                                            <label>Kelurahan</label>
-                                                            <input type="text" class="form-control" name="dosen[kelurahan]" value="{{$data['kelurahan']}}"  placeholder="Isikan Kelurahan">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xl-6">
+                                                    <div class="col-xl-4">
                                                         <div class="form-group">
                                                             <label>RT</label>
                                                             <input type="text" class="form-control" name="dosen[rt]" value="{{$data['rt']}}"  placeholder="Isikan  RT">
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-6">
+                                                    <div class="col-xl-4">
                                                         <div class="form-group">
                                                             <label>RW</label>
                                                             <input type="text" class="form-control" name="dosen[rw]" value="{{$data['rw']}}"  placeholder="Isikan RW">
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="row">
-                                                    <div class="col-xl-6">
+                                                    <div class="col-xl-4">
                                                         <div class="form-group">
                                                             <label>Kecamatan</label>
                                                             <input type="text" class="form-control" name="dosen[kecamatan]" value="{{$data['kecamatan']}}" placeholder="Isikan Kecamatan">
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-6">
+                                                    <div class="col-xl-4">
+                                                        <div class="form-group">
+                                                            <label>Kelurahan</label>
+                                                            <input type="text" class="form-control" name="dosen[kelurahan]" value="{{$data['kelurahan']}}"  placeholder="Isikan Kelurahan">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
                                                         <div class="form-group">
                                                             <label>Kode Pos</label>
                                                             <input type="text" class="form-control" name="dosen[kode_pos]" value="{{$data['kode_pos']}}"  placeholder="Isikan Kode Pos">
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 <div class="row">
-                                                    <div class="col-xl-6">
+                                                    <div class="col-xl-4">
+                                                        <div class="form-group">
+                                                            <label>No Handphone</label>
+                                                            <input type="text" class="form-control" name="dosen[no_hp]" value="{{$data['no_hp']}}"  placeholder="Isikan Nomor Telepon">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
                                                         <div class="form-group">
                                                             <label>Telepon</label>
                                                             <input type="text" class="form-control" name="dosen[telepon]" value="{{$data['telepon']}}"  placeholder="Isikan Nomor Telepon">
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-6">
+                                                    <div class="col-xl-4">
                                                         <div class="form-group">
                                                             <label>Email</label>
                                                             <input type="text" class="form-control" name="dosen[email]" value="{{$data['email']}}"  placeholder="Isikan Email">
@@ -624,15 +627,14 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="kt-portlet__foot">
+                                <div class="kt-form__actions">
+                                    <button type="button" id="actionupdatedosen" class="btn btn-success pull-right">Submit</button>
+                                </div>
+                            </div>
                             <!--end::Portlet-->
                         </div>
-                        <div class="kt-portlet__foot">
-                            <div class="kt-form__actions">
-                                <button type="button" id="actionupdatedosen" class="btn btn-primary">Submit</button>
-                                <button type="reset" class="btn btn-secondary">Cancel</button>
-                            </div>
-                        </div>
+
                     </form>
                 </div>
             </div>

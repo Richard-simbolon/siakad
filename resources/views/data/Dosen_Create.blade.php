@@ -25,6 +25,13 @@
                         Tambah </a>
                 </div>
             </div>
+            <div class="kt-subheader__toolbar">
+                <div class="kt-subheader__wrapper">
+                    <a href="{{url('data/dosen')}}" class="btn btn-success">
+                        <i class="la la-bars"></i> Daftar Dosen &nbsp;
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
     <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
@@ -83,7 +90,7 @@
 
                                 <!--begin: Form Wizard Step 1 - Data Informasi Dasar-->
                                 <div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
-                                    <div class="kt-heading kt-heading--md">Formulir Informasi Dasar Dosen</div>
+                                    {{--<div class="kt-heading kt-heading--md">Formulir Informasi Dasar Dosen</div>--}}
                                     <div class="kt-form__section kt-form__section--first">
                                         <div class="kt-wizard-v3__form">
                                             <div class="row">
@@ -97,6 +104,20 @@
                                                     <div class="form-group">
                                                         <label>NIDN / NUP / NIDK</label>
                                                         <input type="text" class="form-control" name="dosen[nidn_nup_nidk]" placeholder="Isikan NIDN / NUP / NIDK">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <label>Email</label>
+                                                        <input type="text" class="form-control" name="mahasiswa[email]" placeholder="Isikan Email">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <label>No Handphone</label>
+                                                        <input type="text" class="form-control" name="mahasiswa[no_hp]" placeholder="Isikan Nomor HP">
                                                     </div>
                                                 </div>
                                             </div>
@@ -118,7 +139,7 @@
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Jenis Kelamin</label>
-                                                        <div class="kt-radio-inline">
+                                                        <div class="kt-radio-inline" style="padding-top: 9px;">
                                                             <label class="kt-radio">
                                                                 <input type="radio" name="dosen[jenis_kelamin]" value="laki-laki" checked=""> Laki-laki
                                                                 <span></span>
@@ -133,7 +154,7 @@
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Agama:</label>
-                                                        <select name="dosen[agama]" class="form-control">
+                                                        <select name="dosen[agama]" class="form-control kt-select2">
                                                             <option value="">Select</option>
                                                             @foreach ($master['agama'] as $item)
                                                                 <option value="{{$item['id']}}" > {{$item['title']}} </option>
@@ -150,38 +171,56 @@
 
                                 <!--begin: Form Wizard Step 2  - Data Alamat-->
                                 <div class="kt-wizard-v3__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
-                                    <div class="kt-heading kt-heading--md">Formulir Biodata Dosen</div>
+                                    {{--<div class="kt-heading kt-heading--md">Formulir Biodata Dosen</div>--}}
                                     <div class="kt-form__section kt-form__section--first">
                                         <div class="kt-wizard-v3__form">
-                                            <div class="form-group">
-                                                <label>Nama Ibu</label>
-                                                <input type="text" class="form-control" name="dosen[nama_ibu]" placeholder="Isikan Nama Ibu">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>NIK </label>
+                                                        <input type="text" class="form-control" name="dosen[nik]" placeholder="Isikan NIK">
+                                                        <span class="form-text text-muted">Nomor KTP tanpa tanda baca</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>Nama Ibu</label>
+                                                        <input type="text" class="form-control" name="dosen[nama_ibu]" placeholder="Isikan Nama Ibu">
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label>NIK </label>
-                                                <input type="text" class="form-control" name="dosen[nik]" placeholder="Isikan NIK">
-                                                <span class="form-text text-muted">Nomor KTP tanpa tanda baca</span>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>NIP </label>
+                                                        <input type="text" class="form-control" name="dosen[nip]" placeholder="Isikan NIP">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>NPWP </label>
+                                                        <input type="text" class="form-control" name="dosen[npwp]" placeholder="Isikan NPWP">
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label>NIP </label>
-                                                <input type="text" class="form-control" name="dosen[nip]" placeholder="Isikan NIP">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>NPWP </label>
-                                                <input type="text" class="form-control" name="dosen[npwp]" placeholder="Isikan NPWP">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Ikatan Kerja </label>
-                                                <input type="text" class="form-control" name="dosen[ikatan_kerja]" placeholder="Isikan Ikatan Kerja">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Status Pegawai </label>
-                                                <select name="dosen[status_pegawai]" class="form-control">
-                                                    <option value="">--Pilih Status--</option>
-                                                    @foreach ($master['status_pegawai'] as $item)
-                                                        <option value="{{$item['id']}}">{{$item['title']}}</option>
-                                                    @endforeach
-                                                </select>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>Ikatan Kerja </label>
+                                                        <input type="text" class="form-control" name="dosen[ikatan_kerja]" placeholder="Isikan Ikatan Kerja">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>Status Pegawai </label>
+                                                        <select name="dosen[status_pegawai]" class="form-control kt-select2">
+                                                            <option value="">--Pilih Status--</option>
+                                                            @foreach ($master['status_pegawai'] as $item)
+                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xl-6">
@@ -211,21 +250,35 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Lembaga Pengangkatan </label>
-                                                <input type="text" class="form-control" name="dosen[lembaga_pengangkatan]" placeholder="Isikan Lembaga Pengangkatan">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>Lembaga Pengangkatan </label>
+                                                        <input type="text" class="form-control" name="dosen[lembaga_pengangkatan]" placeholder="Isikan Lembaga Pengangkatan">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>Pangkat Golongan </label>
+                                                        <input type="text" class="form-control" name="dosen[pangkat_golongan]" placeholder="Isikan Pangkat Golongan">
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Pangkat Golongan </label>
-                                                <input type="text" class="form-control" name="dosen[pangkat_golongan]" placeholder="Isikan Pangkat Golongan">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>Sumber Gaji </label>
+                                                        <input type="text" class="form-control" name="dosen[sumber_gaji]" placeholder="Isikan Sumber Gaji">
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Sumber Gaji </label>
-                                                <input type="text" class="form-control" name="dosen[sumber_gaji]" placeholder="Isikan Sumber Gaji">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Jalan *</label>
-                                                <textarea type="text" class="form-control" name="dosen[alamat]" placeholder="Isikan Alamat"></textarea>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>Jalan *</label>
+                                                        <textarea type="text" class="form-control" name="dosen[alamat]" placeholder="Isikan Alamat"></textarea>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xl-4">
@@ -248,23 +301,26 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-xl-6">
+                                                <div class="col-xl-4">
+                                                    <div class="form-group">
+                                                        <label>Kecamatan</label>
+                                                        <input type="text" class="form-control" name="dosen[kecamatan]" placeholder="Isikan Kecamatan">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4">
                                                     <div class="form-group">
                                                         <label>Kelurahan</label>
                                                         <input type="text" class="form-control" name="dosen[kelurahan]" placeholder="Isikan Kelurahan">
                                                     </div>
                                                 </div>
-                                                <div class="col-xl-6">
+                                                <div class="col-xl-4">
                                                     <div class="form-group">
                                                         <label>Kode Pos</label>
                                                         <input type="text" class="form-control" name="dosen[kode_pos]" placeholder="Isikan Kode Pos">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Kecamatan</label>
-                                                <input type="text" class="form-control" name="dosen[kecamatan]" placeholder="Isikan Kecamatan">
-                                            </div>
+
                                             <div class="row">
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
@@ -272,17 +328,17 @@
                                                         <input type="text" class="form-control" name="dosen[telepon]" placeholder="Isikan Nomor Telepon">
                                                     </div>
                                                 </div>
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Kode Pos</label>
-                                                        <input type="text" class="form-control" name="dosen[no_hp]" placeholder="Isikan Nomor HP">
-                                                    </div>
-                                                </div>
+                                                {{--<div class="col-xl-6">--}}
+                                                    {{--<div class="form-group">--}}
+                                                        {{--<label>Kode Pos</label>--}}
+                                                        {{--<input type="text" class="form-control" name="dosen[no_hp]" placeholder="Isikan Nomor HP">--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
                                             </div>
-                                            <div class="form-group">
-                                                <label>Email</label>
-                                                <input type="text" class="form-control" name="dosen[email]" placeholder="Isikan Email">
-                                            </div>
+                                            {{--<div class="form-group">--}}
+                                                {{--<label>Email</label>--}}
+                                                {{--<input type="text" class="form-control" name="dosen[email]" placeholder="Isikan Email">--}}
+                                            {{--</div>--}}
                                         </div>
                                     </div>
                                 </div>
@@ -291,31 +347,43 @@
 
                                 <!--begin: Form Wizard Step 3 - Data Keluarga-->
                                 <div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
-                                    <div class="kt-heading kt-heading--md">Formulir Data Keluarga Dosen</div>
+                                    {{--<div class="kt-heading kt-heading--md">Formulir Data Keluarga Dosen</div>--}}
                                     <div class="kt-form__section kt-form__section--first">
                                         <div class="kt-wizard-v3__form">
                                             <div class="row">
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Status Pernikahan</label>
-                                                        <select name="keluarga[status_pernikahan]" class="form-control">
+                                                        <select name="keluarga[status_pernikahan]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Status Pernikahan --</option>
                                                             <option value="1">Belum Menikah</option>
                                                             <option value="2">Sudah Menikah</option>
                                                         </select>
                                                     </div>
+                                                </div>
+                                                <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Nama Suami / Istri</label>
                                                         <input type="text" class="form-control" name="keluarga[nama_pasangan]" placeholder="Isikan Nama Suami / Istri">
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>NIP Suami / Istri</label>
                                                         <input type="text" class="form-control" name="keluarga[nip_pasangan]" placeholder="Isikan Nama Suami / Istri">
                                                     </div>
+                                                </div>
+                                                <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>TMT PNS</label>
                                                         <input type="date" class="form-control" name="keluarga[tmt_pns]" placeholder="Isikan Tanggal Lahir">
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Pekerjaan</label>
                                                         <select name="keluarga[pekerjaan]" class="form-control">
@@ -325,17 +393,19 @@
                                                         </select>
                                                     </div>
                                                 </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                {{--</div>--}}
 
                                 <!--end: Form Wizard Step 3 - Data Orangtua -->
 
                                 <!--begin: Form Wizard Step 4 - Data wali-->
                                 <div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
-                                    <div class="kt-heading kt-heading--md">Daftar Kebutuhan Khusus</div>
+                                    {{--<div class="kt-heading kt-heading--md">Daftar Kebutuhan Khusus</div>--}}
                                     <div class="kt-form__section kt-form__section--first">
+                                        <br/><br/>
                                         <div class="kt-wizard-v3__review">
                                             <div class="kt-wizard-v3__review-item">
                                                 <div class="kt-wizard-v3__review-title">

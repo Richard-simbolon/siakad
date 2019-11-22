@@ -32,7 +32,6 @@
                     </a>
                 </div>
             </div>
-
         </div>
     </div>
     <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
@@ -49,7 +48,7 @@
                                     <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step" data-ktwizard-state="current">
                                         <div class="kt-wizard-v3__nav-body">
                                             <div class="kt-wizard-v3__nav-label">
-                                                <span><i class="flaticon-rotate"></i> </span> Informasi Dasar
+                                                <span><i class="flaticon2-user"></i> </span> Informasi Dasar
                                             </div>
                                             <div class="kt-wizard-v3__nav-bar"></div>
                                         </div>
@@ -96,7 +95,7 @@
                             <form class="kt-form form-add-mahasiswa" id="kt_form" >
                                 <!--begin: Form Wizard Step 1 - Data Informasi Dasar-->
                                 <div class="kt-wizard-v3__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
-                                    <div class="kt-heading kt-heading--md"><i class="flaticon2-writing"> </i> Formulir Informasi Dasar Mahasiwa</div>
+                                    {{--<div class="kt-heading kt-heading--md"><i class="flaticon2-writing"> </i> Formulir Informasi Dasar Mahasiwa</div>--}}
                                     <div class="kt-form__section kt-form__section--first">
                                         <div class="kt-wizard-v3__form">
                                             <div class="row">
@@ -149,6 +148,20 @@
                                             <div class="row">
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
+                                                        <label>Email</label>
+                                                        <input type="text" class="form-control" name="mahasiswa[email]" placeholder="Isikan Email">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
+                                                        <label>No Handphone</label>
+                                                        <input type="text" class="form-control" name="mahasiswa[no_hp]" placeholder="Isikan Nomor HP">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-6">
+                                                    <div class="form-group">
                                                         <label>Nama Lengkap</label>
                                                         <input type="text" class="form-control" name="mahasiswa[nama]" placeholder="isikan nama lengkap">
                                                     </div>
@@ -189,7 +202,7 @@
                                                 <div class="col-xl-6">
                                                     <div class="form-group form-group-last">
                                                         <label>Jenis Kelamin</label>
-                                                        <div class="kt-radio-inline">
+                                                        <div class="kt-radio-inline" style="padding-top: 9px!important;">
                                                             <label class="kt-radio">
                                                                 <input type="radio" name="mahasiswa[jk]" value="laki-laki" checked> Laki-laki
                                                                 <span></span>
@@ -312,25 +325,43 @@
 
                                 <!--begin: Form Wizard Step 2  - Data Alamat-->
                                 <div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
-                                    <div class="kt-heading kt-heading--md"><i class="flaticon2-writing"> </i> Formulir Data Alamat Mahasiswa</div>
+                                    {{--<div class="kt-heading kt-heading--md"><i class="flaticon2-writing"> </i> Formulir Data Alamat Mahasiswa</div>--}}
                                     <div class="kt-form__section kt-form__section--first">
                                         <div class="kt-wizard-v3__form">
-                                            <div class="form-group">
-                                                <label>NIK *</label>
-                                                <input type="text" class="form-control" name="mahasiswa[nik]" placeholder="Isikan NIK">
-                                                <span class="form-text text-muted">Nomor KTP tanpa tanda baca, Isikan Nomor Paspor untuk Warga Negara Asing</span>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>NIK *</label>
+                                                        <input type="text" class="form-control" name="mahasiswa[nik]" placeholder="Isikan NIK">
+                                                        <span class="form-text text-muted">Nomor KTP tanpa tanda baca, Isikan Nomor Paspor untuk Warga Negara Asing</span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>NISN</label>
+                                                        <input type="text" class="form-control" name="mahasiswa[nisn]" placeholder="Isikan NISN">
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label>NISN</label>
-                                                <input type="text" class="form-control" name="mahasiswa[nisn]" placeholder="Isikan NISN">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>Kewarganegaraan *</label>
+                                                        <input type="text" class="form-control" name="mahasiswa[kewarganegaraan]" placeholder="Isikan Kewarganegaraan">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Kewarganegaraan *</label>
-                                                <input type="text" class="form-control" name="mahasiswa[kewarganegaraan]" placeholder="Isikan Kewarganegaraan">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Jalan *</label>
-                                                <textarea type="text" class="form-control" name="mahasiswa[alamat]" placeholder="Isikan Alamat"></textarea>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>Jalan *</label>
+                                                        <textarea type="text" class="form-control" name="mahasiswa[alamat]" placeholder="Isikan Alamat"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xl-4">
@@ -353,23 +384,26 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-xl-6">
+                                                <div class="col-xl-4">
+                                                    <div class="form-group">
+                                                        <label>Kecamatan</label>
+                                                        <input type="text" class="form-control" name="mahasiswa[kecamatan]" placeholder="Isikan Kecamatan">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4">
                                                     <div class="form-group">
                                                         <label>Kelurahan</label>
                                                         <input type="text" class="form-control" name="mahasiswa[kelurahan]" placeholder="Isikan Kelurahan">
                                                     </div>
                                                 </div>
-                                                <div class="col-xl-6">
+                                                <div class="col-xl-4">
                                                     <div class="form-group">
                                                         <label>Kode Pos</label>
                                                         <input type="text" class="form-control" name="mahasiswa[kode_pos]" placeholder="Isikan Kode Pos">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label>Kecamatan</label>
-                                                <textarea type="text" class="form-control" name="mahasiswa[kecamatan]" placeholder="Isikan Kecamatan"></textarea>
-                                            </div>
+
                                             <div class="row">
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
@@ -384,15 +418,13 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
-                                                    <label class="select2-label">Alat Transpostrasi</label>
+                                                        <label class="select2-label">Alat Transpostrasi</label>
                                                         <select name="mahasiswa[alat_transportasi]" class="form-control kt-select2">
                                                             <option value="">-- Pilih Alat Transportasi --</option>
                                                             @foreach ($master['alat_transportasi'] as $item)
-                                                            <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -405,28 +437,25 @@
                                                         <input type="text" class="form-control" name="mahasiswa[no_telepon]" placeholder="Isikan Nomor Telepon">
                                                     </div>
                                                 </div>
-                                                <div class="col-xl-6">
-                                                    <div class="form-group">
-                                                        <label>Kode Pos</label>
-                                                        <input type="text" class="form-control" name="mahasiswa[no_hp]" placeholder="Isikan Nomor HP">
-                                                    </div>
-                                                </div>
+                                                {{--<div class="col-xl-6">--}}
+                                                    {{--<div class="form-group">--}}
+                                                        {{--<label>Kode Pos</label>--}}
+                                                        {{--<input type="text" class="form-control" name="mahasiswa[no_hp]" placeholder="Isikan Nomor HP">--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
                                             </div>
-                                            <div class="form-group">
-                                                <label>Email</label>
-                                                <input type="text" class="form-control" name="mahasiswa[email]" placeholder="Isikan Email">
-                                            </div>
-                                            <div class="row">
+
+                                            <div class="row form-group-last">
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Penerima KPS? *</label>
-                                                        <div class="kt-radio-inline">
+                                                        <div class="kt-radio-inline" style="padding-top: 9px;">
                                                             <label class="kt-radio">
-                                                                <input type="radio" name="mahasiswa[is_penerima_kps]" checked> Ya
+                                                                <input type="radio" name="mahasiswa[is_penerima_kps]"> Ya
                                                                 <span></span>
                                                             </label>
                                                             <label class="kt-radio">
-                                                                <input type="radio" name="mahasiswa[is_penerima_kps]"> Tidak
+                                                                <input type="radio" name="mahasiswa[is_penerima_kps]" checked> Tidak
                                                                 <span></span>
                                                             </label>
                                                         </div>
@@ -447,7 +476,7 @@
 
                                 <!--begin: Form Wizard Step 3 - Data Orangtua-->
                                 <div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
-                                    <div class="kt-heading kt-heading--md"><i class="flaticon2-writing"> </i> Formulir Data Orangtua Mahasiswa</div>
+                                    {{--<div class="kt-heading kt-heading--md"><i class="flaticon2-writing"> </i> Formulir Data Orangtua Mahasiswa</div>--}}
                                     <div class="kt-form__section kt-form__section--first">
                                         <div class="kt-wizard-v3__form">
                                         <div class="row">
@@ -545,7 +574,7 @@
 
                                 <!--begin: Form Wizard Step 4 - Data wali-->
                                 <div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
-                                    <div class="kt-heading kt-heading--md"><i class="flaticon2-writing"> </i> Formulir Data Wali Mahasiswa</div>
+                                    {{--<div class="kt-heading kt-heading--md"><i class="flaticon2-writing"> </i> Formulir Data Wali Mahasiswa</div>--}}
                                     <div class="kt-form__section kt-form__section--first">
                                         <div class="kt-wizard-v3__form">
                                             <div class="row">
@@ -607,10 +636,11 @@
 
                                 <!--begin: Form Wizard Step 5-->
                                 <div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
-                                    <div class="kt-heading kt-heading--md"><i class="flaticon2-writing"> </i> Daftar Kebutuhan Khusus</div>
+                                    {{--<div class="kt-heading kt-heading--md"><i class="flaticon2-writing"> </i> Daftar Kebutuhan Khusus</div>--}}
                                     <div class="kt-form__section kt-form__section--first">
                                         <div class="kt-wizard-v3__review">
                                             <div class="kt-wizard-v3__review-item">
+                                                <br/><br/>
                                                 <div class="kt-wizard-v3__review-title">
                                                     Mahasiswa
                                                 </div>

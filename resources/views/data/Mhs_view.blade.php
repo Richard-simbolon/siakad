@@ -11,19 +11,16 @@
         <div class="kt-container  kt-container--fluid ">
             <div class="kt-subheader__main">
                 <h3 class="kt-subheader__title">
-                    Flaticon </h3>
+                    Mahasiswa </h3>
                 <span class="kt-subheader__separator kt-hidden"></span>
                 <div class="kt-subheader__breadcrumbs">
                     <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                     <span class="kt-subheader__breadcrumbs-separator"></span>
-                    <a href="" class="kt-subheader__breadcrumbs-link">
-                        Components </a>
+                    <a href="{{url('data/mahasiswa')}}" class="kt-subheader__breadcrumbs-link">
+                        Daftar </a>
                     <span class="kt-subheader__breadcrumbs-separator"></span>
                     <a href="" class="kt-subheader__breadcrumbs-link">
-                        Icons </a>
-                    <span class="kt-subheader__breadcrumbs-separator"></span>
-                    <a href="" class="kt-subheader__breadcrumbs-link">
-                        Flaticon </a>
+                        Detail </a>
                 </div>
             </div>
             <div class="kt-subheader__toolbar">
@@ -291,13 +288,13 @@
                                         <div class="kt-portlet__head">
                                             <div class="kt-portlet__head-toolbar">
                                                 <ul class="nav nav-tabs nav-tabs-bold nav-tabs-line   nav-tabs-line-right nav-tabs-line-brand" role="tablist">
+                                                    {{--<li class="nav-item">--}}
+                                                        {{--<a class="nav-link active" data-toggle="tab" href="#kt_portlet_history_pendaftaran" role="tab">--}}
+                                                            {{--History Pendaftaran--}}
+                                                        {{--</a>--}}
+                                                    {{--</li>--}}
                                                     <li class="nav-item">
-                                                        <a class="nav-link active" data-toggle="tab" href="#kt_portlet_history_pendaftaran" role="tab">
-                                                            History Pendaftaran
-                                                        </a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" data-toggle="tab" href="#kt_portlet_alamat" role="tab">
+                                                        <a class="nav-link active" data-toggle="tab" href="#kt_portlet_alamat" role="tab">
                                                             Alamat
                                                         </a>
                                                     </li>
@@ -321,61 +318,61 @@
                                         </div>
                                         <div class="kt-portlet__body">
                                             <div class="tab-content">
-                                                <div class="tab-pane active" id="kt_portlet_history_pendaftaran">
-                                                    <div class="row">
-                                                        <div class="col-xl-6">
-                                                            <div class="form-group">
-                                                                <label>Jenis Pendaftaran *</label>
-                                                                <select name="mahasiswa[jenis_pendaftaran]"  class="form-control">
-                                                                    <option value="">-- Jenis Pendaftaran --</option>
-                                                                    @foreach ($master['jenis_pendaftaran'] as $item)
-                                                                        <option value="{{$item['id']}}" {{$item['id'] == $data['jenis_pendaftaran'] ? 'selected' : ''}} >{{$item['title']}}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-6">
-                                                            <div class="form-group">
-                                                                <label>Jalur Pendaftaran</label>
-                                                                <select name="mahasiswa[jalur_pendaftaran]" class="form-control">
-                                                                    <option value="">-- Jalur Pendaftaran --</option>
-                                                                    @foreach ($master['jalur_pendaftaran'] as $item)
-                                                                        <option value="{{$item['id']}}" {{$item['id'] == $data['jalur_pendaftaran'] ? 'selected' : ''}} >{{$item['title']}}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-xl-6">
-                                                            <div class="form-group">
-                                                                <label>Tanggal Masuk *</label>
-                                                            <input type="date" class="form-control" name="mahasiswa[tanggal_masuk]" placeholder="Tanggal Masuk" value="{{$data['tanggal_masuk']}}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xl-6">
-                                                            <div class="form-group">
-                                                                <label>Pembiayaan Awal</label>
-                                                                <select name="mahasiswa[jenis_pembiayaan]" class="form-control">
-                                                                    <option value="">-- Jenis Pembiayaan --</option>
-                                                                    @foreach ($master['jenis_pembiayaan'] as $item)
-                                                                        <option value="{{$item['id']}}" {{$item['id'] == $data['jenis_pembiayaan'] ? 'selected' : ''}} >{{$item['title']}}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-xl-6">
-                                                            <div class="form-group">
-                                                                <label>Biaya Masuk </label>
-                                                            <input type="text" class="form-control" name="mahasiswa[biaya_masuk]" placeholder="Isikan Biaya Masuk" value="{{$data['biaya_masuk']}}">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                {{--<div class="tab-pane active" id="kt_portlet_history_pendaftaran">--}}
+                                                    {{--<div class="row">--}}
+                                                        {{--<div class="col-xl-6">--}}
+                                                            {{--<div class="form-group">--}}
+                                                                {{--<label>Jenis Pendaftaran *</label>--}}
+                                                                {{--<select name="mahasiswa[jenis_pendaftaran]"  class="form-control">--}}
+                                                                    {{--<option value="">-- Jenis Pendaftaran --</option>--}}
+                                                                    {{--@foreach ($master['jenis_pendaftaran'] as $item)--}}
+                                                                        {{--<option value="{{$item['id']}}" {{$item['id'] == $data['jenis_pendaftaran'] ? 'selected' : ''}} >{{$item['title']}}</option>--}}
+                                                                    {{--@endforeach--}}
+                                                                {{--</select>--}}
+                                                            {{--</div>--}}
+                                                        {{--</div>--}}
+                                                        {{--<div class="col-xl-6">--}}
+                                                            {{--<div class="form-group">--}}
+                                                                {{--<label>Jalur Pendaftaran</label>--}}
+                                                                {{--<select name="mahasiswa[jalur_pendaftaran]" class="form-control">--}}
+                                                                    {{--<option value="">-- Jalur Pendaftaran --</option>--}}
+                                                                    {{--@foreach ($master['jalur_pendaftaran'] as $item)--}}
+                                                                        {{--<option value="{{$item['id']}}" {{$item['id'] == $data['jalur_pendaftaran'] ? 'selected' : ''}} >{{$item['title']}}</option>--}}
+                                                                    {{--@endforeach--}}
+                                                                {{--</select>--}}
+                                                            {{--</div>--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="row">--}}
+                                                        {{--<div class="col-xl-6">--}}
+                                                            {{--<div class="form-group">--}}
+                                                                {{--<label>Tanggal Masuk *</label>--}}
+                                                            {{--<input type="date" class="form-control" name="mahasiswa[tanggal_masuk]" placeholder="Tanggal Masuk" value="{{$data['tanggal_masuk']}}">--}}
+                                                            {{--</div>--}}
+                                                        {{--</div>--}}
+                                                        {{--<div class="col-xl-6">--}}
+                                                            {{--<div class="form-group">--}}
+                                                                {{--<label>Pembiayaan Awal</label>--}}
+                                                                {{--<select name="mahasiswa[jenis_pembiayaan]" class="form-control">--}}
+                                                                    {{--<option value="">-- Jenis Pembiayaan --</option>--}}
+                                                                    {{--@foreach ($master['jenis_pembiayaan'] as $item)--}}
+                                                                        {{--<option value="{{$item['id']}}" {{$item['id'] == $data['jenis_pembiayaan'] ? 'selected' : ''}} >{{$item['title']}}</option>--}}
+                                                                    {{--@endforeach--}}
+                                                                {{--</select>--}}
+                                                            {{--</div>--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="row">--}}
+                                                        {{--<div class="col-xl-6">--}}
+                                                            {{--<div class="form-group">--}}
+                                                                {{--<label>Biaya Masuk </label>--}}
+                                                            {{--<input type="text" class="form-control" name="mahasiswa[biaya_masuk]" placeholder="Isikan Biaya Masuk" value="{{$data['biaya_masuk']}}">--}}
+                                                            {{--</div>--}}
+                                                        {{--</div>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
 
-                                                <div class="tab-pane" id="kt_portlet_alamat">
+                                                <div class="tab-pane active" id="kt_portlet_alamat">
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
@@ -402,9 +399,13 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group">
-                                                        <label>Jalan *</label>
-                                                    <textarea type="text" class="form-control" name="mahasiswa[alamat]" placeholder="Isikan Alamat">{{$data['alamat']}}</textarea>
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label>Jalan *</label>
+                                                                <textarea type="text" class="form-control" name="mahasiswa[alamat]" placeholder="Isikan Alamat">{{$data['alamat']}}</textarea>
+                                                            </div>
+                                                        </div>
                                                     </div>
 
                                                     <div class="row">
@@ -428,24 +429,22 @@
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-xl-6">
+                                                        <div class="col-lg-4">
+                                                            <div class="form-group">
+                                                                <label>Kecamatan</label>
+                                                                <input type="text" class="form-control" name="mahasiswa[kecamatan]" placeholder="Isikan Kecamatan" value="{{$data['kecamatan']}}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-4">
                                                             <div class="form-group">
                                                                 <label>Kelurahan</label>
                                                                 <input type="text" class="form-control" name="mahasiswa[kelurahan]" placeholder="Isikan Kelurahan" value="{{$data['kelurahan']}}">
                                                             </div>
                                                         </div>
-                                                        <div class="col-xl-6">
+                                                        <div class="col-xl-4">
                                                             <div class="form-group">
                                                                 <label>Kode Pos</label>
                                                                 <input type="text" class="form-control" name="mahasiswa[kode_pos]" placeholder="Isikan Kode Pos" value="{{$data['kode_pos']}}">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-lg-6">
-                                                            <div class="form-group">
-                                                                <label>Kecamatan</label>
-                                                                <input type="text" class="form-control" name="mahasiswa[kecamatan]" placeholder="Isikan Kecamatan" value="{{$data['kecamatan']}}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -475,7 +474,6 @@
                                                         </div>
                                                     </div>
 
-
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
@@ -495,7 +493,7 @@
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
                                                                 <label>Penerima KPS? *</label>
-                                                                <div class="kt-radio-inline">
+                                                                <div class="kt-radio-inline" style="padding: 9px;">
                                                                     <label class="kt-radio">
                                                                         <input type="radio" name="mahasiswa[is_penerima_kps]" {{$data['is_penerima_kps'] == 1 ? 'checked' : ''}}> Ya
                                                                         <span></span>
@@ -751,11 +749,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="kt-portlet__foot">
-                                <div class="kt-form__actions">
-                                    <button type="button" id="updatemahasiswa" class="btn btn-primary">Submit</button>
-                                    <button type="reset" class="btn btn-secondary">Cancel</button>
+                                <div class="kt-portlet__foot">
+                                    <div class="kt-form__actions">
+                                        <button type="button" id="updatemahasiswa" class="btn btn-success pull-right">Submit</button>
+                                    </div>
                                 </div>
                             </div>
                             <!--end::Portlet-->
