@@ -280,18 +280,18 @@ class Mahasiswa extends Controller
         if(isset($data['step'])){
             if($data['step'] == '1'){
                 $validation = Validator::make($data['mahasiswa'], [
-                    'nama' => '',
-                    'nama_ibu' => '',
-                    'tempat_lahir' => '',
-                    'tanggal_lahir' => '',
-                    'jk' => '',
-                    'agama' => ''
+                    'nama' => 'required',
+                    'nama_ibu' => 'required',
+                    'tempat_lahir' => 'required',
+                    'tanggal_lahir' => 'required',
+                    'jk' => 'required',
+                    'agama' => 'required'
                 ]);
             }elseif($data['step'] == '2'){
                 $validation = Validator::make($data['mahasiswa'], [
-                    'nik' => '',
-                    'kewarganegaraan' => '',
-                    'alamat' => ''
+                    'nik' => 'required',
+                    'kewarganegaraan' => 'required',
+                    'alamat' => 'required'
                     /* 'nisn' => '',
                     'dusun' => '',
                     'rt' => '',

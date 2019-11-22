@@ -30,7 +30,7 @@ Route::post('/mahasiswa/paging_prestasi', 'Mahasiswa@paging_prestasi')->name('pa
 
 
 // Module Mahasiswa
-Route::get('/data/mahasiswa/profile', 'MahasiswaModule@profile')->name('profile');
+//Route::get('/data/mahasiswa/profile', 'MahasiswaModule@profile')->name('profile');
 Route::get('/data/mahasiswa/alamat', 'MahasiswaModule@alamat')->name('alamat');
 Route::get('/data/mahasiswa/orangtua', 'MahasiswaModule@orangtua')->name('orangtua');
 Route::get('/data/mahasiswa/wali', 'MahasiswaModule@wali')->name('wali');
@@ -39,6 +39,10 @@ Route::get('/data/mahasiswa/kebutuhankhusus', 'MahasiswaModule@kebutuhankhusus')
 Route::get('/data/mahasiswa/gantipassword', 'MahasiswaModule@gantipassword')->name('gantipassword');
 Route::post('/data/mahasiswa/submit_gantipassword', 'MahasiswaModule@submit_gantipassword')->name('submit_gantipassword');
 Route::post('/data/mahasiswa/prestasipaging', 'MahasiswaModule@prestasipaging')->name('prestasipaging');
+// KRS
+//Route::get('mahasiswa/krs', 'JadwalPerkuliahan@krs')->name('krs');
+//Route::get('mahasiswa/khs', 'JadwalPerkuliahan@khs')->name('khs');
+
 // MODULE MAHASISWA END
 
 
@@ -62,10 +66,6 @@ Route::post('dosen/tambah_r_fungsional', 'Dosen@tambah_r_fungsional')->name('tam
 Route::get('/data/dosen/getdosen_select2', 'Dosen@getdosen_select2')->name('getdosen_select2');
 
 
-// KRS
-Route::get('mahasiswa/krs', 'JadwalPerkuliahan@krs')->name('krs');
-
-Route::get('mahasiswa/khs', 'JadwalPerkuliahan@khs')->name('khs');
 
 
 Route::post('/master/kelas/edit', 'Kelas@edit')->name('edit');
@@ -129,13 +129,19 @@ foreach($results as $val){
         Route::get(strtolower($val->link).'/delete', $val->mval.'@'.'delete')->name($val->mval.'delete');
         Route::post(strtolower($val->link).'/delete', $val->mval.'@'.'delete')->name($val->mval.'delete');
         Route::post(strtolower($val->link).'/paging', $val->mval.'@'.'paging')->name('pagination');
+    }else if($val->crud == 2){
+        Route::get(strtolower($val->link), $val->mval)->name($val->mval);
     }else{
+        Route::get(strtolower($val->link), $val->mval.'@index')->name($val->mval);
         Route::get(strtolower($val->link), $val->mval.'@index')->name($val->mval);
         Route::post(strtolower($val->link).'/paging', $val->mval.'@'.'paging')->name('pagination');
     }
     
 }
 
+// ADMIN 
+Route::get('admin/jadwalkuliah', 'AdminJadwalPerkuliahan@index')->name('Jadwal Perkuliahan');
+Route::post('admin/jadwalkuliah/paging', 'AdminJadwalPerkuliahan@paging')->name('Jadwal Perkuliahan');
 
 Auth::routes();
 

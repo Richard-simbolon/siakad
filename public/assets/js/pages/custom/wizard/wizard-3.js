@@ -95,40 +95,53 @@ var KTWizard3 = function () {
 		var btn = formEl.find('[data-ktwizard-type="action-submit"]');
 		btn.on('click', function(e) {
             e.preventDefault();
-            $.ajax({
-                type:'POST',
-                url: url+'/save',
-                data:$('.'+form).serialize()+'&_token='+$('#csrf_').val(),
-                success: function(result) {
-                    var res = JSON.parse(result);
-                    //console.log(res);
-                    KTApp.unprogress(btn);
-                    //KTApp.unblock(formEl);
-                    if(res.status == 'false'){
-
-                        var text = '';
-
-                        $.each(res.message, function( index, value ) {
-
-                            text += '<p class="error">'+ value[0]+'</p>';
-                        });
-                        swal.fire({
-                            "title": "",
-                            "html": text,
-                            "type": "error",
-                            "confirmButtonClass": "btn btn-secondary"
-                        });
-
-                    }else{
-                        swal.fire({
-                            "title": "",
-                            "text": res.message,
-                            "type": res.status,
-                            "confirmButtonClass": "btn btn-secondary"
-                        });
-                    }
+            Swal.fire({
+                title: 'Tambah Mahasiswa',
+                text: "Pastikan semua data telah benar.",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#0abb87',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Simpan data!'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        type:'POST',
+                        url: url+'/save',
+                        data:$('.'+form).serialize()+'&_token='+$('#csrf_').val(),
+                        success: function(result) {
+                            var res = JSON.parse(result);
+                            //console.log(res);
+                            KTApp.unprogress(btn);
+                            //KTApp.unblock(formEl);
+                            if(res.status == 'false'){
+        
+                                var text = '';
+        
+                                $.each(res.message, function( index, value ) {
+        
+                                    text += '<p class="error">'+ value[0]+'</p>';
+                                });
+                                swal.fire({
+                                    "title": "",
+                                    "html": text,
+                                    "type": "error",
+                                    "confirmButtonClass": "btn btn-secondary"
+                                });
+        
+                            }else{
+                                swal.fire({
+                                    "title": "",
+                                    "text": res.message,
+                                    "type": res.status,
+                                    "confirmButtonClass": "btn btn-secondary"
+                                });
+                            }
+                        }
+                    });
+    
                 }
-            });
+            })
 		});
 	}
 

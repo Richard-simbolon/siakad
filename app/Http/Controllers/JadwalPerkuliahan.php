@@ -145,5 +145,22 @@ class JadwalPerkuliahan extends Controller
 
     }
 
+    public function jadwalujian()
+    {
+        
+        $semester_active = SemesterModel::where('status_semester' ,'enable')->first();
+        $mahasiswa = MahasiswaModel::where('nim' , Auth::user()->id)->first();
+        $data = JadwalPerkuliahanModel::where('kelas_id' , $mahasiswa->kelas_id)
+        ->where('semester_id' , $semester_active->id)
+        ->get();
+        $select2 = JadwalPerkuliahanModel::select('semester_id' ,'semseter_title')
+        ->where('kelas_id' , $mahasiswa->kelas_id)
+        ->groupBy('semester_id')
+        ->orderBy('semester_id' ,'ASC')
+        ->get();
+        $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+        return view("mahasiswa/JadwalUjian" , compact("data" , "title" ,"mahasiswa" ,'select2'));
+    }
+
 }
         

@@ -48,6 +48,35 @@
 
                         </a>
                     </li>
+
+                    <?php
+                        $resultss = DB::select('Select module.* , module_header.title as m_title from module 
+                                                LEFT JOIN module_header ON module_header.id = module.header_id
+                                                where module.status != 0 AND module.`header_id` IS NOT NULL order by module.header_id ASC ');
+                            $header = '';
+                        foreach($resultss as $val){
+                            if($header != $val->m_title){
+                                echo '  <li class="kt-menu__section ">
+                                            <h4 class="kt-menu__section-text">'.$val->m_title.'</h4>
+                                            <i class="kt-menu__section-icon flaticon-more-v2"></i>
+                                        </li>';
+                            }
+                                echo '
+                                <li class="kt-menu__item " aria-haspopup="true">
+                                    <a href="'.url(strtolower($val->link)).'" class="kt-menu__link ">
+                                        <span class="kt-menu__link-icon">
+                                                '.$val->icon.'
+                                        </span>
+                                        <span class="kt-menu__link-text">'.$val->description.'</span>
+                                    </a>
+                                </li>
+                                ';
+                                //echo '<li class="kt-menu__item " aria-haspopup="true"><a href="'.url(strtolower($val->link)).'" class="kt-menu__link "><i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i><span class="kt-menu__link-text">'.$val->description.'</span></a></li>';
+                            
+                            $header = $val->m_title;
+                        }
+                    ?>
+
                     <li class="kt-menu__section ">
                         <h4 class="kt-menu__section-text">Mahasiwa</h4>
                         <i class="kt-menu__section-icon flaticon-more-v2"></i>
@@ -368,7 +397,7 @@
                         </a>
                     </li>
                     <li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
-                        <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                        <a href="{{url('/data/jadwalujian')}}" class="kt-menu__link kt-menu__toggle">
                             <span class="kt-menu__link-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
                                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
