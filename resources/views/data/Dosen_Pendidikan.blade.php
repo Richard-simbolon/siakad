@@ -28,14 +28,7 @@
                         </div>
                     </div>
                     <div class="kt-subheader__toolbar">
-                        <div class="kt-subheader__wrapper">
-                            <div class="kt-portlet__head-toolbar">
-                                <a href="#" class="btn btn-label-success btn-sm btn-bold dropdown-toggle" data-toggle="dropdown">
-                                    <i class="kt-nav__link-icon flaticon2-layers-2"></i> Menu Lainnya
-                                </a>
-                                @include('layout.dosen_detail');
-                            </div>
-                        </div>
+                        @include('layout.dosen_detail')
                     </div>
                 </div>
             </div>
