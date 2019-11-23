@@ -12,7 +12,7 @@ var KTDashboard = function() {
         var config = {
             type: 'line',
             data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October"],
+                labels: ["January", "Februaryƒ", "March", "April", "May", "June", "July", "August", "September", "October"],
                 datasets: [{
                     label: "",
                     borderColor: color,
@@ -180,7 +180,7 @@ var KTDashboard = function() {
             data: {
                 datasets: [{
                     data: [
-                        35, 30, 35
+                        40, 30, 30
                     ],
                     backgroundColor: [
                         KTApp.getStateColor('success'),
@@ -231,6 +231,70 @@ var KTDashboard = function() {
         var ctx = KTUtil.getByID('kt_chart_profit_share').getContext('2d');
         var myDoughnut = new Chart(ctx, config);
     }
+
+    // var jumlahMahasiswa = function() {
+    //     if (!KTUtil.getByID('kt_chart_grafik_jumlah_mahasiswa')) {
+    //         return;
+    //     }
+    //
+    //     var randomScalingFactor = function() {
+    //         return Math.round(Math.random() * 100);
+    //     };
+    //
+    //     var config = {
+    //         type: 'doughnut',
+    //         data: {
+    //             datasets: [{
+    //                 data: [
+    //                     35, 65
+    //                 ],
+    //                 backgroundColor: [
+    //                     KTApp.getStateColor('success'),
+    //                     KTApp.getStateColor('danger')
+    //                 ]
+    //             }],
+    //             labels: [
+    //                 'Laki-laki',
+    //                 'Perempuan'
+    //             ]
+    //         },
+    //         options: {
+    //             cutoutPercentage: 75,
+    //             responsive: true,
+    //             maintainAspectRatio: false,
+    //             legend: {
+    //                 display: false,
+    //                 position: 'top',
+    //             },
+    //             title: {
+    //                 display: false,
+    //                 text: 'Technology'
+    //             },
+    //             animation: {
+    //                 animateScale: true,
+    //                 animateRotate: true
+    //             },
+    //             tooltips: {
+    //                 enabled: true,
+    //                 intersect: false,
+    //                 mode: 'nearest',
+    //                 bodySpacing: 5,
+    //                 yPadding: 10,
+    //                 xPadding: 10,
+    //                 caretPadding: 0,
+    //                 displayColors: false,
+    //                 backgroundColor: KTApp.getStateColor('brand'),
+    //                 titleFontColor: '#ffffff',
+    //                 cornerRadius: 4,
+    //                 footerSpacing: 0,
+    //                 titleSpacing: 0
+    //             }
+    //         }
+    //     };
+    //
+    //     var ctx = KTUtil.getByID('kt_chart_grafik_jumlah_mahasiswa').getContext('2d');
+    //     var myDoughnut = new Chart(ctx, config);
+    // }
 
     // Sales Stats.
     // Based on Chartjs plugin - http://www.chartjs.org/
@@ -643,30 +707,26 @@ var KTDashboard = function() {
 
     // Revenue Change.
     // Based on Morris plugin - http://morrisjs.github.io/morris.js/
-    var revenueChange = function() {
-        if ($('#kt_chart_revenue_change').length == 0) {
+    var jumlahMahasiswa = function() {
+        if ($('#kt_chart_grafik_jumlah_mahasiswa').length == 0) {
             return;
         }
 
         Morris.Donut({
-            element: 'kt_chart_revenue_change',
-            data: [{
-                    label: "New York",
-                    value: 10
-                },
-                {
-                    label: "London",
-                    value: 7
-                },
-                {
-                    label: "Paris",
-                    value: 20
-                }
-            ],
+            element: 'kt_chart_grafik_jumlah_mahasiswa',
+            // data: [{
+            //         label: "Laki-laki",
+            //         value: 10
+            //     },
+            //     {
+            //         label: "Perempuan",
+            //         value: 7
+            //     }
+            // ],
+            url : 'data/mahasiswa/grafik_mahasiswa',
             colors: [
                 KTApp.getStateColor('success'),
-                KTApp.getStateColor('danger'),
-                KTApp.getStateColor('brand')
+                KTApp.getStateColor('danger')
             ],
         });
     }
@@ -1869,164 +1929,6 @@ var KTDashboard = function() {
         });
     }
 
-    // Calendar Init
-    // var calendarInit = function() {
-    //     if ($('#kt_calendar').length === 0) {
-    //         return;
-    //     }
-    //
-    //     var todayDate = moment().startOf('day');
-    //     var YM = todayDate.format('YYYY-MM');
-    //     var YESTERDAY = todayDate.clone().subtract(1, 'day').format('YYYY-MM-DD');
-    //     var TODAY = todayDate.format('YYYY-MM-DD');
-    //     var TOMORROW = todayDate.clone().add(1, 'day').format('YYYY-MM-DD');
-    //
-    //     $('#kt_calendar').fullCalendar({
-    //         isRTL: KTUtil.isRTL(),
-    //         header: {
-    //             left: 'prev,next today',
-    //             center: 'title',
-    //             right: 'month,agendaWeek,agendaDay,listWeek'
-    //         },
-    //         editable: true,
-    //         eventLimit: true, // allow "more" link when too many events
-    //         navLinks: true,
-    //         defaultDate: moment('2017-09-15'),
-    //         events: [
-    //             {
-    //                 title: 'Meeting',
-    //                 start: moment('2017-08-28'),
-    //                 description: 'Lorem ipsum dolor sit incid idunt ut',
-    //                 className: "fc-event-light fc-event-solid-warning"
-    //             },
-    //             {
-    //                 title: 'Conference',
-    //                 description: 'Lorem ipsum dolor incid idunt ut labore',
-    //                 start: moment('2017-08-29T13:30:00'),
-    //                 end: moment('2017-08-29T17:30:00'),
-    //                 className: "fc-event-success"
-    //             },
-    //             {
-    //                 title: 'Dinner',
-    //                 start: moment('2017-08-30'),
-    //                 description: 'Lorem ipsum dolor sit tempor incid',
-    //                 className: "fc-event-light  fc-event-solid-danger"
-    //             },
-    //             {
-    //                 title: 'All Day Event',
-    //                 start: moment('2017-09-01'),
-    //                 description: 'Lorem ipsum dolor sit incid idunt ut',
-    //                 className: "fc-event-danger fc-event-solid-focus"
-    //             },
-    //             {
-    //                 title: 'Reporting',
-    //                 description: 'Lorem ipsum dolor incid idunt ut labore',
-    //                 start: moment('2017-09-03T13:30:00'),
-    //                 end: moment('2017-09-04T17:30:00'),
-    //                 className: "fc-event-success"
-    //             },
-    //             {
-    //                 title: 'Company Trip',
-    //                 start: moment('2017-09-05'),
-    //                 end: moment('2017-09-07'),
-    //                 description: 'Lorem ipsum dolor sit tempor incid',
-    //                 className: "fc-event-primary"
-    //             },
-    //             {
-    //                 title: 'ICT Expo 2017 - Product Release',
-    //                 start: moment('2017-09-09'),
-    //                 description: 'Lorem ipsum dolor sit tempor inci',
-    //                 className: "fc-event-light fc-event-solid-primary"
-    //             },
-    //             {
-    //                 title: 'Dinner',
-    //                 start: moment('2017-09-12'),
-    //                 description: 'Lorem ipsum dolor sit amet, conse ctetur'
-    //             },
-    //             {
-    //                 id: 999,
-    //                 title: 'Repeating Event',
-    //                 start: moment('2017-09-15T16:00:00'),
-    //                 description: 'Lorem ipsum dolor sit ncididunt ut labore',
-    //                 className: "fc-event-danger"
-    //             },
-    //             {
-    //                 id: 1000,
-    //                 title: 'Repeating Event',
-    //                 description: 'Lorem ipsum dolor sit amet, labore',
-    //                 start: moment('2017-09-18T19:00:00'),
-    //             },
-    //             {
-    //                 title: 'Conference',
-    //                 start: moment('2017-09-20T13:00:00'),
-    //                 end: moment('2017-09-21T19:00:00'),
-    //                 description: 'Lorem ipsum dolor eius mod tempor labore',
-    //                 className: "fc-event-success"
-    //             },
-    //             {
-    //                 title: 'Meeting',
-    //                 start: moment('2017-09-11'),
-    //                 description: 'Lorem ipsum dolor eiu idunt ut labore'
-    //             },
-    //             {
-    //                 title: 'Lunch',
-    //                 start: moment('2017-09-18'),
-    //                 className: "fc-event-info fc-event-solid-success",
-    //                 description: 'Lorem ipsum dolor sit amet, ut labore'
-    //             },
-    //             {
-    //                 title: 'Meeting',
-    //                 start: moment('2017-09-24'),
-    //                 className: "fc-event-warning",
-    //                 description: 'Lorem ipsum conse ctetur adipi scing'
-    //             },
-    //             {
-    //                 title: 'Happy Hour',
-    //                 start: moment('2017-09-24'),
-    //                 className: "fc-event-light fc-event-solid-focus",
-    //                 description: 'Lorem ipsum dolor sit amet, conse ctetur'
-    //             },
-    //             {
-    //                 title: 'Dinner',
-    //                 start: moment('2017-09-24'),
-    //                 className: "fc-event-solid-focus fc-event-light",
-    //                 description: 'Lorem ipsum dolor sit ctetur adipi scing'
-    //             },
-    //             {
-    //                 title: 'Birthday Party',
-    //                 start: moment('2017-09-24'),
-    //                 className: "fc-event-primary",
-    //                 description: 'Lorem ipsum dolor sit amet, scing'
-    //             },
-    //             {
-    //                 title: 'Company Event',
-    //                 start: moment('2017-09-24'),
-    //                 className: "fc-event-danger",
-    //                 description: 'Lorem ipsum dolor sit amet, scing'
-    //             },
-    //             {
-    //                 title: 'Click for Google',
-    //                 url: 'http://google.com/',
-    //                 start: moment('2017-09-26'),
-    //                 className: "fc-event-solid-info fc-event-light",
-    //                 description: 'Lorem ipsum dolor sit amet, labore'
-    //             }
-    //         ],
-    //
-    //         eventRender: function(event, element) {
-    //             if (element.hasClass('fc-day-grid-event')) {
-    //                 element.data('content', event.description);
-    //                 element.data('placement', 'top');
-    //                 KTApp.initPopover(element);
-    //             } else if (element.hasClass('fc-time-grid-event')) {
-    //                 element.find('.fc-title').append('<div class="fc-description">' + event.description + '</div>');
-    //             } else if (element.find('.fc-list-item-title').lenght !== 0) {
-    //                 element.find('.fc-list-item-title').append('<div class="fc-description">' + event.description + '</div>');
-    //             }
-    //         }
-    //     });
-    // }
-
     // Earnings Sliders
     var earningsSlide = function() {
         var carousel1 = $('#kt_earnings_widget .kt-widget30__head .owl-carousel');
@@ -2076,6 +1978,8 @@ var KTDashboard = function() {
     return {
         // Init demos
         init: function() {
+            //admin dashboard
+            jumlahMahasiswa();
             // init charts
             dailySales();
             profitShare();
@@ -2085,7 +1989,7 @@ var KTDashboard = function() {
             trendsStats();
             trendsStats2();
             latestTrendsMap();
-            revenueChange();
+            //revenueChange();
             supportCases();
             supportRequests();
             activitiesChart();

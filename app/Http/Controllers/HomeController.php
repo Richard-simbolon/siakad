@@ -39,16 +39,11 @@ class HomeController extends Controller
             return view('home', compact('data'));
         }else if(strtolower($login_type)=="dosen") {
             $data = DosenModel::where('nik' , '=',Auth::user()->id)
-//            ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')
-//            ->join('master_angkatan', 'master_angkatan.id', '=', 'mahasiswa.angkatan')
-//            ->join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
             ->select('dosen.*')
             ->first();
 
-            return view('home_dosen', compact('data'));
+            return view('home_admin', compact('data'));
         }
-        //$model= "app\\".ucfirst($login_type).'Model';
-        //$objModel = new $model;
 
         return view('home_admin', compact('data'));
     }

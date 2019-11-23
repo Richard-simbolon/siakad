@@ -697,4 +697,29 @@ public function profile()
 
     }
 
+    public function grafik_mahasiswa(){
+        $data = MahasiswaModel::where('row_status','active')
+            ->select('jk as label', DB::raw('count(id) as value'))
+            ->groupBy('jk')->get();
+
+        return json_encode($data);
+    }
+
+    public function grafik_jurusan(){
+        $data = MahasiswaModel::where('mahasiswa.row_status','active')
+            ->join('master_jurusan','master_jurusan.id', '=', 'mahasiswa.jurusan_id')
+            ->select('master_jurusan.title as label', DB::raw('count(mahasiswa.id) as value'))
+            ->groupBy('master_jurusan.title')->get();
+
+        return json_encode($data);
+    }
+
+    public function grafik_status(){
+        $data = MahasiswaModel::where('mahasiswa.row_status','active')
+            ->join('master_status_mahasiswa', 'master_status_mahasiswa.id', '=', 'mahasiswa.status')
+            ->select('master_status_mahasiswa.title as label', DB::raw('count(mahasiswa.id) as value'))
+            ->groupBy('master_status_mahasiswa.title')->get();
+
+        return json_encode($data);
+    }
 }

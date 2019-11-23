@@ -26,7 +26,9 @@ Route::get('admin/mahasiswa/khs/{id}', 'Mahasiswa@khs')->name('KRS mahasiswa');
 Route::get('admin/mahasiswa/krs/{id}', 'Mahasiswa@krs')->name('KHS mahasiswa');
 Route::post('/data/mahasiswa/save_prestasi', 'Mahasiswa@save_prestasi')->name('save prestasi');
 Route::post('/mahasiswa/paging_prestasi', 'Mahasiswa@paging_prestasi')->name('paging_prestasi');
-
+Route::get('/data/mahasiswa/grafik_mahasiswa', 'Mahasiswa@grafik_mahasiswa')->name('grafik_mahasiswa');
+Route::get('/data/mahasiswa/grafik_jurusan', 'Mahasiswa@grafik_jurusan')->name('grafik_jurusan');
+Route::get('/data/mahasiswa/grafik_status', 'Mahasiswa@grafik_status')->name('grafik_status');
 
 
 // Module Mahasiswa
@@ -70,6 +72,9 @@ Route::post('/data/dosen/submitbiodata', 'DosenModule@submitbiodata')->name('sub
 Route::post('/data/dosen/submitkeluarga', 'DosenModule@submitkeluarga')->name('submitkeluarga');
 Route::post('/data/dosen/submitkebutuhankhusus', 'DosenModule@submitkebutuhankhusus')->name('submitkebutuhankhusus');
 Route::post('/data/dosen/submit_gantipassword', 'DosenModule@submit_gantipassword')->name('submit_gantipassword');
+Route::get('/data/dosen/grafik_dosen', 'Dosen@grafik_dosen')->name('grafik_dosen');
+Route::get('/data/dosen/grafik_jurusan', 'Dosen@grafik_jurusan')->name('grafik_jurusan');
+Route::get('/data/dosen/grafik_status', 'Dosen@grafik_status')->name('grafik_status');
 
 Route::post('/data/dosen/update', 'Dosen@update')->name('update');
 Route::get('dosen/penugasan/{id}', 'Dosen@penugasan')->name('penugasan');
