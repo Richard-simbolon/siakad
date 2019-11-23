@@ -732,16 +732,7 @@ var KTDatatablesExtensionsResponsive = function() {
 					orderable: false,
 					render: function(data, type, full, meta) {
                     	return `
-                        <span class="dropdown">
-                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                            <i class="la la-edit"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="mahasiswa/edit/`+full.id+`"><i class="la la-edit"></i> Edit</a>
-                                <a class="dropdown-item" href="mahasiswa/view/`+full.id+`""><i class="la la-leaf"></i>Lihat</a>
-                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
-                            </div>
-                        </span>
+                        <a class="btn" href="mahasiswa/view/`+full.id+`""><i class="la la-edit"></i></a>
                         `;
 					},
                 },
@@ -913,18 +904,10 @@ var KTDatatablesExtensionsResponsive = function() {
 					targets: 7,
 					title: 'Actions',
 					orderable: false,
+                    className:"text-center",
 					render: function(data, type, full, meta) {
                     	return `
-                        <span class="dropdown">
-                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                            <i class="la la-edit"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="dosen/edit/`+full.id+`"><i class="la la-edit"></i> Edit</a>
-                                <a class="dropdown-item" href="dosen/view/`+full.id+`""><i class="la la-leaf"></i>Lihat</a>
-                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
-                            </div>
-                        </span>
+                        <a class="btn" href="dosen/view/`+full.id+`""><i class="la la-edit"></i></a>
                         `;
 					},
                 },
