@@ -73,7 +73,7 @@ Route::post('/data/dosen/submitkeluarga', 'DosenModule@submitkeluarga')->name('s
 Route::post('/data/dosen/submitkebutuhankhusus', 'DosenModule@submitkebutuhankhusus')->name('submitkebutuhankhusus');
 Route::post('/data/dosen/submit_gantipassword', 'DosenModule@submit_gantipassword')->name('submit_gantipassword');
 Route::get('/data/dosen/grafik_dosen', 'Dosen@grafik_dosen')->name('grafik_dosen');
-Route::get('/data/dosen/grafik_jurusan', 'Dosen@grafik_jurusan')->name('grafik_jurusan');
+Route::get('/data/dosen/grafik_jenis', 'Dosen@grafik_jenis')->name('grafik_jenis');
 Route::get('/data/dosen/grafik_status', 'Dosen@grafik_status')->name('grafik_status');
 
 Route::post('/data/dosen/update', 'Dosen@update')->name('update');

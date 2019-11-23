@@ -8,6 +8,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/master/agama/paging',
                 type:"POST",
@@ -56,6 +59,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/master/matakuliah/paging',
                 type:"POST",
@@ -121,6 +127,9 @@ var KTDatatablesExtensionsResponsive = function() {
                 responsive: true,
                 processing: true,
                 serverSide: true,
+                language:{
+                    url: '/assets/lang/id.json'
+                },
                 ajax: {
                     url:'/master/jenis/tinggal/paging',
                     type:"POST",
@@ -166,6 +175,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/master/alattransportasi/paging',
                 type:"POST",
@@ -216,6 +228,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/master/pendidikan/paging',
                 type:"POST",
@@ -266,6 +281,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/master/kebutuhankhusus/paging',
                 type:"POST",
@@ -314,6 +332,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/master/penghasilan/paging',
                 type:"POST",
@@ -363,6 +384,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/master/jurusan/paging',
                 type:"POST",
@@ -412,6 +436,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/master/jenispendaftaran/paging',
                 type:"POST",
@@ -468,6 +495,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/master/jalurpendaftaran/paging',
                 type:"POST",
@@ -524,6 +554,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/master/jenispembiayaan/paging',
                 type:"POST",
@@ -580,6 +613,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/master/asalprogramstudi/paging',
                 type:"POST",
@@ -637,6 +673,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/master/pekerjaan/paging',
                 type:"POST",
@@ -706,6 +745,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             "bFilter": true,
             ajax: {
                 url:'/data/mahasiswa/paging',
@@ -769,6 +811,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/master/angkatan/paging',
                 type:"POST",
@@ -818,6 +863,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/master/statusmahasiswa/paging',
                 type:"POST",
@@ -883,6 +931,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             "bFilter": true,
             ajax: {
                 url:'/data/dosen/paging',
@@ -943,6 +994,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/master/statuspegawai/paging',
                 type:"POST",
@@ -982,6 +1036,56 @@ var KTDatatablesExtensionsResponsive = function() {
 
     };
 
+    var jenispegawai = function(a) {
+
+        var table = $('#JenisPegawai');
+        // begin first table
+        table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
+            ajax: {
+                url:'/master/jenispegawai/paging',
+                type:"POST",
+                //data:{"_token": $('#csrf_').val(),'table':key},
+                data: function ( d ) {
+                    d.myKey = "myValue";
+                    d._token = $('#csrf_').val()
+                    // d.custom = $('#myInput').val();
+                    // etc
+                }
+            },
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                { data: 'title', name: 'title' },
+                { data: 'row_status', name: 'row_status' },
+                { defaultContent : '<td></td>'}
+            ],
+            columnDefs: [
+                {
+                    targets: 3,
+                    title: 'Actions',
+                    orderable: false,
+                    className: "text-center",
+                    render: function(data, type, full, meta) {
+                        return `
+                       <a class="btn btn-" href="jenispegawai/view/`+full.id+`"><i class="la la-edit"></i></a>
+                       `;
+                    },
+                },
+                {
+                    targets: 0,
+                    className: "text-center"
+                }
+            ],
+        });
+
+
+    };
+
     var initTableKelas = function(a) {
 
         var table = $('#Kelas');
@@ -991,6 +1095,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/master/kelas/paging',
                 type:"POST",
@@ -1037,6 +1144,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/data/aktivitasperkuliahan/paging',
                 type:"POST",
@@ -1079,6 +1189,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/master/semester/paging',
                 type:"POST",
@@ -1125,6 +1238,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/master/ruangan/paging',
                 type:"POST",
@@ -1177,6 +1293,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/master/jenismatakuliah/paging',
                 type:"POST",
@@ -1223,6 +1342,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/data/tugasakhir/paging',
                 type:"POST",
@@ -1271,6 +1393,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/data/kalenderakademik/paging',
                 type:"POST",
@@ -1342,6 +1467,9 @@ var KTDatatablesExtensionsResponsive = function() {
             responsive: true,
             processing: true,
             serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
             ajax: {
                 url:'/data/mahasiswa/prestasipaging',
                 type:"POST",
@@ -1416,6 +1544,7 @@ var KTDatatablesExtensionsResponsive = function() {
             initJenismatakuliah();
             initKalenderAkademik();
             initPrestasiMahasiswa();
+            jenispegawai();
 		},
 
 	};

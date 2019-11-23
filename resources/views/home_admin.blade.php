@@ -8,10 +8,11 @@
             <div class="kt-container  kt-container--fluid ">
                 <div class="kt-subheader__main">
                     <h3 class="kt-subheader__title">Dashboard</h3>
-                    <span class="kt-subheader__separator kt-subheader__separator--v"></span>
-                    <a href="" class="kt-subheader__breadcrumbs-link">
-                        Semester 2019/2020 Genap
-                    </a>
+                </div>
+                <div class="kt-subheader__toolbar">
+                    <div class="kt-subheader__wrapper">
+                        <a href="#" class="btn btn-label-success"> Semester 2019/2020 Genap</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -185,10 +186,10 @@
                                 <div class="kt-widget14">
                                     <div class="kt-widget14__header">
                                         <h3 class="kt-widget14__title">
-                                            Jenis Pegawai
+                                            Jenis Dosen
                                         </h3>
                                         <span class="kt-widget14__desc">
-                                            Grafik jumlah mahasiswa
+                                            Grafik jumlah berdasarkan jenis dosen
                                         </span>
                                     </div>
                                     <div class="kt-widget14__content">

@@ -97,7 +97,7 @@ function jumlahDosenJenis() {
     }
     $.ajax({
         type:'GET',
-        url:'/data/dosen/grafik_jurusan',
+        url:'/data/dosen/grafik_jenis',
         success:function(result) {
             Morris.Donut({
                 element: 'kt_chart_grafik_jumlah_dosen_jenis',

@@ -473,17 +473,17 @@ class Dosen extends Controller
         return json_encode($data);
     }
 
-//    public function grafik_jurusan(){
-//        $data = DosenModel::where('mahasiswa.row_status','active')
-//            ->join('master_jurusan','master_jurusan.id', '=', 'mahasiswa.jurusan_id')
-//            ->select('master_jurusan.title as label', DB::raw('count(mahasiswa.id) as value'))
-//            ->groupBy('master_jurusan.title')->get();
-//
-//        return json_encode($data);
-//    }
+    public function grafik_jenis(){
+        $data = DosenModel::where('dosen.row_status','active')
+            ->join('master_jenis_pegawai','master_jenis_pegawai.id', '=', 'dosen.jenis_pegawai')
+            ->select('master_jenis_pegawai.title as label', DB::raw('count(dosen.id) as value'))
+            ->groupBy('master_jenis_pegawai.title')->get();
+
+        return json_encode($data);
+    }
 
     public function grafik_status(){
-        $data = DosenModel::where('row_status','active')
+        $data = DosenModel::where('dosen.row_status','active')
             ->join('master_status_pegawai', 'master_status_pegawai.id', '=', 'dosen.status_pegawai')
             ->select('master_status_pegawai.title as label', DB::raw('count(dosen.id) as value'))
             ->groupBy('master_status_pegawai.title')->get();

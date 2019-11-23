@@ -14,7 +14,6 @@ var KTCalendarListView = function() {
             var calendarEl = document.getElementById('kt_calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
-
                 isRTL: KTUtil.isRTL(),
                 header: {
                     left: 'prev,next today',
