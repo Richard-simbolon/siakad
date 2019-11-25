@@ -102,7 +102,12 @@
                                                 <div class="form-group row">
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Jenis Pegawai</label>
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <input class="form-control" type="text" name="jenis_pegawai" value="{{$data['jenis_pegawai']}}">
+                                                        <select name="jenis_pegawai" class="form-control kt-select2">
+                                                            <option value="">--Pilih Status--</option>
+                                                            @foreach ($master['jenis_pegawai'] as $item)
+                                                                <option value="{{$item['id']}}" {{$item['id']==$data['jenis_pegawai']?"selected" : ""}}>{{$item['title']}}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">

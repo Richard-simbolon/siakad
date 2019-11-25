@@ -22,6 +22,11 @@ function jumlahMahasiswa() {
                 data: JSON.parse(result),
                 colors: [
                     KTApp.getStateColor('success'),
+                    KTApp.getStateColor('info'),
+                    KTApp.getStateColor('danger'),
+                    KTApp.getStateColor('brand'),
+                    KTApp.getStateColor('dark'),
+                    KTApp.getStateColor('warning'),
                     KTApp.getStateColor('danger')
                 ],
             });
@@ -42,8 +47,12 @@ function jumlahMahasiswaJurusan() {
                 data: JSON.parse(result),
                 colors: [
                     KTApp.getStateColor('success'),
+                    KTApp.getStateColor('info'),
                     KTApp.getStateColor('danger'),
-                    KTApp.getStateColor('warning')
+                    KTApp.getStateColor('brand'),
+                    KTApp.getStateColor('dark'),
+                    KTApp.getStateColor('warning'),
+                    KTApp.getStateColor('danger')
                 ],
             });
         }
@@ -63,6 +72,11 @@ function jumlahMahasiswaStatus() {
                 data: JSON.parse(result),
                 colors: [
                     KTApp.getStateColor('success'),
+                    KTApp.getStateColor('info'),
+                    KTApp.getStateColor('danger'),
+                    KTApp.getStateColor('brand'),
+                    KTApp.getStateColor('dark'),
+                    KTApp.getStateColor('warning'),
                     KTApp.getStateColor('danger')
                 ],
             });
@@ -84,6 +98,11 @@ function jumlahDosen() {
                 data: JSON.parse(result),
                 colors: [
                     KTApp.getStateColor('success'),
+                    KTApp.getStateColor('info'),
+                    KTApp.getStateColor('danger'),
+                    KTApp.getStateColor('brand'),
+                    KTApp.getStateColor('dark'),
+                    KTApp.getStateColor('warning'),
                     KTApp.getStateColor('danger')
                 ],
             });
@@ -104,8 +123,12 @@ function jumlahDosenJenis() {
                 data: JSON.parse(result),
                 colors: [
                     KTApp.getStateColor('success'),
+                    KTApp.getStateColor('info'),
                     KTApp.getStateColor('danger'),
-                    KTApp.getStateColor('warning')
+                    KTApp.getStateColor('brand'),
+                    KTApp.getStateColor('dark'),
+                    KTApp.getStateColor('warning'),
+                    KTApp.getStateColor('danger')
                 ],
             });
         }
@@ -125,6 +148,11 @@ function jumlahDosenStatus() {
                 data: JSON.parse(result),
                 colors: [
                     KTApp.getStateColor('success'),
+                    KTApp.getStateColor('info'),
+                    KTApp.getStateColor('danger'),
+                    KTApp.getStateColor('brand'),
+                    KTApp.getStateColor('dark'),
+                    KTApp.getStateColor('warning'),
                     KTApp.getStateColor('danger')
                 ],
             });

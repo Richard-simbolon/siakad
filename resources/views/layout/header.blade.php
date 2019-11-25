@@ -33,14 +33,14 @@
                                 <span class="btn btn-success btn-sm btn-bold btn-font-md">23 new</span>
                             </h3>
                             <ul class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-success kt-notification-item-padding-x" role="tablist">
+                                {{--<li class="nav-item">--}}
+                                    {{--<a class="nav-link active show" data-toggle="tab" href="#topbar_notifications_notifications" role="tab" aria-selected="true">Alerts</a>--}}
+                                {{--</li>--}}
                                 <li class="nav-item">
-                                    <a class="nav-link active show" data-toggle="tab" href="#topbar_notifications_notifications" role="tab" aria-selected="true">Alerts</a>
+                                    <a class="nav-link active show" data-toggle="tab" href="#topbar_notifications_events" role="tab" aria-selected="false">Agenda</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#topbar_notifications_events" role="tab" aria-selected="false">Events</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#topbar_notifications_logs" role="tab" aria-selected="false">Logs</a>
+                                    <a class="nav-link" data-toggle="tab" href="#topbar_notifications_logs" role="tab" aria-selected="false">History</a>
                                 </li>
                             </ul>
                         </div>
@@ -444,6 +444,19 @@
 
                     <!--begin: Navigation -->
                     <div class="kt-notification">
+                        <a href="/" class="kt-notification__item">
+                            <div class="kt-notification__item-icon">
+                                <i class="flaticon2-architecture-and-city kt-font-success"></i>
+                            </div>
+                            <div class="kt-notification__item-details">
+                                <div class="kt-notification__item-title kt-font-bold">
+                                    Dashboard
+                                </div>
+                                <div class="kt-notification__item-time">
+                                    Ubah data dan biodata
+                                </div>
+                            </div>
+                        </a>
                         <a href="custom/apps/user/profile-1/personal-information.html" class="kt-notification__item">
                             <div class="kt-notification__item-icon">
                                 <i class="flaticon2-calendar-3 kt-font-success"></i>
@@ -457,13 +470,25 @@
                                 </div>
                             </div>
                         </a>
-
+                        <a href="custom/apps/user/profile-1/personal-information.html" class="kt-notification__item">
+                            <div class="kt-notification__item-icon">
+                                <i class="flaticon2-menu-4 kt-font-success"></i>
+                            </div>
+                            <div class="kt-notification__item-details">
+                                <div class="kt-notification__item-title kt-font-bold">
+                                    Ganti Password
+                                </div>
+                                <div class="kt-notification__item-time">
+                                    Ubah password anda
+                                </div>
+                            </div>
+                        </a>
                         <div class="kt-notification__custom kt-space-between">
 
                             @guest
                             @else
                             <a href="{{ route('logout') }}"  onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();" class="btn btn-label btn-label-brand btn-sm btn-bold">Keluar</a>
+                            document.getElementById('logout-form').submit();" class="btn btn-label-success btn-sm btn-bold">Keluar</a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
