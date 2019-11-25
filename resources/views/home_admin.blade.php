@@ -46,16 +46,9 @@
                                         <div class="kt-widget14__legends">
                                             <div class="kt-widget14__legend">
                                                 <span class="kt-widget14__bullet kt-bg-primary"></span>
-                                                <span class="kt-widget14__stats">Total 12.000</span>
+                                                <span class="kt-widget14__stats" id="totalJumlahMahasiswa">0</span>
                                             </div>
-                                            <div class="kt-widget14__legend">
-                                                <span class="kt-widget14__bullet kt-bg-success"></span>
-                                                <span class="kt-widget14__stats">+10% Laki-laki</span>
-                                            </div>
-                                            <div class="kt-widget14__legend">
-                                                <span class="kt-widget14__bullet kt-bg-warning"></span>
-                                                <span class="kt-widget14__stats">-7% Perempuan</span>
-                                            </div>
+                                            <div id="sectionDataJumlahMahasiswa"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -83,16 +76,9 @@
                                         <div class="kt-widget14__legends">
                                             <div class="kt-widget14__legend">
                                                 <span class="kt-widget14__bullet kt-bg-primary"></span>
-                                                <span class="kt-widget14__stats">Total 12.000</span>
+                                                <span class="kt-widget14__stats" id="totalJumlahMahasiswaJurusan"></span>
                                             </div>
-                                            <div class="kt-widget14__legend">
-                                                <span class="kt-widget14__bullet kt-bg-success"></span>
-                                                <span class="kt-widget14__stats">+10% Laki-laki</span>
-                                            </div>
-                                            <div class="kt-widget14__legend">
-                                                <span class="kt-widget14__bullet kt-bg-warning"></span>
-                                                <span class="kt-widget14__stats">-7% Perempuan</span>
-                                            </div>
+                                            <div id="sectionDataJumlahMahasiswaJurusan"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -120,16 +106,9 @@
                                         <div class="kt-widget14__legends">
                                             <div class="kt-widget14__legend">
                                                 <span class="kt-widget14__bullet kt-bg-primary"></span>
-                                                <span class="kt-widget14__stats">Total 12.000</span>
+                                                <span class="kt-widget14__stats" id="totalJumlahMahasiswaStatus"></span>
                                             </div>
-                                            <div class="kt-widget14__legend">
-                                                <span class="kt-widget14__bullet kt-bg-success"></span>
-                                                <span class="kt-widget14__stats">+10% Laki-laki</span>
-                                            </div>
-                                            <div class="kt-widget14__legend">
-                                                <span class="kt-widget14__bullet kt-bg-warning"></span>
-                                                <span class="kt-widget14__stats">-7% Perempuan</span>
-                                            </div>
+                                            <div id="sectionDataJumlahMahasiswaStatus"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -163,16 +142,9 @@
                                         <div class="kt-widget14__legends">
                                             <div class="kt-widget14__legend">
                                                 <span class="kt-widget14__bullet kt-bg-primary"></span>
-                                                <span class="kt-widget14__stats">Total 12.000</span>
+                                                <span class="kt-widget14__stats" id="totalJumlahDosen">0</span>
                                             </div>
-                                            <div class="kt-widget14__legend">
-                                                <span class="kt-widget14__bullet kt-bg-success"></span>
-                                                <span class="kt-widget14__stats">+10% Laki-laki</span>
-                                            </div>
-                                            <div class="kt-widget14__legend">
-                                                <span class="kt-widget14__bullet kt-bg-warning"></span>
-                                                <span class="kt-widget14__stats">-7% Perempuan</span>
-                                            </div>
+                                            <div id="sectionDataJumlahDosen"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -199,16 +171,9 @@
                                         <div class="kt-widget14__legends">
                                             <div class="kt-widget14__legend">
                                                 <span class="kt-widget14__bullet kt-bg-primary"></span>
-                                                <span class="kt-widget14__stats">Total 12.000</span>
+                                                <span class="kt-widget14__stats" id="totalJumlahDosenJenis">0</span>
                                             </div>
-                                            <div class="kt-widget14__legend">
-                                                <span class="kt-widget14__bullet kt-bg-success"></span>
-                                                <span class="kt-widget14__stats">+10% Laki-laki</span>
-                                            </div>
-                                            <div class="kt-widget14__legend">
-                                                <span class="kt-widget14__bullet kt-bg-warning"></span>
-                                                <span class="kt-widget14__stats">-7% Perempuan</span>
-                                            </div>
+                                            <div id="sectionDataJumlahDosenJenis"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -236,16 +201,9 @@
                                         <div class="kt-widget14__legends">
                                             <div class="kt-widget14__legend">
                                                 <span class="kt-widget14__bullet kt-bg-primary"></span>
-                                                <span class="kt-widget14__stats">Total 12.000</span>
+                                                <span class="kt-widget14__stats" id="totalJumlahDosenStatus">0</span>
                                             </div>
-                                            <div class="kt-widget14__legend">
-                                                <span class="kt-widget14__bullet kt-bg-success"></span>
-                                                <span class="kt-widget14__stats">+10% Laki-laki</span>
-                                            </div>
-                                            <div class="kt-widget14__legend">
-                                                <span class="kt-widget14__bullet kt-bg-warning"></span>
-                                                <span class="kt-widget14__stats">-7% Perempuan</span>
-                                            </div>
+                                            <div id="sectionDataJumlahDosenStatus"></div>
                                         </div>
                                     </div>
                                 </div>

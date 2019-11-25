@@ -470,7 +470,9 @@ class Dosen extends Controller
             ->select('jenis_kelamin as label', DB::raw('count(id) as value'))
             ->groupBy('jenis_kelamin')->get();
 
-        return json_encode($data);
+        $count = DosenModel::where('row_status','active')->count();
+
+        return json_encode(["count" => $count, "data"=>$data]);
     }
 
     public function grafik_jenis(){
@@ -479,7 +481,9 @@ class Dosen extends Controller
             ->select('master_jenis_pegawai.title as label', DB::raw('count(dosen.id) as value'))
             ->groupBy('master_jenis_pegawai.title')->get();
 
-        return json_encode($data);
+        $count = DosenModel::where('row_status','active')->count();
+
+        return json_encode(["count" => $count, "data"=>$data]);
     }
 
     public function grafik_status(){
@@ -488,7 +492,9 @@ class Dosen extends Controller
             ->select('master_status_pegawai.title as label', DB::raw('count(dosen.id) as value'))
             ->groupBy('master_status_pegawai.title')->get();
 
-        return json_encode($data);
+        $count = DosenModel::where('row_status','active')->count();
+
+        return json_encode(["count" => $count, "data"=>$data]);
     }
 }
         
