@@ -11,7 +11,7 @@
             </div>
             <div class="kt-subheader__toolbar">
                 <div class="kt-subheader__wrapper">
-                    <a href="#" class="btn btn-label-success"> Semester 2019/2020 Genap</a>
+                    <a href="#" class="btn btn-label-success"> Semester {{$semester['title']}}</a>
                 </div>
             </div>
         </div>
@@ -52,7 +52,7 @@
                                     </div>
                                     <div class="kt-widget__info">
                                         <div class="kt-widget__desc" style="display: inline-block!important;width: 100%;">
-                                            Angkatan {{$data['tempat_lahir']}}, &nbsp; {{$data['tanggal_lahir']}} <br/> <br/>
+                                            {{$data['tempat_lahir']}}, &nbsp; {{$data['tanggal_lahir']}} <br/> <br/>
 
                                         </div>
                                         <div class="kt-widget__progress">
@@ -69,8 +69,8 @@
                                         <i class="flaticon-medal"></i>
                                     </div>
                                     <div class="kt-widget__details">
-                                        <span class="kt-widget__title">Total Matakuliah</span>
-                                        <span class="kt-widget__value">5</span>
+                                        <span class="kt-widget__title">Jumlah Matakuliah</span>
+                                        <span class="kt-widget__value">{{$matakuliah}}</span>
                                     </div>
                                 </div>
                                 <div class="kt-widget__item">
@@ -79,7 +79,7 @@
                                     </div>
                                     <div class="kt-widget__details">
                                         <span class="kt-widget__title">Jumlah SKS</span>
-                                        <span class="kt-widget__value">50</span>
+                                        <span class="kt-widget__value">{{$jumlah_sks}}</span>
                                     </div>
                                 </div>
                                 <div class="kt-widget__item">
@@ -88,7 +88,7 @@
                                     </div>
                                     <div class="kt-widget__details">
                                         <span class="kt-widget__title">Jumlah Kelas</span>
-                                        <span class="kt-widget__value">10</span>
+                                        <span class="kt-widget__value">{{$kelas}}</span>
                                     </div>
                                 </div>
                                 <div class="kt-widget__item">
@@ -97,7 +97,7 @@
                                     </div>
                                     <div class="kt-widget__details">
                                         <span class="kt-widget__title">Jenis Pegawai</span>
-                                        <span class="kt-widget__value">Kontrak</span>
+                                        <span class="kt-widget__value">{{$data['nama_jenis_pegawai']}}</span>
                                     </div>
                                 </div>
 
