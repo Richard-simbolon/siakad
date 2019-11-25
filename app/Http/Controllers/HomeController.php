@@ -42,7 +42,7 @@ class HomeController extends Controller
             ->select('dosen.*')
             ->first();
 
-            return view('home_admin', compact('data'));
+            return view('home_dosen', compact('data'));
         }
 
         return view('home_admin', compact('data'));

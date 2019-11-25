@@ -42,23 +42,22 @@
                                             <i class="flaticon2-correct"></i>
                                         </a>
                                         <div class="kt-widget__action">
-                                            {{--<button type="button" class="btn btn-label-success btn-sm btn-upper"><i class="fa fa-edit"></i> Ubah</button>&nbsp;--}}
-                                            <a href="{{url('data/mahasiswa/profile')}}" class="btn btn-label-success btn-sm btn-upper"><i class="fa fa-edit"></i> Ubah</a>&nbsp;
+                                            <a href="{{url('data/dosen/profile')}}" class="btn btn-label-success btn-sm btn-upper"><i class="fa fa-edit"></i> Ubah</a>&nbsp;
                                         </div>
                                     </div>
                                     <div class="kt-widget__subhead">
-                                        <a href="#"><i class="flaticon-user"></i>{{$data['nim']}}</a>
+                                        <a href="#"><i class="flaticon-user"></i>{{$data['nidn_nup_nidk']}}</a>
                                         <a href="#"><i class="flaticon2-new-email"></i>{{$data['email']}}</a>
-                                        <a href="#"><i class="flaticon2-calendar-3"></i>Kelas {{$data['kelas']}}</a>
+                                        <a href="#"><i class="flaticon2-calendar-3"></i>Status {{$data['status']}}</a>
                                     </div>
                                     <div class="kt-widget__info">
                                         <div class="kt-widget__desc" style="display: inline-block!important;width: 100%;">
-                                            Angkatan {{$data['angkatan']}} <br/> {{$data['jurusan']}} <br/>
+                                            Angkatan {{$data['tempat_lahir']}}, &nbsp; {{$data['tanggal_lahir']}} <br/> <br/>
 
                                         </div>
                                         <div class="kt-widget__progress">
                                             <div class="progress" style="height: 5px;width: 100%;">
-                                                <div class="progress-bar kt-bg-success" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div class="progress-bar kt-bg-success" role="progressbar" style="width: 100%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -70,17 +69,8 @@
                                         <i class="flaticon-medal"></i>
                                     </div>
                                     <div class="kt-widget__details">
-                                        <span class="kt-widget__title">IP Kumulatif</span>
-                                        <span class="kt-widget__value">3.51</span>
-                                    </div>
-                                </div>
-                                <div class="kt-widget__item">
-                                    <div class="kt-widget__icon">
-                                        <i class="flaticon-customer"></i>
-                                    </div>
-                                    <div class="kt-widget__details">
-                                        <span class="kt-widget__title">IP Semester</span>
-                                        <span class="kt-widget__value">3.90</span>
+                                        <span class="kt-widget__title">Total Matakuliah</span>
+                                        <span class="kt-widget__value">5</span>
                                     </div>
                                 </div>
                                 <div class="kt-widget__item">
@@ -88,8 +78,17 @@
                                         <i class="flaticon-calendar-with-a-clock-time-tools"></i>
                                     </div>
                                     <div class="kt-widget__details">
-                                        <span class="kt-widget__title">Total SKS</span>
-                                        <span class="kt-widget__value">130</span>
+                                        <span class="kt-widget__title">Jumlah SKS</span>
+                                        <span class="kt-widget__value">50</span>
+                                    </div>
+                                </div>
+                                <div class="kt-widget__item">
+                                    <div class="kt-widget__icon">
+                                        <i class="flaticon-customer"></i>
+                                    </div>
+                                    <div class="kt-widget__details">
+                                        <span class="kt-widget__title">Jumlah Kelas</span>
+                                        <span class="kt-widget__value">10</span>
                                     </div>
                                 </div>
                                 <div class="kt-widget__item">
@@ -97,8 +96,8 @@
                                         <i class="flaticon-time"></i>
                                     </div>
                                     <div class="kt-widget__details">
-                                        <span class="kt-widget__title">Sisa SKS</span>
-                                        <span class="kt-widget__value">10</span>
+                                        <span class="kt-widget__title">Jenis Pegawai</span>
+                                        <span class="kt-widget__value">Kontrak</span>
                                     </div>
                                 </div>
 
