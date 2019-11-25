@@ -1086,6 +1086,56 @@ var KTDatatablesExtensionsResponsive = function() {
 
     };
 
+    var sumbergaji = function(a) {
+
+        var table = $('#SumberGaji');
+        // begin first table
+        table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
+            ajax: {
+                url:'/master/sumbergaji/paging',
+                type:"POST",
+                //data:{"_token": $('#csrf_').val(),'table':key},
+                data: function ( d ) {
+                    d.myKey = "myValue";
+                    d._token = $('#csrf_').val()
+                    // d.custom = $('#myInput').val();
+                    // etc
+                }
+            },
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                { data: 'title', name: 'title' },
+                { data: 'row_status', name: 'row_status' },
+                { defaultContent : '<td></td>'}
+            ],
+            columnDefs: [
+                {
+                    targets: 3,
+                    title: 'Actions',
+                    orderable: false,
+                    className: "text-center",
+                    render: function(data, type, full, meta) {
+                        return `
+                       <a class="btn btn-" href="sumbergaji/view/`+full.id+`"><i class="la la-edit"></i></a>
+                       `;
+                    },
+                },
+                {
+                    targets: 0,
+                    className: "text-center"
+                }
+            ],
+        });
+
+
+    };
+
     var initTableKelas = function(a) {
 
         var table = $('#Kelas');
@@ -1545,6 +1595,7 @@ var KTDatatablesExtensionsResponsive = function() {
             initKalenderAkademik();
             initPrestasiMahasiswa();
             jenispegawai();
+            sumbergaji();
 		},
 
 	};

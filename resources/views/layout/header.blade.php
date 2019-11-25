@@ -457,7 +457,8 @@
                                 </div>
                             </div>
                         </a>
-                        <a href="custom/apps/user/profile-1/personal-information.html" class="kt-notification__item">
+                        @if(Auth::user()->login_type != 'admin')
+                        <a href="{{url('/data/'.Auth::user()->login_type .'/profile')}}" class="kt-notification__item">
                             <div class="kt-notification__item-icon">
                                 <i class="flaticon2-calendar-3 kt-font-success"></i>
                             </div>
@@ -470,7 +471,7 @@
                                 </div>
                             </div>
                         </a>
-                        <a href="custom/apps/user/profile-1/personal-information.html" class="kt-notification__item">
+                        <a href="{{url('/data/'.Auth::user()->login_type .'/gantipassword')}}" class="kt-notification__item">
                             <div class="kt-notification__item-icon">
                                 <i class="flaticon2-menu-4 kt-font-success"></i>
                             </div>
@@ -483,6 +484,7 @@
                                 </div>
                             </div>
                         </a>
+                        @endif
                         <div class="kt-notification__custom kt-space-between">
 
                             @guest
