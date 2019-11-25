@@ -40,7 +40,9 @@ class HomeController extends Controller
                 ->select('mahasiswa.id', 'mahasiswa.nik', 'mahasiswa.nama', 'mahasiswa.nim','mahasiswa.email','mahasiswa.angkatan', 'master_kelas.title as kelas', 'master_angkatan.title as angkatan', 'master_jurusan.title as jurusan')
                 ->first();
 
-            return view('home', compact('data'));
+            $semester = SemesterModel::where('status_semester','=', 'enable')->first();
+
+            return view('home', compact('data','semester'));
         }else if(strtolower($login_type)=="dosen") {
             $data = DosenModel::where('nik' , '=', Auth::user()->id)
                 ->join('master_jenis_pegawai', 'master_jenis_pegawai.id', '=', 'dosen.jenis_pegawai')
@@ -67,7 +69,7 @@ class HomeController extends Controller
                 $matkul = MataKuliahModel::where('id','=', $item['id'])->first();
                 $jumlah_sks += $matkul['bobot_mata_kuliah'];
             }
-            
+
             $kelas = KelasPerkuliahanModel::where('semester_id', $semester['id'])->where('kelas_perkuliahan_mata_kuliah.dosen_id', '=', $data['id'])
                 ->join('kelas_perkuliahan_mata_kuliah', 'kelas_perkuliahan_mata_kuliah.kelas_perkuliahan_id', '=', 'kelas_perkuliahan.id')
                 ->select('kelas_perkuliahan.kelas_id')

@@ -11,7 +11,7 @@
             </div>
             <div class="kt-subheader__toolbar">
                 <div class="kt-subheader__wrapper">
-                    <a href="#" class="btn btn-label-success"> Semester 2019/2020 Genap</a>
+                    <a href="#" class="btn btn-label-success"> Semester {{$semester['title']}}</a>
                 </div>
             </div>
         </div>
