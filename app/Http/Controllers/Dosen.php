@@ -212,7 +212,7 @@ class Dosen extends Controller
     }
 
     public function paging(Request $request){
-        return Datatables::of(DosenModel::join('master_agama', 'dosen.agama', '=', 'master_agama.id')
+        return Datatables::of(DosenModel::leftJoin('master_agama', 'dosen.agama', '=', 'master_agama.id')
         ->select("dosen.id" ,"master_agama.title as t_agama","nip" ,"nidn_nup_nidk", "agama" , "dosen.status","nama","tanggal_lahir","jenis_kelamin")->get())->addIndexColumn()->make(true);
     }
 

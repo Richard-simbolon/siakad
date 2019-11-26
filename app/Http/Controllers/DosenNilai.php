@@ -100,7 +100,7 @@ class DosenNilai extends Controller
     }
 
     public function edit($id){
-        $dosen_id = DosenModel::where('nik' , Auth::user()->id)->first();
+        $dosen_id = DosenModel::where('nidn_nup_nidk' , Auth::user()->id)->first();
         $data = DB::table('view_input_nilai_mahasiswa')->where('id' , $id)->first();
         if(!$data){
             return abort(404);
@@ -129,7 +129,7 @@ class DosenNilai extends Controller
         //print_r($request->all()); exit;
 
         $post= $request->all();
-        $id = DosenModel::where('nik' , Auth::user()->id)->first();
+        $id = DosenModel::where('nidn_nup_nidk' , Auth::user()->id)->first();
         $where = ['dosen_id' => $id->id ];
         foreach($post['filter'] as $key=>$val){
             if($val){
@@ -144,7 +144,7 @@ class DosenNilai extends Controller
     }
 
     public function profile(){
-        return DosenModel::where('nik' , Auth::user()->id)->first();
+        return DosenModel::where('nidn_nup_nidk' , Auth::user()->id)->first();
     }
 
 }

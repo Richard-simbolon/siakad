@@ -44,7 +44,7 @@ class HomeController extends Controller
 
             return view('home', compact('data','semester'));
         }else if(strtolower($login_type)=="dosen") {
-            $data = DosenModel::where('nik' , '=', Auth::user()->id)
+            $data = DosenModel::where('nidn_nup_nidk' , '=', Auth::user()->id)
                 ->join('master_jenis_pegawai', 'master_jenis_pegawai.id', '=', 'dosen.jenis_pegawai')
                 ->select('dosen.*','master_jenis_pegawai.title as nama_jenis_pegawai')
                 ->first();
