@@ -354,7 +354,7 @@
 			});
 		})
 		</script>
-        <script src="{{asset('assets/js/pages/dashboard.js')}}" type="text/javascript"></script>
+        {{----}}
         <style>
             .dataTable thead tr{
                 background-color:#4cad82!important;

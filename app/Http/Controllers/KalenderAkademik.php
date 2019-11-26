@@ -1,5 +1,6 @@
 <?php
             namespace App\Http\Controllers;
+            use Illuminate\Support\Facades\Auth;
             use Illuminate\Support\Facades\DB;
             use Illuminate\Support\Facades\Validator;
             use Illuminate\Http\Request;
@@ -178,7 +179,15 @@
                 }
 
                 public function paging(Request $request){
-                    return Datatables::of(KalenderAkademikModel::where('row_status', '!=', 'deleted')->get())->addIndexColumn()->make(true);
+                    $type = Auth::user()->login_type;
+                    if($type=='dosen'){
+                        return Datatables::of(KalenderAkademikModel::where('row_status', '!=', 'deleted')->whereIn('display' , ['dosen','semua'])->get())->addIndexColumn()->make(true);
+                    }else if($type == 'mahasiswa'){
+                        return Datatables::of(KalenderAkademikModel::where('row_status', '!=', 'deleted')->whereIn('display' , ['mahasiswa','semua'])->get())->addIndexColumn()->make(true);
+                    }else{
+                        return Datatables::of(KalenderAkademikModel::where('row_status', '!=', 'deleted')->get())->addIndexColumn()->make(true);
+                    }
+
                 }
 
             }

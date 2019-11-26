@@ -465,5 +465,36 @@ class Dosen extends Controller
         return json_encode($data);
     }
 
+    public function grafik_dosen(){
+        $data = DosenModel::where('row_status','active')
+            ->select('jenis_kelamin as label', DB::raw('count(id) as value'))
+            ->groupBy('jenis_kelamin')->get();
+
+        $count = DosenModel::where('row_status','active')->count();
+
+        return json_encode(["count" => $count, "data"=>$data]);
+    }
+
+    public function grafik_jenis(){
+        $data = DosenModel::where('dosen.row_status','active')
+            ->join('master_jenis_pegawai','master_jenis_pegawai.id', '=', 'dosen.jenis_pegawai')
+            ->select('master_jenis_pegawai.title as label', DB::raw('count(dosen.id) as value'))
+            ->groupBy('master_jenis_pegawai.title')->get();
+
+        $count = DosenModel::where('row_status','active')->count();
+
+        return json_encode(["count" => $count, "data"=>$data]);
+    }
+
+    public function grafik_status(){
+        $data = DosenModel::where('dosen.row_status','active')
+            ->join('master_status_pegawai', 'master_status_pegawai.id', '=', 'dosen.status_pegawai')
+            ->select('master_status_pegawai.title as label', DB::raw('count(dosen.id) as value'))
+            ->groupBy('master_status_pegawai.title')->get();
+
+        $count = DosenModel::where('row_status','active')->count();
+
+        return json_encode(["count" => $count, "data"=>$data]);
+    }
 }
         

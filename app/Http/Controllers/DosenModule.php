@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\DosenKeluargaModel;
 use App\DosenModel;
+use App\JenisPegawaiModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -107,6 +108,7 @@ class DosenModule extends Controller
         $master = array(
             'agama' => AgamaModel::where('row_status' , 'active')->get(),
             'status_pegawai' => StatusPegawaiModel::where('row_status' , 'active')->get(),
+            'jenis_pegawai'=> JenisPegawaiModel::where('row_status', 'active')->get()
         );
         $menu['submenu'] = "biodata";
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
