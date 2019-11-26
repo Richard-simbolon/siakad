@@ -117,7 +117,6 @@ class Dosen extends Controller
                 }
                 
                 $dosenid = DosenModel::create($data['dosen']);
-
             }
 
             if($dosenid->id != ''){
