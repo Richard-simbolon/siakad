@@ -1,27 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="00e87a05-a820-445b-ab4f-2023d057921c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DosenModule.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DosenModule.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DosenPembimbing.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DosenPembimbing.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/MahasiswaModule.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/MahasiswaModule.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/DosenModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/DosenModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/pages/dosen/absensi.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/pages/dosen/absensi.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/pages/profile/mahasiswa.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/pages/profile/mahasiswa.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/scripts.bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/scripts.bundle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/data/profile_mahasiswa.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/data/profile_mahasiswa.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layout/mahasiswa_profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layout/mahasiswa_profile.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_files.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_files.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_psr4.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_psr4.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_static.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/vendor/composer/installed.json" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/installed.json" afterDir="false" />
-    </list>
+    <list default="true" id="00e87a05-a820-445b-ab4f-2023d057921c" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +53,7 @@
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="720">
-              <caret line="183" column="8" selection-start-line="183" selection-start-column="8" selection-end-line="183" selection-end-column="8" />
+              <caret line="188" column="8" selection-start-line="188" selection-start-column="8" selection-end-line="188" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -297,6 +277,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2532189" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -416,7 +397,7 @@
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="720">
-          <caret line="183" column="8" selection-start-line="183" selection-start-column="8" selection-end-line="183" selection-end-column="8" />
+          <caret line="188" column="8" selection-start-line="188" selection-start-column="8" selection-end-line="188" selection-end-column="8" />
         </state>
       </provider>
     </entry>
