@@ -49,7 +49,9 @@ class JadwalPerkuliahan extends Controller
         ->orderBy('semester_id' ,'ASC')
         ->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        return view("mahasiswa/JadwalPerkuliahan" , compact("data" , "title" ,"mahasiswa" ,'select2'));
+        $semester = SemesterModel::where('status_semester','=', 'enable')->first();
+
+        return view("mahasiswa/JadwalPerkuliahan" , compact("data" , "title" ,"mahasiswa" ,'select2', 'semester'));
 
     }
     public function create(){

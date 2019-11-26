@@ -12,22 +12,22 @@
         <div class="kt-container  kt-container--fluid ">
             <div class="kt-subheader__main">
                 <h3 class="kt-subheader__title">
-                    Flaticon </h3>
+                    Mahasiswa </h3>
                 <span class="kt-subheader__separator kt-hidden"></span>
                 <div class="kt-subheader__breadcrumbs">
                     <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                     <span class="kt-subheader__breadcrumbs-separator"></span>
                     <a href="" class="kt-subheader__breadcrumbs-link">
-                        Components </a>
-                    <span class="kt-subheader__breadcrumbs-separator"></span>
-                    <a href="" class="kt-subheader__breadcrumbs-link">
-                        Icons </a>
-                    <span class="kt-subheader__breadcrumbs-separator"></span>
-                    <a href="" class="kt-subheader__breadcrumbs-link">
-                        Flaticon </a>
+                        Jadwal Perkuliahan </a>
+                </div>
+            </div>
+            <div class="kt-subheader__toolbar">
+                <div class="kt-subheader__wrapper">
+                    <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
                 </div>
             </div>
         </div>
+
     </div>
 
     <!-- end:: Subheader -->
@@ -102,15 +102,17 @@
                                 </div>
                             </div>
                             <br/>
-                            <div class="col-xl-6">
-                                <div class="form-group">
-                                    <label>Tahun Akademik</label>
-                                    <select id="jadwal_perkuliahan" name="angkatan_id" class="form-control kt-select2">
-                                        <option value="">Select</option>
-                                        @foreach ($select2 as $item)
-                                            <option value="{{$item['semester_id']}}" > {{$item['semseter_title']}} </option>
-                                        @endforeach
-                                    </select>
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <div class="form-group">
+                                        <label>Tahun Akademik</label>
+                                        <select id="jadwal_perkuliahan" name="angkatan_id" class="form-control kt-select2">
+                                            <option value="">Select</option>
+                                            @foreach ($select2 as $item)
+                                                <option value="{{$item['semester_id']}}" > {{$item['semseter_title']}} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <table class="dataTable table table-striped- table-bordered table-hover table-checkable" id="jadwalperkuliahandata">

@@ -197,7 +197,7 @@ class MahasiswaModule extends Controller
         $menu['submenu'] = "wali";
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
-        return view("data/mahasiswa_wali" , compact("data","orangtuawali", "title"  ,"exclude" ,"Tableshow", "master", "count", "wali", "menu"));
+        return view("data/mahasiswa_wali" , compact("data","orangtuawali", "title"  ,"exclude" ,"Tableshow", "master", "count", "menu"));
 
     }
 

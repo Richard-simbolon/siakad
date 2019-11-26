@@ -40,6 +40,9 @@ $(document).ready(function() {
         responsive: true,
         processing: true,
         serverSide: true,
+        language:{
+            url: '/assets/lang/id.json'
+        },
         ajax: {
             url:'jadwalkuliah/paging',
             type:"POST",

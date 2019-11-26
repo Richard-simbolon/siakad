@@ -9,6 +9,9 @@ var KTDatatablesAdvancedRowGrouping = function() {
 			responsive: true,
 			pageLength: 25,
 			order: [[5, 'desc']],
+			language:{
+				url: '/assets/lang/id.json'
+			},
 			drawCallback: function(settings) {
 				var api = this.api();
 				var rows = api.rows({page: 'current'}).nodes();

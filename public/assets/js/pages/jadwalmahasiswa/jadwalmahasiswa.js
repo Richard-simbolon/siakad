@@ -29,13 +29,16 @@ $(document).ready(function() {
             }
          });
     });
-    var hari  = ['-','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu'];
+    var hari  = ['-','SENIN','SELASA','RABU','KAMIS','JUMAT','SABTU','MINGGU'];
     //alert()
     $('#jadwalperkuliahandata').DataTable({
         "pageLength": 50,
         responsive: true,
         processing: true,
         serverSide: true,
+        language:{
+            url: '/assets/lang/id.json'
+        },
         ajax: {
             url:'jadwalperkuliahan/paging',
             type:"POST",
