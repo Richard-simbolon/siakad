@@ -9,17 +9,19 @@
                 <div class="kt-subheader__main">
                     <div class="kt-subheader__main">
                         <h3 class="kt-subheader__title">
-                            Akademik </h3>
+                            Dosen </h3>
                         <span class="kt-subheader__separator kt-hidden"></span>
                         <div class="kt-subheader__breadcrumbs">
                             <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="" class="kt-subheader__breadcrumbs-link">
-                                Kelas Perkuliahan</a>
-                            <span class="kt-subheader__breadcrumbs-separator"></span>
-                            <a href="{{url()->current()}}" class="kt-subheader__breadcrumbs-link">
-                                Daftar </a>
+                                Mahasiswa Tugas Akhir</a>
                         </div>
+                    </div>
+                </div>
+                <div class="kt-subheader__toolbar">
+                    <div class="kt-subheader__wrapper">
+                        <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
                     </div>
                 </div>
             </div>
@@ -38,7 +40,7 @@
                                     </g>
                                 </svg>
                                 <h3 class="kt-portlet__head-title">
-                                    &nbsp;Pembimbing Tugas Akhir
+                                    &nbsp;Pembimbing / Penguji Tugas Akhir
                                 </h3>
                             </div>
                         </div>

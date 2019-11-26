@@ -1,7 +1,7 @@
 <div class="kt-widget kt-widget--user-profile-1">
     <div class="kt-widget__head">
         <div class="kt-widget__media">
-            <img src="{{asset('assets/images/dosen').'/'.Auth::user()->id.'.jpg'}}" alt="image">
+            <img src="{{asset('assets/images/dosen').'/'.Auth::user()->id.'.jpg'}}" onError="this.onerror=null;this.src='{{asset('assets/media/users/default.jpg')}}'" alt="image">
         </div>
         <div class="kt-widget__content">
             <div class="kt-widget__section">

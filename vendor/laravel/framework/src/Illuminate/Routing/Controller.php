@@ -2,6 +2,7 @@
 
 namespace Illuminate\Routing;
 
+use App\SemesterModel;
 use BadMethodCallException;
 use File;
 use Illuminate\Support\Facades\Cache;
@@ -31,11 +32,14 @@ abstract class Controller
         
     }
     
-     public function generalsave($data)
+    public function generalsave($data)
     {
         print_r($data);
     }
 
+    public function getSemester(){
+        return SemesterModel::where('status_semester','=', 'enable')->first();
+    }
     public function generalcreate($data){
         return view('master/Agama');
     }
