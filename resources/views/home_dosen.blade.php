@@ -30,7 +30,7 @@
                         <div class="kt-widget kt-widget--user-profile-3">
                             <div class="kt-widget__top">
                                 <div class="kt-widget__media kt-hidden-">
-                                    <img src="assets/media/users/100_13.jpg" alt="image">
+                                    <img src="url({{asset('assets/images/dosen').'/'.Auth::user()->id.'.jpg'}}" alt="image">
                                 </div>
                                 <div class="kt-widget__pic kt-widget__pic--danger kt-font-danger kt-font-boldest kt-font-light kt-hidden">
                                     JM

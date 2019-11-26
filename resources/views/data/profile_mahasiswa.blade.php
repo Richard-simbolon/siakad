@@ -80,14 +80,14 @@
                                                                 <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg">
                                                                 <input type="hidden" name="file_upload" id="profile_mhs">
                                                             </label>
-                                                            <span class="kt-avatar__cancel" data-toggle="kt-tooltip" title="" data-original-title="Cancel avatar">
+                                                            <span class="kt-avatar__cancel" data-toggle="kt-tooltip" title="" data-original-title="Batalkan">
                                                                 <i class="fa fa-times"></i>
                                                             </span>
 
                                                             
                                                         </div>
                                                         <div class="kt-widget__action">
-                                                            <button type="button" id="button_upload" style="display:none;" class="btn btn-info btn-sm">upload</button>&nbsp;
+                                                            <button type="button" id="button_upload" style="display:none;" class="btn btn-success btn-sm">upload</button>&nbsp;
                                                         </div>
                                                     </div>
                                                 </div>

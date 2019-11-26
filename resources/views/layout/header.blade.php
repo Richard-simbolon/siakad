@@ -490,7 +490,7 @@
                             @guest
                             @else
                             <a href="{{ route('logout') }}"  onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();" class="btn btn-label-success btn-sm btn-bold">Keluar</a>
+                            document.getElementById('logout-form').submit();" class="btn btn-label-success btn-sm btn-bold pull-right">Keluar</a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
