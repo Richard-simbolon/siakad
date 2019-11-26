@@ -35,7 +35,7 @@ class DosenPembimbing extends Controller
 
     public function paging(Request $request){
         $post= $request->all();
-        $id = DosenModel::where('nik' , Auth::user()->id)->first();
+        $id = DosenModel::where('nidn_nup_nidk' , Auth::user()->id)->first();
         $where = ['dosen_id' => $id->id  , 'row_status' =>'active'];
         
             //print_r(Datatables::of(DB::table('view_input_nilai_mahasiswa')->where($where)->get())->make(true));

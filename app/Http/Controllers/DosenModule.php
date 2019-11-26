@@ -60,7 +60,7 @@ class DosenModule extends Controller
 
     public function profile()
     {
-        $data = DosenModel::where('nik' , '=',Auth::user()->id)->first();
+        $data = DosenModel::where('nidn_nup_nidk' , '=',Auth::user()->id)->first();
 
         $master = array(
             'agama' => AgamaModel::where('row_status' , 'active')->get()
@@ -75,7 +75,7 @@ class DosenModule extends Controller
     }
 
     public function get_id_dosen(){
-        $id = DosenModel::where('nik' , Auth::user()->id)->first();
+        $id = DosenModel::where('nidn_nup_nidk' , Auth::user()->id)->first();
         return $id->id;
     }
 
@@ -106,7 +106,7 @@ class DosenModule extends Controller
 
     public function biodata()
     {
-        $data = DosenModel::where('nik' , '=',Auth::user()->id)->first();
+        $data = DosenModel::where('nidn_nup_nidk' , '=',Auth::user()->id)->first();
 
         $master = array(
             'agama' => AgamaModel::where('row_status' , 'active')->get(),
@@ -161,7 +161,7 @@ class DosenModule extends Controller
 
     public function keluarga()
     {
-        $data = DosenModel::where('nik' , '=',Auth::user()->id)
+        $data = DosenModel::where('nidn_nup_nidk' , '=',Auth::user()->id)
             ->join('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
             ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan')
             ->first();
@@ -242,7 +242,7 @@ class DosenModule extends Controller
 
     public function gantipassword()
     {
-        $data = DosenModel::where('nik' , '=',Auth::user()->id)->first();
+        $data = DosenModel::where('nidn_nup_nidk' , '=',Auth::user()->id)->first();
 
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
 

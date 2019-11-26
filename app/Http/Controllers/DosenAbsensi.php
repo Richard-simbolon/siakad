@@ -93,7 +93,7 @@ class DosenAbsensi extends Controller
 
     public function view($id){
         //Cache::flush();
-        $dosen_id = DosenModel::where('nik' , Auth::user()->id)->first();
+        $dosen_id = DosenModel::where('nidn_nup_nidk' , Auth::user()->id)->first();
         $data = DB::table('view_input_nilai_mahasiswa')->where('id' , $id)->first();
         if(!$data){
             return abort(404);
@@ -243,7 +243,7 @@ class DosenAbsensi extends Controller
     public function update(Request $request){
         $post = $request->all();
 
-        $dosen_id = DosenModel::where('nik' , Auth::user()->id)->first();
+        $dosen_id = DosenModel::where('nidn_nup_nidk' , Auth::user()->id)->first();
         $data = DB::table('view_input_nilai_mahasiswa')->where('id' , $post['absensi'])->first();
         if(!$data){
             return abort(404);
@@ -307,7 +307,7 @@ class DosenAbsensi extends Controller
         //echo $id; exit;
 
         //Cache::flush();
-        $dosen_id = DosenModel::where('nik' , Auth::user()->id)->first();
+        $dosen_id = DosenModel::where('nidn_nup_nidk' , Auth::user()->id)->first();
         $data = DB::table('absensi_mahasiswa')
         ->join('view_input_nilai_mahasiswa' , 'view_input_nilai_mahasiswa.id' , '=' , 'absensi_mahasiswa.kelas_perkuliahan_detail_id')
         ->select('view_input_nilai_mahasiswa.dosen_id')
@@ -334,7 +334,7 @@ class DosenAbsensi extends Controller
 
     public function paging(Request $request){
         $post= $request->all();
-        $id = DosenModel::where('nik' , Auth::user()->id)->first();
+        $id = DosenModel::where('nidn_nup_nidk' , Auth::user()->id)->first();
         $where = ['dosen_id' => $id->id ];
         foreach($post['filter'] as $key=>$val){
             if($val){
