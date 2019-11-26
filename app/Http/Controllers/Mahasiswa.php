@@ -338,7 +338,24 @@ class Mahasiswa extends Controller
 
     }
 
-public function profile()
+    public function resetPassword(){
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $pass = array(); //remember to declare $pass as an array
+        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        $new_password = implode($pass);
+        $password['password'] = Hash::make($new_password);
+        if(MahasiswaModel::where('id' ,$this->get_id_mahasiswa())->update($password)){
+            return json_encode(["status"=> true, "message"=> $new_password]);
+        }else{
+            return json_encode(["status"=> false, "message"=> "Terjadi kesalahan saat mengubah data."]);
+        }
+    }
+
+    public function profile()
     {
         $data = MahasiswaModel::where('nim' , '=',Auth::user()->id)
             ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')

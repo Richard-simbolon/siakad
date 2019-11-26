@@ -852,10 +852,10 @@
             <div class="modal-body">
                 <p>Klik button "Atur Ulang" untuk membuat password baru</p>
                 <div class="form-group">
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" id="txt_new_password" style="font-size: 20px;">
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-success pull-right">Atur Ulang</button>
+                    <button type="button" class="btn btn-success pull-right" id="btn_reset_password">Atur Ulang</button>
                 </div>
             </div>
         </div>

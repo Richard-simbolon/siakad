@@ -124,6 +124,7 @@
                                     <i class="flaticon-more-1"></i>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-fit dropdown-menu-md">
+                                    <input type="hidden" value="{{$data['id']}}" id="id_to_delete">
                                     <!--begin::Nav-->
                                     <ul class="kt-nav">
                                         <li class="kt-nav__head">
@@ -144,12 +145,12 @@
                                                 <span class="kt-nav__link-text">Ubah Data</span>
                                             </a>
                                         </li>
-                                        <li class="kt-nav__item">
-                                            <a href="#" class="kt-nav__link" data-toggle="modal" data-target="#kt_modal_ubah_status">
-                                                <i class="kt-nav__link-icon flaticon2-contract"></i>
-                                                <span class="kt-nav__link-text">Ubah Status</span>
-                                            </a>
-                                        </li>
+                                        {{--<li class="kt-nav__item">--}}
+                                            {{--<a href="#" class="kt-nav__link" data-toggle="modal" data-target="#kt_modal_ubah_status">--}}
+                                                {{--<i class="kt-nav__link-icon flaticon2-contract"></i>--}}
+                                                {{--<span class="kt-nav__link-text">Ubah Status</span>--}}
+                                            {{--</a>--}}
+                                        {{--</li>--}}
                                         <li class="kt-nav__item">
                                             <a href="#" class="kt-nav__link" data-toggle="modal" data-target="#kt_modal_reset_password">
                                                 <i class="kt-nav__link-icon flaticon2-refresh"></i>
@@ -157,7 +158,7 @@
                                             </a>
                                         </li>
                                         <li class="kt-nav__item">
-                                            <a href="#" class="kt-nav__link"  data-toggle="modal" data-target="#kt_modal_hapus_data">
+                                            <a href="#" class="kt-nav__link" id="btn_hapus_dosen">
                                                 <i class="kt-nav__link-icon flaticon-delete"></i>
                                                 <span class="kt-nav__link-text">Hapus</span>
                                             </a>
@@ -268,7 +269,7 @@
                                                     <div class="col-xl-4">
                                                         <div class="form-group">
                                                             <label>Jenis Kelamin</label>
-                                                            <div class="kt-radio-inline">
+                                                            <div class="kt-radio-inline" style="padding-top: 9px;">
                                                                 <label class="kt-radio">
                                                                     <input type="radio" name="dosen[jenis_kelamin]" value="laki-laki" {{$data['jenis_kelamin'] == 'laki-laki' ? 'checked' :''}}> Laki-laki
                                                                     <span></span>
@@ -696,12 +697,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Klik button Generate untuk membuat password baru</p>
+                <p>Klik button "Atur Ulang" untuk membuat password baru</p>
                 <div class="form-group">
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" id="txt_new_password" style="font-size: 20px;">
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-success pull-right">Generate</button>
+                    <button type="button" class="btn btn-success pull-right" id="btn_reset_password">Atur Ulang</button>
                 </div>
             </div>
         </div>
@@ -734,7 +735,7 @@
     .m-content{width:100%;}
     </style>
 @section('js')
-
+    <script src="{{asset('assets/js/pages/dosen/dosen.js')}}" type="text/javascript"></script>
 @stop
 
 @endsection

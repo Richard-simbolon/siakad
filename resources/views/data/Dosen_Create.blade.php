@@ -268,7 +268,13 @@
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label>Sumber Gaji </label>
-                                                        <input type="text" class="form-control" name="dosen[sumber_gaji]" placeholder="Isikan Sumber Gaji">
+                                                        {{--<input type="text" class="form-control" name="dosen[sumber_gaji]" placeholder="Isikan Sumber Gaji">--}}
+                                                        <select name="dosen[sumber_gaji]" class="form-control kt-select2">
+                                                            <option value="">--Pilih Sumber Gaji--</option>
+                                                            @foreach ($master['sumber_gaji'] as $item)
+                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>

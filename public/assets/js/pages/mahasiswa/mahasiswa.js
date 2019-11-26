@@ -181,5 +181,37 @@ $(document).ready(function(){
 
         })
     });
+
+    $(document).on('click' , '#btn_reset_password' , function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        $.ajax({
+            type:'POST',
+            //dataType:'json',
+            url:'/data/mahasiswa/resetpassword',
+            data:{"id":$("#id_to_delete").val()},
+            success:function(result) {
+                var res = JSON.parse(result);
+                if(res.status == 'error'){
+                    var text = '';
+                    $.each(res.message, function( index, value ) {
+                        text += '<p class="error">'+ value[0]+'</p>';
+                    });
+                    swal.fire({
+                        "title": "",
+                        "html": text,
+                        "type": "error",
+                        "confirmButtonClass": "btn btn-secondary"
+                    });
+                }else{
+                    $("#txt_new_password").val(res.message);
+                }
+            }
+        });
+    });
+
 });
 
