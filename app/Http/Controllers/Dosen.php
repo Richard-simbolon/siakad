@@ -59,6 +59,39 @@ class Dosen extends Controller
 
     }
 
+    public function validatewizard(Request $request){
+        //print_r($request->all()); exit;
+        $data = $request->all();
+
+        if(isset($data['step'])){
+            if($data['step'] == '1'){
+                $validation = Validator::make($data['dosen'], [
+                    'nama' => 'required',
+                    'email' => 'required | email',
+                    'nidn_nup_nidk' => 'required'
+                ]);
+            }elseif($data['step'] == '2'){
+//                $validation = Validator::make($data['dosen'], [
+//                    'nik' => 'required',
+//                    'kewarganegaraan' => 'required',
+//                    'alamat' => 'required'
+//                ]);
+            }else{
+                $validation = Validator::make($data['dosen'], [
+
+                ]);
+            }
+            if ($validation->fails()) {
+                return json_encode(['status'=> 'false', 'message'=> $validation->messages()]);
+            }
+        }else{
+            return json_encode(['result' =>'false']);
+        }
+
+        return json_encode(['status'=> 'true', 'message'=> []]);
+    }
+
+
     public function save(Request $request){
         $data = $request->all();
 
@@ -110,7 +143,7 @@ class Dosen extends Controller
         } catch(\Exception $e){
             
             DB::rollBack(); 
-            //throw $e;
+            throw $e;
             return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan saat menyimpan, silahkan coba lagi.'));
         }
 

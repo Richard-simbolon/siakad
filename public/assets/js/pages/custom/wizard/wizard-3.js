@@ -21,7 +21,7 @@ var KTWizard3 = function () {
             var step = wizardObj.currentStep;
             $.ajax({
                 type:'POST',
-                url:'/data/mahasiswa/validatewizard',
+                url:url + '/validatewizard',
                 data:formEl.serialize()+'&step='+wizardObj.currentStep+'&_token='+$('#csrf_').val(),
                 success:function(result) {
                     var res = JSON.parse(result);
@@ -46,10 +46,6 @@ var KTWizard3 = function () {
                     }
                 }
             });
-            //KTUtil.scrollTop();
-			/*if (validator.form() !== true) {
-				wizardObj.stop();  // don't go to the next step
-			}*/
 		});
 
 		wizard.on('beforePrev', function(wizardObj) {

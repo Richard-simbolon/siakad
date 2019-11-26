@@ -77,6 +77,7 @@ Route::post('/data/dosen/submitpendidikan_dosen', 'DosenModule@submitpenugasan_d
 Route::post('/data/dosen/submitsertifikasi_dosen', 'DosenModule@submitpenugasan_dosen')->name('sertifikasi_dosen');
 //Route::post('/data/dosen/submitfungsional_dosen', 'DosenModule@submitpenugasan_dosen')->name('fungsional_dosen');
 Route::post('/data/dosen/submitpenelitian_dosen', 'DosenModule@submitpenugasan_dosen')->name('penelitian_dosen');
+Route::post('/data/dosen/validatewizard', 'dosen@validatewizard')->name('validate_wizard');
 
 Route::post('/data/dosen/modaledit', 'DosenModule@modaledit')->name('penelitian_dosen');
 

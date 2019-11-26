@@ -45,7 +45,7 @@
                                 <div class="kt-wizard-v3__nav-items kt-wizard-v3__nav-items--clickable">
 
                                     <!--doc: Replace A tag with SPAN tag to disable the step link click -->
-                                    <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step" data-ktwizard-state="done">
+                                    <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step" data-ktwizard-state="current">
                                         <div class="kt-wizard-v3__nav-body">
                                             <div class="kt-wizard-v3__nav-label">
                                                 <span><i class="flaticon-rotate"></i></span> Informasi Dasar
@@ -53,7 +53,7 @@
                                             <div class="kt-wizard-v3__nav-bar"></div>
                                         </div>
                                     </div>
-                                    <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step" data-ktwizard-state="current">
+                                    <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step" data-ktwizard-state="pending">
                                         <div class="kt-wizard-v3__nav-body">
                                             <div class="kt-wizard-v3__nav-label">
                                                 <span><i class="flaticon2-file"></i> </span> Biodata
@@ -69,7 +69,7 @@
                                             <div class="kt-wizard-v3__nav-bar"></div>
                                         </div>
                                     </div>
-                                    <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step" data-ktwizard-state="pending">
+                                    <div class="kt-wizard-v3__nav-item" data-ktwizard-type="step" data-ktwizard-state="done">
                                         <div class="kt-wizard-v3__nav-body">
                                             <div class="kt-wizard-v3__nav-label">
                                                 <span><i class="flaticon-bell"></i> </span> Kebutuhan Khusus
@@ -89,7 +89,7 @@
                             <form class="kt-form dosen-form" id="kt_form" novalidate="novalidate">
 
                                 <!--begin: Form Wizard Step 1 - Data Informasi Dasar-->
-                                <div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
+                                <div class="kt-wizard-v3__content" data-ktwizard-type="step-content"  data-ktwizard-state="current">
                                     {{--<div class="kt-heading kt-heading--md">Formulir Informasi Dasar Dosen</div>--}}
                                     <div class="kt-form__section kt-form__section--first">
                                         <div class="kt-wizard-v3__form">
@@ -111,13 +111,13 @@
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Email</label>
-                                                        <input type="text" class="form-control" name="mahasiswa[email]" placeholder="Isikan Email">
+                                                        <input type="text" class="form-control" name="dosen[email]" placeholder="Isikan Email">
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>No Handphone</label>
-                                                        <input type="text" class="form-control" name="mahasiswa[no_hp]" placeholder="Isikan Nomor HP">
+                                                        <input type="text" class="form-control" name="dosen[no_hp]" placeholder="Isikan Nomor HP">
                                                     </div>
                                                 </div>
                                             </div>
@@ -170,7 +170,7 @@
                                 <!--end: Form Wizard Step 1  - Data Informasi Dasar-->
 
                                 <!--begin: Form Wizard Step 2  - Data Alamat-->
-                                <div class="kt-wizard-v3__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
+                                <div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
                                     {{--<div class="kt-heading kt-heading--md">Formulir Biodata Dosen</div>--}}
                                     <div class="kt-form__section kt-form__section--first">
                                         <div class="kt-wizard-v3__form">
@@ -479,7 +479,7 @@
                                     <button class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit">
                                         Simpan <i class="la la-save"></i>
                                     </button>
-                                    <button class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next">
+                                    <button class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next">
                                         Selanjutnya <li class="la la-angle-right"></li>
                                     </button>
                                 </div>
@@ -505,8 +505,6 @@
 </script>
 
 @section('js')
-
-
 
 @stop
 
