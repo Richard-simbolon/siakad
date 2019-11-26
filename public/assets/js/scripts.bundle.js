@@ -410,10 +410,13 @@ var KTAvatar = function(elementId, options) {
 	            if (the.input && the.input.files && the.input.files[0]) {
 	                var reader = new FileReader();
 	                reader.onload = function(e) {
-	                    KTUtil.css(the.holder, 'background-image', 'url('+e.target.result +')');
+                        KTUtil.css(the.holder, 'background-image', 'url('+e.target.result +')');
+                        //console.log(e.target.result);
+                        $('#button_upload').show();
+                        $('#profile_mhs').val(e.target.result);
 	                }
 	                reader.readAsDataURL(the.input.files[0]);
-
+                    
 	                KTUtil.addClass(the.element, 'kt-avatar--changed');
 	            }
             });
@@ -424,7 +427,8 @@ var KTAvatar = function(elementId, options) {
 
 	            KTUtil.removeClass(the.element, 'kt-avatar--changed');
 	            KTUtil.css(the.holder, 'background-image', the.src);
-	            the.input.value = "";
+                the.input.value = "";
+                $('#button_upload').hide();
             });
         },
 

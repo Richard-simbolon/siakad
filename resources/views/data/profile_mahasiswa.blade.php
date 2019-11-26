@@ -74,14 +74,20 @@
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Photo</label>
                                                     <div class="col-lg-9 col-xl-6">
                                                         <div class="kt-avatar kt-avatar--outline" id="kt_user_avatar">
-                                                            <div class="kt-avatar__holder" style="background-image: url({{asset('assets/media/users/100_13.jpg')}})"></div>
+                                                            <div class="kt-avatar__holder" style="background-image: url({{asset('assets/images/mahasiswa').'/'.Auth::user()->id.'.jpg'}})"></div>
                                                             <label class="kt-avatar__upload" data-toggle="kt-tooltip" title="" data-original-title="Ganti photo">
                                                                 <i class="fa fa-pen"></i>
                                                                 <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg">
+                                                                <input type="hidden" name="file_upload" id="profile_mhs">
                                                             </label>
                                                             <span class="kt-avatar__cancel" data-toggle="kt-tooltip" title="" data-original-title="Cancel avatar">
                                                                 <i class="fa fa-times"></i>
                                                             </span>
+
+                                                            
+                                                        </div>
+                                                        <div class="kt-widget__action">
+                                                            <button type="button" id="button_upload" style="display:none;" class="btn btn-info btn-sm">upload</button>&nbsp;
                                                         </div>
                                                     </div>
                                                 </div>

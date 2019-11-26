@@ -164,5 +164,327 @@ $(document).ready(function() {
          });
     });
 
+    $(document).on('click' , '.tambah_penugasan_dosen' , function(){
+        $('#id_penugasan').val('');
+        $('#penugasanform')[0].reset();
+        $('#kt_modal_penugasan_data').modal('show');
+        
+    });
+
+    $(document).on('click' , '.call-modal-penugasan' , function(){
+       $('#id_penugasan').val($(this).attr('attr'));
+       $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        
+        $.ajax({
+            type:'POST',
+            //dataType:'json',
+            url:'/data/dosen/modaledit',
+            data:{id:$(this).attr('attr') , type:'penugasan'},
+            success:function(result) {
+                $("[name='tahun_ajaran']").val(result.tahun_ajaran);
+                $("[name='program_studi_id']").val(result.program_studi_id);
+                $("[name='no_surat_tugas']").val(result.no_surat_tugas);
+                $("[name='tanggal_surat_tugas']").val(result.tanggal_surat_tugas);
+                $("[name='tmt_surat_tugas']").val(result.tmt_surat_tugas);
+            }
+            
+        });
+        $('#kt_modal_penugasan_data').modal('show');
+    });
+    $(document).on('click' , '.dosensavepenugasan' , function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        $.ajax({
+            type:'POST',
+            //dataType:'json',
+            url:'/data/dosen/submitpenugasan_dosen',
+            data:$(this).closest('form').serialize(),
+            success:function(result) {
+                var res = JSON.parse(result);
+                if(res.status == 'error'){
+                    var text = '';
+                    $.each(res.msg, function( index, value ) {
+                        text += '<p class="error">'+ value[0]+'</p>';
+                    });
+                    swal.fire({
+                        "title": "",
+                        "html": text,
+                        "type": "error",
+                        "confirmButtonClass": "btn btn-secondary"
+                    });
+                }else{
+                    swal.fire({
+                        "title": "",
+                        "text": res.msg,
+                        "type": res.status,
+                        "confirmButtonClass": "btn btn-secondary"
+                    });
+                    location.reload();
+                }
+
+            }
+         });
+    });
+
+    // END PENUGASAN
+
+    $(document).on('click' , '.tambah_fungsional_dosen' , function(){
+        $('#id_fungsional').val('');
+        $('#penugasanform')[0].reset();
+        $('#kt_modal_penugasan_data').modal('show');
+        
+    });
+
+    $(document).on('click' , '.delete_item' , function(){
+        var _this = $(this).attr('attr');
+        var tr = $(this).closest('tr');
+        var type = $(this).attr('type');
+        Swal.fire({
+            title: 'Hapus Data',
+            text: "Anda Yakin ? Data akan dihapus dari tabel.",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#08976d',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus'
+          }).then((result) => {
+                if (result.value) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('#csrf_').val()
+                        }
+                    });
+                    $.ajax({
+                        type:'POST',
+                        //dataType:'json',
+                        url:'/data/dosen/modaledit',
+                        data:{id:_this , type:type , 'status':'delete'},
+                        success:function(response) {
+                            var res = JSON.parse(response);
+                            //console.log(res);
+                            if(res.status == 'error'){
+                                var text = '';
+                                $.each(res.message, function( index, value ) {
+                                    text += '<p class="error">'+ value[0]+'</p>';
+                                });
+                                swal.fire({
+                                    "title": "",
+                                    "html": text,
+                                    "type": "error",
+                                    "confirmButtonClass": "btn btn-secondary"
+                                });
+                            }else{
+                                swal.fire({
+                                    "title": "",
+                                    "text": res.message,
+                                    "type": res.status,
+                                    "confirmButtonClass": "btn btn-secondary"
+                                });
+                                tr.remove();
+                            }
+            
+                        }
+                    });
+                }
+            
+          })
+    
+    });
+    
+    $(document).on('click' , '.call-modal-fungsional' , function(){
+       $('#id_fungsional').val($(this).attr('attr'));
+       $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        
+        $.ajax({
+            type:'POST',
+            //dataType:'json',
+            url:'/data/dosen/modaledit',
+            data:{id:$(this).attr('attr') , type:'fungsional'},
+            success:function(result) {
+                //console.log(result);
+                $("[name='jabatan']").val(result.jabatan);
+                $("[name='sk_jabatan']").val(result.sk_jabatan);
+                $("[name='tmt_jabatan']").val(result.tmt_jabatan);
+            }
+            
+        });
+        $('#kt_modal_penugasan_data').modal('show');
+    });
+    $(document).on('click' , '.dosensavefungsional' , function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        $.ajax({
+            type:'POST',
+            //dataType:'json',
+            url:'/data/dosen/submitfungsional_dosen',
+            data:$(this).closest('form').serialize(),
+            success:function(result) {
+                var res = JSON.parse(result);
+                if(res.status == 'error'){
+                    var text = '';
+                    $.each(res.msg, function( index, value ) {
+                        text += '<p class="error">'+ value[0]+'</p>';
+                    });
+                    swal.fire({
+                        "title": "",
+                        "html": text,
+                        "type": "error",
+                        "confirmButtonClass": "btn btn-secondary"
+                    });
+                }else{
+                    swal.fire({
+                        "title": "",
+                        "text": res.msg,
+                        "type": res.status,
+                        "confirmButtonClass": "btn btn-secondary"
+                    });
+                    location.reload();
+                }
+
+            }
+         });
+    });
+
+    //END FUNGSIONAL
+
+
+    $(document).on('click' , '.tambah_pengangkatan_dosen' , function(){
+        $('#id_pengangkatan').val('');
+        $('#penugasanform')[0].reset();
+        $('#kt_modal_penugasan_data').modal('show');
+        
+    });
+
+    $(document).on('click' , '.delete_item' , function(){
+        var _this = $(this).attr('attr');
+        var tr = $(this).closest('tr');
+        var type = $(this).attr('type');
+        Swal.fire({
+            title: 'Hapus Data',
+            text: "Anda Yakin ? Data akan dihapus dari tabel.",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#08976d',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus'
+          }).then((result) => {
+                if (result.value) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('#csrf_').val()
+                        }
+                    });
+                    $.ajax({
+                        type:'POST',
+                        //dataType:'json',
+                        url:'/data/dosen/modaledit',
+                        data:{id:_this , type:type , 'status':'delete'},
+                        success:function(response) {
+                            var res = JSON.parse(response);
+                            //console.log(res);
+                            if(res.status == 'error'){
+                                var text = '';
+                                $.each(res.message, function( index, value ) {
+                                    text += '<p class="error">'+ value[0]+'</p>';
+                                });
+                                swal.fire({
+                                    "title": "",
+                                    "html": text,
+                                    "type": "error",
+                                    "confirmButtonClass": "btn btn-secondary"
+                                });
+                            }else{
+                                swal.fire({
+                                    "title": "",
+                                    "text": res.message,
+                                    "type": res.status,
+                                    "confirmButtonClass": "btn btn-secondary"
+                                });
+                                tr.remove();
+                            }
+            
+                        }
+                    });
+                }
+            
+          })
+    
+    });
+    
+    $(document).on('click' , '.call-modal-pengangkatan' , function(){
+       $('#id_pengangkatan').val($(this).attr('attr'));
+       $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        
+        $.ajax({
+            type:'POST',
+            //dataType:'json',
+            url:'/data/dosen/modaledit',
+            data:{id:$(this).attr('attr') , type:'pengangkatan'},
+            success:function(result) {
+                //console.log(result);
+                $("[name='jabatan']").val(result.jabatan);
+                $("[name='sk_jabatan']").val(result.sk_jabatan);
+                $("[name='tmt_jabatan']").val(result.tmt_jabatan);
+            }
+            
+        });
+        $('#kt_modal_penugasan_data').modal('show');
+    });
+    $(document).on('click' , '.dosensavekepangkatan' , function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        $.ajax({
+            type:'POST',
+            //dataType:'json',
+            url:'/data/dosen/submitpengangkatan_dosen',
+            data:$(this).closest('form').serialize(),
+            success:function(result) {
+                var res = JSON.parse(result);
+                if(res.status == 'error'){
+                    var text = '';
+                    $.each(res.msg, function( index, value ) {
+                        text += '<p class="error">'+ value[0]+'</p>';
+                    });
+                    swal.fire({
+                        "title": "",
+                        "html": text,
+                        "type": "error",
+                        "confirmButtonClass": "btn btn-secondary"
+                    });
+                }else{
+                    swal.fire({
+                        "title": "",
+                        "text": res.msg,
+                        "type": res.status,
+                        "confirmButtonClass": "btn btn-secondary"
+                    });
+                    location.reload();
+                }
+
+            }
+         });
+    });
+
 });
 

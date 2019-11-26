@@ -25,6 +25,10 @@ use App\MahasiswaPendidikanModel;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
 use App\KelasModel;
+use File;
+use Carbon\Carbon;
+use Intervention\Image\Image;
+use Intervention\Image\Facades\Image as InterventionImage;
 
 class MahasiswaModule extends Controller
 {
@@ -359,5 +363,31 @@ class MahasiswaModule extends Controller
         }else{
             return json_encode(["status"=> false, "message"=> "Data tidak ditemukan"]);
         }
+    }
+
+    public function upload_profile(Request $request){
+
+        $path = public_path('assets/images/mahasiswa');
+        $dimensions = ['245', '300', '500'];
+        $post = $request->all();
+        $image = $post['base64'];  // your base64 encoded
+        $image = str_replace('data:image/png;base64,', '', $image);
+        $image = str_replace(' ', '+', $image);
+        $imageName = Auth::user()->id.'.'.'jpg';
+        $file = base64_decode($image);
+        $canvas = InterventionImage::canvas(245, 245);
+        $resizeImage  = InterventionImage::make($file)->resize(245, 245, function($constraint) {
+            $constraint->aspectRatio();
+        });
+
+        $canvas->insert($resizeImage, 'center');
+        $canvas->save($path. '/' . $imageName);
+
+        if($canvas->save($path. '/' . $imageName)){
+            return json_encode(["status"=> 'success', "message"=> "Profile sudah diubah."]);
+        }else{
+            return json_encode(["status"=> 'error', "message"=> "Terjadi kesalahan menyimpan data, coba lagi."]);
+        }
+        
     }
 }

@@ -50,6 +50,7 @@ Route::post('/data/mahasiswa/submitalamat', 'MahasiswaModule@submitalamat')->nam
 Route::post('/data/mahasiswa/submitorangtua', 'MahasiswaModule@submitorangtua')->name('submitorangtua');
 Route::post('/data/mahasiswa/submitwali', 'MahasiswaModule@submitwali')->name('submitwali');
 Route::post('/data/mahasiswa/submitkebutuhankhusus', 'MahasiswaModule@submitkebutuhankhusus')->name('submitkebutuhankhusus');
+Route::post('/data/mahasiswa/upload_profile', 'MahasiswaModule@upload_profile')->name('submitkebutuhankhusus');
 // MODULE MAHASISWA END
 
 // Module Dosen
@@ -65,6 +66,18 @@ Route::get('/data/dosen/pendidikan_dosen', 'DosenModule@pendidikan_dosen')->name
 Route::get('/data/dosen/sertifikasi_dosen', 'DosenModule@sertifikasi_dosen')->name('sertifikasi_dosen');
 Route::get('/data/dosen/fungsional_dosen', 'DosenModule@fungsional_dosen')->name('fungsional_dosen');
 Route::get('/data/dosen/penelitian_dosen', 'DosenModule@penelitian_dosen')->name('penelitian_dosen');
+
+Route::post('/data/dosen/submitpenugasan_dosen', 'DosenModule@submitpenugasan_dosen')->name('penugasan_dosen');
+Route::post('/data/dosen/submitfungsional_dosen', 'DosenModule@submitfungsional_dosen')->name('fungsional_dosen');
+Route::post('/data/dosen/submitpengangkatan_dosen', 'DosenModule@submitpengangkatan_dosen')->name('kepangkatan_dosen');
+Route::post('/data/dosen/submitpendidikan_dosen', 'DosenModule@submitpenugasan_dosen')->name('pendidikan_dosen');
+Route::post('/data/dosen/submitsertifikasi_dosen', 'DosenModule@submitpenugasan_dosen')->name('sertifikasi_dosen');
+//Route::post('/data/dosen/submitfungsional_dosen', 'DosenModule@submitpenugasan_dosen')->name('fungsional_dosen');
+Route::post('/data/dosen/submitpenelitian_dosen', 'DosenModule@submitpenugasan_dosen')->name('penelitian_dosen');
+
+Route::post('/data/dosen/modaledit', 'DosenModule@modaledit')->name('penelitian_dosen');
+
+
 Route::post('/data/dosen/submitprofile', 'DosenModule@submitprofile')->name('submitprofile');
 Route::post('/data/dosen/submitbiodata', 'DosenModule@submitbiodata')->name('submitbiodata');
 Route::post('/data/dosen/submitkeluarga', 'DosenModule@submitkeluarga')->name('submitkeluarga');

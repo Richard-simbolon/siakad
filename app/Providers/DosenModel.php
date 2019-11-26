@@ -28,8 +28,7 @@
             public function up(){
                 Schema::create("dosen", function (Blueprint $table) {
                     $table->bigIncrements("id")->unsigned();
-            $table->enum("row_status" , 11);
-
+                    $table->enum("row_status" , 11);
                     $table->enum("row_status", ["active", "deleted", "notactive"]);
                     $table->timestamp("updated_at")->nullable();
                     $table->timestamp("created_at")->nullable();
