@@ -95,7 +95,7 @@ class Dosen extends Controller
     public function save(Request $request){
         $data = $request->all();
 
-        //print_r($data); exit;
+         //print_r($data); exit;
         
         $validation = Validator::make($data['dosen'], [
             'nama' => '',
@@ -112,8 +112,12 @@ class Dosen extends Controller
 
             if(array_key_exists('dosen' , $data)){
                 // SAVE TO TABLE mahasiswa
-                $data['dosen']['tanggal_lahir'] = date($data['dosen']['tanggal_lahir']);
+                if($data['dosen']['tanggal_lahir'] != '' || $data['dosen']['tanggal_lahir'] != null){
+                    $data['dosen']['tanggal_lahir'] = date($data['dosen']['tanggal_lahir']);
+                }
+                
                 $dosenid = DosenModel::create($data['dosen']);
+
             }
 
             if($dosenid->id != ''){
