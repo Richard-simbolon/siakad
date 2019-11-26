@@ -18,17 +18,13 @@
                             <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="" class="kt-subheader__breadcrumbs-link">
-                                Components </a>
-                            <span class="kt-subheader__breadcrumbs-separator"></span>
-                            <a href="" class="kt-subheader__breadcrumbs-link">
-                                Icons </a>
-                            <span class="kt-subheader__breadcrumbs-separator"></span>
-                            <a href="" class="kt-subheader__breadcrumbs-link">
-                                Flaticon </a>
+                                Riwayat Penelitian </a>
                         </div>
                     </div>
                     <div class="kt-subheader__toolbar">
-                        @include('layout.dosen_detail')
+                        <div class="kt-subheader__wrapper">
+                            <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
+                        </div>
                     </div>
                 </div>
             </div>

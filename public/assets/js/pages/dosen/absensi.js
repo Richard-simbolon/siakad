@@ -34,6 +34,9 @@ $(document).ready(function() {
         "pageLength": 50,responsive: true,
         processing: true,
         serverSide: true,
+        language:{
+            url: '/assets/lang/id.json'
+        },
         ajax: {
             url:'/dosen/absensi/paging',
             type:"POST",
