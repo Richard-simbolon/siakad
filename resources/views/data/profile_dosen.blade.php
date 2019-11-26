@@ -79,7 +79,7 @@
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Photo</label>
                                                     <div class="col-lg-9 col-xl-6">
                                                         <div class="kt-avatar kt-avatar--outline" id="kt_user_avatar">
-                                                            <div class="kt-avatar__holder" style="background-image: url({{asset('assets/media/users/100_13.jpg')}})"></div>
+                                                            <div class="kt-avatar__holder" style="background-image: #fafafafa url({{asset('assets/images/dosen').'/'.Auth::user()->id.'.jpg'}})"></div>
                                                             <label class="kt-avatar__upload" data-toggle="kt-tooltip" title="" data-original-title="Ganti photo">
                                                                 <i class="fa fa-pen"></i>
                                                                 <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg">

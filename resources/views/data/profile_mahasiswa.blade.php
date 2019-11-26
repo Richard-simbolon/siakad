@@ -196,6 +196,12 @@
 @section('js')
     <script src="{{asset('/assets/js/pages/custom/user/profile.js')}}" type="text/javascript"></script>
     <script src="{{asset('/assets/js/pages/profile/mahasiswa.js')}}" type="text/javascript"></script>
+    <script>
+        // Replace source
+        $('img').on("error", function() {
+            $(this).attr('src', '{{asset('/assets/media/users/default.jpg')}}');
+        });
+    </script>
 @stop
 
 @endsection
