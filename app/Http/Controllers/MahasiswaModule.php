@@ -26,6 +26,7 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
 use App\KelasModel;
 use Intervention\Image\Facades\Image as InterventionImage;
+use Illuminate\Support\Facades\Hash;
 
 class MahasiswaModule extends Controller
 {
@@ -35,6 +36,12 @@ class MahasiswaModule extends Controller
 ];
     static $exclude = ["id","created_at","updated_at","created_by","update_by"];
     static $tablename = "Mahasiswa";
+
+
+    public function get_id_mahasiswa(){
+        $id = MahasiswaModel::where('nim' , Auth::user()->id)->first();
+        return $id->id;
+    }
 
     public function profile()
     {
@@ -341,9 +348,8 @@ class MahasiswaModule extends Controller
     public function submit_gantipassword(Request $request){
         $input = $request->all();
         $data = MahasiswaModel::where('id' , '=',$input['id'])->first();
-
         if($data){
-            $password_old = $data->password;
+            //$password_old = $data->password;
             if(!$input['password_lama'] || $input['password_lama'] == ''){
                 return json_encode(["status"=> false, "message"=> "Password lama wajib diisi"]);
             }elseif (!$input['konfirmasi'] || $input['konfirmasi'] ==''){
@@ -356,7 +362,17 @@ class MahasiswaModule extends Controller
                 return json_encode(["status"=> false, "message"=> "Password baru dan konfirmasi tidak sama"]);
             }
 
-            return json_encode(["status"=> true, "message"=> "Password sudah diubuah"]);
+            if(Hash::check($input['password_lama'], Auth::user()->password))
+            {     
+                $password['password'] = Hash::make($input['konfirmasi']);
+                if(MahasiswaModel::where('id' ,$this->get_id_mahasiswa())->update($password)){
+                    return json_encode(["status"=> true, "message"=> "Password sudah diubuah"]);
+                }else{
+                    return json_encode(["status"=> false, "message"=> "Terjadi kesalahan saat mengubah data."]);
+                }
+            }else{
+                return json_encode(["status"=> false, "message"=> "Password yang anda masukkan salah."]);
+            }
         }else{
             return json_encode(["status"=> false, "message"=> "Data tidak ditemukan"]);
         }

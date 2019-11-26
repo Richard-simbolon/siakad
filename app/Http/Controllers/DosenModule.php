@@ -29,6 +29,8 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
 use App\KelasModel;
 use App\TahunAjaranModel;
+use Intervention\Image\Facades\Image as InterventionImage;
+use Illuminate\Support\Facades\Hash;
 
 class DosenModule extends Controller
 {
@@ -252,7 +254,6 @@ class DosenModule extends Controller
     public function submit_gantipassword(Request $request){
         $input = $request->all();
         $data = DosenModel::where('id' , '=',$input['id'])->first();
-
         if($data){
             $password_old = $data->password;
             if(!$input['password_lama'] || $input['password_lama'] == ''){
@@ -267,7 +268,17 @@ class DosenModule extends Controller
                 return json_encode(["status"=> false, "message"=> "Password baru dan konfirmasi tidak sama"]);
             }
 
-            return json_encode(["status"=> true, "message"=> "Password sudah diubuah"]);
+            if(Hash::check($input['password_lama'], Auth::user()->password))
+            {     
+                $password['password'] = Hash::make($input['konfirmasi']);
+                if(DosenModel::where('id' ,$this->get_id_dosen())->update($password)){
+                    return json_encode(["status"=> true, "message"=> "Password sudah diubuah"]);
+                }else{
+                    return json_encode(["status"=> false, "message"=> "Terjadi kesalahan saat mengubah data."]);
+                }
+            }else{
+                return json_encode(["status"=> false, "message"=> "Password yang anda masukkan salah."]);
+            }
         }else{
             return json_encode(["status"=> false, "message"=> "Data tidak ditemukan"]);
         }
@@ -551,6 +562,34 @@ class DosenModule extends Controller
                 return json_encode(['status'=> 'error', 'msg'=> 'Terjadi kesalahan saat menyimpan data.']);
             } 
            
+        }
+        
+    }
+
+    public function upload_profile(Request $request){
+
+        $path = public_path('assets/images/dosen');
+        $dimensions = ['245', '300', '500'];
+        $post = $request->all();
+        $image = $post['base64'];  // your base64 encoded
+        //$image = str_replace('data:image/png;base64,', '', $image);
+        //$image = str_replace('data:image/jpg;base64,', '', $image);
+        $image = explode('base64,' , $image);
+        $image = str_replace(' ', '+', $image[1]);
+        $imageName = Auth::user()->id.'.jpg';
+        $file = base64_decode($image);
+        $canvas = InterventionImage::canvas(245, 245);
+        $resizeImage  = InterventionImage::make($file)->resize(245, 245, function($constraint) {
+            $constraint->aspectRatio();
+        });
+
+        $canvas->insert($resizeImage, 'center');
+        $canvas->save($path. '/' . $imageName);
+
+        if($canvas->save($path. '/' . $imageName)){
+            return json_encode(["status"=> 'success', "message"=> "Profile sudah diubah."]);
+        }else{
+            return json_encode(["status"=> 'error', "message"=> "Terjadi kesalahan menyimpan data, coba lagi."]);
         }
         
     }

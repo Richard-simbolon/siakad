@@ -28,6 +28,7 @@ $(document).ready(function() {
                                 'Password sudah diubah.',
                                 'success'
                             )
+                            document.getElementById('logout-form').submit();
                         }
                         else{
                             var text = result.message;
