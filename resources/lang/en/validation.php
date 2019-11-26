@@ -142,7 +142,7 @@ return [
             'required' => 'Alamat harus di isi !'
         ],
         'nama' => [
-            'required' => 'Alamat harus di isi !'
+            'required' => 'Nama harus di isi !'
         ],
         'nama_ibu' => [
             'required' => 'Nama Ibu harus di isi !'

@@ -84,6 +84,7 @@
                             </h3>
                         </div>
                         <div class="kt-portlet__head-toolbar">
+                            <input type="hidden" id="id_to_delete" value="{{$data['id']}}">
                             <div class="dropdown dropdown-inline">
                                 <button type="button" class="btn btn-clean btn-sm btn-icon-md btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="flaticon-more-1"></i>
@@ -109,12 +110,12 @@
                                                 <span class="kt-nav__link-text">Ubah Data</span>
                                             </a>
                                         </li>
-                                        <li class="kt-nav__item">
-                                            <a href="#" class="kt-nav__link" data-toggle="modal" data-target="#kt_modal_ubah_status">
-                                                <i class="kt-nav__link-icon flaticon2-contract"></i>
-                                                <span class="kt-nav__link-text">Ubah Status</span>
-                                            </a>
-                                        </li>
+                                        {{--<li class="kt-nav__item">--}}
+                                            {{--<a href="#" class="kt-nav__link" data-toggle="modal" data-target="#kt_modal_ubah_status">--}}
+                                                {{--<i class="kt-nav__link-icon flaticon2-contract"></i>--}}
+                                                {{--<span class="kt-nav__link-text">Ubah Status</span>--}}
+                                            {{--</a>--}}
+                                        {{--</li>--}}
                                         <li class="kt-nav__item">
                                             <a href="#" class="kt-nav__link" data-toggle="modal" data-target="#kt_modal_reset_password">
                                                 <i class="kt-nav__link-icon flaticon2-refresh"></i>
@@ -122,7 +123,7 @@
                                             </a>
                                         </li>
                                         <li class="kt-nav__item">
-                                            <a href="#" class="kt-nav__link"  data-toggle="modal" data-target="#kt_modal_hapus_data">
+                                            <a href="#" class="kt-nav__link"  id="btn_hapus_mahasiswa">
                                                 <i class="kt-nav__link-icon flaticon-delete"></i>
                                                 <span class="kt-nav__link-text">Hapus</span>
                                             </a>
@@ -230,6 +231,21 @@
                                                     </div>
                                                     <div class="col-xl-4">
                                                         <div class="form-group">
+                                                            <label>Angkatan</label>
+                                                            <div class="form-group">
+                                                                <select name="mahasiswa[angkatan]" class="form-control kt-select2">
+                                                                    <option value="">-- Pilih Angkatan --</option>
+                                                                    @foreach ($master['angkatan'] as $item)
+                                                                        <option value="{{$item['id']}}" {{$item['id'] == $data['angkatan'] ? 'selected' : ''}}>{{$item['title']}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-4">
+                                                        <div class="form-group">
                                                             <label class="select2-label">Jurusan</label>
                                                             <select name="mahasiswa[jurusan_id]" class="form-control kt-select2">
                                                                 <option value="">-- Pilih Jurusan --</option>
@@ -239,8 +255,6 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
                                                     <div class="col-xl-4">
                                                         <div class="form-group">
                                                             <label>Kelas:</label>
@@ -254,7 +268,7 @@
                                                     </div>
                                                     <div class="col-xl-4">
                                                         <label>Jenis Kelamin</label>
-                                                        <div class="kt-radio-inline">
+                                                        <div class="kt-radio-inline" style="padding-top:9px;">
                                                             <label class="kt-radio">
                                                                 <input type="radio" name="mahasiswa[jk]" value="laki-laki" {{$data['jk'] == 'laki-laki' ? 'checked' : ''}}>Laki-laki
                                                                 <span></span>
@@ -263,6 +277,21 @@
                                                                 <input type="radio" name="mahasiswa[jk]" value="perempuan" {{$data['jk'] == 'perempuan' ? 'checked' : ''}}> Perempuan
                                                                 <span></span>
                                                             </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-4">
+                                                        <div class="form-group">
+                                                            <label>Status</label>
+                                                            <div class="form-group">
+                                                                <select name="mahasiswa[status]" class="form-control kt-select2">
+                                                                    <option value="">-- Pilih Status --</option>
+                                                                    @foreach ($master['status_mahasiswa'] as $item)
+                                                                        <option value="{{$item['id']}}" {{$item['id'] == $data['status'] ? 'selected' : ''}}>{{$item['title']}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-4">
@@ -274,7 +303,7 @@
                                                     <div class="col-xl-4">
                                                         <div class="form-group">
                                                             <label>Tanggal Lahir</label>
-                                                            <input type="text" class="form-control" name="mahasiswa[tanggal_lahir]" value="{{ date_format (new DateTime($data['tanggal_lahir']), 'Y-m-d')}}">
+                                                            <input type="date" class="form-control" name="mahasiswa[tanggal_lahir]" value="{{ date_format (new DateTime($data['tanggal_lahir']), 'Y-m-d')}}">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -777,13 +806,17 @@
                 <div class="form-group">
                     <div class="form-group">
                         <label>Status sekarang: </label>
-                        <input type="text" class="form-control" value="Aktif" disabled="disabled">
+                        {{--@if ($data['status'])--}}
+                            {{--<input type="text" class="form-control" value="" disabled="disabled">--}}
+                            {{--@elseif--}}
+                            {{--<input type="text" class="form-control" value="{{$master['status'][$data['status']]}}" disabled="disabled">--}}
+                        {{--@endif--}}
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="form-group">
                         <label>Ubah Status ke: </label>
-                        <select name="status_change" class="form-control">
+                        <select name="status_change" class="form-control kt-select2">
                             <option value="">-- Pilih Status --</option>
                             <option value="1">AKTIF</option>
                             <option value="2">Lulus</option>
@@ -817,12 +850,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Klik button Generate untuk membuat password baru</p>
+                <p>Klik button "Atur Ulang" untuk membuat password baru</p>
                 <div class="form-group">
                     <input type="text" class="form-control">
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-success pull-right">Generate</button>
+                    <button type="button" class="btn btn-success pull-right">Atur Ulang</button>
                 </div>
             </div>
         </div>
@@ -844,7 +877,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-danger">Hapus</button>
+                <button type="button" class="btn btn-danger" id="">Hapus</button>
             </div>
         </div>
     </div>

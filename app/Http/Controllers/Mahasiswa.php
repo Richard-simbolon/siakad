@@ -110,19 +110,12 @@ class Mahasiswa extends Controller
         // print_r($data['mahasiswa']); exit;
         
         $validation = Validator::make($data['mahasiswa'], [
+            'angkatan' => 'required',
             'nama' => 'required',
-            'jurusan_id' => 'required',
-            'nama_ibu' => 'required',
+            'email'=> 'required | email',
             'nim' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
-            'nik' => 'max:20',
-            'nisn' => 'max:20',
-            'email' => 'email',
-            'nik' => 'required',
-            'nisn' => 'required',
-            'kewarganegaraan' => 'required',
-            'alamat' => 'required',
+            'jurusan_id'=>'required',
+            'kelas_id' => 'required'
         ]);
 
         if ($validation->fails()) {
@@ -133,11 +126,14 @@ class Mahasiswa extends Controller
 
             if(array_key_exists('mahasiswa' , $data)){
                 // SAVE TO TABLE mahasiswa
-                $data['mahasiswa']['tanggal_lahir'] = date($data['mahasiswa']['tanggal_lahir']);
                 if($data['mahasiswa']['is_penerima_kps'] == 'on'){
                     $data['mahasiswa']['is_penerima_kps'] = '1';
                 }else{
                     $data['mahasiswa']['is_penerima_kps'] = '0';
+                }
+
+                if($data['mahasiswa']['tanggal_lahir'] != '' && $data['mahasiswa']['tanggal_lahir'] != null){
+                    $data['mahasiswa']['tanggal_lahir'] = date($data['mahasiswa']['tanggal_lahir']);
                 }
                 $mahasiswa = MahasiswaModel::create($data['mahasiswa']);
             }
@@ -166,7 +162,7 @@ class Mahasiswa extends Controller
         } catch(\Exception $e){
             
             DB::rollBack(); 
-            //throw $e;
+            throw $e;
             return json_encode(array('status' => 'error' , 'message' => 'Terjadi kesalahan saat menyimpan, silahkan coba lagi.'));
         }
 
@@ -206,7 +202,7 @@ class Mahasiswa extends Controller
         $data = MahasiswaModel::join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
         ->join('master_angkatan' ,'master_angkatan.id' ,'=' ,'mahasiswa.angkatan')
         ->join('master_kelas' ,'master_kelas.id' ,'=' ,'mahasiswa.kelas_id')
-        ->join('master_status_mahasiswa' ,'master_status_mahasiswa.id' ,'=' ,'mahasiswa.status')
+        ->leftJoin('master_status_mahasiswa' ,'master_status_mahasiswa.id' ,'=' ,'mahasiswa.status')
         ->select('mahasiswa.*' , 'master_jurusan.title' ,'master_jurusan.id as id_jurusan' ,'master_kelas.title as kelas_title' , 'master_angkatan.title as angkatan_title' ,'master_status_mahasiswa.title as status_mhs')
         ->where('mahasiswa.id' , $id)->first();
         $orangtuawali = MahasiswaOrangtuawaliModel::where('mahasiswa_id' , $id)->get();
@@ -218,92 +214,27 @@ class Mahasiswa extends Controller
     }
 
     public function paging(Request $request){
-        return Datatables::of(MahasiswaModel::join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
-        ->join('master_agama', 'mahasiswa.agama', '=', 'master_agama.id')
-        ->select("mahasiswa.id" ,"master_agama.title as t_agama","nim" ,"jurusan_id" , "master_jurusan.title", "agama" , "mahasiswa.row_status","nama","nik","nisn","tanggal_lahir","jk")->get())->addIndexColumn()->make(true);
+        return Datatables::of(MahasiswaModel::where('mahasiswa.row_status', 'active')
+            ->leftJoin('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
+            ->leftJoin('master_agama', 'mahasiswa.agama', '=', 'master_agama.id')
+            ->select("mahasiswa.id" ,"master_agama.title as t_agama","nim" ,"jurusan_id" , "master_jurusan.title", "agama" , "mahasiswa.row_status","nama","nik","nisn","tanggal_lahir","jk")->get())->addIndexColumn()->make(true);
     }
 
     public function validatewizard(Request $request){
-        //print_r($request->all()); exit;
         $data = $request->all();
-        $stepvalidation = array(
-            'mahasiswa1' => array(
-                'nama' => 'required',
-                'nama_ibu' => 'required',
-                'tempat_lahir' => 'required',
-                'tanggal_lahir' => 'required',
-                'jk' => 'required',
-                'agama' => 'required'
-            ),
-            'mahasiswa2' => array(
-                'nik' => 'required',
-                'nisn' => '',
-                'kewarganegaraan' => 'required',
-                'alamat' => 'required',
-                'dusun' => '',
-                'rt' => '',
-                'rw' => '',
-                'kelurahan' => '',
-                'kode_pos' => '',
-                'kecamatan' => '',
-                'jenis_tingal' => '',
-                'telepon' => '',
-                'no_hp' => '',
-                'kps' => '',
-                'no_kps' => '',
-            ),
-            'mahasiswa_orang_tua_wali' => array(
-                'nik_ayah' =>'',
-                'nama_ayah' =>'',
-                'tanggal_lahir_ayah' =>'',
-                'pendidikan_ayah' =>'',
-                'pekerjaan_ayah' =>'',
-                'penghasilan_ayah' =>'',
-                'nik_ibu' =>'',
-                'tanggal_lahir_ibu' =>'',
-                'pendidikan_ibu' =>'',
-                'pekerjaan_ibu' =>'',
-                'penghasilan_ayah' =>'',
-            ),
-            'wali'=> array(
-                'nama_wali' =>'',
-                'tanggal_lahir_wali' =>'',
-                'pendidikan_wali' =>'',
-                'pekerjaan_wali' =>'',
-                'penghasilan_wali' =>'',
-            ),
-            'kebutuhan_khusus' => array()
-
-        );
-
 
         if(isset($data['step'])){
             if($data['step'] == '1'){
                 $validation = Validator::make($data['mahasiswa'], [
+                    'angkatan' => 'required',
                     'nama' => 'required',
-                    'nama_ibu' => 'required',
-                    'tempat_lahir' => 'required',
-                    'tanggal_lahir' => 'required',
-                    'jk' => 'required',
-                    'agama' => 'required'
+                    'email'=> 'required | email',
+                    'nim' => 'required',
+                    'jurusan_id'=>'required',
+                    'kelas_id' => 'required'
                 ]);
             }elseif($data['step'] == '2'){
                 $validation = Validator::make($data['mahasiswa'], [
-                    'nik' => 'required',
-                    'kewarganegaraan' => 'required',
-                    'alamat' => 'required'
-                    /* 'nisn' => '',
-                    'dusun' => '',
-                    'rt' => '',
-                    'rw' => '',
-                    'kelurahan' => '',
-                    'kode_pos' => '',
-                    'kecamatan' => '',
-                    'jenis_tingal' => '',
-                    'telepon' => '',
-                    'no_hp' => '',
-                    'kps' => '',
-                    'no_kps' => '',*/
                 ]);
             }else{
                 $validation = Validator::make($data['mahasiswa'], [
@@ -324,23 +255,16 @@ class Mahasiswa extends Controller
 
     public function update(Request $request){
         $data = $request->all();
-        //print_r( $data); exit;
         $id = $data['mahasiswa']['id'];
         unset($data['mahasiswa']['id']);
         if($id != '' ){
             $validation = Validator::make($data['mahasiswa'], [
+                'angkatan' => 'required',
                 'nama' => 'required',
-                'jurusan_id' => 'required',
+                'email'=> 'required | email',
                 'nim' => 'required',
-                'tempat_lahir' => 'required',
-                'tanggal_lahir' => 'required',
-                'nik' => 'max:20',
-                'nisn' => 'max:20',
-                'email' => 'email',
-                'nik' => 'required',
-                'nisn' => 'required',
-                'kewarganegaraan' => 'required',
-                'alamat' => 'required',
+                'jurusan_id'=>'required',
+                'kelas_id' => 'required'
             ]);
 
             if ($validation->fails()) {
@@ -352,7 +276,9 @@ class Mahasiswa extends Controller
 
                 if(array_key_exists('mahasiswa' , $data)){
                     // SAVE TO TABLE mahasiswa
-                    $data['mahasiswa']['tanggal_lahir'] = date($data['mahasiswa']['tanggal_lahir']);
+                    if($data['mahasiswa']['tanggal_lahir'] != '' && $data['mahasiswa']['tanggal_lahir'] != null){
+                        $data['mahasiswa']['tanggal_lahir'] = date($data['mahasiswa']['tanggal_lahir']);
+                    }
                     if($data['mahasiswa']['is_penerima_kps'] == 'on'){
                         $data['mahasiswa']['is_penerima_kps'] = '1';
                     }else{
@@ -389,6 +315,27 @@ class Mahasiswa extends Controller
 
         }
         
+    }
+
+    public function delete(Request $request){
+        $data = $request->all();
+        $id = $data['id'];
+        if($id != '' ){
+            DB::beginTransaction();
+            try{
+                $mahasiswa = MahasiswaModel::where('id' , $id)->update(["row_status"=>"deleted"]);
+
+                DB::commit();
+                return json_encode(array('status' => 'success' , 'msg' => 'Data berhasil disimpan.'));
+            } catch(\Exception $e){
+
+                DB::rollBack();
+                throw $e;
+                return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan saat menyimpan, silahkan coba lagi.'));
+            }
+
+        }
+
     }
 
 public function profile()
@@ -692,7 +639,7 @@ public function profile()
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
 
         $global['id'] = $ids;
-        return view("data/Mhs_Khs" , compact("data" , "title" ,"mahasiswa" ,'select2' ,"global"));
+        return view("data/Mhs_Khs" , compact("data" , "title" ,"mahasiswa"  ,"global"));
         //return view("mahasiswa/khs" , compact("data" , "title" ,"mahasiswa"));
 
     }

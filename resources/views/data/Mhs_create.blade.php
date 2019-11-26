@@ -745,7 +745,7 @@
         var form = 'form-add-mahasiswa';
     </script>
 @section('js')
-
+    <script src="{{asset('assets/js/pages/custom/wizard/wizard-3.js')}}" type="text/javascript"></script>
 @stop
 
 @endsection

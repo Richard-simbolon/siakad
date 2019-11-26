@@ -112,7 +112,7 @@ class Dosen extends Controller
 
             if(array_key_exists('dosen' , $data)){
                 // SAVE TO TABLE mahasiswa
-                if($data['dosen']['tanggal_lahir'] != '' || $data['dosen']['tanggal_lahir'] != null){
+                if($data['dosen']['tanggal_lahir'] != '' && $data['dosen']['tanggal_lahir'] != null){
                     $data['dosen']['tanggal_lahir'] = date($data['dosen']['tanggal_lahir']);
                 }
                 
