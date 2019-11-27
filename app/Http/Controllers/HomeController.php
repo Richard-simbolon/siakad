@@ -45,10 +45,10 @@ class HomeController extends Controller
             return view('home', compact('data','semester'));
         }else if(strtolower($login_type)=="dosen") {
             $data = DosenModel::where('nidn_nup_nidk' , '=', Auth::user()->id)
-                ->join('master_jenis_pegawai', 'master_jenis_pegawai.id', '=', 'dosen.jenis_pegawai')
+                ->leftJoin('master_jenis_pegawai', 'master_jenis_pegawai.id', '=', 'dosen.jenis_pegawai')
                 ->select('dosen.*','master_jenis_pegawai.title as nama_jenis_pegawai')
                 ->first();
-
+            //print_r($data); exit;
             $semester = SemesterModel::where('status_semester','=', 'enable')->first();
 
             $matakuliah = KelasPerkuliahanModel::where('semester_id', $semester['id'])->where('kelas_perkuliahan_mata_kuliah.dosen_id', '=', $data['id'])
