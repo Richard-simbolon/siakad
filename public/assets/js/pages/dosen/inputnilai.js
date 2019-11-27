@@ -68,7 +68,7 @@ $(document).ready(function() {
                 orderable: false,
                 render: function(data, type, full, meta) {
                     return `
-                    <a class="btn btn-sm" href="inputnilai/edit/\`+full.id+\`"><i class="la la-edit"></i></a>`;
+                    <a class="btn btn-sm" href="inputnilai/edit/`+full.id+`"><i class="la la-edit"></i></a>`;
                 },
             },{
                 targets: 0,

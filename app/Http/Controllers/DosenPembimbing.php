@@ -11,6 +11,7 @@ class DosenPembimbing extends Controller
   
     public function __construct()
     {
+        //die();
         $this->middleware(function ($request, $next) {
             $this->middleware('auth');
             $this->user= Auth::user();

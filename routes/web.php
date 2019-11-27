@@ -59,7 +59,7 @@ Route::post('/data/dosen/upload_profile', 'DosenModule@upload_profile')->name('s
 // MODULE MAHASISWA END
 
 // Module Dosen
-Route::get('/data/dosen/profile', 'DosenModule@profile')->name('profile');
+//Route::get('/data/dosen/profile', 'DosenModule@profile')->name('profile');
 Route::get('/data/dosen/keluarga', 'DosenModule@keluarga')->name('keluarga');
 Route::get('/data/dosen/kebutuhankhusus', 'DosenModule@kebutuhankhusus')->name('kebutuhankhusus');
 Route::get('/data/dosen/biodata', 'DosenModule@biodata')->name('biodata');
@@ -181,6 +181,7 @@ foreach($results as $val){
        // Route::post(strtolower($val->link).'/delete', $val->mval.'@'.'delete')->name($val->mval.'delete');
         Route::post(strtolower($val->link).'/paging', $val->mval.'@'.'paging')->name('pagination');
     }else if($val->crud == 2){
+        Route::get(strtolower($val->link), $val->mval.'@index')->name($val->mval);
         Route::get(strtolower($val->link), $val->mval)->name($val->mval);
     }else{
         Route::get(strtolower($val->link), $val->mval.'@index')->name($val->mval);

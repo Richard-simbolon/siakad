@@ -29,7 +29,7 @@ class AdminJadwalPerkuliahan extends Controller
         $this->middleware(function ($request, $next) {
             $this->user= Auth::user();
             //print_r($this->user->login_type);
-            if($this->user->login_type != 'mahasiswa'){
+            if($this->user->login_type != 'admin'){
                 return abort(404);
             }else{
                 return $next($request);
