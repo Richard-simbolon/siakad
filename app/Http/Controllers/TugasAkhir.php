@@ -95,31 +95,31 @@ class TugasAkhir extends Controller
             return json_encode(["status"=> "false", "message"=> $validation->messages()]);
         }
 
-        $itemDetail = [];
-        $arrDetail = [];
-        $field_detail =[];
-        //$data_detail = [];
-        foreach ($input['detail'] as $detail){
-            $itemDetail = array("tugas_akhir_id"=>1,"row_status"=>"active","dosen_id"=>$detail['dosen'], "status_dosen"=>$detail['status_dosen']);
-
-            foreach($table_detail as $val){
-                if(array_key_exists($val , $fieldvalidation_detail) && !in_array($val , static::$exclude)){
-                    $field_detail[$val] = $fieldvalidation_detail[$val]["validation"];
-                    //$data_detail[$val] = $itemDetail[$val];
-                }
-            }
-
-            $validation = Validator::make($itemDetail, $field_detail);
-            if ($validation->fails()) {
-                return json_encode(["status"=> "false", "message"=> $validation->messages()]);
-            }
-
-            array_push($arrDetail, $itemDetail);
-        }
 
         DB::beginTransaction();
         try{
-            TugasAkhirModel::firstOrCreate($data);
+            $header = TugasAkhirModel::firstOrCreate($data);
+
+            $itemDetail = [];
+            $arrDetail = [];
+            $field_detail =[];
+            foreach ($input['detail'] as $detail){
+                $itemDetail = array("tugas_akhir_id"=>$header->id,"row_status"=>"active","dosen_id"=>$detail['dosen'], "status_dosen"=>$detail['status_dosen']);
+
+                foreach($table_detail as $val){
+                    if(array_key_exists($val , $fieldvalidation_detail) && !in_array($val , static::$exclude)){
+                        $field_detail[$val] = $fieldvalidation_detail[$val]["validation"];
+                    }
+                }
+
+                $validation = Validator::make($itemDetail, $field_detail);
+                if ($validation->fails()) {
+                    return json_encode(["status"=> "false", "message"=> $validation->messages()]);
+                }
+
+                array_push($arrDetail, $itemDetail);
+            }
+
             TugasAkhirDetailModel::insert($arrDetail);
 
             DB::commit();

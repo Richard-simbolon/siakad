@@ -199,3 +199,4 @@ Route::post('admin/jadwalkuliah/paging', 'AdminJadwalPerkuliahan@paging')->name(
 Auth::routes();
 Route::post('g_password/generate_key', 'Administrator@generate_key')->name('generate_key');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home/getcalender', 'HomeController@getcalender')->name('getcalender');
