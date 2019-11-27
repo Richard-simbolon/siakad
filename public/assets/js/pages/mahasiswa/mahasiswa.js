@@ -82,6 +82,44 @@ $(document).ready(function(){
           })
     });
 
+    $(document).on('click' , '.generate_password' , function(){
+        var email = $(this).attr('attr');
+        Swal.fire({
+           title: 'Kata Sandi',
+           text: "Password akan dikirim ke email pengguna ?",
+           type: 'warning',
+           showCancelButton: true,
+           confirmButtonColor: '#08976d',
+           cancelButtonColor: '#d33',
+           confirmButtonText: 'Kirim'
+         }).then((result) => {
+               if (result.value) {
+                   $.ajaxSetup({
+                       headers: {
+                           'X-CSRF-TOKEN': $('#csrf_').val()
+                       }
+                   });
+                   $.ajax({
+                       type:'POST',
+                       //dataType:'json',
+                       url:'/g_password/generate_key',
+                       data:{email:email , type:'mahasiswa'},
+                       success:function(result) {
+                           console.log(result);
+                           var res = JSON.parse(result);
+                           swal.fire({
+                               "title": "",
+                               "text": res.msg,
+                               "type": res.status,
+                               "confirmButtonClass": "btn btn-secondary"
+                           });
+                       }
+                    });
+               }
+           
+         })
+   });
+
     $(document).on('click' , '#save_prestasi' , function(){
         Swal.fire({
            title: 'Tambah Prestasi Mahasiswa',

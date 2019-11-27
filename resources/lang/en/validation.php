@@ -39,7 +39,7 @@ return [
     'digits_between' => 'The :attribute must be between :min and :max digits.',
     'dimensions' => 'The :attribute has invalid image dimensions.',
     'distinct' => 'The :attribute field has a duplicate value.',
-    'email' => 'The :attribute must be a valid email address.',
+    'email' => ' :attribute harus sesuai format email',
     'ends_with' => 'The :attribute must end with one of the following: :values',
     'exists' => 'The selected :attribute is invalid.',
     'file' => 'The :attribute must be a file.',
@@ -102,7 +102,7 @@ return [
     'required_with_all' => 'The :attribute field is required when :values are present.',
     'required_without' => 'The :attribute field is required when :values is not present.',
     'required_without_all' => 'The :attribute field is required when none of :values are present.',
-    'same' => 'The :attribute and :other must match.',
+    'same' => ' :attribute dan :other harus sama.',
     'size' => [
         'numeric' => 'The :attribute must be :size.',
         'file' => 'The :attribute must be :size kilobytes.',
@@ -112,7 +112,7 @@ return [
     'starts_with' => 'The :attribute must start with one of the following: :values',
     'string' => 'The :attribute must be a string.',
     'timezone' => 'The :attribute must be a valid zone.',
-    'unique' => 'The :attribute has already been taken.',
+    'unique' => ' :attribute telah dipakai.',
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
@@ -155,6 +155,19 @@ return [
         ],
         'tanggal_lahir' => [
             'required' => 'Tanggal lahir harus di isi !'
+        ],
+        'email' => [
+            'required' => 'Email harus di isi !',
+            'same' => 'Konfirmasi email tidak sama'
+        ],
+        'username' => [
+            'required' => 'Username harus di isi !'
+        ],
+        'password' => [
+            'required' => 'Password harus di isi !'
+        ],
+        'confirm_password' => [
+            'required' => 'Konfirmasi Password harus di isi !'
         ],
 
 

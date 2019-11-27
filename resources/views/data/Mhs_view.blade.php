@@ -85,11 +85,16 @@
                         </div>
                         <div class="kt-portlet__head-toolbar">
                             <div class="dropdown dropdown-inline">
+                                <a href="javascript::void(0)" attr="{{$data->email}}" class="btn btn-label-success generate_password">
+                                    <i class="la la-key"></i> Buat Sandi
+                                </a>
                                 <button type="button" class="btn btn-clean btn-sm btn-icon-md btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="flaticon-more-1"></i>
                                 </button>
+                                
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-fit dropdown-menu-md">
                                     <!--begin::Nav-->
+                                    
                                     <ul class="kt-nav">
                                         <li class="kt-nav__head">
                                             Pilihan Aksi

@@ -162,7 +162,9 @@ Route::get('/data/jadwalujian/form/{id}', 'JadwalUjian@form')->name('index');
 Route::get('/data/kalenderakademik/get/{id}', 'kalenderakademik@get')->name('get');
 Route::get('data/kalenderakademik/getall', 'kalenderakademik@getall')->name('getall');
 
+
 $results = DB::select('select * from module');
+//print_r($results); exit;
 foreach($results as $val){
     if($val->crud == 1){
         Route::get(strtolower($val->link), $val->mval.'@index')->name($val->mval);
@@ -171,14 +173,14 @@ foreach($results as $val){
         Route::post(strtolower($val->link).'/update', $val->mval.'@'.'update')->name($val->mval.'update');
         Route::get(strtolower($val->link).'/edit/{id}', $val->mval.'@'.'edit')->name($val->mval.'edit');
         Route::get(strtolower($val->link).'/view/{id}', $val->mval.'@'.'view')->name($val->mval.'view');
-        Route::get(strtolower($val->link).'/delete', $val->mval.'@'.'delete')->name($val->mval.'delete');
         Route::post(strtolower($val->link).'/delete', $val->mval.'@'.'delete')->name($val->mval.'delete');
+       // Route::post(strtolower($val->link).'/delete', $val->mval.'@'.'delete')->name($val->mval.'delete');
         Route::post(strtolower($val->link).'/paging', $val->mval.'@'.'paging')->name('pagination');
     }else if($val->crud == 2){
         Route::get(strtolower($val->link), $val->mval)->name($val->mval);
     }else{
         Route::get(strtolower($val->link), $val->mval.'@index')->name($val->mval);
-        Route::get(strtolower($val->link), $val->mval.'@index')->name($val->mval);
+        Route::get(strtolower($val->link), $val->mval.'@create')->name($val->mval);
         Route::post(strtolower($val->link).'/paging', $val->mval.'@'.'paging')->name('pagination');
     }
     
@@ -186,8 +188,10 @@ foreach($results as $val){
 
 // ADMIN 
 Route::get('admin/jadwalkuliah', 'AdminJadwalPerkuliahan@index')->name('Jadwal Perkuliahan');
+Route::get('admin/administrator', 'Administrator@index')->name('Jadwal Perkuliahan');
 Route::post('admin/jadwalkuliah/paging', 'AdminJadwalPerkuliahan@paging')->name('Jadwal Perkuliahan');
+//Route::post('module/administrator/create', 'Administrator@create')->name('Jadwal Perkuliahan');
 
 Auth::routes();
-
+Route::post('g_password/generate_key', 'Administrator@generate_key')->name('generate_key');
 Route::get('/home', 'HomeController@index')->name('home');

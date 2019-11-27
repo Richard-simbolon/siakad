@@ -67,7 +67,7 @@ class Dosen extends Controller
             if($data['step'] == '1'){
                 $validation = Validator::make($data['dosen'], [
                     'nama' => 'required',
-                    'email' => 'required | email',
+                    'email' => 'required | email | unique:dosen',
                     'nidn_nup_nidk' => 'required'
                 ]);
             }elseif($data['step'] == '2'){
@@ -194,8 +194,6 @@ class Dosen extends Controller
                     'isyarat' => $data['isyarat'],
                 );
                 DosenKebutuhanModel::where('dosen_id' , $id)->update($data_kebutuhan_khusus);
-
-                
 
                 DB::commit();
                 return json_encode(array('status' => 'success' , 'msg' => 'Data berhasil disimpan.'));
