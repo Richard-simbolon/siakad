@@ -721,7 +721,7 @@
                                     <button class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit">
                                         Simpan <i class="la la-save"></i>
                                     </button>
-                                    <button class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next">
+                                    <button class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-next">
                                         Selanjutnya <li class="la la-angle-right"></li>
                                     </button>
                                 </div>
@@ -745,7 +745,7 @@
         var form = 'form-add-mahasiswa';
     </script>
 @section('js')
-
+    <script src="{{asset('assets/js/pages/custom/wizard/wizard-3.js')}}" type="text/javascript"></script>
 @stop
 
 @endsection

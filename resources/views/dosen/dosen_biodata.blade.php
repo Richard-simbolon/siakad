@@ -154,7 +154,12 @@
                                                 <div class="form-group row">
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Sumber Gaji</label>
                                                     <div class="col-lg-9 col-xl-6">
-                                                        <input class="form-control" type="text" name="sumber_gaji" value="{{$data['sumber_gaji']}}">
+                                                        <select name="sumber_gaji" class="form-control kt-select2">
+                                                            <option value="">--Pilih Status--</option>
+                                                            @foreach ($master['sumber_gaji'] as $item)
+                                                                <option value="{{$item['id']}}" {{$item['id']==$data['sumber_gaji']?"selected" : ""}}>{{$item['title']}}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">

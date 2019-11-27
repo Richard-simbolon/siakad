@@ -41,6 +41,8 @@ Route::get('/data/mahasiswa/kebutuhankhusus', 'MahasiswaModule@kebutuhankhusus')
 Route::get('/data/mahasiswa/gantipassword', 'MahasiswaModule@gantipassword')->name('gantipassword');
 Route::post('/data/mahasiswa/submit_gantipassword', 'MahasiswaModule@submit_gantipassword')->name('submit_gantipassword');
 Route::post('/data/mahasiswa/prestasipaging', 'MahasiswaModule@prestasipaging')->name('prestasipaging');
+Route::post('/data/mahasiswa/delete', 'MahasiswaModule@delete')->name('delete');
+Route::post('/data/mahasiswa/resetpassword', 'mahasiswa@resetpassword')->name('resetpassword');
 
 // KRS
 //Route::get('mahasiswa/krs', 'JadwalPerkuliahan@krs')->name('krs');
@@ -96,6 +98,8 @@ Route::get('dosen/penugasan/{id}', 'Dosen@penugasan')->name('penugasan');
 Route::get('dosen/pengangkatan/{id}', 'Dosen@pengangkatan')->name('riwayatpengangkatan');
 Route::post('dosen/tambahpenugasan', 'Dosen@tambahpenugasan')->name('tambah_penugasan');
 Route::post('dosen/tambahpengangkatan', 'Dosen@tambahpengangkatan')->name('tambah_pengangkatan');
+Route::post('/data/dosen/delete', 'dosen@delete')->name('delete');
+Route::post('/data/dosen/resetpassword', 'dosen@resetpassword')->name('resetpassword');
 
 Route::get('dosen/pendidikan/{id}', 'Dosen@r_pendidikan')->name('riwayat_pendidikan');
 Route::post('dosen/tambah_r_pendidikan', 'Dosen@tambah_r_pendidikan')->name('tambah_riwayat_pendidikan');

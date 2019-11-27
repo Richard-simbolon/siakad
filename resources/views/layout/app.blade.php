@@ -289,7 +289,7 @@
         <script src="{{asset('assets/plugins/general/sweetalert2/dist/sweetalert2.min.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/plugins/general/js/global/integration/plugins/sweetalert2.init.js')}}" type="text/javascript"></script>
         <script src="{{asset('assets/js/pages/crud/datatables/extensions/responsive.js')}}" type="text/javascript"></script>
-        <script src="{{asset('assets/js/pages/custom/wizard/wizard-3.js')}}" type="text/javascript"></script>
+
         <script src="{{asset('assets/plugins/general/select2/dist/js/select2.full.js')}}" type="text/javascript"></script>
 		<script src="{{asset('assets/js/pages/kelas/kelas.js')}}" type="text/javascript"></script>
 		@yield('js')
@@ -344,6 +344,7 @@
 				//$("#form-update-dosen input , #form-update-dosen select , #form-update-dosen textarea , #form-update-dosen option").prop("disabled", true);
 				$("#informasidasar").show();
 				$("#info_dasar").hide();
+				$("#")
 			});
 
 			$(document).on('click','#editdosen' , function(){

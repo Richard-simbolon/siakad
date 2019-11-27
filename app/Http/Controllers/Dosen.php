@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\SumberGajiModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -48,6 +49,7 @@ class Dosen extends Controller
             'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
             'status_pegawai' => StatusPegawaiModel::where('row_status' , 'active')->get(),
             'agama' => AgamaModel::where('row_status' , 'active')->get(),
+            'sumber_gaji'=> SumberGajiModel::where('row_status', 'active')->get()
         );
         $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $table = array_diff(DB::getSchemaBuilder()->getColumnListing("dosen"), static::$exclude);
@@ -112,7 +114,7 @@ class Dosen extends Controller
 
             if(array_key_exists('dosen' , $data)){
                 // SAVE TO TABLE mahasiswa
-                if($data['dosen']['tanggal_lahir'] != '' || $data['dosen']['tanggal_lahir'] != null){
+                if($data['dosen']['tanggal_lahir'] != '' && $data['dosen']['tanggal_lahir'] != null){
                     $data['dosen']['tanggal_lahir'] = date($data['dosen']['tanggal_lahir']);
                 }
                 
@@ -208,8 +210,46 @@ class Dosen extends Controller
 
     }
 
+    public function delete(Request $request){
+        $data = $request->all();
+        $id = $data['id'];
+        if($id != '' ){
+            DB::beginTransaction();
+            try{
+                $mahasiswa = DosenModel::where('id' , $id)->update(["row_status"=>"deleted"]);
+
+                DB::commit();
+                return json_encode(array('status' => 'success' , 'msg' => 'Data berhasil disimpan.'));
+            } catch(\Exception $e){
+
+                DB::rollBack();
+                throw $e;
+                return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan saat menyimpan, silahkan coba lagi.'));
+            }
+
+        }
+    }
+
+    public function resetPassword(){
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $pass = array(); //remember to declare $pass as an array
+        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        $new_password = implode($pass);
+        $password['password'] = Hash::make($new_password);
+        if(MahasiswaModel::where('id' ,$this->get_id_mahasiswa())->update($password)){
+            return json_encode(["status"=> true, "message"=> $new_password]);
+        }else{
+            return json_encode(["status"=> false, "message"=> "Terjadi kesalahan saat mengubah data."]);
+        }
+    }
+
     public function paging(Request $request){
-        return Datatables::of(DosenModel::leftJoin('master_agama', 'dosen.agama', '=', 'master_agama.id')
+        return Datatables::of(DosenModel::where("dosen.row_status", "active")
+        ->leftJoin('master_agama', 'dosen.agama', '=', 'master_agama.id')
         ->select("dosen.id" ,"master_agama.title as t_agama","nip" ,"nidn_nup_nidk", "agama" , "dosen.status","nama","tanggal_lahir","jenis_kelamin")->get())->addIndexColumn()->make(true);
     }
 
@@ -222,9 +262,9 @@ class Dosen extends Controller
             'status_pegawai' => StatusPegawaiModel::where('row_status' , 'active')->get(),
             'jenis_kelamin' => config('global.jenis_kelamin')
         );
-        $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
-        ->join('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
-        ->join('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
+        $data = DosenModel::leftJoin('master_agama', 'master_agama.id', '=', 'dosen.agama')
+        ->leftJoin('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
+        ->leftJoin('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
         ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
         ->where('dosen.id' , $id)->first();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
