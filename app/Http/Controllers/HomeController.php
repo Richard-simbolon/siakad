@@ -81,4 +81,21 @@ class HomeController extends Controller
 
         return view('home_admin', compact('data'));
     }
+
+    public function getCalender(){
+        $today = date("Y-m-d");
+        $kalender = DB::table("kalender_akademik")
+            ->where("row_status", 'active')
+            ->where("start",">=", $today)
+            ->where("end", ">=", $today)
+            ->select("kalender_akademik.id",'kalender_akademik.title', 'kalender_akademik.start')
+            ->get();
+        $result = [];
+        foreach ($kalender as $item){
+            $item->start = date('Y-m-d', strtotime($item->start));
+            array_push($result, $item);
+        }
+
+        return json_encode($result);
+    }
 }

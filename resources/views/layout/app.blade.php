@@ -130,11 +130,11 @@
                             <div class="kt-footer__copyright">
                                 2019&nbsp;&copy;&nbsp;<a href="http://polbangtanmedan.ac.id" target="_blank" class="kt-link">Polbangtan Medan</a>
                             </div>
-                            <div class="kt-footer__menu">
-                                <a href="http://keenthemes.com/metronic" target="_blank" class="kt-footer__menu-link kt-link">About</a>
-                                <a href="http://keenthemes.com/metronic" target="_blank" class="kt-footer__menu-link kt-link">Team</a>
-                                <a href="http://keenthemes.com/metronic" target="_blank" class="kt-footer__menu-link kt-link">Contact</a>
-                            </div>
+                            {{--<div class="kt-footer__menu">--}}
+                                {{--<a href="http://keenthemes.com/metronic" target="_blank" class="kt-footer__menu-link kt-link">About</a>--}}
+                                {{--<a href="http://keenthemes.com/metronic" target="_blank" class="kt-footer__menu-link kt-link">Team</a>--}}
+                                {{--<a href="http://keenthemes.com/metronic" target="_blank" class="kt-footer__menu-link kt-link">Contact</a>--}}
+                            {{--</div>--}}
                         </div>
                     </div>
                 </div>
@@ -145,6 +145,32 @@
         <div id="kt_scrolltop" class="kt-scrolltop">
             <i class="fa fa-arrow-up"></i>
         </div>
+
+        <!--modal : ubah kalender-->
+        <div class="modal fade" id="kt_modal_kalender" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Kalender Detail</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5 id="title"></h5>
+                        <small id="tanggal"></small>
+                        <hr/>
+                        <div style="margin-top: 15px;">
+                            <p id="keterangan"></p>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end modal-->
     </body>
 
 		<script src="{{asset('assets/plugins/general/popper.js/dist/umd/popper.js')}}" type="text/javascript"></script>
@@ -335,25 +361,72 @@
 
 
 		<script>
-		$(document).ready(function(){
-			$(".form-mahasiswa input , .form-mahasiswa select , .form-mahasiswa textarea , .form-mahasiswa option").prop("disabled", true);
-			$("#form-update-dosen input , #form-update-dosen select , #form-update-dosen textarea , #form-update-dosen option").prop("disabled", true);
-			
-			$(document).on('click','#editmahasiswa' , function(){
-				$(".form-mahasiswa input , .form-mahasiswa select , .form-mahasiswa textarea , .form-mahasiswa option").prop("disabled", false);
-				//$("#form-update-dosen input , #form-update-dosen select , #form-update-dosen textarea , #form-update-dosen option").prop("disabled", true);
-				$("#informasidasar").show();
-				$("#info_dasar").hide();
-				$("#")
-			});
+            $(document).ready(function(){
+                $(".form-mahasiswa input , .form-mahasiswa select , .form-mahasiswa textarea , .form-mahasiswa option").prop("disabled", true);
+                $("#form-update-dosen input , #form-update-dosen select , #form-update-dosen textarea , #form-update-dosen option").prop("disabled", true);
 
-			$(document).on('click','#editdosen' , function(){
-				//$(".form-mahasiswa input , .form-mahasiswa select , .form-mahasiswa textarea , .form-mahasiswa option").prop("disabled", false);
-				$("#form-update-dosen input , #form-update-dosen select , #form-update-dosen textarea , #form-update-dosen option").prop("disabled", false);
-				$("#informasidasar").show();
-				$("#info_dasar").hide();
-			});
-		})
+                $(document).on('click','#editmahasiswa' , function(){
+                    $(".form-mahasiswa input , .form-mahasiswa select , .form-mahasiswa textarea , .form-mahasiswa option").prop("disabled", false);
+                    //$("#form-update-dosen input , #form-update-dosen select , #form-update-dosen textarea , #form-update-dosen option").prop("disabled", true);
+                    $("#informasidasar").show();
+                    $("#info_dasar").hide();
+                    $("#")
+                });
+
+                $(document).on('click','#editdosen' , function(){
+                    //$(".form-mahasiswa input , .form-mahasiswa select , .form-mahasiswa textarea , .form-mahasiswa option").prop("disabled", false);
+                    $("#form-update-dosen input , #form-update-dosen select , #form-update-dosen textarea , #form-update-dosen option").prop("disabled", false);
+                    $("#informasidasar").show();
+                    $("#info_dasar").hide();
+                });
+
+                getCalender();
+            })
+
+            function getCalender(){
+                $.ajax({
+                    type:'GET',
+                    url:'/home/getcalender',
+                    success:function(result) {
+                        var res = JSON.parse(result);
+                        $.each(res, function( index, value ) {
+                            $("#notif_calender").append(
+                                '<a href="#" onclick="opendetailCalender('+value['id']+')" class="kt-notification__item">\n' +
+                                '<div class="kt-notification__item-icon">\n' +
+                                '<i class="flaticon-alarm-1 kt-font-success"></i>\n' +
+                                '</div>\n' +
+                                '<div class="kt-notification__item-details">\n' +
+                                '<div class="kt-notification__item-title">\n' +
+                                value['title'] +
+                                '</div>\n' +
+                                '<div class="kt-notification__item-time">\n' +
+                                value['start'] +
+                                '</div>\n' +
+                                '</div>\n' +
+                                '</a>'
+                            );
+                        });
+                    }
+                });
+            }
+            function opendetailCalender(id, start) {
+                $.ajax({
+                    type:'GET',
+                    dataType:'json',
+                    url:'/data/kalenderakademik/get/'+id,
+                    success:function(result) {
+                        if(result.status){
+                            $("#title").text(result.data[0]['title']);
+                            $("#tanggal").text("Tanggal publikasi : " + result.data[0]['created_at']);
+                            $("#keterangan").html(result.data[0]['keterangan']);
+                            $("#kt_modal_kalender").modal();
+                        }
+                        else{
+                            alert(result.msg);
+                        }
+                    }
+                });
+            }
 		</script>
         {{----}}
         <style>
