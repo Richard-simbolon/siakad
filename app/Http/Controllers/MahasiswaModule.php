@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\TugasAkhirModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -404,5 +405,22 @@ class MahasiswaModule extends Controller
             return json_encode(["status"=> 'error', "message"=> "Terjadi kesalahan menyimpan data, coba lagi."]);
         }
         
+    }
+
+    public function tugasakhir(){
+        $data = MahasiswaModel::where('nim' , '=',Auth::user()->id)
+            ->join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
+            ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')
+            ->select('mahasiswa.*','master_jurusan.title as jurusan','master_kelas.title as kelas' )
+            ->first();
+
+        $dosen = TugasAkhirModel::where('mahasiswa_tugas_akhir.row_status','active')
+            ->join("mahasiswa_tugas_akhir_detail", "mahasiswa_tugas_akhir_detail.tugas_akhir_id","=", "mahasiswa_tugas_akhir.id")
+            ->join("dosen", "dosen.id", "=", "mahasiswa_tugas_akhir_detail.dosen_id")
+            ->select("dosen.nidn_nup_nidk","dosen.nama", "dosen.no_hp", "mahasiswa_tugas_akhir_detail.status_dosen")
+            ->orderBy("mahasiswa_tugas_akhir_detail.status_dosen")
+            ->get();
+
+        return view("mahasiswa/tugas_akhir" , compact("data", "dosen" ));
     }
 }
