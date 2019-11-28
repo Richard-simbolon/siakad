@@ -42,21 +42,20 @@ $(document).ready(function() {
         ajax: {
             url:'jadwalperkuliahan/paging',
             type:"POST",
-            //data:{"_token": $('#csrf_').val(),'table':key},
             data: function ( d ) {
                 d.jadwal_perkuliahan = $('#jadwal_perkuliahan').val(),
                 d._token = $('#csrf_').val()
             }
         },
-        order: [[5, 'asc']],
+        order: [[6, 'asc']],
 			drawCallback: function(settings) {
 				var api = this.api();
 				var rows = api.rows({page: 'current'}).nodes();
 				var last = null;
-				api.column(5, {page: 'current'}).data().each(function(group, i) {
+				api.column(6, {page: 'current'}).data().each(function(group, i) {
 					if (last !== group) {
 						$(rows).eq(i).before(
-							'<tr class="group"><td colspan="10">' + hari[group] + '</td></tr>',
+							'<tr class="group"><td colspan="8">' + hari[group] + '</td></tr>',
 						);
 						last = group;
 					}
@@ -68,11 +67,18 @@ $(document).ready(function() {
             { data: 'kelas_title', name: 'kelas_title' },
             { data: 'bobot_mata_kuliah', name: 'bobot_mata_kuliah' },
             { data: 'nama', name: 'nama' },
+            { data: 'asisten', name: 'asisten' },
             { data: 'hari_id', name: 'hari_id', render: function(data, type, full, meta) {
                     return hari[full.hari_id];
                 }, 
             },
             { data: 'jam', name: 'jam' },  
+        ],
+        columnDefs: [
+            {
+                targets: 3,
+                className: "text-center"
+            }
         ]
     });
     

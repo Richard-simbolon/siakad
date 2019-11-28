@@ -24,7 +24,6 @@ class JadwalPerkuliahan extends Controller
     {
         $this->middleware(function ($request, $next) {
             $this->user= Auth::user();
-            //print_r($this->user->login_type);
             if($this->user->login_type != 'mahasiswa'){
                 return abort(404);
             }else{
@@ -36,7 +35,6 @@ class JadwalPerkuliahan extends Controller
 
     public function index()
     {
-        //$mahasiswa_id = Auth::user()->id;
         $semester_active = SemesterModel::where('status_semester' ,'enable')->first();
         $mahasiswa = MahasiswaModel::where('nim' , Auth::user()->id)->first();
         $data = JadwalPerkuliahanModel::where('kelas_id' , $mahasiswa->kelas_id)
@@ -44,7 +42,6 @@ class JadwalPerkuliahan extends Controller
         ->get();
         $select2 = JadwalPerkuliahanModel::select('semester_id' ,'semseter_title')
         ->where('kelas_id' , $mahasiswa->kelas_id)
-        //->where('mahasiswa_id' , $semester_active->id)
         ->groupBy('semester_id')
         ->orderBy('semester_id' ,'ASC')
         ->get();
@@ -108,7 +105,6 @@ class JadwalPerkuliahan extends Controller
 
     public function krs()
     {
-        //$mahasiswa_id = Auth::user()->id;
         $semester_active = SemesterModel::where('status_semester' ,'enable')->first();
         $mahasiswa = MahasiswaModel::where('nim' , Auth::user()->id)->first();
         $data = JadwalPerkuliahanModel::where('kelas_id' , $mahasiswa->kelas_id)
@@ -116,7 +112,6 @@ class JadwalPerkuliahan extends Controller
         ->get();
         $select2 = JadwalPerkuliahanModel::select('semester_id' ,'semseter_title')
         ->where('kelas_id' , $mahasiswa->kelas_id)
-        //->where('mahasiswa_id' , $semester_active->id)
         ->groupBy('semester_id')
         ->orderBy('semester_id' ,'ASC')
         ->get();

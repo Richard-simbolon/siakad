@@ -24,7 +24,13 @@ var KTDatatablesAdvancedRowGrouping = function() {
 						last = group;
 					}
 				});
-			}
+			},
+			columnDefs: [
+				{
+					targets: 3,
+					className: "text-center"
+				}
+			]
 		});
 	};
 
