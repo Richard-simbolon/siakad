@@ -737,7 +737,13 @@ var KTDatatablesExtensionsResponsive = function() {
                 if($('#nimnama').val() == '2'){
                     col = 2;
                 }
-                tables.column(col).search($('#inputdata').val()).column(7).search($('#jurusan').val()).draw();
+                tables.column(col).search($('#inputdata').val())
+                    .column(7).search($('#jurusan').val())
+                    .column(8).search($('#search_status').val())
+                    .column(4).search($('#search_jk').val())
+                    .column(9).search($('#search_angkatan').val())
+                    .column(5).search($('#search_agama').val())
+                    .draw();
         });
         
         //table.column(1).search('director').column(2).search('london').draw();
@@ -747,6 +753,9 @@ var KTDatatablesExtensionsResponsive = function() {
             serverSide: true,
             language:{
                 url: '/assets/lang/id.json'
+            },
+            dataTables_filter: {
+                display: "none"
             },
             "bFilter": true,
             ajax: {
@@ -764,12 +773,13 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 't_agama', name: 't_agama' },
                 { defaultContent: '-'},
                 { data: 'title', name: 'title' },
-                { data: 'row_status', name: 'row_status' },
+                { data: 'status', name: 'status' },
+                { data: 'angkatan', name: 'angkatan' },
                 { defaultContent: 'angkatan' }
             ],
 			columnDefs: [
 				{
-					targets: 9,
+					targets: 10,
 					title: 'Actions',
 					orderable: false,
 					render: function(data, type, full, meta) {
@@ -777,6 +787,10 @@ var KTDatatablesExtensionsResponsive = function() {
                         <a class="btn" href="mahasiswa/view/`+full.id+`""><i class="la la-edit"></i></a>
                         `;
 					},
+                },
+                {
+                    targets: 9,
+                    className: "text-center"
                 },
                 {
 					targets: 1,
@@ -921,8 +935,9 @@ var KTDatatablesExtensionsResponsive = function() {
         $('#search-button').on('click', function(e) {
             //alert($('#nimnama').val());
             tables.column(1).search($('#inputdata').val())
-            .column(4).search($('#jenis_kelamin').val())
-            .column(5).search($('#search-agama').val())
+                .column(4).search($('#jenis_kelamin').val())
+                .column(5).search($('#search-agama').val())
+                .column(7).search($('#search_status').val())
             .draw();
         });
         
@@ -948,11 +963,12 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'jenis_kelamin', name: 'jenis_kelamin' },
                 { data: 't_agama', name: 't_agama' },
                 { data: 'tanggal_lahir', name: 'tanggal_lahir' },
-                { data: 'row_status', name: 'row_status' },
+                { data: 'status_pegawai', name: 'status_pegawai' },
+                { defaultContent : '<td></td>'}
             ],
 			columnDefs: [
 				{
-					targets: 7,
+					targets: 8,
 					title: 'Actions',
 					orderable: false,
                     className:"text-center",

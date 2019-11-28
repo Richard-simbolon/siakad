@@ -55,7 +55,7 @@
                                                     <label>NIM / Nama</label>
                                                     <div class="form-group">
                                                         <select name="jenis_peringkat" id="nimnama" class="form-control  kt-select2">
-                                                            <option value="">-- Pilih Pencarian --</option>
+                                                            <option value=" ">-- Pilih Semua --</option>
                                                             <option value="1">NIM</option>
                                                             <option value="2">Nama</option>
                                                         </select>
@@ -65,7 +65,7 @@
                                                     <label>Jurusan</label>
                                                     <div class="form-group">
                                                         <select name="mahasiswa[jurusan_id]" id="jurusan" class="form-control kt-select2">
-                                                            <option value="">-- Pilih Jurusan --</option>
+                                                            <option value=" ">-- Pilih Semua --</option>
                                                             @foreach ($master['jurusan'] as $item)
                                                                 <option value="{{$item['title']}}">{{$item['title']}}</option>
                                                             @endforeach
@@ -75,8 +75,8 @@
                                                 <div class="col-xl-4">
                                                     <label>Angkatan</label>
                                                     <div class="form-group">
-                                                        <select id="search-angkatan" class="form-control kt-select2">
-                                                            <option value="">Select</option>
+                                                        <select id="search_angkatan" class="form-control kt-select2">
+                                                            <option value=" ">-- Pilih Semua --</option>
                                                             @foreach ($master['angkatan'] as $item)
                                                                 <option value="{{$item['title']}}" > {{$item['title']}} </option>
                                                             @endforeach
@@ -88,8 +88,8 @@
                                                 <div class="col-xl-4">
                                                     <label>Status</label>
                                                     <div class="form-group">
-                                                        <select  id="search-status" class="form-control kt-select2">
-                                                            <option value="">Select</option>
+                                                        <select  id="search_status" class="form-control kt-select2">
+                                                            <option value=" ">-- Pilih Semua --</option>
                                                             @foreach ($master['status_mahasiswa'] as $item)
                                                                 <option value="{{$item['title']}}" > {{$item['title']}} </option>
                                                             @endforeach
@@ -99,18 +99,18 @@
                                                 <div class="col-xl-4">
                                                     <label>Jenis Kelamin</label>
                                                     <div class="form-group">
-                                                        <select name="jenis_kelamin" class="form-control kt-select2">
-                                                            <option value="">-- Pilih Jenis Kelamin --</option>
-                                                            <option value="1">Laki - laki</option>
-                                                            <option value="2">Perempuan</option>
+                                                        <select name="mahasiswa[jk]" id="search_jk" class="form-control">
+                                                            <option value=" ">-- Pilih Semua --</option>
+                                                            <option value="laki-laki">Laki - laki</option>
+                                                            <option value="perempuan">Perempuan</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-4">
                                                     <label>Agama</label>
                                                     <div class="form-group">
-                                                        <select name="mahasiswa[agama]" id="search-agama" class="form-control kt-select2">
-                                                            <option value="">Select</option>
+                                                        <select name="mahasiswa[agama]" id="search_agama" class="form-control kt-select2">
+                                                            <option value=" ">-- Pilih Semua --</option>
                                                             @foreach ($master['agama'] as $item)
                                                                 <option value="{{$item['title']}}" > {{$item['title']}} </option>
                                                             @endforeach
@@ -144,6 +144,7 @@
                                             <th>Program Studi</th>
                                             <th>Status</th>
                                             <th>Angkatan</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                 </table>

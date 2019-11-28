@@ -79,7 +79,7 @@ class HomeController extends Controller
             return view('home_dosen', compact('data','semester', 'matakuliah','jumlah_sks', 'kelas'));
         }
 
-        return view('home_admin', compact('data'));
+        return view('home_admin');
     }
 
     public function getCalender(){

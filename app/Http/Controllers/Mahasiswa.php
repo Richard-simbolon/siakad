@@ -226,7 +226,9 @@ class Mahasiswa extends Controller
         return Datatables::of(MahasiswaModel::where('mahasiswa.row_status', 'active')
             ->leftJoin('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
             ->leftJoin('master_agama', 'mahasiswa.agama', '=', 'master_agama.id')
-            ->select("mahasiswa.id" ,"master_agama.title as t_agama","nim" ,"jurusan_id" , "master_jurusan.title", "agama" , "mahasiswa.row_status","nama","nik","nisn","tanggal_lahir","jk")->get())->addIndexColumn()->make(true);
+            ->leftJoin('master_status_mahasiswa','master_status_mahasiswa.id', '=', 'mahasiswa.status' )
+            ->leftJoin('master_angkatan','master_angkatan.id', '=', 'mahasiswa.angkatan')
+            ->select("mahasiswa.id" ,"master_agama.title as t_agama","nim" ,"jurusan_id" , "master_jurusan.title", "agama" , "master_status_mahasiswa.title as status","nama","nik","nisn","tanggal_lahir","jk", "master_angkatan.title as angkatan")->get())->addIndexColumn()->make(true);
     }
 
     public function validatewizard(Request $request){
