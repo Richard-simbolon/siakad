@@ -18,7 +18,7 @@
                                 Mahasiswa Tugas Akhir</a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="" class="kt-subheader__breadcrumbs-link">
-                                Pembimbing</a>
+                                Penguji</a>
                         </div>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                                     </g>
                                 </svg>
                                 <h3 class="kt-portlet__head-title">
-                                    &nbsp;Pembimbing Tugas Akhir
+                                    Penguji Tugas Akhir
                                 </h3>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                         <div class="kt-portlet__body">
                                  <div class="row">
                                 <div class="col-lg-12" id="datatable_display">
-                                    <table class="table table-striped table-bordered table-hover responsive" id="absensimatakuliah">
+                                    <table class="table table-striped table-bordered table-hover responsive" id="daftarPenguji">
                                         <thead>
                                         <tr>
                                             {{-- <th style="text-align: center">No</th> --}}

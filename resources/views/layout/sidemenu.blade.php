@@ -53,7 +53,7 @@
                         if(Auth::user()->login_type != 'admin'){
                             $resultss = DB::select("Select module.* , module_header.title as m_title from module 
                                                 LEFT JOIN module_header ON module_header.id = module.header_id
-                                                where module.status != 0 AND module.`header_id` IS NOT NULL AND module.module = '".Auth::user()->login_type."' order by module.header_id ASC ");
+                                                where module.status != 0 AND module.`header_id` IS NOT NULL AND module.module = '".Auth::user()->login_type."' order by module.header_id ASC,module.order_no ASC  ");
                             $header = '';
                             foreach($resultss as $val){
                                 if($header != $val->m_title){

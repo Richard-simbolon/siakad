@@ -342,7 +342,7 @@ class MahasiswaModule extends Controller
         $menu['submenu'] = "ganti_password";
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
-
+        
         return view("data/mahasiswa_ganti_password" , compact("data" , "title"  ,"exclude" ,"Tableshow", "count", "menu"));
     }
 

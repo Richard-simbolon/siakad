@@ -103,6 +103,7 @@
                                                     <thead>
                                                     <th width="60%">Nama Dosen</th>
                                                     <th>Status</th>
+                                                    <th>Dosen Ke</th>
                                                     <th></th>
                                                     </thead>
                                                     <tbody>
@@ -122,15 +123,21 @@
                                                             </td>
                                                             <td>
                                                                 <select name="detail[{{$detail['id']}}][status_dosen]" class="form-control form-control-sm kt-select2">
-                                                                <option value="Pembimbing 1" {{$detail['status_dosen'] == 'Pembimbing 1'? "selected": ""}}>Pembimbing 1</option>
-                                                                <option value="Pembimbing 2" {{$detail['status_dosen'] == 'Pembimbing 2'? "selected": ""}}>Pembimbing 2</option>
-                                                                <option value="Pembimbing 3" {{$detail['status_dosen'] == 'Pembimbing 3'? "selected": ""}}>Pembimbing 3</option>
-                                                                <option value="Pembimbing 4" {{$detail['status_dosen'] == 'Pembimbing 4'? "selected": ""}}>Pembimbing 4</option>
-                                                                <option value="Penguji 1" {{$detail['status_dosen'] == 'Penguji 1'? "selected": ""}}>Penguji 1</option>
-                                                                <option value="Penguji 2" {{$detail['status_dosen'] == 'Penguji 2'? "selected": ""}}>Penguji 2</option>
-                                                                <option value="Penguji 3" {{$detail['status_dosen'] == 'Penguji 3'? "selected": ""}}>Penguji 3</option>
-                                                                <option value="Penguji 4" {{$detail['status_dosen'] == 'Penguji 4'? "selected": ""}}>Penguji 3</option>
-                                                            </select>
+                                                                    <option value="Pembimbing" {{$detail['status_dosen'] == 'Pembimbing'? "selected": ""}}>Pembimbing</option>
+                                                                    <option value="Penguji" {{$detail['status_dosen'] == 'Penguji'? "selected": ""}}>Penguji</option>
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <select name="detail[{{$detail['id']}}][status_dosen_ke]" class="form-control form-control-sm kt-select2">
+                                                                    <option></option>
+                                                                    <option value="1" {{$detail['status_dosen_ke'] == '1'? "selected": ""}}>1</option>
+                                                                    <option value="2" {{$detail['status_dosen_ke'] == '2'? "selected": ""}}>2</option>
+                                                                    <option value="3" {{$detail['status_dosen_ke'] == '3'? "selected": ""}}>3</option>
+                                                                    <option value="4" {{$detail['status_dosen_ke'] == '4'? "selected": ""}}>4</option>
+                                                                    <option value="5" {{$detail['status_dosen_ke'] == '5'? "selected": ""}}>5</option>
+                                                                    <option value="6" {{$detail['status_dosen_ke'] == '6'? "selected": ""}}>6</option>
+                                                                    <option value="7" {{$detail['status_dosen_ke'] == '7'? "selected": ""}}>7</option>
+                                                                </select>
                                                             </td>
                                                             <td width="150px" align="center" style="vertical-align: middle">
                                                             <a href="javascript:void(0)" onclick="addrow()"><i class="la la-plus" style="font-size: 16px;"></i> </a> &nbsp;

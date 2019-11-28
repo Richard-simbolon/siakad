@@ -35,6 +35,7 @@ return array(
     'App\\Http\\Controllers\\DosenModule' => $baseDir . '/app/Http/Controllers/DosenModule.php',
     'App\\Http\\Controllers\\DosenNilai' => $baseDir . '/app/Http/Controllers/DosenNilai.php',
     'App\\Http\\Controllers\\DosenPembimbing' => $baseDir . '/app/Http/Controllers/DosenPembimbing.php',
+    'App\\Http\\Controllers\\DosenPenguji' => $baseDir . '/app/Http/Controllers/DosenPenguji.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\JadwalPerkuliahan' => $baseDir . '/app/Http/Controllers/JadwalPerkuliahan.php',
     'App\\Http\\Controllers\\JadwalUjian' => $baseDir . '/app/Http/Controllers/JadwalUjian.php',

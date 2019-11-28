@@ -438,6 +438,7 @@ class ComposerStaticInitd581379db7dcf1de72610e2b396d2975
         'App\\Http\\Controllers\\DosenModule' => __DIR__ . '/../..' . '/app/Http/Controllers/DosenModule.php',
         'App\\Http\\Controllers\\DosenNilai' => __DIR__ . '/../..' . '/app/Http/Controllers/DosenNilai.php',
         'App\\Http\\Controllers\\DosenPembimbing' => __DIR__ . '/../..' . '/app/Http/Controllers/DosenPembimbing.php',
+        'App\\Http\\Controllers\\DosenPenguji' => __DIR__ . '/../..' . '/app/Http/Controllers/DosenPenguji.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\JadwalPerkuliahan' => __DIR__ . '/../..' . '/app/Http/Controllers/JadwalPerkuliahan.php',
         'App\\Http\\Controllers\\JadwalUjian' => __DIR__ . '/../..' . '/app/Http/Controllers/JadwalUjian.php',

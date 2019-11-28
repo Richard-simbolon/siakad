@@ -122,14 +122,20 @@ function addrow() {
         "                                                        <input type=\"hidden\" name=\"detail["+size+"\][detail_id]\" value=\"0\">\n" +
         "                                                        <select name=\"detail["+size+"][status_dosen]\" class=\"form-control form-control-sm kt-select2 kt-select2-dosen-status\">\n" +
         "                                                            <option value=\"\"></option>\n" +
-        "                                                            <option value=\"Pembimbing 1\">Pembimbing 1</option>\n" +
-        "                                                            <option value=\"Pembimbing 2\">Pembimbing 2</option>\n" +
-        "                                                            <option value=\"Pembimbing 3\">Pembimbing 3</option>\n" +
-        "                                                            <option value=\"Pembimbing 4\">Pembimbing 4</option>\n" +
-        "                                                            <option value=\"Penguji 1\">Penguji 1</option>\n" +
-        "                                                            <option value=\"Penguji 2\">Penguji 2</option>\n" +
-        "                                                            <option value=\"Penguji 3\">Penguji 3</option>\n" +
-        "                                                            <option value=\"Penguji 4\">Penguji 4</option>\n" +
+        "                                                            <option value=\"Pembimbing\">Pembimbing</option>\n" +
+        "                                                            <option value=\"Penguji\">Penguji</option>\n" +
+        "                                                        </select>\n" +
+        "                                                    </td>\n" +
+        "                                                    <td>\n" +
+        "                                                        <select name=\"detail["+size+"][status_dosen]\" class=\"form-control form-control-sm kt-select2 kt-select2-dosen-status\">\n" +
+        "                                                            <option value=\"\"></option>\n" +
+        "                                                            <option value=\"1\">1</option>\n" +
+        "                                                            <option value=\"2\">2</option>\n" +
+        "                                                            <option value=\"3\">3</option>\n" +
+        "                                                            <option value=\"4\">4</option>\n" +
+        "                                                            <option value=\"5\">5</option>\n" +
+        "                                                            <option value=\"6\">6</option>\n" +
+        "                                                            <option value=\"7\">7</option>\n" +
         "                                                        </select>\n" +
         "                                                    </td>\n" +
         "                                                    <td width=\"150px\" align=\"center\" style=\"vertical-align: middle\">\n" +
