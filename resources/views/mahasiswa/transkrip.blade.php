@@ -106,22 +106,6 @@
                             </div>
                         </div>
                         <br/><br/>
-
-                        <div class="row">
-                            <div class="col-xl-2">
-                                <div class="form-group">
-                                    <label>Tahun Ajaran</label>
-                                    <div class="form-group">
-                                        <select name="semester_id" id="search-khs" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
-                                            <option value="">Select</option>
-                                            @foreach ($master as $item)
-                                                <option value="{{$item['id']}}" > {{$item['title']}} </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     <div>
                             <table class="dataTable table table-striped- table-bordered table-hover table-checkable">
                             <thead>
@@ -139,15 +123,15 @@
                                 ?>
                                 @foreach ($data as $item)
                                 <?php $i++;
-                                $sks += $item->bobot_mata_kuliah;
+                                    $sks += $item->bobot_mata_kuliah;
                                 ?>
-                                    <tr>
-                                        <td style="text-align: center">{{$i}}</td>
-                                        <td style="text-align: center">{{$item->kode_mata_kuliah}}</td>
-                                        <td style="text-align: center">{{$item->nama_mata_kuliah}}</td>
-                                        <td style="text-align: center">{{$item->bobot_mata_kuliah}}</td>
-                                        <td style="text-align: center">{{$item->nilai_akhir}}</td>
-                                    </tr>
+                                <tr>
+                                    <td style="text-align: center">{{$i}}</td>
+                                    <td style="text-align: center">{{$item->kode_mata_kuliah}}</td>
+                                    <td style="text-align: center">{{$item->nama_mata_kuliah}}</td>
+                                    <td style="text-align: center">{{$item->bobot_mata_kuliah}}</td>
+                                    <td style="text-align: center">{{$item->nilai_akhir}}</td>
+                                </tr>
                                 @endforeach
                                 <tr>
                                     <td style="text-align: center" colspan="3"><b>Total SKS</b></td>

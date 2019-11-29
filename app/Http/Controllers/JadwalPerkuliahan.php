@@ -127,13 +127,35 @@ class JadwalPerkuliahan extends Controller
 
     public function khs()
     {
-        
+        $semester_aktif = SemesterModel::where('status_semester' , 'enable')->first();
+        $master = SemesterModel::where('row_status' ,'active')->get();
         $kurikulum = MahasiswaModel::join('master_kelas' ,'master_kelas.id' ,'mahasiswa.kelas_id')
         ->select('master_kelas.*','mahasiswa.nama','mahasiswa.id')
         ->where('nim' , Auth::user()->id)->first();
         $id = $kurikulum->id;
         $mahasiswa = DB::table('view_profile_mahasiswa')->where('id' , $id)->first();
-        
+        $data = KurikulumModel::rightJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.kurikulum_id','=' ,'kurikulum.id')
+        ->join('mata_kuliah' ,'mata_kuliah.id' , '=' ,'kurikulum_mata_kuliah.mata_kuliah_id')
+        ->leftJoin('nilai_mahasiswa', function ($join) use($id) {
+            $join->on('nilai_mahasiswa.mata_kuliah_id' ,'=','kurikulum_mata_kuliah.mata_kuliah_id')
+            ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $id);
+        })
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir')
+        ->where('kurikulum.id' , $kurikulum->kurikulum_id)->where('nilai_mahasiswa.semester_id' , $semester_aktif->id)->get();
+        $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+        return view("mahasiswa/khs" , compact("data" , "title" ,"mahasiswa" , "master"));
+
+    }
+
+    public function transkrip()
+    {
+        //$semester_aktif = SemesterModel::where('status_semester' , 'enable')->first();
+        //$master = SemesterModel::where('row_status' ,'active')->get();
+        $kurikulum = MahasiswaModel::join('master_kelas' ,'master_kelas.id' ,'mahasiswa.kelas_id')
+        ->select('master_kelas.*','mahasiswa.nama','mahasiswa.id')
+        ->where('nim' , Auth::user()->id)->first();
+        $id = $kurikulum->id;
+        $mahasiswa = DB::table('view_profile_mahasiswa')->where('id' , $id)->first();
         $data = KurikulumModel::rightJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.kurikulum_id','=' ,'kurikulum.id')
         ->join('mata_kuliah' ,'mata_kuliah.id' , '=' ,'kurikulum_mata_kuliah.mata_kuliah_id')
         ->leftJoin('nilai_mahasiswa', function ($join) use($id) {
@@ -143,9 +165,56 @@ class JadwalPerkuliahan extends Controller
         ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        return view("mahasiswa/khs" , compact("data" , "title" ,"mahasiswa"));
+        return view("mahasiswa/transkrip" , compact("data" , "title" ,"mahasiswa"));
 
     }
+
+    public function khs_load(Request $request)
+    {
+        $kurikulum = MahasiswaModel::join('master_kelas' ,'master_kelas.id' ,'mahasiswa.kelas_id')
+        ->select('master_kelas.*','mahasiswa.nama','mahasiswa.id')
+        ->where('nim' , Auth::user()->id)->first();
+        $id = $kurikulum->id;
+        $data = KurikulumModel::rightJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.kurikulum_id','=' ,'kurikulum.id')
+        ->join('mata_kuliah' ,'mata_kuliah.id' , '=' ,'kurikulum_mata_kuliah.mata_kuliah_id')
+        ->leftJoin('nilai_mahasiswa', function ($join) use($id) {
+            $join->on('nilai_mahasiswa.mata_kuliah_id' ,'=','kurikulum_mata_kuliah.mata_kuliah_id')
+            ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $id);
+        })
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir')
+        ->where('kurikulum.id' , $kurikulum->kurikulum_id)->where('nilai_mahasiswa.semester_id' , $request->all()['id'])->get();
+        $html = '';
+        if(count($data) > 0){
+            $i = 0;
+            $sks = 0;
+            foreach($data as $item){
+                $i++;
+                $sks += $item->bobot_mata_kuliah;
+                $html .= '
+                    <tr>
+                        <td>'.$i.'</td>
+                        <td style="text-align: center">'.$item->kode_mata_kuliah.'</td>
+                        <td style="text-align: center">'.$item->nama_mata_kuliah.'</td>
+                        <td style="text-align: center">'.$item->bobot_mata_kuliah.'</td>
+                        <td style="text-align: center">'.$item->nilai_akhir.'</td>
+                    </tr>
+
+                ';
+            }
+            $html .= '<tr>
+                        <td style="text-align: center" colspan="3"><b>Total SKS</b></td>
+                        <td style="text-align: center" ><b>'.$sks.'</b></td>
+                        <td style="text-align: center" ></td>
+                    </tr>';
+        }else{
+            $html = '<tr>
+                        <td colspan="5" style="text-align: center">Tidak ada data.</td>
+                    </tr>';
+        }
+
+        return json_encode(array('html' => $html));
+    }
+
 
     public function jadwalujian()
     {

@@ -46,6 +46,23 @@ $(document).ready(function(){
 
         ],
     });
+
+    $(document).on('change' , '#search-khs' , function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        $.ajax({
+            type:'POST',
+            url:'/mahasiswa/khs_load',
+            data:{id:$(this).val()},
+            success:function(result) {
+                var res = JSON.parse(result);
+                $('#body-khs').html(res.html)
+            }
+         });
+    });
     $(document).on('click' , '#updatemahasiswa' , function(){
          Swal.fire({
             title: 'Update data',

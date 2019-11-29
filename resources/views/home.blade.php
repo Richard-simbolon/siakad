@@ -71,7 +71,7 @@
                                     </div>
                                     <div class="kt-widget__details">
                                         <span class="kt-widget__title">IP Kumulatif</span>
-                                        <span class="kt-widget__value">3.51</span>
+                                        <span class="kt-widget__value">{{$ipk}}</span>
                                     </div>
                                 </div>
                                 <div class="kt-widget__item">
@@ -80,7 +80,7 @@
                                     </div>
                                     <div class="kt-widget__details">
                                         <span class="kt-widget__title">IP Semester</span>
-                                        <span class="kt-widget__value">3.90</span>
+                                        <span class="kt-widget__value">{{$ips}}</span>
                                     </div>
                                 </div>
                                 <div class="kt-widget__item">
@@ -89,7 +89,7 @@
                                     </div>
                                     <div class="kt-widget__details">
                                         <span class="kt-widget__title">Total SKS</span>
-                                        <span class="kt-widget__value">130</span>
+                                        <span class="kt-widget__value">{{$total_sks_kurikulum}}</span>
                                     </div>
                                 </div>
                                 <div class="kt-widget__item">
@@ -98,7 +98,7 @@
                                     </div>
                                     <div class="kt-widget__details">
                                         <span class="kt-widget__title">Sisa SKS</span>
-                                        <span class="kt-widget__value">10</span>
+                                        <span class="kt-widget__value">{{$total_sks_kurikulum - $total_sks_diambil}}</span>
                                     </div>
                                 </div>
 

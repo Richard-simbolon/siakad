@@ -37,6 +37,22 @@ abstract class Controller
         print_r($data);
     }
 
+    public function konversi_nilai($nilai = 0){
+        if($nilai < 45){
+            return ['key'=> 'E' , 'value' => 0];
+        }elseif($nilai > 44 && $nilai<= 59){
+            return ['key'=> 'D' , 'value' => 1];
+        }elseif($nilai > 59 && $nilai<= 69){
+            return ['key'=> 'C' , 'value' => 2];
+        }elseif($nilai > 69 && $nilai<= 79){
+            return ['key'=> 'B' , 'value' => 3];
+        }elseif($nilai > 79 && $nilai<= 100){
+            return ['key'=> 'A' , 'value' => 4];
+        }else{
+            return ['key'=> 'E' , 'value' => 0];
+        }
+    }
+
     public function getSemester(){
         return SemesterModel::where('status_semester','=', 'enable')->first();
     }

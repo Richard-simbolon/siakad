@@ -31,7 +31,7 @@ class HomeController extends Controller
     public function index()
     {
         $login_type = Auth::user()->login_type;
-
+        $semester_aktif = SemesterModel::where('status_semester' , 'enable')->first();
         if(strtolower($login_type)=="mahasiswa"){
             $data = MahasiswaModel::where('nim' , '=', Auth::user()->id)
                 ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')
@@ -41,14 +41,35 @@ class HomeController extends Controller
                 ->first();
 
             $semester = SemesterModel::where('status_semester','=', 'enable')->first();
+            $id = MahasiswaModel::where('nim' , Auth::user()->id)->first();
+            $data_nilai = DB::select('call ip_mhs_proc('.$id->id.' , '.$id->kelas_id.' ,'.$semester_aktif->id.')');
+            $nilai = 0;
+            $sks = 0;
+            $ips = 0;
+            $persemsester_nilai = [];
+            $persemsester_sks = [];
+            if($data_nilai){
+                foreach($data_nilai as $val ){
+                    $persemsester_nilai[$val->semester_id][] = ($this->konversi_nilai($val->nilai_akhir)['value'] * $val->bobot_mata_kuliah) ;
+                    $persemsester_sks[$val->semester_id][] = $val->bobot_mata_kuliah ;
+                    $nilai += ($this->konversi_nilai($val->nilai_akhir)['value'] * $val->bobot_mata_kuliah) ;
+                    $sks += $val->bobot_mata_kuliah;
+                }
+            }
+            if(count($persemsester_nilai) > 0 && count($persemsester_sks) > 0){
+                $smstr = max(array_keys($persemsester_nilai));
+                $ips = round(array_sum($persemsester_nilai[$smstr]) / array_sum($persemsester_sks[$smstr]) , 2);
+            }
+            $total_sks_diambil = $sks;
+            $total_sks_kurikulum = DB::table('view_total_bobot_matakuliah')->select('total_sks')->where('kelas_id' , $id->kelas_id)->first()->total_sks;
+            $ipk = $nilai && $sks ? round($nilai / $sks, 2) : 0;
+            return view('home', compact('data','semester' ,'ipk' ,'total_sks_diambil' , 'total_sks_kurikulum' , 'ips'));
 
-            return view('home', compact('data','semester'));
         }else if(strtolower($login_type)=="dosen") {
             $data = DosenModel::where('nidn_nup_nidk' , '=', Auth::user()->id)
                 ->leftJoin('master_jenis_pegawai', 'master_jenis_pegawai.id', '=', 'dosen.jenis_pegawai')
                 ->select('dosen.*','master_jenis_pegawai.title as nama_jenis_pegawai')
                 ->first();
-            //print_r($data); exit;
             $semester = SemesterModel::where('status_semester','=', 'enable')->first();
 
             $matakuliah = KelasPerkuliahanModel::where('semester_id', $semester['id'])->where('kelas_perkuliahan_mata_kuliah.dosen_id', '=', $data['id'])

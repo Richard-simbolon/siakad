@@ -47,7 +47,7 @@ Route::post('/data/mahasiswa/resetpassword', 'mahasiswa@resetpassword')->name('r
 // KRS
 //Route::get('mahasiswa/krs', 'JadwalPerkuliahan@krs')->name('krs');
 //Route::get('mahasiswa/khs', 'JadwalPerkuliahan@khs')->name('khs');
-
+Route::post('mahasiswa/khs_load', 'JadwalPerkuliahan@khs_load')->name('khs');
 Route::post('/data/mahasiswa/submitprestasi', 'MahasiswaModule@submitprestasi')->name('submitprestasi');
 Route::post('/data/mahasiswa/submitprofile', 'MahasiswaModule@submitprofile')->name('submitprofile');
 Route::post('/data/mahasiswa/submitalamat', 'MahasiswaModule@submitalamat')->name('submitalamat');

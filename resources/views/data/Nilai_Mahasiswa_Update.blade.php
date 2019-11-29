@@ -108,24 +108,31 @@
                                 <div class="row">
                                     <input type="hidden" name="kelas_perkuliahan_detail_id" value="{{$data->id}}" />
                                     <input type="hidden" name="semester_id" value="{{$data->semester_id}}" />
-                                    
                                     <input type="hidden" name="mata_kuliah_id" value="{{$data->mata_kuliah_id}}" />
                                     <input type="hidden" name="jurusan_id" value="{{$data->jurusan_id}}" />
                                     <input type="hidden" name="angkatan_id" value="{{$data->angkatan_id}}" />
                                     <input type="hidden" name="kelas_perkuliahan_id" value="{{$data->kelas_perkuliahan_id}}" />
                                     <div class="col-lg-12">
-                                        <table class="table table-striped table-bordered table-hover responsive">
+                                        <table class="table table-striped table-bordered table-hover dataTable responsive">
                                             <thead>
-                                            <tr>
-                                                <th style="text-align: center">No</th>
-                                                <th style="text-align: center">Nama Mahasiswa</th>
-                                                <th style="text-align: center">NIM</th>
-                                                <th>Jenis Kelamin</th>
-                                                <th>UTS </th>
-                                                <th style="text-align: center">UAS</th>
-                                                <th style="text-align: center">Nilai Akhir</th>
-                                                
-                                            </tr>
+                                           
+                                                    <tr>
+                                                            <th style="vertical-align: middle" rowspan="2">NO</th>
+                                                            <th style="vertical-align: middle" rowspan="2">Nama Mahasiswa</th>
+                                                            <th style="vertical-align: middle" rowspan="2">NIM</th>
+                                                            <th style="vertical-align: middle" rowspan="2">Jenis Kelamin</th>
+                                                            <th style="text-align: center" colspan="2">UTS</th>
+                                                            <th style="text-align: center" colspan="2">UAS</th>
+                                                            <th style="vertical-align: middle" rowspan="2">Nilai Akhir</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th style="text-align: center">T</th>
+                                                            <th style="text-align: center">P</th>
+                                                            <th style="text-align: center">T</th>
+                                                            <th style="text-align: center ;border-right-width: 1px;" >P</th>
+                                                            
+                                                        </tr>
+                                            
                                             </thead>
                                             <tbody>
                                                     <?$i = 0?>
@@ -136,10 +143,11 @@
                                                         <td align="center">{{ucfirst($item->nama)}}</td>
                                                         <td align="center">{{ucfirst($item->nim)}}</td>
                                                         <td align="center">{{ucfirst($item->jk)}}</td>
-                                                        <td><input type="text" value="{{$item->nilai_uts}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_uts]" placeholder="UTS"></td>
-                                                        <td><input type="text" value="{{$item->nilai_uas}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_uas]" placeholder="UAS"></td>
+                                                        <td><input type="text" value="{{$item->nilai_uts}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_uts]" placeholder="0"></td>
+                                                        <td><input type="text" value="{{$item->nilai_uts_praktek}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_uts_praktek]" placeholder="0"></td>
+                                                        <td><input type="text" value="{{$item->nilai_uas}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_uas]" placeholder="0"></td>
+                                                        <td><input type="text" value="{{$item->nilai_uas_praktek}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_uas_praktek]" placeholder="0"></td>
                                                         <td><input type="text" value="{{$item->nilai_akhir}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_akhir]" placeholder="Nilai Akhir"></td>
-                                                        
                                                     </tr>
                                                     @endforeach
                                             </tbody>

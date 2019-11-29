@@ -656,11 +656,32 @@ class Mahasiswa extends Controller
         $kurikulum = MahasiswaModel::join('master_kelas' ,'master_kelas.id' ,'mahasiswa.kelas_id')
         ->select('master_kelas.*','mahasiswa.nama','mahasiswa.id')
         ->where('mahasiswa.id' , $ids)->first();
-
-        //Print_r($kurikulum); exit;
+        
         $id = $kurikulum->id;
         $mahasiswa = DB::table('view_profile_mahasiswa')->where('id' , $id)->first();
-        //Print_r($mahasiswa); exit;
+        $data = KurikulumModel::rightJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.kurikulum_id','=' ,'kurikulum.id')
+        ->join('mata_kuliah' ,'mata_kuliah.id' , '=' ,'kurikulum_mata_kuliah.mata_kuliah_id')
+        ->leftJoin('nilai_mahasiswa', function ($join) use($id) {
+            $join->on('nilai_mahasiswa.mata_kuliah_id' ,'=','kurikulum_mata_kuliah.mata_kuliah_id')
+            ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $id);
+        })
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir')
+        ->where('kurikulum.id' , $kurikulum->kurikulum_id)->get();
+        $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+        
+        $global['id'] = $ids;
+        return view("data/Mhs_Khs" , compact("data" , "title" ,"mahasiswa"  ,"global"));
+        
+    }
+
+    public function transkrip($ids)
+    {
+        $kurikulum = MahasiswaModel::join('master_kelas' ,'master_kelas.id' ,'mahasiswa.kelas_id')
+        ->select('master_kelas.*','mahasiswa.nama','mahasiswa.id')
+        ->where('mahasiswa.id' , $ids)->first();
+        
+        $id = $kurikulum->id;
+        $mahasiswa = DB::table('view_profile_mahasiswa')->where('id' , $id)->first();
         $data = KurikulumModel::rightJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.kurikulum_id','=' ,'kurikulum.id')
         ->join('mata_kuliah' ,'mata_kuliah.id' , '=' ,'kurikulum_mata_kuliah.mata_kuliah_id')
         ->leftJoin('nilai_mahasiswa', function ($join) use($id) {
@@ -673,9 +694,9 @@ class Mahasiswa extends Controller
 
         $global['id'] = $ids;
         return view("data/Mhs_Khs" , compact("data" , "title" ,"mahasiswa"  ,"global"));
-        //return view("mahasiswa/khs" , compact("data" , "title" ,"mahasiswa"));
-
+        
     }
+
 
     public function grafik_mahasiswa(){
         $data = MahasiswaModel::where('row_status','active')
