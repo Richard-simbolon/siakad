@@ -118,13 +118,14 @@
                             <table class="dataTable table table-striped- table-bordered table-hover table-checkable" id="jadwalperkuliahandata">
                             <thead>
                             <tr>
-                                <th style="text-align: center">Kode MK</th>
-                                <th style="text-align: center">Mata Kuliah</th>
-                                <th style="text-align: center">Kelas</th>
+                                <th>Kode MK</th>
+                                <th>Mata Kuliah</th>
+                                <th>Kelas</th>
                                 <th style="text-align: center">Bobot SKS</th>
-                                <th style="text-align: center">Nama Dosen</th>
-                                <th style="text-align: center">Tanggal Perkuliahan</th>
-                                <th style="text-align: center">Jam</th>
+                                <th>Nama Dosen</th>
+                                <th>Asisten Dosen</th>
+                                <th>Hari</th>
+                                <th>Jam</th>
                             </tr>
                             </thead>
                             <tbody>

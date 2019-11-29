@@ -58,20 +58,11 @@
                                     <div class="col-xl-4">
                                         <label>Status</label>
                                         <div class="form-group">
-                                            <select name="status" class="form-control">
+                                            <select name="status" id="search_status" class="form-control">
                                                 <option value="">-- Pilih Status --</option>
-                                                <option value="1">AKTIF</option>
-                                                <option value="2">Tidak Aktif</option>
-                                                <option value="3">CUTI</option>
-                                                <option value="4">KELUAR</option>
-                                                <option value="5">ALMARHUM</option>
-                                                <option value="6">PENSIUN</option>
-                                                <option value="7">IJIN BELAJAR</option>
-                                                <option value="8">TUGAS DI INSTANSI LAIN</option>
-                                                <option value="9">GANTI NIDN</option>
-                                                <option value="10">TUGAS BELAJAR</option>
-                                                <option value="11">HAPUS NIDN</option>
-                                                <option value="0">Lainnya</option>
+                                                @foreach ($master['status'] as $item)
+                                                    <option value="{{$item['title']}}" > {{$item['title']}} </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -89,13 +80,10 @@
                                         <label>Agama</label>
                                         <div class="form-group">
                                             <select name="agama" id="search-agama" class="form-control">
-                                                <option value="">-- Pilih Agama --</option>
-                                                <option value="islam">Islam</option>
-                                                <option value="protestan">Protestan</option>
-                                                <option value="katolik">Katolik</option>
-                                                <option value="hindu">Hindu</option>
-                                                <option value="budha">Budha</option>
-                                                <option value="konghucu">Konghucu</option>
+                                                <option value=" ">-- Pilih Agama --</option>
+                                                @foreach ($master['agama'] as $item)
+                                                    <option value="{{$item['title']}}" > {{$item['title']}} </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -125,6 +113,7 @@
                                         <th>Agama</th>
                                         <th>Tanggal Lahir</th>
                                         <th>Status</th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                 </table>

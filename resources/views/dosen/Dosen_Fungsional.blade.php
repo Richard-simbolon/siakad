@@ -44,7 +44,7 @@
                                 </svg>
                             </span>
                             <h3 class="kt-portlet__head-title">
-                                &nbsp;Daftar pendidikan Dosen
+                                &nbsp;Daftar Fungsional Dosen
                             </h3>
                         </div>
                         <div class="kt-portlet__head-toolbar">

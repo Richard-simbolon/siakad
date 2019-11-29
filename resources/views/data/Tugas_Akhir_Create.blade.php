@@ -103,8 +103,9 @@
                                                 <br/>
                                                 <table class="dataTable table table-striped table-bordered table-hover responsive no-wrap">
                                                     <thead>
-                                                    <th width="60%">Nama Dosen</th>
+                                                    <th width="50%">Nama Dosen</th>
                                                     <th>Status</th>
+                                                    <th>Dosen Ke</th>
                                                     <th></th>
                                                     </thead>
                                                     <tbody>
@@ -120,14 +121,20 @@
                                                         <td>
                                                             <select name="detail[0][status_dosen]" class="form-control form-control-sm kt-select2">
                                                                 <option></option>
-                                                                <option value="Pembimbing 1">Pembimbing 1</option>
-                                                                <option value="Pembimbing 2">Pembimbing 2</option>
-                                                                <option value="Pembimbing 3">Pembimbing 3</option>
-                                                                <option value="Pembimbing 4">Pembimbing 4</option>
-                                                                <option value="Penguji 1">Penguji 1</option>
-                                                                <option value="Penguji 2">Penguji 2</option>
-                                                                <option value="Penguji 3">Penguji 3</option>
-                                                                <option value="Penguji 4">Penguji 4</option>
+                                                                <option value="Pembimbing">Pembimbing</option>
+                                                                <option value="Penguji">Penguji</option>
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select name="detail[0][status_dosen_ke]" class="form-control form-control-sm kt-select2">
+                                                                <option></option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
                                                             </select>
                                                         </td>
                                                         <td width="150px" align="center" style="vertical-align: middle">

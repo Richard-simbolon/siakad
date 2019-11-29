@@ -73,6 +73,9 @@ $(document).ready(function() {
             },{
                 targets: 0,
                 className: "text-center"
+            },{
+                targets: 1,
+                className: "text-center"
             }
 
         ],

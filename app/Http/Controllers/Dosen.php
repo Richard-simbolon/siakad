@@ -38,8 +38,13 @@ class Dosen extends Controller
         $table_display = DB::getSchemaBuilder()->getColumnListing("dosen");
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
-        //return view("data/dosen" , compact("data" , "title" ,"table_display" ,"exclude" ,"Tableshow","tableid"));
-        return view("data/dosen" , compact("data" , "title" ,"table_display" ,"exclude" ,"Tableshow","tableid"));
+
+        $master = array(
+            'agama' => AgamaModel::where('row_status' , 'active')->get(),
+            'status' => StatusPegawaiModel::where('row_status' , 'active')->get(),
+        );
+
+        return view("data/dosen" , compact("data" , "title" ,"table_display" ,"exclude" ,"Tableshow","tableid", "master"));
 
 
     }
@@ -249,8 +254,9 @@ class Dosen extends Controller
 
     public function paging(Request $request){
         return Datatables::of(DosenModel::where("dosen.row_status", "active")
-        ->leftJoin('master_agama', 'dosen.agama', '=', 'master_agama.id')
-        ->select("dosen.id" ,"master_agama.title as t_agama","nip" ,"nidn_nup_nidk", "agama" , "dosen.status","nama","tanggal_lahir","jenis_kelamin")->get())->addIndexColumn()->make(true);
+            ->leftJoin('master_agama', 'dosen.agama', '=', 'master_agama.id')
+            ->leftJoin('master_status_pegawai','master_status_pegawai.id', 'dosen.status_pegawai')
+        ->select("dosen.id" ,"master_agama.title as t_agama","nip" ,"nidn_nup_nidk", "agama" , "dosen.status","master_status_pegawai.title as status_pegawai","nama","tanggal_lahir","jenis_kelamin")->get())->addIndexColumn()->make(true);
     }
 
     public function view($id){

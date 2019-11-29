@@ -1,7 +1,6 @@
 <div class="kt-widget kt-widget--user-profile-1">
     <div class="kt-widget__head">
         <div class="kt-widget__media">
-            {{--<img src="{{asset('assets/images/mahasiswa').'/'.Auth::user()->id.'.jpg'}}" alt="image">--}}
             <img src="{{asset('assets/images/mahasiswa').'/'.Auth::user()->id.'.jpg'}}" onError="this.onerror=null;this.src='{{asset('assets/media/users/default.jpg')}}'" alt="image">
         </div>
         <div class="kt-widget__content">
@@ -124,7 +123,7 @@
                 </span>
                 <span class="kt-badge kt-badge--unified-danger kt-badge--sm kt-badge--rounded kt-badge--bolder">{{$count}}</span>
             </a>
-            <a href="{{url('data/mahasiswa/gantipassword')}}" class="kt-widget__item" class="kt-widget__item {{$menu['submenu']=='ganti_password' ? 'kt-widget__item--active' : '' }}">
+            <a href="{{url('data/mahasiswa/gantipassword')}}" class="kt-widget__item {{$menu['submenu']=='ganti_password' ? 'kt-widget__item--active' : '' }}">
                 <span class="kt-widget__section">
                     <span class="kt-widget__icon">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">

@@ -24,6 +24,7 @@ class TugasAkhir extends Controller
         "tugas_akhir_id"=>["type"=>"text" , "value"=>"null" , "validation" => "required"],
         "dosen_id"=>["type"=>"text" , "value"=>"null" , "validation" => "required"],
         "status_dosen"=>["type"=>"text" , "value"=>"null" , "validation" => "required"],
+        "status_dosen_ke"=>["type"=>"text" , "value"=>"null" , "validation" => "required"],
     ];
     static $exclude = ["id","created_at","updated_at","created_by","modified_by"];
 
@@ -104,7 +105,7 @@ class TugasAkhir extends Controller
             $arrDetail = [];
             $field_detail =[];
             foreach ($input['detail'] as $detail){
-                $itemDetail = array("tugas_akhir_id"=>$header->id,"row_status"=>"active","dosen_id"=>$detail['dosen'], "status_dosen"=>$detail['status_dosen']);
+                $itemDetail = array("tugas_akhir_id"=>$header->id,"row_status"=>"active","dosen_id"=>$detail['dosen'], "status_dosen"=>$detail['status_dosen'], "status_dosen_ke"=>$detail['status_dosen_ke']);
 
                 foreach($table_detail as $val){
                     if(array_key_exists($val , $fieldvalidation_detail) && !in_array($val , static::$exclude)){
@@ -158,14 +159,12 @@ class TugasAkhir extends Controller
         $itemDetail = [];
         $arrDetail = [];
         $field_detail =[];
-        //$data_detail = [];
         foreach ($input['detail'] as $detail){
-            $itemDetail = array("tugas_akhir_id"=>1,"row_status"=>"active","dosen_id"=>$detail['dosen'], "status_dosen"=>$detail['status_dosen']);
+            $itemDetail = array("tugas_akhir_id"=>$data['id'],"row_status"=>"active","dosen_id"=>$detail['dosen'], "status_dosen"=>$detail['status_dosen'] , "status_dosen_ke"=>$detail['status_dosen_ke']);
 
             foreach($table_detail as $val){
                 if(array_key_exists($val , $fieldvalidation_detail) && !in_array($val , static::$exclude)){
                     $field_detail[$val] = $fieldvalidation_detail[$val]["validation"];
-                    //$data_detail[$val] = $itemDetail[$val];
                 }
             }
 
