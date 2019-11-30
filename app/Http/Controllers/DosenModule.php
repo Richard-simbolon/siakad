@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use App\DosenKeluargaModel;
 use App\DosenModel;
 use App\JenisPegawaiModel;
+use App\PendidikanModel;
 use App\SumberGajiModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -345,12 +346,39 @@ class DosenModule extends Controller
             }
             $data = PengangkatanModel::where('id' , $post['id'])->first();
             return collect($data);
+        }else if($post['type'] == 'pendidikan'){
+            if($post['status'] == 'delete'){
+                $data['row_status'] = 'deleted';
+                if(RiwayatPendidikanModel::where('id' , $post['id'])->update($data)){
+                    return json_encode(['status'=> 'success', 'message'=> 'Data berhasil dihapus']);
+                }
+                return json_encode(['status'=> 'error', 'message'=> 'Terjadi kesalahan saat menghapus data.']);
+            }
+            $data = RiwayatPendidikanModel::where('id' , $post['id'])->first();
+            return collect($data);
+        }else if($post['type'] == 'sertifikasi'){
+            if($post['status'] == 'delete'){
+                $data['row_status'] = 'deleted';
+                if(RiwayatSertifikasiModel::where('id' , $post['id'])->update($data)){
+                    return json_encode(['status'=> 'success', 'message'=> 'Data berhasil dihapus']);
+                }
+                return json_encode(['status'=> 'error', 'message'=> 'Terjadi kesalahan saat menghapus data.']);
+            }
+            $data = RiwayatSertifikasiModel::where('id' , $post['id'])->first();
+            return collect($data);
+        }else if($post['type'] == 'penelitian'){
+            if($post['status'] == 'delete'){
+                $data['row_status'] = 'deleted';
+                if(RiwayatPenelitianModel::where('id' , $post['id'])->update($data)){
+                    return json_encode(['status'=> 'success', 'message'=> 'Data berhasil dihapus']);
+                }
+                return json_encode(['status'=> 'error', 'message'=> 'Terjadi kesalahan saat menghapus data.']);
+            }
+            $data = RiwayatPenelitianModel::where('id' , $post['id'])->first();
+            return collect($data);
         }
 
     }
-
-
-
 
     public function submitpenugasan_dosen(Request $request){
         
@@ -418,16 +446,16 @@ class DosenModule extends Controller
         //print_r($data); exit;
         $validation = Validator::make($data, [
             'dosen_id' => 'required',
-            'tahun_ajaran' => 'required',
-            'program_studi_id' => 'required',
-            'no_surat_tugas' => 'required',
-            'tanggal_surat_tugas' => 'required',
-            'tmt_surat_tugas' => 'required'
+            'pangkat' => 'required',
+            'sk_pangkat' => 'required',
+            'tanggal_sk_pangkat' => 'required',
+            'tmt_sk_pangkat' => 'required',
+            'masa_kerja' => 'required'
         ]);
-        $penugasan_id = $data['id_penugasan'];
+        $penugasan_id = $data['id_kepangkatan'];
         $data['dosen_id'] = $this->get_id_dosen();
         
-        unset($data['id_penugasan']);
+        unset($data['id_kepangkatan']);
         
         if ($validation->fails()) {
             return json_encode(['status'=> 'error', 'msg'=> $validation->messages()]);
@@ -450,7 +478,6 @@ class DosenModule extends Controller
         
     }
 
-
     public function pendidikan_dosen(){
         $nik = Auth::user()->id;
         $master = array(
@@ -469,6 +496,43 @@ class DosenModule extends Controller
         $pendidikan = RiwayatPendidikanModel::where('dosen_riwayat_pendidikan.dosen_id' , $data['id'])->where('dosen_riwayat_pendidikan.row_status' , 'active')->get();
 
         return view('/dosen/dosen_pendidikan' , compact('data' , 'master' , 'pendidikan'));
+    }
+
+    public function submitpendidikan_dosen(Request $request){
+        $data = $request->all();
+        $validation = Validator::make($data, [
+            'bidang_studi' => 'required',
+            'jenjang' => 'required',
+            'gelar' => 'required',
+            'perguruan_tinggi' => 'required',
+            'fakultas' => 'required',
+            'tahun_lulus' => 'required',
+            'sks' => 'required',
+            'ipk' => 'required'
+        ]);
+
+        $pendidikan_id = $data['id_pendidikan'];
+        $data['dosen_id'] = $this->get_id_dosen();
+
+        unset($data['id_pendidikan']);
+
+        if ($validation->fails()) {
+            return json_encode(['status'=> 'error', 'msg'=> $validation->messages()]);
+        }
+
+        if($pendidikan_id == '' || $pendidikan_id == null){
+            if(RiwayatPendidikanModel::create($data)){
+                return json_encode(['status'=> 'success', 'msg'=> 'Data berhasil ditambahkan']);
+            }else{
+                return json_encode(['status'=> 'error', 'msg'=> 'Terjadi kesalahan saat menyimpan data.']);
+            }
+        }else{
+            if(RiwayatPendidikanModel::where('id' , $pendidikan_id)->update($data)){
+                return json_encode(['status'=> 'success', 'msg'=> 'Data berhasil disimpan']);
+            }else{
+                return json_encode(['status'=> 'error', 'msg'=> 'Terjadi kesalahan saat menyimpan data.']);
+            }
+        }
     }
 
     public function sertifikasi_dosen(){
@@ -491,6 +555,40 @@ class DosenModule extends Controller
         return view('/dosen/dosen_sertifikasi' , compact('data' , 'master' , 'sertifikasi'));
     }
 
+    public function submitsertifikasi_dosen(Request $request){
+        $data = $request->all();
+        $validation = Validator::make($data, [
+            'nomor' => 'required',
+            'bidang_studi' => 'required',
+            'jenis_sertifikasi' => 'required',
+            'tahun_sertifikasi' => 'required',
+            'no_sk_sertifikasi' => 'required'
+        ]);
+
+        $sertifikasi_id = $data['id_sertifikasi'];
+        $data['dosen_id'] = $this->get_id_dosen();
+
+        unset($data['id_sertifikasi']);
+
+        if ($validation->fails()) {
+            return json_encode(['status'=> 'error', 'msg'=> $validation->messages()]);
+        }
+
+        if($sertifikasi_id == '' || $sertifikasi_id == null){
+            if(RiwayatSertifikasiModel::create($data)){
+                return json_encode(['status'=> 'success', 'msg'=> 'Data berhasil ditambahkan']);
+            }else{
+                return json_encode(['status'=> 'error', 'msg'=> 'Terjadi kesalahan saat menyimpan data.']);
+            }
+        }else{
+            if(RiwayatSertifikasiModel::where('id' , $sertifikasi_id)->update($data)){
+                return json_encode(['status'=> 'success', 'msg'=> 'Data berhasil disimpan']);
+            }else{
+                return json_encode(['status'=> 'error', 'msg'=> 'Terjadi kesalahan saat menyimpan data.']);
+            }
+        }
+    }
+
     public function penelitian_dosen(){
         $nik = Auth::user()->id;
         $master = array(
@@ -509,6 +607,40 @@ class DosenModule extends Controller
         $penelitian = RiwayatPenelitianModel::where('dosen_riwayat_penelitian.dosen_id' , $data['id'])->where('dosen_riwayat_penelitian.row_status' , 'active')->get();
 
         return view('/dosen/dosen_penelitian' , compact('data' , 'master' , 'penelitian'));
+    }
+
+    public function submitpenelitian_dosen(Request $request){
+        $data = $request->all();
+        $validation = Validator::make($data, [
+            'judul_penelitian' => 'required',
+            'bidang_ilmu' => 'required',
+            'lembaga' => 'required',
+            'tahun' => 'required',
+        ]);
+
+        $penelitian_id = $data['id_penelitian'];
+        $data['dosen_id'] = $this->get_id_dosen();
+
+        unset($data['id_penelitian']);
+
+        if ($validation->fails()) {
+            return json_encode(['status'=> 'error', 'msg'=> $validation->messages()]);
+        }
+
+        if($penelitian_id == '' || $penelitian_id == null) {
+            if (RiwayatPenelitianModel::create($data)) {
+                return json_encode(['status' => 'success', 'msg' => 'Data berhasil ditambahkan']);
+            } else {
+                return json_encode(['status' => 'error', 'msg' => 'Terjadi kesalahan saat menyimpan data.']);
+            }
+        }else{
+            if(RiwayatPenelitianModel::where('id' , $penelitian_id)->update($data)){
+                return json_encode(['status'=> 'success', 'msg'=> 'Data berhasil disimpan']);
+            }else{
+                return json_encode(['status'=> 'error', 'msg'=> 'Terjadi kesalahan saat menyimpan data.']);
+            }
+        }
+
     }
 
     public function fungsional_dosen(){

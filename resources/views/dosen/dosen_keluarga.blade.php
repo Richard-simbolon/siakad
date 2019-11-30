@@ -80,10 +80,10 @@
                                                     <div class="col-lg-9 col-xl-6">
                                                         <select name="status_pernikahan" class="form-control kt-select2">
                                                             <option value="">-- Pilih --</option>
-                                                            <option value="'lajang'" {{$data['status_pernikahan'] == 'lajang' ? "selected" : ""}}>Lajang</option>
-                                                            <option value="'menikah'" {{$data['status_pernikahan'] == 'menikah' ? "selected" : ""}}>Menikah</option>
-                                                            <option value="'duda'" {{$data['status_pernikahan'] == 'duda' ? "selected" : ""}}>Duda</option>
-                                                            <option value="'janda'" {{$data['status_pernikahan'] == 'janda' ? "selected" : ""}}>Janda</option>
+                                                            <option value="lajang" {{$data['status_pernikahan'] == 'lajang' ? "selected" : ""}}>Lajang</option>
+                                                            <option value="menikah" {{$data['status_pernikahan'] == 'menikah' ? "selected" : ""}}>Menikah</option>
+                                                            <option value="duda" {{$data['status_pernikahan'] == 'duda' ? "selected" : ""}}>Duda</option>
+                                                            <option value="janda" {{$data['status_pernikahan'] == 'janda' ? "selected" : ""}}>Janda</option>
                                                         </select>
                                                     </div>
                                                 </div>

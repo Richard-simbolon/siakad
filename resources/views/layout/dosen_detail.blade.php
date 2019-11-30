@@ -55,13 +55,13 @@
                         </a>
                     </li>
                     <li class="kt-nav__item">
-                        <a href="layout/skins/dosen-pembimbing.html" class="kt-nav__link">
+                        <a href="{{url('dosen/pembimbing/'.$data['id'])}}" class="kt-nav__link">
                             <i class="kt-nav__link-icon flaticon2-avatar"></i>
                             <span class="kt-nav__link-text">Pembimbing Aktivitas Mahasiswa</span>
                         </a>
                     </li>
                     <li class="kt-nav__item">
-                        <a href="layout/skins/dosen-penguji.html" class="kt-nav__link">
+                        <a href="{{url('dosen/penguji/'.$data['id'])}}" class="kt-nav__link">
                             <i class="kt-nav__link-icon flaticon2-infographic"></i>
                             <span class="kt-nav__link-text">Penguji Aktivitas Mahasiswa</span>
                         </a>

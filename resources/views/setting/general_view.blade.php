@@ -55,7 +55,7 @@
                             <table class="table table-striped table-bordered table-hover table-sm responsive no-wrap general-data-table" id="{{$tableid}}">
                                 <thead>
                                     <tr>
-                                        <th>
+                                        <th style="max-width: 100px;">
                                             No
                                         </th>
                                         @foreach ($table_display as $item2)
@@ -70,7 +70,7 @@
 
                                         @endif
                                         @endforeach
-                                    <th></th>
+                                    <th style="max-width: 100px;"></th>
                                     </tr>
                                 </thead>
                             </table>

@@ -116,7 +116,7 @@
                                                         <tr>
                                                             <td width="107px">Status</td>
                                                             <td>:</td>
-                                                            <td><b>{{$data['status']}}</b></td>
+                                                            <td><b>{{$data['status'] ? ucfirst($data['status']) : "-"}}</b></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -202,14 +202,14 @@
                             </div>
                             <div class="kt-portlet__body">
                                 <div class="kt-section kt-section--first">
-                                    <table class="dataTable table table-striped- table-bordered table-hover table-checkable responsive no-wrap" id="kt_table_1">
+                                    <table class="dataTable table table-striped table-bordered table-hover responsive no-wrap" id="kt_table_1">
                                         <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th style="text-align: center">No</th>
                                             <th>Jabatan</th>
                                             <th>SK Jabatan</th>
                                             <th>TMT Jabatan </th>
-                                            <th>Aksi</th>
+                                            <th style="text-align: center;max-width: 100px;">Aksi</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -219,16 +219,15 @@
                                             @foreach ($fungsional as $item)
                                             <?php $i++;?>
                                                 <tr>
-                                                    <td>{{$i}}</td>
-                                                    <td>{{$item['jabatan']}}</td>
-                                                    <td>{{$item['sk_jabatan']}}</td>
-                                                    <td>{{$item['tmt_jabatan']}}</td>
-                                                    <td nowrap="">
-                                                        <a class="call-modal-fungsional" href="javascript::void(0)" attr="{{$item['id']}}">view/edit</a> 
-                                                        <a class="delete_item" href="javascript::void(0)" type="fungsional" attr="{{$item['id']}}">Hapus</a> 
+                                                    <td style="vertical-align: middle" align="center">{{$i}}</td>
+                                                    <td style="vertical-align: middle">{{$item['jabatan']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['sk_jabatan']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['tmt_jabatan']}}</td>
+                                                    <td nowrap=""  style="vertical-align: middle" align="center">
+                                                        <a style="font-size: 18px;color: #607D8B;" class="call-modal-fungsional" href="javascript:void(0)" attr="{{$item['id']}}"><i class="la la-edit"></i></a>  &nbsp;
+                                                        <a style="font-size: 18px;color: #607D8B;" class="delete_item" href="javascript:void(0)" type="fungsional" attr="{{$item['id']}}"><i class="la la-trash"></i></a>
                                                     </td>
                                                 </tr>
-                                                
                                             @endforeach
 
                                             @endif

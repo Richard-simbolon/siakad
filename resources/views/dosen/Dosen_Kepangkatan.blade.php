@@ -26,9 +26,6 @@
                             <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
                         </div>
                     </div>
-                    {{--<div class="kt-subheader__toolbar">--}}
-                        {{--@include('layout.dosen_detail')--}}
-                    {{--</div>--}}
                 </div>
             </div>
     <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
@@ -120,7 +117,7 @@
                                                         <tr>
                                                             <td width="107px">Status</td>
                                                             <td>:</td>
-                                                            <td><b>{{$data['status']}}</b></td>
+                                                            <td><b>{{$data['status'] ? ucfirst($data['status']) : "-"}}</b></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -206,17 +203,16 @@
                             </div>
                             <div class="kt-portlet__body">
                                 <div class="kt-section kt-section--first">
-                                    <table class="dataTable table table-striped- table-bordered table-hover table-checkable responsive no-wrap" id="kt_table_1">
+                                    <table class="dataTable table table-striped table-bordered table-hover responsive no-wrap" id="kt_table_1">
                                         <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th style="text-align: center">No</th>
                                             <th>Jabatan</th>
                                             <th>SK Jabatan</th>
                                             <th>Tanggal Surat Tugas</th>
                                             <th>TMT SK Jabatan</th>
                                             <th>Masa Kerja</th>
-                                            
-                                            <th>Aksi</th>
+                                            <th style="text-align: center">Aksi</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -226,15 +222,17 @@
                                             @foreach ($pengangkatan as $item)
                                             <?php $i++;?>
                                                 <tr>
-                                                    <td>{{$i}}</td>
-                                                    <td>{{$item['pangkat']}}</td>
-                                                    <td>{{$item['sk_pangkat']}}</td>
-                                                    <td>{{$item['tanggal_sk_pangkat']}}</td>
-                                                    <td>{{$item['tmt_sk_pangkat']}}</td>
-                                                    <td>{{$item['masa_kerja']}}</td>
-                                                    <td nowrap=""><a href="layout/skins/mhs-view-edit.html">view/edit</a> </td>
+                                                    <td style="vertical-align: middle" align="center">{{$i}}</td>
+                                                    <td style="vertical-align: middle">{{$item['pangkat']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['sk_pangkat']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['tanggal_sk_pangkat']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['tmt_sk_pangkat']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['masa_kerja']}}</td>
+                                                    <td nowrap="" style="vertical-align: middle" align="center">
+                                                        <a style="font-size: 18px;color: #607D8B;" class="call-modal-kepangkatan" href="javascript:void(0)" attr="{{$item['id']}}"><i class="la la-edit"></i></a>  &nbsp;
+                                                        <a style="font-size: 18px;color: #607D8B;" class="delete_item" href="javascript:void(0)" type="kepangkatan" attr="{{$item['id']}}"><i class="la la-trash"></i></a>
+                                                    </td>
                                                 </tr>
-                                                
                                             @endforeach
 
                                             @endif
@@ -264,7 +262,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
-                <form class="kt-form" id="penugasanform" style="">
+                <form class="kt-form" id="kepangkatanForm" style="">
                     <div class="modal-body">
                         <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
                             <div class="row">

@@ -76,13 +76,14 @@ Route::get('/data/dosen/penelitian_dosen', 'DosenModule@penelitian_dosen')->name
 Route::post('/data/dosen/submitpenugasan_dosen', 'DosenModule@submitpenugasan_dosen')->name('penugasan_dosen');
 Route::post('/data/dosen/submitfungsional_dosen', 'DosenModule@submitfungsional_dosen')->name('fungsional_dosen');
 Route::post('/data/dosen/submitpengangkatan_dosen', 'DosenModule@submitpengangkatan_dosen')->name('kepangkatan_dosen');
-Route::post('/data/dosen/submitpendidikan_dosen', 'DosenModule@submitpenugasan_dosen')->name('pendidikan_dosen');
-Route::post('/data/dosen/submitsertifikasi_dosen', 'DosenModule@submitpenugasan_dosen')->name('sertifikasi_dosen');
+Route::post('/data/dosen/submitpendidikan_dosen', 'DosenModule@submitpendidikan_dosen')->name('pendidikan_dosen');
+Route::post('/data/dosen/submitsertifikasi_dosen', 'DosenModule@submitsertifikasi_dosen')->name('sertifikasi_dosen');
 //Route::post('/data/dosen/submitfungsional_dosen', 'DosenModule@submitpenugasan_dosen')->name('fungsional_dosen');
-Route::post('/data/dosen/submitpenelitian_dosen', 'DosenModule@submitpenugasan_dosen')->name('penelitian_dosen');
+Route::post('/data/dosen/submitpenelitian_dosen', 'DosenModule@submitpenelitian_dosen')->name('penelitian_dosen');
 Route::post('/data/dosen/validatewizard', 'dosen@validatewizard')->name('validate_wizard');
 
 Route::post('/data/dosen/modaledit', 'DosenModule@modaledit')->name('penelitian_dosen');
+Route::post('/data/dosen/modaleditadmin', 'Dosen@modaleditadmin')->name('modaleditadmin');
 
 
 Route::post('/data/dosen/submitprofile', 'DosenModule@submitprofile')->name('submitprofile');
@@ -98,7 +99,7 @@ Route::post('/data/dosen/update', 'Dosen@update')->name('update');
 Route::get('dosen/penugasan/{id}', 'Dosen@penugasan')->name('penugasan');
 Route::get('dosen/pengangkatan/{id}', 'Dosen@pengangkatan')->name('riwayatpengangkatan');
 Route::post('dosen/tambahpenugasan', 'Dosen@tambahpenugasan')->name('tambah_penugasan');
-Route::post('dosen/tambahpengangkatan', 'Dosen@tambahpengangkatan')->name('tambah_pengangkatan');
+Route::post('dosen/tambahkepangkatan', 'Dosen@tambahkepangkatan')->name('tambah_pengangkatan');
 Route::post('/data/dosen/delete', 'dosen@delete')->name('delete');
 Route::post('/data/dosen/resetpassword', 'dosen@resetpassword')->name('resetpassword');
 
@@ -115,7 +116,10 @@ Route::get('dosen/fungsional/{id}', 'Dosen@r_fungsional')->name('riwayat_fungsio
 Route::post('dosen/tambah_r_fungsional', 'Dosen@tambah_r_fungsional')->name('tambah_riwayat_fungsional');
 Route::get('/data/dosen/getdosen_select2', 'Dosen@getdosen_select2')->name('getdosen_select2');
 
-
+Route::get('dosen/pembimbing/{id}', 'Dosen@pembimbing')->name('pembimbing');
+Route::get('dosen/penguji/{id}', 'Dosen@penguji')->name('penguji');
+Route::post('dosen/pembimbing_paging', 'Dosen@pembimbing_paging')->name('pembimbing_paging');
+Route::post('dosen/penguji_paging', 'Dosen@penguji_paging')->name('penguji_paging');
 
 
 Route::post('/master/kelas/edit', 'Kelas@edit')->name('edit');
@@ -164,8 +168,8 @@ Route::get('/dosen/absensi/absensi/{id}', 'DosenAbsensi@absensi')->name('index')
 
 Route::get('/data/jadwalujian/form/{id}', 'JadwalUjian@form')->name('index');
 
-Route::get('/data/kalenderakademik/get/{id}', 'kalenderakademik@get')->name('get');
-Route::get('data/kalenderakademik/getall', 'kalenderakademik@getall')->name('getall');
+Route::get('/data/kalenderakademik/get/{id}', 'KalenderAkademik@get')->name('get');
+Route::get('data/kalenderakademik/getall', 'KalenderAkademik@getall')->name('getall');
 
 
 $results = DB::select('select * from module');

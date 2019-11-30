@@ -115,7 +115,7 @@
                                                         <tr>
                                                             <td width="107px">Status</td>
                                                             <td>:</td>
-                                                            <td><b>{{$data['status']}}</b></td>
+                                                            <td><b>{{$data['status'] ? ucfirst($data['status']) : "-"}}</b></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -201,10 +201,10 @@
                             </div>
                             <div class="kt-portlet__body">
                                 <div class="kt-section kt-section--first">
-                                    <table class="dataTable table table-striped- table-bordered table-hover table-checkable responsive no-wrap" id="kt_table_1">
+                                    <table class="dataTable table table-striped table-bordered table-hover responsive no-wrap" id="kt_table_1">
                                         <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th style="text-align: center">No</th>
                                             <th>Tahun Ajaran</th>
                                             <th>Progaram Studi</th>
                                             <th>No Surat Tugas</th>
@@ -219,14 +219,15 @@
                                             @foreach ($penugasan as $item)
                                             <?php $i++;?>
                                                 <tr>
-                                                    <td>{{$i}}</td>
-                                                    <td>{{$item['tahun_ajaran_title']}}</td>
-                                                    <td>{{$item['program_studi_title']}}</td>
-                                                    <td>{{$item['no_surat_tugas']}}</td>
-                                                    <td>{{$item['tmt_surat_tugas']}}</td>
-                                                    <td>{{$item['tanggal_surat_tugas']}}</td>
-                                                    <td nowrap=""><a class="call-modal-penugasan" href="javascript::void(0)" attr="{{$item['id']}}">view/edit</a> 
-                                                                  <a class="delete_item" href="javascript::void(0)" attr="{{$item['id']}}" type="penugasan">Hapus</a> 
+                                                    <td style="vertical-align: middle" align="center">{{$i}}</td>
+                                                    <td style="vertical-align: middle">{{$item['tahun_ajaran_title']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['program_studi_title']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['no_surat_tugas']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['tmt_surat_tugas']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['tanggal_surat_tugas']}}</td>
+                                                    <td nowrap="" style="vertical-align: middle">
+                                                        <a style="font-size: 18px;color: #607D8B;" class="call-modal-penugasan" href="javascript:void(0)" attr="{{$item['id']}}"><i class="la la-edit"></i> </a> &nbsp;
+                                                        <a style="font-size: 18px;color: #607D8B;" class="delete_item" href="javascript:void(0)" attr="{{$item['id']}}" type="penugasan"><i class="la la-trash"></i> </a>
                                                     </td>
                                                 </tr>
                                                 

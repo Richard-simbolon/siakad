@@ -10,19 +10,16 @@
         <div class="kt-container  kt-container--fluid ">
             <div class="kt-subheader__main">
                 <h3 class="kt-subheader__title">
-                    Flaticon </h3>
+                    Dosen </h3>
                 <span class="kt-subheader__separator kt-hidden"></span>
                 <div class="kt-subheader__breadcrumbs">
                     <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                     <span class="kt-subheader__breadcrumbs-separator"></span>
-                    <a href="" class="kt-subheader__breadcrumbs-link">
-                        Components </a>
+                    <a href="{{url()->previous()}}" class="kt-subheader__breadcrumbs-link">
+                        Detail </a>
                     <span class="kt-subheader__breadcrumbs-separator"></span>
                     <a href="" class="kt-subheader__breadcrumbs-link">
-                        Icons </a>
-                    <span class="kt-subheader__breadcrumbs-separator"></span>
-                    <a href="" class="kt-subheader__breadcrumbs-link">
-                        Flaticon </a>
+                        Penugasan </a>
                 </div>
             </div>
             <div class="kt-subheader__toolbar">
@@ -119,7 +116,7 @@
                                                         <tr>
                                                             <td width="107px">Status</td>
                                                             <td>:</td>
-                                                            <td><b>{{$data['status']}}</b></td>
+                                                            <td><b>{{$data['status_pegawai'] ? $master['status_pegawai'][$data['status_pegawai']]['title'] : "-"}}</b></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -205,10 +202,10 @@
                             </div>
                             <div class="kt-portlet__body">
                                 <div class="kt-section kt-section--first">
-                                    <table class="dataTable table table-striped- table-bordered table-hover table-checkable responsive no-wrap" id="kt_table_1">
+                                    <table class="dataTable table table-striped table-bordered table-hover table-checkable responsive no-wrap" id="kt_table_1">
                                         <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th style="text-align: center">No</th>
                                             <th>Tahun Ajaran</th>
                                             <th>Progaram Studi</th>
                                             <th>No Surat Tugas</th>
@@ -222,13 +219,16 @@
                                             @foreach ($penugasan as $item)
                                             <?php $i++;?>
                                                 <tr>
-                                                    <td>{{$i}}</td>
-                                                    <td>{{$item['tahun_ajaran_title']}}</td>
-                                                    <td>{{$item['program_studi_title']}}</td>
-                                                    <td>{{$item['no_surat_tugas']}}</td>
-                                                    <td>{{$item['tmt_surat_tugas']}}</td>
-                                                    <td>{{$item['tanggal_surat_tugas']}}</td>
-                                                    <td nowrap=""><a href="layout/skins/mhs-view-edit.html">view/edit</a> </td>
+                                                    <td style="vertical-align: middle" align="center">{{$i}}</td>
+                                                    <td style="vertical-align: middle">{{$item['tahun_ajaran_title']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['program_studi_title']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['no_surat_tugas']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['tmt_surat_tugas']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['tanggal_surat_tugas']}}</td>
+                                                    <td nowrap="" style="vertical-align: middle">
+                                                        <a style="font-size: 18px;color: #607D8B;" class="call-modal-penugasan" href="javascript:void(0)" attr="{{$item['id']}}"><i class="la la-edit"></i> </a> &nbsp;
+                                                        <a style="font-size: 18px;color: #607D8B;" class="delete_item" href="javascript:void(0)" attr="{{$item['id']}}" type="penugasan"><i class="la la-trash"></i> </a>
+                                                    </td>
                                                 </tr>
                                                 
                                             @endforeach
@@ -259,35 +259,10 @@
                                 <div class="col-lg-12">
                                     <!--begin::Portlet-->
                                     <input type="hidden" value="{{$data['id']}}" name="dosen_id"/>
+                                    <input type="hidden" name="id_penugasan" id="id_penugasan"/>
                                     <div class="">
-                                        {{--<div class="kt-portlet__head">--}}
-                                            {{--<div class="kt-portlet__head-label">--}}
-                                                {{--<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">--}}
-                                                    {{--<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">--}}
-                                                        {{--<rect x="0" y="0" width="24" height="24"></rect>--}}
-                                                        {{--<path d="M18,2 L20,2 C21.6568542,2 23,3.34314575 23,5 L23,19 C23,20.6568542 21.6568542,22 20,22 L18,22 L18,2 Z" fill="#000000" opacity="0.3"></path>--}}
-                                                        {{--<path d="M5,2 L17,2 C18.6568542,2 20,3.34314575 20,5 L20,19 C20,20.6568542 18.6568542,22 17,22 L5,22 C4.44771525,22 4,21.5522847 4,21 L4,3 C4,2.44771525 4.44771525,2 5,2 Z M12,11 C13.1045695,11 14,10.1045695 14,9 C14,7.8954305 13.1045695,7 12,7 C10.8954305,7 10,7.8954305 10,9 C10,10.1045695 10.8954305,11 12,11 Z M7.00036205,16.4995035 C6.98863236,16.6619875 7.26484009,17 7.4041679,17 C11.463736,17 14.5228466,17 16.5815,17 C16.9988413,17 17.0053266,16.6221713 16.9988413,16.5 C16.8360465,13.4332455 14.6506758,12 11.9907452,12 C9.36772908,12 7.21569918,13.5165724 7.00036205,16.4995035 Z" fill="#000000"></path>--}}
-                                                    {{--</g>--}}
-                                                {{--</svg>--}}
-                                                {{--<h3 class="kt-portlet__head-title">--}}
-                                                    {{--&nbsp;Tambah Penugasan Dosen--}}
-                                                {{--</h3>--}}
-                                            {{--</div>--}}
-                                        {{--</div>--}}
-                                        <!--begin::Form-->
                                         <div class="kt-portlet__body">
                                             <div class="kt-portlet">
-                                                {{--<div class="kt-portlet__head">--}}
-                                                    {{--<div class="kt-portlet__head-toolbar">--}}
-                                                        {{--<ul class="nav nav-tabs nav-tabs-bold nav-tabs-line   nav-tabs-line-right nav-tabs-line-brand" role="tablist">--}}
-                                                            {{--<li class="nav-item">--}}
-                                                                {{--<a class="nav-link active" data-toggle="tab" href="#info_dasar" role="tab">--}}
-                                                                    {{--<i class="flaticon-clipboard"></i> Formulir Penugasan--}}
-                                                                {{--</a>--}}
-                                                            {{--</li>--}}
-                                                        {{--</ul>--}}
-                                                    {{--</div>--}}
-                                                {{--</div>--}}
                                                 <div class="kt-portlet__body">
                                                     <div class="row">
                                                         <div class="col-xl-6">
@@ -296,9 +271,9 @@
                                                                 <div class="form-group">
                                                                     <select name="tahun_ajaran" class="form-control">
                                                                         <option value="">-- Pilih Tahun Ajaran--</option>
-                                                                        <option value="1">2019/2010</option>
-                                                                        <option value="2">2018/2019</option>
-                                                                        <option value="3">2017/2018</option>
+                                                                        @foreach ($master['tahun_ajaran'] as $item)
+                                                                            <option value="{{$item->id}}">{{$item->title}}</option>
+                                                                        @endforeach
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -361,7 +336,7 @@
     .m-content{width:100%;}
     </style>
 @section('js')
-
+    <script src="{{asset('assets/js/pages/admin/dosen.js')}}" type="text/javascript"></script>
 @stop
 
 @endsection

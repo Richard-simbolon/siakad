@@ -50,7 +50,7 @@
                         </div>
                         <div class="kt-portlet__head-toolbar">
                             <div class="kt-subheader__wrapper">
-                                <a href="javascript:void(0);" class="btn btn-success tambah_penugasan">
+                                <a href="javascript:void(0);" class="btn btn-success tambah_penelitian_dosen">
                                     <i class="flaticon-plus"></i> Tambah Riwayat &nbsp;
                                 </a>
                             </div>
@@ -117,7 +117,7 @@
                                                         <tr>
                                                             <td width="107px">Status</td>
                                                             <td>:</td>
-                                                            <td><b>{{$data['status']}}</b></td>
+                                                            <td><b>{{$data['status'] ? ucfirst($data['status']) : "-"}}</b></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -203,15 +203,15 @@
                             </div>
                             <div class="kt-portlet__body">
                                 <div class="kt-section kt-section--first">
-                                    <table class="dataTable table table-striped- table-bordered table-hover table-checkable responsive no-wrap" id="kt_table_1">
+                                    <table class="dataTable table table-striped table-bordered table-hover responsive no-wrap" id="kt_table_1">
                                         <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th style="text-align: center;">No</th>
                                             <th>Judul Penelitian</th>
                                             <th>Bidang Ilmu</th>
                                             <th>Lembaga </th>
                                             <th>Tahun</th>
-                                            <th>Aksi</th>
+                                            <th style="text-align: center">Aksi</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -221,12 +221,15 @@
                                             @foreach ($penelitian as $item)
                                             <?php $i++;?>
                                                 <tr>
-                                                    <td>{{$i}}</td>
-                                                    <td>{{$item['judul_penelitian']}}</td>
-                                                    <td>{{$item['bidang_ilmu']}}</td>
-                                                    <td>{{$item['lembaga']}}</td>
-                                                    <td>{{$item['tahun']}}</td>
-                                                    <td nowrap=""><a href="layout/skins/mhs-view-edit.html">view/edit</a> </td>
+                                                    <td align="center">{{$i}}</td>
+                                                    <td style="vertical-align: middle">{{$item['judul_penelitian']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['bidang_ilmu']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['lembaga']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['tahun']}}</td>
+                                                    <td nowrap="" align="center">
+                                                        <a style="font-size: 18px;color: #607D8B;" class="call-modal-penelitian" href="javascript:void(0)" attr="{{$item['id']}}"><i class="la la-edit"></i></a>  &nbsp;
+                                                        <a style="font-size: 18px;color: #607D8B;" class="delete_item" href="javascript:void(0)" type="fungsional" attr="{{$item['id']}}"><i class="la la-trash"></i></a>
+                                                    </td>
                                                 </tr>
                                                 
                                             @endforeach
@@ -244,7 +247,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="kt_modal_penugasan_data" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="kt_modal_penelitian_data" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -258,13 +261,15 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
-                <form class="kt-form" id="penugasanform" style="">
+                <form class="kt-form" id="penelitianform" style="">
                     <div class="modal-body">
                         <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <!--begin::Portlet-->
                                     <input type="hidden" value="{{$data['id']}}" name="dosen_id"/>
+                                    <input type="hidden" id="id_penelitian" name="id_penelitian"/>
+
                                     <div class="kt-portlet__body">
                                         <div>
                                             <div class="kt-portlet__body">
@@ -306,7 +311,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                        <button type="button" class="btn btn-success savepenelitian">Simpan</button>
+                        <button type="button" class="btn btn-success savepenelitiandosen">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -317,7 +322,7 @@
     .m-content{width:100%;}
     </style>
 @section('js')
-
+    <script src="{{asset('assets/js/pages/dosen/absensi.js')}}" type="text/javascript"></script>
 @stop
 
 @endsection

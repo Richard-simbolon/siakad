@@ -12,19 +12,16 @@
                 <div class="kt-container  kt-container--fluid ">
                     <div class="kt-subheader__main">
                         <h3 class="kt-subheader__title">
-                            Flaticon </h3>
+                            Dosen </h3>
                         <span class="kt-subheader__separator kt-hidden"></span>
                         <div class="kt-subheader__breadcrumbs">
-                            <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                            <a href="{{url()->previous()}}}" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="" class="kt-subheader__breadcrumbs-link">
-                                Components </a>
+                                Detail </a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="" class="kt-subheader__breadcrumbs-link">
-                                Icons </a>
-                            <span class="kt-subheader__breadcrumbs-separator"></span>
-                            <a href="" class="kt-subheader__breadcrumbs-link">
-                                Flaticon </a>
+                                Riwayat Fungsional </a>
                         </div>
                     </div>
                     <div class="kt-subheader__toolbar">
@@ -49,12 +46,12 @@
                                 </svg>
                             </span>
                             <h3 class="kt-portlet__head-title">
-                                &nbsp;Daftar pendidikan Dosen
+                                &nbsp;Daftar Riwayat Fungsional Dosen
                             </h3>
                         </div>
                         <div class="kt-portlet__head-toolbar">
                             <div class="kt-subheader__wrapper">
-                                <a href="javascript:void(0);" class="btn btn-success tambah_penugasan">
+                                <a href="javascript:void(0);" class="btn btn-success tambah_fungsional">
                                     <i class="flaticon-plus"></i> Tambah Riwayat &nbsp;
                                 </a>
                             </div>
@@ -121,7 +118,7 @@
                                                         <tr>
                                                             <td width="107px">Status</td>
                                                             <td>:</td>
-                                                            <td><b>{{$data['status']}}</b></td>
+                                                            <td><b>{{$data['status_pegawai'] ? $master['status_pegawai'][$data['status_pegawai']]['title'] : "-"}}</b></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -199,7 +196,7 @@
                                     <ul class="nav nav-tabs nav-tabs-bold nav-tabs-line   nav-tabs-line-right nav-tabs-line-brand" role="tablist">
                                         <li class="nav-item">
                                             <a class="nav-link active" data-toggle="tab" href="#info_dasar" role="tab">
-                                                Daftar Pendidikan
+                                                Riwayat Fungsional
                                             </a>
                                         </li>
                                     </ul>
@@ -207,14 +204,14 @@
                             </div>
                             <div class="kt-portlet__body">
                                 <div class="kt-section kt-section--first">
-                                    <table class="dataTable table table-striped- table-bordered table-hover table-checkable responsive no-wrap" id="kt_table_1">
+                                    <table class="dataTable table table-striped table-bordered table-hover table-checkable responsive no-wrap" id="kt_table_1">
                                         <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th style="text-align: center">No</th>
                                             <th>Jabatan</th>
                                             <th>SK Jabatan</th>
                                             <th>TMT Jabatan </th>
-                                            <th>Aksi</th>
+                                            <th style="text-align: center;max-width: 100px;">Aksi</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -223,14 +220,16 @@
 
                                             @foreach ($fungsional as $item)
                                             <?php $i++;?>
-                                                <tr>
-                                                    <td>{{$i}}</td>
-                                                    <td>{{$item['jabatan']}}</td>
-                                                    <td>{{$item['sk_jabatan']}}</td>
-                                                    <td>{{$item['tmt_jabatan']}}</td>
-                                                    <td nowrap=""><a href="layout/skins/mhs-view-edit.html">view/edit</a> </td>
-                                                </tr>
-                                                
+                                            <tr>
+                                                <td style="vertical-align: middle" align="center">{{$i}}</td>
+                                                <td style="vertical-align: middle">{{$item['jabatan']}}</td>
+                                                <td style="vertical-align: middle">{{$item['sk_jabatan']}}</td>
+                                                <td style="vertical-align: middle">{{$item['tmt_jabatan']}}</td>
+                                                <td nowrap=""  style="vertical-align: middle" align="center">
+                                                    <a style="font-size: 18px;color: #607D8B;" class="call-modal-fungsional" href="javascript:void(0)" attr="{{$item['id']}}"><i class="la la-edit"></i></a>  &nbsp;
+                                                    <a style="font-size: 18px;color: #607D8B;" class="delete_item" href="javascript:void(0)" type="fungsional" attr="{{$item['id']}}"><i class="la la-trash"></i></a>
+                                                </td>
+                                            </tr>
                                             @endforeach
 
                                             @endif
@@ -246,7 +245,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="kt_modal_penugasan_data" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="kt_modal_fungsional_data" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -260,27 +259,16 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
-                <form class="kt-form" id="penugasanform" style="">
+                <form class="kt-form" id="fungsionalform" style="">
                     <div class="modal-body">
                         <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <!--begin::Portlet-->
                                     <input type="hidden" value="{{$data['id']}}" name="dosen_id"/>
-                                   
+                                    <input type="hidden" name="id_fungsional" id="id_fungsional"/>
                                     <div class="kt-portlet__body">
                                         <div>
-                                            {{--<div class="kt-portlet__head">--}}
-                                                {{--<div class="kt-portlet__head-toolbar">--}}
-                                                    {{--<ul class="nav nav-tabs nav-tabs-bold nav-tabs-line   nav-tabs-line-right nav-tabs-line-brand" role="tablist">--}}
-                                                        {{--<li class="nav-item">--}}
-                                                            {{--<a class="nav-link active" data-toggle="tab" href="#info_dasar" role="tab">--}}
-                                                                {{--<i class="flaticon-clipboard"></i> Formulir Riwayat--}}
-                                                            {{--</a>--}}
-                                                        {{--</li>--}}
-                                                    {{--</ul>--}}
-                                                {{--</div>--}}
-                                            {{--</div>--}}
                                             <div>
                                                 <div class="row">
                                                     <div class="col-xl-6">
@@ -325,7 +313,7 @@
     .m-content{width:100%;}
     </style>
 @section('js')
-
+    <script src="{{asset('assets/js/pages/admin/dosen.js')}}" type="text/javascript"></script>
 @stop
 
 @endsection

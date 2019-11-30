@@ -20,7 +20,7 @@
                 public function index()
                 {
                     $data = JenisMatakuliahModel::get();
-                    $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+                    $title = "Daftar Jenis Matakuliah";
                     $tableid = "JenisMatakuliah";
                     $table_display = DB::getSchemaBuilder()->getColumnListing("master_jenis_matakuliah");
                     $exclude = static::$exclude;

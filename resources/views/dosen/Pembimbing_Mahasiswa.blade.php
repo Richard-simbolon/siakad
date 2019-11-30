@@ -51,7 +51,7 @@
                         <div class="kt-portlet__body">
                                  <div class="row">
                                 <div class="col-lg-12" id="datatable_display">
-                                    <table class="table table-striped table-bordered table-hover responsive" id="absensimatakuliah">
+                                    <table class="dataTable table table-striped table-bordered table-hover responsive" id="absensimatakuliah">
                                         <thead>
                                         <tr>
                                             {{-- <th style="text-align: center">No</th> --}}

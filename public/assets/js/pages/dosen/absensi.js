@@ -186,7 +186,7 @@ $(document).ready(function() {
             type:'POST',
             //dataType:'json',
             url:'/data/dosen/modaledit',
-            data:{id:$(this).attr('attr') , type:'penugasan'},
+            data:{id:$(this).attr('attr') , type:'penugasan', status:''},
             success:function(result) {
                 $("[name='tahun_ajaran']").val(result.tahun_ajaran);
                 $("[name='program_studi_id']").val(result.program_studi_id);
@@ -313,7 +313,7 @@ $(document).ready(function() {
             type:'POST',
             //dataType:'json',
             url:'/data/dosen/modaledit',
-            data:{id:$(this).attr('attr') , type:'fungsional'},
+            data:{id:$(this).attr('attr') , type:'fungsional', status:''},
             success:function(result) {
                 //console.log(result);
                 $("[name='jabatan']").val(result.jabatan);
@@ -324,6 +324,7 @@ $(document).ready(function() {
         });
         $('#kt_modal_penugasan_data').modal('show');
     });
+
     $(document).on('click' , '.dosensavefungsional' , function(){
         $.ajaxSetup({
             headers: {
@@ -364,10 +365,9 @@ $(document).ready(function() {
 
     //END FUNGSIONAL
 
-
     $(document).on('click' , '.tambah_pengangkatan_dosen' , function(){
         $('#id_pengangkatan').val('');
-        $('#penugasanform')[0].reset();
+        $('#kepangkatanForm')[0].reset();
         $('#kt_modal_penugasan_data').modal('show');
         
     });
@@ -428,8 +428,8 @@ $(document).ready(function() {
     
     });
     
-    $(document).on('click' , '.call-modal-pengangkatan' , function(){
-       $('#id_pengangkatan').val($(this).attr('attr'));
+    $(document).on('click' , '.call-modal-kepangkatan' , function(){
+       $('#id_kepangkatan').val($(this).attr('attr'));
        $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('#csrf_').val()
@@ -440,17 +440,20 @@ $(document).ready(function() {
             type:'POST',
             //dataType:'json',
             url:'/data/dosen/modaledit',
-            data:{id:$(this).attr('attr') , type:'pengangkatan'},
+            data:{id:$(this).attr('attr') , type:'kepangkatan', status:''},
             success:function(result) {
                 //console.log(result);
-                $("[name='jabatan']").val(result.jabatan);
-                $("[name='sk_jabatan']").val(result.sk_jabatan);
-                $("[name='tmt_jabatan']").val(result.tmt_jabatan);
+                $("[name='pangkat']").val(result.pangkat);
+                $("[name='sk_pangkat']").val(result.sk_pangkat);
+                $("[name='tanggal_sk_pangkat']").val(result.tanggal_sk_pangkat);
+                $("[name='tmt_sk_pangkat']").val(result.tmt_sk_pangkat);
+                $("[name='masa_kerja']").val(result.masa_kerja);
             }
             
         });
         $('#kt_modal_penugasan_data').modal('show');
     });
+
     $(document).on('click' , '.dosensavekepangkatan' , function(){
         $.ajaxSetup({
             headers: {
@@ -487,6 +490,224 @@ $(document).ready(function() {
 
             }
          });
+    });
+
+    //pendidikan
+    $(document).on('click' , '.tambah_pendidikan_dosen' , function(){
+        $('#id_pendidikan').val('');
+        $('#pendidikanform')[0].reset();
+        $('#kt_modal_pendidikan_data').modal('show');
+
+    });
+
+    $(document).on('click' , '.call-modal-pendidikan' , function(){
+        $('#id_pendidikan').val($(this).attr('attr'));
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+
+        $.ajax({
+            type:'POST',
+            //dataType:'json',
+            url:'/data/dosen/modaledit',
+            data:{id:$(this).attr('attr') , type:'pendidikan', status:''},
+            success:function(result) {
+                //console.log(result);
+                $("[name='perguruan_tinggi']").val(result.perguruan_tinggi);
+                $("[name='jenjang']").val(result.jenjang);
+                $("[name='bidang_studi']").val(result.bidang_studi);
+                $("[name='gelar']").val(result.gelar);
+                $("[name='fakultas']").val(result.fakultas);
+                $("[name='tahun_lulus']").val(result.tahun_lulus);
+                $("[name='sks']").val(result.sks);
+                $("[name='ipk']").val(result.ipk);
+            }
+
+        });
+        $('#kt_modal_pendidikan_data').modal('show');
+    });
+
+    $(document).on('click' , '.savependidikandosen2' , function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        $.ajax({
+            type:'POST',
+            //dataType:'json',
+            url:'/data/dosen/submitpendidikan_dosen',
+            data:$(this).closest('form').serialize(),
+            success:function(result) {
+                var res = JSON.parse(result);
+                if(res.status == 'error'){
+                    var text = '';
+                    $.each(res.msg, function( index, value ) {
+                        text += '<p class="error">'+ value[0]+'</p>';
+                    });
+                    swal.fire({
+                        "title": "",
+                        "html": text,
+                        "type": "error",
+                        "confirmButtonClass": "btn btn-secondary"
+                    });
+                }else{
+                    swal.fire({
+                        "title": "",
+                        "text": res.msg,
+                        "type": res.status,
+                        "confirmButtonClass": "btn btn-secondary"
+                    });
+                    location.reload();
+                }
+
+            }
+        });
+    });
+
+    //sertifikasi
+    $(document).on('click' , '.tambah_sertifikasi_dosen' , function(){
+        $('#id_sertifikasi').val('');
+        $('#sertifikasiform')[0].reset();
+        $('#kt_modal_sertifikasi_data').modal('show');
+
+    });
+
+    $(document).on('click' , '.call-modal-sertifikasi' , function(){
+        $('#id_sertifikasi').val($(this).attr('attr'));
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+
+        $.ajax({
+            type:'POST',
+            //dataType:'json',
+            url:'/data/dosen/modaledit',
+            data:{id:$(this).attr('attr') , type:'sertifikasi', status:''},
+            success:function(result) {
+                //console.log(result);
+                $("[name='nomor']").val(result.nomor);
+                $("[name='bidang_studi']").val(result.bidang_studi);
+                $("[name='jenis_sertifikasi']").val(result.jenis_sertifikasi);
+                $("[name='tahun_sertifikasi']").val(result.tahun_sertifikasi);
+                $("[name='no_sk_sertifikasi']").val(result.no_sk_sertifikasi);
+            }
+
+        });
+        $('#kt_modal_sertifikasi_data').modal('show');
+    });
+
+    $(document).on('click' , '.savesertifikasidosen' , function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        $.ajax({
+            type:'POST',
+            //dataType:'json',
+            url:'/data/dosen/submitsertifikasi_dosen',
+            data:$(this).closest('form').serialize(),
+            success:function(result) {
+                var res = JSON.parse(result);
+                if(res.status == 'error'){
+                    var text = '';
+                    $.each(res.msg, function( index, value ) {
+                        text += '<p class="error">'+ value[0]+'</p>';
+                    });
+                    swal.fire({
+                        "title": "",
+                        "html": text,
+                        "type": "error",
+                        "confirmButtonClass": "btn btn-secondary"
+                    });
+                }else{
+                    swal.fire({
+                        "title": "",
+                        "text": res.msg,
+                        "type": res.status,
+                        "confirmButtonClass": "btn btn-secondary"
+                    });
+                    location.reload();
+                }
+
+            }
+        });
+    });
+
+    //penelitian
+    $(document).on('click' , '.tambah_penelitian_dosen' , function(){
+        $('#id_penelitian').val('');
+        $('#penelitianform')[0].reset();
+        $('#kt_modal_penelitian_data').modal('show');
+
+    });
+
+    $(document).on('click' , '.call-modal-penelitian' , function(){
+        $('#id_penelitian').val($(this).attr('attr'));
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+
+        $.ajax({
+            type:'POST',
+            //dataType:'json',
+            url:'/data/dosen/modaledit',
+            data:{id:$(this).attr('attr') , type:'penelitian', status:''},
+            success:function(result) {
+                //console.log(result);
+                $("[name='judul_penelitian']").val(result.judul_penelitian);
+                $("[name='bidang_ilmu']").val(result.bidang_ilmu);
+                $("[name='lembaga']").val(result.lembaga);
+                $("[name='tahun']").val(result.tahun);
+            }
+
+        });
+        $('#kt_modal_penelitian_data').modal('show');
+    });
+
+    $(document).on('click' , '.savepenelitiandosen' , function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        $.ajax({
+            type:'POST',
+            //dataType:'json',
+            url:'/data/dosen/submitpenelitian_dosen',
+            data:$(this).closest('form').serialize(),
+            success:function(result) {
+                var res = JSON.parse(result);
+                if(res.status == 'error'){
+                    var text = '';
+                    $.each(res.msg, function( index, value ) {
+                        text += '<p class="error">'+ value[0]+'</p>';
+                    });
+                    swal.fire({
+                        "title": "",
+                        "html": text,
+                        "type": "error",
+                        "confirmButtonClass": "btn btn-secondary"
+                    });
+                }else{
+                    swal.fire({
+                        "title": "",
+                        "text": res.msg,
+                        "type": res.status,
+                        "confirmButtonClass": "btn btn-secondary"
+                    });
+                    location.reload();
+                }
+
+            }
+        });
     });
 
 });

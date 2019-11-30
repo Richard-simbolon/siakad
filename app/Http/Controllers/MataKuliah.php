@@ -158,14 +158,6 @@
                     }
                     $save  = MataKuliahModel::firstOrCreate($data);
 
-//                    $filedata = MataKuliahModel::select('id' ,'title')
-//                    ->where('row_status', '=', 'active')
-//                    ->get();
-
-//                    if($filedata){
-//                        File::put(public_path().'/master/'.strtolower(static::$tablename).'.php',json_encode($filedata));
-//                    }
-
                     if($save){
                         return $this->success("Data berhasil disimpan.");
                     }
@@ -184,7 +176,7 @@
                     $html = static::$html;
                     $column = 1;
                     $controller = "matakuliah";
-                    return view("master/matakuliah_view" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow","tableid", "column", "controller", "master"));
+                    return view("master/matakuliah_view" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow", "column", "controller", "master"));
                 }
 
                 public function edit($id){
@@ -200,7 +192,7 @@
                     $html = static::$html;
                     $column = 1;
                     $controller = "matakuliah";
-                    return view("master/matakuliah_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow","tableid", "column", "controller", "master"));
+                    return view("master/matakuliah_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow", "column", "controller", "master"));
                 }
 
 

@@ -11,19 +11,16 @@
         <div class="kt-container  kt-container--fluid ">
             <div class="kt-subheader__main">
                 <h3 class="kt-subheader__title">
-                    Flaticon </h3>
+                    Dosen </h3>
                 <span class="kt-subheader__separator kt-hidden"></span>
                 <div class="kt-subheader__breadcrumbs">
                     <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                     <span class="kt-subheader__breadcrumbs-separator"></span>
-                    <a href="" class="kt-subheader__breadcrumbs-link">
-                        Components </a>
+                    <a href="{{url('data/dosen/view/'.$data['id'])}}" class="kt-subheader__breadcrumbs-link">
+                        Detail </a>
                     <span class="kt-subheader__breadcrumbs-separator"></span>
                     <a href="" class="kt-subheader__breadcrumbs-link">
-                        Icons </a>
-                    <span class="kt-subheader__breadcrumbs-separator"></span>
-                    <a href="" class="kt-subheader__breadcrumbs-link">
-                        Flaticon </a>
+                        Sertifikasi </a>
                 </div>
             </div>
             <div class="kt-subheader__toolbar">
@@ -53,7 +50,7 @@
                         </div>
                         <div class="kt-portlet__head-toolbar">
                             <div class="kt-subheader__wrapper">
-                                <a href="javascript:void(0);" class="btn btn-success tambah_penugasan">
+                                <a href="javascript:void(0);" class="btn btn-success tambah_sertifikasi">
                                     <i class="flaticon-plus"></i> Tambah Riwayat &nbsp;
                                 </a>
                             </div>
@@ -120,7 +117,7 @@
                                                         <tr>
                                                             <td width="107px">Status</td>
                                                             <td>:</td>
-                                                            <td><b>{{$data['status']}}</b></td>
+                                                            <td><b>{{$data['status_pegawai'] ? $master['status_pegawai'][$data['status_pegawai']]['title'] : "-"}}</b></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -206,16 +203,16 @@
                             </div>
                             <div class="kt-portlet__body">
                                 <div class="kt-section kt-section--first">
-                                    <table class="dataTable table table-striped- table-bordered table-hover table-checkable responsive no-wrap" id="kt_table_1">
+                                    <table class="dataTable table table-striped table-bordered table-hover table-checkable responsive no-wrap" id="kt_table_1">
                                         <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th style="text-align: center">No</th>
                                             <th>Nomor Sertifikasi</th>
                                             <th>Bidang Studi</th>
                                             <th>Jenis Sertifikasi </th>
                                             <th>Tahun Sertifikasi</th>
                                             <th>No SK Sertifikasi</th>
-                                            <th>Aksi</th>
+                                            <th style="text-align: center">Aksi</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -225,13 +222,16 @@
                                             @foreach ($sertifikasi as $item)
                                             <?php $i++;?>
                                                 <tr>
-                                                    <td>{{$i}}</td>
-                                                    <td>{{$item['nomor']}}</td>
-                                                    <td>{{$item['bidang_studi']}}</td>
-                                                    <td>{{$item['jenis_sertifikasi']}}</td>
-                                                    <td>{{$item['tahun_sertifikasi']}}</td>
-                                                    <td>{{$item['no_sk_sertifikasi']}}</td>
-                                                    <td nowrap=""><a href="layout/skins/mhs-view-edit.html">view/edit</a> </td>
+                                                    <td style="vertical-align: middle" align="center">{{$i}}</td>
+                                                    <td style="vertical-align: middle">{{$item['nomor']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['bidang_studi']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['jenis_sertifikasi']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['tahun_sertifikasi']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['no_sk_sertifikasi']}}</td>
+                                                    <td nowrap=""  style="vertical-align: middle" align="center">
+                                                        <a style="font-size: 18px;color: #607D8B;" class="call-modal-sertifikasi" href="javascript:void(0)" attr="{{$item['id']}}"><i class="la la-edit"></i></a>  &nbsp;
+                                                        <a style="font-size: 18px;color: #607D8B;" class="delete_item" href="javascript:void(0)" type="sertifikasi" attr="{{$item['id']}}"><i class="la la-trash"></i></a>
+                                                    </td>
                                                 </tr>
                                                 
                                             @endforeach
@@ -249,7 +249,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="kt_modal_penugasan_data" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="kt_modal_sertifikasi_data" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -270,6 +270,7 @@
                                 <div class="col-lg-12">
                                     <!--begin::Portlet-->
                                     <input type="hidden" value="{{$data['id']}}" name="dosen_id"/>
+                                    <input type="hidden" id="id_sertifikasi" name="id_sertifikasi"/>
                                    
                                     <div class="kt-portlet__body">
                                         <div>
@@ -331,7 +332,7 @@
     .m-content{width:100%;}
     </style>
 @section('js')
-
+    <script src="{{asset('assets/js/pages/admin/dosen.js')}}" type="text/javascript"></script>
 @stop
 
 @endsection

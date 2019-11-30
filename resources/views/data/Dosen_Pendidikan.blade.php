@@ -12,19 +12,16 @@
                 <div class="kt-container  kt-container--fluid ">
                     <div class="kt-subheader__main">
                         <h3 class="kt-subheader__title">
-                            Flaticon </h3>
+                            Dosen </h3>
                         <span class="kt-subheader__separator kt-hidden"></span>
                         <div class="kt-subheader__breadcrumbs">
                             <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
-                            <a href="" class="kt-subheader__breadcrumbs-link">
-                                Components </a>
+                            <a href="{{url()->previous()}}" class="kt-subheader__breadcrumbs-link">
+                                Detail </a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="" class="kt-subheader__breadcrumbs-link">
-                                Icons </a>
-                            <span class="kt-subheader__breadcrumbs-separator"></span>
-                            <a href="" class="kt-subheader__breadcrumbs-link">
-                                Flaticon </a>
+                                Pendidikan </a>
                         </div>
                     </div>
                     <div class="kt-subheader__toolbar">
@@ -49,12 +46,12 @@
                                 </svg>
                             </span>
                             <h3 class="kt-portlet__head-title">
-                                &nbsp;Daftar pendidikan Dosen
+                                &nbsp;Daftar Pendidikan Dosen
                             </h3>
                         </div>
                         <div class="kt-portlet__head-toolbar">
                             <div class="kt-subheader__wrapper">
-                                <a href="javascript:void(0);" class="btn btn-success tambah_penugasan">
+                                <a href="javascript:void(0);" class="btn btn-success tambah_pendidikan">
                                     <i class="flaticon-plus"></i> Tambah Riwayat &nbsp;
                                 </a>
                             </div>
@@ -121,7 +118,7 @@
                                                         <tr>
                                                             <td width="107px">Status</td>
                                                             <td>:</td>
-                                                            <td><b>{{$data['status']}}</b></td>
+                                                            <td><b>{{$data['status_pegawai'] ? $master['status_pegawai'][$data['status_pegawai']]['title'] : "-"}}</b></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -207,10 +204,10 @@
                             </div>
                             <div class="kt-portlet__body">
                                 <div class="kt-section kt-section--first">
-                                    <table class="dataTable table table-striped- table-bordered table-hover table-checkable responsive no-wrap" id="kt_table_1">
+                                    <table class="dataTable table table-striped table-bordered table-hover table-checkable responsive no-wrap" id="kt_table_1">
                                         <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th style="text-align: center;">No</th>
                                             <th>Bidang Studi</th>
                                             <th>Jenjang</th>
                                             <th>Gelar </th>
@@ -219,7 +216,7 @@
                                             <th>Tahun Lulus</th>
                                             <th>SKS</th>
                                             <th>IPK</th>
-                                            <th>Aksi</th>
+                                            <th style="text-align: center;">Aksi</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -229,18 +226,20 @@
                                             @foreach ($pendidikan as $item)
                                             <?php $i++;?>
                                                 <tr>
-                                                    <td>{{$i}}</td>
-                                                    <td>{{$item['bidang_studi']}}</td>
-                                                    <td>{{$item['jenjang']}}</td>
-                                                    <td>{{$item['gelar']}}</td>
-                                                    <td>{{$item['perguruan_tinggi']}}</td>
-                                                    <td>{{$item['fakultas']}}</td>
-                                                    <td>{{$item['tahun_lulus']}}</td>
-                                                    <td>{{$item['sks']}}</td>
-                                                    <td>{{$item['ipk']}}</td>
-                                                    <td nowrap=""><a href="layout/skins/mhs-view-edit.html">view/edit</a> </td>
+                                                    <td align="center">{{$i}}</td>
+                                                    <td style="vertical-align: middle">{{$item['bidang_studi']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['jenjang']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['gelar']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['perguruan_tinggi']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['fakultas']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['tahun_lulus']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['sks']}}</td>
+                                                    <td style="vertical-align: middle">{{$item['ipk']}}</td>
+                                                    <td nowrap="" align="center">
+                                                        <a style="font-size: 18px;color: #607D8B;" class="call-modal-pendidikan" href="javascript:void(0)" attr="{{$item['id']}}"><i class="la la-edit"></i></a>  &nbsp;
+                                                        <a style="font-size: 18px;color: #607D8B;" class="delete_item" href="javascript:void(0)" type="pendidikan" attr="{{$item['id']}}"><i class="la la-trash"></i></a>
+                                                    </td>
                                                 </tr>
-                                                
                                             @endforeach
 
                                             @endif
@@ -256,7 +255,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="kt_modal_penugasan_data" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="kt_modal_pendidikan_data" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -266,7 +265,7 @@
                             <path d="M18,2 L20,2 C21.6568542,2 23,3.34314575 23,5 L23,19 C23,20.6568542 21.6568542,22 20,22 L18,22 L18,2 Z" fill="#000000" opacity="0.3"></path>
                             <path d="M5,2 L17,2 C18.6568542,2 20,3.34314575 20,5 L20,19 C20,20.6568542 18.6568542,22 17,22 L5,22 C4.44771525,22 4,21.5522847 4,21 L4,3 C4,2.44771525 4.44771525,2 5,2 Z M12,11 C13.1045695,11 14,10.1045695 14,9 C14,7.8954305 13.1045695,7 12,7 C10.8954305,7 10,7.8954305 10,9 C10,10.1045695 10.8954305,11 12,11 Z M7.00036205,16.4995035 C6.98863236,16.6619875 7.26484009,17 7.4041679,17 C11.463736,17 14.5228466,17 16.5815,17 C16.9988413,17 17.0053266,16.6221713 16.9988413,16.5 C16.8360465,13.4332455 14.6506758,12 11.9907452,12 C9.36772908,12 7.21569918,13.5165724 7.00036205,16.4995035 Z" fill="#000000"></path>
                         </g>
-                    </svg> Riwayat Pengankatan</h5>
+                    </svg> Riwayat Pendidikan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
@@ -277,6 +276,7 @@
                                 <div class="col-lg-12">
                                     <!--begin::Portlet-->
                                     <input type="hidden" value="{{$data['id']}}" name="dosen_id"/>
+                                    <input type="hidden" id="id_pendidikan" name="id_pendidikan"/>
                                    
                                     <div class="kt-portlet__body">
                                         <div>
@@ -366,7 +366,7 @@
     .m-content{width:100%;}
     </style>
 @section('js')
-
+    <script src="{{asset('assets/js/pages/admin/dosen.js')}}" type="text/javascript"></script>
 @stop
 
 @endsection
