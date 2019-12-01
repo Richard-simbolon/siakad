@@ -115,7 +115,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <table class="dataTable table table-striped- table-bordered table-hover table-checkable" id="jadwalperkuliahandata">
+                            <table class="dataTable table table-striped table-bordered table-hover table-checkable" id="jadwalperkuliahandata">
                             <thead>
                             <tr>
                                 <th>Kode MK</th>

@@ -28,7 +28,7 @@ class DosenPenguji extends Controller
         $data = [];
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
 
-        return view("dosen/Penguji_Mahasiswa" , compact("data" ));
+        return view("dosen/penguji_mahasiswa" , compact("data" ));
 
     }
 

@@ -123,7 +123,7 @@
                             </div>
                         </div>
                     <div>
-                            <table class="dataTable table table-striped- table-bordered table-hover table-checkable">
+                            <table class="dataTable table table-striped table-bordered table-hover table-checkable">
                             <thead>
                             <tr>
                                 <th style="text-align: center">No</th>

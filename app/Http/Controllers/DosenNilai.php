@@ -52,17 +52,17 @@ class DosenNilai extends Controller
         $table_display = DB::getSchemaBuilder()->getColumnListing(static::$tablename);
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
-        return view("Dosen/Nilai_mahasiswa" , compact("title" ,"table_display" ,"exclude" ,"Tableshow","tableid", "master"));
+        return view("dosen/nilai_mahasiswa" , compact("title" ,"table_display" ,"exclude" ,"Tableshow","tableid", "master"));
     }
 
     public function create(){
-        $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+        $title = "Tambah Nilai Perkuliahan";
         $table = array_diff(DB::getSchemaBuilder()->getColumnListing("nilai_mahasiswa"), static::$exclude);
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
         $html = static::$html;
         $column = 1;
-        return view("setting/master_create" , compact("table" ,"exclude" , "Tableshow" , "title" , "html", "column"));
+        return view("dosen/master_create" , compact("table" ,"exclude" , "Tableshow" , "title" , "html", "column"));
 
     }
 

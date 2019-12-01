@@ -15,16 +15,16 @@
                             <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="" class="kt-subheader__breadcrumbs-link">
-                                Kelas Perkuliahan</a>
+                                Nilai</a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="{{url()->current()}}" class="kt-subheader__breadcrumbs-link">
-                                Daftar </a>
+                                Input </a>
                         </div>
                     </div>
                 </div>
                 <div class="kt-subheader__toolbar">
                     <div class="kt-subheader__wrapper">
-                        <a href="{{url()->current()}}/create" class="btn btn-success"><i class="la la-plus"></i> Tambah</a>
+                        <a href="{{url('dosen/inputnilai')}}" class="btn btn-success"><i class="la la-bars"></i> Daftar</a>
                     </div>
                 </div>
             </div>
@@ -132,13 +132,13 @@
                                                     @foreach ($mahasiswa as $item)
                                                     <? $i++ ?>
                                                     <tr>
-                                                        <td align="center">{{$i}}</td> 
-                                                        <td align="center">{{ucfirst($item->nama)}}</td>
-                                                        <td align="center">{{ucfirst($item->nim)}}</td>
-                                                        <td align="center">{{ucfirst($item->jk)}}</td>
-                                                        <td><input type="text" value="{{$item->nilai_uts}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_uts]" placeholder="UTS"></td>
-                                                        <td><input type="text" value="{{$item->nilai_uas}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_uas]" placeholder="UAS"></td>
-                                                        <td><input type="text" value="{{$item->nilai_akhir}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_akhir]" placeholder="Nilai Akhir"></td>
+                                                        <td style="vertical-align: middle" align="center">{{$i}}</td>
+                                                        <td style="vertical-align: middle">{{ucfirst($item->nama)}}</td>
+                                                        <td style="vertical-align: middle">{{ucfirst($item->nim)}}</td>
+                                                        <td style="vertical-align: middle">{{ucfirst($item->jk)}}</td>
+                                                        <td style="vertical-align: middle"><input type="text" value="{{$item->nilai_uts}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_uts]" placeholder="UTS"></td>
+                                                        <td style="vertical-align: middle"><input type="text" value="{{$item->nilai_uas}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_uas]" placeholder="UAS"></td>
+                                                        <td style="vertical-align: middle"><input type="text" value="{{$item->nilai_akhir}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_akhir]" placeholder="Nilai Akhir"></td>
                                                         
                                                     </tr>
                                                     @endforeach
@@ -146,6 +146,7 @@
                                         </table>
                                     </div>
                                 </div>
+                                <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
                                 <div class="root">
                                     <div class="kt-form__actions">
                                         <button type="button" class="btn btn-success" id="save-nilai-perkuliahan"><i class="la la-save"></i>Simpan</button>
