@@ -25,7 +25,7 @@
             </div>
             <div class="kt-subheader__toolbar">
                 <div class="kt-subheader__wrapper">
-                    <a href="{{url('/data/kelasperkuliahan')}}" class="btn btn-label-google"><i class="la la-bars"></i> Daftar</a>
+                    <a href="{{url('/data/kelasperkuliahan')}}" class="btn btn-success"><i class="la la-bars"></i> Daftar</a>
                 </div>
             </div>
         </div>
@@ -101,12 +101,12 @@
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-md kt-separator--portlet-fit"></div>
                                 <div>
                                     <p> <span class="kt-invoice__subtitle">Nama Kurikulum : <b id="nama-kurikulum">{{$kurikulum->nama_kurikulum}}</b></span></p>
-                                        <br/>
+
                                 </div>
                                 
                             <div class="row">
                                 <div class="col-lg-12" id="kelasperkuliahan">
-                                    <table class="table table-striped table-bordered table-hover responsive" id="table-matakuliah">
+                                    <table class="dataTable table table-striped table-bordered table-hover responsive" id="table-matakuliah">
                                         <thead>
                                         <tr>
                                             <th>Pilih</th>
@@ -119,6 +119,7 @@
                                             <th>Hari</th>
                                             <th>Ruangan</th>
                                             <th>Jam</th>
+                                            <th>Pertemuan</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -138,13 +139,13 @@
                                                         <td align="center">'.$item->bobot_mata_kuliah.'</td>
                                                         <td align="center">'.$item->semester.'</td>
                                                         <td>
-                                                            <select class="form-control form-control-sm kt-select2" name="item['.$item->matakuliah_id.'][dosen_id]">
+                                                            <select class="form-control  kt-select2" name="item['.$item->matakuliah_id.'][dosen_id]">
                                                                 '.$dosen_html.'
                                                             </select>
                                                         </td>
-                                                        <td align="center"><input type="text" value="'.$item->asisten.'" name="item['.$item->matakuliah_id.'][asisten]" class="form-control form-control-sm" /> </td>
+                                                        <td align="center"><input type="text" value="'.$item->asisten.'" name="item['.$item->matakuliah_id.'][asisten]" class="form-control " /> </td>
                                                         <td align="center">
-                                                            <select class="form-control form-control-sm" name="item['.$item->matakuliah_id.'][hari_id]">
+                                                            <select style="min-width: 75px" class="form-control" name="item['.$item->matakuliah_id.'][hari_id]">
                                                                 <option value="1" '.(($item->hari_id) == "1" ? 'selected' : '') .' >Senin</option>
                                                                 <option value="2" '.(($item->hari_id) == "2" ? 'selected' : '') .' >Selasa</option>
                                                                 <option value="3" '.(($item->hari_id) == "3" ? 'selected' : '') .' >Rabu</option>
@@ -154,12 +155,15 @@
                                                             </select>
                                                         </td>
                                                         <td align="center">
-                                                            <input type="text"class="form-control form-control-sm" value="'.$item->ruangan.'"  name="item['.$item->matakuliah_id.'][ruangan]"/>
+                                                            <input type="text"class="form-control " value="'.$item->ruangan.'"  name="item['.$item->matakuliah_id.'][ruangan]"/>
                                                         </td>
                                                         <td align="center">
                                                             <div class="input-group timepicker">
-                                                                <input type="text" name="item['.$item->matakuliah_id.'][jam]" value="'.$item->jam.'" class="form-control m-input time-picker" placeholder="Pilih Jam" type="text"/>
+                                                                <input style="max-width: 90px" type="text" name="item['.$item->matakuliah_id.'][jam]" value="'.$item->jam.'" class="form-control m-input time-picker" placeholder="Pilih Jam"/>
                                                             </div>
+                                                        </td>
+                                                        <td>
+                                                            <input style="max-width: 75px" type="number"class="form-control" min="1" value="'.($item->pertemuan == ""? 14 : $item->pertemuan).'"  name="item['.$item->matakuliah_id.'][pertemuan]"/>
                                                         </td>
                                                     </tr>
                                             ';

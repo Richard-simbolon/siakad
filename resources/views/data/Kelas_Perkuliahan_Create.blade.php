@@ -25,7 +25,7 @@
             </div>
             <div class="kt-subheader__toolbar">
                 <div class="kt-subheader__wrapper">
-                    <a href="{{url('/data/kelasperkuliahan')}}" class="btn btn-label-google"><i class="la la-bars"></i> Daftar</a>
+                    <a href="{{url('/data/kelasperkuliahan')}}" class="btn btn-success"><i class="la la-bars"></i> Daftar</a>
                 </div>
             </div>
         </div>
@@ -111,12 +111,12 @@
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-md kt-separator--portlet-fit"></div>
                                 <div>
                                     <p> <span class="kt-invoice__subtitle">Nama Kurikulum : <b id="nama-kurikulum"></b></span></p>
-                                        <br/>
+
                                 </div>
 
                             <div class="row">
                                 <div class="col-lg-12" id="kelasperkuliahan">
-                                    <table class="table table-striped table-bordered table-hover responsive" id="table-matakuliah">
+                                    <table class="dataTable table table-striped table-bordered table-hover responsive" id="table-matakuliah">
                                         <thead>
                                         <tr>
                                             <th>Pilih</th>
@@ -129,6 +129,7 @@
                                             <th>Hari</th>
                                             <th>Ruangan</th>
                                             <th>Jam</th>
+                                            <th>Pertemuan</th>
                                         </tr>
                                         </thead>
                                         <tbody>

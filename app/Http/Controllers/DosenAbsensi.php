@@ -17,13 +17,13 @@ use App\DosenModel;
 class DosenAbsensi extends Controller
 {
     static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
-        "row_status" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Row_status"],
-        "title" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Title"],
-        ];
+                        "row_status" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Row_status"],
+                        "title" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Title"],
+                        ];
     static $html = ["id"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
-"row_status"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
-"title"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
-];
+                    "row_status"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
+                    "title"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
+                    ];
     static $exclude = ["id","created_at","updated_at","created_by","update_by"];
     static $tablename = "AbsensiMahasiswa";
 
@@ -43,19 +43,12 @@ class DosenAbsensi extends Controller
     }
     public function index()
     {
-        //print_r(Cache::get('absensi_18'));
-        //print_r(Cache::get('absensi_29_detail'));
-        //Cache::get('key', 'default');
-        //exit;
-        ///echo implode( "','", DB::getSchemaBuilder()->getColumnListing('absensi_mahasiswa')); exit;
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
             'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
             'kelas' => KelasModel::where('row_status' , 'active')->get(),
             'semester'=> SemesterModel::where('row_status', 'active')->get(),
         );
-        //print_r($master); exit;
-        //$data = DB::table('view_input_nilai_mahasiswa')->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $tableid = "KelasPerkuliahan";
         $table_display = DB::getSchemaBuilder()->getColumnListing(static::$tablename);
@@ -84,17 +77,18 @@ class DosenAbsensi extends Controller
             $mahasiswa = MahasiswaModel::where('kelas_id' , $data->kelas_id)->where('status' , '1')->get();
         }
 
-        //print_r($mahasiswa); exit;
-
         return view("dosen/absensi_create" , compact("title" , "mahasiswa", "data"));
 
     }
 
 
     public function view($id){
-        //Cache::flush();
         $dosen_id = DosenModel::where('nidn_nup_nidk' , Auth::user()->id)->first();
-        $data = DB::table('view_input_nilai_mahasiswa')->where('id' , $id)->first();
+        $data = DB::table('absensi_mahasiswa')
+            ->join('view_input_nilai_mahasiswa' , 'view_input_nilai_mahasiswa.id' , '=' , 'absensi_mahasiswa.kelas_perkuliahan_detail_id')
+            ->select('view_input_nilai_mahasiswa.*', 'absensi_mahasiswa.tanggal_perkuliahan','absensi_mahasiswa.pembahasan')
+            ->where('kelas_perkuliahan_detail_id' , $id)->first();
+
         if(!$data){
             return abort(404);
         }
@@ -103,13 +97,14 @@ class DosenAbsensi extends Controller
         }
         
         $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        $data = DB::table('view_input_nilai_mahasiswa')->where('id' , $id)->first();
+
         if(!$data->kelas_id){
             echo 'Data Tidak Ditemukan.';
         }
         $header_id = DB::table('absensi_mahasiswa')
                     ->select('id')
                     ->where('kelas_perkuliahan_detail_id' , $id)->get();
+
         $datas = array();
         $mahasiswa = [];
         $detail = [];
@@ -135,9 +130,6 @@ class DosenAbsensi extends Controller
                 );
                 $mahasiswa[$val2->mahasiswa_id] = $val2;
             }
-            
-            
-            
         }
         return view("dosen/absensi_edit" , compact("title", "data" ,"mahasiswa" ,"detail"));
 
@@ -153,15 +145,12 @@ class DosenAbsensi extends Controller
             ->where('absensi_mahasiswa.id' , $id)
             ->first();
             $this->store_memcached($key , $new_cache);
-            return Cache::get($key); 
-        
+            return Cache::get($key);
         }
-        
     }
 
-    public function get_detail_absensi($id , $key){
-
-        //return array($key , $id);
+    public function get_detail_absensi($id , $key)
+    {
         if (Cache::has($key)){
             $data = Cache::get($key);
         }else{
@@ -177,7 +166,6 @@ class DosenAbsensi extends Controller
 
     public function save(Request $request){
         $post = $request->all();
-       // print_r($post); exit;
         $absensi = $post['mahasiswa'];
         unset($post['mahasiswa']);
         $post['created_at'] = date('Y-m-d H:i:s');
@@ -198,7 +186,6 @@ class DosenAbsensi extends Controller
         }
         DB::beginTransaction();
         try{
-            //print_r($post);exit;
             $absensiheader = AbsensiMahasiswaModel::create($post);
             $data_absensi = [];
             foreach($absensi as $key=> $item){
@@ -217,8 +204,6 @@ class DosenAbsensi extends Controller
             ->select('view_input_nilai_mahasiswa.*' , 'absensi_mahasiswa.id as absensi_id' , 'absensi_mahasiswa.pembahasan' , 'absensi_mahasiswa.tanggal_perkuliahan')
             ->where('absensi_mahasiswa.id' , $absensiheader->id)
             ->first();
-
-            //print_r($mahsiswa_cahce); exit;
 
             // GET DATA ABSENSE DETAIL AND STORE TO CACHE
             $mahsiswa_detail_cahce = DB::table('view_absensi_mahasiswa')
@@ -252,7 +237,6 @@ class DosenAbsensi extends Controller
             return abort(404);
         }
 
-        //print_r($post); exit;
         $post['created_at'] = date('Y-m-d H:i:s');
         $post['updated_at'] = date('Y-m-d H:i:s');
         $validation = Validator::make($post, [
@@ -304,8 +288,6 @@ class DosenAbsensi extends Controller
     }
 
     public function edit($id){
-        //echo $id; exit;
-
         //Cache::flush();
         $dosen_id = DosenModel::where('nidn_nup_nidk' , Auth::user()->id)->first();
         $data = DB::table('absensi_mahasiswa')
@@ -341,9 +323,8 @@ class DosenAbsensi extends Controller
                 $where[$key] = $val;
             }
         }
-            //print_r(Datatables::of(DB::table('view_input_nilai_mahasiswa')->where($where)->get())->make(true));
-            return Datatables::of(DB::table('view_input_nilai_mahasiswa')->where($where)->get())->make(true);
-        //return Datatables::of(DB::table('view_input_nilai_mahasiswa')->get())->make(true);
+
+        return Datatables::of(DB::table('view_input_nilai_mahasiswa')->where($where)->get())->make(true);
     }
 
 }

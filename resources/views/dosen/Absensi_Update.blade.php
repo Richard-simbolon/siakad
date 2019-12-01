@@ -14,8 +14,8 @@
                         <div class="kt-subheader__breadcrumbs">
                             <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
-                            <a href="{{url('/master/matakuliah')}}" class="kt-subheader__breadcrumbs-link">
-                                Matakuliah </a>
+                            <a href="{{url('/dosen/absensi')}}" class="kt-subheader__breadcrumbs-link">
+                                Absensi </a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="{{url()->current()}}" class="kt-subheader__breadcrumbs-link">
                                 Edit </a>
@@ -52,9 +52,9 @@
 
                         <div class="kt-portlet__body">
                             <form class="kt-form kt-form--label-right" action="update" method="POST">
-                                <div class="kt-portlet__body">
+                                <div class="">
                                     <div class="kt-section kt-section--first">
-                                        <div class="kt-portlet__body">
+                                        <div class="">
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <div class="row">
@@ -110,10 +110,8 @@
                                                     </div>
                                                 </div>
                                                 <br/>
-                                                <br/>
-                                                <br/>
                                                 <div class="row">
-                                                    <div class="col-lg-6">
+                                                    <div class="col-lg-4">
                                                         <div class="form-group">
                                                             <label>Tanggal Kelas Perkuliahan</label>
                                                             <div class="form-group">
@@ -121,28 +119,28 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div> 
+                                                </div>
                                                 <div class="row">
                                                     <div class="col-lg-6">
                                                         <div class="form-group">
                                                             <label>Pembahasan</label>
                                                             <div class="form-group">
-                                                                <input type="text" class="form-control" value="{{$data->pembahasan}}" name="pembahasan"  placeholder="Isikan Nama Kelas">
+                                                                <textarea rows="5" type="text" class="form-control" name="pembahasan"  placeholder="Isikan Nama Kelas">{{$data->pembahasan}}</textarea>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
+                                                <div class="kt-separator kt-separator--border-dashed kt-separator--space-sm kt-separator--portlet-fit"></div><br/>
                                                 <div class="row">
                                                     <input type="hidden" name="absensi" value="{{$id}}" />
                                                     <input type="hidden" name="header_id" value="{{$data->id}}" />
                                                     <div class="col-lg-12">
-                                                        <table class="table table-striped table-bordered table-hover responsive">
+                                                        <table class="dataTable table table-striped table-bordered table-hover responsive">
                                                             <thead>
                                                             <tr>
                                                                 <th style="text-align: center">No</th>
-                                                                <th style="text-align: center">Nama Mahasiswa</th>
-                                                                <th style="text-align: center">NIM</th>
+                                                                <th>Nama Mahasiswa</th>
+                                                                <th>NIM</th>
                                                                 <th>Jenis Kelamin</th>
                                                                 <th>Status</th>
                                                                 <th style="text-align: center">Catatan</th>
@@ -153,28 +151,28 @@
                                                                     @foreach ($mahasiswa as $item)
                                                                     <? $i++ ?>
                                                                     <tr>
-                                                                        <td align="center">{{$i}}</td> 
-                                                                        <td align="center">{{ucfirst($item->nama)}}</td>
-                                                                        <td align="center">{{ucfirst($item->nim)}}</td>
-                                                                        <td align="center">{{ucfirst($item->jk)}}</td>
-                                                                        <td> <input type="hidden" name="mahasiswa[{{$item->mahasiswa_id}}][id]" value="{{$item->id}}"><select name="mahasiswa[{{$item->mahasiswa_id}}][status_absensi]" class="form-control">
+                                                                        <td style="vertical-align: middle" align="center">{{$i}}</td>
+                                                                        <td style="vertical-align: middle">{{ucfirst($item->nama)}}</td>
+                                                                        <td style="vertical-align: middle">{{ucfirst($item->nim)}}</td>
+                                                                        <td style="vertical-align: middle">{{ucfirst($item->jk)}}</td>
+                                                                        <td style="vertical-align: middle"> <input type="hidden" name="mahasiswa[{{$item->mahasiswa_id}}][id]" value="{{$item->id}}"><select name="mahasiswa[{{$item->mahasiswa_id}}][status_absensi]" class="form-control">
                                                                                 <option value="H" {{$item->status_absensi == 'H' ? 'selected' : ''}}>Hadir</option>
                                                                                 <option value="A" {{$item->status_absensi == 'A' ? 'selected' : ''}}>Absen</option>
                                                                                 <option value="S" {{$item->status_absensi == 'S' ? 'selected' : ''}}>Sakit</option>
                                                                                 <option value="I" {{$item->status_absensi == 'I' ? 'selected' : ''}}>Ijin</option>
                                                                                 <option value="L" {{$item->status_absensi == 'L' ? 'selected' : ''}}>Lainnya</option>
                                                                             </select></td>
-                                                                        <td><input type="text" class="form-control" name="mahasiswa[{{$item->mahasiswa_id}}][catatan]" value="{{$item->catatan}}" placeholder="Catatan"></td>
+                                                                        <td style="vertical-align: middle"><input type="text" class="form-control" name="mahasiswa[{{$item->mahasiswa_id}}][catatan]" value="{{$item->catatan}}" placeholder="Catatan"></td>
                                                                     </tr>
                                                                     @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                 </div>
+                                                <div class="kt-separator kt-separator--border-dashed kt-separator--space-sm kt-separator--portlet-fit"></div><br/>
                                                 <div class="root">
                                                     <div class="kt-form__actions">
                                                         <button type="button" class="btn btn-success" id="update-absensi-perkuliahan"><i class="la la-save"></i>Update</button>
-                                                        <a href="{{url('dosen/absensi')}}" style="align:right" type="button" class="btn btn-metal btn-outlane-metal"><i class="la la-arrow-left"></i>Kembali</a>
                                                     </div>
                                                 </div>
                                             </div>

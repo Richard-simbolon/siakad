@@ -19,7 +19,7 @@
                         </a>
                     </li>
                     <li class="kt-nav__item">
-                        <a href="" class="kt-nav__link">
+                        <a href="{{url('data/dosen/activity/'.$data['id'])}}" class="kt-nav__link">
                             <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
                             <span class="kt-nav__link-text">Aktivitas Mengajar Dosen</span>
                         </a>

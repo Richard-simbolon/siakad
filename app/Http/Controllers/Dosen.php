@@ -737,9 +737,35 @@ class Dosen extends Controller
         return view('/data/dosen_tugas_akhir' , compact('data','master','idTable' ));
     }
 
+    public function activity($id){
+        $master = array(
+            'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
+            'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
+            'agama' => AgamaModel::where('row_status' , 'active')->get(),
+            'pekerjaan' => PekerjaanModel::where('row_status' , 'active')->get(),
+            'status_pegawai' => StatusPegawaiModel::where('row_status' , 'active')->get(),
+            'jenis_kelamin' => config('global.jenis_kelamin')
+        );
+
+        $idTable ="tbl_dosen_aktivitas_mengajar";
+
+        $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
+            ->join('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
+            ->join('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
+            ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
+            ->where('dosen.id' , $id)->first();
+        return view('/data/dosen_activity' , compact('data','master','idTable' ));
+    }
+
+    public function activity_paging(Request $request){
+        $post= $request->all();
+        $where = ['dosen_id' => $post['dosen_id']];
+
+        return Datatables::of(DB::table('view_aktivitas_mengajar')->where($where)->get())->addIndexColumn()->make(true);
+    }
+
     public function pembimbing_paging(Request $request){
         $post= $request->all();
-        //$id = DosenModel::where('nidn_nup_nidk' , Auth::user()->id)->first();
         $where = ['dosen_id' => $post['dosen_id'], 'row_status' =>'active', "status_dosen"=>"Penguji"];
 
         return Datatables::of(DB::table('view_tugas_akhir')->where($where)->get())->make(true);
@@ -747,7 +773,6 @@ class Dosen extends Controller
 
     public function penguji_paging(Request $request){
         $post= $request->all();
-        //$id = DosenModel::where('nidn_nup_nidk' , Auth::user()->id)->first();
         $where = ['dosen_id' => $post['dosen_id'], 'row_status' =>'active', "status_dosen"=>"Penguji"];
 
         return Datatables::of(DB::table('view_tugas_akhir')->where($where)->get())->make(true);

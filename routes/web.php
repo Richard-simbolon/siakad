@@ -78,7 +78,6 @@ Route::post('/data/dosen/submitfungsional_dosen', 'DosenModule@submitfungsional_
 Route::post('/data/dosen/submitpengangkatan_dosen', 'DosenModule@submitpengangkatan_dosen')->name('kepangkatan_dosen');
 Route::post('/data/dosen/submitpendidikan_dosen', 'DosenModule@submitpendidikan_dosen')->name('pendidikan_dosen');
 Route::post('/data/dosen/submitsertifikasi_dosen', 'DosenModule@submitsertifikasi_dosen')->name('sertifikasi_dosen');
-//Route::post('/data/dosen/submitfungsional_dosen', 'DosenModule@submitpenugasan_dosen')->name('fungsional_dosen');
 Route::post('/data/dosen/submitpenelitian_dosen', 'DosenModule@submitpenelitian_dosen')->name('penelitian_dosen');
 Route::post('/data/dosen/validatewizard', 'dosen@validatewizard')->name('validate_wizard');
 
@@ -94,6 +93,10 @@ Route::post('/data/dosen/submit_gantipassword', 'DosenModule@submit_gantipasswor
 Route::get('/data/dosen/grafik_dosen', 'Dosen@grafik_dosen')->name('grafik_dosen');
 Route::get('/data/dosen/grafik_jenis', 'Dosen@grafik_jenis')->name('grafik_jenis');
 Route::get('/data/dosen/grafik_status', 'Dosen@grafik_status')->name('grafik_status');
+Route::get('/data/dosen/activity/{id}', 'Dosen@activity')->name('activity');
+Route::get('/data/dosen/activitydosen', 'DosenModule@activity')->name('activity');
+Route::post('dosen/penguji_paging', 'Dosen@penguji_paging')->name('penguji_paging');
+Route::post('dosen/activity_paging', 'Dosen@activity_paging')->name('activity_paging');
 
 Route::post('/data/dosen/update', 'Dosen@update')->name('update');
 Route::get('dosen/penugasan/{id}', 'Dosen@penugasan')->name('penugasan');
@@ -120,6 +123,7 @@ Route::get('dosen/pembimbing/{id}', 'Dosen@pembimbing')->name('pembimbing');
 Route::get('dosen/penguji/{id}', 'Dosen@penguji')->name('penguji');
 Route::post('dosen/pembimbing_paging', 'Dosen@pembimbing_paging')->name('pembimbing_paging');
 Route::post('dosen/penguji_paging', 'Dosen@penguji_paging')->name('penguji_paging');
+Route::post('dosen/activity_paging', 'Dosen@activity_paging')->name('activity_paging');
 
 
 Route::post('/master/kelas/edit', 'Kelas@edit')->name('edit');

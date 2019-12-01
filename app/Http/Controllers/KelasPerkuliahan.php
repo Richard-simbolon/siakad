@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\KelasModel;
+use App\RuanganModel;
 use App\SemesterModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -41,7 +42,7 @@ class KelasPerkuliahan extends Controller
             'kelas' => KelasModel::where('row_status' , 'active')->get(),
             'semester'=> SemesterModel::where('row_status', 'active')->get(),
         );
-        //print_r($master); exit;
+
         $data = DB::table('view_kelas_perkuliahan')->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $tableid = "KelasPerkuliahan";
@@ -99,7 +100,7 @@ class KelasPerkuliahan extends Controller
         );
         $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
 
-        return view("data/kelas_perkuliahan_create" , compact("title" , "column" ,'master'));
+        return view("data/kelas_perkuliahan_create" , compact("title"  ,'master'));
 
     }
 
@@ -163,7 +164,7 @@ class KelasPerkuliahan extends Controller
             return json_encode(array('status' => 'success' , 'message' => 'Data berhasil disimpan.'));
         } catch(\Exception $e){
             DB::rollBack(); 
-            throw $e;
+            //throw $e;
             return json_encode(array('status' => 'error' , 'message' => 'Terjadi kesalahan saat menyimpan, silahkan coba lagi.'));
         }
         
@@ -218,32 +219,24 @@ class KelasPerkuliahan extends Controller
 
     public function view($id){
         $master = array(
-            //'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
-            //'kelas' => KelasModel::where('row_status' , 'active')->get(),
-            //'kurikulum' => KurikulumModel::where('row_status' , 'active')->get(),
-            //'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
-            //'semester'=> SemesterModel::where('row_status', 'active')->get(),
             'dosen' => DosenModel::where('row_status' , 'active')->get()
         );
-        //$dosen = DosenModel::where('row_status' , 'active')->get();
         
         $kurikulum = DB::table('kelas_perkuliahan')
-        ->join('master_kelas' , 'master_kelas.id' , '=' , 'kelas_perkuliahan.kelas_id')
-        ->join('kurikulum' , 'kurikulum.id' , '=' , 'master_kelas.kurikulum_id')
-        ->join('master_angkatan' , 'master_angkatan.id' , '=' , 'kelas_perkuliahan.angkatan_id')
-        ->join('master_jurusan' , 'master_jurusan.id' , '=' , 'kelas_perkuliahan.program_studi_id')
-        ->join('master_semester' , 'master_semester.id' , '=' , 'kelas_perkuliahan.semester_id')
-        ->where('kelas_perkuliahan.id' ,$id)->select('kurikulum.nama_kurikulum','master_semester.title as nama_semester','master_jurusan.title as nama_jurusan','master_angkatan.title as nama_angkatan','master_kelas.title as nama_kelas','kurikulum.id as kurikulum_id', 'kelas_perkuliahan.*')->first();
+            ->join('master_kelas' , 'master_kelas.id' , '=' , 'kelas_perkuliahan.kelas_id')
+            ->join('kurikulum' , 'kurikulum.id' , '=' , 'master_kelas.kurikulum_id')
+            ->join('master_angkatan' , 'master_angkatan.id' , '=' , 'kelas_perkuliahan.angkatan_id')
+            ->join('master_jurusan' , 'master_jurusan.id' , '=' , 'kelas_perkuliahan.program_studi_id')
+            ->join('master_semester' , 'master_semester.id' , '=' , 'kelas_perkuliahan.semester_id')
+            ->where('kelas_perkuliahan.id' ,$id)
+            ->select('kurikulum.nama_kurikulum','master_semester.title as nama_semester','master_jurusan.title as nama_jurusan','master_angkatan.title as nama_angkatan','master_kelas.title as nama_kelas','kurikulum.id as kurikulum_id', 'kelas_perkuliahan.*')->first();
         if(!$kurikulum){
             return 'data tidak di temukan';
         }
         $kur_id = $kurikulum->id;
 
-        ///echo $kur_id ; exit;
-        
         $matakuliah = DB::table('kurikulum_mata_kuliah')
         ->join('mata_kuliah' , 'mata_kuliah.id' , '=' , 'kurikulum_mata_kuliah.mata_kuliah_id')
-        //->leftJoin('kelas_perkuliahan_mata_kuliah' , 'kelas_perkuliahan_mata_kuliah.mata_kuliah_id' , '=' , 'mata_kuliah.id')
         ->leftJoin('kelas_perkuliahan_mata_kuliah', function ($join ) use($id) {
             $join->on('kelas_perkuliahan_mata_kuliah.mata_kuliah_id', '=', 'mata_kuliah.id')
                  ->where('kelas_perkuliahan_mata_kuliah.kelas_perkuliahan_id', '=', $id , DB::raw('AND'));
@@ -263,6 +256,12 @@ class KelasPerkuliahan extends Controller
         foreach($dosen as $item){
             $dosen_html .= '<option value="'.$item['id'].'"> '.$item['nama'].'</option>';
         }
+        $ruangan = RuanganModel::where('row_status', 'active')->get();
+        $ruangan_html = '<option value="0"> -- Pilih Ruangan --</option>';
+        foreach($ruangan as $item){
+            $ruangan_html .= '<option value="'.$item['id'].'"> '.$item['kode_ruangan'].' - '.$item['nama_ruangan'].'</option>';
+        }
+
         $kurikulum = KurikulumModel::where('id' ,$post['kelas'])->select('nama_kurikulum')->first();
         $matakuliah = DB::table('kurikulum_mata_kuliah')->join('mata_kuliah' , 'mata_kuliah.id' , '=' , 'kurikulum_mata_kuliah.mata_kuliah_id')
         ->where('kurikulum_mata_kuliah.row_status' , 'active')
@@ -279,13 +278,13 @@ class KelasPerkuliahan extends Controller
                         <td align="center">'.$item->bobot_mata_kuliah.'</td>
                         <td align="center">'.$item->semester.'</td>
                         <td>
-                            <select class="form-control form-control-sm kt-select2" name="item['.$item->id.'][dosen_id]">
+                            <select class="form-control  form-control-sm kt-select2" name="item['.$item->id.'][dosen_id]">
                                 '.$dosen_html.'
                             </select>
                         </td>
                         <td align="center"><input type="text" name="item['.$item->id.'][asisten]" class="form-control form-control-sm" /> </td>
                         <td align="center">
-                            <select class="form-control form-control-sm" name="item['.$item->id.'][hari_id]">
+                            <select style="min-width: 75px" class="form-control form-control-sm" name="item['.$item->id.'][hari_id]">
                                 <option value="1">Senin</option>
                                 <option value="2">Selasa</option>
                                 <option value="3">Rabu</option>
@@ -295,12 +294,17 @@ class KelasPerkuliahan extends Controller
                             </select>
                         </td>
                         <td align="center">
-                            <input type="text"class="form-control form-control-sm"  name="item['.$item->id.'][ruangan]"/>
+                            <select class="form-control form-control-sm kt-select2" name="item['.$item->id.'][ruangan]">
+                                '.$ruangan_html.'
+                            </select>
                         </td>
                         <td align="center">
                             <div class="input-group timepicker">
-                                <input type="text" name="item['.$item->id.'][jam]" class="form-control m-input time-picker" placeholder="Pilih Jam" type="text"/>
+                                <input style="max-width: 100px" type="text" name="item['.$item->id.'][jam]" class="form-control form-control-sm m-input time-picker" placeholder="Pilih Jam" type="text"/>
                             </div>
+                        </td>
+                        <td>
+                            <input style="max-width: 75px" type="number"class="form-control form-control-sm" min="1"  value="14"  name="item['.$item->id.'][pertemuan]"/>
                         </td>
                     </tr>
         ';
@@ -319,6 +323,7 @@ class KelasPerkuliahan extends Controller
                             <th>Hari</th>
                             <th>Ruangan</th>
                             <th>Jam</th>
+                            <th>Pertemuan</th>
                         </tr>
                         </thead>
                         <tbody>

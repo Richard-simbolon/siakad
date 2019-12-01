@@ -117,7 +117,7 @@
                                         </tr>
                                         </thead>
                                         <tbody id="kelasperkuliahanbody">
-                                                <?$i = 0?>;
+                                                <?$i = 0?>
                                                 @foreach ($data as $item)
                                                 <? $i++ ?>
                                                 <tr>
@@ -128,7 +128,7 @@
                                                     <td align="center">{{$item->kelas}}</td>
                                                     <td align="center">{{$item->sks}}</td>
                                                     <td align="center">{{$item->total_mhs}}</td>
-                                                    <td><a href="{{url('data/kelasperkuliahan/view/'. $item->id)}}" > edit/view </a></td>
+                                                    <td align="center"><a style="font-size: 18px;color: #607D8B;" href="{{url('data/kelasperkuliahan/view/'. $item->id)}}" > <i class="la la-edit"></i> </a></td>
                                                 </tr>
                                                 @endforeach
                                         </tbody>
@@ -147,7 +147,17 @@
     </style>
 
 @section('js')
-
+    <script>
+        $(document).ready(function() {
+            $("#kt_table_1").DataTable(
+                {
+                    language:{
+                        url: '/assets/lang/id.json'
+                    },
+                }
+            );
+        });
+    </script>
 @stop
 
 @endsection

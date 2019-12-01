@@ -534,4 +534,53 @@ $(document).ready(function() {
             { data: 'status_bimbingan', name: 'status_bimbingan' },
         ]
     });
+
+    $('#tbl_dosen_aktivitas_mengajar').DataTable({
+        pageLength: 50,
+        responsive: true,
+        processing: true,
+        serverSide: true,
+        language:{
+            url: '/assets/lang/id.json'
+        },
+        ajax: {
+            url:'/dosen/activity_paging',
+            type:"POST",
+            // data:{id: $("#dosen_id").val()},
+            data: function ( d ) {
+                var data = {};
+                $('.looping_class_input').each(function(){
+                    if($(this).val() != '' || $(this).val() != null || $(this).val() != undefined || $(this).val() != '0' ){
+                        data[$(this).attr('name')] = $(this).val();
+                    }
+                });
+                d.filter = data;
+                d._token = $('#csrf_').val();
+                d.dosen_id =$("#dosen_id").val();
+            }
+        },
+        columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            { data: 'periode', name: 'periode'},
+            { data: 'program_studi', name: 'program_studi' },
+            { data: 'matakuliah', name: 'matakuliah' },
+            { data: 'kelas', name: 'kelas' },
+            { data: 'pertemuan', name: 'pertemuan' },
+            { data: 'realisasi', name: 'realisasi' }
+        ],
+        columnDefs: [
+            {
+                targets: 0,
+                className: "text-center"
+            },
+            {
+                targets: 5,
+                className: "text-center"
+            },
+            {
+                targets: 6,
+                className: "text-center"
+            }
+        ]
+    });
 });

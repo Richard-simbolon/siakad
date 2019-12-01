@@ -343,7 +343,13 @@ $(document).ready(function(){
                 $('.kt-select2').select2({
                     width:'100%'
                 });
-                $('#table-matakuliah').DataTable();
+                $('#table-matakuliah').DataTable(
+                    {
+                        language:{
+                            url: '/assets/lang/id.json'
+                        },
+                    }
+                );
                 $('.time-picker').timepicker({
                     minuteStep: 1,
                     defaultTime: '10:45',
