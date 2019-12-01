@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\DosenModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -93,7 +94,11 @@ class Mahasiswa extends Controller
             'penghasilan' => PenghasilanModel::where('row_status' , 'active')->get(),
             'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
             'agama' => AgamaModel::where('row_status' , 'active')->get(),
-            'angkatan' => AngkatanModel::where('row_status' , 'active')->get()
+            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'dosen'=> DosenModel::where('dosen.row_status', 'active')->where('master_status_pegawai.title','Aktif')
+                ->join('master_status_pegawai','master_status_pegawai.id','=', 'dosen.status_pegawai')
+                ->select('dosen.id', 'dosen.nidn_nup_nidk', 'dosen.nama')
+                ->get()
         );
         $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $table = array_diff(DB::getSchemaBuilder()->getColumnListing("mahasiswa"), static::$exclude);
@@ -204,16 +209,21 @@ class Mahasiswa extends Controller
             'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
             'agama' => AgamaModel::where('row_status' , 'active')->get(),
             'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
-            'status_mahasiswa' => StatusMahasiswaModel::where('row_status' , 'active')->get()
+            'status_mahasiswa' => StatusMahasiswaModel::where('row_status' , 'active')->get(),
+            'dosen'=> DosenModel::where('dosen.row_status', 'active')->where('master_status_pegawai.title','Aktif')
+                ->join('master_status_pegawai','master_status_pegawai.id','=', 'dosen.status_pegawai')
+                ->select('dosen.id', 'dosen.nidn_nup_nidk', 'dosen.nama')
+                ->get()
         );
 
 
         $data = MahasiswaModel::join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
-        ->join('master_angkatan' ,'master_angkatan.id' ,'=' ,'mahasiswa.angkatan')
-        ->join('master_kelas' ,'master_kelas.id' ,'=' ,'mahasiswa.kelas_id')
-        ->leftJoin('master_status_mahasiswa' ,'master_status_mahasiswa.id' ,'=' ,'mahasiswa.status')
-        ->select('mahasiswa.*' , 'master_jurusan.title' ,'master_jurusan.id as id_jurusan' ,'master_kelas.title as kelas_title' , 'master_angkatan.title as angkatan_title' ,'master_status_mahasiswa.title as status_mhs')
-        ->where('mahasiswa.id' , $id)->first();
+            ->join('master_angkatan' ,'master_angkatan.id' ,'=' ,'mahasiswa.angkatan')
+            ->join('master_kelas' ,'master_kelas.id' ,'=' ,'mahasiswa.kelas_id')
+            ->leftJoin('master_status_mahasiswa' ,'master_status_mahasiswa.id' ,'=' ,'mahasiswa.status')
+            ->leftJoin('dosen', 'dosen.id' ,'=', 'mahasiswa.pembimbing_akademik')
+            ->select('mahasiswa.*' ,'dosen.nama as nama_dosen', 'master_jurusan.title' ,'master_jurusan.id as id_jurusan' ,'master_kelas.title as kelas_title' , 'master_angkatan.title as angkatan_title' ,'master_status_mahasiswa.title as status_mhs')
+            ->where('mahasiswa.id' , $id)->first();
         $orangtuawali = MahasiswaOrangtuawaliModel::where('mahasiswa_id' , $id)->get();
         $kebutuhan_selected = MahasiswaKebutuhanModel::where('mahasiswa_id' , $id)->first();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
@@ -278,7 +288,7 @@ class Mahasiswa extends Controller
                 'tanggal_lahir' => 'required',
                 'nik' => 'max:20',
                 'nisn' => 'max:20',
-                'email' => 'required|email|unique:mahasiswa',
+                'email' => 'required|email',
                 'nik' => 'required',
                 'nisn' => 'required',
                 'kewarganegaraan' => 'required',

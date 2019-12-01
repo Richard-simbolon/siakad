@@ -46,12 +46,7 @@ class MahasiswaModule extends Controller
 
     public function profile()
     {
-        $data = MahasiswaModel::where('nim' , '=',Auth::user()->id)
-            ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')
-            ->join('master_angkatan', 'master_angkatan.id', '=', 'mahasiswa.angkatan')
-            ->join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
-            ->select('mahasiswa.*', 'master_kelas.title as kelas', 'master_angkatan.title as angkatan', 'master_jurusan.title as jurusan')
-            ->first();
+        $data = $this->getDosen();
 
         $master = array(
             'agama' => AgamaModel::where('row_status' , 'active')->get()
@@ -93,12 +88,7 @@ class MahasiswaModule extends Controller
 
     public function alamat()
     {
-        $data = MahasiswaModel::where('nim' , '=',Auth::user()->id)
-            ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')
-            ->join('master_angkatan', 'master_angkatan.id', '=', 'mahasiswa.angkatan')
-            ->join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
-            ->select('mahasiswa.*', 'master_kelas.title as kelas', 'master_angkatan.title as angkatan', 'master_jurusan.title as jurusan')
-            ->first();
+        $data = $this->getDosen();
 
         $master = array(
             'jenis_tinggal' => TinggalModel::where('row_status' , 'active')->get(),
@@ -145,12 +135,7 @@ class MahasiswaModule extends Controller
 
     public function orangtua()
     {
-        $data = MahasiswaModel::where('nim' , '=',Auth::user()->id)
-            ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')
-            ->join('master_angkatan', 'master_angkatan.id', '=', 'mahasiswa.angkatan')
-            ->join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
-            ->select('mahasiswa.*', 'master_kelas.title as kelas', 'master_angkatan.title as angkatan', 'master_jurusan.title as jurusan')
-            ->first();
+        $data = $this->getDosen();
 
         $orangtuawali = MahasiswaOrangtuawaliModel::where('mahasiswa_id' , $data['id'])->get();
         $master = array(
@@ -187,12 +172,7 @@ class MahasiswaModule extends Controller
 
     public function wali()
     {
-        $data = MahasiswaModel::where('nim' , '=',Auth::user()->id)
-            ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')
-            ->join('master_angkatan', 'master_angkatan.id', '=', 'mahasiswa.angkatan')
-            ->join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
-            ->select('mahasiswa.*', 'master_kelas.title as kelas', 'master_angkatan.title as angkatan', 'master_jurusan.title as jurusan')
-            ->first();
+        $data = $this->getDosen();
 
         $orangtuawali = MahasiswaOrangtuawaliModel::where('mahasiswa_id' , $data['id'])->get();
         $master = array(
@@ -228,12 +208,7 @@ class MahasiswaModule extends Controller
 
     public function kebutuhankhusus()
     {
-        $data = MahasiswaModel::where('nim' , '=',Auth::user()->id)
-            ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')
-            ->join('master_angkatan', 'master_angkatan.id', '=', 'mahasiswa.angkatan')
-            ->join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
-            ->select('mahasiswa.*', 'master_kelas.title as kelas', 'master_angkatan.title as angkatan', 'master_jurusan.title as jurusan')
-            ->first();
+        $data = $this->getDosen();
 
         $master = array(
             'jenis_tinggal' => TinggalModel::where('row_status' , 'active')->get(),
@@ -272,12 +247,7 @@ class MahasiswaModule extends Controller
 
     public function prestasi()
     {
-        $data = MahasiswaModel::where('nim' , '=',Auth::user()->id)
-            ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')
-            ->join('master_angkatan', 'master_angkatan.id', '=', 'mahasiswa.angkatan')
-            ->join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
-            ->select('mahasiswa.*', 'master_kelas.title as kelas', 'master_angkatan.title as angkatan', 'master_jurusan.title as jurusan')
-            ->first();
+        $data = $this->getDosen();
 
         $master = array(
             'jenis_tinggal' => TinggalModel::where('row_status' , 'active')->get(),
@@ -408,19 +378,27 @@ class MahasiswaModule extends Controller
     }
 
     public function tugasakhir(){
-        $data = MahasiswaModel::where('nim' , '=',Auth::user()->id)
-            ->join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
-            ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')
-            ->select('mahasiswa.*','master_jurusan.title as jurusan','master_kelas.title as kelas' )
-            ->first();
+        $data = $this->getDosen();
 
         $dosen = TugasAkhirModel::where('mahasiswa_tugas_akhir.row_status','active')
             ->join("mahasiswa_tugas_akhir_detail", "mahasiswa_tugas_akhir_detail.tugas_akhir_id","=", "mahasiswa_tugas_akhir.id")
             ->join("dosen", "dosen.id", "=", "mahasiswa_tugas_akhir_detail.dosen_id")
-            ->select("dosen.nidn_nup_nidk","dosen.nama", "dosen.no_hp", "mahasiswa_tugas_akhir_detail.status_dosen")
+            ->select("dosen.nidn_nup_nidk","dosen.nama", "dosen.no_hp", "mahasiswa_tugas_akhir_detail.status_dosen","mahasiswa_tugas_akhir_detail.status_dosen_ke")
             ->orderBy("mahasiswa_tugas_akhir_detail.status_dosen")
             ->get();
 
         return view("mahasiswa/tugas_akhir" , compact("data", "dosen" ));
+    }
+
+    public function getDosen(){
+        $data = MahasiswaModel::where('nim' , '=',Auth::user()->id)
+            ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')
+            ->join('master_angkatan', 'master_angkatan.id', '=', 'mahasiswa.angkatan')
+            ->join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
+            ->leftJoin('dosen', 'dosen.id' ,'=', 'mahasiswa.pembimbing_akademik')
+            ->select('mahasiswa.*','dosen.nama as nama_dosen', 'master_kelas.title as kelas', 'master_angkatan.title as angkatan', 'master_jurusan.title as jurusan')
+            ->first();
+
+        return $data;
     }
 }

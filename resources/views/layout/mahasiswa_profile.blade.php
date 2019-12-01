@@ -18,18 +18,23 @@
     <div class="kt-widget__body">
         <div class="kt-widget__content">
             <div class="kt-widget__info">
-                <span class="kt-widget__label">NIM:</span>
+                <span class="kt-widget__label">NIM :</span>
                 <span class="kt-widget__data"><b>{{$data['nim']}}</b></span>
             </div>
             <div class="kt-widget__info">
-                <span class="kt-widget__label">Email:</span>
+                <span class="kt-widget__label">Email :</span>
                 <a href="#" class="kt-widget__data">{{$data['email']}}</a>
             </div>
             <div class="kt-widget__info">
-                <span class="kt-widget__label">No Handphone:</span>
+                <span class="kt-widget__label">No Handphone :</span>
                 <a href="#" class="kt-widget__data">{{$data['no_telepon']}}</a>
             </div>
         </div>
+        <div class="kt">
+            <label>Pembimbing Akademik :</label><br/>
+            <a href="#" class="kt-widget__data" style="color: #009688;"><b>{{$data['nama_dosen']}}</b></a>
+        </div>
+        <br/>
         <div class="kt-widget__items">
             <a href="{{url('data/mahasiswa/profile')}}" class="kt-widget__item {{$menu['submenu']=='profile' ? 'kt-widget__item--active' : '' }}">
                 <span class="kt-widget__section">

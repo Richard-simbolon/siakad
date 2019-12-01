@@ -14,7 +14,7 @@
 
             public function scopeget_row(){
                 return [
-                    'id,row_status,nama,nama_ibu,password,nik,nisn,nim,npwp,email,jk,agama,tempat_lahir,tangal_lahir,alamat,dusun,kelurahan,kecamatan,rt,rw,kode_pos,jenis_tinggal,is_penerima_kps,no_kps,kewarganegaraan,no_telepon,no_hp,alat_transportasi,created_date,created_by,modified_date,modified_by'
+                    'id,row_status,nama,nama_ibu,password,nik,nisn,nim,pembimbing_akademik,npwp,email,jk,agama,tempat_lahir,tangal_lahir,alamat,dusun,kelurahan,kecamatan,rt,rw,kode_pos,jenis_tinggal,is_penerima_kps,no_kps,kewarganegaraan,no_telepon,no_hp,alat_transportasi,created_date,created_by,modified_date,modified_by'
                  ];
              }
 

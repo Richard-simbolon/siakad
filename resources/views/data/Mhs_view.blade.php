@@ -86,9 +86,9 @@
                         <div class="kt-portlet__head-toolbar">
                             <input type="hidden" id="id_to_delete" value="{{$data['id']}}">
                             <div class="dropdown dropdown-inline">
-                                <a href="javascript::void(0)" attr="{{$data->email}}" class="btn btn-label-success generate_password">
-                                    <i class="la la-key"></i> Buat Sandi
-                                </a>
+                                {{--<a href="javascript::void(0)" attr="{{$data->email}}" class="btn btn-label-success generate_password">--}}
+                                    {{--<i class="la la-key"></i> Buat Sandi--}}
+                                {{--</a>--}}
                                 <button type="button" class="btn btn-clean btn-sm btn-icon-md btn-icon" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="flaticon-more-1"></i>
                                 </button>
@@ -217,6 +217,18 @@
                                                     </table>
                                                 </div>
                                             </div>
+                                            <br/>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <table cellpadding="5">
+                                                        <tr>
+                                                            <td>Pembimbing Akademik</td>
+                                                            <td>:</td>
+                                                            <td><b>{{$data['nama_dosen'] ? $data['nama_dosen'] : " - " }}</b></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="tab-content" id="informasidasar" style="display:none">
@@ -310,6 +322,17 @@
                                                             <label>Tanggal Lahir</label>
                                                             <input type="date" class="form-control" name="mahasiswa[tanggal_lahir]" value="{{ date_format (new DateTime($data['tanggal_lahir']), 'Y-m-d')}}">
                                                         </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-4">
+                                                        <label>Pembimbing Akademik:</label>
+                                                        <select name="mahasiswa[pembimbing_akademik]" class="form-control kt-select2">
+                                                            <option value="">Pilih Dosen</option>
+                                                            @foreach ($master['dosen'] as $item)
+                                                                <option value="{{$item['id']}}" {{$item['id'] == $data['pembimbing_akademik'] ? 'selected' : ''}}> {{$item['nidn_nup_nidk'] .' - '. $item['nama']}} </option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -428,8 +451,6 @@
                                                                 <label>Kewarganegaraan *</label>
                                                                 <input type="text" class="form-control" name="mahasiswa[kewarganegaraan]" placeholder="Isikan Kewarganegaraan" value="{{$data['kewarganegaraan']}}">
                                                             </div>
-                                                        </div>
-                                                        <div class="col-lg-6">
                                                         </div>
                                                     </div>
 

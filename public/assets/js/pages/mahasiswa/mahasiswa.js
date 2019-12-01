@@ -86,12 +86,26 @@ $(document).ready(function(){
                         data:$(this).closest('form').serialize(),
                         success:function(result) {
                             var res = JSON.parse(result);
-                            swal.fire({
-                                "title": "",
-                                "text": res.msg,
-                                "type": res.status,
-                                "confirmButtonClass": "btn btn-secondary"
-                            });
+                            if(res.status == 'false'){
+                                var text = '';
+                                $.each(res.message, function( index, value ) {
+                                    text += '<p class="error">'+ value[0]+'</p>';
+                                });
+                                swal.fire({
+                                    "title": "",
+                                    "html": text,
+                                    "type": "error",
+                                    "confirmButtonClass": "btn btn-secondary"
+                                });
+                            }else{
+                                swal.fire({
+                                    "title": "Berhasil",
+                                    "text": "Data sudah diubah",
+                                    "type": res.status,
+                                    "confirmButtonClass": "btn btn-secondary"
+                                });
+                                location.reload();
+                            }
                         }
                      });
                 }

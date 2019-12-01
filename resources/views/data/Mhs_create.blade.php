@@ -216,6 +216,17 @@
                                                 </div>
                                             </div>
 
+                                            <div class="row">
+                                                <div class="col-xl-6">
+                                                    <label>Pembimbing Akademik:</label>
+                                                    <select name="mahasiswa[pembimbing_akademik]" class="form-control kt-select2">
+                                                        <option value="">Select</option>
+                                                        @foreach ($master['dosen'] as $item)
+                                                            <option value="{{$item['id']}}" > {{$item['nidn_nup_nidk'] .' - '. $item['nama']}} </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
                                             {{--<div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>--}}
 
                                             {{--<div class="row">--}}
