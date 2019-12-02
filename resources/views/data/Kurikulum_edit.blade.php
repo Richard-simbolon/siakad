@@ -71,7 +71,7 @@
                                 <div class="col-xl-4">
                                     <label class="select2-label">Jurusan *</label>
                                     <div class="form-group">
-                                        <select name="program_studi_id" class="form-control update_list_matakuliah" >
+                                        <select name="program_studi_id" class="form-control kt-select2 update_list_matakuliah" >
                                             <option value="">-- Pilih Jurusan --</option>
                                             @foreach ($master['jurusan'] as $item)
                                                 <option attr="{{$item['id'].'-'.$kurikulum['program_studi_id']}}" value="{{$item['id']}}" {{ $item['id'] == $kurikulum['program_studi_id'] ? 'selected' : '' }}>{{$item['title']}}</option>
@@ -85,11 +85,11 @@
                                 <div class="col-xl-4">
                                     <label class="select2-label">Mulai berlaku *</label>
                                     <div class="form-group">
-                                        <select name="mulai_berlaku" class="form-control">
-                                            <option value="">-- Pilih Jurusan --</option>
-                                            <option value="1">2018/2019 Ganjil</option>
-                                            <option value="2">2019/2020 Genap</option>
-                                            <option value="3">2020/2021 Ganjil</option>
+                                        <select name="mulai_berlaku" class="form-control kt-select2">
+                                            <option value=" ">-- Pilih Semester --</option>
+                                            @foreach ($master['semester'] as $item)
+                                                <option value="{{$item['id']}}" {{ $item['id'] == $kurikulum['mulai_berlaku'] ? 'selected' : '' }}>{{$item['title']}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

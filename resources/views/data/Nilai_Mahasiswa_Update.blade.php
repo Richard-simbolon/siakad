@@ -95,9 +95,9 @@
                                                         <td><b>{{$data->ruangan}}</b></td>
                                                     </tr>
                                                     <tr>
-                                                            <td>SKS</td>
+                                                        <td>SKS</td>
                                                             <td>:</td>
-                                                            <td><b></b></td>
+                                                            <td><b>{{$data->sks}}</b></td>
                                                         </tr>
                                                 </tbody></table>
                                             </div>
@@ -154,6 +154,7 @@
                                         </table>
                                     </div>
                                 </div>
+                                <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
                                 <div class="root">
                                     <div class="kt-form__actions">
                                         <button type="button" class="btn btn-success" id="save-nilai-perkuliahan"><i class="la la-save"></i>Simpan</button>

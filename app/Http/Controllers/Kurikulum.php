@@ -1,5 +1,6 @@
 <?php
             namespace App\Http\Controllers;
+            use App\SemesterModel;
             use Illuminate\Support\Facades\DB;
             use Illuminate\Support\Facades\Validator;
             use Illuminate\Http\Request;
@@ -24,14 +25,15 @@ class Kurikulum extends Controller
         $data = KurikulumModel::join('master_jurusan as b' , 'kurikulum.program_studi_id' , '=' , 'b.id')
         ->join('kurikulum_mata_kuliah as c' , 'c.kurikulum_id' ,'=' ,'kurikulum.id')
         ->join('mata_kuliah as d' ,'d.id' ,'=','c.mata_kuliah_id')
+            ->join('master_semester', 'master_semester.id', '=','kurikulum.mulai_berlaku' )
         ->where('kurikulum.row_status' ,'=' ,'active')
-        ->select('kurikulum.id' , 'kurikulum.nama_kurikulum' , 'kurikulum.mulai_berlaku','b.title', 'kurikulum.jumlah_bobot_mata_kuliah_wajib' ,'kurikulum.jumlah_bobot_mata_kuliah_pilihan','kurikulum.jumlah_sks', DB::raw('SUM(d.bobot_mata_kuliah) as total_matakuliah') , DB::raw('(select SUM(d.bobot_mata_kuliah) 
+        ->select('kurikulum.id' , 'kurikulum.nama_kurikulum' , 'master_semester.title as mulai_berlaku','b.title', 'kurikulum.jumlah_bobot_mata_kuliah_wajib' ,'kurikulum.jumlah_bobot_mata_kuliah_pilihan','kurikulum.jumlah_sks', DB::raw('SUM(d.bobot_mata_kuliah) as total_matakuliah') , DB::raw('(select SUM(d.bobot_mata_kuliah) 
         from `kurikulum_mata_kuliah` as c
         inner join `mata_kuliah` as `d` on `d`.`id` = `c`.`mata_kuliah_id` 
         where c.is_wajib = 1 AND `kurikulum`.`id` = c.kurikulum_id
         group by `kurikulum`.`id`
         ) as total_wajib '))
-        ->groupBy('kurikulum.id', 'kurikulum.nama_kurikulum' , 'kurikulum.mulai_berlaku', 'kurikulum.jumlah_bobot_mata_kuliah_wajib' ,'kurikulum.jumlah_bobot_mata_kuliah_pilihan', 'kurikulum.jumlah_sks' , 'b.title')
+        ->groupBy('kurikulum.id', 'kurikulum.nama_kurikulum' , 'master_semester.title', 'kurikulum.jumlah_bobot_mata_kuliah_wajib' ,'kurikulum.jumlah_bobot_mata_kuliah_pilihan', 'kurikulum.jumlah_sks' , 'b.title')
         ->get();
         return view("data/kurikulum" , compact('data'));
 
@@ -88,6 +90,7 @@ class Kurikulum extends Controller
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
             'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'semester' => SemesterModel::where('row_status', 'active')->get()
         );
         return view("data/kurikulum_create" , compact('master'));
 
@@ -155,6 +158,7 @@ class Kurikulum extends Controller
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
             'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'semester' => SemesterModel::where('row_status', 'active')->get()
         );
         $kurikulum = KurikulumModel::where('id' , $id)->first();
         $matakuliah = DB::table('kurikulum_mata_kuliah')
@@ -176,6 +180,7 @@ class Kurikulum extends Controller
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
             'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'semester' => SemesterModel::where('row_status', 'active')->get()
         );
         $kurikulum = KurikulumModel::where('id' , $id)->first();
         $matakuliah = DB::table('kurikulum_mata_kuliah')
