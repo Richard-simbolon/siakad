@@ -708,13 +708,15 @@ class Dosen extends Controller
         );
 
         $idTable ="tbl_mhs_tugas_akhir_pembimbing";
+        $title = "Daftar Pembimbing Dosen";
+        $page = "Pembimbing";
 
         $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
             ->join('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
             ->join('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
             ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
             ->where('dosen.id' , $id)->first();
-        return view('/data/dosen_tugas_akhir' , compact('data','master','idTable'));
+        return view('/data/dosen_tugas_akhir' , compact('data','master','idTable','title','page'));
     }
 
     public function penguji($id){
@@ -728,13 +730,15 @@ class Dosen extends Controller
         );
 
         $idTable ="tbl_mhs_tugas_akhir_penguji";
+        $title = "Daftar Penguji Dosen";
+        $page = "Penguji";
 
         $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
             ->join('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
             ->join('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
             ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
             ->where('dosen.id' , $id)->first();
-        return view('/data/dosen_tugas_akhir' , compact('data','master','idTable' ));
+        return view('/data/dosen_tugas_akhir' , compact('data','master','idTable', 'title','page'));
     }
 
     public function activity($id){

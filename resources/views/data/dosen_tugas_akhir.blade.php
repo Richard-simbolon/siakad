@@ -19,7 +19,7 @@
                         Detail </a>
                     <span class="kt-subheader__breadcrumbs-separator"></span>
                     <a href="" class="kt-subheader__breadcrumbs-link">
-                        Penugasan </a>
+                        {{$page}} </a>
                 </div>
             </div>
             <div class="kt-subheader__toolbar">
@@ -44,7 +44,7 @@
                                 </svg>
                             </span>
                             <h3 class="kt-portlet__head-title">
-                                &nbsp;Daftar Penugasan Dosen
+                                &nbsp;{{$title}}}
                             </h3>
                         </div>
                     </div>

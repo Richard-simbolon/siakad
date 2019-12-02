@@ -179,13 +179,6 @@ class Mahasiswa extends Controller
             throw $e;
             return json_encode(array('status' => 'error' , 'message' => 'Terjadi kesalahan saat menyimpan, silahkan coba lagi.'));
         }
-
-        // print_r($data['mahasiswa']);
-        // print_r($data['mahasiswa_orang_tua_wali']);
-        // print_r($data['mahasiswa_kh']);
-        // print_r($data['ayah_kh']);
-        // print_r($data['ibu_kh']);
-        
     }
 
     public function edit(Request $request){
@@ -560,7 +553,6 @@ class Mahasiswa extends Controller
         }
     }
 
-
     public function prestasi($id){
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
@@ -593,8 +585,6 @@ class Mahasiswa extends Controller
 
 
     }
-
-
 
     public function save_prestasi(Request $request){
         $data = $request->all();
@@ -659,7 +649,7 @@ class Mahasiswa extends Controller
         $global['id'] = $ids;
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         //return view("mahasiswa/krs" , compact("data" , "title" ,"mahasiswa" ,'select2'));
-        return view("data/Mhs_Krs" , compact("data" , "title" ,"mahasiswa" ,'select2' ,"global"));
+        return view("data/mhs_Krs" , compact("data" , "title" ,"mahasiswa" ,'select2' ,"global"));
 
     }
 
@@ -682,7 +672,7 @@ class Mahasiswa extends Controller
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         
         $global['id'] = $ids;
-        return view("data/Mhs_Khs" , compact("data" , "title" ,"mahasiswa"  ,"global"));
+        return view("data/mhs_Khs" , compact("data" , "title" ,"mahasiswa"  ,"global"));
         
     }
 
@@ -705,10 +695,9 @@ class Mahasiswa extends Controller
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
 
         $global['id'] = $ids;
-        return view("data/Mhs_Khs" , compact("data" , "title" ,"mahasiswa"  ,"global"));
+        return view("data/mhs_Khs" , compact("data" , "title" ,"mahasiswa"  ,"global"));
         
     }
-
 
     public function grafik_mahasiswa(){
         $data = MahasiswaModel::where('row_status','active')
