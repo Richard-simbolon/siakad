@@ -65,7 +65,6 @@ var KTDatatablesExtensionsResponsive = function() {
             ajax: {
                 url:'/master/matakuliah/paging',
                 type:"POST",
-                //data:{"_token": $('#csrf_').val(),'table':key},
                 data: function ( d ) {
                     d.myKey = "myValue";
                     d._token = $('#csrf_').val()
@@ -80,14 +79,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'bobot_mata_kuliah', name: 'bobot_mata_kuliah' },
                 { data: 'program_studi_id', name: 'program_studi_id' },
                 { data: 'jenis_mata_kuliah_id', name: 'jenis_mata_kuliah_id' },
-                { data: 'row_status', name: 'row_status' },
-                // { data: 'bobot_tatap_muka', name: 'bobot_tatap_muka' },
-                // { data: 'bobot_praktikum', name: 'bobot_praktikum' },
-                // { data: 'bobot_praktek_lapangan', name: 'bobot_praktek_lapangan' },
-                // { data: 'bobot_simulasi', name: 'bobot_simulasi' },
-                // { data: 'metode_pembelajaran', name: 'metode_pembelajaran' },
-                // { data: 'tanggal_mulai_efektif', name: 'tanggal_mulai_efektif' },
-                // { data: 'taggal_akhir_efektif', name: 'taggal_akhir_efektif' },
+                { data: 'row_status', name: 'row_status' }
                  { defaultContent : '<td></td>'}
             ],
 			columnDefs: [
@@ -98,8 +90,8 @@ var KTDatatablesExtensionsResponsive = function() {
                     className :"text-center",
                     render: function(data, type, full, meta) {
                         return `
-                       <a class="btn btn-" href="matakuliah/view/`+full.id+`"><i class="la la-search"></i></a>
-                       <a class="btn btn-" href="matakuliah/edit/`+full.id+`"><i class="la la-edit"></i></a>
+                       <a  style="font-size: 18px;color: #607D8B;" href="matakuliah/view/`+full.id+`"><i class="la la-search"></i></a> &nbsp;
+                       <a  style="font-size: 18px;color: #607D8B;" href="matakuliah/edit/`+full.id+`"><i class="la la-edit"></i></a>
                        `;
                     },
                 },

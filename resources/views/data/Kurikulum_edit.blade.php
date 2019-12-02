@@ -12,19 +12,23 @@
         <div class="kt-container  kt-container--fluid ">
             <div class="kt-subheader__main">
                 <h3 class="kt-subheader__title">
-                    Flaticon </h3>
+                    Akademik </h3>
                 <span class="kt-subheader__separator kt-hidden"></span>
                 <div class="kt-subheader__breadcrumbs">
                     <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                     <span class="kt-subheader__breadcrumbs-separator"></span>
-                    <a href="" class="kt-subheader__breadcrumbs-link">
-                        Components </a>
+                    <a href="{{url('/data/kurikulum/')}}" class="kt-subheader__breadcrumbs-link">
+                        Daftar </a>
                     <span class="kt-subheader__breadcrumbs-separator"></span>
                     <a href="" class="kt-subheader__breadcrumbs-link">
-                        Icons </a>
-                    <span class="kt-subheader__breadcrumbs-separator"></span>
-                    <a href="" class="kt-subheader__breadcrumbs-link">
-                        Flaticon </a>
+                        Ubah </a>
+                </div>
+            </div>
+            <div class="kt-subheader__toolbar">
+                <div class="kt-subheader__wrapper">
+                    <a href="{{ url('/data/kurikulum') }}" class="btn btn-success">
+                        <i class="la la-bars"></i> Daftar &nbsp;
+                    </a>
                 </div>
             </div>
         </div>
@@ -101,12 +105,6 @@
                                         <input type="text" class="form-control" name="jumlah_bobot_mk_pilihan" value="{{$kurikulum['jumlah_bobot_mata_kuliah_pilihan']}}" placeholder="Isikan Jumlah Bobot Matakuliah Pilihan">
                                     </div>
                                 </div>
-                                <!--<div class="col-xl-6">-->
-                                <!--<div class="form-group">-->
-                                <!--<label>Jumlah SKS</label>-->
-                                <!--<input type="text" class="form-control" name="jumlah_sks" placeholder="Isikan Jumlah SKS">-->
-                                <!--</div>-->
-                                <!--</div>-->
                             </div>
 
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-md kt-separator--portlet-fit"></div>
@@ -116,8 +114,8 @@
                                     <div class="kt-wizard-v3__review-title">
                                         <b>Silahkan checklist matakuliah yang dimasukkan dalam kurikulum</b>
                                         <br/><p></p>
-                                        <p>Jumlah SKS wajib :<b id="skswajib"></b></p>
-                                        <p>Jumlah Semua SKS : <b id="semuasks"></b></p>
+                                        <p>Jumlah SKS wajib &nbsp;:<b id="skswajib"></b></p>
+                                        <p>Jumlah Semua SKS :<b id="semuasks"></b></p>
                                     </div>
                                 </div>
                             </div>
@@ -163,7 +161,7 @@
                                                 $bobot_simulasi += $item->bobot_simulasi;
                                                 ?>
                                                 <tr>
-                                                    <td><input type="checkbox" attr="{{$item->bobot_mata_kuliah}}" class="matakuliah-chck" name="matkulid[{{$item->mata_kuliah_id}}][id]" {{ $item->semester != '' ? 'checked="checked"' : '' }} value="{{$item->mata_kuliah_id}}"/></td>
+                                                    <td align="center"><input type="checkbox" attr="{{$item->bobot_mata_kuliah}}" class="matakuliah-chck" name="matkulid[{{$item->mata_kuliah_id}}][id]" {{ $item->semester != '' ? 'checked="checked"' : '' }} value="{{$item->mata_kuliah_id}}"/></td>
                                                     <td>{{$item->kode_mata_kuliah}}</td>
                                                     <td>{{$item->nama_mata_kuliah}}</td>
                                                     <td align="center">{{$item->bobot_mata_kuliah}}</td>
@@ -203,7 +201,7 @@
 
                                                 @foreach ($ignorematakuliah as $item)
                                                 <tr>
-                                                    <td><input type="checkbox" attr="{{$item->bobot_mata_kuliah}}" class="matakuliah-chck" name="matkulid[{{$item->id}}][id]" value="{{$item->id}}"/></td>
+                                                    <td align="center"><input type="checkbox" attr="{{$item->bobot_mata_kuliah}}" class="matakuliah-chck" name="matkulid[{{$item->id}}][id]" value="{{$item->id}}"/></td>
                                                     <td>{{$item->kode_mata_kuliah}}</td>
                                                     <td>{{$item->nama_mata_kuliah}}</td>
                                                     <td align="center">{{$item->bobot_mata_kuliah}}</td>
@@ -228,19 +226,6 @@
                                                 @endforeach
                                             
                                         </tbody>
-                                        <!--<tfoot>
-                                            <tr>
-                                                <td  align="right"colspan="3">
-                                                    <b>TOTAL SKS</b>
-                                                </td>
-                                                <td align="center"><b>{{$bobot_mata_kuliah}}</b></td>
-                                                <td align="center"><b>{{$bobot_tatap_muka}}</b></td>
-                                                <td align="center"><b>{{$bobot_praktikum}} </b></td>
-                                                <td align="center"><b>{{$bobot_praktek_lapangan}}</b></td>
-                                                <td align="center"><b>{{$bobot_simulasi}}</b></td>
-                                                <td colspan="2"></td>
-                                            </tr>
-                                        </tfoot>-->
                                     </table>
                                 </div>
                             </div>
@@ -249,8 +234,8 @@
 
                             <div class="root">
                                 <div class="kt-form__actions">
+                                    <a href="{{url('/data/kurikulum')}}" style="align:right" class="btn btn-label-success"><i class="la la-arrow-left"></i>Kembali</a>
                                     <button type="button" class="btn btn-success update-kurikulum"><i class="la la-save"></i>Simpan</button>
-                                    <a href="{{url('/data/kurikulum')}}" style="align:right" type="button" class="btn btn-metal btn-outlane-metal"><i class="la la-arrow-left"></i>Kembali</a>
                                 </div>
                             </div>
                         </form>

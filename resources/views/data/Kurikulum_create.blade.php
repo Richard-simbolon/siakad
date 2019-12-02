@@ -12,19 +12,23 @@
         <div class="kt-container  kt-container--fluid ">
             <div class="kt-subheader__main">
                 <h3 class="kt-subheader__title">
-                    Flaticon </h3>
+                    Akademik </h3>
                 <span class="kt-subheader__separator kt-hidden"></span>
                 <div class="kt-subheader__breadcrumbs">
                     <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                     <span class="kt-subheader__breadcrumbs-separator"></span>
-                    <a href="" class="kt-subheader__breadcrumbs-link">
-                        Components </a>
+                    <a href="{{url('/data/kurikulum')}}" class="kt-subheader__breadcrumbs-link">
+                        Kurikulum </a>
                     <span class="kt-subheader__breadcrumbs-separator"></span>
                     <a href="" class="kt-subheader__breadcrumbs-link">
-                        Icons </a>
-                    <span class="kt-subheader__breadcrumbs-separator"></span>
-                    <a href="" class="kt-subheader__breadcrumbs-link">
-                        Flaticon </a>
+                        Tambah </a>
+                </div>
+            </div>
+            <div class="kt-subheader__toolbar">
+                <div class="kt-subheader__wrapper">
+                    <a href="{{ url('/data/kurikulum') }}" class="btn btn-success">
+                        <i class="la la-bars"></i> Daftar &nbsp;
+                    </a>
                 </div>
             </div>
         </div>
@@ -100,12 +104,6 @@
                                         <input type="text" class="form-control" name="jumlah_bobot_mk_pilihan" placeholder="Isikan Jumlah Bobot Matakuliah Pilihan">
                                     </div>
                                 </div>
-                                <!--<div class="col-xl-6">-->
-                                <!--<div class="form-group">-->
-                                <!--<label>Jumlah SKS</label>-->
-                                <!--<input type="text" class="form-control" name="jumlah_sks" placeholder="Isikan Jumlah SKS">-->
-                                <!--</div>-->
-                                <!--</div>-->
                             </div>
 
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-md kt-separator--portlet-fit"></div>
@@ -152,8 +150,8 @@
 
                             <div class="root">
                                 <div class="kt-form__actions">
+                                    <a href="{{url('/data/kurikulum')}}" style="align:right" class="btn btn-label-success"><i class="la la-arrow-left"></i>Kembali</a>
                                     <button type="button" class="btn btn-success save-kurikulum"><i class="la la-save"></i>Simpan</button>
-                                    <a href="{{url('/data/kurikulum')}}" style="align:right" type="button" class="btn btn-metal btn-outlane-metal"><i class="la la-arrow-left"></i>Kembali</a>
                                 </div>
                                 
                             </div>

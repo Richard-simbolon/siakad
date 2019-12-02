@@ -52,6 +52,7 @@
 
                         <div class="kt-portlet__body">
                             <form class="kt-form kt-form--label-right" action="update" method="POST">
+                                <input type="hidden" name="id" value="{{$data['id']}}">
                                 <div class="kt-portlet__body">
                                     <div class="kt-section kt-section--first">
                                         <div class="row">
@@ -115,7 +116,7 @@
                                                 <div class="form-group">
                                                     <label>Bobot Tatap Muka</label>
                                                     <div class="form-group">
-                                                        <input type="number" value="0" class="form-control" name="bobot_tatap_muka" value="{{$data['bobot_tatap_muka']}}" id="bobot_tatap_muka" min="0" placeholder="Isikan Bobot">
+                                                        <input type="number" class="form-control" name="bobot_tatap_muka" value="{{$data['bobot_tatap_muka']}}" id="bobot_tatap_muka" min="0" placeholder="Isikan Bobot">
                                                     </div>
                                                 </div>
                                             </div>
@@ -123,7 +124,7 @@
                                                 <div class="form-group">
                                                     <label>Bobot Praktikum</label>
                                                     <div class="form-group">
-                                                        <input type="number" value="0" class="form-control" name="bobot_praktikum" value="{{$data['bobot_praktikum']}}" id="bobot_praktikum" min="0" placeholder="Isikan Bobot">
+                                                        <input type="number" class="form-control" name="bobot_praktikum" value="{{$data['bobot_praktikum']}}" id="bobot_praktikum" min="0" placeholder="Isikan Bobot">
                                                     </div>
                                                 </div>
                                             </div>
@@ -133,7 +134,7 @@
                                                 <div class="form-group">
                                                     <label>Bobot Praktek Lapangan</label>
                                                     <div class="form-group">
-                                                        <input type="number" value="0" class="form-control" name="bobot_praktek_lapangan" value="{{$data['bobot_praktek_lapangan']}}" id="bobot_praktek_lapangan" min="0" placeholder="Isikan Bobot">
+                                                        <input type="number" class="form-control" name="bobot_praktek_lapangan" value="{{$data['bobot_praktek_lapangan']}}" id="bobot_praktek_lapangan" min="0" placeholder="Isikan Bobot">
                                                     </div>
                                                 </div>
                                             </div>
@@ -141,7 +142,7 @@
                                                 <div class="form-group">
                                                     <label>Bobot Simulasi</label>
                                                     <div class="form-group">
-                                                        <input type="number" value="0" class="form-control" name="bobot_simulasi" value="{{$data['bobot_simulasi']}}" id="bobot_simulasi" min="0" placeholder="Isikan Bobot">
+                                                        <input type="number" class="form-control" name="bobot_simulasi" value="{{$data['bobot_simulasi']}}" id="bobot_simulasi" min="0" placeholder="Isikan Bobot">
                                                     </div>
                                                 </div>
                                             </div>
@@ -179,7 +180,7 @@
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label>Status</label>
-                                                    <div class="form-group">
+                                                    <div class="form-group form-group-last">
                                                         <label class="kt-radio">
                                                             <input type="radio" name="row_status" value="active" {{$data['row_status']=='active'? "checked" : ""}} >
                                                             Active
@@ -197,9 +198,10 @@
                                         </div>
                                         <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
                                         <div class="kt-form__actions">
-                                            <a style="color:#ffffff;" data-prev-url="{{url()->previous()}}" class="btn btn-success generalsave">
+                                            <a style="color:#ffffff;" data-prev-url="{{url()->previous()}}" class="btn btn-success" id="update_matakuliah">
                                                 Simpan <i class="la la-save"></i>
                                             </a>
+                                            <button type="button" class="btn btn-danger" data-url="/master/matakuliah/" id="btn_delete_general"><i class="flaticon-delete"></i> Hapus</button>
                                         </div>
                                     </div>
                                 </div>
@@ -213,7 +215,50 @@
     </div>
 
 @section('js')
-
+<script>
+    $(document).on('click' , '#update_matakuliah' , function(){
+        var prev_url = $(this).attr("data-prev-url");
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        $.ajax({
+            type:'POST',
+            dataType:'json',
+            url:'/master/matakuliah/update',
+            data:$(this).closest('form').serialize(),
+            success:function(data) {
+                if(data.status==='success'){
+                    Swal.fire({
+                        title: 'Berhasil',
+                        text: "Data sudah disimpan",
+                        type: 'success',
+                        confirmButtonColor: '#0abb87',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.value){
+                            window.location = prev_url;
+                        }
+                    });
+                }else {
+                    // alert(data.msg);
+                    var text = '';
+                    $.each(data.message, function( index, value ) {
+                        text += '<p class="error">'+ value[0]+'</p>';
+                    });
+                    Swal.fire({
+                        title: 'Gagal',
+                        html: text,
+                        type: 'error',
+                        confirmButtonColor: '#0abb87',
+                        confirmButtonText: 'OK'
+                    })
+                }
+            }
+        });
+    });
+</script>
 @stop
 
 @endsection
