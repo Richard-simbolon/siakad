@@ -131,6 +131,8 @@ Route::post('master/kelas/delete', 'Kelas@delete')->name('delete');
 Route::post('/kelas/listkurikulum', 'Kelas@listkurikulum')->name('ListKurikulum');
 Route::post('/kelas/listkelas', 'Kelas@listkelas')->name('ListKelas');
 
+Route::post('/master/semester/activate', 'Semester@activate')->name('activate');
+
 
 Route::get('/data/tugasakhir', 'TugasAkhir@index')->name('list');
 Route::post('/data/tugasakhir/paging', 'TugasAkhir@paging')->name('pagination');

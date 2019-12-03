@@ -79,8 +79,8 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'bobot_mata_kuliah', name: 'bobot_mata_kuliah' },
                 { data: 'program_studi_id', name: 'program_studi_id' },
                 { data: 'jenis_mata_kuliah_id', name: 'jenis_mata_kuliah_id' },
-                { data: 'row_status', name: 'row_status' }
-                 { defaultContent : '<td></td>'}
+                { data: 'row_status', name: 'row_status' },
+                { defaultContent : '<td></td>'}
             ],
 			columnDefs: [
 				{
@@ -1264,12 +1264,16 @@ var KTDatatablesExtensionsResponsive = function() {
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
-                { data: 'row_status', name: 'row_status' },
+                { data: 'tanggal_mulai_berlaku', name: 'tanggal_mulai_berlaku' },
+                { data: 'tanggal_akhir', name: 'tanggal_akhir' },
+                { data: 'tanggal_mulai_penilaian', name: 'tanggal_mulai_penilaian' },
+                { data: 'tanggal_akhir_penilaian', name: 'tanggal_akhir_penilaian' },
+                { data: 'status_semester', name: 'status_semester' },
                 { defaultContent : '<td></td>'}
             ],
             columnDefs: [
                 {
-                    targets: 3,
+                    targets: 7,
                     title: 'Actions',
                     orderable: false,
                     className: "text-center",
@@ -1282,6 +1286,27 @@ var KTDatatablesExtensionsResponsive = function() {
                 {
                     targets: 0,
                     className: "text-center"
+                },{
+                    targets: 2,
+                    className: "text-center"
+                }
+                ,{
+                    targets: 3,
+                    className: "text-center"
+                },{
+                    targets: 4,
+                    className: "text-center"
+                },{
+                    targets: 5,
+                    className: "text-center"
+                }
+                ,{
+                    targets: 6,
+                    title: "Semester Aktif",
+                    className :"text-center",
+                    render : function (data, type, full, meta) {
+                        return data == 'enable' ? '<span class="kt-badge kt-badge--danger kt-badge--inline">Ya</span> ' : '<a href="javascript:void(0)" onclick="setStatusSemester('+full.id + ',\'' + full.title + '\')" class="btn" ><span class="kt-badge kt-badge--warning kt-badge--inline kt-badge--pill kt-badge--rounded">Set Aktif</span></a>';
+                    }
                 },
             ]
         });

@@ -75,20 +75,19 @@
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label>Jurusan</label>
+                                                    <label>Tipe Matakuliah *</label>
                                                     <div class="form-group">
-                                                        <select name="program_studi_id" class="form-control kt-select2">
-                                                            <option value="">-- Pilih Jurusan --</option>
-                                                            @foreach ($master['jurusan'] as $item)
-                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
-                                                            @endforeach
+                                                        <select name="tipe_mata_kuliah" class="form-control kt-select2">
+                                                            <option value="">-- Pilih Tipe Matakuliah --</option>
+                                                            <option value="Praktek">Praktek</option>
+                                                            <option value="Teori">Teori</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label>Jenis Matakuliah</label>
+                                                    <label>Jenis Matakuliah *</label>
                                                     <div class="form-group">
                                                         <select name="jenis_mata_kuliah_id" class="form-control kt-select2">
                                                             <option value="">-- Pilih Jenis Matakuliah --</option>
@@ -103,7 +102,20 @@
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label>Metode Pembelajaran</label>
+                                                    <label>Jurusan *</label>
+                                                    <div class="form-group">
+                                                        <select name="program_studi_id" class="form-control kt-select2">
+                                                            <option value="">-- Pilih Jurusan --</option>
+                                                            @foreach ($master['jurusan'] as $item)
+                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Metode Pembelajaran *</label>
                                                     <div class="form-group">
                                                         <input type="text" class="form-control" name="metode_pembelajaran" placeholder="Isikan Nama Metode Pembelajaran">
                                                     </div>
@@ -113,7 +125,7 @@
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label>Bobot Tatap Muka</label>
+                                                    <label>Bobot Tatap Muka *</label>
                                                     <div class="form-group">
                                                         <input type="number" value="0" class="form-control" name="bobot_tatap_muka" id="bobot_tatap_muka" min="0" placeholder="Isikan Bobot">
                                                     </div>
@@ -121,7 +133,7 @@
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label>Bobot Praktikum</label>
+                                                    <label>Bobot Praktikum *</label>
                                                     <div class="form-group">
                                                         <input type="number" value="0" class="form-control" name="bobot_praktikum" id="bobot_praktikum" min="0" placeholder="Isikan Bobot">
                                                     </div>
@@ -131,7 +143,7 @@
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label>Bobot Praktek Lapangan</label>
+                                                    <label>Bobot Praktek Lapangan *</label>
                                                     <div class="form-group">
                                                         <input type="number" value="0" class="form-control" name="bobot_praktek_lapangan" id="bobot_praktek_lapangan" min="0" placeholder="Isikan Bobot">
                                                     </div>
@@ -139,7 +151,7 @@
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label>Bobot Simulasi</label>
+                                                    <label>Bobot Simulasi *</label>
                                                     <div class="form-group">
                                                         <input type="number" value="0" class="form-control" name="bobot_simulasi" id="bobot_simulasi" min="0" placeholder="Isikan Bobot">
                                                     </div>
@@ -149,7 +161,7 @@
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label>Bobot Mata Kuliah</label>
+                                                    <label>Bobot Mata Kuliah *</label>
                                                     <div class="form-group">
                                                         <input type="number" style="background-color: #fafafa;" class="form-control form-control-sm" name="bobot_mata_kuliah" id="bobot_mata_kuliah" value="0" readonly>
                                                         <span class="form-text text-muted">( sks Tatap Muka + sks Praktikum + sks Praktek Lapangan + sks Simulasi )</span>
@@ -160,7 +172,7 @@
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label>Tanggal Mulai Efektif</label>
+                                                    <label>Tanggal Mulai Efektif *</label>
                                                     <div class="form-group">
                                                         <input type="date" class="form-control" name="tanggal_mulai_efektif">
                                                     </div>
@@ -168,7 +180,7 @@
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label>Tanggal Akhir Efektif</label>
+                                                    <label>Tanggal Akhir Efektif *</label>
                                                     <div class="form-group">
                                                         <input type="date" class="form-control" name="taggal_akhir_efektif" >
                                                     </div>

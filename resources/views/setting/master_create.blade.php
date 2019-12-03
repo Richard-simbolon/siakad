@@ -63,12 +63,15 @@
                                             {{$Tableshow[$item]['record']}}
                                         </label>
                                         @if ($html[$item]['type'] == 'text')
-                                            <input type="email" name="{{$item}}" class="form-control m-input m-input--square" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter {{$Tableshow[$item]['record']}}">
+                                            <input type="text" name="{{$item}}" class="form-control m-input m-input--square" placeholder="Isikan {{$Tableshow[$item]['record']}}">
                                         @elseif($html[$item]['type'] == 'radio')
                                                 <div class="kt-radio-inline">
                                                     <?php $radio = explode("," , $html[$item]['value']);
                                                         foreach($radio as $radioitem){
                                                             $checked = $radioitem=="active" ? "checked":"";
+//                                                            if($item== 'status_semester'){
+//                                                                $checked = $radioitem =='Tidak' ? 'checked':'';
+//                                                            }
                                                             echo '
 
                                                                 <label class="kt-radio">
@@ -82,6 +85,8 @@
                                                 </div>
                                         @elseif($html[$item]['type'] == 'number')
                                             <input class="form-control m-input" type="number" value="0" id="example-number-input">
+                                        @elseif($html[$item]['type'] == 'date')
+                                            <input type="date" name="{{$item}}" class="form-control m-input m-input--square" style="max-width: 200px" placeholder="Isikan {{$Tableshow[$item]['record']}}">
                                         @endif
 
                                     </div>
@@ -95,7 +100,7 @@
                                     $m = array_chunk($table , 2);
                                 ?>
                                 @foreach ($m as $item)
-                                    <div class="form-group row">
+                                    <div class="form-group">
                                         @foreach($item as $val)
                                             <div class="col-lg-6">
                                                 <label for="{{$val}}">
@@ -135,7 +140,10 @@
                                         <a style="color:#ffffff;" data-prev-url="{{url()->previous()}}" class="btn btn-success generalsave">
                                             Submit
                                         </a>
-                                        <button type="reset" class="btn btn-secondary">Cancel</button>
+                                        <a href="{{url()->previous()}}" class="btn btn-secondary">
+                                            Cancel
+                                        </a>
+                                        {{--<button type="reset" class="btn btn-secondary">Cancel</button>--}}
                                     </div>
 
                                 </div>

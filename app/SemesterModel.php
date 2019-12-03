@@ -10,14 +10,14 @@
             protected $table = "master_semester";
 
             protected $fillable = [
-                "id","row_status","title","updated_at" ,"created_at","created_by", "update_by"
+                "id","row_status","title","status_semester","tanggal_mulai_berlaku","tanggal_akhir","tanggal_mulai_penilaian","tanggal_akhir_penilaian", "updated_at" ,"created_at","created_by", "update_by"
             ];
 
 
 
             public function scopeget_row(){
                 return [
-                    "id","row_status","title","updated_at" ,"created_at","created_by", "update_by"
+                    "id","row_status","title","status_semester","tanggal_mulai_berlaku","tanggal_akhir","tanggal_mulai_penilaian","tanggal_akhir_penilaian", "updated_at" ,"created_at","created_by", "update_by"
                  ];
              }
 
