@@ -89,37 +89,49 @@ $(document).ready(function() {
                 'X-CSRF-TOKEN': $('#csrf_').val()
             }
         });
-        $.ajax({
-            type:'POST',
-            //dataType:'json',
-            url:'/data/nilaimahasiswa/save',
-            data:$(this).closest('form').serialize(),
-            success:function(result) {
-                console.log(result);
-                //var res = JSON.parse(result);
-                /*if(res.status == 'error'){
-                    var text = '';
-                    $.each(res.message, function( index, value ) {
-                        console.log(value);
-                        text += '<p class="error">'+ value[0]+'</p>';
-                    });
-                    swal.fire({
-                        "title": "",
-                        "html": text,
-                        "type": "error",
-                        "confirmButtonClass": "btn btn-secondary"
-                    });
-                }else{
-                    swal.fire({
-                        "title": "",
-                        "text": res.message,
-                        "type": res.status,
-                        "confirmButtonClass": "btn btn-secondary"
-                    });
-                }*/
+        Swal.fire({
+            title: 'Hapus',
+            text: "Apakah anda yakin menyimpan data ini?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#0abb87',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Simpan'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type:'POST',
+                    //dataType:'json',
+                    url:'/data/nilaimahasiswa/save',
+                    data:$(this).closest('form').serialize(),
+                    success:function(result) {
+                        //console.log(result);
+                        var res = JSON.parse(result);
+                        if(res.status == 'error'){
+                            var text = '';
+                            $.each(res.message, function( index, value ) {
+                               // console.log(value);
+                                text += '<p class="error">'+ value[0]+'</p>';
+                            });
+                            swal.fire({
+                                "title": "",
+                                "html": text,
+                                "type": "error",
+                                "confirmButtonClass": "btn btn-secondary"
+                            });
+                        }else{
+                            swal.fire({
+                                "title": "",
+                                "text": res.message,
+                                "type": res.status,
+                                "confirmButtonClass": "btn btn-secondary"
+                            });
+                        }
 
+                    }
+                });
             }
-         });
+        });
     });
 
 });

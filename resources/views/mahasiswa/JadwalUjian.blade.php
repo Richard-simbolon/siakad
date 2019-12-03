@@ -20,6 +20,7 @@
                     <a href="" class="kt-subheader__breadcrumbs-link">
                         Jadwal Ujian </a>
                 </div>
+                
             </div>
             <div class="kt-subheader__toolbar">
                 <div class="kt-subheader__wrapper">
@@ -51,6 +52,11 @@
                         <h3 class="kt-portlet__head-title">
                             &nbsp; Jadwal Perkuliahan
                         </h3>
+                    </div>
+                    <div class="kt-portlet__head-toolbar">
+                        <div class="dropdown dropdown-inline show">
+                                <button type="button" class="btn btn-outline-success"><i class="la la-print"></i> Cetak Kartu Ujian</button>
+                        </div>
                     </div>
                 </div>
                 <!--begin::Form-->
@@ -105,7 +111,7 @@
                                 <div class="col-xl-6">
                                     <div class="form-group">
                                         <label>Tahun Akademik</label>
-                                        <select id="jadwal_perkuliahan" name="angkatan_id" class="form-control kt-select2">
+                                        <select id="jadwal_ujian" name="angkatan_id" class="form-control kt-select2">
                                             <option value="">Select</option>
                                             @foreach ($select2 as $item)
                                                 <option value="{{$item['semester_id']}}" > {{$item['semseter_title']}} </option>
@@ -114,16 +120,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <table class="dataTable table table-striped table-bordered table-hover table-checkable" id="jadwalperkuliahandata">
+                            <table class=" table table-striped- table-bordered table-hover table-checkable" id="jadwalujiandata">
                             <thead>
                             <tr>
                                 <th style="text-align: center">Kode MK</th>
                                 <th style="text-align: center">Mata Kuliah</th>
-                                <th style="text-align: center">Kelas</th>
                                 <th style="text-align: center">Bobot SKS</th>
-                                <th style="text-align: center">Nama Dosen</th>
-                                <th style="text-align: center">Tanggal Perkuliahan</th>
                                 <th style="text-align: center">Jam</th>
+                                <th style="text-align: center">Tanggal Ujian</th>
+                                <th style="text-align: center">Hari</th>
                             </tr>
                             </thead>
                             <tbody>

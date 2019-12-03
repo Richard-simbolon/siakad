@@ -22,8 +22,12 @@ class JadwalPerkuliahan extends Controller
 
     public function __construct()
     {
+        //print_r(Auth::user()); exit;
+        if(!Auth::user()){
+            redirect('login');
+        }
         $this->middleware(function ($request, $next) {
-            $this->user= Auth::user();
+            $this->user = Auth::user();
             if($this->user->login_type != 'mahasiswa'){
                 return abort(404);
             }else{
@@ -135,7 +139,7 @@ class JadwalPerkuliahan extends Controller
             $join->on('nilai_mahasiswa.mata_kuliah_id' ,'=','kurikulum_mata_kuliah.mata_kuliah_id')
             ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $id);
         })
-        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir')
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah','mata_kuliah.tipe_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->where('nilai_mahasiswa.semester_id' , $semester_aktif->id)->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         return view("mahasiswa/khs" , compact("data" , "title" ,"mahasiswa" , "master"));
@@ -157,8 +161,9 @@ class JadwalPerkuliahan extends Controller
             $join->on('nilai_mahasiswa.mata_kuliah_id' ,'=','kurikulum_mata_kuliah.mata_kuliah_id')
             ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $id);
         })
-        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir')
-        ->where('kurikulum.id' , $kurikulum->kurikulum_id)->get();
+        ->leftJoin('master_semester' , 'master_semester.id' ,'=' , 'nilai_mahasiswa.semester_id')
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah', 'nilai_mahasiswa.semester_id', 'master_semester.title as semester_title')
+        ->where('kurikulum.id' , $kurikulum->kurikulum_id)->orderby('nilai_mahasiswa.semester_id' , 'ASC')->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         return view("mahasiswa/transkrip" , compact("data" , "title" ,"mahasiswa"));
 
@@ -176,30 +181,73 @@ class JadwalPerkuliahan extends Controller
             $join->on('nilai_mahasiswa.mata_kuliah_id' ,'=','kurikulum_mata_kuliah.mata_kuliah_id')
             ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $id);
         })
-        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir')
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->where('nilai_mahasiswa.semester_id' , $request->all()['id'])->get();
         $html = '';
+
+       // print_r($data); exit;
         if(count($data) > 0){
             $i = 0;
             $sks = 0;
+            $nipk = 0;
             foreach($data as $item){
                 $i++;
                 $sks += $item->bobot_mata_kuliah;
-                $html .= '
-                    <tr>
-                        <td>'.$i.'</td>
-                        <td style="text-align: center">'.$item->kode_mata_kuliah.'</td>
-                        <td style="text-align: center">'.$item->nama_mata_kuliah.'</td>
-                        <td style="text-align: center">'.$item->bobot_mata_kuliah.'</td>
-                        <td style="text-align: center">'.$item->nilai_akhir.'</td>
-                    </tr>
 
+                $nangka = 0;
+                $nhuruf = 'E';
+
+                $nuts = $item->nilai_uts > 0 ? $item->nilai_uts : 0;
+                $nuas = $item->nilai_uas > 0 ? $item->nilai_uas : 0;
+                $ntgs = $item->nilai_tugas > 0 ? $item->nilai_tugas : 0;
+
+                if($item->tipe_mata_kuliah == 'praktik'){
+                    $nangka = ( (($ntgs * 40) / 100) + (($nuts * 30) / 100) + (($nuas * 20)/100));
+                }elseif ($item->tipe_mata_kuliah == 'teori') {
+                    $nangka = ( (($ntgs * 30) / 100) + (($nuts * 30) / 100) + (($nuas * 40)/100));
+                }
+                if($nangka < 45){
+                    $nhuruf = 'E';
+                    $nipk += 0 * $item->bobot_mata_kuliah;
+                }elseif($nangka > 44 && $nangka<= 59){
+                    $nhuruf = 'D';
+                    $nipk += 1 * $item->bobot_mata_kuliah;
+                }elseif($nangka > 59 && $nangka<= 69){
+                    $nhuruf = 'C';
+                    $nipk += 2 * $item->bobot_mata_kuliah;
+                }elseif($nangka > 69 && $nangka<= 79){
+                    $nhuruf = 'B';
+                    $nipk += 3 * $item->bobot_mata_kuliah;
+                }elseif($nangka > 79 && $nangka<= 100){
+                    $nhuruf = 'A';
+                    $nipk += 4 * $item->bobot_mata_kuliah;
+                }else{
+                    $nhuruf = 'E';
+                    $nipk += 0 * $item->bobot_mata_kuliah;
+                }
+                
+                $html .= '
+                        <tr>
+                            <td style="text-align: center">'.$i.'</td>
+                            <td style="text-align: center">'.$item->kode_mata_kuliah.'</td>
+                            <td style="text-align: center">'.$item->nama_mata_kuliah.'</td>
+                            <td style="text-align: center">'.$item->bobot_mata_kuliah.'</td>
+                            <td style="text-align: center">'.$item->nilai_uts.'</td>
+                            <td style="text-align: center">'.$item->nilai_tugas.'</td>
+                            <td style="text-align: center">'.$item->nilai_uas.'</td>
+                            <td style="text-align: center">'.$nangka.'</td>
+                            <td style="text-align: center">'.$nhuruf.'</td>
+                        </tr>
                 ';
             }
             $html .= '<tr>
-                        <td style="text-align: center" colspan="3"><b>Total SKS</b></td>
+                        <td style="text-align: left" colspan="3"><b>Total SKS</b></td>
                         <td style="text-align: center" ><b>'.$sks.'</b></td>
-                        <td style="text-align: center" ></td>
+                        <td style="text-align: center" colspan="3" ><b></b></td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: left" colspan="7"><b>IP</b></td>
+                        <td style="text-align: center" colspan="2"><b>'.round($nipk / $sks ,2).'</b></td>
                     </tr>';
         }else{
             $html = '<tr>
@@ -207,6 +255,7 @@ class JadwalPerkuliahan extends Controller
                     </tr>';
         }
 
+        //echo $html; exit;
         return json_encode(array('html' => $html));
     }
 
@@ -226,6 +275,19 @@ class JadwalPerkuliahan extends Controller
         ->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         return view("mahasiswa/JadwalUjian" , compact("data" , "title" ,"mahasiswa" ,'select2'));
+    }
+
+    public function pagingujian(Request $request){
+        $semester_ids = $request->all();
+        $semester_active = SemesterModel::where('status_semester' ,'enable')->first();
+        $mahasiswa = MahasiswaModel::where('nim' , Auth::user()->id)->first();
+        if($semester_ids['jadwal_perkuliahan'] != ''){
+            $semester_id = $semester_ids['jadwal_perkuliahan'];
+        }else{
+            $semester_id = $semester_active->id;
+        }
+        return Datatables::of(DB::table('view_mahasiswa_jadwal_ujian')->where('mahasiswa_id' , $mahasiswa->id)
+        ->where('semester_id' , $semester_id))->make(true);
     }
 
 }

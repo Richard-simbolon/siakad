@@ -63,6 +63,7 @@ $(document).ready(function(){
             }
          });
     });
+    
     $(document).on('click' , '#updatemahasiswa' , function(){
          Swal.fire({
             title: 'Update data',

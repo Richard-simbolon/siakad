@@ -45,6 +45,8 @@ Route::post('/data/mahasiswa/prestasipaging', 'MahasiswaModule@prestasipaging')-
 Route::post('/data/mahasiswa/delete', 'MahasiswaModule@delete')->name('delete');
 Route::post('/data/mahasiswa/resetpassword', 'mahasiswa@resetpassword')->name('resetpassword');
 
+Route::post('mahasiswa/jadwalperkuliahan/pagingujian', 'JadwalPerkuliahan@pagingujian')->name('Jadwal Ujian');
+
 // KRS
 //Route::get('mahasiswa/krs', 'JadwalPerkuliahan@krs')->name('krs');
 //Route::get('mahasiswa/khs', 'JadwalPerkuliahan@khs')->name('khs');
@@ -83,7 +85,6 @@ Route::post('/data/dosen/validatewizard', 'dosen@validatewizard')->name('validat
 
 Route::post('/data/dosen/modaledit', 'DosenModule@modaledit')->name('penelitian_dosen');
 Route::post('/data/dosen/modaleditadmin', 'Dosen@modaleditadmin')->name('modaleditadmin');
-
 
 Route::post('/data/dosen/submitprofile', 'DosenModule@submitprofile')->name('submitprofile');
 Route::post('/data/dosen/submitbiodata', 'DosenModule@submitbiodata')->name('submitbiodata');

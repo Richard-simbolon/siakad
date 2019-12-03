@@ -31,7 +31,9 @@ class HomeController extends Controller
     public function index()
     {
         $login_type = Auth::user()->login_type;
+        
         $semester_aktif = SemesterModel::where('status_semester' , 'enable')->first();
+        
         if(strtolower($login_type)=="mahasiswa"){
             $data = MahasiswaModel::where('nim' , '=', Auth::user()->id)
                 ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')
@@ -42,6 +44,7 @@ class HomeController extends Controller
 
             $semester = SemesterModel::where('status_semester','=', 'enable')->first();
             $id = MahasiswaModel::where('nim' , Auth::user()->id)->first();
+            //echo 'ip_mhs_proc('.$id->id.' , '.$id->kelas_id.' ,'.$semester_aktif->id.')'; exit;
             $data_nilai = DB::select('call ip_mhs_proc('.$id->id.' , '.$id->kelas_id.' ,'.$semester_aktif->id.')');
             $nilai = 0;
             $sks = 0;

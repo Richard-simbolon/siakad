@@ -114,36 +114,69 @@
                                     <input type="hidden" name="angkatan_id" value="{{$data->angkatan_id}}" />
                                     <input type="hidden" name="kelas_perkuliahan_id" value="{{$data->kelas_perkuliahan_id}}" />
                                     <div class="col-lg-12">
-                                        <table class="dataTable table table-striped table-bordered table-hover responsive">
-                                            <thead>
-                                            <tr>
-                                                <th style="text-align: center">No</th>
-                                                <th style="text-align: center">Nama Mahasiswa</th>
-                                                <th style="text-align: center">NIM</th>
-                                                <th>Jenis Kelamin</th>
-                                                <th>UTS </th>
-                                                <th style="text-align: center">UAS</th>
-                                                <th style="text-align: center">Nilai Akhir</th>
-                                                
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                                    <?$i = 0?>
-                                                    @foreach ($mahasiswa as $item)
-                                                    <? $i++ ?>
-                                                    <tr>
-                                                        <td style="vertical-align: middle" align="center">{{$i}}</td>
-                                                        <td style="vertical-align: middle">{{ucfirst($item->nama)}}</td>
-                                                        <td style="vertical-align: middle">{{ucfirst($item->nim)}}</td>
-                                                        <td style="vertical-align: middle">{{ucfirst($item->jk)}}</td>
-                                                        <td style="vertical-align: middle"><input type="text" value="{{$item->nilai_uts}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_uts]" placeholder="UTS"></td>
-                                                        <td style="vertical-align: middle"><input type="text" value="{{$item->nilai_uas}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_uas]" placeholder="UAS"></td>
-                                                        <td style="vertical-align: middle"><input type="text" value="{{$item->nilai_akhir}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_akhir]" placeholder="Nilai Akhir"></td>
-                                                        
-                                                    </tr>
-                                                    @endforeach
-                                            </tbody>
-                                        </table>
+                                            <table class="table table-striped table-bordered table-hover dataTable responsive">
+                                                    <thead>
+                                                            <tr>
+                                                                    <th style="vertical-align: middle" rowspan="2">NO</th>
+                                                                    <th style="vertical-align: middle" rowspan="2">Nama Mahasiswa</th>
+                                                                    <th style="vertical-align: middle" rowspan="2">NIM</th>
+                                                                    <th style="vertical-align: middle" rowspan="2">Jenis Kelamin</th>
+                                                                    <th style="vertical-align: middle" rowspan="2">UTS</th>
+                                                                    <th style="vertical-align: middle" rowspan="2">Nilai Tugas</th>
+                                                                    <th style="vertical-align: middle" rowspan="2">UAS</th>
+                                                                    <th style="text-align: center" colspan="2">Nilai Akhir</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th style="text-align: center">Angka</th>
+                                                                    <th style="text-align: center">Huruf</th>
+                                                                    
+                                                                </tr>
+                                                                
+                                                    
+                                                    </thead>
+                                                    <tbody>
+                                                            <?$i = 0?>
+                                                            @foreach ($mahasiswa as $item)
+                                                            <? 
+                                                            $nangka = 0;
+                                                            $nhuruf = 'E';
+                                                            $nuts = $item->nilai_uts > 0 ? $item->nilai_uts : 0;
+                                                            $nuas = $item->nilai_uas > 0 ? $item->nilai_uas : 0;
+                                                            $ntgs = $item->nilai_tugas > 0 ? $item->nilai_tugas : 0;
+                                                            if($item->tipe_mata_kuliah == 'praktik'){
+                                                                $nangka = ( (($ntgs * 40) / 100) + (($nuts * 30) / 100) + (($nuas * 20)/100));
+                                                            }elseif ($item->tipe_mata_kuliah == 'teori') {
+                                                                $nangka = ( (($ntgs * 30) / 100) + (($nuts * 30) / 100) + (($nuas * 40)/100));
+                                                            }
+                                                            if($nangka < 45){
+                                                                $nhuruf = 'E';
+                                                            }elseif($nangka > 44 && $nangka<= 59){
+                                                                $nhuruf = 'D';
+                                                            }elseif($nangka > 59 && $nangka<= 69){
+                                                                $nhuruf = 'C';
+                                                            }elseif($nangka > 69 && $nangka<= 79){
+                                                                $nhuruf = 'B';
+                                                            }elseif($nangka > 79 && $nangka<= 100){
+                                                                $nhuruf = 'A';
+                                                            }else{
+                                                                $nhuruf = 'E';
+                                                            }
+                                                            $i++; ?>
+        
+                                                            <tr>
+                                                                <td align="center">{{$i}}</td> 
+                                                                <td>{{ucfirst($item->nama)}}</td>
+                                                                <td align="center">{{ucfirst($item->nim)}}</td>
+                                                                <td align="center">{{ucfirst($item->jk)}}</td>
+                                                                <td><input type="text" value="{{$item->nilai_uts}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_uts]" placeholder="0"></td>
+                                                                <td><input type="text" value="{{$item->nilai_tugas}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_tugas]" placeholder="0"></td>
+                                                                <td><input type="text" value="{{$item->nilai_uas}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_uas]" placeholder="0"></td>
+                                                                <td style="text-align: center"> <b class="nangka">{{$nangka}}</b></td>
+                                                                <td style="text-align: center"><b class="nuruf">{{$nhuruf}}</b></td>
+                                                            </tr>
+                                                            @endforeach
+                                                    </tbody>
+                                                </table>
                                     </div>
                                 </div>
                                 <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>

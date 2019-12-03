@@ -124,6 +124,7 @@ $(document).ready(function() {
                                     "type": res.status,
                                     "confirmButtonClass": "btn btn-secondary"
                                 });
+                                location.reload();
                             }
             
                         }

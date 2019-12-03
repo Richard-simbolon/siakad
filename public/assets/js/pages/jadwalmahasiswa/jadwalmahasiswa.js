@@ -9,6 +9,10 @@ $(document).ready(function() {
         $('#jadwalperkuliahandata').DataTable().ajax.reload();
     });
 
+    $(document).on('change' , '#jadwal_ujian' , function(){
+        $('#jadwalujiandata').DataTable().ajax.reload();
+    });
+
 
     $(document).on('change' , '.search-nilai-matakuliah' , function(){
         if($('#jurusan-mahasiswa').val() == '' || $('#angkatan-mahasiswa').val() == ''){
@@ -94,9 +98,9 @@ $(document).ready(function() {
             url:'/data/nilaimahasiswa/save',
             data:$(this).closest('form').serialize(),
             success:function(result) {
-                console.log(result);
+                //console.log(result);
                 //var res = JSON.parse(result);
-                /*if(res.status == 'error'){
+                if(res.status == 'error'){
                     var text = '';
                     $.each(res.message, function( index, value ) {
                         console.log(value);
@@ -115,11 +119,64 @@ $(document).ready(function() {
                         "type": res.status,
                         "confirmButtonClass": "btn btn-secondary"
                     });
-                }*/
+                }
 
             }
          });
     });
+
+    $('#jadwalujiandata').DataTable({
+        "pageLength": 50,
+        responsive: true,
+        processing: true,
+        serverSide: true,
+        language:{
+            url: '/assets/lang/id.json'
+        },
+        ajax: {
+            url:'jadwalperkuliahan/pagingujian',
+            type:"POST",
+            data: function ( d ) {
+                d.jadwal_perkuliahan = $('#jadwal_ujian').val(),
+                d._token = $('#csrf_').val()
+            }
+        },
+        order: [[5, 'asc']],
+			drawCallback: function(settings) {
+				var api = this.api();
+				var rows = api.rows({page: 'current'}).nodes();
+				var last = null;
+				api.column(5, {page: 'current'}).data().each(function(group, i) {
+                    var a = new Date(group);
+					if (last !== group) {
+						$(rows).eq(i).before(
+							'<tr class="group"><td colspan="8">' + hari[a.getDay()] + '</td></tr>',
+						);
+						last = group;
+					}
+				});
+			},
+        columns: [
+            { data: 'kode_mata_kuliah', name: 'kode_mata_kuliah'},
+            { data: 'nama_mata_kuliah', name: 'nama_mata_kuliah' },
+            { data: 'bobot_mata_kuliah', name: 'bobot_mata_kuliah' },
+            { data: 'jam', name: 'jam' },
+            { data: 'tanggal_ujian', name: 'tanggal_ujian' },
+            { data: 'tanggal_ujian', name: 'tanggal_ujian', render: function(data, type, full, meta) {
+                    var a = new Date(full.tanggal_ujian);
+                    return hari[a.getDay()];//hari[full.hari_id];
+                }, 
+            },
+            
+        ],
+        columnDefs: [
+            {
+                targets: 3,
+                className: "text-center"
+            }
+        ]
+    });
+
 
 });
 

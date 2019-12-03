@@ -80,7 +80,7 @@ class DosenNilai extends Controller
                 
                 $item['nilai_uts'] = $item['nilai_uts'] ? $item['nilai_uts'] : 0;
                 $item['nilai_uas'] = $item['nilai_uas'] ? $item['nilai_uas'] : 0;
-                $item['nilai_akhir'] = $item['nilai_akhir'] ? $item['nilai_akhir'] : 0;
+                $item['nilai_tugas'] = $item['nilai_tugas'] ? $item['nilai_tugas'] : 0;
                 $item['kelas_perkuliahan_detail_id'] = $post['kelas_perkuliahan_detail_id'];
                 $item['mata_kuliah_id'] = $post['mata_kuliah_id'];
                 $item['jurusan_id'] = $post['jurusan_id'];
@@ -114,8 +114,9 @@ class DosenNilai extends Controller
         if(DB::table('nilai_mahasiswa')
         ->where('kelas_perkuliahan_detail_id' , $id)->exists())
         {
-            $mahasiswa = DB::table('nilai_mahasiswa')
+            $mahasiswa = DB::table('nilai_mahasiswa')->select('nilai_mahasiswa.*' , 'mahasiswa.*' ,'mata_kuliah.tipe_mata_kuliah')
             ->leftjoin('mahasiswa' , 'mahasiswa.id' , '=' ,'nilai_mahasiswa.mahasiswa_id')
+            ->leftjoin('mata_kuliah' ,'nilai_mahasiswa.mata_kuliah_id' ,'=' ,'mata_kuliah.id')
             ->where('nilai_mahasiswa.kelas_perkuliahan_detail_id' , $id)->get();
             
         }else{

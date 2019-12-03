@@ -54,16 +54,28 @@ class NilaiMahasiswa extends Controller
 
     public function save(Request $request){
         $post = $request->all();
+
+        //print_r($post['mahasiswa']); exit;
+        
+        
         $where = [];
         foreach($post['mahasiswa'] as $key => $item){
+            
+            $validation = Validator::make($item, [
+                'nilai_uts' => 'numeric',
+                'nilai_uas' => 'numeric',
+                'nilai_tugas' => 'numeric' 
+            ]);
+            if ($validation->fails()) {
+                return json_encode(["status"=> "error", "message"=> $validation->messages()]);
+            }
             $where['mata_kuliah_id'] = $post['mata_kuliah_id'];
             $where['kelas_perkuliahan_id'] = $post['kelas_perkuliahan_id'];
             $where['kelas_perkuliahan_detail_id'] = $post['kelas_perkuliahan_detail_id'];
             $where['mahasiswa_id'] = $key;
-            
             $item['nilai_uts'] = $item['nilai_uts'] ? $item['nilai_uts'] : 0;
             $item['nilai_uas'] = $item['nilai_uas'] ? $item['nilai_uas'] : 0;
-            $item['nilai_akhir'] = $item['nilai_akhir'] ? $item['nilai_akhir'] : 0;
+            $item['nilai_tugas'] = $item['nilai_tugas'] ? $item['nilai_tugas'] : 0;
             $item['kelas_perkuliahan_detail_id'] = $post['kelas_perkuliahan_detail_id'];
             $item['mata_kuliah_id'] = $post['mata_kuliah_id'];
             $item['jurusan_id'] = $post['jurusan_id'];
@@ -73,6 +85,8 @@ class NilaiMahasiswa extends Controller
             $item['kelas_perkuliahan_id'] = $post['kelas_perkuliahan_id'];
             DB::table('nilai_mahasiswa')->updateOrInsert($where , $item);
         }
+
+        return json_encode(["status"=> "success", "message"=> 'Data berhasil disimpan.']);
 
     }
 
@@ -84,8 +98,9 @@ class NilaiMahasiswa extends Controller
         if(DB::table('nilai_mahasiswa')
         ->where('kelas_perkuliahan_detail_id' , $id)->exists())
         {
-            $mahasiswa = DB::table('nilai_mahasiswa')
+            $mahasiswa = DB::table('nilai_mahasiswa')->select('nilai_mahasiswa.*' , 'mahasiswa.*' ,'mata_kuliah.tipe_mata_kuliah')
             ->leftjoin('mahasiswa' , 'mahasiswa.id' , '=' ,'nilai_mahasiswa.mahasiswa_id')
+            ->leftjoin('mata_kuliah' ,'nilai_mahasiswa.mata_kuliah_id' ,'=' ,'mata_kuliah.id')
             ->where('nilai_mahasiswa.kelas_perkuliahan_detail_id' , $id)->get();
             
         }else{
