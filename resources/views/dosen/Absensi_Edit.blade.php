@@ -113,27 +113,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <br/>
-                                                <div class="row">
-                                                    <div class="col-lg-4">
-                                                        <div class="form-group">
-                                                            <label>Tanggal Kelas Perkuliahan</label>
-                                                            <div class="form-group">
-                                                                <input type="date" value="{{$data->tanggal_perkuliahan}}" name="tanggal_perkuliahan" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label>Pembahasan</label>
-                                                            <div class="form-group">
-                                                                <textarea rows="5" type="text" class="form-control" name="pembahasan"  placeholder="Isikan Nama Kelas">{{$data->pembahasan}}</textarea>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                
                                                 <div class="kt-separator kt-separator--border-dashed kt-separator--space-sm kt-separator--portlet-fit"></div><br/>
                                                 <div class="row">
                                                     <input type="hidden" name="kelas_perkuliahan_detail_id" value="{{$data->id}}" />
