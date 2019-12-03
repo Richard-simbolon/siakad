@@ -129,6 +129,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="kt-separator kt-separator--border-dashed kt-separator--space-md kt-separator--portlet-fit"></div>
+                                                <div class="kt-form__actions">
+                                                    <a href="{{url()->previous()}}" class="btn btn-label-success">
+                                                        <i class="la la-arrow-left"></i> Kembali
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

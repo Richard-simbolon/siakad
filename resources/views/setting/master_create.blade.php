@@ -137,12 +137,15 @@
                             <div class="kt-form__actions">
                                 <div class="row">
                                     <div class="col-lg-6">
+                                        <a href="{{url()->previous()}}" class="btn btn-label-success">
+                                            <i class="la la-arrow-left"></i> Kembali
+                                        </a>&nbsp;
                                         <a style="color:#ffffff;" data-prev-url="{{url()->previous()}}" class="btn btn-success generalsave">
                                             Submit
                                         </a>
-                                        <a href="{{url()->previous()}}" class="btn btn-secondary">
-                                            Cancel
-                                        </a>
+                                        {{--<a href="{{url()->previous()}}" class="btn btn-secondary">--}}
+                                            {{--Cancel--}}
+                                        {{--</a>--}}
                                         {{--<button type="reset" class="btn btn-secondary">Cancel</button>--}}
                                     </div>
 

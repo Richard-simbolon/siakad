@@ -107,13 +107,14 @@
                                         <thead>
                                         <tr>
                                             {{-- <th style="text-align: center">No</th> --}}
+                                            <th style="text-align: center">Kode MK</th>
                                             <th style="text-align: center">Mata Kuliah</th>
                                             <th style="text-align: center">Angkatan</th>
                                             <th>Semester</th>
                                             <th>Jurusan </th>
                                             <th style="text-align: center">Kelas</th>
                                             <th style="text-align: center">Dosen</th>
-                                            <th>Action</th>
+                                            <th style="text-align: center">Aksi</th>
                                         </tr>
                                         </thead>
                                         <tbody>

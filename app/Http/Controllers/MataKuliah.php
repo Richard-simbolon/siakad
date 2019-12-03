@@ -14,6 +14,7 @@ class MataKuliah extends Controller
     static $Tableshow = [   "id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
                             "kode_mata_kuliah"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Kode MK"],
                             "nama_mata_kuliah"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Nama MK"],
+                            "tipe_mata_kuliah"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Tipe"],
                             "program_studi_id"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Program Studi"],
                             "row_status"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Status"],
                             "jenis_mata_kuliah_id"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Jenis MK"],
@@ -24,7 +25,7 @@ class MataKuliah extends Controller
                             "bobot_simulasi"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"B. Simulasi"],
                             "metode_pembelajaran"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Metode Pembelajaran"],
                             "tanggal_mulai_efektif"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Efektif"],
-                            "taggal_akhir_efektif"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Berakhir"],
+                            "tanggal_akhir_efektif"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Berakhir"],
                             "created_by"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"id"],
                             "created_at"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"id"],
                             "modified_by"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"id"],
@@ -34,6 +35,7 @@ class MataKuliah extends Controller
                     "row_status"=>["type"=>"radio" , "value"=>"active,deleted,notactive" , "validation" => "required"],
                     "kode_mata_kuliah"=>["type"=>"text" , "value"=>"null" , "validation" => "required"],
                     "nama_mata_kuliah"=>["type"=>"text" , "value"=>"null" , "validation" => "required"],
+                    "tipe_mata_kuliah"=>["type"=>"text" , "value"=>"null" , "validation" => "required"],
                     "program_studi_id"=>["type"=>"select" , "value"=>"null" , "validation" => "required"],
                     "jenis_mata_kuliah_id"=>["type"=>"select" , "value"=>"null" , "validation" => "required"],
                     "bobot_mata_kuliah"=>["type"=>"number" , "value"=>"null" , "validation" => "required"],
@@ -43,14 +45,14 @@ class MataKuliah extends Controller
                     "bobot_simulasi"=>["type"=>"number" , "value"=>"null" , "validation" => "required"],
                     "metode_pembelajaran"=>["type"=>"textarea" , "value"=>"null" , "validation" => "required"],
                     "tanggal_mulai_efektif"=>["type"=>"date" , "value"=>"null" , "validation" => "required"],
-                    "taggal_akhir_efektif"=>["type"=>"date" , "value"=>"null" , "validation" => "required"],
+                    "tanggal_akhir_efektif"=>["type"=>"date" , "value"=>"null" , "validation" => "required"],
                     "created_by"=>["type"=>"null" , "value"=>"null" , "validation" => "required"],
                     "created_at"=>["type"=>"null" , "value"=>"null" , "validation" => "required"],
                     "modified_by"=>["type"=>"null" , "value"=>"null" , "validation" => "required"],
                     "updated_at"=>["type"=>"null" , "value"=>"null" , "validation" => "required"],
                     ];
     static $exclude = ["id","created_at","updated_at","created_by","modified_by"];
-    static $exclude_table = ["id","created_at","updated_at","created_by","modified_by", "bobot_tatap_muka", "bobot_praktikum", "bobot_praktek_lapangan", "bobot_simulasi", "metode_pembelajaran","tanggal_mulai_efektif","taggal_akhir_efektif"];
+    static $exclude_table = ["id","created_at","updated_at","created_by","modified_by", "bobot_tatap_muka", "bobot_praktikum", "bobot_praktek_lapangan", "bobot_simulasi", "metode_pembelajaran","tanggal_mulai_efektif","tanggal_akhir_efektif", "tipe_mata_kuliah"];
 
     public function index()
     {
@@ -143,6 +145,7 @@ class MataKuliah extends Controller
     public function update(Request $request){
         $input = $request->all();
         $table = DB::getSchemaBuilder()->getColumnListing("mata_kuliah");
+
         $fieldvalidatin = static::$html;
         foreach($table as $val){
             if(array_key_exists($val , $fieldvalidatin) && !in_array($val , static::$exclude)){
@@ -159,6 +162,7 @@ class MataKuliah extends Controller
         $data->kode_mata_kuliah = $request->kode_mata_kuliah;
         $data->row_status = $request->row_status;
         $data->nama_mata_kuliah = $request->nama_mata_kuliah;
+        $data->tipe_mata_kuliah = $request->tipe_mata_kuliah;
         $data->program_studi_id = $request->program_studi_id;
         $data->jenis_mata_kuliah_id = $request->jenis_mata_kuliah_id;
         $data->bobot_mata_kuliah = $request->bobot_mata_kuliah;
@@ -168,7 +172,7 @@ class MataKuliah extends Controller
         $data->bobot_simulasi = $request->bobot_simulasi;
         $data->metode_pembelajaran = $request->metode_pembelajaran;
         $data->tanggal_mulai_efektif = $request->tanggal_mulai_efektif;
-        $data->taggal_akhir_efektif = $request->taggal_akhir_efektif;
+        $data->tanggal_akhir_efektif = $request->tanggal_akhir_efektif;
         $data->modified_by = Auth::user()->nama;
 
         if($data->save()){

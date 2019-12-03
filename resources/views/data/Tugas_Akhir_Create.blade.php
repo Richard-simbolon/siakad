@@ -148,6 +148,9 @@
                                         </div>
                                         <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
                                         <div class="kt-form__actions">
+                                            <a href="{{url()->previous()}}" class="btn btn-label-success">
+                                                <i class="la la-arrow-left"></i> Kembali
+                                            </a>&nbsp;
                                             <a style="color:#ffffff;" data-prev-url="{{url()->previous()}}" class="btn btn-success generalsave">
                                                 Simpan <i class="la la-save"></i>
                                             </a>

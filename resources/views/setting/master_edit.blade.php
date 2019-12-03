@@ -139,6 +139,9 @@
                                 <div class="kt-form__actions">
                                     <div class="row">
                                         <div class="col-lg-6">
+                                            <a href="{{url()->previous()}}" class="btn btn-label-success">
+                                                <i class="la la-arrow-left"></i> Kembali
+                                            </a>&nbsp;
                                             <button type="submit" class="btn btn-success"><i class="la la-save"></i>Ubah</button>
                                             <button type="button" class="btn btn-danger" data-url="/master/{{$controller}}/" id="btn_delete_general"><i class="flaticon-delete"></i> Hapus</button>
                                         </div>

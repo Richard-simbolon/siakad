@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MatakuliahModel extends Model
+class MatakuliahModel2 extends Model
 {
 
     protected $table = "mata_kuliah";
@@ -21,7 +21,7 @@ class MatakuliahModel extends Model
 
     public static function tabel_column(){
         return [
-            "id","kode_mata_kuliah","nama_mata_kuliah","bobot_mata_kuliah","program_studi_id","jenis_mata_kuliah_id","row_status"
+            "id","kode_mata_kuliah","nama_mata_kuliah","tipe_mata_kuliah","bobot_mata_kuliah","program_studi_id","jenis_mata_kuliah_id","row_status"
         ];
     }
 

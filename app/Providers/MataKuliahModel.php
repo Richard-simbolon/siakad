@@ -9,12 +9,12 @@
 
             protected $table = "mata_kuliah";
             protected $guarded = [];
-            //protected $fillable = ["id","row_status","kode_mata_kuliah","nama_mata_kuliah","program_studi_id","jenis_mata_kuliah_id","bobot_mata_kuliah","bobot_tatap_muka","bobot_praktikum","bobot_praktek_lapangan","bobot_simulasi","metode_pembelajaran","tanggal_mulai_efektif","taggal_akhir_efektif","created_by","created_at","modified_by","updated_at"];
+            //protected $fillable = ["id","row_status","kode_mata_kuliah","nama_mata_kuliah","program_studi_id","jenis_mata_kuliah_id","bobot_mata_kuliah","bobot_tatap_muka","bobot_praktikum","bobot_praktek_lapangan","bobot_simulasi","metode_pembelajaran","tanggal_mulai_efektif","tanggal_akhir_efektif","created_by","created_at","modified_by","updated_at"];
 
 
             public function scopeget_row(){
                return [
-                    "id","kode_mata_kuliah","nama_mata_kuliah","row_status","program_studi_id","jenis_mata_kuliah_id","bobot_mata_kuliah","bobot_tatap_muka","bobot_praktikum","bobot_praktek_lapangan","bobot_simulasi","metode_pembelajaran","tanggal_mulai_efektif","taggal_akhir_efektif","created_by","created_at","modified_by","updated_at"
+                    "id","kode_mata_kuliah","nama_mata_kuliah","tipe_mata_kuliah","row_status","program_studi_id","jenis_mata_kuliah_id","bobot_mata_kuliah","bobot_tatap_muka","bobot_praktikum","bobot_praktek_lapangan","bobot_simulasi","metode_pembelajaran","tanggal_mulai_efektif","tanggal_akhir_efektif","created_by","created_at","modified_by","updated_at"
                 ];
             }
 

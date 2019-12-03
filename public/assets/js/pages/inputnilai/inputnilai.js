@@ -34,6 +34,9 @@ $(document).ready(function() {
         "pageLength": 50,responsive: true,
         processing: true,
         serverSide: true,
+        language:{
+            url: '/assets/lang/id.json'
+        },
         ajax: {
             url:'nilaimahasiswa/paging',
             type:"POST",
@@ -50,6 +53,7 @@ $(document).ready(function() {
             }
         },
         columns: [
+            { data: 'kode_mata_kuliah', name: 'kode_mata_kuliah'},
             { data: 'nama_mata_kuliah', name: 'nama_mata_kuliah'},
             { data: 'nama_angkatan', name: 'nama_angkatan' },
             { data: 'nama_semester', name: 'nama_semester' },
@@ -60,20 +64,11 @@ $(document).ready(function() {
         ],
         columnDefs: [
             {
-                targets: 6,
+                targets: 7,
                 title: 'Actions',
                 orderable: false,
                 render: function(data, type, full, meta) {
-                    return `
-                    <span class="dropdown">
-                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                          <i class="la la-ellipsis-h"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="nilaimahasiswa/edit/`+full.id+`"><i class="la la-edit"></i> Update Nilai</a>
-                            <a class="dropdown-item" href="#"><i class="la la-print"></i>Print Nilai</a>
-                        </div>
-                    </span>`;
+                    return `<a class="btn" href="nilaimahasiswa/edit/`+full.id+`"><i class="la la-edit"></i> Isi Nilai</a>`;
                 },
             },{
                 targets: 0,

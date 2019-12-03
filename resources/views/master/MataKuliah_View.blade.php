@@ -75,13 +75,12 @@
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label>Jurusan</label>
+                                                    <label>Tipe Matakuliah *</label>
                                                     <div class="form-group">
-                                                        <select name="program_studi_id" class="form-control kt-select2"  disabled="disabled">
-                                                            <option value="">-- Pilih Jurusan --</option>
-                                                            @foreach ($master['jurusan'] as $item)
-                                                                <option value="{{$item['id']}}" {{$item['id']==$data['program_studi_id']? "selected" : ""}}>{{$item['title']}}</option>
-                                                            @endforeach
+                                                        <select name="tipe_mata_kuliah" class="form-control kt-select2" disabled="disabled">
+                                                            <option value="">-- Pilih Tipe Matakuliah --</option>
+                                                            <option value="praktek" {{$data['tipe_mata_kuliah'] == "praktek" ? "selected" : ""}}>Praktek</option>
+                                                            <option value="teori" {{$data['tipe_mata_kuliah']=="teori" ? "selected" : ""}}>Teori</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -101,6 +100,19 @@
                                             </div>
                                         </div>
                                         <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Jurusan</label>
+                                                    <div class="form-group">
+                                                        <select name="program_studi_id" class="form-control kt-select2"  disabled="disabled">
+                                                            <option value="">-- Pilih Jurusan --</option>
+                                                            @foreach ($master['jurusan'] as $item)
+                                                                <option value="{{$item['id']}}" {{$item['id']==$data['program_studi_id']? "selected" : ""}}>{{$item['title']}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label>Metode Pembelajaran</label>
@@ -170,16 +182,16 @@
                                                 <div class="form-group">
                                                     <label>Tanggal Akhir Efektif</label>
                                                     <div class="form-group">
-                                                        <input type="date" class="form-control" name="taggal_akhir_efektif" value="{{$data['taggal_akhir_efektif']}}"  disabled="disabled">
+                                                        <input type="date" class="form-control" name="tanggal_akhir_efektif" value="{{$data['tanggal_akhir_efektif']}}"  disabled="disabled">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-6">
-                                                <div class="form-group">
+                                                <div class="form-group form-group-last">
                                                     <label>Status</label>
-                                                    <div class="form-group">
+                                                    <div class="form-group form-group-last">
                                                         <label class="kt-radio">
                                                             <input type="radio" name="row_status" value="active" {{$data['row_status']=='active'? "checked" : ""}} disabled="disabled">
                                                             Active
@@ -196,6 +208,11 @@
                                             </div>
                                         </div>
                                         <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
+                                        <div class="kt-form__actions">
+                                            <a href="{{url()->previous()}}" class="btn btn-label-success">
+                                                <i class="la la-arrow-left"></i> Kembali
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </form>

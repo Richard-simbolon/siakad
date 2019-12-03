@@ -182,7 +182,7 @@
                                                 <div class="form-group">
                                                     <label>Tanggal Akhir Efektif *</label>
                                                     <div class="form-group">
-                                                        <input type="date" class="form-control" name="taggal_akhir_efektif" >
+                                                        <input type="date" class="form-control" name="tanggal_akhir_efektif" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -209,6 +209,9 @@
                                         </div>
                                         <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
                                         <div class="kt-form__actions">
+                                            <a href="{{url()->previous()}}" class="btn btn-label-success">
+                                                <i class="la la-arrow-left"></i> Kembali
+                                            </a>&nbsp;
                                             <a style="color:#ffffff;" data-prev-url="{{url()->previous()}}" class="btn btn-success generalsave">
                                                 Simpan <i class="la la-save"></i>
                                             </a>
