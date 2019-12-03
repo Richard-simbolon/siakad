@@ -59,6 +59,8 @@ Route::post('/data/mahasiswa/submitwali', 'MahasiswaModule@submitwali')->name('s
 Route::post('/data/mahasiswa/submitkebutuhankhusus', 'MahasiswaModule@submitkebutuhankhusus')->name('submitkebutuhankhusus');
 Route::post('/data/mahasiswa/upload_profile', 'MahasiswaModule@upload_profile')->name('submitkebutuhankhusus');
 Route::post('/data/dosen/upload_profile', 'DosenModule@upload_profile')->name('submitkebutuhankhusus');
+Route::post('/data/dosen/pembimbing_akademik', 'DosenModule@pembimbing_akademik')->name('pembimbing_akademik');
+Route::post('/data/dosen/pembimbing_akademik_paging', 'DosenModule@pembimbing_akademik_paging')->name('pembimbing_akademik_paging');
 // MODULE MAHASISWA END
 
 // Module Dosen

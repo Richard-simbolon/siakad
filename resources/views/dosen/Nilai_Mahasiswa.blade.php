@@ -107,6 +107,7 @@
                                         <thead>
                                         <tr>
                                             {{-- <th style="text-align: center">No</th> --}}
+                                            <th style="text-align: center">Kode MK</th>
                                             <th style="text-align: center">Mata Kuliah</th>
                                             <th style="text-align: center">Angkatan</th>
                                             <th>Semester</th>
