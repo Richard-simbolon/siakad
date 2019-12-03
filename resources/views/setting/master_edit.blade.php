@@ -85,6 +85,8 @@
                                                     </div>
                                                 @elseif($html[$item]['type'] == 'number')
                                                     <input class="form-control m-input" type="number" value="0" id="example-number-input" value="{{$data['t']}}}">
+                                                @elseif($html[$item]['type'] == 'date')
+                                                    <input type="date" name="{{$item}}" class="form-control" style="max-width: 200px" placeholder="Isikan {{$Tableshow[$item]['record']}}">
                                                 @endif
 
                                             </div>
@@ -123,6 +125,8 @@
                                                         </div>
                                                     @elseif($html[$val]['type'] == 'number')
                                                         <input class="form-control m-input" type="number" value="0" id="example-number-input">
+                                                    @elseif($html[$item]['type'] == 'date')
+                                                        <input type="date" name="{{$item}}" class="form-control" style="max-width: 200px" placeholder="Isikan {{$Tableshow[$item]['record']}}">
                                                     @endif
                                                 </div>
                                             @endforeach
