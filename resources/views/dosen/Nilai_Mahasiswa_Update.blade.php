@@ -164,15 +164,15 @@
                                                             $i++; ?>
         
                                                             <tr>
-                                                                <td align="center">{{$i}}</td> 
-                                                                <td>{{ucfirst($item->nama)}}</td>
-                                                                <td align="center">{{ucfirst($item->nim)}}</td>
-                                                                <td align="center">{{ucfirst($item->jk)}}</td>
-                                                                <td><input type="text" value="{{$item->nilai_uts}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_uts]" placeholder="0"></td>
-                                                                <td><input type="text" value="{{$item->nilai_tugas}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_tugas]" placeholder="0"></td>
-                                                                <td><input type="text" value="{{$item->nilai_uas}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_uas]" placeholder="0"></td>
-                                                                <td style="text-align: center"> <b class="nangka">{{$nangka}}</b></td>
-                                                                <td style="text-align: center"><b class="nuruf">{{$nhuruf}}</b></td>
+                                                                <td style="vertical-align: middle" align="center">{{$i}}</td>
+                                                                <td style="vertical-align: middle">{{ucfirst($item->nama)}}</td>
+                                                                <td style="vertical-align: middle" align="center">{{ucfirst($item->nim)}}</td>
+                                                                <td style="vertical-align: middle" align="center">{{ucfirst($item->jk)}}</td>
+                                                                <td style="vertical-align: middle"><input type="text" value="{{$item->nilai_uts}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_uts]" placeholder="0"></td>
+                                                                <td style="vertical-align: middle"><input type="text" value="{{$item->nilai_tugas}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_tugas]" placeholder="0"></td>
+                                                                <td style="vertical-align: middle"><input type="text" value="{{$item->nilai_uas}}" class="form-control" name="mahasiswa[{{$item->id}}][nilai_uas]" placeholder="0"></td>
+                                                                <td style="text-align: center;vertical-align: middle;"> <b class="nangka">{{$nangka}}</b></td>
+                                                                <td style="text-align: center;vertical-align: middle;"><b class="nuruf">{{$nhuruf}}</b></td>
                                                             </tr>
                                                             @endforeach
                                                     </tbody>
@@ -182,6 +182,9 @@
                                 <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
                                 <div class="root">
                                     <div class="kt-form__actions">
+                                        <a href="{{url()->previous()}}" class="btn btn-label-success">
+                                            <i class="la la-arrow-left"></i> Kembali
+                                        </a>&nbsp;
                                         <button type="button" class="btn btn-success" id="save-nilai-perkuliahan"><i class="la la-save"></i>Simpan</button>
                                     </div>
                                 </div>

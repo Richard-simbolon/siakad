@@ -15,7 +15,7 @@
                             <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="" class="kt-subheader__breadcrumbs-link">
-                                Kelas Perkuliahan</a>
+                                Absensi</a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="{{url()->current()}}" class="kt-subheader__breadcrumbs-link">
                                 Daftar </a>
@@ -43,7 +43,7 @@
                                     </g>
                                 </svg>
                                 <h3 class="kt-portlet__head-title">
-                                    &nbsp;Nilai Perkuliahan
+                                    &nbsp;Absensi Mahasiswa
                                 </h3>
                             </div>
                         </div>
