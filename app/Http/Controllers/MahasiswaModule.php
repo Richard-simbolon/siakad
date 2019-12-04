@@ -401,4 +401,15 @@ class MahasiswaModule extends Controller
 
         return $data;
     }
+
+    public function kartuujian(){
+        $data = MahasiswaModel::where('nim' , '=',Auth::user()->id)
+            ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')
+            ->join('master_angkatan', 'master_angkatan.id', '=', 'mahasiswa.angkatan')
+            ->join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
+            ->select('mahasiswa.*', 'master_kelas.title as kelas', 'master_angkatan.title as angkatan', 'master_jurusan.title as jurusan')
+            ->first();
+
+        return view("mahasiswa/kartu_ujian" , compact("data" ));
+    }
 }

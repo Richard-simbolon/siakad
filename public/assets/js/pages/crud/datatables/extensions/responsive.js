@@ -1305,7 +1305,7 @@ var KTDatatablesExtensionsResponsive = function() {
                     title: "Semester Aktif",
                     className :"text-center",
                     render : function (data, type, full, meta) {
-                        return data == 'enable' ? '<span class="kt-badge kt-badge--danger kt-badge--inline">Ya</span> ' : '<a href="javascript:void(0)" onclick="setStatusSemester('+full.id + ',\'' + full.title + '\')" class="btn" ><span class="kt-badge kt-badge--warning kt-badge--inline kt-badge--pill kt-badge--rounded">Set Aktif</span></a>';
+                        return data == 'enable' ? '<span class="kt-badge kt-badge--danger kt-badge--inline">Aktif</span> ' : '<a href="javascript:void(0)" onclick="setStatusSemester('+full.id + ',\'' + full.title + '\')" class="btn" ><span class="kt-badge kt-badge--warning kt-badge--inline kt-badge--pill kt-badge--rounded">Set Aktif</span></a>';
                     }
                 },
             ]

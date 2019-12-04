@@ -113,7 +113,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="kt-separator kt-separator--border-dashed kt-separator--space-sm kt-separator--portlet-fit"></div><br/>
                                                 <div class="row">
                                                     <input type="hidden" name="kelas_perkuliahan_detail_id" value="{{$data->id}}" />
