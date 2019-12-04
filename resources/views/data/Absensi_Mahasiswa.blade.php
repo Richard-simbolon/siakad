@@ -15,18 +15,15 @@
                             <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="" class="kt-subheader__breadcrumbs-link">
-                                Kelas Perkuliahan</a>
-                            <span class="kt-subheader__breadcrumbs-separator"></span>
-                            <a href="{{url()->current()}}" class="kt-subheader__breadcrumbs-link">
-                                Daftar </a>
+                                Absensi</a>
                         </div>
                     </div>
                 </div>
-                <!--<div class="kt-subheader__toolbar">
+                <div class="kt-subheader__toolbar">
                     <div class="kt-subheader__wrapper">
-                        <a href="{{url()->current()}}/create" class="btn btn-success"><i class="la la-plus"></i> Tambah</a>
+                        <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
                     </div>
-                </div>-->
+                </div>
             </div>
         </div>
         <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">

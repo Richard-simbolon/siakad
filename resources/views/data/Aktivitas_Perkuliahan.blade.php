@@ -22,6 +22,11 @@
                             Daftar </a>
                     </div>
                 </div>
+                <div class="kt-subheader__toolbar">
+                    <div class="kt-subheader__wrapper">
+                        <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
+                    </div>
+                </div>
             </div>
         </div>
 

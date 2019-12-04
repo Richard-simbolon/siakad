@@ -20,7 +20,21 @@
     <!-- end:: Content Head -->
 
     <!-- begin:: Content -->
+
+
     <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+        {{--<div class="row">--}}
+            {{--<div class="col-xl-12">--}}
+                {{--<div class="alert alert-light alert-warning" style="background-color: #ffb82261;" role="alert">--}}
+                    {{--<div class="alert-icon"><i class="flaticon-warning" style="color:#000000;"></i></div>--}}
+                    {{--<div class="alert-text">--}}
+                        {{--<h5>Pengumuman!</h5>--}}
+                        {{--<p>Bagi semua dosen harap mengisi nilai sebelum tanggal 15 Oktober 2019</p>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
+            {{--</div>--}}
+        {{--</div>--}}
+
         <div class="row">
             <div class="col-xl-12">
 

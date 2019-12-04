@@ -103,7 +103,7 @@
                                     Dashboard
                                 </div>
                                 <div class="kt-notification__item-time">
-                                    Ubah data dan biodata
+                                    Data profile dan kalender
                                 </div>
                             </div>
                         </a>

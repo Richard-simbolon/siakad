@@ -15,10 +15,7 @@
                             <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="" class="kt-subheader__breadcrumbs-link">
-                                Kelas Perkuliahan</a>
-                            <span class="kt-subheader__breadcrumbs-separator"></span>
-                            <a href="{{url()->current()}}" class="kt-subheader__breadcrumbs-link">
-                                Daftar </a>
+                                Nilai Mahasiswa</a>
                         </div>
                     </div>
                 </div>
