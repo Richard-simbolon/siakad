@@ -15,10 +15,10 @@
                             <a href="{{url()->previous()}}" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="{{url()->previous()}}" class="kt-subheader__breadcrumbs-link">
-                                {{$title}} </a>
+                                Kalender Akademik </a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="{{url()->current()}}" class="kt-subheader__breadcrumbs-link">
-                                Daftar </a>
+                                Tambah </a>
                         </div>
                     </div>
                 </div>
