@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\MahasiswaModel;
 use App\SemesterModel;
 use App\KurikulumModel;
+use PDF;
 
 class JadwalPerkuliahan extends Controller
 {
@@ -142,7 +143,7 @@ class JadwalPerkuliahan extends Controller
         ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah','mata_kuliah.tipe_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->where('nilai_mahasiswa.semester_id' , $semester_aktif->id)->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        return view("mahasiswa/khs" , compact("data" , "title" ,"mahasiswa" , "master"));
+        return view("mahasiswa/khs" , compact("data" , "title" ,"mahasiswa" , "master" ,"semester_aktif"));
 
     }
 
@@ -288,6 +289,52 @@ class JadwalPerkuliahan extends Controller
         }
         return Datatables::of(DB::table('view_mahasiswa_jadwal_ujian')->where('mahasiswa_id' , $mahasiswa->id)
         ->where('semester_id' , $semester_id))->make(true);
+    }
+
+    function print_khs($id_semester){
+        $semester_aktif = SemesterModel::where('id' , $id_semester)->first();
+        $master = SemesterModel::where('row_status' ,'active')->get();
+        $kurikulum = MahasiswaModel::join('master_kelas' ,'master_kelas.id' ,'mahasiswa.kelas_id')
+        ->select('master_kelas.*','mahasiswa.nama','mahasiswa.id')
+        ->where('nim' , Auth::user()->id)->first();
+        $id = $kurikulum->id;
+        $mahasiswa = DB::table('view_profile_mahasiswa')->where('id' , $id)->first();
+        $data = KurikulumModel::rightJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.kurikulum_id','=' ,'kurikulum.id')
+        ->join('mata_kuliah' ,'mata_kuliah.id' , '=' ,'kurikulum_mata_kuliah.mata_kuliah_id')
+        ->leftJoin('nilai_mahasiswa', function ($join) use($id) {
+            $join->on('nilai_mahasiswa.mata_kuliah_id' ,'=','kurikulum_mata_kuliah.mata_kuliah_id')
+            ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $id);
+        })
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah','mata_kuliah.tipe_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas')
+        ->where('kurikulum.id' , $kurikulum->kurikulum_id)->where('nilai_mahasiswa.semester_id' , $id_semester)->get();
+        $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+        $pdf = PDF::loadView('mahasiswa/print_khs', compact("data" , "title" ,"mahasiswa" , "master", "semester_aktif"));
+        return $pdf->download('KHS_'.$id_semester.'_'.Auth::user()->id.'_'.date('Y-m-d_H-i-s').'.pdf');
+        //return view("mahasiswa/print_khs" , compact("data" , "title" ,"mahasiswa" , "master" , "semester_aktif"));
+
+    }
+
+    function print_transkrip(){
+        $kurikulum = MahasiswaModel::join('master_kelas' ,'master_kelas.id' ,'mahasiswa.kelas_id')
+        ->select('master_kelas.*','mahasiswa.nama','mahasiswa.id')
+        ->where('nim' , Auth::user()->id)->first();
+        $id = $kurikulum->id;
+        $mahasiswa = DB::table('view_profile_mahasiswa')->where('id' , $id)->first();
+        $data = KurikulumModel::rightJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.kurikulum_id','=' ,'kurikulum.id')
+        ->join('mata_kuliah' ,'mata_kuliah.id' , '=' ,'kurikulum_mata_kuliah.mata_kuliah_id')
+        ->leftJoin('nilai_mahasiswa', function ($join) use($id) {
+            $join->on('nilai_mahasiswa.mata_kuliah_id' ,'=','kurikulum_mata_kuliah.mata_kuliah_id')
+            ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $id);
+        })
+        ->leftJoin('master_semester' , 'master_semester.id' ,'=' , 'nilai_mahasiswa.semester_id')
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah', 'nilai_mahasiswa.semester_id', 'master_semester.title as semester_title')
+        ->where('kurikulum.id' , $kurikulum->kurikulum_id)->orderby('nilai_mahasiswa.semester_id' , 'ASC')->get();
+        $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+        //return view("mahasiswa/print_transkrip" , compact("data" , "title" ,"mahasiswa"));
+        $pdf = PDF::loadView('mahasiswa/print_transkrip', compact("data" , "title" ,"mahasiswa" , "master", "semester_aktif"));
+        return $pdf->download('TanskriNilai_'.'_'.Auth::user()->id.'_'.date('Y-m-d_H-i-s').'.pdf');
+        //return view("mahasiswa/print_transkrip" , compact("data" , "title" ,"mahasiswa" , "master"));
+
     }
 
 }

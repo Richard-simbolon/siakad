@@ -54,7 +54,7 @@
                     </div>
                     <div class="kt-portlet__head-toolbar">
                         <div class="dropdown dropdown-inline show">
-                                <button type="button" class="btn btn-outline-success"><i class="la la-print"></i> Cetak KHS</button>
+                        <button type="button" class="btn btn-outline-success" onclick="window.location.href='{{url('print_khs')}}/'+$('#search-khs').val()+''"><i class="la la-print"></i> Cetak KHS</button>
                         </div>
                     </div>
                 </div>
@@ -112,10 +112,11 @@
                                 <div class="form-group">
                                     <label>Tahun Ajaran</label>
                                     <div class="form-group">
+                                       
                                         <select name="semester_id" id="search-khs" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
                                             <option value="">Select</option>
                                             @foreach ($master as $item)
-                                                <option value="{{$item['id']}}" > {{$item['title']}} </option>
+                                                <option value="{{$item['id']}}" {{$item['id'] == $semester_aktif->id ? 'selected' : ''}}> {{$item['title']}} </option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -130,14 +131,16 @@
                                 <th style="text-align: center ; vertical-align: middle" rowspan="2">Kode MK</th>
                                 <th style="text-align: center;vertical-align: middle" rowspan="2">Mata Kuliah</th>
                                 <th style="text-align: center;vertical-align: middle" rowspan="2">Bobot SKS</th>
-                                <th style="text-align: center;vertical-align: middle" rowspan="2">UTS</th>
+                                <!--<th style="text-align: center;vertical-align: middle" rowspan="2">UTS</th>
                                 <th style="text-align: center;vertical-align: middle" rowspan="2">Tugas</th>
-                                <th style="text-align: center;vertical-align: middle" rowspan="2">UAS</th>
-                                <th style="text-align: center" colspan="2">Akhir</th>
+                                <th style="text-align: center;vertical-align: middle" rowspan="2">UAS</th>-->
+                                <th style="text-align: center" colspan="3">Akhir</th>
+                                <th style="text-align: center;vertical-align: middle;border-right-width: 1px;" rowspan="2">SKS * Index</th>
                             </tr>
                             <tr>
                                     <th style="text-align: center">Angka</th>
                                     <th style="text-align: center">Huruf</th>
+                                    <th style="text-align: center;border-right-width: 1px;">Index</th>
                                 </tr>
                             </thead>
                             <tbody id="body-khs">
@@ -150,6 +153,8 @@
                                 $sks += $item->bobot_mata_kuliah;
 
                                 $nangka = 0;
+                                $index = 0;
+                                $indexvsks = 0;
                                 $nhuruf = 'E';
                                 $nuts = $item->nilai_uts > 0 ? $item->nilai_uts : 0;
                                 $nuas = $item->nilai_uas > 0 ? $item->nilai_uas : 0;
@@ -163,21 +168,32 @@
                                 if($nangka < 45){
                                     $nhuruf = 'E';
                                     $nipk += 0 * $item->bobot_mata_kuliah;
+                                    $indexvsks = 0 * $item->bobot_mata_kuliah;
+                                    $index = 0;
                                 }elseif($nangka > 44 && $nangka<= 59){
                                     $nhuruf = 'D';
                                     $nipk += 1 * $item->bobot_mata_kuliah;
+                                    $indexvsks = 1 * $item->bobot_mata_kuliah;
+                                    $index = 1;
                                 }elseif($nangka > 59 && $nangka<= 69){
                                     $nhuruf = 'C';
                                     $nipk += 2 * $item->bobot_mata_kuliah;
+                                    $indexvsks = 2 * $item->bobot_mata_kuliah;
+                                    $index = 2;
                                 }elseif($nangka > 69 && $nangka<= 79){
                                     $nhuruf = 'B';
                                     $nipk += 3 * $item->bobot_mata_kuliah;
+                                    $indexvsks = 3 * $item->bobot_mata_kuliah;
+                                    $index = 3;
                                 }elseif($nangka > 79 && $nangka<= 100){
                                     $nhuruf = 'A';
                                     $nipk += 4 * $item->bobot_mata_kuliah;
+                                    $indexvsks = 4 * $item->bobot_mata_kuliah;
+                                    $index = 4;
                                 }else{
                                     $nhuruf = 'E';
                                     $nipk += 0 * $item->bobot_mata_kuliah;
+                                    $index = 5;
                                 }
                                 ?>
                                 <tr>
@@ -185,21 +201,23 @@
                                     <td style="text-align: center">{{$item->kode_mata_kuliah}}</td>
                                     <td style="text-align: center">{{$item->nama_mata_kuliah}}</td>
                                     <td style="text-align: center">{{$item->bobot_mata_kuliah}}</td>
-                                    <td style="text-align: center">{{$item->nilai_uts ? $item->nilai_uts :0}}</td>
+                                    <!--<td style="text-align: center">{{$item->nilai_uts ? $item->nilai_uts :0}}</td>
                                     <td style="text-align: center">{{$item->nilai_tugas ? $item->nilai_tugas :0}}</td>
-                                    <td style="text-align: center">{{$item->nilai_uas ? $item->nilai_uas: 0}}</td>
+                                    <td style="text-align: center">{{$item->nilai_uas ? $item->nilai_uas: 0}}</td>-->
                                     <td style="text-align: center">{{$nangka}}</td>
                                     <td style="text-align: center">{{$nhuruf}}</td>
+                                    <td style="text-align: center">{{$index}}</td>
+                                    <td style="text-align: center">{{$indexvsks}}</td>
                                 </tr>
                                 @endforeach
                                 <tr>
                                     <td style="text-align: left" colspan="3"><b>Total SKS</b></td>
                                     <td style="text-align: center" ><b>{{$sks}}</b></td>
-                                    <td style="text-align: center" colspan="3" ><b></b></td>
+                                    <td style="text-align: center" colspan="4"><b></b></td>
                                 </tr>
                                 <tr>
                                     <td style="text-align: left" colspan="7"><b>IP</b></td>
-                                    <td style="text-align: center" colspan="2"><b>{{ round($nipk / $sks ,2)}}</b></td>
+                                    <td style="text-align: center"><b>{{ round($nipk / $sks ,2)}}</b></td>
                                 </tr>
                             </tbody>
                         </table>

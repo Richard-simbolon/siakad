@@ -54,7 +54,7 @@
                     </div>
                     <div class="kt-portlet__head-toolbar">
                         <div class="dropdown dropdown-inline show">
-                                <button type="button" class="btn btn-outline-success"><i class="la la-print"></i> Cetak KHS</button>
+                                <button type="button" class="btn btn-outline-success" onclick="window.location.href='{{url('print_transkrip')}}'"><i class="la la-print"></i> Cetak Transkrip</button>
                         </div>
                     </div>
                 </div>
@@ -119,15 +119,17 @@
                                         <th style="text-align: center;vertical-align: middle" rowspan="2">Semester</th>
                                         <th style="text-align: center;vertical-align: middle" rowspan="2">Bobot SKS</th>
                                         
-                                        <th style="text-align: center;vertical-align: middle" rowspan="2">UTS / Pel.Praktik</th>
+                                        <!--<th style="text-align: center;vertical-align: middle" rowspan="2">UTS / Pel.Praktik</th>
                                         <th style="text-align: center;vertical-align: middle" rowspan="2">Tugas / Unjuk Kerja</th>
-                                        <th style="text-align: center;vertical-align: middle" rowspan="2">UAS / Hasil (Lap)</th>
+                                        <th style="text-align: center;vertical-align: middle" rowspan="2">UAS / Hasil (Lap)</th> -->
                                         
-                                        <th style="text-align: center" colspan="2">Nilai akhir</th>
+                                        <th style="text-align: center" colspan="3">Nilai akhir</th>
+                                        <th style="text-align: center" rowspan="2">SKS * Index</th>
                                     </tr>
                                     <tr>
                                         <th style="text-align: center">Angka</th>
                                         <th style="text-align: center">Huruf</th>
+                                        <th style="text-align: center">Index</th>
                                     </tr>
                                     </thead>
                                         <tbody id="body-khs">
@@ -153,6 +155,8 @@
                     
                                                     $nangka = 0;
                                                     $nhuruf = 'E';
+                                                    $indexvsks = 0;
+                                                    $nhuruf = 'E';
                                                     $nuts = $item->nilai_uts > 0 ? $item->nilai_uts : 0;
                                                     $nuas = $item->nilai_uas > 0 ? $item->nilai_uas : 0;
                                                     $ntgs = $item->nilai_tugas > 0 ? $item->nilai_tugas : 0;
@@ -165,21 +169,33 @@
                                                     if($nangka < 45){
                                                         $nhuruf = 'E';
                                                         $nipk += 0 * $item->bobot_mata_kuliah;
+                                                        $indexvsks = 0 * $item->bobot_mata_kuliah;
+                                                        $index = 0;
                                                     }elseif($nangka > 44 && $nangka<= 59){
                                                         $nhuruf = 'D';
                                                         $nipk += 1 * $item->bobot_mata_kuliah;
+                                                        $indexvsks = 1 * $item->bobot_mata_kuliah;
+                                                        $index = 1;
                                                     }elseif($nangka > 59 && $nangka<= 69){
                                                         $nhuruf = 'C';
                                                         $nipk += 2 * $item->bobot_mata_kuliah;
+                                                        $indexvsks = 2 * $item->bobot_mata_kuliah;
+                                                        $index = 2;
                                                     }elseif($nangka > 69 && $nangka<= 79){
                                                         $nhuruf = 'B';
                                                         $nipk += 3 * $item->bobot_mata_kuliah;
+                                                        $indexvsks = 3 * $item->bobot_mata_kuliah;
+                                                        $index = 3;
                                                     }elseif($nangka > 79 && $nangka<= 100){
                                                         $nhuruf = 'A';
                                                         $nipk += 4 * $item->bobot_mata_kuliah;
+                                                        $indexvsks = 4 * $item->bobot_mata_kuliah;
+                                                        $index = 4;
                                                     }else{
                                                         $nhuruf = 'E';
                                                         $nipk += 0 * $item->bobot_mata_kuliah;
+                                                        $indexvsks = 0 * $item->bobot_mata_kuliah;
+                                                        $index = 0;
                                                     }
 
                                                     echo '<tr>
@@ -188,11 +204,13 @@
                                                         <td style="text-align: center">'.$item->nama_mata_kuliah.'</td>
                                                         <td style="text-align: center">'.$j.'</td>
                                                         <td style="text-align: center">'.$item->bobot_mata_kuliah .'</td>
-                                                        <td style="text-align: center">'.($item->nilai_uts ? $item->nilai_uts : 0).'</td>
+                                                        <!--<td style="text-align: center">'.($item->nilai_uts ? $item->nilai_uts : 0).'</td>
                                                         <td style="text-align: center">'. ($item->nilai_tugas ? $item->nilai_tugas: 0).'</td>
-                                                        <td style="text-align: center">'. ($item->nilai_uas ? $item->nilai_uas : 0).'</td>
+                                                        <td style="text-align: center">'. ($item->nilai_uas ? $item->nilai_uas : 0).'</td>-->
+                                                        <td style="text-align: center">'.$index.'</td>
                                                         <td style="text-align: center">'.$nangka.'</td>
                                                         <td style="text-align: center">'.$nhuruf.'</td>
+                                                        <td style="text-align: center">'.$indexvsks.'</td>
                                                     </tr>';
                                                 }
 
@@ -203,17 +221,17 @@
                                                         <td style="text-align: center">
                                                                 <b>'.$sks.'</b>
                                                         </td>
-                                                        <td colspan="5" style="text-align: center">
+                                                        <td colspan="4" style="text-align: center">
                                                                 
                                                         </td>
                                                         
                                                     </tr>
                                                     
                                                     <tr>
-                                                        <td colspan="7">
+                                                        <td colspan="8">
                                                             INDEKS PRESTASI (IP)
                                                         </td>
-                                                        <td colspan="3" style="text-align: center">
+                                                        <td colspan="1" style="text-align: center">
                                                                 <b>'.round($nipk / $sks ,2).'</b>
                                                         </td>
                                                     </tr>
@@ -222,15 +240,17 @@
                                             }
 
                                             echo '  <tr>
-                                                        <td colspan="7">
+                                                        <td colspan="8">
                                                             <b>INDEKS PRESTASI KUMULATIF (IPK)</b>
                                                         </td>
-                                                        <td colspan="3" style="text-align: center">
+                                                        <td colspan="1" style="text-align: center">
                                                                 <b>'.round(array_sum($nipg) / count($nipg) ,2).'</b>
                                                         </td>
                                                     </tr>';
                                             
                                         ?>
+                                        </tbody>
+                            </table>
                     </div>
                     <div class="col-lg-12" style="text-align:right">
                         

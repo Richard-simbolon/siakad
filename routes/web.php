@@ -59,6 +59,8 @@ Route::post('/data/mahasiswa/submitwali', 'MahasiswaModule@submitwali')->name('s
 Route::post('/data/mahasiswa/submitkebutuhankhusus', 'MahasiswaModule@submitkebutuhankhusus')->name('submitkebutuhankhusus');
 Route::post('/data/mahasiswa/upload_profile', 'MahasiswaModule@upload_profile')->name('submitkebutuhankhusus');
 Route::post('/data/dosen/upload_profile', 'DosenModule@upload_profile')->name('submitkebutuhankhusus');
+Route::get('print_khs/{id}', 'JadwalPerkuliahan@print_khs')->name('getcalender');
+Route::get('print_transkrip', 'JadwalPerkuliahan@print_transkrip')->name('transkrip');
 // MODULE MAHASISWA END
 
 // Module Dosen
@@ -213,3 +215,4 @@ Auth::routes();
 Route::post('g_password/generate_key', 'Administrator@generate_key')->name('generate_key');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home/getcalender', 'HomeController@getcalender')->name('getcalender');
+
