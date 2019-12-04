@@ -16,12 +16,11 @@
             <p><b>KARTU HASIL STUDI (KHS)</b></p>
             <p><b>TA {{$semester_aktif->title}}</b></p>
         </div>
-        
     </div>
 <table cellpadding="5">
     <tbody>
     <tr>
-        <td width="107px">Nim</td>
+        <td width="107px">Nirm</td>
         <td>:</td>
         <td><b>{{Auth::user()->login}}</b></td>
     </tr>

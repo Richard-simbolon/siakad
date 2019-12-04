@@ -54,7 +54,7 @@
                     </div>
                     <div class="kt-portlet__head-toolbar">
                         <div class="dropdown dropdown-inline show">
-                                <button type="button" class="btn btn-outline-success"><i class="la la-print"></i> Cetak KRS</button>
+                                <button type="button" class="btn btn-outline-success"  onclick="window.location.href='{{url('print_krs')}}'"><i class="la la-print"></i> Cetak KRS</button>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                                     <table cellpadding="5">
                                         <tbody>
                                         <tr>
-                                            <td width="107px">Nim</td>
+                                            <td width="107px">Nirm</td>
                                             <td>:</td>
                                             <td><b>{{Auth::user()->login}}</b></td>
                                         </tr>

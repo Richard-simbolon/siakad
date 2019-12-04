@@ -66,7 +66,7 @@
                                     <table cellpadding="5">
                                         <tbody>
                                         <tr>
-                                            <td width="107px">Nim</td>
+                                            <td width="107px">Nirm</td>
                                             <td>:</td>
                                             <td><b>{{Auth::user()->login}}</b></td>
                                         </tr>
@@ -107,32 +107,29 @@
                         </div>
                         <br/><br/>
                     <div>
-
-
-
-                            <table class="dataTable table table-striped table-bordered table-hover table-checkable">
-                                    <thead>
-                                    <tr>
-                                        <th style="text-align: center; vertical-align: middle" rowspan="2">No</th>
-                                        <th style="text-align: center ; vertical-align: middle" rowspan="2">Kode MK</th>
-                                        <th style="text-align: center;vertical-align: middle" rowspan="2">Mata Kuliah</th>
-                                        <th style="text-align: center;vertical-align: middle" rowspan="2">Semester</th>
-                                        <th style="text-align: center;vertical-align: middle" rowspan="2">Bobot SKS</th>
-                                        
-                                        <!--<th style="text-align: center;vertical-align: middle" rowspan="2">UTS / Pel.Praktik</th>
-                                        <th style="text-align: center;vertical-align: middle" rowspan="2">Tugas / Unjuk Kerja</th>
-                                        <th style="text-align: center;vertical-align: middle" rowspan="2">UAS / Hasil (Lap)</th> -->
-                                        
-                                        <th style="text-align: center" colspan="3">Nilai akhir</th>
-                                        <th style="text-align: center" rowspan="2">SKS * Index</th>
-                                    </tr>
-                                    <tr>
-                                        <th style="text-align: center">Angka</th>
-                                        <th style="text-align: center">Huruf</th>
-                                        <th style="text-align: center">Index</th>
-                                    </tr>
-                                    </thead>
-                                        <tbody id="body-khs">
+                        <table class="dataTable table table-striped table-bordered table-hover table-checkable">
+                                <thead>
+                                <tr>
+                                    <th style="text-align: center; vertical-align: middle" rowspan="2">No</th>
+                                    <th style="text-align: center ; vertical-align: middle" rowspan="2">Kode MK</th>
+                                    <th style="text-align: center;vertical-align: middle" rowspan="2">Mata Kuliah</th>
+                                    <th style="text-align: center;vertical-align: middle" rowspan="2">Semester</th>
+                                    <th style="text-align: center;vertical-align: middle" rowspan="2">Bobot SKS</th>
+                                    
+                                    <!--<th style="text-align: center;vertical-align: middle" rowspan="2">UTS / Pel.Praktik</th>
+                                    <th style="text-align: center;vertical-align: middle" rowspan="2">Tugas / Unjuk Kerja</th>
+                                    <th style="text-align: center;vertical-align: middle" rowspan="2">UAS / Hasil (Lap)</th> -->
+                                    
+                                    <th style="text-align: center" colspan="3">Nilai akhir</th>
+                                    <th style="text-align: center" rowspan="2">SKS * Index</th>
+                                </tr>
+                                <tr>
+                                    <th style="text-align: center">Angka</th>
+                                    <th style="text-align: center">Huruf</th>
+                                    <th style="text-align: center;border-right-width: 1px;">Index</th>
+                                </tr>
+                                </thead>
+                                    <tbody id="body-khs">
                                         <?php
                                             $data_group = [];
                                             foreach ($data as $key => $value) {
@@ -145,7 +142,7 @@
                                                 $j++;
                                                 $sks = 0;
                                                 $nipk = 0;
-                                                   
+                                                    
                                                 foreach ($g as $key => $item) {
 
                                                     //echo $item->nama_mata_kuliah.'-';
@@ -249,11 +246,8 @@
                                                     </tr>';
                                             
                                         ?>
-                                        </tbody>
-                            </table>
-                    </div>
-                    <div class="col-lg-12" style="text-align:right">
-                        
+                                </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

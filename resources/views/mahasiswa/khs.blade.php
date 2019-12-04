@@ -66,7 +66,7 @@
                                     <table cellpadding="5">
                                         <tbody>
                                         <tr>
-                                            <td width="107px">Nim</td>
+                                            <td width="107px">Nirm</td>
                                             <td>:</td>
                                             <td><b>{{Auth::user()->login}}</b></td>
                                         </tr>

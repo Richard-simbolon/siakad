@@ -61,6 +61,7 @@ Route::post('/data/mahasiswa/upload_profile', 'MahasiswaModule@upload_profile')-
 Route::post('/data/dosen/upload_profile', 'DosenModule@upload_profile')->name('submitkebutuhankhusus');
 Route::get('print_khs/{id}', 'JadwalPerkuliahan@print_khs')->name('getcalender');
 Route::get('print_transkrip', 'JadwalPerkuliahan@print_transkrip')->name('transkrip');
+Route::get('print_krs', 'JadwalPerkuliahan@print_krs')->name('transkrip');
 Route::post('/data/dosen/pembimbing_akademik', 'DosenModule@pembimbing_akademik')->name('pembimbing_akademik');
 Route::post('/data/dosen/pembimbing_akademik_paging', 'DosenModule@pembimbing_akademik_paging')->name('pembimbing_akademik_paging');
 // MODULE MAHASISWA END

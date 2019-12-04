@@ -119,7 +119,7 @@
                                                             <tr>
                                                                     <th style="vertical-align: middle" rowspan="2">NO</th>
                                                                     <th style="vertical-align: middle" rowspan="2">Nama Mahasiswa</th>
-                                                                    <th style="vertical-align: middle" rowspan="2">NIM</th>
+                                                                    <th style="vertical-align: middle" rowspan="2">NIRM</th>
                                                                     <th style="vertical-align: middle" rowspan="2">Jenis Kelamin</th>
                                                                     <th style="vertical-align: middle" rowspan="2">UTS</th>
                                                                     <th style="vertical-align: middle" rowspan="2">Nilai Tugas</th>

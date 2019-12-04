@@ -330,11 +330,28 @@ class JadwalPerkuliahan extends Controller
         ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah', 'nilai_mahasiswa.semester_id', 'master_semester.title as semester_title')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->orderby('nilai_mahasiswa.semester_id' , 'ASC')->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        //return view("mahasiswa/print_transkrip" , compact("data" , "title" ,"mahasiswa"));
         $pdf = PDF::loadView('mahasiswa/print_transkrip', compact("data" , "title" ,"mahasiswa" , "master", "semester_aktif"));
         return $pdf->download('TanskriNilai_'.'_'.Auth::user()->id.'_'.date('Y-m-d_H-i-s').'.pdf');
         //return view("mahasiswa/print_transkrip" , compact("data" , "title" ,"mahasiswa" , "master"));
 
+    }
+
+    public function print_krs(){
+        $semester_active = SemesterModel::where('status_semester' ,'enable')->first();
+        $mahasiswa = MahasiswaModel::where('nim' , Auth::user()->id)->first();
+        $data = JadwalPerkuliahanModel::where('kelas_id' , $mahasiswa->kelas_id)
+        ->where('semester_id' , $semester_active->id)
+        ->get();
+        $select2 = JadwalPerkuliahanModel::select('semester_id' ,'semseter_title')
+        ->where('kelas_id' , $mahasiswa->kelas_id)
+        ->groupBy('semester_id')
+        ->orderBy('semester_id' ,'ASC')
+        ->get();
+        $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+        //return view("mahasiswa/print_krs" , compact("data" , "title" ,"mahasiswa" ,'select2',"semester_active"));
+        $pdf = PDF::loadView("mahasiswa/print_krs" , compact("data" , "title" ,"mahasiswa" ,'select2',"semester_active"));
+        return $pdf->download('KRS'.'_'.Auth::user()->id.'_'.date('Y-m-d_H-i-s').'.pdf');
+        
     }
 
 }
