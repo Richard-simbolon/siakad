@@ -53,6 +53,7 @@ $(document).ready(function() {
             }
         },
         columns: [
+            { data: 'kode_mata_kuliah', name: 'kode_mata_kuliah'},
             { data: 'nama_mata_kuliah', name: 'nama_mata_kuliah'},
             { data: 'nama_angkatan', name: 'nama_angkatan' },
             { data: 'nama_semester', name: 'nama_semester' },
@@ -63,12 +64,12 @@ $(document).ready(function() {
         ],
         columnDefs: [
             {
-                targets: 6,
+                targets: 7,
                 title: 'Actions',
                 orderable: false,
                 render: function(data, type, full, meta) {
                     return `
-                    <a class="btn btn-sm" href="inputnilai/edit/`+full.id+`"><i class="la la-edit"></i></a>`;
+                    <a class="btn" href="inputnilai/edit/`+full.id+`"><i class="la la-edit"></i> Isi Nilai</a>`;
                 },
             },{
                 targets: 0,

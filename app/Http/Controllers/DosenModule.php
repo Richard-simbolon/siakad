@@ -1,9 +1,11 @@
 <?php
 namespace App\Http\Controllers;
+use App\AngkatanModel;
 use App\DosenKeluargaModel;
 use App\DosenModel;
 use App\JenisPegawaiModel;
 use App\PendidikanModel;
+use App\StatusMahasiswaModel;
 use App\SumberGajiModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -752,5 +754,32 @@ class DosenModule extends Controller
         $where = ['dosen_id' => $post['dosen_id']];
 
         return Datatables::of(DB::table('view_aktivitas_mengajar')->where($where)->get())->addIndexColumn()->make(true);
+    }
+
+    public function pembimbing_akademik(){
+        $nik = Auth::user()->id;
+        $data = DosenModel::where('dosen.nidn_nup_nidk' , $nik)->first();
+        $master = array(
+            'status' => StatusMahasiswaModel::where('row_status' , 'active')->get(),
+            'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
+            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'kelas' => KelasModel::where('row_status' , 'active')->get()
+        );
+
+        return view("dosen/pembimbing_akademik", compact('master', 'data'));
+    }
+
+    public function pembimbing_akademik_paging(Request $request){
+        $post= $request->all();
+        $where = ['pembimbing_akademik' => $post['dosen_id']];
+
+        return Datatables::of(DB::table('mahasiswa')
+            ->join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
+            ->join('master_status_mahasiswa', 'master_status_mahasiswa.id', '=', 'mahasiswa.status')
+            ->join('master_kelas','master_kelas.id', '=', 'mahasiswa.kelas_id')
+            ->join('master_angkatan', 'master_angkatan.id', '=', 'mahasiswa.angkatan')
+            ->select('mahasiswa.nim as nim', 'master_status_mahasiswa.title as status', 'mahasiswa.nama','mahasiswa.jk', 'master_jurusan.title as jurusan', 'master_angkatan.title as angkatan', 'master_kelas.title as kelas')
+            ->where($where)
+            ->get())->addIndexColumn()->make(true);
     }
 }
