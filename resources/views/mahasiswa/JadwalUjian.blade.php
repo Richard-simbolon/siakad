@@ -96,7 +96,7 @@
                                         <tr>
                                             <td>Jurusan</td>
                                             <td>:</td>
-                                            <td><b>{{$profile->program_studi_title}}</b></td>
+                                            <td><b>{{$profile->jurusan_title}}</b></td>
                                         </tr>
                                         <tr>
                                             <td>Kelas</td>

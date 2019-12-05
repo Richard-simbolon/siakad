@@ -274,8 +274,9 @@ class JadwalPerkuliahan extends Controller
         ->groupBy('semester_id')
         ->orderBy('semester_id' ,'ASC')
         ->get();
+        $profile = DB::table('view_profile_mahasiswa')->where('nim' , Auth::user()->id)->first();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        return view("mahasiswa/JadwalUjian" , compact("data" , "title" ,"mahasiswa" ,'select2'));
+        return view("mahasiswa/JadwalUjian" , compact("data" , "title" ,"mahasiswa" ,'select2' ,"profile"));
     }
 
     public function pagingujian(Request $request){

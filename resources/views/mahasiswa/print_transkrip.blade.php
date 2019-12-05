@@ -86,7 +86,7 @@ padding-top: 30px;">
 
                         //echo $item->nama_mata_kuliah.'-';
                         $i++;
-                        $semester_id = 
+                        //$semester_id = '';
                         $sks += $item->bobot_mata_kuliah;
 
                         $nangka = 0;

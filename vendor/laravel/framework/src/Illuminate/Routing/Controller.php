@@ -53,6 +53,79 @@ abstract class Controller
         }
     }
 
+    public function generate_ip($data , $semester_aktif){
+        $data_group = [];
+        foreach ($data as $key => $value) {
+            $data_group[$value->semester_id][] = $value;
+        }
+        $i = 0;
+        $j = 0;
+        $nipg =[];
+        $nipa =[];
+        $t_sks = 0;
+        foreach ($data_group as $keys =>$g) {
+            $j++;
+            $sks = 0;
+            $nipk = 0;
+            
+            foreach ($g as $key => $item) {
+
+                //echo $item->nama_mata_kuliah.'-';
+                $i++;
+                $sks += $item->bobot_mata_kuliah;
+                $t_sks += $item->bobot_mata_kuliah;
+                $nangka = 0;
+                
+                $nhuruf = 'E';
+                $indexvsks = 0;
+                $nhuruf = 'E';
+                $nuts = $item->nilai_uts > 0 ? $item->nilai_uts : 0;
+                $nuas = $item->nilai_uas > 0 ? $item->nilai_uas : 0;
+                $ntgs = $item->nilai_tugas > 0 ? $item->nilai_tugas : 0;
+
+                if($item->tipe_mata_kuliah == 'praktik'){
+                    $nangka = ( (($ntgs * 40) / 100) + (($nuts * 30) / 100) + (($nuas * 20)/100));
+                }elseif ($item->tipe_mata_kuliah == 'teori') {
+                    $nangka = ( (($ntgs * 30) / 100) + (($nuts * 30) / 100) + (($nuas * 40)/100));
+                }
+                if($nangka < 45){
+                    $nhuruf = 'E';
+                    $nipk += 0 * $item->bobot_mata_kuliah;
+                    $indexvsks = 0 * $item->bobot_mata_kuliah;
+                    $index = 0;
+                }elseif($nangka > 44 && $nangka<= 59){
+                    $nhuruf = 'D';
+                    $nipk += 1 * $item->bobot_mata_kuliah;
+                    $indexvsks = 1 * $item->bobot_mata_kuliah;
+                    $index = 1;
+                }elseif($nangka > 59 && $nangka<= 69){
+                    $nhuruf = 'C';
+                    $nipk += 2 * $item->bobot_mata_kuliah;
+                    $indexvsks = 2 * $item->bobot_mata_kuliah;
+                    $index = 2;
+                }elseif($nangka > 69 && $nangka<= 79){
+                    $nhuruf = 'B';
+                    $nipk += 3 * $item->bobot_mata_kuliah;
+                    $indexvsks = 3 * $item->bobot_mata_kuliah;
+                    $index = 3;
+                }elseif($nangka > 79 && $nangka<= 100){
+                    $nhuruf = 'A';
+                    $nipk += 4 * $item->bobot_mata_kuliah;
+                    $indexvsks = 4 * $item->bobot_mata_kuliah;
+                    $index = 4;
+                }else{
+                    $nhuruf = 'E';
+                    $nipk += 0 * $item->bobot_mata_kuliah;
+                    $indexvsks = 0 * $item->bobot_mata_kuliah;
+                    $index = 0;
+                }
+            }
+            $nipa = $nipk / $sks;
+            $nipg[] = $nipk / $sks;
+        }
+        return [round(array_sum($nipg) / count($nipg) ,2) , $nipa ? $nipa : 0 , $t_sks ? $t_sks:0];
+    }
+
     public function getSemester(){
         return SemesterModel::where('status_semester','=', 'enable')->first();
     }

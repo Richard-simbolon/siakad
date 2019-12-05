@@ -85,7 +85,7 @@
                                     </div>
                                     <div class="kt-widget__details">
                                         <span class="kt-widget__title">IP Kumulatif</span>
-                                        <span class="kt-widget__value">{{$ipk}}</span>
+                                        <span class="kt-widget__value">{{$ip[0]}}</span>
                                     </div>
                                 </div>
                                 <div class="kt-widget__item">
@@ -94,7 +94,7 @@
                                     </div>
                                     <div class="kt-widget__details">
                                         <span class="kt-widget__title">IP Semester</span>
-                                        <span class="kt-widget__value">{{$ips}}</span>
+                                        <span class="kt-widget__value">{{$ip[1]}}</span>
                                     </div>
                                 </div>
                                 <div class="kt-widget__item">
@@ -112,7 +112,7 @@
                                     </div>
                                     <div class="kt-widget__details">
                                         <span class="kt-widget__title">Sisa SKS</span>
-                                        <span class="kt-widget__value">{{$total_sks_kurikulum - $total_sks_diambil}}</span>
+                                        <span class="kt-widget__value">{{$total_sks_kurikulum - $ip[2]}}</span>
                                     </div>
                                 </div>
 

@@ -35,17 +35,28 @@ class HomeController extends Controller
         $semester_aktif = SemesterModel::where('status_semester' , 'enable')->first();
         
         if(strtolower($login_type)=="mahasiswa"){
+
+            $kurikulum = MahasiswaModel::join('master_kelas' ,'master_kelas.id' ,'mahasiswa.kelas_id')
+            ->select('master_kelas.*','mahasiswa.nama','mahasiswa.id')
+            ->where('nim' , Auth::user()->id)->first();
             $data = MahasiswaModel::where('nim' , '=', Auth::user()->id)
                 ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')
                 ->join('master_angkatan', 'master_angkatan.id', '=', 'mahasiswa.angkatan')
                 ->join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
                 ->select('mahasiswa.id', 'mahasiswa.nik', 'mahasiswa.nama', 'mahasiswa.nim','mahasiswa.email','mahasiswa.angkatan', 'master_kelas.title as kelas', 'master_angkatan.title as angkatan', 'master_jurusan.title as jurusan')
                 ->first();
-
             $semester = SemesterModel::where('status_semester','=', 'enable')->first();
             $id = MahasiswaModel::where('nim' , Auth::user()->id)->first();
             //echo 'ip_mhs_proc('.$id->id.' , '.$id->kelas_id.' ,'.$semester_aktif->id.')'; exit;
-            $data_nilai = DB::select('call ip_mhs_proc('.$id->id.' , '.$id->kelas_id.' ,'.$semester_aktif->id.')');
+            $data_nilai = DB::select('call profile_ip_mhs_proc('.$id->id.' , '.$kurikulum->kurikulum_id.')');
+            if(count($data_nilai) > 0) {
+                $ip = $this->generate_ip($data_nilai , $semester->id);
+            }else{
+                $ip = [0,0,0];
+            }
+            //print_r([0,0,0]);
+            //print_r($ip); exit;
+            /*
             $nilai = 0;
             $sks = 0;
             $ips = 0;
@@ -65,8 +76,11 @@ class HomeController extends Controller
             }
             $total_sks_diambil = $sks;
             $total_sks_kurikulum = DB::table('view_total_bobot_matakuliah')->select('total_sks')->where('kelas_id' , $id->kelas_id)->first()->total_sks;
-            $ipk = $nilai && $sks ? round($nilai / $sks, 2) : 0;
-            return view('home', compact('data','semester' ,'ipk' ,'total_sks_diambil' , 'total_sks_kurikulum' , 'ips'));
+            $ipk = $nilai && $sks ? round($nilai / $sks, 2) : 0;*/
+
+            $total_sks_kurikulum = DB::table('view_total_bobot_matakuliah')->select('total_sks')->where('kelas_id' , $id->kelas_id)->first()->total_sks;
+
+            return view('home', compact('data','semester' ,'ip' , 'total_sks_kurikulum'));
 
         }else if(strtolower($login_type)=="dosen") {
             $data = DosenModel::where('nidn_nup_nidk' , '=', Auth::user()->id)
