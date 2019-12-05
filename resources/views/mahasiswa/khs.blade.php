@@ -138,10 +138,10 @@
                                 <th style="text-align: center;vertical-align: middle;border-right-width: 1px;" rowspan="2">SKS * Index</th>
                             </tr>
                             <tr>
-                                    <th style="text-align: center">Angka</th>
-                                    <th style="text-align: center">Huruf</th>
-                                    <th style="text-align: center;border-right-width: 1px;">Index</th>
-                                </tr>
+                                <th style="text-align: center">Angka</th>
+                                <th style="text-align: center">Huruf</th>
+                                <th style="text-align: center;border-right-width: 1px;">Index</th>
+                            </tr>
                             </thead>
                             <tbody id="body-khs">
                                 <?php $i = 0;

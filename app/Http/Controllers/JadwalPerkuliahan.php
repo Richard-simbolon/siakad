@@ -200,8 +200,9 @@ class JadwalPerkuliahan extends Controller
                 $sks += $item->bobot_mata_kuliah;
 
                 $nangka = 0;
+                $index = 0;
+                $indexvsks = 0;
                 $nhuruf = 'E';
-
                 $nuts = $item->nilai_uts > 0 ? $item->nilai_uts : 0;
                 $nuas = $item->nilai_uas > 0 ? $item->nilai_uas : 0;
                 $ntgs = $item->nilai_tugas > 0 ? $item->nilai_tugas : 0;
@@ -214,21 +215,32 @@ class JadwalPerkuliahan extends Controller
                 if($nangka < 45){
                     $nhuruf = 'E';
                     $nipk += 0 * $item->bobot_mata_kuliah;
+                    $indexvsks = 0 * $item->bobot_mata_kuliah;
+                    $index = 0;
                 }elseif($nangka > 44 && $nangka<= 59){
                     $nhuruf = 'D';
                     $nipk += 1 * $item->bobot_mata_kuliah;
+                    $indexvsks = 1 * $item->bobot_mata_kuliah;
+                    $index = 1;
                 }elseif($nangka > 59 && $nangka<= 69){
                     $nhuruf = 'C';
                     $nipk += 2 * $item->bobot_mata_kuliah;
+                    $indexvsks = 2 * $item->bobot_mata_kuliah;
+                    $index = 2;
                 }elseif($nangka > 69 && $nangka<= 79){
                     $nhuruf = 'B';
                     $nipk += 3 * $item->bobot_mata_kuliah;
+                    $indexvsks = 3 * $item->bobot_mata_kuliah;
+                    $index = 3;
                 }elseif($nangka > 79 && $nangka<= 100){
                     $nhuruf = 'A';
                     $nipk += 4 * $item->bobot_mata_kuliah;
+                    $indexvsks = 4 * $item->bobot_mata_kuliah;
+                    $index = 4;
                 }else{
                     $nhuruf = 'E';
                     $nipk += 0 * $item->bobot_mata_kuliah;
+                    $index = 5;
                 }
                 
                 $html .= '
@@ -237,11 +249,10 @@ class JadwalPerkuliahan extends Controller
                             <td style="text-align: center">'.$item->kode_mata_kuliah.'</td>
                             <td style="text-align: center">'.$item->nama_mata_kuliah.'</td>
                             <td style="text-align: center">'.$item->bobot_mata_kuliah.'</td>
-                            <td style="text-align: center">'.$item->nilai_uts.'</td>
-                            <td style="text-align: center">'.$item->nilai_tugas.'</td>
-                            <td style="text-align: center">'.$item->nilai_uas.'</td>
                             <td style="text-align: center">'.$nangka.'</td>
                             <td style="text-align: center">'.$nhuruf.'</td>
+                            <td style="text-align: center">'.$index.'</td>
+                            <td style="text-align: center">'.$indexvsks.'</td>
                         </tr>
                 ';
             }
@@ -256,7 +267,7 @@ class JadwalPerkuliahan extends Controller
                     </tr>';
         }else{
             $html = '<tr>
-                        <td colspan="5" style="text-align: center">Tidak ada data.</td>
+                        <td colspan="8" style="text-align: center">Tidak ada data.</td>
                     </tr>';
         }
 
