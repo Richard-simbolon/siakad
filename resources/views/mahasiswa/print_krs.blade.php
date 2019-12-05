@@ -41,17 +41,17 @@
                 <tr>
                     <td>Angkatan</td>
                     <td>:</td>
-                    <td><b>{{$profile->angkatan_title}}</b></td>
+                    <td><b>{{$mahasiswa->angkatan_title}}</b></td>
                 </tr>
                 <tr>
                     <td>Jurusan</td>
                     <td>:</td>
-                    <td><b>{{$profile->program_studi_title}}</b></td>
+                    <td><b>{{$mahasiswa->program_studi_title}}</b></td>
                 </tr>
                 <tr>
                     <td>Kelas</td>
                     <td>:</td>
-                    <td><b>{{$profile->kelas_title}}</b></td>
+                    <td><b>{{$mahasiswa->kelas_title}}</b></td>
                 </tr>
                 
             </tbody>

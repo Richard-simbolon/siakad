@@ -45,6 +45,7 @@ class JadwalPerkuliahan extends Controller
         $data = JadwalPerkuliahanModel::where('kelas_id' , $mahasiswa->kelas_id)
         ->where('semester_id' , $semester_active->id)
         ->get();
+        $profile = DB::table('view_profile_mahasiswa')->where('id' , $mahasiswa->id)->first();
         $select2 = JadwalPerkuliahanModel::select('semester_id' ,'semseter_title')
         ->where('kelas_id' , $mahasiswa->kelas_id)
         ->groupBy('semester_id')
@@ -53,7 +54,7 @@ class JadwalPerkuliahan extends Controller
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $semester = SemesterModel::where('status_semester','=', 'enable')->first();
 
-        return view("mahasiswa/JadwalPerkuliahan" , compact("data" , "title" ,"mahasiswa" ,'select2', 'semester'));
+        return view("mahasiswa/JadwalPerkuliahan" , compact("data" , "title" ,"mahasiswa" ,'select2', 'semester' ,"profile"));
 
     }
     public function create(){
@@ -112,6 +113,8 @@ class JadwalPerkuliahan extends Controller
     {
         $semester_active = SemesterModel::where('status_semester' ,'enable')->first();
         $mahasiswa = MahasiswaModel::where('nim' , Auth::user()->id)->first();
+        $profile = DB::table('view_profile_mahasiswa')->where('id' , $mahasiswa->id)->first();
+        //print_r($profile); exit;
         $data = JadwalPerkuliahanModel::where('kelas_id' , $mahasiswa->kelas_id)
         ->where('semester_id' , $semester_active->id)
         ->get();
@@ -121,7 +124,7 @@ class JadwalPerkuliahan extends Controller
         ->orderBy('semester_id' ,'ASC')
         ->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        return view("mahasiswa/krs" , compact("data" , "title" ,"mahasiswa" ,'select2'));
+        return view("mahasiswa/krs" , compact("data" , "title" ,"mahasiswa" ,'select2' ,"profile" ,"semester_active"));
 
     }
 
@@ -142,6 +145,7 @@ class JadwalPerkuliahan extends Controller
         })
         ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah','mata_kuliah.tipe_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->where('nilai_mahasiswa.semester_id' , $semester_aktif->id)->get();
+        //print_r($data); exit;
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         return view("mahasiswa/khs" , compact("data" , "title" ,"mahasiswa" , "master" ,"semester_aktif"));
 
@@ -164,7 +168,7 @@ class JadwalPerkuliahan extends Controller
         })
         ->leftJoin('master_semester' , 'master_semester.id' ,'=' , 'nilai_mahasiswa.semester_id')
         ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah', 'nilai_mahasiswa.semester_id', 'master_semester.title as semester_title')
-        ->where('kurikulum.id' , $kurikulum->kurikulum_id)->orderby('nilai_mahasiswa.semester_id' , 'ASC')->get();
+        ->where('kurikulum.id' , $kurikulum->kurikulum_id)->orderby('nilai_mahasiswa.semester_id' , 'DESC')->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         return view("mahasiswa/transkrip" , compact("data" , "title" ,"mahasiswa"));
 

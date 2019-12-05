@@ -61,12 +61,7 @@
                 <!--begin::Form-->
                 <div class="kt-portlet__body">
                     <div class="col-lg-12">
-                        <?php
-                            if(count($data) > 0){
-                                $profile = $data[0];
-                                //print_r($profile); 
-                            }    
-                        ?>
+                        
                             <div class="row">
                                 <div class="col-lg-6">
                                     <table cellpadding="5">
@@ -94,12 +89,12 @@
                                         <tbody><tr>
                                             <td>Tahun Akademik</td>
                                             <td>:</td>
-                                            <td><b>{{$profile->semseter_title}}</b></td>
+                                            <td><b>{{$semester_active->title}}</b></td>
                                         </tr>
                                         <tr>
                                             <td>Jurusan</td>
                                             <td>:</td>
-                                            <td><b>{{$profile->program_studi_title}}</b></td>
+                                            <td><b>{{$profile->jurusan_title}}</b></td>
                                         </tr>
                                         <tr>
                                             <td>Kelas</td>

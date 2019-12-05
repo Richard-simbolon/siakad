@@ -148,6 +148,10 @@
                                     $sks = 0;
                                     $nipk = 0;
                                 ?>
+                                @if (count($data)) > 0
+                                    
+                                
+                                
                                 @foreach ($data as $item)
                                 <?php $i++;
                                 $sks += $item->bobot_mata_kuliah;
@@ -219,6 +223,12 @@
                                     <td style="text-align: left" colspan="7"><b>IP</b></td>
                                     <td style="text-align: center"><b>{{ round($nipk / $sks ,2)}}</b></td>
                                 </tr>
+                                @else
+                                <tr>
+                                       
+                                    <td style="text-align: center" colspan="9">Tidak ada matakuliah</td>
+                                </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
