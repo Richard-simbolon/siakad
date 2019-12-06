@@ -390,36 +390,49 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': $('#csrf_').val()
             }
         });
-        $.ajax({
-            type:'POST',
-            //dataType:'json',
-            url:url_action,
-            data:$(this).closest('form').serialize(),
-            success:function(result) {
-                var res = JSON.parse(result);
-                if(res.status == 'error'){
-                    var text = '';
-                    $.each(res.message, function( index, value ) {
-                        console.log(value);
-                        text += '<p class="error">'+ value[0]+'</p>';
-                    });
-                    swal.fire({
-                        "title": "",
-                        "html": text,
-                        "type": "error",
-                        "confirmButtonClass": "btn btn-secondary"
-                    });
-                }else{
-                    swal.fire({
-                        "title": "",
-                        "text": res.message,
-                        "type": res.status,
-                        "confirmButtonClass": "btn btn-secondary"
+        var _this = $(this).closest('form');
+        Swal.fire({
+            title: 'Update data',
+            text: "Anda Yakin akan mngubah data ?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#08976d',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Update'
+          }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        type:'POST',
+                        //dataType:'json',
+                        url:url_action,
+                        data:$(this).closest('form').serialize(),
+                        success:function(result) {
+                            var res = JSON.parse(result);
+                            if(res.status == 'error'){
+                                var text = '';
+                                $.each(res.message, function( index, value ) {
+                                    console.log(value);
+                                    text += '<p class="error">'+ value[0]+'</p>';
+                                });
+                                swal.fire({
+                                    "title": "",
+                                    "html": text,
+                                    "type": "error",
+                                    "confirmButtonClass": "btn btn-secondary"
+                                });
+                            }else{
+                                swal.fire({
+                                    "title": "",
+                                    "text": res.message,
+                                    "type": res.status,
+                                    "confirmButtonClass": "btn btn-secondary"
+                                });
+                            }
+
+                        }
                     });
                 }
-
-            }
-         });
+          })
     });
 
     $(document).on('click' , '#btn-search-kelas-perkuliahan' , function(){

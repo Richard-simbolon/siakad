@@ -106,10 +106,11 @@ class KelasPerkuliahan extends Controller
 
     public function save_kelas_perkuliahan(Request $request){
         $post = $request->all();
-
+        //print_r($post); exit;
         $validation = Validator::make($post, [
             'semester_id' => 'required',
             'angkatan_id' => 'required',
+            'pertemuan' => 'numeric',
             'program_studi_id' => 'required',
             'kelas_id' => 'required'
         ]);
@@ -154,14 +155,27 @@ class KelasPerkuliahan extends Controller
             $items = [];
             // save to table kelas perkuliahan mata kuliah
             foreach($detail as $item){
+
+                $validation2 = Validator::make($items, [
+                    'dosen_id' => 'required',
+                    'hari_id' => 'required',
+                    'ruangan' => 'numeric',
+                    'jam' => 'required',
+                    'pertemuan' => 'required'
+                ]);
+        
+                if ($validation2->fails()) {
+                    return json_encode(['status'=> 'error', 'message'=> $validation->messages()]);
+                }
+
                 $item['kelas_perkuliahan_id'] = $perkuliahanid->id;
                 $items[] = $item;
             }
-            //print_r($items);
             DB::table('kelas_perkuliahan_mata_kuliah')->insert($items);
 
             DB::commit();
             return json_encode(array('status' => 'success' , 'message' => 'Data berhasil disimpan.'));
+
         } catch(\Exception $e){
             DB::rollBack(); 
             //throw $e;
@@ -294,9 +308,11 @@ class KelasPerkuliahan extends Controller
                             </select>
                         </td>
                         <td align="center">
-                            <select class="form-control form-control-sm kt-select2" name="item['.$item->id.'][ruangan]">
-                                '.$ruangan_html.'
-                            </select>
+                            <input type="text" class="form-control" name="item['.$item->id.'][ruangan]">
+                           <!-- <select class="form-control form-control-sm kt-select2" name="item[.$item->id.][ruangan]">
+                                .$ruangan_html.
+                            </select>-->
+
                         </td>
                         <td align="center">
                             <div class="input-group timepicker">
