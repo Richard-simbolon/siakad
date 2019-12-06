@@ -83,34 +83,29 @@
                             &nbsp; KARTU RENCANA STUDI (KRS)
                         </h3>
                     </div>
+                    <!--
                     <div class="kt-portlet__head-toolbar">
                         <div class="dropdown dropdown-inline show">
                                 <button type="button" class="btn btn-outline-success"><i class="la la-print"></i> Cetak KRS</button>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
                 <!--begin::Form-->
                 <div class="kt-portlet__body">
                     <div class="col-lg-12">
-                        <?php
-                            if(count($data) > 0){
-                                $profile = $data[0];
-                                //print_r($profile); 
-                            }    
-                        ?>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <table cellpadding="5">
                                         <tbody>
                                         <tr>
-                                            <td width="107px">Nim</td>
+                                            <td width="107px">Nirm</td>
                                             <td>:</td>
-                                            <td><b>{{$mahasiswa->nim}}</b></td>
+                                            <td><b>{{$profile->nim}}</b></td>
                                         </tr>
                                         <tr>
                                             <td width="107px">Nama</td>
                                             <td>:</td>
-                                            <td><b>{{$mahasiswa->nama}}</b></td>
+                                            <td><b>{{$profile->nama}}</b></td>
                                         </tr>
                                         <tr>
                                             <td>Angkatan</td>
@@ -125,12 +120,12 @@
                                         <tbody><tr>
                                             <td>Tahun Akademik</td>
                                             <td>:</td>
-                                            <td><b>{{$profile->semseter_title}}</b></td>
+                                            <td><b>{{$semester_active->title}}</b></td>
                                         </tr>
                                         <tr>
                                             <td>Jurusan</td>
                                             <td>:</td>
-                                            <td><b>{{$profile->program_studi_title}}</b></td>
+                                            <td><b>{{$profile->jurusan_title}}</b></td>
                                         </tr>
                                         <tr>
                                             <td>Kelas</td>
@@ -158,24 +153,32 @@
                                 <?php $i = 0;
                                     $sks = 0;
                                 ?>
-                                @foreach ($data as $item)
-                                <?php $i++;
-                                $sks += $item->bobot_mata_kuliah;
-                                ?>
+                                @if (count($data) > 0 )
+                                    @foreach ($data as $item)
+                                    <?php $i++;
+                                    $sks += $item->bobot_mata_kuliah;
+                                    ?>
+                                        <tr>
+                                            <td style="text-align: center">{{$i}}</td>
+                                            <td style="text-align: center">{{$item->kode_mata_kuliah}}</td>
+                                            <td style="text-align: center">{{$item->matakuliah_title}}</td>
+                                            <td style="text-align: center">{{$item->kelas_title}}</td>
+                                            <td style="text-align: center">{{$item->bobot_mata_kuliah}}</td>
+                                            <td style="text-align: center">{{$item->nama}}</td>
+                                        </tr>
+                                    @endforeach
                                     <tr>
-                                        <td style="text-align: center">{{$i}}</td>
-                                        <td style="text-align: center">{{$item->kode_mata_kuliah}}</td>
-                                        <td style="text-align: center">{{$item->matakuliah_title}}</td>
-                                        <td style="text-align: center">{{$item->kelas_title}}</td>
-                                        <td style="text-align: center">{{$item->bobot_mata_kuliah}}</td>
-                                        <td style="text-align: center">{{$item->nama}}</td>
+                                        <td style="text-align: center" colspan="4"><b>Total SKS</b></td>
+                                        <td style="text-align: center" ><b>{{$sks}}</b></td>
+                                        <td style="text-align: center" ></td>
                                     </tr>
-                                @endforeach
+                                @else
                                 <tr>
-                                    <td style="text-align: center" colspan="4"><b>Total SKS</b></td>
-                                    <td style="text-align: center" ><b>{{$sks}}</b></td>
-                                    <td style="text-align: center" ></td>
-                                </tr>
+                                        <td style="text-align: center" colspan="6"><b>Kelas Perkuliahan tidak tersedia</b></td>
+                                        
+                                    </tr>
+                                @endif
+                                
                             </tbody>
                         </table>
                     </div>

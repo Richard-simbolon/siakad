@@ -63,7 +63,24 @@ $(document).ready(function(){
             }
          });
     });
-    
+
+    $(document).on('change' , '#admin-search-khs' , function(){
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('#csrf_').val()
+            }
+        });
+        $.ajax({
+            type:'POST',
+            url:'/admin/khs_load',
+            data:{id:$(this).val() , uid : $('#global_id').val()},
+            success:function(result) {
+                var res = JSON.parse(result);
+                $('#body-khs').html(res.html)
+            }
+         });
+    });
+
     $(document).on('click' , '#updatemahasiswa' , function(){
          Swal.fire({
             title: 'Update data',
