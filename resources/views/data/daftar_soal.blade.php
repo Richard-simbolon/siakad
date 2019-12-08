@@ -15,37 +15,18 @@
                             <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="" class="kt-subheader__breadcrumbs-link">
-                                Nilai</a>
-                            <span class="kt-subheader__breadcrumbs-separator"></span>
-                            <a href="{{url()->current()}}" class="kt-subheader__breadcrumbs-link">
-                                Daftar </a>
+                                Soal Ujian</a>
                         </div>
                     </div>
                 </div>
                 <div class="kt-subheader__toolbar">
                     <div class="kt-subheader__wrapper">
-                        <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
+                        <a href="{{url('dosen/uploadsoal/create')}}" class="btn btn-success"> <i class="la la-plus"></i> Tambah</a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
-            <input type="hidden" id="hdnjadwalIsiNilai" value="{{count($jadwalIsiNilai) == 0 ? "false" : "true"}}" >
-            @if(count($jadwalIsiNilai) == 0 )
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="alert alert-light alert-warning" style="background-color: #ffb82261;" role="alert">
-                            <div class="alert-icon">
-                                <i class="flaticon-warning" style="color:#000000;"></i>
-                            </div>
-                            <div class="alert-text">
-                                <h5>Pemberitahuan</h5>
-                                <p>Saat ini jadwal pengisian nilai untuk semester {{Auth::user()->semester}} belum dibuka. </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
             <div class="row">
                 <div class="col-xl-12 order-lg-1 order-xl-1">
                     <div class="kt-portlet">
@@ -59,84 +40,95 @@
                                     </g>
                                 </svg>
                                 <h3 class="kt-portlet__head-title">
-                                    &nbsp;Nilai Perkuliahan
+                                    &nbsp;Daftar Soal
                                 </h3>
                             </div>
                         </div>
                         <!--begin::Form-->
-                        <div class="kt-portlet__body">
+                        <div class="kt-portlet__body" style="padding-bottom: 0px">
                             <div class="row">
-                                <div class="col-xl-2">
-                                    <div class="form-group">
-                                        <label>Tahun Akademik</label>
-                                        <div class="form-group">
-                                            <select name="semester_id" id="search-semester" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
-                                                <option value="">Select</option>
-                                                @foreach ($master['semester'] as $item)
-                                                    <option value="{{$item['id']}}" > {{$item['title']}} </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-2">
-                                    <div class="form-group">
-                                        <label>Angkatan</label>
-                                        <select id="angkatan-mahasiswa" name="angkatan_id" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
-                                            <option value="">Select</option>
-                                            @foreach ($master['angkatan'] as $item)
-                                                <option value="{{$item['id']}}" > {{$item['title']}} </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
                                 <div class="col-xl-4">
                                     <div class="form-group">
-                                        <label>Jurusan</label>
-                                        <select name="jurusan_id" id="jurusan-mahasiswa" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
-                                            <option value="">-- Pilih Jurusan --</option>
+                                        <label>Program Studi</label>
+                                        <select name="program_studi_id" id="jurusan-mahasiswa-admin" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
+                                            <option value=" ">-- Pilih Program Studi --</option>
                                             @foreach ($master['jurusan'] as $item)
                                                 <option value="{{$item['id']}}">{{$item['title']}}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
-                                
-                                <div class="col-xl-2">
-                                    <label class="select2-label">Kelas</label>
+                                <div class="col-xl-4">
                                     <div class="form-group">
-                                        <select name="kelas_id" id="kelas-mahasiswa" class="form-control search-kurikulum kt-select2 looping_class_input">
-                                            <option value="">-- Pilih Kelas --</option>
-                                        
+                                        <label>Semester</label>
+                                        <select name="semester_id" id="semester-ujian-admin" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
+                                            <option value=" ">-- Pilih Program Studi --</option>
+                                            @foreach ($master['semester'] as $item)
+                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4">
+                                    <div class="form-group">
+                                        <label>Angkatan</label>
+                                        <select name="program_studi_id" id="angkatan-mahasiswa-admin" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
+                                            <option value=" ">-- Pilih Angkatan --</option>
+                                            @foreach ($master['angkatan'] as $item)
+                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-4">
+                                    <div class="form-group">
+                                        <label>Kelas</label>
+                                        <select name="program_studi_id" id="kelas-mahasiswa-admin" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
+                                            <option value=" ">-- Pilih Kelas --</option>
+                                            @foreach ($master['kelas'] as $item)
+                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4">
+                                    <div class="form-group form-group-last">
+                                        <label>Jenis</label>
+                                        <select name="program_studi_id" id="jenis_ujian-admin" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
+                                            <option value=" ">-- Pilih Jenis --</option>
+                                            <option value="uts">UTS</option>
+                                            <option value="uas">UAS</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="kt-form__actions">
-                                <button class="btn btn-success btn-sm" id="btn-search-nilai-matakuliah"><i class="flaticon-search"></i>Tampilkan</button>
+                                <button class="btn btn-success btn-wide" id="search-button-soal-admin"><i class="flaticon-search"></i>Cari</button>
                             </div>
-                            <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
+                        </div>
 
+                        <div class="kt-portlet__body">
                             <div class="row">
                                 <div class="col-lg-12" id="datatable_display">
-                                    <table class="dataTable table table-striped table-bordered table-hover responsive" id="{{count($jadwalIsiNilai) == 0 ? "nilaidatatableDisable" : "nilaidatatable"}}">
+                                    <table class="dataTable table table-striped table-bordered table-hover responsive" id="daftarsoalujian_admin">
                                         <thead>
                                         <tr>
-                                            {{-- <th style="text-align: center">No</th> --}}
-                                            <th style="text-align: center">Kode MK</th>
-                                            <th style="text-align: center">Mata Kuliah</th>
-                                            <th style="text-align: center">Angkatan</th>
+                                            <th style="text-align: center">No</th>
+                                            <th>Kode</th>
+                                            <th>Nama Matakuliah</th>
+                                            <th>Dosen</th>
+                                            <th>Program Studi</th>
+                                            <th>Angkatan</th>
                                             <th>Semester</th>
-                                            <th>Jurusan </th>
-                                            <th style="text-align: center">Kelas</th>
-                                            <th style="text-align: center">Dosen</th>
-                                            @if(count($jadwalIsiNilai) > 0 )
-                                                <th>Action</th>
-                                            @endif
+                                            <th>Kelas </th>
+                                            <th>Jenis</th>
+                                            <th>Aksi</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                               
+                                                
                                         </tbody>
                                     </table>
                                 </div>
@@ -150,12 +142,13 @@
     </div>
     <style>
         .m-content{width:100%}
+        
     </style>
 
 @endsection
 
 
 @section('js')
-    <script src="{{asset('assets/js/pages/dosen/inputnilai.js')}}" type="text/javascript"></script>
+    <script src="{{asset('assets/js/pages/uploadsoalujian/index.js')}}" type="text/javascript"></script>
 @endsection
 

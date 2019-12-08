@@ -1,5 +1,10 @@
 <?php
 namespace App\Http\Controllers;
+use App\AngkatanModel;
+use App\KelasModel;
+use App\SemesterModel;
+use App\SoalUjianModel;
+use App\StatusMahasiswaModel;
 use App\SumberGajiModel;
 use App\TahunAjaranModel;
 use Illuminate\Support\Facades\DB;
@@ -780,6 +785,32 @@ class Dosen extends Controller
         $where = ['dosen_id' => $post['dosen_id'], 'row_status' =>'active', "status_dosen"=>"Penguji"];
 
         return Datatables::of(DB::table('view_tugas_akhir')->where($where)->get())->make(true);
+    }
+
+    public function daftarsoal(){
+        $master = array(
+            'status' => StatusMahasiswaModel::where('row_status' , 'active')->get(),
+            'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
+            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'kelas' => KelasModel::where('row_status' , 'active')->get(),
+            'dosen' => DosenModel::where('row_status', 'active'),
+            'semester'=>SemesterModel::where('row_status', 'active')->get(),
+        );
+
+        return view("data/daftar_soal", compact('master'));
+    }
+
+    public function paging_soal(Request $request){
+        return Datatables::of(SoalUjianModel::where('soal_ujian.row_status', '!=', 'deleted')
+            ->join('mata_kuliah', 'mata_kuliah.id', 'soal_ujian.mata_kuliah_id')
+            ->join('master_jurusan', 'master_jurusan.id', 'soal_ujian.jurusan_id')
+            ->join('master_semester', 'master_semester.id', 'soal_ujian.semester_id')
+            ->join('master_kelas', 'master_kelas.id', 'soal_ujian.kelas_id')
+            ->join('master_angkatan', 'master_angkatan.id', 'soal_ujian.angkatan_id')
+            ->join('dosen', 'dosen.id', 'soal_ujian.dosen_id')
+            ->select('soal_ujian.id','soal_ujian.jenis_ujian', 'dosen.nama', 'soal_ujian.nama_file', 'mata_kuliah.kode_mata_kuliah','master_jurusan.title as jurusan','master_angkatan.title as angkatan','mata_kuliah.nama_mata_kuliah', 'master_semester.title as semester', 'master_kelas.title as kelas')
+            ->orderBy('soal_ujian.id', 'desc')
+            ->get())->addIndexColumn()->make(true);
     }
 }
         

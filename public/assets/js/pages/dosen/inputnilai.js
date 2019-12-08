@@ -31,7 +31,8 @@ $(document).ready(function() {
     });
 
     $('#nilaidatatable').DataTable({
-        "pageLength": 50,responsive: true,
+        pageLength: 50,
+        responsive: true,
         processing: true,
         serverSide: true,
         language:{
@@ -59,8 +60,7 @@ $(document).ready(function() {
             { data: 'nama_semester', name: 'nama_semester' },
             { data: 'nama_jurusan', name: 'nama_jurusan' },
             { data: 'nama_kelas', name: 'nama_kelas' },
-            { data: 'nama_dosen', name: 'nama_dosen' },
-           
+            { data: 'nama_dosen', name: 'nama_dosen' }
         ],
         columnDefs: [
             {
@@ -68,10 +68,53 @@ $(document).ready(function() {
                 title: 'Actions',
                 orderable: false,
                 render: function(data, type, full, meta) {
-                    return `
-                    <a class="btn" href="inputnilai/edit/`+full.id+`"><i class="la la-edit"></i> Isi Nilai</a>`;
+                    return `<a class="btn" href="inputnilai/edit/`+full.id+`"><i class="la la-edit"></i> Isi Nilai</a>`;
                 },
             },{
+                targets: 0,
+                className: "text-center"
+            },{
+                targets: 1,
+                className: "text-center"
+            }
+
+        ],
+    });
+
+    $('#nilaidatatableDisable').DataTable({
+        pageLength: 50,
+        responsive: true,
+        processing: true,
+        serverSide: true,
+        language:{
+            url: '/assets/lang/id.json'
+        },
+        ajax: {
+            url:'inputnilai/paging',
+            type:"POST",
+            //data:{"_token": $('#csrf_').val(),'table':key},
+            data: function ( d ) {
+                var data = {};
+                $('.looping_class_input').each(function(){
+                    if($(this).val() != '' || $(this).val() != null || $(this).val() != undefined || $(this).val() != '0' ){
+                        data[$(this).attr('name')] = $(this).val();
+                    }
+                });
+                d.filter = data;
+                d._token = $('#csrf_').val()
+            }
+        },
+        columns: [
+            { data: 'kode_mata_kuliah', name: 'kode_mata_kuliah'},
+            { data: 'nama_mata_kuliah', name: 'nama_mata_kuliah'},
+            { data: 'nama_angkatan', name: 'nama_angkatan' },
+            { data: 'nama_semester', name: 'nama_semester' },
+            { data: 'nama_jurusan', name: 'nama_jurusan' },
+            { data: 'nama_kelas', name: 'nama_kelas' },
+            { data: 'nama_dosen', name: 'nama_dosen' }
+        ],
+        columnDefs: [
+            {
                 targets: 0,
                 className: "text-center"
             },{

@@ -50,12 +50,12 @@
                             </svg>
                         </span>
                         <h3 class="kt-portlet__head-title">
-                            &nbsp; Jadwal Perkuliahan
+                            Jadwal Perkuliahan
                         </h3>
                     </div>
                     <div class="kt-portlet__head-toolbar">
                         <div class="dropdown dropdown-inline show">
-                                <button type="button" class="btn btn-outline-success"><i class="la la-print"></i> Cetak Kartu Ujian</button>
+                            <a href="{{url('/data/mahasiswa/kartuujian')}}" class="btn btn-outline-success"><i class="la la-print"></i> Cetak Kartu Ujian</a>
                         </div>
                     </div>
                 </div>

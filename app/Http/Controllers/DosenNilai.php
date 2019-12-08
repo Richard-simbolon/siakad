@@ -47,12 +47,20 @@ class DosenNilai extends Controller
             'kelas' => KelasModel::where('row_status' , 'active')->get(),
             'semester'=> SemesterModel::where('row_status', 'active')->get(),
         );
+
+        $date = date('Y-m-d');
+        $jadwalIsiNilai = SemesterModel::where('row_status', 'active')
+            ->where('status_semester', 'enable')
+            ->where('tanggal_mulai_penilaian','<=', $date)
+            ->where('tanggal_akhir_penilaian','>=', $date)
+            ->get();
+        
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $tableid = "KelasPerkuliahan";
         $table_display = DB::getSchemaBuilder()->getColumnListing(static::$tablename);
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
-        return view("dosen/nilai_mahasiswa" , compact("title" ,"table_display" ,"exclude" ,"Tableshow","tableid", "master"));
+        return view("dosen/nilai_mahasiswa" , compact("title" ,"table_display" ,"exclude" ,"Tableshow","tableid", "master","jadwalIsiNilai"));
     }
 
     public function create(){

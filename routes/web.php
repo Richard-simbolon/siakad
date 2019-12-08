@@ -184,6 +184,15 @@ Route::get('/data/jadwalujian/form/{id}', 'JadwalUjian@form')->name('index');
 Route::get('/data/kalenderakademik/get/{id}', 'KalenderAkademik@get')->name('get');
 Route::get('data/kalenderakademik/getall', 'KalenderAkademik@getall')->name('getall');
 
+//upload soal ujian
+Route::get('dosen/uploadsoal/create', 'DosenUploadUjian@create')->name('create');
+Route::get('/dosen/uploadsoal/edit/{id}', 'DosenUploadUjian@edit')->name('edit');
+Route::post('dosen/uploadsoal/save', 'DosenUploadUjian@save')->name('save');
+Route::post('dosen/uploadsoal/update', 'DosenUploadUjian@update')->name('update');
+Route::post('dosen/uploadsoal/delete', 'DosenUploadUjian@delete')->name('delete');
+Route::post('dosen/uploadsoal/paging', 'DosenUploadUjian@paging')->name('paging');
+Route::get('data/dosen/daftarsoal', 'Dosen@daftarsoal')->name('daftarsoal');
+Route::post('dosen/paging_soal', 'Dosen@paging_soal')->name('paging');
 
 $results = DB::select('select * from module');
 //print_r($results); exit;

@@ -4,6 +4,7 @@ use App\AngkatanModel;
 use App\DosenKeluargaModel;
 use App\DosenModel;
 use App\JenisPegawaiModel;
+use App\KelasPerkuliahanModel;
 use App\PendidikanModel;
 use App\StatusMahasiswaModel;
 use App\SumberGajiModel;
@@ -782,4 +783,5 @@ class DosenModule extends Controller
             ->where($where)
             ->get())->addIndexColumn()->make(true);
     }
+    
 }
