@@ -346,7 +346,7 @@ class JadwalPerkuliahan extends Controller
         ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah', 'nilai_mahasiswa.semester_id', 'master_semester.title as semester_title')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->orderby('nilai_mahasiswa.semester_id' , 'ASC')->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        $pdf = PDF::loadView('mahasiswa/print_transkrip', compact("data" , "title" ,"mahasiswa" , "master", "semester_aktif"));
+        $pdf = PDF::loadView('mahasiswa/print_transkrip', compact("data" , "title" ,"mahasiswa" ));
         return $pdf->download('TanskriNilai_'.'_'.Auth::user()->id.'_'.date('Y-m-d_H-i-s').'.pdf');
         //return view("mahasiswa/print_transkrip" , compact("data" , "title" ,"mahasiswa" , "master"));
 

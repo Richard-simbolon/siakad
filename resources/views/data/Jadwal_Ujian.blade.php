@@ -104,6 +104,7 @@
                                         <thead>
                                         <tr>
                                             {{-- <th style="text-align: center">No</th> --}}
+                                            <th style="text-align: center">Kode</th>
                                             <th style="text-align: center">Mata Kuliah</th>
                                             <th style="text-align: center">Angkatan</th>
                                             <th>Semester</th>
@@ -115,20 +116,6 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                                {{-- < ?$i = 0?>
-                                                @foreach ($data as $item)
-                                                < ? $i++ ?>
-                                                <tr>
-                                                    <td align="center">{{$i}}</td> 
-                                                    <td align="center">{{$item->nama_mata_kuliah}}</td>
-                                                    <td align="center">{{$item->nama_angkatan}}</td>
-                                                    <td>{{$item->nama_semester}}</td>
-                                                    <td style="vertical-align: center;">{{$item->nama_jurusan}}t</td>
-                                                    <td align="center">{{$item->nama_kelas}}</td>
-                                                    <td align="center">{{$item->nama_dosen}}</td>
-                                                    <td><a href="{{url('data/nilaimahasiswa/view/'. $item->id)}}" > edit/view </a></td>
-                                                </tr>
-                                                @endforeach --}}
                                         </tbody>
                                     </table>
                                 </div>

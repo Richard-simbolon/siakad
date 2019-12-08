@@ -15,10 +15,10 @@
                             <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="{{url('/master/matakuliah')}}" class="kt-subheader__breadcrumbs-link">
-                                Matakuliah </a>
+                                Jadwal Ujian </a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="{{url()->current()}}" class="kt-subheader__breadcrumbs-link">
-                                Edit </a>
+                                Tambah </a>
                         </div>
                     </div>
                 </div>
@@ -45,16 +45,16 @@
                                     </svg>
                                 </span> &nbsp;
                                 <h3 class="kt-portlet__head-title">
-                                    {{$title}}
+                                    Tambah Jadwal Ujian
                                 </h3>
                             </div>
                         </div>
 
                         <div class="kt-portlet__body">
                             <form class="kt-form kt-form--label-right" action="update" method="POST">
-                                <div class="kt-portlet__body">
+                                <div>
                                     <div class="kt-section kt-section--first">
-                                        <div class="kt-portlet__body">
+                                        <div>
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <div class="row">
@@ -71,7 +71,7 @@
                                                                         <td><b>{{$data->nama_dosen}}</b></td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td>Jurusan</td>
+                                                                        <td>Program Studi</td>
                                                                         <td>:</td>
                                                                         <td><b>{{$data->nama_jurusan}}</b></td>
                                                                     </tr>
@@ -111,9 +111,8 @@
                                                 </div>
                                                 <br/>
                                                 <br/>
-                                                <br/>
                                                 <div class="row">
-                                                    <div class="col-lg-6">
+                                                    <div class="col-lg-4">
                                                         <div class="form-group">
                                                             <label>Tanggal Ujian</label>
                                                             <div class="form-group">
@@ -121,11 +120,11 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-6">
+                                                    <div class="col-lg-3">
                                                         <div class="form-group">
                                                             <label>Jam</label>
                                                             <div class="form-group">
-                                                                <input type="text" value="{{$data->jam}}" name="jam" class="form-control m-input time-picker" placeholder="Pilih Jam" type="text"/>
+                                                                <input style="max-width: 150px;" type="text" value="{{$data->jam}}" name="jam" class="form-control m-input time-picker" placeholder="Pilih Jam"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -140,21 +139,21 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
+                                                <div class="kt-separator kt-separator--border-dashed kt-separator--space-sm kt-separator--portlet-fit"></div>
                                                 <div class="row">
                                                     <input type="hidden" name="kelas_perkuliahan_detail_id" value="{{$data->id}}" />
                                                     <input type="hidden" name="semester_id" value="{{$data->semester_id}}" />
                                                     <input type="hidden" name="angkatan_id" value="{{$data->angkatan_id}}" />
 
                                                     <div class="col-lg-12">
-                                                        <table class="table table-striped table-bordered table-hover responsive">
+                                                        <table class="dataTable table table-striped table-bordered table-hover responsive">
                                                             <thead>
                                                             <tr>
                                                                 <th style="text-align: center">No</th>
-                                                                <th style="text-align: center">Nama Mahasiswa</th>
-                                                                <th style="text-align: center">NIM</th>
+                                                                <th>Nama Mahasiswa</th>
+                                                                <th>NIM</th>
                                                                 <th>Jenis Kelamin</th>
-                                                                <th style="text-align: center">Ruangan</th>
+                                                                <th>Ruangan</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
@@ -165,9 +164,9 @@
                                                                     ?>
                                                                     <tr>
                                                                         <td align="center">{{$i}}</td> 
-                                                                        <td align="center">{{ucfirst($item->nama)}}</td>
-                                                                        <td align="center">{{ucfirst($item->nim)}}</td>
-                                                                        <td align="center">{{ucfirst($item->jk)}}</td>
+                                                                        <td>{{ucfirst($item->nama)}}</td>
+                                                                        <td>{{ucfirst($item->nim)}}</td>
+                                                                        <td>{{ucfirst($item->jk)}}</td>
                                                                         <td><input type="text" value="{{$item->ruangan}}" class="form-control" name="mahasiswa[{{$item->id}}][ruangan]" placeholder="Ruangan"></td>
                                                                         
                                                                     </tr>
@@ -176,10 +175,12 @@
                                                         </table>
                                                     </div>
                                                 </div>
+                                                <div class="kt-separator kt-separator--border-dashed kt-separator--space-sm kt-separator--portlet-fit"></div>
+                                                <br/>
                                                 <div class="root">
                                                     <div class="kt-form__actions">
+                                                        <a href="{{url('data/jadwalujian')}}" style="align:right"  class="btn btn-label-success"><i class="la la-arrow-left"></i>Kembali</a> &nbsp;
                                                         <button type="button" class="btn btn-success" id="save-jadwal-ujian"><i class="la la-save"></i>Simpan</button>
-                                                        <a href="{{url('data/jadwalujian')}}" style="align:right" type="button" class="btn btn-metal btn-outlane-metal"><i class="la la-arrow-left"></i>Kembali</a>
                                                     </div>
                                                 </div>
                                             </div>

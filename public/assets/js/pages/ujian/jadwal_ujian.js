@@ -50,6 +50,7 @@ $(document).ready(function() {
             }
         },
         columns: [
+            { data: 'kode_mata_kuliah', name: 'kode_mata_kuliah'},
             { data: 'nama_mata_kuliah', name: 'nama_mata_kuliah'},
             { data: 'nama_angkatan', name: 'nama_angkatan' },
             { data: 'nama_semester', name: 'nama_semester' },
@@ -61,20 +62,11 @@ $(document).ready(function() {
         ],
         columnDefs: [
             {
-                targets: 7,
+                targets: 8,
                 title: 'Actions',
                 orderable: false,
                 render: function(data, type, full, meta) {
-                    return `
-                    <span class="dropdown">
-                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                          <i class="la la-ellipsis-h"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="jadwalujian/view/`+full.id+`"><i class="la la-edit"></i>Cek Absensi</a>
-                            <a class="dropdown-item" href="jadwalujian/form/`+full.id+`"><i class="la la-plus"></i>Tambah</a>
-                        </div>
-                    </span> `;
+                    return `<a class="btn btn-label-success" href="jadwalujian/form/`+full.id+`"><i class="la la-plus"></i></a>`;
                 },
             },{
                 targets: 0,
