@@ -143,7 +143,7 @@ class JadwalPerkuliahan extends Controller
             $join->on('nilai_mahasiswa.mata_kuliah_id' ,'=','kurikulum_mata_kuliah.mata_kuliah_id')
             ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $id);
         })
-        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah','mata_kuliah.tipe_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas')
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah','mata_kuliah.tipe_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas', 'nilai_mahasiswa.nilai_laporan', 'nilai_mahasiswa.nilai_laporan_pkl', 'nilai_mahasiswa.nilai_ujian')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->where('nilai_mahasiswa.semester_id' , $semester_aktif->id)->get();
         //print_r($data); exit;
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
@@ -167,7 +167,7 @@ class JadwalPerkuliahan extends Controller
             ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $id);
         })
         ->leftJoin('master_semester' , 'master_semester.id' ,'=' , 'nilai_mahasiswa.semester_id')
-        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah', 'nilai_mahasiswa.semester_id', 'master_semester.title as semester_title')
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah', 'nilai_mahasiswa.semester_id', 'master_semester.title as semester_title', 'nilai_mahasiswa.nilai_laporan', 'nilai_mahasiswa.nilai_laporan_pkl', 'nilai_mahasiswa.nilai_ujian')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->orderby('nilai_mahasiswa.semester_id' , 'DESC')->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         return view("mahasiswa/transkrip" , compact("data" , "title" ,"mahasiswa"));
@@ -186,7 +186,7 @@ class JadwalPerkuliahan extends Controller
             $join->on('nilai_mahasiswa.mata_kuliah_id' ,'=','kurikulum_mata_kuliah.mata_kuliah_id')
             ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $id);
         })
-        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah')
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah', 'nilai_mahasiswa.nilai_laporan', 'nilai_mahasiswa.nilai_laporan_pkl', 'nilai_mahasiswa.nilai_ujian')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->where('nilai_mahasiswa.semester_id' , $request->all()['id'])->get();
         $html = '';
 
@@ -206,12 +206,22 @@ class JadwalPerkuliahan extends Controller
                 $nuts = $item->nilai_uts > 0 ? $item->nilai_uts : 0;
                 $nuas = $item->nilai_uas > 0 ? $item->nilai_uas : 0;
                 $ntgs = $item->nilai_tugas > 0 ? $item->nilai_tugas : 0;
+                $nlapopkl = $item->nilai_laporan_pkl > 0 ? $item->nilai_laporan_pkl : 0;
+                $nlapo = $item->nilai_laporan > 0 ? $item->nilai_laporan : 0;
+                $nujian = $item->nilai_ujian > 0 ? $item->nilai_ujian : 0;
 
                 if($item->tipe_mata_kuliah == 'praktik'){
-                    $nangka = ( (($ntgs * 40) / 100) + (($nuts * 30) / 100) + (($nuas * 20)/100));
+                    $nangka = ( (($ntgs * 20) / 100) + (($nuts * 40) / 100) + (($nuas * 40)/100));
                 }elseif ($item->tipe_mata_kuliah == 'teori') {
                     $nangka = ( (($ntgs * 30) / 100) + (($nuts * 30) / 100) + (($nuas * 40)/100));
+                }elseif ($item->tipe_mata_kuliah == 'seminar') {
+                    $nangka = ( (($ntgs * 40) / 100) + (($nuts * 30) / 100) + (($nuas * 30)/100));
+                }elseif ($item->tipe_mata_kuliah == 'pkl') {
+                    $nangka = ( (($ntgs * 20) / 100) + (($nuts * 20) / 100) + (($nuas * 40)/100) + (($nlapopkl * 20) / 100));
+                }elseif ($item->tipe_mata_kuliah == 'skripsi') {
+                    $nangka = ( (($ntgs * 30) / 100) + (($nuts * 20) / 100) + (($nuas * 10)/100) + (($nlapopkl * 10) / 100) + (($nujian * 20) / 100) + (($nlapo * 10) / 100));
                 }
+
                 if($nangka < 45){
                     $nhuruf = 'E';
                     $nipk += 0 * $item->bobot_mata_kuliah;
@@ -259,7 +269,7 @@ class JadwalPerkuliahan extends Controller
             $html .= '<tr>
                         <td style="text-align: left" colspan="3"><b>Total SKS</b></td>
                         <td style="text-align: center" ><b>'.$sks.'</b></td>
-                        <td style="text-align: center" colspan="3" ><b></b></td>
+                        <td style="text-align: center" colspan="4" ><b></b></td>
                     </tr>
                     <tr>
                         <td style="text-align: left" colspan="7"><b>IP</b></td>
@@ -365,7 +375,7 @@ class JadwalPerkuliahan extends Controller
         ->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         //return view("mahasiswa/print_krs" , compact("data" , "title" ,"mahasiswa" ,'select2',"semester_active"));
-        $pdf = PDF::loadView("mahasiswa/print_krs" , compact("data" , "title" ,"mahasiswa" ,'select2',"semester_active"));
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView("mahasiswa/print_krs" , compact("data" , "title" ,"mahasiswa" ,'select2',"semester_active"))->stream();
         return $pdf->download('KRS'.'_'.Auth::user()->id.'_'.date('Y-m-d_H-i-s').'.pdf');
         
     }

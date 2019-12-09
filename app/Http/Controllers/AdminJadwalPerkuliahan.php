@@ -40,8 +40,6 @@ class AdminJadwalPerkuliahan extends Controller
 
     public function index()
     {
-        //$mahasiswa_id = Auth::user()->id;
-
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
             'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),

@@ -76,7 +76,8 @@ $(document).ready(function() {
                     return hari[full.hari_id];
                 }, 
             },
-            { data: 'jam', name: 'jam' },  
+            { data: 'jam', name: 'jam' }, 
+            { data: 'selesai', name: 'selesai' },   
         ],
         columnDefs: [
             {

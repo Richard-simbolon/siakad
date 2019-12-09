@@ -126,6 +126,7 @@
                                             <th style="text-align: center">Nama Dosen</th>
                                             <th style="text-align: center">Hari</th>
                                             <th style="text-align: center">Jam</th>
+                                            <th style="text-align: center">Selesai</th>
                                         </tr>
                                         </thead>
                                         <tbody>

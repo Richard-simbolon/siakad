@@ -126,6 +126,7 @@
                                 <th>Asisten Dosen</th>
                                 <th>Hari</th>
                                 <th>Jam</th>
+                                <th>Selesai</th>
                             </tr>
                             </thead>
                             <tbody>

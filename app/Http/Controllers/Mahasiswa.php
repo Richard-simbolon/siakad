@@ -695,7 +695,7 @@ class Mahasiswa extends Controller
             $join->on('nilai_mahasiswa.mata_kuliah_id' ,'=','kurikulum_mata_kuliah.mata_kuliah_id')
             ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $id);
         })
-        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah')
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_laporan', 'nilai_mahasiswa.nilai_laporan_pkl', 'nilai_mahasiswa.nilai_ujian', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->where('nilai_mahasiswa.semester_id' , $request->all()['id'])->get();
         $html = '';
 
@@ -776,7 +776,7 @@ class Mahasiswa extends Controller
             $html .= '<tr>
                         <td style="text-align: left" colspan="3"><b>Total SKS</b></td>
                         <td style="text-align: center" ><b>'.$sks.'</b></td>
-                        <td style="text-align: center" colspan="3" ><b></b></td>
+                        <td style="text-align: center" colspan="4" ><b></b></td>
                     </tr>
                     <tr>
                         <td style="text-align: left" colspan="7"><b>IP</b></td>

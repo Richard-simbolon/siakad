@@ -87,6 +87,7 @@ $(document).ready(function() {
                 }, 
             },
             { data: 'jam', name: 'jam' },  
+            { data: 'selesai', name: 'selesai' },  
         ]
     });
     
