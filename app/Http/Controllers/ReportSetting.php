@@ -41,7 +41,7 @@ Kemahasiswaan dan Alumni"],
                     $table_display = DB::getSchemaBuilder()->getColumnListing("report_setting");
                     $exclude = static::$exclude;
                     $Tableshow = static::$Tableshow;
-                    return view("setting/general_view" , compact("data" , "title" ,"table_display" ,"exclude" ,"Tableshow","tableid"));
+                    return view("master/report_setting" , compact("data" , "title" ,"table_display" ,"exclude" ,"Tableshow","tableid"));
 
                 }
                 public function create(){
@@ -92,7 +92,7 @@ Kemahasiswaan dan Alumni"],
                     $html = static::$html;
                     $column = 1;
                     $controller = "jurusan";
-                    return view("setting/master_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow", "column", "controller"));
+                    return view("master/report_setting_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow", "column", "controller"));
                 }
 
                 public function update(Request $request){
