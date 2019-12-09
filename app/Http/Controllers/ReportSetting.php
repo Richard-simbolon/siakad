@@ -91,18 +91,25 @@ Kemahasiswaan dan Alumni"],
                     $Tableshow = static::$Tableshow;
                     $html = static::$html;
                     $column = 1;
-                    $controller = "jurusan";
+                    $controller = "reportsetting";
                     return view("master/report_setting_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow", "column", "controller"));
                 }
 
                 public function update(Request $request){
                     $this->validate($request,[
-                        'title' => 'required'
+
                     ]);
 
                     $data =  ReportSettingModel::where('id' , $request->id)->first();
-                    $data->title = $request->title;
-                    $data->row_status = $request->row_status;
+
+                    $data->kepala_bagian_ad_akademik = $request->kepala_bagian_ad_akademik;
+                    $data->kepala_bagian_ad_akademik_nip = $request->kepala_bagian_ad_akademik_nip;
+                    $data->ketua_jurusan = $request->ketua_jurusan;
+                    $data->ketua_jurusan_nip = $request->ketua_jurusan_nip;
+                    $data->direktur = $request->direktur;
+                    $data->direktur_nip = $request->direktur_nip;
+                    $data->wakil_direktur_i_bidang_akademik = $request->wakil_direktur_i_bidang_akademik;
+                    $data->wakil_direktur_i_bidang_akademik_nip = $request->wakil_direktur_i_bidang_akademik_nip;
 
                     $data->save();
                     return redirect('/master/reportsetting');
