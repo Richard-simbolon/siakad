@@ -109,7 +109,7 @@
                                             <th style="text-align: center">No</th>
                                             <th style="text-align: center">Angkatan</th>
                                             <th>Semester</th>
-                                            <th>Jurusan </th>
+                                            <th>Program Studi </th>
                                             <th style="text-align: center">Kelas</th>
                                             <th style="text-align: center">Jumlah SKS</th>
                                             <th style="text-align: center">Jumlah Mahasiswa</th>

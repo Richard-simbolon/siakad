@@ -10,11 +10,11 @@
             protected $table = "master_jurusan";
 
             protected $fillable = [
-                "id","row_status","title","updated_at" ,"created_at","created_by", "update_by"
+                "id","row_status","title","jurusan","updated_at" ,"created_at","created_by", "update_by"
             ];
             public function scopeget_row(){
                 return [
-                    "id","row_status","title","deskripsi","updated_at" ,"created_at","created_by", "update_by"
+                    "id","row_status","title","jurusan","updated_at" ,"created_at","created_by", "update_by"
                  ];
              }
 

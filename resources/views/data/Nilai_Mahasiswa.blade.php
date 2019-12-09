@@ -75,7 +75,7 @@
                                     <div class="form-group">
                                         <label>Program Studi</label>
                                         <select name="jurusan_id" id="jurusan-mahasiswa" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
-                                            <option value="">-- Pilih Jurusan --</option>
+                                            <option value="">-- Pilih Program Studi --</option>
                                             @foreach ($master['jurusan'] as $item)
                                                 <option value="{{$item['id']}}">{{$item['title']}}</option>
                                             @endforeach
@@ -108,7 +108,7 @@
                                             <th style="text-align: center">Mata Kuliah</th>
                                             <th style="text-align: center">Angkatan</th>
                                             <th>Semester</th>
-                                            <th>Jurusan </th>
+                                            <th>Program Studi </th>
                                             <th style="text-align: center">Kelas</th>
                                             <th style="text-align: center">Dosen</th>
                                             <th style="text-align: center">Aksi</th>

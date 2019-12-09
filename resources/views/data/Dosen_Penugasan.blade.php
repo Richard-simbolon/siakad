@@ -207,7 +207,7 @@
                                         <tr>
                                             <th style="text-align: center">No</th>
                                             <th>Tahun Ajaran</th>
-                                            <th>Progaram Studi</th>
+                                            <th>Program Studi</th>
                                             <th>No Surat Tugas</th>
                                             <th>TMT Surat Tugas</th>
                                             <th>Tanggal Surat</th>
