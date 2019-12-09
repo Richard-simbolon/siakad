@@ -393,12 +393,13 @@ var KTDatatablesExtensionsResponsive = function() {
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
+                { data: 'jurusan', name: 'jurusan' },
                 { data: 'row_status', name: 'row_status' },
                 { defaultContent:'<td></td>' }
             ],
             columnDefs: [
                 {
-                    targets: 3,
+                    targets: 4,
                     title: 'Actions',
                     orderable: false,
                     className : 'text-center',
@@ -411,7 +412,7 @@ var KTDatatablesExtensionsResponsive = function() {
                     className: "text-center"
                 },
                 {
-                    targets: 2,
+                    targets: 3,
                     className: "text-center"
                 }
             ],

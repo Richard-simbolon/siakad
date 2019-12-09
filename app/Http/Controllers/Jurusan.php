@@ -10,12 +10,14 @@
             {
                 static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
                     "row_status" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Status"],
-                    "title" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Title"],
+                    "title" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Program Studi"],
+                    "jurusan" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Jurusan"],
                     "deskripsi" => ["table" => ["tablename" =>"null" , "field"=> "deskripsi"] , "record"=>"Deskripsi"],
                     ];
                 static $html = ["id"=>["type"=>"" , "value"=>"null" , "validation" => ""] ,
                                 "row_status"=>["type"=>"radio" , "value"=>"active,notactive,deletd" , "validation" => "required"] ,
                                 "title"=>["type"=>"text" , "value"=>"null" , "validation" => "required"] ,
+                                "jurusan"=>["type"=>"text" , "value"=>"null" , "validation" => "required"] ,
                                 ];
                 static $exclude = ["id","created_at","updated_at","created_by","update_by"];
                 static $tablename = "Jurusan";
