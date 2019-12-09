@@ -92,7 +92,7 @@
                                             <td><b>{{$semester_active->title}}</b></td>
                                         </tr>
                                         <tr>
-                                            <td>Jurusan</td>
+                                            <td>Program Studi</td>
                                             <td>:</td>
                                             <td><b>{{$profile->jurusan_title}}</b></td>
                                         </tr>

@@ -11,6 +11,8 @@ use App\KelasModel;
 use App\SemesterModel;
 use App\MahasiswaModel;
 use Illuminate\Support\Facades\Cache;
+use App\DosenModel;
+use App\RuanganModel;
 
 class JadwalUjian extends Controller
 {
@@ -130,7 +132,8 @@ class JadwalUjian extends Controller
             //DB::table('view_input_nilai_mahasiswa')->where('id' , $id)->first();
             $mahsiswa_cahce = DB::table('view_input_nilai_mahasiswa')
             ->leftjoin('jadwal_ujian_mahasiswa' , 'jadwal_ujian_mahasiswa.kelas_perkuliahan_detail_id' , '=' , 'view_input_nilai_mahasiswa.id')
-            ->select('view_input_nilai_mahasiswa.*' , 'jadwal_ujian_mahasiswa.id as jadwal_id' , 'jadwal_ujian_mahasiswa.tanggal_ujian' , 'jadwal_ujian_mahasiswa.jam', 'jadwal_ujian_mahasiswa.catatan')
+            ->leftJoin('dosen' ,'dosen.id' ,'=' ,'jadwal_ujian_mahasiswa.pengawas_id')
+            ->select('view_input_nilai_mahasiswa.*' , 'jadwal_ujian_mahasiswa.id as jadwal_id' , 'jadwal_ujian_mahasiswa.tanggal_ujian' , 'jadwal_ujian_mahasiswa.jam' , 'jadwal_ujian_mahasiswa.selesai', 'jadwal_ujian_mahasiswa.catatan', 'jadwal_ujian_mahasiswa.pengawas_id', 'dosen.id as dosen_id','dosen.nama as nama_pengawas')
             ->where('view_input_nilai_mahasiswa.id' , $id)
             ->first();
             Cache::forever('jadwal_ujian_'.$id , $mahsiswa_cahce);
@@ -152,15 +155,20 @@ class JadwalUjian extends Controller
 
 
     public function form($id){
-        //Cache::flush();
+        Cache::flush();
         $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $data = $this->header_cache($id);//DB::table('view_input_nilai_mahasiswa')->where('id' , $id)->first();
-        //print_r($data);
+        //print_r($data); exit;
         if(!$data){
             echo 'Data Tidak Ditemukan.';
             die;
         }
+        $master = [];
+        $master['dosen'] = DosenModel::select('id' , 'nama')->where('row_status' , 'active')->where('status' , 'aktif')->get();
+        $master['ruangan'] = RuanganModel::select('id' , 'kode_ruangan' , 'nama_ruangan')->where('row_status' , 'active')->get();
         $mahasiswa = $this->detail_cache($id);
+
+        //print_r($master); exit;
        // echo count($mahasiswa);
         if (count($mahasiswa) < 1){
             if(DB::table('jadwal_ujian_mahasiswa_detail')
@@ -169,7 +177,6 @@ class JadwalUjian extends Controller
                 $mahasiswa = DB::table('jadwal_ujian_mahasiswa')
                 ->leftjoin('mahasiswa' , 'mahasiswa.id' , '=' ,'jadwal_ujian_mahasiswa.mahasiswa_id')
                 ->where('jadwal_ujian_mahasiswa.kelas_perkuliahan_detail_id' , $id)->get();
-                
             }else{
                 $mahasiswa = MahasiswaModel::where('kelas_id' , $data->kelas_id)->where('status' , '1')->get();
             }
@@ -177,7 +184,7 @@ class JadwalUjian extends Controller
 
         //print_r($mahasiswa); exit;
 
-        return view("data/ujian_create" , compact("title" , "mahasiswa", "data"));
+        return view("data/ujian_create" , compact("title" , "mahasiswa", "data" ,"master"));
 
     }
 

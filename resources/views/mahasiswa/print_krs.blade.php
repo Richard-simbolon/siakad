@@ -44,7 +44,7 @@
                     <td><b>{{$mahasiswa->angkatan_title}}</b></td>
                 </tr>
                 <tr>
-                    <td>Jurusan</td>
+                    <td>Program Studi</td>
                     <td>:</td>
                     <td><b>{{$mahasiswa->program_studi_title}}</b></td>
                 </tr>

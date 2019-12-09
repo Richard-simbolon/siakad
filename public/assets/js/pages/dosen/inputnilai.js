@@ -180,5 +180,52 @@ $(document).ready(function() {
         
     });
 
+    
+
+    $(document).on('change' , '.nilai_realtime' , function(){
+        var this_ = $(this).attr('attr');
+        var tipe = $(this).attr('char');
+
+        var nuts = $('.n_nilai_uts_'+this_).val() > 0 ? $('.n_nilai_uts_'+this_).val() : 0;
+        var nuas = $('.n_nilai_uas_'+this_).val() > 0 ? $('.n_nilai_uas_'+this_).val() : 0;
+        var ntgs = $('.n_nilai_tugas_'+this_).val() > 0 ? $('.n_nilai_tugas_'+this_).val() : 0;
+        var nlapopkl = $('.n_nilai_laporan_pkl_'+this_).val() > 0 ? $('.n_nilai_laporan_pkl_'+this_).val() : 0;
+        var nlapo = $('.n_nilai_laporan_'+this_).val() > 0 ? $('.n_nilai_laporan_'+this_).val() : 0;
+        var nujian = $('.n_nilai_ujian_'+this_).val() > 0 ? $('.n_nilai_ujian_'+this_).val() : 0;
+        //console.log(nuts+'-'+nuas+'-'+ntgs+'-'+nlapopkl+'-'+nlapo+'-'+nujian);
+        
+        var nangka = 0;
+        var nhuruf = 'E';
+        if(tipe == 'praktek'){
+            nangka = ( ((parseInt(ntgs) * 20) / 100) + ((parseInt(nuts) * 40) / 100) + ((parseInt(nuas) * 40)/100));
+        }else if (tipe == 'teori') {
+            nangka = ( ((parseInt(ntgs) * 40) / 100) + ((parseInt(nuts) * 40) / 100) + ((parseInt(nuas) * 20)/100));
+        }else if (tipe == 'seminar') {
+            nangka = ( ((parseInt(ntgs) * 40) / 100) + ((parseInt(nuts) * 30) / 100) + ((parseInt(nuas) * 30)/100));
+        }else if (tipe == 'pkl') {
+            nangka = ( ((parseInt(ntgs) * 20) / 100) + ((parseInt(nuts) * 20) / 100) + ((parseInt(nuas) * 40)/100) + ((parseInt(nlapopkl) * 20) / 100));
+        }else if (tipe == 'skripsi') {
+            nangka = ( ((parseInt(ntgs) * 30) / 100) + ((parseInt(nuts) * 20) / 100) + ((parseInt(nuas) * 10)/100) + ((parseInt(nlapopkl) * 10) / 100) + ((parseInt(nujian) * 20) / 100) + ((parseInt(nlapo) * 10) / 100));
+        }
+
+        //console.log(nangka);
+        if(nangka < 45){
+            nhuruf = 'E';
+        }else if(nangka > 44 && nangka<= 59){
+            nhuruf = 'D';
+        }else if(nangka > 59 && nangka<= 69){
+            nhuruf = 'C';
+        }else if(nangka > 69 && nangka<= 79){
+            nhuruf = 'B';
+        }else if(nangka > 79 && nangka<= 100){
+            nhuruf = 'A';
+        }else{
+            nhuruf = 'E';
+        }
+
+        $('.n_angka_'+this_).html(nangka);
+        $('.n_huruf_'+this_).html(nhuruf);
+    });
+
 });
 

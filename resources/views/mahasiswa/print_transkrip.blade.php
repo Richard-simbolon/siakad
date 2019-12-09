@@ -36,7 +36,7 @@
         <td><b>{{$mahasiswa->angkatan_title}}</b></td>
     </tr>
     <tr>
-            <td>Jurusan</td>
+            <td>Program Studi</td>
             <td>:</td>
             <td><b>{{$mahasiswa->jurusan_title}}</b></td>
         </tr>
@@ -84,11 +84,8 @@ padding-top: 30px;">
                        
                     foreach ($g as $key => $item) {
 
-                        //echo $item->nama_mata_kuliah.'-';
                         $i++;
-                        //$semester_id = '';
                         $sks += $item->bobot_mata_kuliah;
-
                         $nangka = 0;
                         $nhuruf = 'E';
                         $indexvsks = 0;
@@ -96,11 +93,20 @@ padding-top: 30px;">
                         $nuts = $item->nilai_uts > 0 ? $item->nilai_uts : 0;
                         $nuas = $item->nilai_uas > 0 ? $item->nilai_uas : 0;
                         $ntgs = $item->nilai_tugas > 0 ? $item->nilai_tugas : 0;
+                        $nlapopkl = $item->nilai_laporan_pkl > 0 ? $item->nilai_laporan_pkl : 0;
+                        $nlapo = $item->nilai_laporan > 0 ? $item->nilai_laporan : 0;
+                        $nujian = $item->nilai_ujian > 0 ? $item->nilai_ujian : 0;
 
                         if($item->tipe_mata_kuliah == 'praktik'){
-                            $nangka = ( (($ntgs * 40) / 100) + (($nuts * 30) / 100) + (($nuas * 20)/100));
+                            $nangka = ( (($ntgs * 20) / 100) + (($nuts * 40) / 100) + (($nuas * 40)/100));
                         }elseif ($item->tipe_mata_kuliah == 'teori') {
                             $nangka = ( (($ntgs * 30) / 100) + (($nuts * 30) / 100) + (($nuas * 40)/100));
+                        }elseif ($item->tipe_mata_kuliah == 'seminar') {
+                            $nangka = ( (($ntgs * 40) / 100) + (($nuts * 30) / 100) + (($nuas * 30)/100));
+                        }elseif ($item->tipe_mata_kuliah == 'pkl') {
+                            $nangka = ( (($ntgs * 20) / 100) + (($nuts * 20) / 100) + (($nuas * 40)/100) + (($nlapopkl * 20) / 100));
+                        }elseif ($item->tipe_mata_kuliah == 'skripsi') {
+                            $nangka = ( (($ntgs * 30) / 100) + (($nuts * 20) / 100) + (($nuas * 10)/100) + (($nlapopkl * 10) / 100) + (($nujian * 20) / 100) + (($nlapo * 10) / 100));
                         }
                         if($nangka < 45){
                             $nhuruf = 'E';

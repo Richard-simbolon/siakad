@@ -145,7 +145,7 @@
                                         <div class="col-lg-5">
                                             <table cellpadding="5">
                                                 <tr>
-                                                    <td>Jurusan</td>
+                                                    <td>Program Studi</td>
                                                     <td>:</td>
                                                     <td><b>{{$data['title']}}</b></td>
                                                 </tr>

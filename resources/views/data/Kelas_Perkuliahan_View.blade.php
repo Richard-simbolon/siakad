@@ -76,7 +76,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-4">
-                                    <label class="select2-label">Jurusan</label>
+                                    <label class="select2-label">Program Studi</label>
                                     <div class="form-group">
                                         <select name="program_studi_id" id="jurusan-mahasiswa" class="form-control search-kurikulum search-kelas-perkuliahan">
                                             <option value="{{$kurikulum->nama_semester}}">{{$kurikulum->nama_jurusan}}</option>
@@ -119,6 +119,7 @@
                                             <th>Hari</th>
                                             <th>Ruangan</th>
                                             <th>Jam</th>
+                                            <th>Selesai</th>
                                             <th>Pertemuan</th>
                                         </tr>
                                         </thead>
@@ -160,6 +161,11 @@
                                                         <td align="center">
                                                             <div class="input-group timepicker">
                                                                 <input style="max-width: 90px" type="text" name="item['.$item->matakuliah_id.'][jam]" value="'.$item->jam.'" class="form-control m-input time-picker" placeholder="Pilih Jam"/>
+                                                            </div>
+                                                        </td>
+                                                        <td align="center">
+                                                            <div class="input-group timepicker">
+                                                                <input style="max-width: 90px" type="text" name="item['.$item->matakuliah_id.'][selesai]" value="'.$item->selesai.'" class="form-control m-input time-picker" placeholder="Pilih Jam"/>
                                                             </div>
                                                         </td>
                                                         <td>

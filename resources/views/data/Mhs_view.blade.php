@@ -200,7 +200,7 @@
                                                 <div class="col-lg-5">
                                                     <table cellpadding="5">
                                                         <tr>
-                                                            <td>Jurusan</td>
+                                                            <td>Program Studi</td>
                                                             <td>:</td>
                                                             <td><b>{{$data['title']}}</b></td>
                                                         </tr>
@@ -263,7 +263,7 @@
                                                 <div class="row">
                                                     <div class="col-xl-4">
                                                         <div class="form-group">
-                                                            <label class="select2-label">Jurusan</label>
+                                                            <label class="select2-label">Program Studi</label>
                                                             <select name="mahasiswa[jurusan_id]" class="form-control kt-select2">
                                                                 <option value="">-- Pilih Jurusan --</option>
                                                                 @foreach ($master['jurusan'] as $item)

@@ -82,7 +82,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-4">
-                                    <label class="select2-label">Jurusan</label>
+                                    <label class="select2-label">Program Studi</label>
                                     <div class="form-group">
                                         <select name="program_studi_id" id="jurusan-mahasiswa" class="form-control kt-select2 search-kurikulum search-kelas-perkuliahan">
                                             <option value="0">-- Pilih Jurusan --</option>
@@ -129,6 +129,7 @@
                                             <th>Hari</th>
                                             <th>Ruangan</th>
                                             <th>Jam</th>
+                                            <th>Selesai</th>
                                             <th>Pertemuan</th>
                                         </tr>
                                         </thead>

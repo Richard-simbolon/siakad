@@ -124,7 +124,7 @@
                                             <th style="text-align: center">Program Studi</th>
                                             <th style="text-align: center">Bobot SKS</th>
                                             <th style="text-align: center">Nama Dosen</th>
-                                            <th style="text-align: center">Tanggal Perkuliahan</th>
+                                            <th style="text-align: center">Hari</th>
                                             <th style="text-align: center">Jam</th>
                                         </tr>
                                         </thead>

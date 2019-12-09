@@ -78,7 +78,7 @@
                                                                     <tr>
                                                                         <td>Jumlah Mahasiswa</td>
                                                                         <td>:</td>
-                                                                        <td><b></b></td>
+                                                                        <td><b>{{count($mahasiswa)}}</b></td>
                                                                     </tr>
                                                                 </tbody></table>
                                                             </div>
@@ -100,10 +100,20 @@
                                                                         <td><b>{{$data->ruangan}}</b></td>
                                                                     </tr>
                                                                     <tr>
-                                                                            <td>SKS</td>
+                                                                            <td>Bobot Matakuliah</td>
                                                                             <td>:</td>
-                                                                            <td><b></b></td>
+                                                                            <td><b>{{$data->sks}}</b></td>
                                                                         </tr>
+                                                                        <!--<tr>
+                                                                                <td>Status Ujian</td>
+                                                                                <td>:</td>
+                                                                                <td>
+                                                                                    <select class="form-control form-control-sm kt-select2">
+                                                                                        <option value="ut">Ujian Tengah Semester</option>
+                                                                                        <option value="uas">Ujian Akhir Semester</option>
+                                                                                    </select>
+                                                                                </td>
+                                                                            </tr>-->
                                                                 </tbody></table>
                                                             </div>
                                                         </div>
@@ -125,6 +135,29 @@
                                                             <label>Jam</label>
                                                             <div class="form-group">
                                                                 <input style="max-width: 150px;" type="text" value="{{$data->jam}}" name="jam" class="form-control m-input time-picker" placeholder="Pilih Jam"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <div class="form-group">
+                                                            <label>Selesai</label>
+                                                            <div class="form-group">
+                                                                <input style="max-width: 150px;" type="text" value="{{$data->selesai}}" name="selesai" class="form-control m-input time-picker" placeholder="Pilih Jam"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <div class="form-group">
+                                                            <label>Pengawas</label>
+                                                            <div class="form-group">
+                                                                <select name="pengawas_id" class="form-control form-control-sm kt-select2">
+                                                                        <option value="0"> -Pilih Pengawas- </option>
+                                                                    @foreach ($master['dosen'] as $item)
+                                                                        <option value="{{$item['id']}}" {{ $item['id'] == $data->pengawas_id ? 'selected' : ''}}> {{$item['nama']}} </option>
+                                                                    @endforeach
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -156,19 +189,44 @@
                                                                 <th>Ruangan</th>
                                                             </tr>
                                                             </thead>
+                                                            <?php
+                                                            $html_ruangan = '';
+                                                            foreach ($master['ruangan'] as $item){
+                                                                //echo  $item['kode_ruangan'].' - '.$item['nama_ruangan'];
+                                                                //echo $item['id'].'----'.$data->ruangan;
+                                                                if($item['id'] == $data->ruangan){
+                                                                    $html_ruangan .= '<option value="'.$item['id'].'" selected> '.$item["kode_ruangan"].' - '.$item["nama_ruangan"].'</option>';
+                                                                }else{
+                                                                    $html_ruangan .= '<option value="'.$item['id'].'"> '.$item["kode_ruangan"].' - '.$item["nama_ruangan"].'</option>';
+                                                                }
+                                                                
+                                                            }
+                                                            ?>
                                                             <tbody>
                                                                     <?$i = 0?>
                                                                     @foreach ($mahasiswa as $item)
                                                                     <? $i++ ;
-                                                                    //print_r($item);
                                                                     ?>
                                                                     <tr>
                                                                         <td align="center">{{$i}}</td> 
                                                                         <td>{{ucfirst($item->nama)}}</td>
                                                                         <td>{{ucfirst($item->nim)}}</td>
                                                                         <td>{{ucfirst($item->jk)}}</td>
-                                                                        <td><input type="text" value="{{$item->ruangan}}" class="form-control" name="mahasiswa[{{$item->id}}][ruangan]" placeholder="Ruangan"></td>
-                                                                        
+                                                                        <td> 
+                                                                            <select name="mahasiswa[{{$item->id}}][ruangan]" class="form-control form-control-sm kt-select2"> 
+                                                                                    <option value="0">-Pilih Ruangan-</option>
+                                                                                    <?php 
+                                                                                    foreach ($master['ruangan'] as $items){
+                                                                                       if($items['id'] == $item->ruangan){
+                                                                                            echo '<option value="'.$items['id'].'" selected> '.$items["kode_ruangan"].' - '.$items["nama_ruangan"].'</option>';
+                                                                                        }else{
+                                                                                            echo '<option value="'.$items['id'].'"> '.$items["kode_ruangan"].' - '.$items["nama_ruangan"].'</option>';
+                                                                                        }
+                                                                                    }
+                                                                                    ?>
+                                                                             </select>
+                                                                            <!--<input type="text" value="{{$item->ruangan}}" class="form-control" name="mahasiswa[{{$item->id}}][ruangan]" placeholder="Ruangan"> -->
+                                                                        </td>
                                                                     </tr>
                                                                     @endforeach
                                                             </tbody>

@@ -94,7 +94,7 @@
                                     <table cellpadding="5">
                                         <tbody>
                                         <tr>
-                                            <td>Jurusan</td>
+                                            <td>Program Studi</td>
                                             <td>:</td>
                                             <td><b>{{$profile->jurusan_title}}</b></td>
                                         </tr>

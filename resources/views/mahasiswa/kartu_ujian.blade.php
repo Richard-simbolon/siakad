@@ -91,7 +91,7 @@
                                                             <td>{{$data['nama']}}</td>
                                                         </tr>
                                                         <tr>
-                                                            <td width="100px">Jurusan</td>
+                                                            <td width="100px">Program Studi</td>
                                                             <td>:&nbsp;</td>
                                                             <td>{{$data['jurusan']}}</td>
                                                         </tr>

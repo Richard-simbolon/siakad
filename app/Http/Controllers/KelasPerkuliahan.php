@@ -319,6 +319,11 @@ class KelasPerkuliahan extends Controller
                                 <input style="max-width: 100px" type="text" name="item['.$item->id.'][jam]" class="form-control form-control-sm m-input time-picker" placeholder="Pilih Jam" type="text"/>
                             </div>
                         </td>
+                        <td align="center">
+                        <div class="input-group timepicker">
+                            <input style="max-width: 100px" type="text" name="item['.$item->id.'][selesai]" class="form-control form-control-sm m-input time-picker" placeholder="Pilih Jam" type="text"/>
+                        </div>
+                    </td>
                         <td>
                             <input style="max-width: 75px" type="number"class="form-control form-control-sm" min="1"  value="14"  name="item['.$item->id.'][pertemuan]"/>
                         </td>
@@ -339,6 +344,7 @@ class KelasPerkuliahan extends Controller
                             <th>Hari</th>
                             <th>Ruangan</th>
                             <th>Jam</th>
+                            <th>Selesai</th>
                             <th>Pertemuan</th>
                         </tr>
                         </thead>

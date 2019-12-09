@@ -13,6 +13,13 @@ use App\MahasiswaModel;
 use Illuminate\Support\Facades\Auth;
 use App\DosenModel;
 
+
+// NILAI UTS = Pelaksanaan praktik = penyusunan makalah = proposal = proposal
+// NILAI UAS = Unjuk kerja/portofolio = penyajian = pelaksanaan = seminar proposal
+// Nilai TUGAS = Hasil/Laporan = penugasan materi = ujian = pelaksanaan
+// Laporan PKL = seminar hasil
+// Ujian
+
 class DosenNilai extends Controller
 {
     static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
@@ -49,11 +56,11 @@ class DosenNilai extends Controller
         );
 
         $date = date('Y-m-d');
-        $jadwalIsiNilai = SemesterModel::where('row_status', 'active')
+        $jadwalIsiNilai = []; /*SemesterModel::where('row_status', 'active')
             ->where('status_semester', 'enable')
             ->where('tanggal_mulai_penilaian','<=', $date)
             ->where('tanggal_akhir_penilaian','>=', $date)
-            ->get();
+            ->get();*/
         
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $tableid = "KelasPerkuliahan";

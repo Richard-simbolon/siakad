@@ -114,7 +114,7 @@
                                                 </div>
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
-                                                        <label>Jurusan</label>
+                                                        <label>Program Studi</label>
                                                         <div class="form-group">
                                                             <select name="mahasiswa[jurusan_id]" class="form-control kt-select2">
                                                                 <option value="">-- Pilih Jurusan --</option>

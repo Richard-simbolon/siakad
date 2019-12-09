@@ -86,7 +86,7 @@
                                                 <td><b>{{Auth::user()->semester}}</b></td>
                                             </tr>
                                             <tr>
-                                                <td>Jurusan</td>
+                                                <td>Program Studi</td>
                                                 <td>:</td>
                                                 <td><b>{{$data->jurusan}}</b></td>
                                             </tr>
