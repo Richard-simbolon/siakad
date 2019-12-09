@@ -8,10 +8,28 @@
             class ReportSetting extends Controller
             {
                 static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
-                    "title" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Title"],
+                    "row_status" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Status"],
+                    "kepala_bagian_ad_akademik" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Kepala Bagian Administrasi Akademik,
+Kemahasiswaan dan Alumni"],
+                    "kepala_bagian_ad_akademik_nip" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"NIP Kepala Bagian Administrasi Akademik,
+Kemahasiswaan dan Alumni"],
+                    "ketua_jurusan" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Ketua Jurusan"],
+                    "ketua_jurusan_nip" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"NIP Ketua Jurusan"],
+                    "direktur" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Direktur"],
+                    "direktur_nip" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"NIP Direktur"],
+                    "wakil_direktur_i_bidang_akademik" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Wakil Direktur I Bidang_Akademik"],
+                    "wakil_direktur_i_bidang_akademik_nip" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"NIP Wakil Direktur I Bidang_Akademik"],
                     ];
                 static $html = ["id"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
-            "title"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
+                    "kepala_bagian_ad_akademik"=>["type"=>"text" , "value"=>"null" , "validation" => "required"] ,
+                    "kepala_bagian_ad_akademik_nip"=>["type"=>"text" , "value"=>"null" , "validation" => "required"] ,
+                    "ketua_jurusan"=>["type"=>"text" , "value"=>"null" , "validation" => "required"] ,
+                    "ketua_jurusan_nip"=>["type"=>"text" , "value"=>"null" , "validation" => "required"] ,
+                    "direktur"=>["type"=>"text" , "value"=>"null" , "validation" => "required"] ,
+                    "direktur_nip"=>["type"=>"text" , "value"=>"null" , "validation" => "required"] ,
+                    "wakil_direktur_i_bidang_akademik"=>["type"=>"text" , "value"=>"null" , "validation" => "required"] ,
+                    "wakil_direktur_i_bidang_akademik_nip"=>["type"=>"text" , "value"=>"null" , "validation" => "required"] ,
+                    "row_status"=>["type"=>"radio" , "value"=>"active" , "validation" => "required"],
             ];
                 static $exclude = ["id","created_at","updated_at","created_by","update_by"];
                 static $tablename = "ReportSetting";
@@ -64,8 +82,34 @@
 
                 }
 
+                public function view($id){
+                    $data = ReportSettingModel::where('id' , $id)->first();
+
+                    $title = "Edit Pengaturan Laporan";
+                    $table = array_diff(DB::getSchemaBuilder()->getColumnListing("report_setting") , static::$exclude);
+                    $exclude = static::$exclude;
+                    $Tableshow = static::$Tableshow;
+                    $html = static::$html;
+                    $column = 1;
+                    $controller = "jurusan";
+                    return view("setting/master_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow", "column", "controller"));
+                }
+
+                public function update(Request $request){
+                    $this->validate($request,[
+                        'title' => 'required'
+                    ]);
+
+                    $data =  ReportSettingModel::where('id' , $request->id)->first();
+                    $data->title = $request->title;
+                    $data->row_status = $request->row_status;
+
+                    $data->save();
+                    return redirect('/master/reportsetting');
+                }
+
                 public function paging(Request $request){
-                    return Datatables::of(ReportSettingModel::all())->make(true);
+                    return Datatables::of(ReportSettingModel::all())->addIndexColumn()->make(true);
                 }
 
             }

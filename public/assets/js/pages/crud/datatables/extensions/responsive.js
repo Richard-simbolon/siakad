@@ -1598,6 +1598,62 @@ var KTDatatablesExtensionsResponsive = function() {
         });
     }
 
+    var initReportSetting = function(a) {
+
+        var table = $('#ReportSetting');
+
+        // begin first table
+        table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
+            ajax: {
+                url:'/master/reportsetting/paging',
+                type:"POST",
+                //data:{"_token": $('#csrf_').val(),'table':key},
+                data: function ( d ) {
+                    d.myKey = "myValue";
+                    d._token = $('#csrf_').val()
+                    // d.custom = $('#myInput').val();
+                    // etc
+                }
+            },
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                { data: 'row_status', name: 'row_status' },
+                { data: 'kepala_bagian_ad_akademik', name: 'kepala_bagian_ad_akademik' },
+                { data: 'kepala_bagian_ad_akademik_nip', name: 'kepala_bagian_ad_akademik_nip' },
+                { data: 'ketua_jurusan', name: 'ketua_jurusan' },
+                { data: 'ketua_jurusan_nip', name: 'ketua_jurusan_nip' },
+                { data: 'direktur', name: 'direktur' },
+                { data: 'direktur_nip', name: 'direktur_nip' },
+                { data: 'wakil_direktur_i_bidang_akademik', name: 'wakil_direktur_i_bidang_akademik' },
+                { data: 'wakil_direktur_i_bidang_akademik_nip', name: 'wakil_direktur_i_bidang_akademik_nip' },
+                { defaultContent : '<td></td>'}
+            ],
+            columnDefs: [
+                {
+                    targets: 10,
+                    title: 'Actions',
+                    orderable: false,
+                    className: "text-center",
+                    render: function(data, type, full, meta) {
+                        return `
+                       <a class="btn btn-" href="reportsetting/view/`+full.id+`"><i class="la la-edit"></i></a>
+                       `;
+                    },
+                },
+                {
+                    targets: 0,
+                    className: "text-center"
+                },
+            ]
+        });
+    }
+
     return {
 
 		//main function to initiate the module
@@ -1630,6 +1686,7 @@ var KTDatatablesExtensionsResponsive = function() {
             initPrestasiMahasiswa();
             jenispegawai();
             sumbergaji();
+            initReportSetting();
 		},
 
 	};

@@ -91,7 +91,7 @@
                     $html = static::$html;
                     $column = 1;
                     $controller = "jurusan";
-                    return view("setting/master_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow","tableid", "column", "controller"));
+                    return view("setting/master_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow", "column", "controller"));
                 }
 
                 public function update(Request $request){
