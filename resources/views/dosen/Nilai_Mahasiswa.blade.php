@@ -127,7 +127,7 @@
                                             <th style="text-align: center">Mata Kuliah</th>
                                             <th style="text-align: center">Angkatan</th>
                                             <th>Semester</th>
-                                            <th>Jurusan </th>
+                                            <th>Program Studi </th>
                                             <th style="text-align: center">Kelas</th>
                                             <th style="text-align: center">Dosen</th>
                                             @if(count($jadwalIsiNilai) > 0 )

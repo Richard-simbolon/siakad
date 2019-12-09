@@ -72,7 +72,7 @@
                                                                             <td><b>{{$data->nama_dosen}}</b></td>
                                                                         </tr>
                                                                         <tr>
-                                                                            <td>Jurusan</td>
+                                                                            <td>Program Studi</td>
                                                                             <td>:</td>
                                                                             <td><b>{{$data->nama_jurusan}}</b></td>
                                                                         </tr>

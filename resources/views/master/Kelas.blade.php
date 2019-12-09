@@ -49,7 +49,7 @@
                                     <tr>
                                         <th style="text-align: center;">No</th>
                                         <th>Nama Kelas </th>
-                                        <th>Jurusan</th>
+                                        <th>Program Studi</th>
                                         <th>Status</th>
                                     </tr>
                                     </thead>
