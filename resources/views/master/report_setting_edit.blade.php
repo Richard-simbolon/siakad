@@ -16,9 +16,6 @@
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="{{url()->previous()}}" class="kt-subheader__breadcrumbs-link">
                                 {{$title}} </a>
-                            <span class="kt-subheader__breadcrumbs-separator"></span>
-                            <a href="{{url()->current()}}" class="kt-subheader__breadcrumbs-link">
-                                Tambah </a>
                         </div>
                     </div>
                 </div>
