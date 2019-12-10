@@ -59,7 +59,7 @@ $(document).ready(function() {
 				api.column(6, {page: 'current'}).data().each(function(group, i) {
 					if (last !== group) {
 						$(rows).eq(i).before(
-							'<tr class="group"><td colspan="8">' + hari[group] + '</td></tr>',
+							'<tr class="group"><td colspan="9">' + hari[group] + '</td></tr>',
 						);
 						last = group;
 					}
@@ -142,12 +142,12 @@ $(document).ready(function() {
                 d._token = $('#csrf_').val()
             }
         },
-        order: [[5, 'asc']],
+        order: [[7, 'asc']],
 			drawCallback: function(settings) {
 				var api = this.api();
 				var rows = api.rows({page: 'current'}).nodes();
 				var last = null;
-				api.column(5, {page: 'current'}).data().each(function(group, i) {
+				api.column(7, {page: 'current'}).data().each(function(group, i) {
                     var a = new Date(group);
 					if (last !== group) {
 						$(rows).eq(i).before(
@@ -162,7 +162,9 @@ $(document).ready(function() {
             { data: 'nama_mata_kuliah', name: 'nama_mata_kuliah' },
             { data: 'bobot_mata_kuliah', name: 'bobot_mata_kuliah' },
             { data: 'jam', name: 'jam' },
+            { data: 'selesai', name: 'selesai' },
             { data: 'tanggal_ujian', name: 'tanggal_ujian' },
+            { data: 'ruangan_title', name: 'ruangan_title' },
             { data: 'tanggal_ujian', name: 'tanggal_ujian', render: function(data, type, full, meta) {
                     var a = new Date(full.tanggal_ujian);
                     return hari[a.getDay()];//hari[full.hari_id];

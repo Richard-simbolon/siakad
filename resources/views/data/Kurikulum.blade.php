@@ -62,12 +62,13 @@
                 <div class="kt-portlet__body">
                     <div class="row">
                         <div class="col-xl-4">
-                            <label class="select2-label">Tahun Ajaran</label>
+                            <label class="select2-label"> Tahun Ajaran</label>
                             <div class="form-group">
                                 <select id="tahun_berlaku" class="form-control kt-select2 kurikulum_filter" id="kt_select2_1">
-                                    <option value="">-- Pilih Pencarian --</option>
-                                    <option value="1">2019/2010</option>
-                                    <option value="2"></option>
+                                        <option value="0">-- Tahun Ajaran --</option>
+                                        @foreach ($master['tahun_ajaran'] as $item)
+                                        <option value="{{$item->id}}">{{$item->title}}</option>
+                                        @endforeach
                                 </select>
                             </div>
                         </div>
@@ -75,10 +76,10 @@
                             <label class="select2-label">Jurusan</label>
                             <div class="form-group">
                                 <select id="jurusan" class="form-control kurikulum_filter">
-                                    <option value="">-- Pilih Jurusan --</option>
-                                    <option value="1">Penyuluhan Perkebunan Presisi</option>
-                                    <option value="2">Penyuluhan Pertanian Berkelanjutan</option>
-                                    <option value="3">Teknologi Produksi Tanaman Perkebunan</option>
+                                    <option value="0">-- Tahun Ajaran --</option>
+                                    @foreach ($master['tahun_ajaran'] as $item)
+                                     <option value="{{$item->id}}">{{$item->title}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

@@ -65,7 +65,6 @@
                         <?php
                             if(count($data) > 0){
                                 $profile = $data[0];
-                                //print_r($profile); 
                             }    
                         ?>
                             <div class="row">
@@ -127,7 +126,9 @@
                                 <th style="text-align: center">Mata Kuliah</th>
                                 <th style="text-align: center">Bobot SKS</th>
                                 <th style="text-align: center">Jam</th>
+                                <th style="text-align: center">Selesai</th>
                                 <th style="text-align: center">Tanggal Ujian</th>
+                                <th style="text-align: center">Ruangan</th>
                                 <th style="text-align: center">Hari</th>
                             </tr>
                             </thead>

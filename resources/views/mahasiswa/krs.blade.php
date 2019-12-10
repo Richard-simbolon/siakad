@@ -69,12 +69,12 @@
                                         <tr>
                                             <td width="107px">Nirm</td>
                                             <td>:</td>
-                                            <td><b>{{Auth::user()->login}}</b></td>
+                                            <td><b>{{$profile->nim}}</b></td>
                                         </tr>
                                         <tr>
                                             <td width="107px">Nama</td>
                                             <td>:</td>
-                                            <td><b>{{Auth::user()->nama}}</b></td>
+                                            <td><b>{{$profile->nama}}</b></td>
                                         </tr>
                                         <tr>
                                             <td>Angkatan</td>
@@ -115,7 +115,7 @@
                                 <th style="text-align: center">Mata Kuliah</th>
                                 <th style="text-align: center">Kelas</th>
                                 <th style="text-align: center">Bobot SKS</th>
-                                <th style="text-align: center">Nama Dosen</th>
+                                <th style="text-align: center">Nama Dosen Pengampu</th>
                             </tr>
                             </thead>
                             <tbody>

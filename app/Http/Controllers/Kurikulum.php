@@ -9,6 +9,7 @@
             use App\AngkatanModel;
             use App\JurusanModel;
             use App\MataKuliahModel;
+use App\TahunAjaranModel;
 
 class Kurikulum extends Controller
 {
@@ -22,6 +23,8 @@ class Kurikulum extends Controller
     static $tablename = "Kurikulum";
     public function index()
     {
+        $master['tahun_ajaran'] = TahunAjaranModel::where('row_status' ,'active')->get();
+        $master['jurusan'] = JurusanModel::where('row_status' ,'active')->get();
         $data = KurikulumModel::join('master_jurusan as b' , 'kurikulum.program_studi_id' , '=' , 'b.id')
         ->join('kurikulum_mata_kuliah as c' , 'c.kurikulum_id' ,'=' ,'kurikulum.id')
         ->join('mata_kuliah as d' ,'d.id' ,'=','c.mata_kuliah_id')
@@ -35,7 +38,7 @@ class Kurikulum extends Controller
         ) as total_wajib '))
         ->groupBy('kurikulum.id', 'kurikulum.nama_kurikulum' , 'master_semester.title', 'kurikulum.jumlah_bobot_mata_kuliah_wajib' ,'kurikulum.jumlah_bobot_mata_kuliah_pilihan', 'kurikulum.jumlah_sks' , 'b.title')
         ->get();
-        return view("data/kurikulum" , compact('data'));
+        return view("data/kurikulum" , compact('data' ,"master"));
 
     }
 

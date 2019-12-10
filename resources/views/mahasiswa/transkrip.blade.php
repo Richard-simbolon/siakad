@@ -68,12 +68,12 @@
                                         <tr>
                                             <td width="107px">Nirm</td>
                                             <td>:</td>
-                                            <td><b>{{Auth::user()->login}}</b></td>
+                                            <td><b>{{$mahasiswa->nim}}</b></td>
                                         </tr>
                                         <tr>
                                             <td width="107px">Nama</td>
                                             <td>:</td>
-                                            <td><b>{{Auth::user()->nama}}</b></td>
+                                            <td><b>{{$mahasiswa->nama}}</b></td>
                                         </tr>
                                         <tr>
                                             <td>Angkatan</td>
@@ -109,28 +109,26 @@
                     <div>
                         <table class="dataTable table table-striped table-bordered table-hover table-checkable">
                                 <thead>
-                                <tr>
-                                    <th style="text-align: center; vertical-align: middle" rowspan="2">No</th>
-                                    <th style="text-align: center ; vertical-align: middle" rowspan="2">Kode MK</th>
-                                    <th style="text-align: center;vertical-align: middle" rowspan="2">Mata Kuliah</th>
-                                    <th style="text-align: center;vertical-align: middle" rowspan="2">Semester</th>
-                                    <th style="text-align: center;vertical-align: middle" rowspan="2">Bobot SKS</th>
-                                    
-                                    <!--<th style="text-align: center;vertical-align: middle" rowspan="2">UTS / Pel.Praktik</th>
-                                    <th style="text-align: center;vertical-align: middle" rowspan="2">Tugas / Unjuk Kerja</th>
-                                    <th style="text-align: center;vertical-align: middle" rowspan="2">UAS / Hasil (Lap)</th> -->
-                                    
-                                    <th style="text-align: center" colspan="3">Nilai akhir</th>
-                                    <th style="text-align: center" rowspan="2">SKS * Index</th>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: center">Angka</th>
-                                    <th style="text-align: center">Huruf</th>
-                                    <th style="text-align: center;border-right-width: 1px;">Index</th>
-                                </tr>
-                                </thead>
+                                    <tr>
+                                        <th style="text-align: center; vertical-align: middle" align="center" rowspan="2">No</th>
+                                        <th style="text-align: center; vertical-align: middle" align="center" rowspan="2">Kode</th>
+                                        <th style="text-align: center; vertical-align: middle" align="center" rowspan="2">Mata Kuliah</th>
+                                        <th style="text-align: center; vertical-align: middle" align="center" colspan="3">SKS</th>
+                                        <th style="text-align: center; vertical-align: middle" align="center" colspan="2">Nilai Teori</th>
+                                        <th style="text-align: center; vertical-align: middle" align="center" colspan="2">Nilai Praktek</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: center" width="45px" align="center">Teori</th>
+                                        <th  style="text-align: center"width="45px" align="center">Praktek</th>
+                                        <th style="text-align: center" width="45px" align="center">Jumlah</th>
+                                        <th style="text-align: center" width="45px" align="center">Angka</th>
+                                        <th style="text-align: center" width="45px" align="center">Mutu</th>
+                                        <th style="text-align: center" width="45px" align="center">Angka</th>
+                                        <th style="text-align: center" width="45px" align="center">Mutu</th>
+                                    </tr>
+                                </thead>    
                                     <tbody id="body-khs">
-                                        <?php
+                                            <?php
                                             $data_group = [];
                                             foreach ($data as $key => $value) {
                                                 $data_group[$value->semester_id][] = $value;
@@ -142,14 +140,21 @@
                                                 $j++;
                                                 $sks = 0;
                                                 $nipk = 0;
-                                                    
+                                                    echo '<tr>
+                                                            <td align="center"></td>
+                                                            <td colspan="2"><b>SEMESTER '.$j.'</b></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>';
                                                 foreach ($g as $key => $item) {
-
-                                                    //echo $item->nama_mata_kuliah.'-';
+                            
                                                     $i++;
-                                                    $semester_id = 
                                                     $sks += $item->bobot_mata_kuliah;
-                    
                                                     $nangka = 0;
                                                     $nhuruf = 'E';
                                                     $indexvsks = 0;
@@ -160,7 +165,7 @@
                                                     $nlapopkl = $item->nilai_laporan_pkl > 0 ? $item->nilai_laporan_pkl : 0;
                                                     $nlapo = $item->nilai_laporan > 0 ? $item->nilai_laporan : 0;
                                                     $nujian = $item->nilai_ujian > 0 ? $item->nilai_ujian : 0;
-
+                            
                                                     if($item->tipe_mata_kuliah == 'praktik'){
                                                         $nangka = ( (($ntgs * 20) / 100) + (($nuts * 40) / 100) + (($nuas * 40)/100));
                                                     }elseif ($item->tipe_mata_kuliah == 'teori') {
@@ -203,56 +208,81 @@
                                                         $indexvsks = 0 * $item->bobot_mata_kuliah;
                                                         $index = 0;
                                                     }
-
-                                                    echo '<tr>
-                                                        <td style="text-align: center">'.$i.'</td>
-                                                        <td style="text-align: center">'.$item->kode_mata_kuliah.'</td>
-                                                        <td style="text-align: center">'.$item->nama_mata_kuliah.'</td>
-                                                        <td style="text-align: center">'.$j.'</td>
-                                                        <td style="text-align: center">'.$item->bobot_mata_kuliah .'</td>
-                                                        <!--<td style="text-align: center">'.($item->nilai_uts ? $item->nilai_uts : 0).'</td>
-                                                        <td style="text-align: center">'. ($item->nilai_tugas ? $item->nilai_tugas: 0).'</td>
-                                                        <td style="text-align: center">'. ($item->nilai_uas ? $item->nilai_uas : 0).'</td>-->
-                                                        <td style="text-align: center">'.$index.'</td>
-                                                        <td style="text-align: center">'.$nangka.'</td>
-                                                        <td style="text-align: center">'.$nhuruf.'</td>
-                                                        <td style="text-align: center">'.$indexvsks.'</td>
-                                                    </tr>';
-                                                }
-
-                                                echo '<tr>
-                                                        <td colspan="4">
-                                                            Total SKS
-                                                        </td>
-                                                        <td style="text-align: center">
-                                                                <b>'.$sks.'</b>
-                                                        </td>
-                                                        <td colspan="4" style="text-align: center">
-                                                                
-                                                        </td>
+                
+                                                    if($item->tipe_mata_kuliah == 'praktek' || $item->tipe_mata_kuliah == 'skripsi' ||$item->tipe_mata_kuliah == 'seminar' ||$item->tipe_mata_kuliah == 'pkl'){
+                                                        $sksteori = 0; 
+                                                        $skspraktek = $item->bobot_mata_kuliah;
+                                                        $jumlahpr = $item->bobot_mata_kuliah;
                                                         
-                                                    </tr>
-                                                    
+                                                        $nilaiteoriangka = 0;
+                                                        $nilaiteorimutu = '-';  
+                                                        $nilaipraktekangka = $nangka;
+                                                        $nilaipraktekmutu = $nhuruf;
+                                                    }else{
+                                                        $sksteori = $item->bobot_mata_kuliah; 
+                                                        $skspraktek = '-';
+                                                        $jumlahpr = $item->bobot_mata_kuliah;
+                
+                                                        $nilaiteoriangka = $nangka;
+                                                        $nilaiteorimutu = $nhuruf;  
+                                                        $nilaipraktekangka = "-";
+                                                        $nilaipraktekmutu = '-';
+                                                    }
+                                                    echo '
                                                     <tr>
-                                                        <td colspan="8">
-                                                            INDEKS PRESTASI (IP)
-                                                        </td>
-                                                        <td colspan="1" style="text-align: center">
-                                                                <b>'.round($nipk / $sks ,2).'</b>
-                                                        </td>
+                                                        <td align="center">'.$i.'</td>
+                                                        <td>'.$item->kode_mata_kuliah.'</td>
+                                                        <td>'.$item->nama_mata_kuliah.'</td>
+                                                        <td align="center">'.$sksteori.'</td>
+                                                        <td align="center">'.$skspraktek.'</td>
+                                                        <td align="center">'.$jumlahpr.'</td>
+                                                        <td align="center">'.$nilaiteoriangka.'</td>
+                                                        <td align="center">'.$nilaiteorimutu.'</td>
+                                                        <td align="center">'.$nilaipraktekangka.'</td>
+                                                        <td align="center">'.$nilaipraktekmutu.'</td>
                                                     </tr>
                                                     ';
+                                                }
+                            
+                                                echo '
+                                                
+                                                        <tr>
+                                                            <td align="center"></td>
+                                                            <td></td>
+                                                            <td>TOTAL SKS</td>
+                                                            <td align="center" colspan="7">'.$sks.'</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="center"></td>
+                                                            <td></td>
+                                                            <td>INDEKS PRESTASI (IP)</td>
+                                                            <td align="center" colspan="7">'.round($nipk / $sks ,2).'</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td align="center"></td>
+                                                            <td style="color:#ffffff;height: 2px;font-size:9pt;">.</td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    ';
+                                                    
                                                     $nipg[] = $nipk / $sks;
                                             }
-
-                                            echo '  <tr>
-                                                        <td colspan="8">
-                                                            <b>INDEKS PRESTASI KUMULATIF (IPK)</b>
-                                                        </td>
-                                                        <td colspan="1" style="text-align: center">
-                                                                <b>'.round(array_sum($nipg) / count($nipg) ,2).'</b>
-                                                        </td>
-                                                    </tr>';
+                            
+                                            echo '  
+                                                    <tr>
+                                                        <td align="center"></td>
+                                                        <td></td>
+                                                        <td>INDEKS PRESTASI KUMULATIF (IPK)</td>
+                                                        <td align="center" colspan="7">'.round(array_sum($nipg) / count($nipg) ,2).'</td>
+                                                    </tr>
+                                          ';
                                             
                                         ?>
                                 </tbody>

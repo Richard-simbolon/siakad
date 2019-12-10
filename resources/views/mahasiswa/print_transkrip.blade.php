@@ -102,7 +102,7 @@
                         <tr>
                             <td width="40%;">Nama</td>
                             <td width="5px;">:</td>
-                            <td>{{Auth::user()->nama}}</td>
+                            <td>{{$mahasiswa->nama}}</td>
                         </tr>
                         <tr>
                             <td>Tempat, Tanggal Lahir</td>
@@ -112,7 +112,7 @@
                         <tr>
                             <td>NIRM</td>
                             <td>:</td>
-                            <td>{{Auth::user()->login}}</td>
+                            <td>{{$mahasiswa->nim}}</td>
                         </tr>
                         <tr>
                             <td>No. Ijazah</td>
