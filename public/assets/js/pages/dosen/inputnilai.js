@@ -222,8 +222,8 @@ $(document).ready(function() {
         }else{
             nhuruf = 'E';
         }
-
-        $('.n_angka_'+this_).html(nangka);
+        
+        $('.n_angka_'+this_).html((Math.round(nangka * 100) / 100).toFixed(2));
         $('.n_huruf_'+this_).html(nhuruf);
     });
 

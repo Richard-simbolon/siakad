@@ -73,11 +73,11 @@
                             </div>
                         </div>
                         <div class="col-xl-4">
-                            <label class="select2-label">Jurusan</label>
+                            <label class="select2-label">Program Studi</label>
                             <div class="form-group">
-                                <select id="jurusan" class="form-control kurikulum_filter">
-                                    <option value="0">-- Tahun Ajaran --</option>
-                                    @foreach ($master['tahun_ajaran'] as $item)
+                                <select id="jurusan" class="form-control kt-select2  kurikulum_filter">
+                                    <option value="0">-- Pilih Program Studi --</option>
+                                    @foreach ($master['jurusan'] as $item)
                                      <option value="{{$item->id}}">{{$item->title}}</option>
                                     @endforeach
                                 </select>

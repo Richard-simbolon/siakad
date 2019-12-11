@@ -171,7 +171,7 @@
                         <?php
                             $data_group = [];
                             foreach ($data as $key => $value) {
-                                $data_group[$value->semester_id][] = $value;
+                                $data_group[$value->semester][] = $value;
                             }
                             $i = 0;
                             $j = 0;
@@ -358,9 +358,9 @@
                 <div style="padding:5px;float: right;">
                     Direktur Polbangtan Medan, 
                     <br/><br/><br/><br/><br/>
-                    Ir. Yuliana Kansrini, M.Si
+                    {{$report->direktur}}
                     <div style="width: 200px;border-bottom:1px solid #000000;height: 5px;margin-bottom: 5px;"></div>
-                    NIP. 19660708 199602 2 001
+                    NIP. {{$report->direktur_nip}}
                 </div>
             </div>
 

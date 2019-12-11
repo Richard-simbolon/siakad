@@ -50,6 +50,12 @@
                                     </a>
                                 </li>
                                 <li class="kt-nav__item">
+                                    <a href="{{url('admin/mahasiswa/transkrip/'.$global['id'])}}" class="kt-nav__link">
+                                        <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
+                                        <span class="kt-nav__link-text">Transkrip</span>
+                                    </a>
+                                </li>
+                                <li class="kt-nav__item">
                                     <a href="{{url('mahasiswa/prestasi/'.$global['id'])}}" class="kt-nav__link">
                                         <i class="kt-nav__link-icon flaticon2-indent-dots"></i>
                                         <span class="kt-nav__link-text">Prestasi</span>
@@ -84,12 +90,11 @@
                                 &nbsp; KARTU HASIL STUDI (KHS)
                             </h3>
                         </div>
-                        <!--
                         <div class="kt-portlet__head-toolbar">
                             <div class="dropdown dropdown-inline show">
-                            <button type="button" class="btn btn-outline-success" onclick="window.location.href='{{url('print_khs')}}/'+$('#admin-search-khs').val()+''"><i class="la la-print"></i> Cetak KHS</button>
+                            <button type="button" class="btn btn-outline-success" onclick="window.location.href='{{url('admin/print_khs')}}/'+$('#admin-search-khs').val()+'/66'"><i class="la la-print"></i> Cetak KHS</button>
                             </div>
-                        </div>-->
+                        </div>
                     </div>
                     <!--begin::Form-->
                     <div class="kt-portlet__body">
@@ -101,12 +106,12 @@
                                             <tr>
                                                 <td width="107px">Nirm</td>
                                                 <td>:</td>
-                                                <td><b>{{Auth::user()->login}}</b></td>
+                                                <td><b>{{$mahasiswa->nim}}</b></td>
                                             </tr>
                                             <tr>
                                                 <td width="107px">Nama</td>
                                                 <td>:</td>
-                                                <td><b>{{Auth::user()->nama}}</b></td>
+                                                <td><b>{{$mahasiswa->nama}}</b></td>
                                             </tr>
                                             <tr>
                                                 <td>Angkatan</td>
@@ -157,119 +162,156 @@
                                 </div>
                             </div>
                         <div>
-                                <table class="dataTable table table-striped table-bordered table-hover table-checkable">
+                        <table class="dataTable table table-striped table-bordered table-hover table-checkable">
                                 <thead>
-                                <tr>
-                                    <th style="text-align: center; vertical-align: middle" rowspan="2">No</th>
-                                    <th style="text-align: center ; vertical-align: middle" rowspan="2">Kode MK</th>
-                                    <th style="text-align: center;vertical-align: middle" rowspan="2">Mata Kuliah</th>
-                                    <th style="text-align: center;vertical-align: middle" rowspan="2">Bobot SKS</th>
-                                    <!--<th style="text-align: center;vertical-align: middle" rowspan="2">UTS</th>
-                                    <th style="text-align: center;vertical-align: middle" rowspan="2">Tugas</th>
-                                    <th style="text-align: center;vertical-align: middle" rowspan="2">UAS</th>-->
-                                    <th style="text-align: center" colspan="3">Akhir</th>
-                                    <th style="text-align: center;vertical-align: middle;border-right-width: 1px;" rowspan="2">SKS * Index</th>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: center">Angka</th>
-                                    <th style="text-align: center">Huruf</th>
-                                    <th style="text-align: center;border-right-width: 1px;">Index</th>
-                                </tr>
+                                    <tr>
+                                        <th style="text-align: center; vertical-align: middle"  align="center" rowspan="2">No</th>
+                                        <th style="text-align: center; vertical-align: middle"  align="center" rowspan="2">Mata Kuliah</th>
+                                        <th style="text-align: center; vertical-align: middle"  align="center" colspan="2" width="90px">K</th>
+                                        <th style="text-align: center; vertical-align: middle"  align="center" colspan="2">HM</th>
+                                        <th style="text-align: center; vertical-align: middle"  align="center" colspan="2">AM</th>
+                                        <th style="text-align: center;vertical-align: middle;border-right-width: 1px;"  rowspan="2" align="center">M</th>
+                                    </tr>
+                                    <tr>
+                                        <th width="45px" align="center">T</th>
+                                        <th width="45px" align="center">P</th>
+                                        <th width="45px" align="center">T</th>
+                                        <th width="45px" align="center">P</th>
+                                        <th width="45px" align="center">T</th>
+                                        <th style="text-align: center;border-right-width: 1px;" width="45px" align="center">P</th>
+                                    </tr>
                                 </thead>
+                                
                                 <tbody id="body-khs">
-                                    <?php $i = 0;
+                                        <?php $i = 0;
                                         $sks = 0;
                                         $nipk = 0;
+                                        $t_sks_teori = 0;
+                                        $t_sks_praktek = 0;
                                     ?>
-                                    @if (count($data)) > 0
+                                    @if (count($data) > 0) 
+                                        @foreach ($data as $item)
+                                        <?php $i++;
+                                        $sks += $item->bobot_mata_kuliah;
+                    
+                                        $nangka = 0;
+                                        $index = 0;
+                                        $indexvsks = 0;
+                                        $nhuruf = 'E';
+                                        $nuts = $item->nilai_uts > 0 ? $item->nilai_uts : 0;
+                                        $nuas = $item->nilai_uas > 0 ? $item->nilai_uas : 0;
+                                        $ntgs = $item->nilai_tugas > 0 ? $item->nilai_tugas : 0;
+                                        $nlapopkl = $item->nilai_laporan_pkl > 0 ? $item->nilai_laporan_pkl : 0;
+                                        $nlapo = $item->nilai_laporan > 0 ? $item->nilai_laporan : 0;
+                                        $nujian = $item->nilai_ujian > 0 ? $item->nilai_ujian : 0;
+                    
+                                        if($item->tipe_mata_kuliah == 'praktek'){
+                                            $nangka = ( (($ntgs * 20) / 100) + (($nuts * 40) / 100) + (($nuas * 40)/100));
+                                        }elseif ($item->tipe_mata_kuliah == 'teori') {
+                                            $nangka = ( (($ntgs * 30) / 100) + (($nuts * 30) / 100) + (($nuas * 40)/100));
+                                        }elseif ($item->tipe_mata_kuliah == 'seminar') {
+                                            $nangka = ( (($ntgs * 40) / 100) + (($nuts * 30) / 100) + (($nuas * 30)/100));
+                                        }elseif ($item->tipe_mata_kuliah == 'pkl') {
+                                            $nangka = ( (($ntgs * 20) / 100) + (($nuts * 20) / 100) + (($nuas * 40)/100) + (($nlapopkl * 20) / 100));
+                                        }elseif ($item->tipe_mata_kuliah == 'skripsi') {
+                                            $nangka = ( (($ntgs * 30) / 100) + (($nuts * 20) / 100) + (($nuas * 10)/100) + (($nlapopkl * 10) / 100) + (($nujian * 20) / 100) + (($nlapo * 10) / 100));
+                                        }
+                                        
+                                        if($nangka < 45){
+                                            $nhuruf = 'E';
+                                            $nipk += 0 * $item->bobot_mata_kuliah;
+                                            $indexvsks = 0 * $item->bobot_mata_kuliah;
+                                            $index = 0;
+                                        }elseif($nangka > 44 && $nangka<= 59){
+                                            $nhuruf = 'D';
+                                            $nipk += 1 * $item->bobot_mata_kuliah;
+                                            $indexvsks = 1 * $item->bobot_mata_kuliah;
+                                            $index = 1;
+                                        }elseif($nangka > 59 && $nangka<= 69){
+                                            $nhuruf = 'C';
+                                            $nipk += 2 * $item->bobot_mata_kuliah;
+                                            $indexvsks = 2 * $item->bobot_mata_kuliah;
+                                            $index = 2;
+                                        }elseif($nangka > 69 && $nangka<= 79){
+                                            $nhuruf = 'B';
+                                            $nipk += 3 * $item->bobot_mata_kuliah;
+                                            $indexvsks = 3 * $item->bobot_mata_kuliah;
+                                            $index = 3;
+                                        }elseif($nangka > 79 && $nangka<= 100){
+                                            $nhuruf = 'A';
+                                            $nipk += 4 * $item->bobot_mata_kuliah;
+                                            $indexvsks = 4 * $item->bobot_mata_kuliah;
+                                            $index = 4;
+                                        }else{
+                                            $nhuruf = 'E';
+                                            $nipk += 0 * $item->bobot_mata_kuliah;
+                                            $index = 5;
+                                        }
+                                        
+                                        if($item->tipe_mata_kuliah == 'praktek' || $item->tipe_mata_kuliah == 'skripsi' ||$item->tipe_mata_kuliah == 'seminar' ||$item->tipe_mata_kuliah == 'pkl'){
+                                            $sksteori = 0; 
+                                            $skspraktek = $item->bobot_mata_kuliah;
+                                            $jumlahpr = $item->bobot_mata_kuliah;
+                                            
+                                            $nilaiteoriangka = 0;
+                                            $nilaiteorimutu = '-';  
+                                            $nilaipraktekangka = $nangka;
+                                            $nilaipraktekmutu = $nhuruf;
+                                            $t_sks_praktek += $item->bobot_mata_kuliah;
+                                            
+                                        }else{
+                                            $sksteori = $item->bobot_mata_kuliah; 
+                                            $skspraktek = '-';
+                                            $jumlahpr = $item->bobot_mata_kuliah;
+        
+                                            $nilaiteoriangka = $nangka;
+                                            $nilaiteorimutu = $nhuruf;  
+                                            $nilaipraktekangka = "-";
+                                            $nilaipraktekmutu = '-';
+                                            $t_sks_teori += $item->bobot_mata_kuliah;
+                                        }
+        
+                                        
+                                        ?>
+    
+                                    <tr>
+                                            <td align="center">{{$i}}</td>
+                                            <td>{{$item->nama_mata_kuliah}}</td>
+                                            <td align="center">{{$sksteori}}</td>
+                                            <td align="center">{{$skspraktek}}</td>
+                                            <td align="center">{{$nilaiteorimutu}}</td>
+                                            <td align="center">{{$nilaipraktekmutu}}</td>
+                                            <td align="center">{{$nilaiteoriangka}}</td>
+                                            <td align="center">{{$nilaipraktekangka}}</td>
+                                            <td align="center">{{$nhuruf}}</td>
+                                        </tr>
                                         
                                     
-                                    
-                                    @foreach ($data as $item)
-                                    <?php $i++;
-                                    $sks += $item->bobot_mata_kuliah;
-    
-                                    $nangka = 0;
-                                    $index = 0;
-                                    $indexvsks = 0;
-                                    $nhuruf = 'E';
-                                    $nuts = $item->nilai_uts > 0 ? $item->nilai_uts : 0;
-                                    $nuas = $item->nilai_uas > 0 ? $item->nilai_uas : 0;
-                                    $ntgs = $item->nilai_tugas > 0 ? $item->nilai_tugas : 0;
-                                    $nlapopkl = $item->nilai_laporan_pkl > 0 ? $item->nilai_laporan_pkl : 0;
-                                    $nlapo = $item->nilai_laporan > 0 ? $item->nilai_laporan : 0;
-                                    $nujian = $item->nilai_ujian > 0 ? $item->nilai_ujian : 0;
-
-                                    if($data->tipe_mata_kuliah == 'praktik'){
-                                        $nangka = ( (($ntgs * 20) / 100) + (($nuts * 40) / 100) + (($nuas * 40)/100));
-                                    }elseif ($data->tipe_mata_kuliah == 'teori') {
-                                        $nangka = ( (($ntgs * 30) / 100) + (($nuts * 30) / 100) + (($nuas * 40)/100));
-                                    }elseif ($data->tipe_mata_kuliah == 'seminar') {
-                                        $nangka = ( (($ntgs * 40) / 100) + (($nuts * 30) / 100) + (($nuas * 30)/100));
-                                    }elseif ($data->tipe_mata_kuliah == 'pkl') {
-                                        $nangka = ( (($ntgs * 20) / 100) + (($nuts * 20) / 100) + (($nuas * 40)/100) + (($nlapopkl * 20) / 100));
-                                    }elseif ($data->tipe_mata_kuliah == 'skripsi') {
-                                        $nangka = ( (($ntgs * 30) / 100) + (($nuts * 20) / 100) + (($nuas * 10)/100) + (($nlapopkl * 10) / 100) + (($nujian * 20) / 100) + (($nlapo * 10) / 100));
-                                    }
-                                    if($nangka < 45){
-                                        $nhuruf = 'E';
-                                        $nipk += 0 * $item->bobot_mata_kuliah;
-                                        $indexvsks = 0 * $item->bobot_mata_kuliah;
-                                        $index = 0;
-                                    }elseif($nangka > 44 && $nangka<= 59){
-                                        $nhuruf = 'D';
-                                        $nipk += 1 * $item->bobot_mata_kuliah;
-                                        $indexvsks = 1 * $item->bobot_mata_kuliah;
-                                        $index = 1;
-                                    }elseif($nangka > 59 && $nangka<= 69){
-                                        $nhuruf = 'C';
-                                        $nipk += 2 * $item->bobot_mata_kuliah;
-                                        $indexvsks = 2 * $item->bobot_mata_kuliah;
-                                        $index = 2;
-                                    }elseif($nangka > 69 && $nangka<= 79){
-                                        $nhuruf = 'B';
-                                        $nipk += 3 * $item->bobot_mata_kuliah;
-                                        $indexvsks = 3 * $item->bobot_mata_kuliah;
-                                        $index = 3;
-                                    }elseif($nangka > 79 && $nangka<= 100){
-                                        $nhuruf = 'A';
-                                        $nipk += 4 * $item->bobot_mata_kuliah;
-                                        $indexvsks = 4 * $item->bobot_mata_kuliah;
-                                        $index = 4;
-                                    }else{
-                                        $nhuruf = 'E';
-                                        $nipk += 0 * $item->bobot_mata_kuliah;
-                                        $index = 5;
-                                    }
-                                    ?>
-                                    <tr>
-                                        <td style="text-align: center">{{$i}}</td>
-                                        <td style="text-align: center">{{$item->kode_mata_kuliah}}</td>
-                                        <td style="text-align: center">{{$item->nama_mata_kuliah}}</td>
-                                        <td style="text-align: center">{{$item->bobot_mata_kuliah}}</td>
-                                        <!--<td style="text-align: center">{{$item->nilai_uts ? $item->nilai_uts :0}}</td>
-                                        <td style="text-align: center">{{$item->nilai_tugas ? $item->nilai_tugas :0}}</td>
-                                        <td style="text-align: center">{{$item->nilai_uas ? $item->nilai_uas: 0}}</td>-->
-                                        <td style="text-align: center">{{$nangka}}</td>
-                                        <td style="text-align: center">{{$nhuruf}}</td>
-                                        <td style="text-align: center">{{$index}}</td>
-                                        <td style="text-align: center">{{$indexvsks}}</td>
-                                    </tr>
                                     @endforeach
                                     <tr>
-                                        <td style="text-align: left" colspan="3"><b>Total SKS</b></td>
-                                        <td style="text-align: center" ><b>{{$sks}}</b></td>
-                                        <td style="text-align: center" colspan="4"><b></b></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: left" colspan="7"><b>IP</b></td>
-                                        <td style="text-align: center"><b>{{ round($nipk / $sks ,2)}}</b></td>
-                                    </tr>
+                                            <td align="center"></td>
+                                            <td>Jumlah </td>
+                                            <td align="center">{{$t_sks_teori}}</td>
+                                            <td align="center">{{$t_sks_praktek}}</td>
+                                            <td align="center" colspan="4" ></td>
+                                            <td align="center" rowspan="2"></td>
+                                        </tr>
+            
+                                        <tr>
+                                            <td align="center"></td>
+                                            <td>Jumlah  K (T + P)</td>
+                                            <td align="center" colspan="2" >{{$sks}}</td>
+                                            <td align="center" colspan="4"></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"></td>
+                                            <td colspan="7">Indeks Prestasi (IP)</td>
+                                            <td align="center">{{ round($nipk / $sks ,2)}}</td>
+                                        </tr>
                                     @else
-                                    <tr>
-                                           
-                                        <td style="text-align: center" colspan="9">Tidak ada matakuliah</td>
-                                    </tr>
+                                    <tr>            
+                                            <td style="text-align: center;center; border-bottom:1px black solid; border-right:1px black solid;" colspan="9">Tidak ada matakuliah</td>
+                                        </tr>
                                     @endif
                                 </tbody>
                             </table>

@@ -165,7 +165,7 @@ class KelasPerkuliahan extends Controller
                 ]);
         
                 if ($validation2->fails()) {
-                    return json_encode(['status'=> 'error', 'message'=> $validation->messages()]);
+                    //return json_encode(['status'=> 'error', 'message'=> $validation->messages()]);
                 }
 
                 $item['kelas_perkuliahan_id'] = $perkuliahanid->id;
@@ -178,7 +178,7 @@ class KelasPerkuliahan extends Controller
 
         } catch(\Exception $e){
             DB::rollBack(); 
-            //throw $e;
+            
             return json_encode(array('status' => 'error' , 'message' => 'Terjadi kesalahan saat menyimpan, silahkan coba lagi.'));
         }
         

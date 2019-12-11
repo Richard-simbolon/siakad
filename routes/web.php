@@ -20,10 +20,15 @@ Route::post('setting/mtable', 'SettingMenu@mtable')->name('mtable');
 Route::post('/data/mahasiswa/validatewizard', 'Mahasiswa@validatewizard')->name('validate_wizard');
 Route::post('/data/mahasiswa/update', 'Mahasiswa@update')->name('update');
 
+Route::get('admin/print_khs/{id}/{ids}', 'Mahasiswa@print_khs')->name('getcalender');
+Route::get('admin/print_transkrip/{id}', 'Mahasiswa@print_transkrip')->name('transkrip');
+Route::get('admin/print_krs/{id}', 'Mahasiswa@print_krs')->name('transkrip');
+
 
 Route::get('mahasiswa/prestasi/{id}', 'Mahasiswa@prestasi')->name('prestasi mahasiswa');
 Route::get('admin/mahasiswa/khs/{id}', 'Mahasiswa@khs')->name('KRS mahasiswa');
 Route::get('admin/mahasiswa/krs/{id}', 'Mahasiswa@krs')->name('KHS mahasiswa');
+Route::get('admin/mahasiswa/transkrip/{id}', 'Mahasiswa@transkrip')->name('KHS mahasiswa');
 Route::post('/data/mahasiswa/save_prestasi', 'Mahasiswa@save_prestasi')->name('save prestasi');
 Route::post('/mahasiswa/paging_prestasi', 'Mahasiswa@paging_prestasi')->name('paging_prestasi');
 Route::get('/data/mahasiswa/grafik_mahasiswa', 'Mahasiswa@grafik_mahasiswa')->name('grafik_mahasiswa');

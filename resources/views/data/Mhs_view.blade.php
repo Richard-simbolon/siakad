@@ -50,6 +50,12 @@
                                     </a>
                                 </li>
                                 <li class="kt-nav__item">
+                                    <a href="{{url('admin/mahasiswa/transkrip/'.$global['id'])}}" class="kt-nav__link">
+                                        <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
+                                        <span class="kt-nav__link-text">Transkrip</span>
+                                    </a>
+                                </li>
+                                <li class="kt-nav__item">
                                     <a href="{{url('mahasiswa/prestasi/'.$global['id'])}}" class="kt-nav__link">
                                         <i class="kt-nav__link-icon flaticon2-indent-dots"></i>
                                         <span class="kt-nav__link-text">Prestasi</span>

@@ -61,70 +61,69 @@
                 <!--begin::Form-->
                 <div class="kt-portlet__body">
                     <div class="col-lg-12">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <table cellpadding="5">
-                                        <tbody>
-                                        <tr>
-                                            <td width="107px">Nirm</td>
-                                            <td>:</td>
-                                            <td><b>{{$mahasiswa->nim}}</b></td>
-                                        </tr>
-                                        <tr>
-                                            <td width="107px">Nama</td>
-                                            <td>:</td>
-                                            <td><b>{{$mahasiswa->nama}}</b></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Angkatan</td>
-                                            <td>:</td>
-                                            <td><b>{{$mahasiswa->angkatan_title}}</b></td>
-                                        </tr>
-                                        
-                                    </tbody></table>
-                                </div>
-                                <div class="col-lg-6">
-                                    <table cellpadding="5">
-                                        <tbody><tr>
-                                            <td>Agama</td>
-                                            <td>:</td>
-                                            <td><b>{{$mahasiswa->agama_title}}</b></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Program Studi</td>
-                                            <td>:</td>
-                                            <td><b>{{$mahasiswa->jurusan_title}}</b></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Kelas</td>
-                                            <td>:</td>
-                                            <td><b>{{$mahasiswa->kelas_title}}</b></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                </div>
-                            </div>
-                        </div>
-                        <br/><br/>
-
                         <div class="row">
-                            <div class="col-xl-2">
+                            <div class="col-lg-6">
+                                <table cellpadding="5">
+                                    <tbody>
+                                    <tr>
+                                        <td width="107px">Nirm</td>
+                                        <td>:</td>
+                                        <td><b>{{$mahasiswa->nim}}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="107px">Nama</td>
+                                        <td>:</td>
+                                        <td><b>{{$mahasiswa->nama}}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Angkatan</td>
+                                        <td>:</td>
+                                        <td><b>{{$mahasiswa->angkatan_title}}</b></td>
+                                    </tr>
+                                    
+                                </tbody></table>
+                            </div>
+                            <div class="col-lg-6">
+                                <table cellpadding="5">
+                                    <tbody><tr>
+                                        <td>Agama</td>
+                                        <td>:</td>
+                                        <td><b>{{$mahasiswa->agama_title}}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Program Studi</td>
+                                        <td>:</td>
+                                        <td><b>{{$mahasiswa->jurusan_title}}</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kelas</td>
+                                        <td>:</td>
+                                        <td><b>{{$mahasiswa->kelas_title}}</b></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+                    <br/><br/>
+
+                    <div class="col-lg-12">
+                        <div class="col-xl-2">
+                            <div class="form-group">
+                                <label>Tahun Ajaran</label>
                                 <div class="form-group">
-                                    <label>Tahun Ajaran</label>
-                                    <div class="form-group">
-                                       
-                                        <select name="semester_id" id="search-khs" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
-                                            <option value="">Select</option>
-                                            @foreach ($master as $item)
-                                                <option value="{{$item['id']}}" {{$item['id'] == $semester_aktif->id ? 'selected' : ''}}> {{$item['title']}} </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    <select name="semester_id" id="search-khs" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
+                                        <option value="">Select</option>
+                                        @foreach ($master as $item)
+                                            <option value="{{$item['id']}}" {{$item['id'] == $semester_aktif->id ? 'selected' : ''}}> {{$item['title']}} </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                    <div>
-                            <table class="dataTable table table-striped table-bordered table-hover table-checkable">
+                    </div>
+                <div>
+                        <table class="dataTable table table-striped table-bordered table-hover table-checkable">
                             <thead>
                                 <tr>
                                     <th style="text-align: center; vertical-align: middle"  align="center" rowspan="2">No</th>
@@ -152,7 +151,6 @@
                                     $t_sks_praktek = 0;
                                 ?>
                                 @if (count($data) > 0) 
-                                    
                                     @foreach ($data as $item)
                                     <?php $i++;
                                     $sks += $item->bobot_mata_kuliah;
@@ -269,7 +267,6 @@
                                     <tr>
                                         <td align="center"></td>
                                         <td colspan="7">Indeks Prestasi (IP)</td>
-                                        
                                         <td align="center">{{ round($nipk / $sks ,2)}}</td>
                                     </tr>
                                 @else

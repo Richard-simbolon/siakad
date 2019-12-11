@@ -131,7 +131,7 @@
                                             <?php
                                             $data_group = [];
                                             foreach ($data as $key => $value) {
-                                                $data_group[$value->semester_id][] = $value;
+                                                $data_group[$value->semester][] = $value;
                                             }
                                             $i = 0;
                                             $j = 0;

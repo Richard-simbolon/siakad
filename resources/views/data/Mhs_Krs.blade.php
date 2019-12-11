@@ -50,6 +50,12 @@
                                     </a>
                                 </li>
                                 <li class="kt-nav__item">
+                                    <a href="{{url('admin/mahasiswa/transkrip/'.$global['id'])}}" class="kt-nav__link">
+                                        <i class="kt-nav__link-icon flaticon2-calendar-4"></i>
+                                        <span class="kt-nav__link-text">Transkrip</span>
+                                    </a>
+                                </li>
+                                <li class="kt-nav__item">
                                     <a href="{{url('mahasiswa/prestasi/'.$global['id'])}}" class="kt-nav__link">
                                         <i class="kt-nav__link-icon flaticon2-indent-dots"></i>
                                         <span class="kt-nav__link-text">Prestasi</span>
@@ -83,12 +89,11 @@
                             &nbsp; KARTU RENCANA STUDI (KRS)
                         </h3>
                     </div>
-                    <!--
                     <div class="kt-portlet__head-toolbar">
                         <div class="dropdown dropdown-inline show">
-                                <button type="button" class="btn btn-outline-success"><i class="la la-print"></i> Cetak KRS</button>
+                                <button type="button" class="btn btn-outline-success" onclick="window.location.href='{{url('admin/print_krs/'.$mahasiswa->id)}}'"><i class="la la-print"></i> Cetak KRS</button>
                         </div>
-                    </div>-->
+                    </div>
                 </div>
                 <!--begin::Form-->
                 <div class="kt-portlet__body">

@@ -43,6 +43,16 @@ return [
             'nilai_ujian' => 'Ujian',
             'nilai_laporan' => 'Laporan'
         ],
+    ],
+    'semester' => [
+        '1'=>'I',
+        '2'=>'II',
+        '3'=>'III',
+        '4'=>'IV',
+        '5'=>'V',
+        '6'=>'VI',
+        '7'=>'VII',
+        '8'=>'VIII'
     ]
 ];
 // NILAI UTS = Pelaksanaan praktik = penyusunan makalah = proposal = proposal

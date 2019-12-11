@@ -199,8 +199,11 @@ class Kurikulum extends Controller
 
     public function carimatakuliah(Request $request){
         $post = $request->all();
-        $matakuliah = MataKuliahModel::where('program_studi_id' , '=' , $post['id'])
-        ->where('row_status' , '=' , 'active')->get();
+        //print_r($post); exit;
+        $matakuliah = MataKuliahModel::where('program_studi_id' , $post['id'])
+        ->where('row_status' , 'active')->get();
+
+        //print_r($matakuliah); exit;
         $html = '';
         if($matakuliah){
             foreach($matakuliah as $item){

@@ -117,12 +117,12 @@
                         <tr>
                             <td>IP Semester Lalu</td>
                             <td>:</td>
-                            <td style="border-bottom: 1px dotted #000000;"></td>
+                            <td style="border-bottom: 1px dotted #000000;">{{$ipk}}</td>
                         </tr>
                         <tr>
                             <td>Beban SKS</td>
                             <td>:</td>
-                            <td style="border-bottom: 1px dotted #000000;"></td>
+                            <td style="border-bottom: 1px dotted #000000;">{{$total_sks_header}}</td>
                         </tr>    
                         <tr>
                             <td>Tahun Akademik</td>
@@ -186,16 +186,16 @@
                 <div style="float:left;width:33.33%;padding-top:5px;">
                     Ketua Jurusan
                     <br/><br/><br/>
-                    Dr. Iman Arman, SP, MM
+                    {{$report->ketua_jurusan}}
                     <div style="width: 80%;border-bottom:1px solid #000000;height: 5px;margin-bottom: 2px;"></div>
-                    NIP. 19711205 200112 1 001
+                    NIP. {{$report->ketua_jurusan_nip}}
                 </div>
                 <div style="float:left;width:38.33%;padding:5px;">
                     Dosen Pembimbing Akademik (PA)
                     <br/><br/><br/>
-                    Dr. Iman Arman, SP, MM
+                    {{$profile->nama_dosen}}
                     <div style="width: 80%;border-bottom:1px solid #000000;height: 5px;margin-bottom: 2px;"></div>
-                    NIP. 19711205 200112 1 001
+                    NIP. {{$profile->nip}}
                 </div>
                 <div style="float:left;width:28.33%;padding:5px;">
                     Mahasiswa
@@ -205,8 +205,8 @@
                     <p style="margin-block-end: 0px;">Mengetahui,</p>
                     <p style="margin-block-start: 0px;">Wakil Direktur I Bidang Akademik,</p>
                     <br/><br/>
-                    Nurliana Harahap, SP, M.Si<br/>
-                    NIP. 19751001 200312 2 00
+                    {{$report->wakil_direktur_i_bidang_akademik}}<br/>
+                    NIP. {{$report->wakil_direktur_i_bidang_akademik_nip}}
                 </div>
             </div>
 

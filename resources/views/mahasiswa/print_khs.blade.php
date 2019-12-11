@@ -2,6 +2,10 @@
     <head>
         
         <style>
+            @page { margin: 15px; }
+            body { margin: 0px; 
+                padding: 0px;
+            }
             body{
                 font-family: 'Open Sans', sans-serif;
             }
@@ -55,12 +59,12 @@
             .approval{
                 clear: both;
                 width: 100%;
-                padding-top:40px;
+                padding-top:30px;
                 font-size: 10pt;
             }
             .logo-eqa{
                 clear: both;
-                width: 700px;
+                width: 600px;
                 margin:auto;
                 text-align: right;
             }
@@ -72,7 +76,7 @@
                 border:1px solid #827b7b;
             }
             .tugas-akhir table{
-                font-size: 8pt;
+                font-size: 7pt;
             }
         </style>
     </head>
@@ -114,7 +118,7 @@
                             <tr>
                                 <td>Semester</td>
                                 <td>:</td>
-                                <td style="border-bottom: 1px dotted #000000;">{{$semester_aktif->title}}</td>
+                                <td style="border-bottom: 1px dotted #000000;">{{count($data) > 0 ? config('global.semester.'.$data[0]['semester']) : '-'}}</td> 
                             </tr>
                             <tr>
                                 <td>Jurusan</td>
@@ -163,7 +167,7 @@
                             @if (count($data) > 0) 
                                 
                                 @foreach ($data as $item)
-                                <?php $i++;
+                                <?php $i++; 
                                 $sks += $item->bobot_mata_kuliah;
             
                                 $nangka = 0;
@@ -294,7 +298,7 @@
                             @endif
                         </tbody>
                     </table>
-                    <br/><br/>
+                    <br/>
                     <p style="font-size: 10pt"><b>Nilai Kepribadian</b></p>
                     <table width="60%" cellpadding="5px;">
                         <thead>
@@ -328,27 +332,60 @@
                         </tbody>
                     </table>
                 </div>
-        <div class="approval" style="padding:5px;float: right;">
-                <div style="padding-top:10px;"></div>
-                <div style="padding:5px;padding: 5px;
-                width: 80%;
-                text-align: right;">Medan, </div>
-                <p style="margin-block-end: 0px;"></p>
-                <div style="padding-top:5px;">
+                <div class="approval">
+                    <div style="float:left;width:50%;padding-top:5px;"></div>
+                    <div style="float:left;">Medan, </div>
+                    <br/>
+                    <div style="float:left;width:5%;padding-top:5px;">Mengetahui</div>
+                    <br/>
+                    <div style="float:left;width:45%;padding-top:5px;">
+                        Dosen Wali,
+                        <br/><br/><br/>
+                        {{$mahasiswa->nama_dosen}}
+                        <div style="width: 80%;border-bottom:1px solid #000000;height: 5px;margin-bottom: 2px;"></div>
+                        NIP. {{$mahasiswa->nip}}
+                    </div>
+                    <div style="float:left;width:50%;padding:5px;">
+                        Kepala Bagian Administrasi Akademik,<br/>
+                        Kemahasiswaan dan Alumni
+                        <br/><br/><br/>
+                        {{$report->kepala_bagian_ad_akademik}}
+                        <div style="width: 80%;border-bottom:1px solid #000000;height: 5px;margin-bottom: 2px;"></div>
+                        NIP. {{$report->kepala_bagian_ad_akademik_nip}}
+                    </div>
+    
+                    <div class="table-info" style="clear: both;width:100%;text-align:center;padding-top:50px;">
+                        <table width="40%" cellpadding="5px;">
+                            <tbody>
+                                <tr>
+                                    <td colspan="2">Keterangan:</td>
+                                </tr>
+                                <tr>
+                                    <td>K</td>
+                                    <td>: Kredit</td>
+                                </tr>
+                                <tr>
+                                    <td>HM</td>
+                                    <td>: Huruf Mutu</td>
+                                </tr>
+                                <tr>
+                                    <td>AM</td>
+                                    <td>: Angka Mutu</td>
+                                </tr>
+                                <tr>
+                                    <td>M</td>
+                                    <td>: Angka Mutu</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+    
+                <div class="logo-eqa" >
+                    <br/>
+                    <img src="{{public_path('assets/logo/iso.png')}}" width="75px" style="margin-top:-24px;">
+                </div>
                     
-                </div>
-                <div style="padding:5px;float: right;">
-                    Direktur Polbangtan Medan, 
-                    <br/><br/><br/><br/><br/>
-                    Ir. Yuliana Kansrini, M.Si
-                    <div style="width: 200px;border-bottom:1px solid #000000;height: 5px;margin-bottom: 5px;"></div>
-                    NIP. 19660708 199602 2 001
-                </div>
-            </div>
-
-            <div class="logo-eqa">
-               
-            </div>
         </div>
     </body>
 </html>

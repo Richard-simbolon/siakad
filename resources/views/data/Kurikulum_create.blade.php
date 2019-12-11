@@ -121,7 +121,7 @@
 
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <table class="table table-striped table-bordered table-hover responsive" id="kurikulum_matakuliah">
+                                    <table class="dataTable table table-striped table-bordered table-hover responsive" >
                                         <thead>
                                         <tr>
                                             <th rowspan="2">Pilih</th>
