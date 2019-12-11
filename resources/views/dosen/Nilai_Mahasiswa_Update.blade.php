@@ -55,10 +55,11 @@
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <table cellpadding="5">
-                                                    <tbody><tr>
+                                                    <tbody>
+                                                    <tr>
                                                         <td width="107px">Matakuliah</td>
                                                         <td>:</td>
-                                                        <td><b>{{$data->nama_mata_kuliah}}</b></td>
+                                                        <td><b>{{$data->kode_mata_kuliah}}</b></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Dosen</td>
@@ -75,11 +76,18 @@
                                                         <td>:</td>
                                                         <td><b>{{count($mahasiswa)}}</b></td>
                                                     </tr>
-                                                </tbody></table>
+                                                </tbody>
+                                                </table>
                                             </div>
                                             <div class="col-lg-6">
                                                 <table cellpadding="5">
-                                                    <tbody><tr>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td width="107px">Matakuliah</td>
+                                                        <td>:</td>
+                                                        <td><b>{{$data->nama_mata_kuliah}}</b></td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>Semester</td>
                                                         <td>:</td>
                                                         <td><b>{{$data->nama_semester}}</b></td>

@@ -58,66 +58,64 @@
                 </div>
                 <!--begin::Form-->
                 <div class="kt-portlet__body">
-                        <div class="row">
-                            <div class="col-xl-2">
+                    <div class="row">
+                        <div class="col-xl-2">
+                            <div class="form-group">
+                                <label>Semester</label>
                                 <div class="form-group">
-                                    <label>Semester</label>
-                                    <div class="form-group">
-                                        <select name="semester_id" id="search-semester" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
-                                            <option value="">Select</option>
-                                            @foreach ($master['semester'] as $item)
-                                                <option value="{{$item['id']}}" {{$item['id'] == $semester_active->id ? 'selected':''}}> {{$item['title']}} </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-2">
-                                <div class="form-group">
-                                    <label>Angkatan</label>
-                                    <select id="angkatan-mahasiswa" name="angkatan_id" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
+                                    <select name="semester_id" id="search-semester" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
                                         <option value="">Select</option>
-                                        @foreach ($master['angkatan'] as $item)
-                                            <option value="{{$item['id']}}" > {{$item['title']}} </option>
+                                        @foreach ($master['semester'] as $item)
+                                            <option value="{{$item['id']}}" {{$item['id'] == $semester_active->id ? 'selected':''}}> {{$item['title']}} </option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-xl-4">
-                                <div class="form-group">
-                                    <label>Jurusan</label>
-                                    <select name="program_studi_id" id="jurusan-mahasiswa" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
-                                        <option value="">-- Pilih Jurusan --</option>
-                                        @foreach ($master['jurusan'] as $item)
-                                            <option value="{{$item['id']}}">{{$item['title']}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="col-xl-2">
+                            <div class="form-group">
+                                <label>Angkatan</label>
+                                <select id="angkatan-mahasiswa" name="angkatan_id" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
+                                    <option value="">Select</option>
+                                    @foreach ($master['angkatan'] as $item)
+                                        <option value="{{$item['id']}}" > {{$item['title']}} </option>
+                                    @endforeach
+                                </select>
                             </div>
-                            
-                            <div class="col-xl-4">
-                                <label class="select2-label">Kelas</label>
-                                <div class="form-group">
-                                    <select name="kelas_id" id="kelas-mahasiswa" class="form-control search-kurikulum kt-select2 looping_class_input">
-                                        <option value="">-- Pilih Kelas --</option>
-                                    
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="form-group">
+                                <label>Jurusan</label>
+                                <select name="program_studi_id" id="jurusan-mahasiswa" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
+                                    <option value="">-- Pilih Jurusan --</option>
+                                    @foreach ($master['jurusan'] as $item)
+                                        <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                        
+                        </div>
+
+                        <div class="col-xl-4">
+                            <label class="select2-label">Kelas</label>
+                            <div class="form-group">
+                                <select name="kelas_id" id="kelas-mahasiswa" class="form-control search-kurikulum kt-select2 looping_class_input">
+                                    <option value="">-- Pilih Kelas --</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
                             <div class="kt-form__actions">
                                 <button class="btn btn-success btn-sm" id="search-jadwal-kuliah"><i class="flaticon-search"></i>Tampilkan</button>
                             </div>
-                            <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
-
-                            
                         </div>
-                                    <div class="row">
-                                            <div class="col-lg-12">
-                                        <table class="table table-striped table-bordered table-hover table-checkable" id="jadwalperkuliahandata">
+                        <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
+                    </div>
+                        <div class="row">
+                                <div class="col-lg-12">
+                                    <table class="table table-striped table-bordered table-hover table-checkable" id="jadwalperkuliahandata">
                                         <thead>
                                         <tr>
-                                            
                                             <th style="text-align: center">Kode MK</th>
                                             <th style="text-align: center">Mata Kuliah</th>
                                             <th style="text-align: center">Kelas</th>
@@ -130,10 +128,10 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        
-                                    </tbody>
-                                </table>
-                                    </div>
+
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>

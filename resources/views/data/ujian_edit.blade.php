@@ -18,7 +18,7 @@
                                 Jadwal Ujian </a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="{{url()->current()}}" class="kt-subheader__breadcrumbs-link">
-                                Tambah </a>
+                                Ubah </a>
                         </div>
                     </div>
                 </div>
@@ -45,27 +45,12 @@
                                     </svg>
                                 </span> &nbsp;
                                 <h3 class="kt-portlet__head-title">
-                                    Tambah Jadwal Ujian - {{strtoupper($jenis_ujian)}}
+                                    Tambah Jadwal Ujian - {{strtoupper($dataheader->jenis_ujian)}}
                                 </h3>
                             </div>
                         </div>
 
                         <div class="kt-portlet__body">
-                            @if(!$eligible)
-                                <div class="row">
-                                    <div class="col-xl-12">
-                                        <div class="alert alert-light alert-warning" style="background-color: #ffb82261;" role="alert">
-                                            <div class="alert-icon">
-                                                <i class="flaticon-warning" style="color:#000000;"></i>
-                                            </div>
-                                            <div class="alert-text">
-                                                <h5>Pemberitahuan</h5>
-                                                <p> Jadwal ujian matakuliah untuk kelas ini sudah diinput. </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
 
                             <form class="kt-form kt-form--label-right" action="update" method="POST">
                                 <div>
@@ -116,7 +101,7 @@
                                                                     <tr>
                                                                         <td>Jumlah Mahasiswa</td>
                                                                         <td>:</td>
-                                                                        <td><b>{{count($mahasiswa)}}</b></td>
+                                                                        <td><b>{{count($detail)}}</b></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td>Angkatan</td>
@@ -146,8 +131,8 @@
                                                     <div class="form-group">
                                                         <label>Jenis Ujian</label>
                                                         <div class="form-group">
-                                                            <input type="hidden" value="{{$jenis_ujian}}" name="jenis_ujian" />
-                                                            <input type="text" value="{{strtoupper($jenis_ujian)}}" class="form-control" disabled="">
+                                                            <input type="hidden" value="{{$dataheader->jenis_ujian}}" name="jenis_ujian" />
+                                                            <input type="text" value="{{strtoupper($dataheader->jenis_ujian)}}" class="form-control" disabled="">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -155,7 +140,7 @@
                                                     <div class="form-group">
                                                         <label>Tanggal Ujian</label>
                                                         <div class="form-group">
-                                                            <input type="date" value="{{$data->tanggal_ujian}}" name="tanggal_ujian" class="form-control">
+                                                            <input type="date" value="{{$dataheader->tanggal_ujian}}" name="tanggal_ujian" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -163,7 +148,7 @@
                                                     <div class="form-group">
                                                         <label>Jam</label>
                                                         <div class="form-group">
-                                                            <input style="max-width: 170px;" type="text" value="{{$data->jam}}" name="jam" class="form-control m-input time-picker" placeholder="Pilih Jam"/>
+                                                            <input style="max-width: 170px;" type="text" value="{{$dataheader->jam}}" name="jam" class="form-control m-input time-picker" placeholder="Pilih Jam"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -171,7 +156,7 @@
                                                     <div class="form-group">
                                                         <label>Selesai</label>
                                                         <div class="form-group">
-                                                            <input style="max-width: 150px;" type="text" value="{{$data->selesai}}" name="selesai" class="form-control m-input time-picker" placeholder="Pilih Jam"/>
+                                                            <input style="max-width: 150px;" type="text" value="{{$dataheader->selesai}}" name="selesai" class="form-control m-input time-picker" placeholder="Pilih Jam"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -181,14 +166,14 @@
                                                     <div class="form-group">
                                                         <label>Catatan</label>
                                                         <div class="form-group">
-                                                        <textarea type="text" class="form-control" name="catatan" placeholder="Catatan">{{$data->catatan}}</textarea>
+                                                        <textarea type="text" class="form-control" name="catatan" placeholder="Catatan">{{$dataheader->catatan}}</textarea>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-sm kt-separator--portlet-fit"></div>
                                             <div class="row">
-                                                <input type="hidden" name="kelas_perkuliahan_detail_id" value="{{$data->id}}" />
+                                                <input type="hidden" name="id" value="{{$dataheader->id}}" />
                                                 <input type="hidden" name="semester_id" value="{{$data->semester_id}}" />
                                                 <input type="hidden" name="angkatan_id" value="{{$data->angkatan_id}}" />
 
@@ -204,46 +189,32 @@
                                                             <th>Ruangan</th>
                                                         </tr>
                                                         </thead>
-                                                        <?php
-                                                        $html_ruangan = '';
-                                                        foreach ($master['ruangan'] as $item){
-                                                            if($item['id'] == $data->ruangan){
-                                                                $html_ruangan .= '<option value="'.$item['id'].'" selected> '.$item["kode_ruangan"].' - '.$item["nama_ruangan"].'</option>';
-                                                            }else{
-                                                                $html_ruangan .= '<option value="'.$item['id'].'"> '.$item["kode_ruangan"].' - '.$item["nama_ruangan"].'</option>';
-                                                            }
-                                                        }
-                                                        ?>
                                                         <tbody>
                                                                 <?$i = 0?>
-                                                                @foreach ($mahasiswa as $mhs)
+                                                                @foreach ($detail as $row)
                                                                 <? $i++ ;
                                                                 ?>
                                                                 <tr>
                                                                     <td style="vertical-align: middle" align="center">{{$i}}</td>
-                                                                    <td style="vertical-align: middle">{{ucfirst($mhs->nama)}}</td>
-                                                                    <td style="vertical-align: middle">{{ucfirst($mhs->nim)}}</td>
-                                                                    <td style="vertical-align: middle">{{ucfirst($mhs->jk)}}</td>
+                                                                    <td style="vertical-align: middle">{{ucfirst($row->nama)}}</td>
+                                                                    <td style="vertical-align: middle">{{ucfirst($row->nim)}}</td>
+                                                                    <td style="vertical-align: middle">{{ucfirst($row->jk)}}</td>
                                                                     <td style="vertical-align: middle">
-                                                                        <select name="mahasiswa[{{$mhs->id}}][pengawas_id]" class="form-control form-control-sm kt-select2">
+                                                                        <input type="hidden" value="{{$row->id}}" name="mahasiswa[{{$row->id}}][id]" >
+                                                                        <input type="hidden" value="{{$dataheader->id}}" name="mahasiswa[{{$row->id}}][jadwal_ujian_id]" >
+                                                                        <select name="mahasiswa[{{$row->id}}][pengawas_id]" class="form-control form-control-sm kt-select2">
                                                                             <option value="0"> -Pilih Pengawas- </option>
                                                                             @foreach ($master['dosen'] as $item)
-                                                                                <option value="{{$item['id']}}" {{ $item['id'] == $data->pengawas_id ? 'selected' : ''}}> {{$item['nama']}} </option>
+                                                                                <option value="{{$item['id']}}" {{ $item['id'] == $row->pengawas_id ? 'selected' : ''}}> {{$item['nama']}} </option>
                                                                             @endforeach
                                                                         </select>
                                                                     </td>
                                                                     <td style="vertical-align: middle">
-                                                                        <select name="mahasiswa[{{$mhs->id}}][ruangan]" class="form-control form-control-sm kt-select2">
-                                                                                <option value="0">-Pilih Ruangan-</option>
-                                                                                <?php
-                                                                                foreach ($master['ruangan'] as $items){
-                                                                                   if($items['id'] == $item->ruangan){
-                                                                                        echo '<option value="'.$items['id'].'" selected> '.$items["kode_ruangan"].' - '.$items["nama_ruangan"].'</option>';
-                                                                                    }else{
-                                                                                        echo '<option value="'.$items['id'].'"> '.$items["kode_ruangan"].' - '.$items["nama_ruangan"].'</option>';
-                                                                                    }
-                                                                                }
-                                                                                ?>
+                                                                        <select name="mahasiswa[{{$row->id}}][ruangan]" class="form-control form-control-sm kt-select2">
+                                                                            <option value="0">-Pilih Ruangan-</option>
+                                                                            @foreach ($master['ruangan'] as $item)
+                                                                                <option value="{{$item['id']}}" {{ $item['id'] == $row->ruangan ? 'selected' : ''}}> {{$item['kode_ruangan'].' - '.$item['nama_ruangan']}} </option>
+                                                                            @endforeach
                                                                          </select>
                                                                     </td>
                                                                 </tr>
@@ -257,9 +228,8 @@
                                             <div class="root">
                                                 <div class="kt-form__actions">
                                                     <a href="{{url('data/jadwalujian')}}" style="align:right"  class="btn btn-label-success"><i class="la la-arrow-left"></i>Kembali</a> &nbsp;
-                                                    @if($eligible)
-                                                        <button type="button" class="btn btn-success" id="save-jadwal-ujian"><i class="la la-save"></i>Simpan</button>
-                                                    @endif
+                                                    <button type="button" class="btn btn-success" id="ubah-jadwal-ujian"><i class="la la-save"></i>Simpan Perubahan</button> &nbsp;
+                                                    <button type="button" class="btn btn-label-danger" id="hapus-jadwal-ujian"><i class="la la-trash"></i>Hapus</button>
                                                 </div>
                                             </div>
                                         </div>

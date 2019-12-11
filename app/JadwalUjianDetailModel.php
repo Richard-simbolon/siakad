@@ -4,13 +4,13 @@
 
         use Illuminate\Database\Eloquent\Model;
 
-        class JadwalUjianModel extends Model
+        class JadwalUjianDetailModel extends Model
         {
 
-            protected $table = "jadwal_ujian_mahasiswa";
+            protected $table = "jadwal_ujian_mahasiswa_detail";
 
             protected $fillable = [
-                'id','row_status','program_studi_id','kelas_perkuliahan_detail_id','semester_id','kelas_id','semester_kelas','mahsiswa_id','angkatan_id','tanggal_ujian','jam','selesai','catatan','jenis_ujian','created_by','created_at','modified_by','updated_at'
+                'id','jadwal_ujian_id','mahasiswa_id','kelas_perkuliahan_detail_id','catatan','updated_at','ruangan','pengawas_id','created_at','update_by','created_by'
             ];
 
 

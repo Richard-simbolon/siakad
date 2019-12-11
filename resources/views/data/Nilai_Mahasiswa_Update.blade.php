@@ -15,16 +15,13 @@
                             <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="" class="kt-subheader__breadcrumbs-link">
-                                Kelas Perkuliahan</a>
-                            <span class="kt-subheader__breadcrumbs-separator"></span>
-                            <a href="{{url()->current()}}" class="kt-subheader__breadcrumbs-link">
-                                Daftar </a>
+                                Isi Nilai Mahasiswa</a>
                         </div>
                     </div>
                 </div>
                 <div class="kt-subheader__toolbar">
                     <div class="kt-subheader__wrapper">
-                        <a href="{{url()->current()}}/create" class="btn btn-success"><i class="la la-plus"></i> Tambah</a>
+                        <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
                     </div>
                 </div>
             </div>
@@ -55,10 +52,21 @@
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <table cellpadding="5">
-                                                    <tbody><tr>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td width="150px">Kode</td>
+                                                        <td>:</td>
+                                                        <td><b>{{$data->kode_mata_kuliah}}</b></td>
+                                                    </tr>
+                                                    <tr>
                                                         <td width="107px">Matakuliah</td>
                                                         <td>:</td>
                                                         <td><b>{{$data->nama_mata_kuliah}}</b></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Bobot SKS</td>
+                                                        <td>:</td>
+                                                        <td><b>{{$data->sks}}</b></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Dosen</td>
@@ -70,36 +78,39 @@
                                                         <td>:</td>
                                                         <td><b>{{$data->nama_jurusan}}</b></td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>Jumlah Mahasiswa</td>
-                                                        <td>:</td>
-                                                    <td><b>{{count($mahasiswa)}}</b></td>
-                                                    </tr>
+
                                                 </tbody></table>
                                             </div>
                                             <div class="col-lg-6">
                                                 <table cellpadding="5">
-                                                    <tbody><tr>
-                                                        <td>Semester</td>
-                                                        <td>:</td>
-                                                        <td><b>{{$data->nama_semester}}</b></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Angkatan</td>
-                                                        <td>:</td>
-                                                        <td><b>{{$data->nama_angkatan}}</b></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Ruangan</td>
-                                                        <td>:</td>
-                                                        <td><b>{{$data->ruangan}}</b></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>SKS</td>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Kelas</td>
                                                             <td>:</td>
-                                                            <td><b>{{$data->sks}}</b></td>
+                                                            <td><b>{{$data->nama_kelas}}</b></td>
                                                         </tr>
-                                                </tbody></table>
+                                                        <tr>
+                                                            <td>Jumlah Mahasiswa</td>
+                                                            <td>:</td>
+                                                            <td><b>{{count($mahasiswa)}}</b></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Angkatan</td>
+                                                            <td>:</td>
+                                                            <td><b>{{$data->nama_angkatan}}</b></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Ruangan</td>
+                                                            <td>:</td>
+                                                            <td><b>{{$data->ruangan}}</b></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Semester</td>
+                                                            <td>:</td>
+                                                            <td><b>{{$data->nama_semester}}</b></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
@@ -115,33 +126,31 @@
                                     <div class="col-lg-12">
                                         <table class="table table-striped table-bordered table-hover dataTable responsive">
                                             <thead>
-                                                    <tr>
-                                                            <th style="vertical-align: middle" rowspan="2">NO</th>
-                                                            <th style="vertical-align: middle" rowspan="2">Nama Mahasiswa</th>
-                                                            <th style="vertical-align: middle" rowspan="2">NIRM</th>
-                                                            <th style="vertical-align: middle" rowspan="2">Jenis Kelamin</th>
-                                                            <?php
-                                                                if($data->tipe_mata_kuliah != '' || $data->tipe_mata_kuliah != null){
-                                                                    //print_r(config('global.tipe_matakuliah.'.$data->tipe_mata_kuliah));
-                                                                        foreach (config('global.tipe_matakuliah.'.$data->tipe_mata_kuliah) as $key => $value) {
-                                                                            echo '<th style="vertical-align: middle" rowspan="2">'.$value.'</th>';
-                                                                        }
-                                                                }else{
-                                                                    echo '
-                                                                    <th style="vertical-align: middle" rowspan="2">UTS</th>
-                                                                    <th style="vertical-align: middle" rowspan="2">Nilai Tugas</th>
-                                                                    <th style="vertical-align: middle" rowspan="2">UAS</th>';
+                                                <tr>
+                                                    <th style="vertical-align: middle" rowspan="2">NO</th>
+                                                    <th style="vertical-align: middle" rowspan="2">Nama Mahasiswa</th>
+                                                    <th style="vertical-align: middle" rowspan="2">NIRM</th>
+                                                    <th style="vertical-align: middle" rowspan="2">Jenis Kelamin</th>
+                                                    <?php
+                                                        if($data->tipe_mata_kuliah != '' || $data->tipe_mata_kuliah != null){
+                                                            //print_r(config('global.tipe_matakuliah.'.$data->tipe_mata_kuliah));
+                                                                foreach (config('global.tipe_matakuliah.'.$data->tipe_mata_kuliah) as $key => $value) {
+                                                                    echo '<th style="vertical-align: middle" rowspan="2">'.$value.'</th>';
                                                                 }
-                                                            ?>
-                                                            <th style="text-align: center" colspan="2">Nilai Akhir</th>
-                                                        </tr>
-                                                        <tr>
-                                                            <th style="text-align: center">Angka</th>
-                                                            <th style="text-align: center">Huruf</th>
-                                                            
-                                                        </tr>
-                                                        
-                                            
+                                                        }else{
+                                                            echo '
+                                                            <th style="vertical-align: middle" rowspan="2">UTS</th>
+                                                            <th style="vertical-align: middle" rowspan="2">Nilai Tugas</th>
+                                                            <th style="vertical-align: middle" rowspan="2">UAS</th>';
+                                                        }
+                                                    ?>
+                                                    <th style="text-align: center" colspan="2">Nilai Akhir</th>
+                                                </tr>
+                                                <tr>
+                                                    <th style="text-align: center">Angka</th>
+                                                    <th style="text-align: center">Huruf</th>
+
+                                                </tr>
                                             </thead>
                                             <tbody>
                                                     <?$i = 0;
@@ -185,10 +194,10 @@
                                                     $i++; ?>
 
                                                     <tr>
-                                                        <td align="center">{{$i}}</td> 
-                                                        <td>{{ucfirst($item->nama)}}</td>
-                                                        <td align="center">{{ucfirst($item->nim)}}</td>
-                                                        <td align="center">{{ucfirst($item->jk)}}</td>
+                                                        <td style="vertical-align: middle" align="center">{{$i}}</td>
+                                                        <td style="vertical-align: middle">{{ucfirst($item->nama)}}</td>
+                                                        <td style="vertical-align: middle" align="center">{{ucfirst($item->nim)}}</td>
+                                                        <td style="vertical-align: middle" align="center">{{ucfirst($item->jk)}}</td>
                                                         <?php
                                                             if($data->tipe_mata_kuliah != '' || $data->tipe_mata_kuliah != null){
                                                                 //print_r(config('global.tipe_matakuliah.'.$data->tipe_mata_kuliah));
@@ -203,8 +212,8 @@
                                                                 ';
                                                             }
                                                         ?>
-                                                        <td style="text-align: center;vertical-align: middle;"> <b class="nangka n_angka_{{$item->id}}">{{$nangka}}</b></td>
-                                                        <td style="text-align: center;vertical-align: middle;"><b class="nuruf n_huruf_{{$item->id}}">{{$nhuruf}}</b></td>
+                                                        <td style="vertical-align: middle" style="text-align: center;vertical-align: middle;"> <b class="nangka n_angka_{{$item->id}}">{{$nangka}}</b></td>
+                                                        <td style="vertical-align: middle" style="text-align: center;vertical-align: middle;"><b class="nuruf n_huruf_{{$item->id}}">{{$nhuruf}}</b></td>
                                                     </tr>
                                                     @endforeach
                                             </tbody>

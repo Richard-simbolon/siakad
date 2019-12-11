@@ -63,10 +63,10 @@
                                 <div class="kt-widget14">
                                     <div class="kt-widget14__header">
                                         <h3 class="kt-widget14__title">
-                                            Jurusan
+                                            Program Studi
                                         </h3>
                                         <span class="kt-widget14__desc">
-                                            Grafik jumlah mahasiswa perjurusan
+                                            Grafik jumlah mahasiswa program studi
                                         </span>
                                     </div>
                                     <div class="kt-widget14__content">

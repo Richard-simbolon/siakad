@@ -1,5 +1,8 @@
 <?php
 namespace App\Http\Controllers;
+use App\JadwalUjianDetailModel;
+use App\KelasPerkuliahanModel;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -22,6 +25,7 @@ class JadwalUjian extends Controller
 ];
     static $exclude = ["id","created_at","updated_at","created_by","update_by"];
     static $tablename = "JadwalUjian";
+
     public function index()
     {
         $master = array(
@@ -37,22 +41,64 @@ class JadwalUjian extends Controller
         $table_display = DB::getSchemaBuilder()->getColumnListing(static::$tablename);
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
-        return view("data/jadwal_ujian" , compact("title" ,"table_display" ,"exclude" ,"Tableshow","tableid", "master"));
+        return view("data/daftar_jadwal_ujian" , compact("title" ,"table_display" ,"exclude" ,"Tableshow","tableid", "master"));
 
     }
-    public function create(){
-        $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        $table = array_diff(DB::getSchemaBuilder()->getColumnListing("jadwal_ujian"), static::$exclude);
+
+    public function daftar()
+    {
+        $master = array(
+            'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
+            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'kelas' => KelasModel::where('row_status' , 'active')->get(),
+            'semester'=> SemesterModel::where('row_status', 'active')->get(),
+        );
+
+        $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+        $tableid = "JadwalUjian";
+        $table_display = DB::getSchemaBuilder()->getColumnListing(static::$tablename);
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
-        $html = static::$html;
-        $column = 1;
-        return view("setting/master_create" , compact("table" ,"exclude" , "Tableshow" , "title" , "html", "column"));
+        return view("data/daftar_jadwal_ujian" , compact("title" ,"table_display" ,"exclude" ,"Tableshow","tableid", "master"));
+
+    }
+
+    public function create(){
+        $master = array(
+            'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
+            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'kelas' => KelasModel::where('row_status' , 'active')->get(),
+            'semester'=> SemesterModel::where('row_status', 'active')->get(),
+        );
+
+        $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+        $tableid = "JadwalUjian";
+        $table_display = DB::getSchemaBuilder()->getColumnListing(static::$tablename);
+        $exclude = static::$exclude;
+        $Tableshow = static::$Tableshow;
+        return view("data/jadwal_ujian" , compact("title" ,"table_display" ,"exclude" ,"Tableshow","tableid", "master"));
+    }
+
+    public function kelas($jenis){
+        $master = array(
+            'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
+            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'kelas' => KelasModel::where('row_status' , 'active')->get(),
+            'semester'=> SemesterModel::where('row_status', 'active')->get(),
+        );
+
+        $jenis = strtolower($jenis);
+        $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+        $tableid = "JadwalUjian";
+        $table_display = DB::getSchemaBuilder()->getColumnListing(static::$tablename);
+        $exclude = static::$exclude;
+        $Tableshow = static::$Tableshow;
+        return view("data/jadwal_ujian" , compact("title" ,"table_display" ,"exclude" ,"Tableshow","tableid", "master","jenis"));
     }
 
     public function save(Request $request){
         $post = $request->all();
-        //print_r($post); exit;
+
         $absensi = $post['mahasiswa'];
         unset($post['mahasiswa']);
         $post['created_at'] = date('Y-m-d H:i:s');
@@ -60,6 +106,8 @@ class JadwalUjian extends Controller
         $validation = Validator::make($post, [
             'tanggal_ujian' => 'required',
             'jam' => 'required',
+            'selesai' => 'required',
+            'jenis_ujian' => 'required',
             'kelas_perkuliahan_detail_id' => 'required',
         ]);
         
@@ -68,11 +116,10 @@ class JadwalUjian extends Controller
         }
         DB::beginTransaction();
         try{
-            $idjadwalujian = JadwalUjianModel::updateOrInsert(array('kelas_perkuliahan_detail_id' => $post['kelas_perkuliahan_detail_id']) , $post);
+            $idjadwalujian = JadwalUjianModel::firstOrCreate($post);
             foreach($absensi as $key=> $item){
-                //$item['jadwal_ujian_id'] = $idjadwalujian->id;
+                $item['jadwal_ujian_id'] = $idjadwalujian->id;
                 $item['mahasiswa_id'] = $key;
-                $item['kelas_perkuliahan_detail_id'] = $post['kelas_perkuliahan_detail_id'];
                 $item['updated_at'] = date('Y-m-d H:i:s');
                 $item['created_at'] = date('Y-m-d H:i:s');
                 
@@ -108,19 +155,113 @@ class JadwalUjian extends Controller
 
     }
 
-    public function paging(Request $request){
-        //print_r($request->all()); exit;
-        $post= $request->all();
-        $where = [];
-        foreach($post['filter'] as $key=>$val){
-            if($val){
-                $where[$key] = $val;
+    public function update(Request $request){
+        $post = $request->all();
+
+        $absensi = $post['mahasiswa'];
+        unset($post['mahasiswa']);
+        $post['created_at'] = date('Y-m-d H:i:s');
+        $post['updated_at'] = date('Y-m-d H:i:s');
+        $validation = Validator::make($post, [
+            'tanggal_ujian' => 'required',
+            'jam' => 'required',
+            'selesai' => 'required',
+            'jenis_ujian' => 'required'
+        ]);
+
+        if ($validation->fails()) {
+            return json_encode(['status'=> 'error', 'message'=> $validation->messages()]);
+        }
+
+        DB::beginTransaction();
+        try{
+            $jadwalPerkuliahan = JadwalUjianModel::where("id", $post['id'])->first();
+            $jadwalPerkuliahan->tanggal_ujian = $post['tanggal_ujian'];
+            $jadwalPerkuliahan->jam = $post['jam'];
+            $jadwalPerkuliahan->selesai = $post['selesai'];
+            $jadwalPerkuliahan->catatan = $post['catatan'];
+            $jadwalPerkuliahan->updated_at = date('Y-m-d H:i:s');
+            $jadwalPerkuliahan->update_by = Auth::user()->nama;
+
+            if($jadwalPerkuliahan->save()){
+                foreach($absensi as $key=> $item){
+                    $jadwalPerkuliahanDetail = JadwalUjianDetailModel::where("id", $item['id'])->first();
+                    $jadwalPerkuliahanDetail->ruangan = $item['ruangan'];
+                    $jadwalPerkuliahanDetail->pengawas_id = $item['pengawas_id'];
+                    $jadwalPerkuliahanDetail->updated_at =  date('Y-m-d H:i:s');
+                    $jadwalPerkuliahanDetail->update_by = Auth::user()->nama;
+
+                    $jadwalPerkuliahanDetail->save();
+                }
+            }else{
+                return json_encode(array('status' => 'false' , 'message' => 'Data gagal disimpan.'));
             }
+
+            DB::commit();
+
+            return json_encode(array('status' => 'success' , 'message' => 'Data berhasil disimpan.'));
+        } catch(\Exception $e){
+
+            DB::rollBack();
+            throw $e;
+            return json_encode(array('status' => 'error' , 'message' => 'Terjadi kesalahan saat menyimpan, silahkan coba lagi.'));
         }
-        if(count($where) > 0){
-            return Datatables::of(DB::table('view_input_nilai_mahasiswa')->where($where)->get())->make(true);
+    }
+
+    public function delete(Request $request){
+        $post = $request->all();
+
+        DB::beginTransaction();
+        try{
+            $jadwalPerkuliahan = JadwalUjianModel::where("id", $post['id'])->first();
+
+            if($jadwalPerkuliahan->delete()){
+                JadwalUjianDetailModel::where('jadwal_ujian_id', '=',  $post['id'])->delete();
+            }else{
+                return json_encode(array('status' => 'false' , 'message' => 'Data gagal disimpan.'));
+            }
+
+            DB::commit();
+
+            return json_encode(array('status' => 'success' , 'message' => 'Data berhasil disimpan.'));
+        } catch(\Exception $e){
+
+            DB::rollBack();
+            throw $e;
+            return json_encode(array('status' => 'false' , 'message' => 'Terjadi kesalahan saat menyimpan, silahkan coba lagi.'));
         }
-        return Datatables::of(DB::table('view_input_nilai_mahasiswa')->get())->make(true);
+    }
+
+    public function paging(Request $request){
+        $post= $request->all();
+
+        return DataTables::of(KelasPerkuliahanModel::where('kelas_perkuliahan.row_status','=','active')
+            ->join('kelas_perkuliahan_mata_kuliah','kelas_perkuliahan_mata_kuliah.kelas_perkuliahan_id','=','kelas_perkuliahan.id')
+            ->join('mata_kuliah','mata_kuliah.id','=','kelas_perkuliahan_mata_kuliah.mata_kuliah_id')
+            ->join('master_jurusan','master_jurusan.id','=','kelas_perkuliahan.program_studi_id')
+            ->join('master_kelas','master_kelas.id','=','kelas_perkuliahan.kelas_id')
+            ->join('master_angkatan','master_angkatan.id','=','kelas_perkuliahan.angkatan_id')
+            ->join('dosen','dosen.id','=','kelas_perkuliahan_mata_kuliah.dosen_id')
+            ->leftJoin('jadwal_ujian_mahasiswa','jadwal_ujian_mahasiswa.kelas_perkuliahan_detail_id', '=', 'kelas_perkuliahan_mata_kuliah.id')
+            ->select('kelas_perkuliahan_mata_kuliah.id', 'mata_kuliah.kode_mata_kuliah','mata_kuliah.nama_mata_kuliah','dosen.nama as nama_dosen','master_jurusan.title as nama_jurusan','master_angkatan.title as nama_angkatan','master_kelas.title as nama_kelas', 'jadwal_ujian_mahasiswa.jenis_ujian')
+            ->whereNull('jadwal_ujian_mahasiswa.jenis_ujian')
+            ->orWhere('jadwal_ujian_mahasiswa.jenis_ujian','!=', strtolower($post['jenis_ujian_jadwal']))
+            ->get())->addIndexColumn()->make(true);
+    }
+
+    public function paging_daftar(Request $request){
+        return Datatables::of(JadwalUjianModel::where('jadwal_ujian_mahasiswa.row_status', '=', 'active')
+            ->join('kelas_perkuliahan_mata_kuliah', 'kelas_perkuliahan_mata_kuliah.id','=', 'jadwal_ujian_mahasiswa.kelas_perkuliahan_detail_id')
+            ->join('kelas_perkuliahan', 'kelas_perkuliahan.id','=', 'kelas_perkuliahan_mata_kuliah.kelas_perkuliahan_id')
+            ->join('master_jurusan', 'master_jurusan.id','=', 'kelas_perkuliahan.program_studi_id')
+            ->join('mata_kuliah', 'mata_kuliah.id', '=', 'kelas_perkuliahan_mata_kuliah.mata_kuliah_id')
+            ->join('dosen', 'dosen.id', 'kelas_perkuliahan_mata_kuliah.dosen_id')
+            ->join('master_angkatan', 'master_angkatan.id','=', 'kelas_perkuliahan.angkatan_id')
+            ->join('master_semester', 'master_semester.id', '=','kelas_perkuliahan.semester_id')
+            ->join('master_kelas', 'master_kelas.id', '=', 'kelas_perkuliahan.kelas_id')
+            ->select('jadwal_ujian_mahasiswa.id','mata_kuliah.kode_mata_kuliah', 'mata_kuliah.nama_mata_kuliah', 'dosen.nama as nama_dosen', 'master_jurusan.title as program_studi','master_angkatan.title as nama_angkatan','master_semester.title as nama_semester', 'master_kelas.title as nama_kelas', 'jadwal_ujian_mahasiswa.jenis_ujian')
+            ->orderBy('jadwal_ujian_mahasiswa.id', 'desc')
+            ->get())->addIndexColumn()->make(true);
 
     }
 
@@ -134,7 +275,7 @@ class JadwalUjian extends Controller
             ->leftjoin('jadwal_ujian_mahasiswa' , 'jadwal_ujian_mahasiswa.kelas_perkuliahan_detail_id' , '=' , 'view_input_nilai_mahasiswa.id')
             ->leftJoin('dosen' ,'dosen.id' ,'=' ,'jadwal_ujian_mahasiswa.pengawas_id')
             ->select('view_input_nilai_mahasiswa.*' , 'jadwal_ujian_mahasiswa.id as jadwal_id' , 'jadwal_ujian_mahasiswa.tanggal_ujian' , 'jadwal_ujian_mahasiswa.jam' , 'jadwal_ujian_mahasiswa.selesai', 'jadwal_ujian_mahasiswa.catatan', 'jadwal_ujian_mahasiswa.pengawas_id', 'dosen.id as dosen_id','dosen.nama as nama_pengawas')
-            ->where('view_input_nilai_mahasiswa.id' , $id)
+            ->where('kelas_perkuliahan_detail_id.id' , $id)
             ->first();
             Cache::forever('jadwal_ujian_'.$id , $mahsiswa_cahce);
             return  Cache::get('jadwal_ujian_'.$id);
@@ -153,39 +294,106 @@ class JadwalUjian extends Controller
         } 
     }
 
-
-    public function form($id){
+    public function form($id, $jenis){
         Cache::flush();
         $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        $data = $this->header_cache($id);//DB::table('view_input_nilai_mahasiswa')->where('id' , $id)->first();
-        //print_r($data); exit;
+        $jenis_ujian = $jenis;
+        $eligible = true;
+
+        $data = KelasPerkuliahanModel::where('kelas_perkuliahan.row_status','=','active')
+            ->where('kelas_perkuliahan_mata_kuliah.id','=', $id)
+            ->join('kelas_perkuliahan_mata_kuliah','kelas_perkuliahan_mata_kuliah.kelas_perkuliahan_id','=','kelas_perkuliahan.id')
+            ->join('mata_kuliah','mata_kuliah.id','=','kelas_perkuliahan_mata_kuliah.mata_kuliah_id')
+            ->join('master_jurusan','master_jurusan.id','=','kelas_perkuliahan.program_studi_id')
+            ->join('master_kelas','master_kelas.id','=','kelas_perkuliahan.kelas_id')
+            ->join('master_angkatan','master_angkatan.id','=','kelas_perkuliahan.angkatan_id')
+            ->join('master_semester', 'master_semester.id', '=', 'kelas_perkuliahan.semester_id')
+            ->join('dosen','dosen.id','=','kelas_perkuliahan_mata_kuliah.dosen_id')
+            ->select('kelas_perkuliahan_mata_kuliah.id',
+                'mata_kuliah.kode_mata_kuliah',
+                'mata_kuliah.nama_mata_kuliah',
+                'mata_kuliah.bobot_mata_kuliah as sks',
+                'dosen.nama as nama_dosen',
+                'master_jurusan.title as nama_jurusan',
+                'master_angkatan.title as nama_angkatan',
+                'master_kelas.title as nama_kelas',
+                'kelas_perkuliahan_mata_kuliah.ruangan',
+                'kelas_perkuliahan.kelas_id',
+                'master_semester.title as nama_semester')
+            ->first();
+
+        $datajadwal = JadwalUjianModel::where('kelas_perkuliahan_detail_id',$id)
+            ->where('jenis_ujian', '=', strtolower($jenis))
+            ->get();
+
+        if(count($datajadwal) > 1){
+            $eligible = false;
+        }
+
         if(!$data){
             echo 'Data Tidak Ditemukan.';
             die;
         }
+
         $master = [];
         $master['dosen'] = DosenModel::select('id' , 'nama')->where('row_status' , 'active')->where('status' , 'aktif')->get();
         $master['ruangan'] = RuanganModel::select('id' , 'kode_ruangan' , 'nama_ruangan')->where('row_status' , 'active')->get();
-        $mahasiswa = $this->detail_cache($id);
+        $mahasiswa = MahasiswaModel::where('kelas_id' , $data->kelas_id)->where('status' , '1')->get();
 
-        //print_r($master); exit;
-       // echo count($mahasiswa);
-        if (count($mahasiswa) < 1){
-            if(DB::table('jadwal_ujian_mahasiswa_detail')
-            ->where('kelas_perkuliahan_detail_id' , $id)->exists())
-            {
-                $mahasiswa = DB::table('jadwal_ujian_mahasiswa')
-                ->leftjoin('mahasiswa' , 'mahasiswa.id' , '=' ,'jadwal_ujian_mahasiswa.mahasiswa_id')
-                ->where('jadwal_ujian_mahasiswa.kelas_perkuliahan_detail_id' , $id)->get();
-            }else{
-                $mahasiswa = MahasiswaModel::where('kelas_id' , $data->kelas_id)->where('status' , '1')->get();
-            }
-        }
+        return view("data/ujian_create" , compact("title" , "mahasiswa", "data" ,"master","jenis_ujian", 'eligible'));
+    }
 
-        //print_r($mahasiswa); exit;
+    public function view($id){
+        $title = "Ubah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
 
-        return view("data/ujian_create" , compact("title" , "mahasiswa", "data" ,"master"));
+        $data = KelasPerkuliahanModel::where('kelas_perkuliahan.row_status','=','active')
+            ->where('kelas_perkuliahan_mata_kuliah.id','=', $id)
+            ->join('kelas_perkuliahan_mata_kuliah','kelas_perkuliahan_mata_kuliah.kelas_perkuliahan_id','=','kelas_perkuliahan.id')
+            ->join('mata_kuliah','mata_kuliah.id','=','kelas_perkuliahan_mata_kuliah.mata_kuliah_id')
+            ->join('master_jurusan','master_jurusan.id','=','kelas_perkuliahan.program_studi_id')
+            ->join('master_kelas','master_kelas.id','=','kelas_perkuliahan.kelas_id')
+            ->join('master_angkatan','master_angkatan.id','=','kelas_perkuliahan.angkatan_id')
+            ->join('master_semester', 'master_semester.id', '=', 'kelas_perkuliahan.semester_id')
+            ->join('dosen','dosen.id','=','kelas_perkuliahan_mata_kuliah.dosen_id')
+            ->select('kelas_perkuliahan_mata_kuliah.id',
+                'mata_kuliah.kode_mata_kuliah',
+                'mata_kuliah.nama_mata_kuliah',
+                'mata_kuliah.bobot_mata_kuliah as sks',
+                'dosen.nama as nama_dosen',
+                'master_jurusan.title as nama_jurusan',
+                'master_angkatan.title as nama_angkatan',
+                'master_kelas.title as nama_kelas',
+                'kelas_perkuliahan_mata_kuliah.ruangan',
+                'kelas_perkuliahan.kelas_id',
+                'master_semester.title as nama_semester')
+            ->first();
 
+        $dataheader = JadwalUjianModel::where('id',$id)
+            ->select('id',
+                'jadwal_ujian_mahasiswa.jenis_ujian',
+                'jadwal_ujian_mahasiswa.tanggal_ujian',
+                'jadwal_ujian_mahasiswa.jam',
+                'jadwal_ujian_mahasiswa.selesai',
+                'jadwal_ujian_mahasiswa.catatan')->first();
+
+        $detail = JadwalUjianModel::where('jadwal_ujian_mahasiswa.id',$id)
+            ->join('jadwal_ujian_mahasiswa_detail','jadwal_ujian_mahasiswa_detail.jadwal_ujian_id', 'jadwal_ujian_mahasiswa.id')
+            ->join('mahasiswa','mahasiswa.id', 'jadwal_ujian_mahasiswa_detail.mahasiswa_id' )
+            ->select('jadwal_ujian_mahasiswa_detail.id',
+                'mahasiswa.nim',
+                'mahasiswa.nama',
+                'mahasiswa.jk',
+                'jadwal_ujian_mahasiswa_detail.pengawas_id',
+                'jadwal_ujian_mahasiswa_detail.ruangan',
+                'jadwal_ujian_mahasiswa_detail.catatan')
+            ->get();
+
+        $master = [];
+        $master['dosen'] = DosenModel::select('id' , 'nama')->where('row_status' , 'active')->where('status' , 'aktif')->get();
+        $master['ruangan'] = RuanganModel::select('id' , 'kode_ruangan' , 'nama_ruangan')->where('row_status' , 'active')->get();
+        //$mahasiswa = MahasiswaModel::where('kelas_id' , $data->kelas_id)->where('status' , '1')->get();
+
+        return view("data/ujian_edit" , compact("title" , "data" ,"master", "dataheader", "detail"));
     }
 
 }

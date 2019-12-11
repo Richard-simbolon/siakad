@@ -184,7 +184,11 @@ Route::get('/data/absensimahasiswa/absensi/{id}', 'AbsensiMahasiswa@absensi')->n
 // DOSEN
 Route::get('/dosen/absensi/absensi/{id}', 'DosenAbsensi@absensi')->name('index');
 
-Route::get('/data/jadwalujian/form/{id}', 'JadwalUjian@form')->name('index');
+Route::get('/data/jadwalujian/form/{id}/{jenis}', 'JadwalUjian@form')->name('index');
+Route::get('data/jadwalujian/kelas/{jenis}', 'JadwalUjian@kelas')->name('kelas');
+Route::post('/data/jadwalujian/paging', 'JadwalUjian@paging')->name('paging');
+Route::post('/data/jadwalujian/paging_daftar', 'JadwalUjian@paging_daftar')->name('paging_daftar');
+
 
 Route::get('/data/kalenderakademik/get/{id}', 'KalenderAkademik@get')->name('get');
 Route::get('data/kalenderakademik/getall', 'KalenderAkademik@getall')->name('getall');
