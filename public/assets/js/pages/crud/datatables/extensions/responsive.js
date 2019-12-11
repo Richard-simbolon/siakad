@@ -1197,7 +1197,7 @@ var KTDatatablesExtensionsResponsive = function() {
     var initTableAktivitasPerkuliahan = function(a) {
 
         var table = $('#AktivitasPerkuliahan');
-
+        var smstr  = ['-','I','II','III','IV','V','VI','VII','VIII'];
         // begin first table
         table.DataTable({
             responsive: true,
@@ -1223,10 +1223,40 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'nama', name: 'nama' },
                 { data: 'jurusan', name: 'jurusan' },
                 { data: 'angkatan', name: 'angkatan' },
-                { data: 'semester', name: 'semester' },
+                { data: 'semester', name: 'semester', render: function(data, type, full, meta) {
+                        if(full.semester){
+                            return smstr[full.semester];
+                        }else{
+                            return '-';
+                        }
+                    }, 
+                },
                 { data: 'status', name: 'status' },
-                { data: 'ips', name: 'ips' },
-                { data: 'ipk', name: 'ipk' },
+                { data: 'ips', name: 'ips', render: function(data, type, full, meta) {
+                        if(full.ips){
+                            var num = parseFloat(full.ips)
+                            if ( num % 1 !== 0 ) {
+                                //return num = num.toFixed(2);
+                            }
+                            return num;
+                        }else{
+                            return '-';
+                        }
+                    }, 
+                },
+                { data: 'ipk', name: 'ipk', render: function(data, type, full, meta) {
+                        if(full.ipk){
+                            var num = parseFloat(full.ipk)
+                            if ( num % 1 !== 0 ) {
+                            return num = num.toFixed(2);
+                            }
+                            return num;
+                        }else{
+                            return '-';
+                        }
+                        
+                    }, 
+                },
                 { data: 'skssemester', name: 'skssemester' },
                 { data: 'total', name: 'total' },
             ],

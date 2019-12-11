@@ -26,12 +26,15 @@ class AktivitasPerkuliahan extends Controller
     }
 
     public function paging(Request $request){
-        $sql = DB::select("SELECT mahasiswa.id, mahasiswa.nim, mahasiswa.nama, mj.title as jurusan, ma.title as angkatan, 1 as semester, ms.title  as status, 1 as ips, 1 as ipk, 1 as skssemester, 1 as total
-                                FROM mahasiswa
-                                INNER join master_jurusan mj on mj.id = mahasiswa.jurusan_id
-                                INNER JOIN master_angkatan ma on ma.id = mahasiswa.angkatan
-                                INNER JOIN master_status_mahasiswa ms on ms.id = mahasiswa.status"
-        );
-        return Datatables::of($sql)->addIndexColumn()->make(true);
+        return Datatables::of($profile = DB::table('view_profile_mahasiswa')
+        ->leftJoin('master_status_mahasiswa' ,'master_status_mahasiswa.id', '=' ,'view_profile_mahasiswa.status')
+        ->leftJoin('view_aktivitas_perkuliahan_ipk_ips' ,'view_aktivitas_perkuliahan_ipk_ips.mahasiswa_id', '=' ,'view_profile_mahasiswa.id')
+        ->leftJoin('view_total_sks_by_kurikulum' ,'view_total_sks_by_kurikulum.kelas_id', '=' ,'view_profile_mahasiswa.kelas_id')
+        ->leftJoin('view_total_sks_selesai' ,'view_total_sks_selesai.mahasiswa_id', '=' ,'view_profile_mahasiswa.id')
+        ->select('view_profile_mahasiswa.id', 'view_profile_mahasiswa.nim',
+         'view_profile_mahasiswa.nama', 'view_profile_mahasiswa.jurusan_title as jurusan', 'view_profile_mahasiswa.angkatan_title as angkatan', 'view_aktivitas_perkuliahan_ipk_ips.semester_terakhir as semester'
+        , 'master_status_mahasiswa.title  as status', 'view_aktivitas_perkuliahan_ipk_ips.ips_terakhir as ips', 'view_aktivitas_perkuliahan_ipk_ips.ipk as ipk', 'view_total_sks_selesai.total_sks_selesai as skssemester', 'view_total_sks_by_kurikulum.total_sks as total')
+        ->where('view_profile_mahasiswa.status' , '!=' ,"''")->get()
+        )->addIndexColumn()->make(true);
     }
 }

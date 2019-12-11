@@ -99,8 +99,6 @@ $(document).ready(function() {
             url:'/data/nilaimahasiswa/save',
             data:$(this).closest('form').serialize(),
             success:function(result) {
-                //console.log(result);
-                //var res = JSON.parse(result);
                 if(res.status == 'error'){
                     var text = '';
                     $.each(res.message, function( index, value ) {

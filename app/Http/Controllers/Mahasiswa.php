@@ -556,6 +556,7 @@ class Mahasiswa extends Controller
     }
 
     public function prestasi($id){
+        
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
             'jenis_pendaftaran' => JenisPendaftaranModel::where('row_status' , 'active')->get(),
@@ -573,6 +574,7 @@ class Mahasiswa extends Controller
             'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
             'status_mahasiswa' => StatusMahasiswaModel::where('row_status' , 'active')->get()
         );
+        $global['id'] = $id;
         $data = MahasiswaModel::join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
         ->join('master_angkatan' ,'master_angkatan.id' ,'=' ,'mahasiswa.angkatan')
         ->join('master_kelas' ,'master_kelas.id' ,'=' ,'mahasiswa.kelas_id')
@@ -583,7 +585,7 @@ class Mahasiswa extends Controller
         $kebutuhan_selected = MahasiswaKebutuhanModel::where('mahasiswa_id' , $id)->first();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $tableid = "Mahasiswa";
-        return view("data/mhs_prestasi" , compact("data","master" ,"orangtuawali" ,"kebutuhan_selected"));
+        return view("data/mhs_prestasi" , compact("data","master" ,"orangtuawali" ,"kebutuhan_selected" ,"global"));
 
 
     }
@@ -644,6 +646,33 @@ class Mahasiswa extends Controller
         $data = JadwalPerkuliahanModel::where('kelas_id' , $mahasiswa->kelas_id)
         ->where('semester_id' , $semester_active->id)
         ->get();
+
+
+        $ip_smstr_prev = JadwalPerkuliahanModel::leftJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.mata_kuliah_id' ,'=' ,'view_jadwal_kelas_perkuliahan.mata_kuliah_id')
+        ->select('kurikulum_mata_kuliah.semester' ,'view_jadwal_kelas_perkuliahan.semester_id',DB::raw('SUM(view_jadwal_kelas_perkuliahan.bobot_mata_kuliah) as sks'))
+        ->where('kelas_id' , $mahasiswa->kelas_id)
+        ->where('semester_id' , $semester_active->id)
+        ->groupby('semester_id','kurikulum_mata_kuliah.semester')
+        ->first();
+        if(count($ip_smstr_prev) > 0){
+            $ipk = $this->get_ipk(($ip_smstr_prev->semester_id - 1) , $ids);
+            $total_sks_header = $ip_smstr_prev->sks;
+        }else{
+            $ipk = 0;
+            $total_sks_header = 0;
+        }
+        if($total_sks_header > 0){
+            if($ipk != 0){
+                $where['mahasiswa_id'] = $ids;
+                $where['semester'] = ($ip_smstr_prev->semester - 1);
+                $where['semester_id'] = ($ip_smstr_prev->semester_id - 1);
+                $data_ips['ips'] = $ipk;
+                $data_ips['mahasiswa_id']=$ids;
+                $data_ips['semester']= ($ip_smstr_prev->semester - 1);
+                $data_ips['semester_id']= ($ip_smstr_prev->semester_id - 1);
+                DB::table('ipk_ips_mahasiswa')->updateOrInsert($where, $data_ips);   
+            } 
+        }
         
         $select2 = JadwalPerkuliahanModel::select('semester_id' ,'semseter_title')
         ->where('kelas_id' , $mahasiswa->kelas_id)
@@ -652,7 +681,10 @@ class Mahasiswa extends Controller
         ->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $global['id'] = $ids;
+        
         return view("data/Mhs_Krs" , compact("data" , "title" ,"mahasiswa" ,'select2' ,"global","profile" ,"semester_active"));
+
+
 
     }
 
@@ -673,7 +705,34 @@ class Mahasiswa extends Controller
         })
         ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah','mata_kuliah.tipe_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->where('nilai_mahasiswa.semester_id' , $semester_aktif->id)->get();
-        //print_r($data); exit;
+        
+        $ip_smstr_prev = JadwalPerkuliahanModel::leftJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.mata_kuliah_id' ,'=' ,'view_jadwal_kelas_perkuliahan.mata_kuliah_id')
+        ->select('kurikulum_mata_kuliah.semester' ,'view_jadwal_kelas_perkuliahan.semester_id',DB::raw('SUM(view_jadwal_kelas_perkuliahan.bobot_mata_kuliah) as sks'))
+        ->where('kelas_id' , $mahasiswa->kelas_id)
+        ->where('semester_id' , $semester_aktif->id)
+        ->groupby('semester_id','kurikulum_mata_kuliah.semester')
+        ->first();
+        if(count($ip_smstr_prev) > 0){
+            $ipk = $this->get_ipk(($ip_smstr_prev->semester_id - 1) , $ids);
+            $total_sks_header = $ip_smstr_prev->sks;
+        }else{
+            $ipk = 0;
+            $total_sks_header = 0;
+        }
+        if($total_sks_header > 0){
+            if($ipk > 0){
+                $where['mahasiswa_id'] = $mahasiswa->id;
+                $where['semester'] = ($ip_smstr_prev->semester - 1);
+                $where['semester_id'] = ($ip_smstr_prev->semester_id - 1);
+                $data_ips['ips'] = $ipk;
+                $data_ips['mahasiswa_id']=$mahasiswa->id;
+                $data_ips['semester']= ($ip_smstr_prev->semester - 1);
+                $data_ips['semester_id']= ($ip_smstr_prev->semester_id - 1);
+                DB::table('ipk_ips_mahasiswa')->updateOrInsert($where, $data_ips);   
+            } 
+        }
+
+
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $global['id'] = $ids;
         //return view("mahasiswa/khs" , compact("data" , "title" ,"mahasiswa" , "master" ,"semester_aktif"));
@@ -700,6 +759,35 @@ class Mahasiswa extends Controller
         ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_laporan', 'nilai_mahasiswa.nilai_laporan_pkl', 'nilai_mahasiswa.nilai_ujian', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->where('nilai_mahasiswa.semester_id' , $request->all()['id'])->get();
         $html = '';
+
+
+        $ip_smstr_prev = JadwalPerkuliahanModel::leftJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.mata_kuliah_id' ,'=' ,'view_jadwal_kelas_perkuliahan.mata_kuliah_id')
+        ->select('kurikulum_mata_kuliah.semester' ,'view_jadwal_kelas_perkuliahan.semester_id',DB::raw('SUM(view_jadwal_kelas_perkuliahan.bobot_mata_kuliah) as sks'))
+        //->where('kelas_id' , $kurikulum->kelas_id)
+        ->where('semester_id' , $request->all()['id'])
+        ->groupby('semester_id','kurikulum_mata_kuliah.semester')
+        ->first();
+        if(count($ip_smstr_prev) > 0){
+            $ipk = $this->get_ipk( $request->all()['id'], $id);
+            $total_sks_header = $ip_smstr_prev->sks;
+        }else{
+            $ipk = 0;
+            $total_sks_header = 0;
+        }
+       
+        if($total_sks_header > 0){
+            if($ipk > 0){
+                $where['mahasiswa_id'] = $request->all()['uid'];
+                $where['semester'] = $ip_smstr_prev->semester;
+                $where['semester_id'] = $ip_smstr_prev->semester_id;
+                $data_ips['ips'] = $ipk;
+                $data_ips['mahasiswa_id']=$request->all()['uid'];
+                $data_ips['semester']= ($ip_smstr_prev->semester);
+                $data_ips['semester_id']= $ip_smstr_prev->semester_id;
+                DB::table('ipk_ips_mahasiswa')->updateOrInsert($where, $data_ips);    
+            }
+        }
+
 
         if(count($data) > 0){
             $i = 0;
@@ -953,6 +1041,11 @@ class Mahasiswa extends Controller
         if(count($ip_smstr_prev) > 0){
             $ipk = $this->get_ipk(($ip_smstr_prev->semester_id - 1) , $ids);
             $total_sks_header = $ip_smstr_prev->sks;
+            $where = ['mahasiswa_id' => $ids];
+            $where = ['semester' => $ip_smstr_prev->semester];
+            $where = ['semester_id' => $ip_smstr_prev->semester_id];
+            $data_ips = ['ips' => $ipk];
+            DB::table('ipk_ips_mahasiswa')->updateOrInsert($where, $data_ips);
         }else{
             $ipk = '-';
             $total_sks_header = 0;

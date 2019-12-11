@@ -85,7 +85,7 @@ $(document).ready(function() {
             }
         });
         Swal.fire({
-            title: 'Hapus',
+            title: 'Simpan Nilai',
             text: "Apakah anda yakin menyimpan data ini?",
             type: 'warning',
             showCancelButton: true,
