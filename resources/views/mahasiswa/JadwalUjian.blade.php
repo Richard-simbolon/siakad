@@ -62,11 +62,11 @@
                 <!--begin::Form-->
                 <div class="kt-portlet__body">
                     <div class="col-lg-12">
-                        <?php
-                            if(count($data) > 0){
-                                $profile = $data[0];
-                            }    
-                        ?>
+<!--                        --><?php
+//                            if(count($data) > 0){
+//                                $profile = $data[0];
+//                            }
+//                        ?>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <table cellpadding="5">
@@ -107,29 +107,41 @@
                             </div>
                             <br/>
                             <div class="row">
+                                {{--<div class="col-xl-6">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<label>Tahun Akademik</label>--}}
+                                        {{--<select id="jadwal_ujian" name="angkatan_id" class="form-control kt-select2">--}}
+                                            {{--<option value="">Select</option>--}}
+                                            {{--@foreach ($select2 as $item)--}}
+                                                {{--<option value="{{$item['semester_id']}}" > {{$item['semseter_title']}} </option>--}}
+                                            {{--@endforeach--}}
+                                        {{--</select>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
                                 <div class="col-xl-6">
-                                    <div class="form-group">
-                                        <label>Tahun Akademik</label>
+                                    <div class="form-group row">
+                                        <label style="max-width: 125px;" class="col-sm-3 col-form-label">Jenis Ujian</label>
+                                        <div class="col-sm-5">
                                         <select id="jadwal_ujian" name="angkatan_id" class="form-control kt-select2">
                                             <option value="">Select</option>
-                                            @foreach ($select2 as $item)
-                                                <option value="{{$item['semester_id']}}" > {{$item['semseter_title']}} </option>
-                                            @endforeach
+                                            <option value="uts">UTS</option>
+                                            <option value="uas">UAS</option>
                                         </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <table class=" table table-striped- table-bordered table-hover table-checkable" id="jadwalujiandata">
                             <thead>
                             <tr>
-                                <th style="text-align: center">Kode MK</th>
-                                <th style="text-align: center">Mata Kuliah</th>
+                                <th>Kode MK</th>
+                                <th>Mata Kuliah</th>
                                 <th style="text-align: center">Bobot SKS</th>
                                 <th style="text-align: center">Jam</th>
                                 <th style="text-align: center">Selesai</th>
                                 <th style="text-align: center">Tanggal Ujian</th>
-                                <th style="text-align: center">Ruangan</th>
-                                <th style="text-align: center">Hari</th>
+                                <th>Ruangan</th>
+                                <th>Hari</th>
                             </tr>
                             </thead>
                             <tbody>

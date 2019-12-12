@@ -159,7 +159,7 @@ $(document).ready(function() {
             { data: 'kode_mata_kuliah', name: 'kode_mata_kuliah'},
             { data: 'nama_mata_kuliah', name: 'nama_mata_kuliah' },
             { data: 'bobot_mata_kuliah', name: 'bobot_mata_kuliah' },
-            { data: 'jam', name: 'jam' },
+            { data: 'jam', name: 'jam'},
             { data: 'selesai', name: 'selesai' },
             { data: 'tanggal_ujian', name: 'tanggal_ujian' },
             { data: 'ruangan_title', name: 'ruangan_title' },
@@ -173,6 +173,32 @@ $(document).ready(function() {
         columnDefs: [
             {
                 targets: 3,
+                render : function (data, type, full, meta) {
+                    var t = full.jam.split(":");
+                    return t[0] + ":" + t[1];
+                }
+            },
+            {
+                targets: 4,
+                render : function (data, type, full, meta) {
+                    var t = full.selesai.split(":");
+                    return t[0] + ":" + t[1];
+                }
+            },
+            {
+                targets: 2,
+                className: "text-center"
+            },
+            {
+                targets: 3,
+                className: "text-center"
+            },
+            {
+                targets: 4,
+                className: "text-center"
+            },
+            {
+                targets: 5,
                 className: "text-center"
             }
         ]
