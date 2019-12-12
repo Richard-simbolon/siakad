@@ -222,22 +222,31 @@
                                             $nipk += 0 * $item->bobot_mata_kuliah;
                                             $indexvsks = 0 * $item->bobot_mata_kuliah;
                                             $index = 0;
-                                        }elseif($nangka > 44 && $nangka<= 59){
+                                        }elseif($nangka > 44 && $nangka <  60){
                                             $nhuruf = 'D';
                                             $nipk += 1 * $item->bobot_mata_kuliah;
                                             $indexvsks = 1 * $item->bobot_mata_kuliah;
                                             $index = 1;
-                                        }elseif($nangka > 59 && $nangka<= 69){
-                                            $nhuruf = 'C';
+                                        }elseif($nangka > 59 && $nangka< 70){
+                                            if((int)($mahasiswa->angkatan_title) < 2018 && $nangka > 65 && $nangka < 70){
+                                                $nhuruf = 'C+';
+                                            }else{
+                                                $nhuruf = 'C';
+                                            }
+                                            
                                             $nipk += 2 * $item->bobot_mata_kuliah;
                                             $indexvsks = 2 * $item->bobot_mata_kuliah;
                                             $index = 2;
-                                        }elseif($nangka > 69 && $nangka<= 79){
-                                            $nhuruf = 'B';
+                                        }elseif($nangka > 69 && $nangka < 80){
+                                            if((int)($mahasiswa->angkatan_title) < 2018 && $nangka > 75 && $nangka < 80){
+                                                $nhuruf = 'B+';
+                                            }else{
+                                                $nhuruf = 'B';
+                                            }
                                             $nipk += 3 * $item->bobot_mata_kuliah;
                                             $indexvsks = 3 * $item->bobot_mata_kuliah;
                                             $index = 3;
-                                        }elseif($nangka > 79 && $nangka<= 100){
+                                        }elseif($nangka > 79 && $nangka <= 100){
                                             $nhuruf = 'A';
                                             $nipk += 4 * $item->bobot_mata_kuliah;
                                             $indexvsks = 4 * $item->bobot_mata_kuliah;

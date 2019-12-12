@@ -6,7 +6,10 @@
             use App\ PendidikanModel;
             use Yajra\DataTables\DataTables;
             Use File;
-            class Pendidikan extends Controller
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+
+class Pendidikan extends Controller
             {
                 static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
                     "title" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Title"],
@@ -18,6 +21,21 @@
                                 ];
                 static $exclude = ["id","created_at","updated_at","created_by","update_by"];
                 static $tablename = "Pendidikan";
+                public function __construct()
+                {
+                    $this->middleware(function ($request, $next) {
+                        $this->user = Auth::user();
+                        if(!$this->user){
+                            Redirect::to('login')->send();
+                        }
+                        if($this->user->login_type != 'admin'){
+                            return abort(404);
+                        }else{
+                            return $next($request);
+                        }
+                    });
+                    
+                }
                 public function index()
                 {
                     $data = PendidikanModel::get();

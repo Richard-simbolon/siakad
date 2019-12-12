@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class TugasAkhir extends Controller
 {
@@ -27,6 +28,22 @@ class TugasAkhir extends Controller
         "status_dosen_ke"=>["type"=>"text" , "value"=>"null" , "validation" => "required"],
     ];
     static $exclude = ["id","created_at","updated_at","created_by","modified_by"];
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user();
+            if(!$this->user){
+                Redirect::to('login')->send();
+            }
+            if($this->user->login_type != 'admin'){
+                return abort(404);
+            }else{
+                return $next($request);
+            }
+        });
+        
+    }
 
     public function index()
     {

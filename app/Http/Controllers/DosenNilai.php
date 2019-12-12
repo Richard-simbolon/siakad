@@ -12,7 +12,7 @@ use App\SemesterModel;
 use App\MahasiswaModel;
 use Illuminate\Support\Facades\Auth;
 use App\DosenModel;
-
+use Illuminate\Support\Facades\Redirect;
 
 // NILAI UTS = Pelaksanaan praktik = penyusunan makalah = proposal = proposal
 // NILAI UAS = Unjuk kerja/portofolio = penyajian = pelaksanaan = seminar proposal
@@ -34,9 +34,10 @@ class DosenNilai extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            $this->middleware('auth');
-            $this->user= Auth::user();
-            //print_r($this->user->login_type);
+            $this->user = Auth::user();
+            if(!$this->user){
+                Redirect::to('login')->send();
+            }
             if($this->user->login_type != 'dosen'){
                 return abort(404);
             }else{

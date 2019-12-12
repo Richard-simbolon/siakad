@@ -10,6 +10,8 @@ use App\AngkatanModel;
 use App\KelasModel;
 use App\SemesterModel;
 use App\MahasiswaModel;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class NilaiMahasiswa extends Controller
 {
@@ -21,6 +23,22 @@ class NilaiMahasiswa extends Controller
 ];
     static $exclude = ["id","created_at","updated_at","created_by","update_by"];
     static $tablename = "NilaiMahasiswa";
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user();
+            if(!$this->user){
+                Redirect::to('login')->send();
+            }
+            if($this->user->login_type != 'admin'){
+                return abort(404);
+            }else{
+                return $next($request);
+            }
+        });
+        
+    }
 
     public function index()
     {

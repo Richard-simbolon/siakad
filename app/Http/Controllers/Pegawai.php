@@ -5,7 +5,10 @@
             use Illuminate\Http\Request;
             use App\ PegawaiModel;
             use Yajra\DataTables\DataTables;
-            class Pegawai extends Controller
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+
+class Pegawai extends Controller
             {
                 static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
                     "row_status" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Row_status"],
@@ -17,6 +20,21 @@
             ];
                 static $exclude = ["id","created_at","updated_at","created_by","update_by"];
                 static $tablename = "pegawai";
+                public function __construct()
+                {
+                    $this->middleware(function ($request, $next) {
+                        $this->user = Auth::user();
+                        if(!$this->user){
+                            Redirect::to('login')->send();
+                        }
+                        if($this->user->login_type != 'admin'){
+                            return abort(404);
+                        }else{
+                            return $next($request);
+                        }
+                    });
+                    
+                }
                 public function index()
                 {
                     $data = PegawaiModel::get();

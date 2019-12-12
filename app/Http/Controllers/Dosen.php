@@ -26,6 +26,9 @@ use App\RiwayatFungsionalModel;
 use App\PengangkatanModel;
 use Yajra\DataTables\DataTables;
 use File;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+
 class Dosen extends Controller
 {
     static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
@@ -36,6 +39,23 @@ class Dosen extends Controller
 ];
     static $exclude = ["id","created_at","updated_at","created_by","update_by"];
     static $tablename = "Dosen";
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user();
+            if(!$this->user){
+                Redirect::to('login')->send();
+            }
+            if($this->user->login_type != 'admin'){
+                return abort(404);
+            }else{
+                return $next($request);
+            }
+        });
+        
+    }
+
     public function index()
     {
         $data = DosenModel::get();
@@ -703,6 +723,7 @@ class Dosen extends Controller
     }
 
     public function pembimbing($id){
+        
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
             'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),

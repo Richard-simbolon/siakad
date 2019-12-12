@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Auth;
 use App\KelasModel;
 use Intervention\Image\Facades\Image as InterventionImage;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class MahasiswaModule extends Controller
 {
@@ -37,7 +38,22 @@ class MahasiswaModule extends Controller
 ];
     static $exclude = ["id","created_at","updated_at","created_by","update_by"];
     static $tablename = "Mahasiswa";
-
+    
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user();
+            if(!$this->user){
+                Redirect::to('login')->send();
+            }
+            if($this->user->login_type != 'mahasiswa'){
+                return abort(404);
+            }else{
+                return $next($request);
+            }
+        });
+        
+    }
 
     public function get_id_mahasiswa(){
         $id = MahasiswaModel::where('nim' , Auth::user()->id)->first();

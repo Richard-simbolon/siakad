@@ -11,6 +11,7 @@ use App\SemesterModel;
 use App\KurikulumModel;
 use PDF;
 use App\ReportSettingModel;
+use Illuminate\Support\Facades\Redirect;
 
 class JadwalPerkuliahan extends Controller
 {
@@ -24,12 +25,11 @@ class JadwalPerkuliahan extends Controller
 
     public function __construct()
     {
-        //print_r(Auth::user()); exit;
-        if(!Auth::user()){
-            redirect('login');
-        }
         $this->middleware(function ($request, $next) {
             $this->user = Auth::user();
+            if(!$this->user){
+                Redirect::to('login')->send();
+            }
             if($this->user->login_type != 'mahasiswa'){
                 return abort(404);
             }else{
@@ -210,7 +210,8 @@ class JadwalPerkuliahan extends Controller
     public function khs_load(Request $request)
     {
         $kurikulum = MahasiswaModel::join('master_kelas' ,'master_kelas.id' ,'mahasiswa.kelas_id')
-        ->select('master_kelas.*','mahasiswa.nama','mahasiswa.id')
+        ->leftJoin('master_angkatan' , 'master_angkatan.id' ,'=' ,'mahasiswa.angkatan')
+        ->select('master_kelas.*','mahasiswa.nama','mahasiswa.id','master_angkatan.title as angkatan')
         ->where('nim' , Auth::user()->id)->first();
         $id = $kurikulum->id;
         $data = KurikulumModel::rightJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.kurikulum_id','=' ,'kurikulum.id')
@@ -294,12 +295,20 @@ class JadwalPerkuliahan extends Controller
                     $indexvsks = 1 * $item->bobot_mata_kuliah;
                     $index = 1;
                 }elseif($nangka > 59 && $nangka<= 69){
-                    $nhuruf = 'C';
+                    if((int)($kurikulum->angkatan) < 2018 && $nangka > 65 && $nangka <= 69){
+                        $nhuruf = 'C+';
+                    }else{
+                        $nhuruf = 'C';
+                    }
                     $nipk += 2 * $item->bobot_mata_kuliah;
                     $indexvsks = 2 * $item->bobot_mata_kuliah;
                     $index = 2;
                 }elseif($nangka > 69 && $nangka<= 79){
-                    $nhuruf = 'B';
+                    if((int)($kurikulum->angkatan) < 2018 && $nangka > 75 && $nangka<= 79){
+                        $nhuruf = 'B+';
+                    }else{
+                        $nhuruf = 'B';
+                    }
                     $nipk += 3 * $item->bobot_mata_kuliah;
                     $indexvsks = 3 * $item->bobot_mata_kuliah;
                     $index = 3;
@@ -387,7 +396,8 @@ class JadwalPerkuliahan extends Controller
         $semester_aktif = SemesterModel::where('id' , $id_semester)->first();
         $master = SemesterModel::where('row_status' ,'active')->get();
         $kurikulum = MahasiswaModel::join('master_kelas' ,'master_kelas.id' ,'mahasiswa.kelas_id')
-        ->select('master_kelas.*','mahasiswa.nama','mahasiswa.id')
+        ->leftJoin('master_angkatan' , 'master_angkatan.id' ,'=' ,'mahasiswa.angkatan')
+        ->select('master_kelas.*','mahasiswa.nama','mahasiswa.id','master_angkatan.title as angkatan')
         ->where('nim' , Auth::user()->id)->first();
         $id = $kurikulum->id;
         $mahasiswa = DB::table('view_profile_mahasiswa')->where('id' , $id)->first();
@@ -443,12 +453,20 @@ class JadwalPerkuliahan extends Controller
                     $indexvsks = 1 * $item->bobot_mata_kuliah;
                     $index = 1;
                 }elseif($nangka > 59 && $nangka<= 69){
-                    $nhuruf = 'C';
+                    if((int)($kurikulum->angkatan) < 2018 && $nangka > 65 && $nangka <= 69){
+                        $nhuruf = 'C+';
+                    }else{
+                        $nhuruf = 'C';
+                    }
                     $nipk += 2 * $item->bobot_mata_kuliah;
                     $indexvsks = 2 * $item->bobot_mata_kuliah;
                     $index = 2;
                 }elseif($nangka > 69 && $nangka<= 79){
-                    $nhuruf = 'B';
+                    if((int)($kurikulum->angkatan) < 2018 && $nangka > 75 && $nangka<= 79){
+                        $nhuruf = 'B+';
+                    }else{
+                        $nhuruf = 'B';
+                    }
                     $nipk += 3 * $item->bobot_mata_kuliah;
                     $indexvsks = 3 * $item->bobot_mata_kuliah;
                     $index = 3;

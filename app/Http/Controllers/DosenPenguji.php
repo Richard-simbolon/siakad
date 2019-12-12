@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
 use App\DosenModel;
+use Illuminate\Support\Facades\Redirect;
 
 class DosenPenguji extends Controller
 {
@@ -12,8 +13,10 @@ class DosenPenguji extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            $this->middleware('auth');
-            $this->user= Auth::user();
+            $this->user = Auth::user();
+            if(!$this->user){
+                Redirect::to('login')->send();
+            }
             if($this->user->login_type != 'dosen'){
                 return abort(404);
             }else{

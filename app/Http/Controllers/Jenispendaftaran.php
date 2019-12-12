@@ -6,7 +6,10 @@
             use App\ JenispendaftaranModel;
             use Yajra\DataTables\DataTables;
             use File;
-            class Jenispendaftaran extends Controller
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+
+class Jenispendaftaran extends Controller
             {
                 static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
                                     "row_status" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Status"],
@@ -19,7 +22,21 @@
                                 ];
                 static $exclude = ["id","created_at","updated_at","created_by","update_by"];
                 static $tablename = "Jenispendaftaran";
-
+                public function __construct()
+                {
+                    $this->middleware(function ($request, $next) {
+                        $this->user = Auth::user();
+                        if(!$this->user){
+                            Redirect::to('login')->send();
+                        }
+                        if($this->user->login_type != 'admin'){
+                            return abort(404);
+                        }else{
+                            return $next($request);
+                        }
+                    });
+                    
+                }
                 public function index()
                 {
                     $data = JenispendaftaranModel::get();

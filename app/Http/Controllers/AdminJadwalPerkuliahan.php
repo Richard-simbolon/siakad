@@ -12,6 +12,7 @@ use App\KurikulumModel;
 use App\JurusanModel;
 use App\AngkatanModel;
 use App\KelasModel;
+use Illuminate\Support\Facades\Redirect;
 
 class AdminJadwalPerkuliahan extends Controller
 {
@@ -25,10 +26,11 @@ class AdminJadwalPerkuliahan extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
         $this->middleware(function ($request, $next) {
-            $this->user= Auth::user();
-            //print_r($this->user->login_type);
+            $this->user = Auth::user();
+            if(!$this->user){
+                Redirect::to('login')->send();
+            }
             if($this->user->login_type != 'admin'){
                 return abort(404);
             }else{

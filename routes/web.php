@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', 'HomeController@index')->name('Index');
 Route::get('/setting_menu', 'SettingMenu@index')->name('setting_menu');
 Route::get('setting/create', 'SettingMenu@create')->name('create');
@@ -237,4 +236,6 @@ Auth::routes();
 Route::post('g_password/generate_key', 'Administrator@generate_key')->name('generate_key');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home/getcalender', 'HomeController@getcalender')->name('getcalender');
+
+//Route::get('/mahasiswa/login', 'Auth\LoginController@showLoginForm')->name('login');
 

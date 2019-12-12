@@ -5,17 +5,18 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Auth;
 use App\DosenModel;
+use Illuminate\Support\Facades\Redirect;
 
 class DosenPembimbing extends Controller
 {
   
     public function __construct()
     {
-        //die();
         $this->middleware(function ($request, $next) {
-            $this->middleware('auth');
-            $this->user= Auth::user();
-            //print_r($this->user->login_type);
+            $this->user = Auth::user();
+            if(!$this->user){
+                Redirect::to('login')->send();
+            }
             if($this->user->login_type != 'dosen'){
                 return abort(404);
             }else{
@@ -27,6 +28,7 @@ class DosenPembimbing extends Controller
 
     public function index()
     {
+        
         $data = [];
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
 

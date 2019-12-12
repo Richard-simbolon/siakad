@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Cache;
 use App\MahasiswaModel;
 use Illuminate\Support\Facades\Auth;
 use App\DosenModel;
+use Illuminate\Support\Facades\Redirect;
 
 class DosenAbsensi extends Controller
 {
@@ -29,10 +30,11 @@ class DosenAbsensi extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
         $this->middleware(function ($request, $next) {
-            $this->user= Auth::user();
-            //print_r($this->user->login_type);
+            $this->user = Auth::user();
+            if(!$this->user){
+                Redirect::to('login')->send();
+            }
             if($this->user->login_type != 'dosen'){
                 return abort(404);
             }else{

@@ -36,6 +36,7 @@ use App\KelasModel;
 use App\TahunAjaranModel;
 use Intervention\Image\Facades\Image as InterventionImage;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class DosenModule extends Controller
 {
@@ -50,9 +51,10 @@ class DosenModule extends Controller
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-            $this->middleware('auth');
-            $this->user= Auth::user();
-            //print_r($this->user->login_type);
+            $this->user = Auth::user();
+            if(!$this->user){
+                Redirect::to('login')->send();
+            }
             if($this->user->login_type != 'dosen'){
                 return abort(404);
             }else{

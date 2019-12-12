@@ -11,6 +11,8 @@ use App\KelasModel;
 use App\SemesterModel;
 use Illuminate\Support\Facades\Cache;
 use App\MahasiswaModel;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class AbsensiMahasiswa extends Controller
 {
@@ -19,12 +21,27 @@ class AbsensiMahasiswa extends Controller
         "title" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Title"],
         ];
     static $html = ["id"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
-"row_status"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
-"title"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
-];
+        "row_status"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
+        "title"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
+    ];
     static $exclude = ["id","created_at","updated_at","created_by","update_by"];
     static $tablename = "AbsensiMahasiswa";
 
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user();
+            if(!$this->user){
+                Redirect::to('login')->send();
+            }
+            if($this->user->login_type != 'admin'){
+                return abort(404);
+            }else{
+                return $next($request);
+            }
+        });
+        
+    }
     public function index()
     {
         //print_r(Cache::get('absensi_18'));

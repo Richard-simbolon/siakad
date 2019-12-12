@@ -9,6 +9,8 @@ use App\JurusanModel;
 use App\JenisMatakuliahModel;
 use Yajra\DataTables\DataTables;
 Use File;
+use Illuminate\Support\Facades\Redirect;
+
 class MataKuliah extends Controller
 {
     static $Tableshow = [   "id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
@@ -54,6 +56,22 @@ class MataKuliah extends Controller
     static $exclude = ["id","created_at","updated_at","created_by","modified_by"];
     static $exclude_table = ["id","created_at","updated_at","created_by","modified_by", "bobot_tatap_muka", "bobot_praktikum", "bobot_praktek_lapangan", "bobot_simulasi", "metode_pembelajaran","tanggal_mulai_efektif","tanggal_akhir_efektif", "tipe_mata_kuliah"];
 
+
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user();
+            if(!$this->user){
+                Redirect::to('login')->send();
+            }
+            if($this->user->login_type != 'admin'){
+                return abort(404);
+            }else{
+                return $next($request);
+            }
+        });
+        
+    }
     public function index()
     {
         $data = MataKuliahModel::get();// DB::getSchemaBuilder()->getColumnListing("mata_kuliah")
