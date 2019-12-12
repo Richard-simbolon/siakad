@@ -60,55 +60,57 @@
                 </div>
                 <!--begin::Form-->
                 <div class="kt-portlet__body">
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <table cellpadding="5">
-                                    <tbody>
-                                    <tr>
-                                        <td width="107px">Nirm</td>
-                                        <td>:</td>
-                                        <td><b>{{$mahasiswa->nim}}</b></td>
-                                    </tr>
-                                    <tr>
-                                        <td width="107px">Nama</td>
-                                        <td>:</td>
-                                        <td><b>{{$mahasiswa->nama}}</b></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Angkatan</td>
-                                        <td>:</td>
-                                        <td><b>{{$mahasiswa->angkatan_title}}</b></td>
-                                    </tr>
-                                    
-                                </tbody></table>
-                            </div>
-                            <div class="col-lg-6">
-                                <table cellpadding="5">
-                                    <tbody><tr>
-                                        <td>Agama</td>
-                                        <td>:</td>
-                                        <td><b>{{$mahasiswa->agama_title}}</b></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Program Studi</td>
-                                        <td>:</td>
-                                        <td><b>{{$mahasiswa->jurusan_title}}</b></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kelas</td>
-                                        <td>:</td>
-                                        <td><b>{{$mahasiswa->kelas_title}}</b></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <table cellpadding="5">
+                                        <tbody>
+                                        <tr>
+                                            <td width="107px">Nirm</td>
+                                            <td>:</td>
+                                            <td><b>{{$mahasiswa->nim}}</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="107px">Nama</td>
+                                            <td>:</td>
+                                            <td><b>{{$mahasiswa->nama}}</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Agama</td>
+                                            <td>:</td>
+                                            <td><b>{{$mahasiswa->agama_title}}</b></td>
+                                        </tr>
+                                    </tbody></table>
+                                </div>
+                                <div class="col-lg-6">
+                                    <table cellpadding="5">
+                                        <tbody>
+                                        <tr>
+                                            <td>Angkatan</td>
+                                            <td>:</td>
+                                            <td><b>{{$mahasiswa->angkatan_title}}</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Program Studi</td>
+                                            <td>:</td>
+                                            <td><b>{{$mahasiswa->jurusan_title}}</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kelas</td>
+                                            <td>:</td>
+                                            <td><b>{{$mahasiswa->kelas_title}}</b></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <br/><br/>
+                    <br/>
 
-                    <div class="col-lg-12">
-                        <div class="col-xl-2">
+                    <div class="row">
+                        <div class="col-xl-4">
                             <div class="form-group">
                                 <label>Tahun Ajaran</label>
                                 <div class="form-group">

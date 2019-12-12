@@ -202,6 +202,10 @@ Route::post('dosen/uploadsoal/paging', 'DosenUploadUjian@paging')->name('paging'
 Route::get('data/dosen/daftarsoal', 'Dosen@daftarsoal')->name('daftarsoal');
 Route::post('dosen/paging_soal', 'Dosen@paging_soal')->name('paging');
 
+Route::get('/login/akademik', 'Auth\LoginController@akademik')->name('akademik');
+Route::get('/login/dosen', 'Auth\LoginController@dosen')->name('dosen');
+Route::get('/login/mahasiswa', 'Auth\LoginController@mahasiswa')->name('mahasiswa');
+
 $results = DB::select('select * from module');
 //print_r($results); exit;
 foreach($results as $val){

@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\JadwalUjianDetailModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -528,6 +529,7 @@ class JadwalPerkuliahan extends Controller
         ->orderBy('semester_id' ,'ASC')
         ->get();
         $profile = DB::table('view_profile_mahasiswa')->where('nim' , Auth::user()->id)->first();
+
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         return view("mahasiswa/JadwalUjian" , compact("data" , "title" ,"mahasiswa" ,'select2' ,"profile"));
     }
@@ -536,14 +538,30 @@ class JadwalPerkuliahan extends Controller
         $semester_ids = $request->all();
         $semester_active = SemesterModel::where('status_semester' ,'enable')->first();
         $mahasiswa = MahasiswaModel::where('nim' , Auth::user()->id)->first();
-        
-        if($semester_ids['jadwal_perkuliahan'] != ''){
-            $semester_id = $semester_ids['jadwal_perkuliahan'];
-        }else{
-            $semester_id = $semester_active->id;
-        }
-        return Datatables::of(DB::table('view_mahasiswa_jadwal_ujian')->where('mahasiswa_id' , $mahasiswa->id)
-        ->where('semester_id' , $semester_id))->make(true);
+
+//        if($semester_ids['jadwal_perkuliahan'] != ''){
+//            $semester_id = $semester_ids['jadwal_perkuliahan'];
+//        }else{
+//            $semester_id = $semester_active->id;
+//        }
+
+        return Datatables::of(JadwalUjianDetailModel::where('jadwal_ujian_mahasiswa_detail.mahasiswa_id' , $mahasiswa->id)
+            ->join('jadwal_ujian_mahasiswa','jadwal_ujian_mahasiswa.id','=','jadwal_ujian_mahasiswa_detail.jadwal_ujian_id')
+            ->join('kelas_perkuliahan_mata_kuliah','kelas_perkuliahan_mata_kuliah.id', '=','jadwal_ujian_mahasiswa.kelas_perkuliahan_detail_id')
+            ->join('kelas_perkuliahan','kelas_perkuliahan.id','=','kelas_perkuliahan_mata_kuliah.kelas_perkuliahan_id')
+            ->join('mata_kuliah','mata_kuliah.id','=','kelas_perkuliahan_mata_kuliah.mata_kuliah_id')
+            ->leftJoin('master_ruangan','master_ruangan.id','=','jadwal_ujian_mahasiswa_detail.ruangan')
+            ->select('jadwal_ujian_mahasiswa_detail.id',
+                'mata_kuliah.kode_mata_kuliah',
+                'mata_kuliah.nama_mata_kuliah',
+                'mata_kuliah.bobot_mata_kuliah',
+                'jadwal_ujian_mahasiswa.jam',
+                'jadwal_ujian_mahasiswa.selesai',
+                'jadwal_ujian_mahasiswa.tanggal_ujian',
+                'master_ruangan.nama_ruangan as ruangan_title')
+            ->where('kelas_perkuliahan.semester_id', $semester_active->id)
+            ->where('jadwal_ujian_mahasiswa.jenis_ujian', '=', $request->jadwal_perkuliahan)
+            ->get())->addIndexColumn()->make(true);
     }
 
     function print_khs($id_semester){

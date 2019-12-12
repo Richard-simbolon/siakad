@@ -121,10 +121,10 @@
                             <tr>
                                 <th>Kode MK</th>
                                 <th>Mata Kuliah</th>
-                                <th>Kelas</th>
                                 <th style="text-align: center">Bobot SKS</th>
                                 <th>Nama Dosen</th>
                                 <th>Asisten Dosen</th>
+                                <th>Kelas</th>
                                 <th>Hari</th>
                                 <th>Jam</th>
                                 <th>Selesai</th>

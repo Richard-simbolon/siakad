@@ -4,6 +4,7 @@ namespace Illuminate\Foundation\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 trait AuthenticatesUsers
@@ -32,6 +33,14 @@ trait AuthenticatesUsers
     {
         $this->validateLogin($request);
 
+        $userCheck = DB::table('auth')->where('id' , $request->login)->first();
+        if($userCheck){
+            if($userCheck->login_type != $request->login_type){
+                throw ValidationException::withMessages([
+                    $this->username() => [trans('auth.failed')],
+                ]);
+            }
+        }
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and

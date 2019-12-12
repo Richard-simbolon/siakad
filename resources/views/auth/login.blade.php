@@ -7,113 +7,60 @@
     <!-- begin:: Page -->
     <div class="kt-grid kt-grid--ver kt-grid--root">
         <div class="kt-grid kt-grid--hor kt-grid--root  kt-login kt-login--v3 kt-login--signin" id="kt_login">
-            <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" style="background-image: url(assets/media/bg/bg-3.jpg);">
+            <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" style="background-image: url({{url('assets/media/bg/bg-3.jpg')}});">
                 <div class="kt-grid__item kt-grid__item--fluid kt-login__wrapper">
-                    <div class="kt-login__container">
+                    <div class="kt-login__container" style="width: 550px!important;">
                         <div class="kt-login__logo">
                             <a href="#">
-                                <img src="https://polbangtanmedan.ac.id/upload/pagesdir/page_a_2019629122941.png">
+                                {{--<img src="https://polbangtanmedan.ac.id/upload/pagesdir/page_a_2019629122941.png">--}}
+                                <img src="{{url('assets/logo/logopolbangtan.png')}}" width="100px">
                             </a>
                         </div>
+
                         <div class="kt-login__signin">
                             <div class="kt-login__head">
-                                <h3 class="kt-login__title">SIAPDUDIK <br/> (Sistem Aplikasi Terpadu Pendidikan)</h3>
+                                <h3 class="kt-login__title">SIAPDUDIK  (Sistem Aplikasi Terpadu Pendidikan)</h3>
                             </div>
-                            <form class="kt-form" method="POST" action="{{ route('login') }}">
-                                @csrf
-                                
-                                <div class="input-group">
-                                        <input id="login" placeholder="User Login" type="text" class="form-control @error('login') is-invalid @enderror" name="login" value="{{ old('login') }}" required autocomplete="login" autofocus>
-                                        @error('login')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-
-                                    
+                            <div class="row">
+                                <div class="col-xl-12 icon">
+                                    <div class="row" style="padding-top: 50px;">
+                                        <div class="col-xl-4">
+                                            <div style="width: 100%;text-align: center;">
+                                                <a href="/login/akademik">
+                                                    <img src="{{url('assets/logo/akademik.png')}}" width="90%" style="max-width: 110px">
+                                                </a>
+                                            </div>
+                                            <div style="width: 100%;text-align: center;padding-top: 10px">
+                                                <p><b>Administrator</b></p>
+                                            </div>
+                                            <div style="width: 70%;margin:auto;height:1px;background-image: linear-gradient(to right, #fafafa, #0b6541 , #fafafa);margin-bottom: 5px;"></div>
+                                        </div>
+                                        <div class="col-xl-4">
+                                            <div style="width: 100%;text-align: center;">
+                                                <a href="/login/dosen">
+                                                    <img src="{{url('assets/logo/lecture.png')}}" width="90%" style="max-width: 110px">
+                                                </a>
+                                            </div>
+                                            <div style="width: 100%;text-align: center;padding-top: 10px">
+                                                <p><b>Dosen</b></p>
+                                            </div>
+                                            <div style="width: 70%;margin:auto;height:1px;background-image: linear-gradient(to right, #fafafa, #0b6541 , #fafafa);margin-bottom: 5px;"></div>
+                                        </div>
+                                        <div class="col-xl-4">
+                                            <div style="width: 100%;text-align: center;">
+                                                <a href="/login/mahasiswa">
+                                                    <img src="{{url('assets/logo/graduation.png')}}" width="90%" style="max-width: 110px" >
+                                                </a>
+                                            </div>
+                                            <div style="width: 100%;text-align: center;padding-top: 10px">
+                                                <p><b>Mahasiswa</b></p>
+                                            </div>
+                                            <div style="width: 70%;margin:auto;height:1px;background-image: linear-gradient(to right, #fafafa, #0b6541 , #fafafa);margin-bottom: 5px;"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="input-group">
-                                        <input id="password" placeholder="Password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                                        @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                </div>
-                                <div class="row kt-login__extra">
-                                    <!--<div class="col">
-                                        <label class="kt-checkbox">
-                                            <input type="checkbox" name="remember"> Remember me
-                                            <span></span>
-                                        </label>
-                                    </div>-->
-                                    {{--<div class="col kt-align-right">--}}
-                                        {{--<a href="javascript:;" id="kt_login_forgot" class="kt-login__link">Forget Password ?</a>--}}
-                                    {{--</div>--}}
-                                </div>
-                                <div class="kt-login__actions">
-                                        <button  type="submit" class="btn btn-brand btn-elevate kt-login__btn-primary">
-                                            <h5>{{ __('Masuk') }}</h5>
-                                        </button>
-                                           
-                                </div>
-                            </form>
+                            </div>
                         </div>
-                        {{--<div class="kt-login__signup">--}}
-                            {{--<div class="kt-login__head">--}}
-                                {{--<h3 class="kt-login__title">Sign Up</h3>--}}
-                                {{--<div class="kt-login__desc">Enter your details to create your account:</div>--}}
-                            {{--</div>--}}
-                            {{--<form class="kt-form" action="">--}}
-                                {{--<div class="input-group">--}}
-                                    {{--<input class="form-control" type="text" placeholder="Fullname" name="fullname">--}}
-                                {{--</div>--}}
-                                {{--<div class="input-group">--}}
-                                    {{--<input class="form-control" type="text" placeholder="Email" name="email" autocomplete="off">--}}
-                                {{--</div>--}}
-                                {{--<div class="input-group">--}}
-                                    {{--<input class="form-control" type="password" placeholder="Password" name="password">--}}
-                                {{--</div>--}}
-                                {{--<div class="input-group">--}}
-                                    {{--<input class="form-control" type="password" placeholder="Confirm Password" name="rpassword">--}}
-                                {{--</div>--}}
-                                {{--<div class="row kt-login__extra">--}}
-                                    {{--<div class="col kt-align-left">--}}
-                                        {{--<label class="kt-checkbox">--}}
-                                            {{--<input type="checkbox" name="agree">I Agree the <a href="#" class="kt-link kt-login__link kt-font-bold">terms and conditions</a>.--}}
-                                            {{--<span></span>--}}
-                                        {{--</label>--}}
-                                        {{--<span class="form-text text-muted"></span>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                                {{--<div class="kt-login__actions">--}}
-                                    {{--<button id="kt_login_signup_submit" class="btn btn-brand btn-elevate kt-login__btn-primary">Sign Up</button>&nbsp;&nbsp;--}}
-                                    {{--<button id="kt_login_signup_cancel" class="btn btn-light btn-elevate kt-login__btn-secondary">Cancel</button>--}}
-                                {{--</div>--}}
-                            {{--</form>--}}
-                        {{--</div>--}}
-                        {{--<div class="kt-login__forgot">--}}
-                            {{--<div class="kt-login__head">--}}
-                                {{--<h3 class="kt-login__title">Forgotten Password ?</h3>--}}
-                                {{--<div class="kt-login__desc">Enter your email to reset your password:</div>--}}
-                            {{--</div>--}}
-                            {{--<form class="kt-form" action="">--}}
-                                {{--<div class="input-group">--}}
-                                    {{--<input class="form-control" type="text" placeholder="Email" name="email" id="kt_email" autocomplete="off">--}}
-                                {{--</div>--}}
-                                {{--<div class="kt-login__actions">--}}
-                                    {{--<button id="kt_login_forgot_submit" class="btn btn-brand btn-elevate kt-login__btn-primary">Request</button>&nbsp;&nbsp;--}}
-                                    {{--<button id="kt_login_forgot_cancel" class="btn btn-light btn-elevate kt-login__btn-secondary">Cancel</button>--}}
-                                {{--</div>--}}
-                            {{--</form>--}}
-                        {{--</div>--}}
-                        {{--<div class="kt-login__account">--}}
-                            {{--<span class="kt-login__account-msg">--}}
-                                {{--Don't have an account yet ?--}}
-                            {{--</span>--}}
-                            {{--&nbsp;&nbsp;--}}
-                            {{--<a href="javascript:;" id="kt_login_signup" class="kt-login__account-link">Sign Up!</a>--}}
-                        {{--</div>--}}
                     </div>
                 </div>
             </div>
@@ -123,6 +70,12 @@
     <!-- end:: Page -->
 
     <!-- begin::Global Config(global config for global JS sciprts) -->
+    <style>
+        .icon img:hover{
+            border: 4px solid #cef3d0;
+            border-radius: 50%;
+        }
+    </style>
     <script>
         var KTAppOptions = {
             "colors": {
@@ -159,9 +112,9 @@
     <!--begin::Global Theme Bundle(used by all pages) -->
 
     <!--begin:: Vendor Plugins -->
-    <script src="assets/plugins/general/jquery/dist/jquery.js" type="text/javascript"></script>
-    
-    <script src="assets/js/pages/custom/login/login-general.js" type="text/javascript"></script>
+    <script src="{{url('assets/plugins/general/jquery/dist/jquery.js')}}" type="text/javascript"></script>
+
+    <script src="{{url('assets/js/pages/custom/login/login-general.js')}}" type="text/javascript"></script>
 
     <!--end::Page Scripts -->
 </body>
