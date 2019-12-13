@@ -673,7 +673,7 @@ class Mahasiswa extends Controller
         ->where('semester_id' , $semester_active->id)
         ->groupby('semester_id','kurikulum_mata_kuliah.semester')
         ->first();
-        if(count($ip_smstr_prev) > 0){
+        if($ip_smstr_prev){
             $ipk = $this->get_ipk(($ip_smstr_prev->semester_id - 1) , $ids);
             $total_sks_header = $ip_smstr_prev->sks;
         }else{
@@ -731,7 +731,7 @@ class Mahasiswa extends Controller
         ->where('semester_id' , $semester_aktif->id)
         ->groupby('semester_id','kurikulum_mata_kuliah.semester')
         ->first();
-        if(count($ip_smstr_prev) > 0){
+        if($ip_smstr_prev){
             $ipk = $this->get_ipk(($ip_smstr_prev->semester_id - 1) , $ids);
             $total_sks_header = $ip_smstr_prev->sks;
         }else{
@@ -789,7 +789,7 @@ class Mahasiswa extends Controller
         ->where('semester_id' , $request->all()['id'])
         ->groupby('semester_id','kurikulum_mata_kuliah.semester')
         ->first();
-        if(count($ip_smstr_prev) > 0){
+        if($ip_smstr_prev){
             $ipk = $this->get_ipk( $request->all()['id'], $id);
             $total_sks_header = $ip_smstr_prev->sks;
         }else{
@@ -1068,7 +1068,7 @@ class Mahasiswa extends Controller
         ->where('semester_id' , $semester_active->id)
         ->groupby('semester_id','kurikulum_mata_kuliah.semester')
         ->first();
-        if(count($ip_smstr_prev) > 0){
+        if($ip_smstr_prev){
             $ipk = $this->get_ipk(($ip_smstr_prev->semester_id - 1) , $ids);
             $total_sks_header = $ip_smstr_prev->sks;
             $where = ['mahasiswa_id' => $ids];
