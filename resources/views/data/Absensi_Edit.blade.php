@@ -128,9 +128,9 @@
                                                         <thead>
                                                         <tr>
                                                             <th style="text-align: center">No</th>
-                                                            <th style="text-align: center">Nama Mahasiswa</th>
-                                                            <th style="text-align: center">NIM</th>
-                                                            <th style="text-align: center">Jenis Kelamin</th>
+                                                            <th>NIM</th>
+                                                            <th>Nama Mahasiswa</th>
+                                                            <th>Jenis Kelamin</th>
                                                             <?$i = 0;
                                                                 if(count($detail) > 0){
                                                                     foreach (reset($detail) as $key => $value) {
@@ -147,9 +147,9 @@
                                                             <? $j++ ?>
                                                             <tr>
                                                                 <td align="center">{{$j}}</td>
-                                                                <td align="center">{{ucfirst($item->nama)}}</td>
-                                                                <td align="center">{{ucfirst($item->nim)}}</td>
-                                                                <td align="center">{{ucfirst($item->jk)}}</td>
+                                                                <td>{{ucfirst($item->nim)}}</td>
+                                                                <td>{{ucfirst($item->nama)}}</td>
+                                                                <td>{{ucfirst($item->jk)}}</td>
                                                                 <?php
                                                                 if(count($detail) > 0){
                                                                     foreach ($detail[ $item->mahasiswa_id] as $key => $value) {

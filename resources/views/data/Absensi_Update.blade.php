@@ -154,9 +154,9 @@
                                                                     <? $i++ ?>
                                                                     <tr>
                                                                         <td align="center">{{$i}}</td> 
-                                                                        <td align="center">{{ucfirst($item->nama)}}</td>
-                                                                        <td align="center">{{ucfirst($item->nim)}}</td>
-                                                                        <td align="center">{{ucfirst($item->jk)}}</td>
+                                                                        <td>{{ucfirst($item->nama)}}</td>
+                                                                        <td>{{ucfirst($item->nim)}}</td>
+                                                                        <td>{{ucfirst($item->jk)}}</td>
                                                                         <td> <input type="hidden" name="mahasiswa[{{$item->mahasiswa_id}}][id]" value="{{$item->id}}"><select name="mahasiswa[{{$item->mahasiswa_id}}][status_absensi]" class="form-control">
                                                                                 <option value="H" {{$item->status_absensi == 'H' ? 'selected' : ''}}>Hadir</option>
                                                                                 <option value="A" {{$item->status_absensi == 'A' ? 'selected' : ''}}>Absen</option>

@@ -86,8 +86,6 @@ class AbsensiMahasiswa extends Controller
             $mahasiswa = MahasiswaModel::where('kelas_id' , $data->kelas_id)->where('status' , '1')->get();
         }
 
-        //print_r($mahasiswa); exit;
-
         return view("data/absensi_create" , compact("title" , "mahasiswa", "data"));
 
     }
@@ -128,9 +126,6 @@ class AbsensiMahasiswa extends Controller
                 );
                 $mahasiswa[$val2->mahasiswa_id] = $val2;
             }
-            
-            
-            
         }
         return view("data/absensi_edit" , compact("title", "data" ,"mahasiswa" ,"detail"));
 
@@ -287,14 +282,12 @@ class AbsensiMahasiswa extends Controller
     }
 
     public function edit($id){
-        //echo $id; exit;
         $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         
         $mahasiswa = $this->get_detail_absensi($id , 'absensi_'.$id.'_detail');
 
         $data = $this->cache_header_absensi($id, 'absensi_'.$id);
-        //print_r($mahasiswa);
-        //print_r($data);
+
         if(!$data->kelas_perkuliahan_id){
             return 'Data Tidak Ditemukan.';
         }
