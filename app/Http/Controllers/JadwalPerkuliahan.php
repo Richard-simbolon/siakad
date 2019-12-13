@@ -130,7 +130,7 @@ class JadwalPerkuliahan extends Controller
         ->where('semester_id' , $semester_active->id)
         ->groupby('semester_id','kurikulum_mata_kuliah.semester')
         ->first();
-        if(count($ip_smstr_prev) > 0){
+        if($ip_smstr_prev){
             $ipk = $this->get_ipk(($ip_smstr_prev->semester_id - 1));
             $total_sks_header = $ip_smstr_prev->sks;
         }else{
@@ -231,7 +231,7 @@ class JadwalPerkuliahan extends Controller
         ->where('semester_id' , $request->all()['id'])
         ->groupby('semester_id','kurikulum_mata_kuliah.semester')
         ->first();
-        if(count($ip_smstr_prev) > 0){
+        if($ip_smstr_prev){
             $ipk = $this->get_ipk( $request->all()['id'], $id);
             $total_sks_header = $ip_smstr_prev->sks;
         }else{
@@ -538,13 +538,7 @@ class JadwalPerkuliahan extends Controller
         $semester_ids = $request->all();
         $semester_active = SemesterModel::where('status_semester' ,'enable')->first();
         $mahasiswa = MahasiswaModel::where('nim' , Auth::user()->id)->first();
-
-//        if($semester_ids['jadwal_perkuliahan'] != ''){
-//            $semester_id = $semester_ids['jadwal_perkuliahan'];
-//        }else{
-//            $semester_id = $semester_active->id;
-//        }
-
+        
         return Datatables::of(JadwalUjianDetailModel::where('jadwal_ujian_mahasiswa_detail.mahasiswa_id' , $mahasiswa->id)
             ->join('jadwal_ujian_mahasiswa','jadwal_ujian_mahasiswa.id','=','jadwal_ujian_mahasiswa_detail.jadwal_ujian_id')
             ->join('kelas_perkuliahan_mata_kuliah','kelas_perkuliahan_mata_kuliah.id', '=','jadwal_ujian_mahasiswa.kelas_perkuliahan_detail_id')
@@ -583,7 +577,7 @@ class JadwalPerkuliahan extends Controller
         ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah','mata_kuliah.tipe_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->where('nilai_mahasiswa.semester_id' , $id_semester)->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        //return view("mahasiswa/print_khs" , compact("data" , "title" ,"mahasiswa" , "master" , "semester_aktif" ,"report"));
+
         $pdf = PDF::setPaper('legal','potrait')->loadView('mahasiswa/print_khs', compact("data" , "title" ,"mahasiswa" , "master", "semester_aktif" ,"report"));
         return $pdf->download('KHS_'.$id_semester.'_'.Auth::user()->id.'_'.date('Y-m-d_H-i-s').'.pdf');
         
@@ -629,7 +623,8 @@ class JadwalPerkuliahan extends Controller
         ->where('semester_id' , $semester_active->id)
         ->groupby('semester_id','kurikulum_mata_kuliah.semester')
         ->first();
-        if(count($ip_smstr_prev) > 0){
+
+        if($ip_smstr_prev){
             $ipk = $this->get_ipk(($ip_smstr_prev->semester_id - 1));
             $total_sks_header = $ip_smstr_prev->sks;
         }else{
@@ -643,7 +638,6 @@ class JadwalPerkuliahan extends Controller
         ->orderBy('semester_id' ,'ASC')
         ->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        //return view("mahasiswa/print_krs" , compact("data" , "title" ,"mahasiswa" ,'select2',"semester_active" ,"profile","ipk" ,"total_sks_header","report"));
         $pdf = PDF::setPaper('legal','potrait')->loadView("mahasiswa/print_krs" , compact("data" , "title" ,"mahasiswa" ,'select2',"semester_active" ,"profile","ipk" ,"total_sks_header","report"));
         return $pdf->download('KRS'.'_'.Auth::user()->id.'_'.date('Y-m-d_H-i-s').'.pdf');
     }
