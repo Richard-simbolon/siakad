@@ -78,7 +78,7 @@
                                                                     <tr>
                                                                         <td>Jumlah Mahasiswa</td>
                                                                         <td>:</td>
-                                                                        <td><b></b></td>
+                                                                        <td><b>{{count($mahasiswa)}}</b></td>
                                                                     </tr>
                                                                 </tbody></table>
                                                             </div>
@@ -100,10 +100,10 @@
                                                                         <td><b>{{$data->ruangan}}</b></td>
                                                                     </tr>
                                                                     <tr>
-                                                                            <td>SKS</td>
-                                                                            <td>:</td>
-                                                                            <td><b></b></td>
-                                                                        </tr>
+                                                                        <td>SKS</td>
+                                                                        <td>:</td>
+                                                                        <td><b>{{$data->sks}}</b></td>
+                                                                    </tr>
                                                                 </tbody></table>
                                                             </div>
                                                         </div>

@@ -22,6 +22,7 @@ $(document).ready(function() {
             }
         },
         columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex'},
             { data: 'nim', name: 'nim'},
             { data: 'nama_mahasiswa', name: 'nama_mahasiswa' },
             { data: 'judul', name: 'judul' },
@@ -29,6 +30,13 @@ $(document).ready(function() {
             { data: 'tanggal_awal_bimbingan', name: 'tanggal_awal_bimbingan' },
             { data: 'tanggal_akhir_bimbingan', name: 'tanggal_akhir_bimbingan' },
             { data: 'status_bimbingan', name: 'status_bimbingan' },
+        ],
+        columnDefs: [
+            {
+                targets: 0,
+                className: "text-center"
+            }
+
         ]
     });
 
@@ -55,6 +63,7 @@ $(document).ready(function() {
             }
         },
         columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex'},
             { data: 'nim', name: 'nim'},
             { data: 'nama_mahasiswa', name: 'nama_mahasiswa' },
             { data: 'judul', name: 'judul' },
@@ -62,6 +71,13 @@ $(document).ready(function() {
             { data: 'tanggal_awal_bimbingan', name: 'tanggal_awal_bimbingan' },
             { data: 'tanggal_akhir_bimbingan', name: 'tanggal_akhir_bimbingan' },
             { data: 'status_bimbingan', name: 'status_bimbingan' },
+        ],
+        columnDefs: [
+            {
+                targets: 0,
+                className: "text-center"
+            }
+
         ]
     });
 

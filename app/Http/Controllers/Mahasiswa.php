@@ -701,7 +701,7 @@ class Mahasiswa extends Controller
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $global['id'] = $ids;
         
-        return view("data/Mhs_Krs" , compact("data" , "title" ,"mahasiswa" ,'select2' ,"global","profile" ,"semester_active"));
+        return view("data/mhs_krs" , compact("data" , "title" ,"mahasiswa" ,'select2' ,"global","profile" ,"semester_active"));
 
 
 
@@ -755,7 +755,7 @@ class Mahasiswa extends Controller
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $global['id'] = $ids;
         //return view("mahasiswa/khs" , compact("data" , "title" ,"mahasiswa" , "master" ,"semester_aktif"));
-        return view("data/Mhs_Khs" , compact("data" , "title" ,"mahasiswa"  ,"global", "master" ,"semester_aktif"));
+        return view("data/mhs_khs" , compact("data" , "title" ,"mahasiswa"  ,"global", "master" ,"semester_aktif"));
         
     }
 

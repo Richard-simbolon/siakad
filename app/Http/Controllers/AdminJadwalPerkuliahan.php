@@ -54,7 +54,7 @@ class AdminJadwalPerkuliahan extends Controller
         $mahasiswa = MahasiswaModel::where('nim' , Auth::user()->id)->first();
         
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        return view("data/AdminJadwalPerkuliahan" , compact("title" ,"mahasiswa" ,'semester_active' ,'master'));
+        return view("data/admin_jadwal_perkuliahan" , compact("title" ,"mahasiswa" ,'semester_active' ,'master'));
 
     }
 

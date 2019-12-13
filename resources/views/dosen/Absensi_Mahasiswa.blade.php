@@ -50,7 +50,7 @@
                         <!--begin::Form-->
                         <div class="kt-portlet__body">
                             <div class="row">
-                                <div class="col-xl-2">
+                                <div class="col-xl-3">
                                     <div class="form-group">
                                         <label>Semester</label>
                                         <div class="form-group">
@@ -63,7 +63,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-2">
+                                <div class="col-xl-3">
                                     <div class="form-group">
                                         <label>Angkatan</label>
                                         <select id="angkatan-mahasiswa" name="angkatan_id" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
@@ -74,7 +74,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-xl-4">
+                                <div class="col-xl-3">
                                     <div class="form-group">
                                         <label>Program Studi</label>
                                         <select name="jurusan_id" id="jurusan-mahasiswa" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
@@ -86,7 +86,7 @@
                                     </div>
                                 </div>
                                 
-                                <div class="col-xl-2">
+                                <div class="col-xl-3">
                                     <label class="select2-label">Kelas</label>
                                     <div class="form-group">
                                         <select name="kelas_id" id="kelas-mahasiswa" class="form-control search-kurikulum kt-select2 looping_class_input">
@@ -106,14 +106,15 @@
                                     <table class="table table-striped table-bordered table-hover responsive" id="absensimatakuliah">
                                         <thead>
                                         <tr>
-                                            {{-- <th style="text-align: center">No</th> --}}
-                                            <th style="text-align: center">Mata Kuliah</th>
+                                            <th style="text-align: center">No</th>
+                                            <th>Kode</th>
+                                            <th>Mata Kuliah</th>
                                             <th style="text-align: center">Angkatan</th>
                                             <th>Semester</th>
                                             <th>Program Studi </th>
-                                            <th style="text-align: center">Kelas</th>
-                                            <th style="text-align: center">Ruangan</th>
-                                            <th style="text-align: center">Dosen</th>
+                                            <th>Kelas</th>
+                                            <th>Ruangan</th>
+                                            <th>Dosen</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
@@ -132,9 +133,6 @@
     </div>
     <style>
         .m-content{width:100%}
-        table{
-            text-align: center;
-        }
     </style>
 
 @endsection

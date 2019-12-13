@@ -98,7 +98,8 @@
                     </div>
                     <!--begin::Form-->
                     <div class="kt-portlet__body">
-                        <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-12">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <table cellpadding="5">
@@ -118,8 +119,8 @@
                                                 <td>:</td>
                                                 <td><b>{{$mahasiswa->angkatan_title}}</b></td>
                                             </tr>
-                                            
-                                        </tbody></table>
+
+                                            </tbody></table>
                                     </div>
                                     <div class="col-lg-6">
                                         <table cellpadding="5">
@@ -138,15 +139,17 @@
                                                 <td>:</td>
                                                 <td><b>{{$mahasiswa->kelas_title}}</b></td>
                                             </tr>
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
-                            <br/><br/>
+                        </div>
+
+                            <br/>
     
                             <div class="row">
-                                <div class="col-xl-2">
+                                <div class="col-xl-3">
                                     <div class="form-group">
                                         <label>Tahun Ajaran</label>
                                         <div class="form-group">

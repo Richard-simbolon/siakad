@@ -59,7 +59,7 @@
                                                 <div class="col-lg-12">
                                                     <div class="row">
                                                         <div class="col-lg-6">
-                                                            <table cellpadding="7">
+                                                            <table cellpadding="5">
                                                                 <tbody>
                                                                     <tr>
                                                                         <td width="35%">Matakuliah</td>
@@ -135,7 +135,7 @@
                                                     <div class="form-group form-group-last">
                                                         <label>Pembahasan</label>
                                                         <div class="form-group">
-                                                            <input type="text" class="form-control" name="pembahasan"  placeholder="Isikan Nama Kelas">
+                                                            <textarea rows="4" type="text" class="form-control" name="pembahasan" placeholder="Isikan Pembahasan di Kelas"></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -153,11 +153,11 @@
                                                         <thead>
                                                         <tr>
                                                             <th style="text-align: center">No</th>
+                                                            <th>NIM</th>
                                                             <th style="text-align: center">Nama Mahasiswa</th>
-                                                            <th style="text-align: center">NIM</th>
                                                             <th>Jenis Kelamin</th>
                                                             <th>Status</th>
-                                                            <th style="text-align: center">Catatan</th>
+                                                            <th>Catatan</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
@@ -165,18 +165,18 @@
                                                                 @foreach ($mahasiswa as $item)
                                                                 <? $i++ ?>
                                                                 <tr>
-                                                                    <td align="center">{{$i}}</td>
-                                                                    <td align="center">{{ucfirst($item->nama)}}</td>
-                                                                    <td align="center">{{ucfirst($item->nim)}}</td>
-                                                                    <td align="center">{{ucfirst($item->jk)}}</td>
-                                                                    <td><select name="mahasiswa[{{$item->id}}][status_absensi]" class="form-control">
+                                                                    <td style="vertical-align: middle" align="center">{{$i}}</td>
+                                                                    <td style="vertical-align: middle">{{ucfirst($item->nim)}}</td>
+                                                                    <td style="vertical-align: middle">{{ucfirst($item->nama)}}</td>
+                                                                    <td style="vertical-align: middle" align="center">{{ucfirst($item->jk)}}</td>
+                                                                    <td style="vertical-align: middle"><select name="mahasiswa[{{$item->id}}][status_absensi]" class="form-control">
                                                                             <option value="H">Hadir</option>
                                                                             <option value="A">Absen</option>
                                                                             <option value="S">Sakit</option>
                                                                             <option value="I">Ijin</option>
                                                                             <option value="L">Lainnya</option>
                                                                         </select></td>
-                                                                    <td><input type="text" value="" class="form-control" name="mahasiswa[{{$item->id}}][catatan]" placeholder="Catatan"></td>
+                                                                    <td style="vertical-align: middle"><input type="text" value="" class="form-control" name="mahasiswa[{{$item->id}}][catatan]" placeholder="Catatan"></td>
 
                                                                 </tr>
                                                                 @endforeach
