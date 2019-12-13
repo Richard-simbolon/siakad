@@ -15,10 +15,10 @@
                             <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="{{url('/master/matakuliah')}}" class="kt-subheader__breadcrumbs-link">
-                                Matakuliah </a>
+                                Absensi </a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="{{url()->current()}}" class="kt-subheader__breadcrumbs-link">
-                                Edit </a>
+                                Ubah </a>
                         </div>
                     </div>
                 </div>
@@ -45,147 +45,151 @@
                                     </svg>
                                 </span> &nbsp;
                                 <h3 class="kt-portlet__head-title">
-                                    {{$title}}
+                                    Isi Absensi Mahasiswa
                                 </h3>
                             </div>
                         </div>
 
                         <div class="kt-portlet__body">
                             <form class="kt-form kt-form--label-right" action="update" method="POST">
-                                <div class="kt-portlet__body">
+                                <div class="">
                                     <div class="kt-section kt-section--first">
-                                        <div class="kt-portlet__body">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <table cellpadding="7">
-                                                                    <tbody><tr>
-                                                                        <td width="35%">Matakuliah</td>
-                                                                        <td>:</td>
-                                                                        <td><b>{{$data->nama_mata_kuliah}}</b></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Dosen</td>
-                                                                        <td>:</td>
-                                                                        <td><b>{{$data->nama_dosen}}</b></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Jurusan</td>
-                                                                        <td>:</td>
-                                                                        <td><b>{{$data->nama_jurusan}}</b></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Jumlah Mahasiswa</td>
-                                                                        <td>:</td>
-                                                                        <td><b></b></td>
-                                                                    </tr>
-                                                                </tbody></table>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <table cellpadding="5">
-                                                                    <tbody><tr>
-                                                                        <td>Semester</td>
-                                                                        <td>:</td>
-                                                                        <td><b>{{$data->nama_semester}}</b></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Angkatan</td>
-                                                                        <td>:</td>
-                                                                        <td><b>{{$data->nama_angkatan}}</b></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Ruangan</td>
-                                                                        <td>:</td>
-                                                                        <td><b>{{$data->ruangan}}</b></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                            <td>SKS</td>
-                                                                            <td>:</td>
-                                                                            <td><b></b></td>
-                                                                        </tr>
-                                                                </tbody></table>
-                                                            </div>
+                                        <div class="">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <table cellpadding="7">
+                                                                <tbody><tr>
+                                                                    <td width="35%">Matakuliah</td>
+                                                                    <td>:</td>
+                                                                    <td><b>{{$data->nama_mata_kuliah}}</b></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Dosen</td>
+                                                                    <td>:</td>
+                                                                    <td><b>{{$data->nama_dosen}}</b></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Jurusan</td>
+                                                                    <td>:</td>
+                                                                    <td><b>{{$data->nama_jurusan}}</b></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Kelas</td>
+                                                                    <td>:</td>
+                                                                    <td><b>{{$data->nama_kelas}}</b></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Jumlah Mahasiswa</td>
+                                                                    <td>:</td>
+                                                                    <td><b>{{count($mahasiswa)}}</b></td>
+                                                                </tr>
+                                                            </tbody></table>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <table cellpadding="5">
+                                                                <tbody><tr>
+                                                                    <td>Semester</td>
+                                                                    <td>:</td>
+                                                                    <td><b>{{$data->nama_semester}}</b></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Angkatan</td>
+                                                                    <td>:</td>
+                                                                    <td><b>{{$data->nama_angkatan}}</b></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Ruangan</td>
+                                                                    <td>:</td>
+                                                                    <td><b>{{$data->ruangan}}</b></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>SKS</td>
+                                                                    <td>:</td>
+                                                                    <td><b>{{$data->sks}}</b></td>
+                                                                </tr>
+                                                            </tbody></table>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <br/>
-                                                
-                                                <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
-                                                <div class="row">
-                                                    <input type="hidden" name="kelas_perkuliahan_detail_id" value="{{$data->id}}" />
-                                                    <input type="hidden" name="semester_id" value="{{$data->semester_id}}" />
-                                                    <input type="hidden" name="mata_kuliah_id" value="{{$data->mata_kuliah_id}}" />
-                                                    <input type="hidden" name="jurusan_id" value="{{$data->jurusan_id}}" />
-                                                    <input type="hidden" name="angkatan_id" value="{{$data->angkatan_id}}" />
-                                                    <input type="hidden" name="kelas_perkuliahan_id" value="{{$data->kelas_perkuliahan_id}}" />
-                                                    <div class="col-lg-12">
-                                                        <table class="table table-striped table-bordered table-hover responsive">
-                                                            <thead>
-                                                            <tr>
-                                                                <th style="text-align: center">No</th>
-                                                                <th style="text-align: center">Nama Mahasiswa</th>
-                                                                <th style="text-align: center">NIM</th>
-                                                                <th style="text-align: center">Jenis Kelamin</th>
-                                                                <?$i = 0;
-                                                                    if(count($detail) > 0){
-                                                                        foreach (reset($detail) as $key => $value) {
-                                                                            $i++;
-                                                                            echo '<th style="text-align: center">P'.$i.'</th>';
-                                                                        }
+                                            </div>
+
+                                            <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
+                                            <div class="row">
+                                                <input type="hidden" name="kelas_perkuliahan_detail_id" value="{{$data->id}}" />
+                                                <input type="hidden" name="semester_id" value="{{$data->semester_id}}" />
+                                                <input type="hidden" name="mata_kuliah_id" value="{{$data->mata_kuliah_id}}" />
+                                                <input type="hidden" name="jurusan_id" value="{{$data->jurusan_id}}" />
+                                                <input type="hidden" name="angkatan_id" value="{{$data->angkatan_id}}" />
+                                                <input type="hidden" name="kelas_perkuliahan_id" value="{{$data->kelas_perkuliahan_id}}" />
+                                                <div class="col-lg-12">
+                                                    <table class="dataTable table table-striped table-bordered table-hover responsive">
+                                                        <thead>
+                                                        <tr>
+                                                            <th style="text-align: center">No</th>
+                                                            <th style="text-align: center">Nama Mahasiswa</th>
+                                                            <th style="text-align: center">NIM</th>
+                                                            <th style="text-align: center">Jenis Kelamin</th>
+                                                            <?$i = 0;
+                                                                if(count($detail) > 0){
+                                                                    foreach (reset($detail) as $key => $value) {
+                                                                        $i++;
+                                                                        echo '<th style="text-align: center">P'.$i.'</th>';
                                                                     }
+                                                                }
+                                                            ?>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <?$j= 0;?>
+                                                            @foreach ($mahasiswa as $item)
+                                                            <? $j++ ?>
+                                                            <tr>
+                                                                <td align="center">{{$j}}</td>
+                                                                <td align="center">{{ucfirst($item->nama)}}</td>
+                                                                <td align="center">{{ucfirst($item->nim)}}</td>
+                                                                <td align="center">{{ucfirst($item->jk)}}</td>
+                                                                <?php
+                                                                if(count($detail) > 0){
+                                                                    foreach ($detail[ $item->mahasiswa_id] as $key => $value) {
+                                                                        $color = '';
+                                                                        if($value['status_absensi'] == 'A'){
+                                                                            $color = 'red';
+                                                                        }
+                                                                        $i++;
+                                                                        echo '<td align="center" style="color:'.$color.'">'.$value['status_absensi'].'</td>';
+                                                                    }
+                                                                }
                                                                 ?>
                                                             </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                    <?$j= 0;?>
-                                                                    @foreach ($mahasiswa as $item)
-                                                                    <? $j++ ?>
-                                                                    <tr>
-                                                                        <td align="center">{{$j}}</td> 
-                                                                        <td align="center">{{ucfirst($item->nama)}}</td>
-                                                                        <td align="center">{{ucfirst($item->nim)}}</td>
-                                                                        <td align="center">{{ucfirst($item->jk)}}</td>
-                                                                        <?php
-                                                                        if(count($detail) > 0){
-                                                                            foreach ($detail[ $item->mahasiswa_id] as $key => $value) {
-                                                                                $color = '';
-                                                                                if($value['status_absensi'] == 'A'){
-                                                                                    $color = 'red';
-                                                                                }
-                                                                                $i++;
-                                                                                echo '<td align="center" style="color:'.$color.'">'.$value['status_absensi'].'</td>';
-                                                                            }
-                                                                        }
-                                                                        ?>
-                                                                        
-                                                                        
-                                                                    </tr>
-                                                                    @endforeach
+                                                            @endforeach
 
-                                                                    <tr>
-                                                                        <td align="center" colspan="4">Edit</td> 
-                                                                        <?php
-                                                                        if(count($detail) > 0){
-                                                                            foreach ($detail[ $item->mahasiswa_id] as $key => $value) {
-                                                                                echo '<td align="center" style="color:'.$color.'"><a href="'.url('data/absensimahasiswa/edit/'.$value['id']).'">edit</a></td>';
-                                                                            }
-                                                                        }
-                                                                        ?>
-                                                                        
-                                                                        
-                                                                    </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                                <div class="root">
-                                                    <div class="kt-form__actions">
-                                                        <button type="button" class="btn btn-success" id="save-absensi-perkuliahan"><i class="la la-save"></i>Simpan</button>
-                                                        <a href="{{url('data/absensimahasiswa')}}" style="align:right" type="button" class="btn btn-metal btn-outlane-metal"><i class="la la-arrow-left"></i>Kembali</a>
-                                                    </div>
+                                                            <tr>
+                                                                <td align="center" colspan="4">Edit</td>
+                                                                <?php
+                                                                if(count($detail) > 0){
+                                                                    foreach ($detail[ $item->mahasiswa_id] as $key => $value) {
+                                                                        echo '<td align="center" style="color:'.$color.'"><a href="'.url('data/absensimahasiswa/edit/'.$value['id']).'">edit</a></td>';
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
                                                 </div>
                                             </div>
+                                            <div class="kt-separator kt-separator--border-dashed kt-separator--space-sm kt-separator--portlet-fit"></div>
+                                            <br/>
+                                            <div class="root">
+                                                <div class="kt-form__actions">
+                                                    <a href="{{url('data/absensimahasiswa')}}" style="align:right" class="btn btn-label-success"><i class="la la-arrow-left"></i>Kembali</a>
+                                                    @if(count($mahasiswa) > 0)
+                                                        <button type="button" class="btn btn-success" id="save-absensi-perkuliahan"><i class="la la-save"></i>Simpan</button>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </form>

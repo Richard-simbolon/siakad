@@ -51,6 +51,8 @@ $(document).ready(function() {
             }
         },
         columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            { data: 'kode_mata_kuliah', name: 'kode_mata_kuliah'},
             { data: 'nama_mata_kuliah', name: 'nama_mata_kuliah'},
             { data: 'nama_angkatan', name: 'nama_angkatan' },
             { data: 'nama_semester', name: 'nama_semester' },
@@ -62,7 +64,7 @@ $(document).ready(function() {
         ],
         columnDefs: [
             {
-                targets: 7,
+                targets: 9,
                 title: 'Actions',
                 orderable: false,
                 render: function(data, type, full, meta) {

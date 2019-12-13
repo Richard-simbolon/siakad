@@ -538,7 +538,7 @@ class JadwalPerkuliahan extends Controller
         $semester_ids = $request->all();
         $semester_active = SemesterModel::where('status_semester' ,'enable')->first();
         $mahasiswa = MahasiswaModel::where('nim' , Auth::user()->id)->first();
-        
+
         return Datatables::of(JadwalUjianDetailModel::where('jadwal_ujian_mahasiswa_detail.mahasiswa_id' , $mahasiswa->id)
             ->join('jadwal_ujian_mahasiswa','jadwal_ujian_mahasiswa.id','=','jadwal_ujian_mahasiswa_detail.jadwal_ujian_id')
             ->join('kelas_perkuliahan_mata_kuliah','kelas_perkuliahan_mata_kuliah.id', '=','jadwal_ujian_mahasiswa.kelas_perkuliahan_detail_id')

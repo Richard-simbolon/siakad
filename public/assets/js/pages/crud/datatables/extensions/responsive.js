@@ -1264,6 +1264,12 @@ var KTDatatablesExtensionsResponsive = function() {
                 {
                     targets: 0,
                     className: "text-center"
+                },{
+                    targets: 9,
+                    className: "text-center"
+                },{
+                    targets: 10,
+                    className: "text-center"
                 },
             ]
         });

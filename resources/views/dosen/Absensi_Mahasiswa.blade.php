@@ -76,9 +76,9 @@
                                 </div>
                                 <div class="col-xl-4">
                                     <div class="form-group">
-                                        <label>Jurusan</label>
+                                        <label>Program Studi</label>
                                         <select name="jurusan_id" id="jurusan-mahasiswa" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
-                                            <option value="">-- Pilih Jurusan --</option>
+                                            <option value="">-- Pilih Program Studi --</option>
                                             @foreach ($master['jurusan'] as $item)
                                                 <option value="{{$item['id']}}">{{$item['title']}}</option>
                                             @endforeach

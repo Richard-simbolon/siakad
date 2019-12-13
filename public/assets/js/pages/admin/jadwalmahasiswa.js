@@ -86,8 +86,30 @@ $(document).ready(function() {
                     return hari[full.hari_id];
                 }, 
             },
-            { data: 'jam', name: 'jam' },  
-            { data: 'selesai', name: 'selesai' },  
+            { data: 'jam', name: 'jam' , render: function(data, type, full, meta) {
+                    var t = full.jam.split(":");
+                    return t[0] + ":" + t[1];
+                },
+            },
+            { data: 'selesai', name: 'selesai', render: function(data, type, full, meta) {
+                    var t = full.selesai.split(":");
+                    return t[0] + ":" + t[1];
+                },
+            },
+        ],
+        columnDefs: [
+            {
+                targets: 4,
+                className: "text-center"
+            },
+            {
+                targets: 7,
+                className: "text-center"
+            },
+            {
+                targets: 8,
+                className: "text-center"
+            }
         ]
     });
     

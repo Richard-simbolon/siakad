@@ -103,10 +103,10 @@
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label>Jurusan</label>
+                                                    <label>Program Studi</label>
                                                     <div class="form-group">
                                                         <select name="program_studi_id" class="form-control kt-select2">
-                                                            <option value="">-- Pilih Jurusan --</option>
+                                                            <option value="">-- Pilih Program Studi --</option>
                                                             @foreach ($master['jurusan'] as $item)
                                                                 <option value="{{$item['id']}}" {{$item['id']==$data['program_studi_id']? "selected" : ""}}>{{$item['title']}}</option>
                                                             @endforeach
