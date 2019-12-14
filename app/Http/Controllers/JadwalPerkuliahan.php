@@ -137,7 +137,7 @@ class JadwalPerkuliahan extends Controller
             $ipk = '-';
             $total_sks_header = 0;
         }
-
+        exit;
         if($total_sks_header > 0){
             if($ipk > 0){
                 $where['mahasiswa_id'] = $mahasiswa->id;
@@ -623,7 +623,6 @@ class JadwalPerkuliahan extends Controller
         ->where('semester_id' , $semester_active->id)
         ->groupby('semester_id','kurikulum_mata_kuliah.semester')
         ->first();
-
         if($ip_smstr_prev){
             $ipk = $this->get_ipk(($ip_smstr_prev->semester_id - 1));
             $total_sks_header = $ip_smstr_prev->sks;

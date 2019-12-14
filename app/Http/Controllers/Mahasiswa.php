@@ -33,6 +33,7 @@ use PhpParser\Node\Expr\Print_;
 use App\ReportSettingModel;
 use PDF;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Hash;
 
 class Mahasiswa extends Controller
 {
@@ -62,7 +63,7 @@ class Mahasiswa extends Controller
     
     public function index()
     {
-
+        
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
             'jenis_pendaftaran' => JenisPendaftaranModel::where('row_status' , 'active')->get(),
@@ -380,7 +381,9 @@ class Mahasiswa extends Controller
 
     }
 
-    public function resetPassword(){
+    public function resetPassword(Request $request){
+       
+        $id = $request->all()['id'];
         $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
         $pass = array(); //remember to declare $pass as an array
         $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
@@ -390,8 +393,12 @@ class Mahasiswa extends Controller
         }
         $new_password = implode($pass);
         $password['password'] = Hash::make($new_password);
-        if(MahasiswaModel::where('id' ,$this->get_id_mahasiswa())->update($password)){
-            return json_encode(["status"=> true, "message"=> $new_password]);
+        if($id !='' || $id != null){
+            if(MahasiswaModel::where('id' ,$id)->update($password)){
+                return json_encode(["status"=> true, "message"=> $new_password]);
+            }else{
+                return json_encode(["status"=> false, "message"=> "Terjadi kesalahan saat mengubah data."]);
+            }
         }else{
             return json_encode(["status"=> false, "message"=> "Terjadi kesalahan saat mengubah data."]);
         }

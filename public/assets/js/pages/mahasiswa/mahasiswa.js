@@ -279,6 +279,7 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': $('#csrf_').val()
             }
         });
+        console.log($("#id_to_delete").val());
         $.ajax({
             type:'POST',
             //dataType:'json',
