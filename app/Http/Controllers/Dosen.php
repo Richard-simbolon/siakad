@@ -28,6 +28,8 @@ use Yajra\DataTables\DataTables;
 use File;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class Dosen extends Controller
 {
@@ -261,7 +263,8 @@ class Dosen extends Controller
         }
     }
 
-    public function resetPassword(){
+    public function resetPassword(Request $request){
+        $id = $request->all()['id'];
         $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
         $pass = array(); //remember to declare $pass as an array
         $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
@@ -271,11 +274,30 @@ class Dosen extends Controller
         }
         $new_password = implode($pass);
         $password['password'] = Hash::make($new_password);
-        if(MahasiswaModel::where('id' ,$this->get_id_mahasiswa())->update($password)){
-            return json_encode(["status"=> true, "message"=> $new_password]);
+
+
+
+        $to_name = "Richard";
+        $to_email = 'richard.simbolon28@gmail.com';
+        $data = array('name'=>"Ogbonna Vitalis(sender_name)", "body" => "A test mail");
+        Mail::send('email.password', $data, function($message) use ($to_name, $to_email) {
+            $message->to($to_email, $to_name)
+            ->subject('Laravel Test Mail');
+            $message->from('polbangtan@noreply.com','noreply polbangtan');
+        });
+
+
+
+        if($id != '' || $id != null){
+            if(DosenModel::where('id' ,$id)->update($password)){
+                return json_encode(["status"=> true, "message"=> $new_password]);
+            }else{
+                return json_encode(["status"=> false, "message"=> "Terjadi kesalahan saat mengubah data."]);
+            }
         }else{
             return json_encode(["status"=> false, "message"=> "Terjadi kesalahan saat mengubah data."]);
         }
+        
     }
 
     public function paging(Request $request){

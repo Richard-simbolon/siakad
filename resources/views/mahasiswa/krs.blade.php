@@ -111,11 +111,11 @@
                             <thead>
                             <tr>
                                 <th style="text-align: center">No</th>
-                                <th style="text-align: center">Kode MK</th>
-                                <th style="text-align: center">Mata Kuliah</th>
-                                <th style="text-align: center">Kelas</th>
+                                <th>Kode MK</th>
+                                <th>Mata Kuliah</th>
+                                <th>Kelas</th>
                                 <th style="text-align: center">Bobot SKS</th>
-                                <th style="text-align: center">Nama Dosen Pengampu</th>
+                                <th>Nama Dosen Pengampu</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -128,11 +128,11 @@
                                 ?>
                                     <tr>
                                         <td style="text-align: center">{{$i}}</td>
-                                        <td style="text-align: center">{{$item->kode_mata_kuliah}}</td>
-                                        <td style="text-align: center">{{$item->matakuliah_title}}</td>
-                                        <td style="text-align: center">{{$item->kelas_title}}</td>
+                                        <td>{{$item->kode_mata_kuliah}}</td>
+                                        <td>{{$item->matakuliah_title}}</td>
+                                        <td>{{$item->kelas_title}}</td>
                                         <td style="text-align: center">{{$item->bobot_mata_kuliah}}</td>
-                                        <td style="text-align: center">{{$item->nama}}</td>
+                                        <td>{{$item->nama}}</td>
                                     </tr>
                                 @endforeach
                                 <tr>
