@@ -30,6 +30,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $menu_active = 'dashboard';
+
         $login_type = Auth::user()->login_type;
         
         $semester_aktif = SemesterModel::where('status_semester' , 'enable')->first();
@@ -54,33 +56,11 @@ class HomeController extends Controller
             }else{
                 $ip = [0,0,0];
             }
-            //print_r([0,0,0]);
-            //print_r($ip); exit;
-            /*
-            $nilai = 0;
-            $sks = 0;
-            $ips = 0;
-            $persemsester_nilai = [];
-            $persemsester_sks = [];
-            if($data_nilai){
-                foreach($data_nilai as $val ){
-                    $persemsester_nilai[$val->semester_id][] = ($this->konversi_nilai($val->nilai_akhir)['value'] * $val->bobot_mata_kuliah) ;
-                    $persemsester_sks[$val->semester_id][] = $val->bobot_mata_kuliah ;
-                    $nilai += ($this->konversi_nilai($val->nilai_akhir)['value'] * $val->bobot_mata_kuliah) ;
-                    $sks += $val->bobot_mata_kuliah;
-                }
-            }
-            if(count($persemsester_nilai) > 0 && count($persemsester_sks) > 0){
-                $smstr = max(array_keys($persemsester_nilai));
-                $ips = round(array_sum($persemsester_nilai[$smstr]) / array_sum($persemsester_sks[$smstr]) , 2);
-            }
-            $total_sks_diambil = $sks;
-            $total_sks_kurikulum = DB::table('view_total_bobot_matakuliah')->select('total_sks')->where('kelas_id' , $id->kelas_id)->first()->total_sks;
-            $ipk = $nilai && $sks ? round($nilai / $sks, 2) : 0;*/
+
 
             $total_sks_kurikulum = DB::table('view_total_bobot_matakuliah')->select('total_sks')->where('kelas_id' , $id->kelas_id)->first()->total_sks;
 
-            return view('home', compact('data','semester' ,'ip' , 'total_sks_kurikulum'));
+            return view('home', compact('data','semester' ,'ip' , 'total_sks_kurikulum','menu_active'));
 
         }else if(strtolower($login_type)=="dosen") {
             $data = DosenModel::where('nidn_nup_nidk' , '=', Auth::user()->id)
@@ -114,10 +94,10 @@ class HomeController extends Controller
                 ->distinct('kelas_perkuliahan.kelas_id')
                 ->count('kelas_perkuliahan.kelas_id');
 
-            return view('home_dosen', compact('data','semester', 'matakuliah','jumlah_sks', 'kelas'));
+            return view('home_dosen', compact('data','semester', 'matakuliah','jumlah_sks', 'kelas','menu_active'));
         }
 
-        return view('home_admin');
+        return view('home_admin', compact('menu_active'));
     }
 
     public function getCalender(){

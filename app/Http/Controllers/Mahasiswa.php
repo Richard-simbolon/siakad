@@ -970,7 +970,7 @@ class Mahasiswa extends Controller
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->orderby('kurikulum_mata_kuliah.semester' , 'ASC')->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $global['id'] = $id;
-        return view("data/Mhs_Transkrip" , compact("data" , "title" ,"mahasiswa","global"));
+        return view("data/mhs_transkrip" , compact("data" , "title" ,"mahasiswa","global"));
         
     }
 

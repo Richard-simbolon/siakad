@@ -134,7 +134,7 @@
                                 <div class="kt-portlet__body">
                                     <div class="kt-section kt-section--first">
                                         <input type="hidden" name="dosen_id" id="dosen_id" value="{{$data['id']}}" >
-                                        <table class="dataTable table table-striped table-bordered table-hover responsive" id="{{$idTable}}">
+                                        <table class="dataTable table table-striped table-bordered table-hover responsive" id="tbl_dosen_aktivitas_mengajar_data">
                                             <thead>
                                             <tr>
                                                 <th style="text-align: center" rowspan="2">No</th>
