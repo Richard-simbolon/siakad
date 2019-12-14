@@ -18,7 +18,7 @@
 
                         <div class="kt-login__signin">
                             <div class="kt-login__head">
-                                <h3 class="kt-login__title">SIAPDUDIK  (Sistem Aplikasi Terpadu Pendidikan)</h3>
+                                <h3 class="kt-login__title">SIAPDUDIK <br/> (Sistem Aplikasi Terpadu Pendidikan)</h3>
                             </div>
 
                             <form class="kt-form" method="POST" action="{{ route('login') }}">
