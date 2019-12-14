@@ -248,13 +248,18 @@ class Mahasiswa extends Controller
     }
 
     public function paging(Request $request){
-        return Datatables::of(MahasiswaModel::where('mahasiswa.row_status', 'active')
-            ->leftJoin('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
-            ->leftJoin('master_agama', 'mahasiswa.agama', '=', 'master_agama.id')
-            ->leftJoin('master_status_mahasiswa','master_status_mahasiswa.id', '=', 'mahasiswa.status' )
-            ->leftJoin('master_angkatan','master_angkatan.id', '=', 'mahasiswa.angkatan')
-            ->select("mahasiswa.id" ,"master_agama.title as t_agama","nim" ,"jurusan_id" , "master_jurusan.title", "agama" , "master_status_mahasiswa.title as status","nama","nik","nisn","tanggal_lahir","jk", "master_angkatan.title as angkatan")->get())->addIndexColumn()->make(true);
+    return Datatables::of(MahasiswaModel::where('mahasiswa.row_status', 'active')
+        ->leftJoin('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
+        ->leftJoin('master_agama', 'mahasiswa.agama', '=', 'master_agama.id')
+        ->leftJoin('master_kelas', 'mahasiswa.kelas_id', '=', 'master_kelas.id')
+        ->leftJoin('kurikulum', 'master_kelas.kurikulum_id', '=', 'kurikulum.id')
+        ->leftJoin('view_total_sks_by_kurikulum', 'view_total_sks_by_kurikulum.id', '=', 'kurikulum.id')
+        ->leftJoin('master_status_mahasiswa','master_status_mahasiswa.id', '=', 'mahasiswa.status' )
+        ->leftJoin('master_angkatan','master_angkatan.id', '=', 'mahasiswa.angkatan')
+        ->select("mahasiswa.id" ,"master_agama.title as t_agama","nim" ,"mahasiswa.jurusan_id" , "master_jurusan.title", "agama" , "master_status_mahasiswa.title as status","nama","nik","nisn","tanggal_lahir","jk", "master_angkatan.title as angkatan" , DB::raw("IF(view_total_sks_by_kurikulum.total_sks > 0 , view_total_sks_by_kurikulum.total_sks ,'0') as total_sks "))
+        ->get())->addIndexColumn()->make(true);
     }
+    
 
     public function validatewizard(Request $request){
         $data = $request->all();

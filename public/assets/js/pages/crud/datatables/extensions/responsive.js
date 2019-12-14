@@ -764,7 +764,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'tanggal_lahir', name: 'tanggal_lahir' },
                 { data: 'jk', name: 'jk' },
                 { data: 't_agama', name: 't_agama' },
-                { defaultContent: '-'},
+                { data: 'total_sks', name: 'total_sks' },
                 { data: 'title', name: 'title' },
                 { data: 'status', name: 'status' },
                 { data: 'angkatan', name: 'angkatan' },
