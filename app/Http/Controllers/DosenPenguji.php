@@ -40,7 +40,7 @@ class DosenPenguji extends Controller
         $id = DosenModel::where('nidn_nup_nidk' , Auth::user()->id)->first();
         $where = ['dosen_id' => $id->id  , 'row_status' =>'active', "status_dosen"=>"Penguji"];
         
-        return Datatables::of(DB::table('view_tugas_akhir')->where($where)->get())->make(true);
+        return Datatables::of(DB::table('view_tugas_akhir')->where($where)->get())->addIndexColumn()->make(true);
     }
 
 }

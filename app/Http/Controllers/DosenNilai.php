@@ -154,9 +154,9 @@ class DosenNilai extends Controller
             }
         }
         if(count($where) > 0){
-            return Datatables::of(DB::table('view_input_nilai_mahasiswa')->where($where)->get())->make(true);
+            return Datatables::of(DB::table('view_input_nilai_mahasiswa')->where($where)->get())->addIndexColumn()->make(true);
         }
-        return Datatables::of(DB::table('view_input_nilai_mahasiswa')->get())->make(true);
+        return Datatables::of(DB::table('view_input_nilai_mahasiswa')->get())->addIndexColumn()->make(true);
 
     }
 

@@ -15,7 +15,7 @@
                             <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="{{url('/master/matakuliah')}}" class="kt-subheader__breadcrumbs-link">
-                                Matakuliah </a>
+                                Absensi </a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="{{url()->current()}}" class="kt-subheader__breadcrumbs-link">
                                 Edit </a>
@@ -45,139 +45,141 @@
                                     </svg>
                                 </span> &nbsp;
                                 <h3 class="kt-portlet__head-title">
-                                    {{$title}}
+                                    Tambah Data Absensi
                                 </h3>
                             </div>
                         </div>
 
                         <div class="kt-portlet__body">
                             <form class="kt-form kt-form--label-right" action="update" method="POST">
-                                <div class="kt-portlet__body">
+                                <div class="">
                                     <div class="kt-section kt-section--first">
-                                        <div class="kt-portlet__body">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <table cellpadding="7">
-                                                                    <tbody><tr>
-                                                                        <td width="35%">Matakuliah</td>
-                                                                        <td>:</td>
-                                                                        <td><b>{{$data->nama_mata_kuliah}}</b></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Dosen</td>
-                                                                        <td>:</td>
-                                                                        <td><b>{{$data->nama_dosen}}</b></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Jurusan</td>
-                                                                        <td>:</td>
-                                                                        <td><b>{{$data->nama_jurusan}}</b></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Jumlah Mahasiswa</td>
-                                                                        <td>:</td>
-                                                                        <td><b></b></td>
-                                                                    </tr>
-                                                                </tbody></table>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <table cellpadding="5">
-                                                                    <tbody><tr>
-                                                                        <td>Semester</td>
-                                                                        <td>:</td>
-                                                                        <td><b>{{$data->nama_semester}}</b></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Angkatan</td>
-                                                                        <td>:</td>
-                                                                        <td><b>{{$data->nama_angkatan}}</b></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td>Ruangan</td>
-                                                                        <td>:</td>
-                                                                        <td><b>{{$data->ruangan}}</b></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                            <td>SKS</td>
-                                                                            <td>:</td>
-                                                                            <td><b></b></td>
-                                                                        </tr>
-                                                                </tbody></table>
-                                                            </div>
+                                        <div class="">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <table cellpadding="5">
+                                                                <tbody><tr>
+                                                                    <td width="35%">Matakuliah</td>
+                                                                    <td>:</td>
+                                                                    <td><b>{{$data->nama_mata_kuliah}}</b></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Dosen</td>
+                                                                    <td>:</td>
+                                                                    <td><b>{{$data->nama_dosen}}</b></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Jurusan</td>
+                                                                    <td>:</td>
+                                                                    <td><b>{{$data->nama_jurusan}}</b></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Jumlah Mahasiswa</td>
+                                                                    <td>:</td>
+                                                                    <td><b>{{count($mahasiswa)}}</b></td>
+                                                                </tr>
+                                                            </tbody></table>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <br/>
-                                                <br/>
-                                                <br/>
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label>Tanggal Kelas Perkuliahan</label>
-                                                            <div class="form-group">
-                                                                <input type="date" value="{{$data->tanggal_perkuliahan}}" name="tanggal_perkuliahan" class="form-control">
-                                                            </div>
+                                                        <div class="col-lg-6">
+                                                            <table cellpadding="5">
+                                                                <tbody><tr>
+                                                                    <td>Semester</td>
+                                                                    <td>:</td>
+                                                                    <td><b>{{$data->nama_semester}}</b></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Angkatan</td>
+                                                                    <td>:</td>
+                                                                    <td><b>{{$data->nama_angkatan}}</b></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Ruangan</td>
+                                                                    <td>:</td>
+                                                                    <td><b>{{$data->ruangan}}</b></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>SKS</td>
+                                                                    <td>:</td>
+                                                                    <td><b>{{$data->sks}}</b></td>
+                                                                </tr>
+                                                            </tbody></table>
                                                         </div>
-                                                    </div>
-                                                </div> 
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        <div class="form-group">
-                                                            <label>Pembahasan</label>
-                                                            <div class="form-group">
-                                                                <input type="text" class="form-control" value="{{$data->pembahasan}}" name="pembahasan"  placeholder="Isikan Nama Kelas">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
-                                                <div class="row">
-                                                    <input type="hidden" name="absensi" value="{{$id}}" />
-                                                    <input type="hidden" name="header_id" value="{{$data->id}}" />
-                                                    <div class="col-lg-12">
-                                                        <table class="table table-striped table-bordered table-hover responsive">
-                                                            <thead>
-                                                            <tr>
-                                                                <th style="text-align: center">No</th>
-                                                                <th style="text-align: center">Nama Mahasiswa</th>
-                                                                <th style="text-align: center">NIM</th>
-                                                                <th>Jenis Kelamin</th>
-                                                                <th>Status</th>
-                                                                <th style="text-align: center">Catatan</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                    <?$i = 0?>
-                                                                    @foreach ($mahasiswa as $item)
-                                                                    <? $i++ ?>
-                                                                    <tr>
-                                                                        <td align="center">{{$i}}</td> 
-                                                                        <td align="center">{{ucfirst($item->nama)}}</td>
-                                                                        <td align="center">{{ucfirst($item->nim)}}</td>
-                                                                        <td align="center">{{ucfirst($item->jk)}}</td>
-                                                                        <td> <input type="hidden" name="mahasiswa[{{$item->mahasiswa_id}}][id]" value="{{$item->id}}"><select name="mahasiswa[{{$item->mahasiswa_id}}][status_absensi]" class="form-control">
-                                                                                <option value="H" {{$item->status_absensi == 'H' ? 'selected' : ''}}>Hadir</option>
-                                                                                <option value="A" {{$item->status_absensi == 'A' ? 'selected' : ''}}>Absen</option>
-                                                                                <option value="S" {{$item->status_absensi == 'S' ? 'selected' : ''}}>Sakit</option>
-                                                                                <option value="I" {{$item->status_absensi == 'I' ? 'selected' : ''}}>Ijin</option>
-                                                                                <option value="L" {{$item->status_absensi == 'L' ? 'selected' : ''}}>Lainnya</option>
-                                                                            </select></td>
-                                                                        <td><input type="text" class="form-control" name="mahasiswa[{{$item->mahasiswa_id}}][catatan]" value="{{$item->catatan}}" placeholder="Catatan"></td>
-                                                                    </tr>
-                                                                    @endforeach
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                                <div class="root">
-                                                    <div class="kt-form__actions">
-                                                        <button type="button" class="btn btn-success" id="update-absensi-perkuliahan"><i class="la la-save"></i>Update</button>
-                                                        <a href="{{url('data/absensimahasiswa')}}" style="align:right" type="button" class="btn btn-metal btn-outlane-metal"><i class="la la-arrow-left"></i>Kembali</a>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <br/>
+                                            <br/>
+                                            <br/>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>Tanggal Kelas Perkuliahan</label>
+                                                        <div class="form-group">
+                                                            <input type="date" value="{{$data->tanggal_perkuliahan}}" name="tanggal_perkuliahan" class="form-control">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>Pembahasan</label>
+                                                        <div class="form-group">
+                                                            <textarea type="text" class="form-control" value="{{$data->pembahasan}}" name="pembahasan"  placeholder="Isikan Pembahasan di Kelas"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="kt-separator kt-separator--border-dashed kt-separator--space-sm kt-separator--portlet-fit"></div>
+                                            <div class="row">
+                                                <input type="hidden" name="absensi" value="{{$id}}" />
+                                                <input type="hidden" name="header_id" value="{{$data->id}}" />
+                                                <div class="col-lg-12">
+                                                    <table class="dataTable table table-striped table-bordered table-hover responsive">
+                                                        <thead>
+                                                        <tr>
+                                                            <th style="text-align: center">No</th>
+                                                            <th>NIM</th>
+                                                            <th>Nama Mahasiswa</th>
+                                                            <th>Jenis Kelamin</th>
+                                                            <th>Status</th>
+                                                            <th style="text-align: center">Catatan</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                                <?$i = 0?>
+                                                                @foreach ($mahasiswa as $item)
+                                                                <? $i++ ?>
+                                                                <tr>
+                                                                    <td style="vertical-align: middle" align="center">{{$i}}</td>
+                                                                    <td style="vertical-align: middle">{{ucfirst($item->nim)}}</td>
+                                                                    <td style="vertical-align: middle">{{ucfirst($item->nama)}}</td>
+                                                                    <td style="vertical-align: middle">{{ucfirst($item->jk)}}</td>
+                                                                    <td style="vertical-align: middle"> <input type="hidden" name="mahasiswa[{{$item->mahasiswa_id}}][id]" value="{{$item->id}}"><select name="mahasiswa[{{$item->mahasiswa_id}}][status_absensi]" class="form-control">
+                                                                            <option value="H" {{$item->status_absensi == 'H' ? 'selected' : ''}}>Hadir</option>
+                                                                            <option value="A" {{$item->status_absensi == 'A' ? 'selected' : ''}}>Absen</option>
+                                                                            <option value="S" {{$item->status_absensi == 'S' ? 'selected' : ''}}>Sakit</option>
+                                                                            <option value="I" {{$item->status_absensi == 'I' ? 'selected' : ''}}>Ijin</option>
+                                                                            <option value="L" {{$item->status_absensi == 'L' ? 'selected' : ''}}>Lainnya</option>
+                                                                        </select></td>
+                                                                    <td style="vertical-align: middle"><input type="text" class="form-control" name="mahasiswa[{{$item->mahasiswa_id}}][catatan]" value="{{$item->catatan}}" placeholder="Catatan"></td>
+                                                                </tr>
+                                                                @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="kt-separator kt-separator--border-dashed kt-separator--space-sm kt-separator--portlet-fit"></div>
+                                            <br/>
+                                            <div class="root">
+                                                <div class="kt-form__actions">
+                                                    <a href="{{url('data/absensimahasiswa')}}" style="align:right" class="btn btn-label-success"><i class="la la-arrow-left"></i>Kembali</a> &nbsp;
+                                                    <button type="button" class="btn btn-success" id="update-absensi-perkuliahan"><i class="la la-save"></i>Simpan Perubahan</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </form>

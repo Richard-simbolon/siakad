@@ -544,7 +544,7 @@ $(document).ready(function() {
             url: '/assets/lang/id.json'
         },
         ajax: {
-            url:'/dosen/activity_paging',
+            url:'/data/dosen/activity_paging',
             type:"POST",
             // data:{id: $("#dosen_id").val()},
             data: function ( d ) {

@@ -78,7 +78,7 @@
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="form-group ">
-                                                    <label>Jurusan</label>
+                                                    <label>Program Studi</label>
                                                     <div class="form-group">
                                                         <input class="form-control" id="jurusan"  disabled="disabled" value="{{$data['jurusan']}}" />
                                                     </div>

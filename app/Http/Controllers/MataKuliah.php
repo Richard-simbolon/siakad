@@ -120,7 +120,12 @@ class MataKuliah extends Controller
         if ($validation->fails()) {
             return json_encode(["status"=> "false", "message"=> $validation->messages()]);
         }
-        $save  = MataKuliahModel::firstOrCreate($data);
+
+        if(!MataKuliahModel::where('kode_mata_kuliah','=',$data['kode_mata_kuliah'])->first()){
+            $save = MataKuliahModel::firstOrCreate($data);
+        }else{
+            return json_encode(["status"=> "false", "message"=> array(["Kode matakuliah ini sudah ada"])]);
+        }
 
         if($save){
             return $this->success("Data berhasil disimpan.");

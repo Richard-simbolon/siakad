@@ -177,7 +177,7 @@
                                 <table class="table table-striped table-bordered table-hover responsive" id="prestasimahasiswa">
                                     <thead>
                                     <tr>
-                                        {{-- <th style="text-align: center">No</th> --}}
+                                        <th style="text-align: center">No</th>
                                         <th style="text-align: center">Jenis Prestasi</th>
                                         <th style="text-align: center">Tahun</th>
                                         <th>Tingkat Prestasi</th>

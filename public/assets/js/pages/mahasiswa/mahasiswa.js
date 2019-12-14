@@ -4,6 +4,9 @@ $(document).ready(function(){
         responsive: true,
         processing: true,
         serverSide: true,
+        language:{
+            url: '/assets/lang/id.json'
+        },
         ajax: {
             url:'/mahasiswa/paging_prestasi',
             type:"POST",
@@ -14,6 +17,7 @@ $(document).ready(function(){
             }
         },
         columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex'},
             { data: 'jenis_prestasi', name: 'jenis_prestasi'},
             { data: 'tahun', name: 'tahun' },
             { data: 'tingkat_prestasi', name: 'tingkat_prestasi' },
@@ -23,7 +27,7 @@ $(document).ready(function(){
         ],
         columnDefs: [
             {
-                targets: 6,
+                targets: 7,
                 title: 'Actions',
                 orderable: false,
                 render: function(data, type, full, meta) {

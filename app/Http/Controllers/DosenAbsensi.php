@@ -326,7 +326,7 @@ class DosenAbsensi extends Controller
             }
         }
 
-        return Datatables::of(DB::table('view_input_nilai_mahasiswa')->where($where)->get())->make(true);
+        return Datatables::of(DB::table('view_input_nilai_mahasiswa')->where($where)->get())->addIndexColumn()->make(true);
     }
 
 }

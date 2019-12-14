@@ -113,9 +113,9 @@
                                 <th style="text-align: center">No</th>
                                 <th>Kode MK</th>
                                 <th>Mata Kuliah</th>
-                                <th>Kelas</th>
                                 <th style="text-align: center">Bobot SKS</th>
                                 <th>Nama Dosen Pengampu</th>
+                                <th>Kelas</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -130,9 +130,9 @@
                                         <td style="text-align: center">{{$i}}</td>
                                         <td>{{$item->kode_mata_kuliah}}</td>
                                         <td>{{$item->matakuliah_title}}</td>
-                                        <td>{{$item->kelas_title}}</td>
                                         <td style="text-align: center">{{$item->bobot_mata_kuliah}}</td>
                                         <td>{{$item->nama}}</td>
+                                        <td>{{$item->kelas_title}}</td>
                                     </tr>
                                 @endforeach
                                 <tr>

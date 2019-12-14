@@ -107,10 +107,10 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-4">
-                                    <label class="select2-label">Jurusan *</label>
+                                    <label class="select2-label">Program Studi *</label>
                                     <div class="form-group">
                                         <select name="program_studi_id" class="form-control kt-select2 update_list_matakuliah" >
-                                            <option value="">-- Pilih Jurusan --</option>
+                                            <option value="">-- Pilih Program Studi --</option>
                                             @foreach ($master['jurusan'] as $item)
                                                 <option attr="{{$item['id'].'-'.$kurikulum['program_studi_id']}}" value="{{$item['id']}}" {{ $item['id'] == $kurikulum['program_studi_id'] ? 'selected' : '' }}>{{$item['title']}}</option>
                                             @endforeach

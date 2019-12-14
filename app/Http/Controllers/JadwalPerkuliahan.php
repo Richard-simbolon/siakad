@@ -56,7 +56,7 @@ class JadwalPerkuliahan extends Controller
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $semester = SemesterModel::where('status_semester','=', 'enable')->first();
 
-        return view("mahasiswa/JadwalPerkuliahan" , compact("data" , "title" ,"mahasiswa" ,'select2', 'semester' ,"profile"));
+        return view("mahasiswa/jadwal_perkuliahan" , compact("data" , "title" ,"mahasiswa" ,'select2', 'semester' ,"profile"));
 
     }
     public function create(){
@@ -531,14 +531,14 @@ class JadwalPerkuliahan extends Controller
         $profile = DB::table('view_profile_mahasiswa')->where('nim' , Auth::user()->id)->first();
 
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        return view("mahasiswa/JadwalUjian" , compact("data" , "title" ,"mahasiswa" ,'select2' ,"profile"));
+        return view("mahasiswa/jadwal_ujian" , compact("data" , "title" ,"mahasiswa" ,'select2' ,"profile"));
     }
 
     public function pagingujian(Request $request){
         $semester_ids = $request->all();
         $semester_active = SemesterModel::where('status_semester' ,'enable')->first();
         $mahasiswa = MahasiswaModel::where('nim' , Auth::user()->id)->first();
-        
+
         return Datatables::of(JadwalUjianDetailModel::where('jadwal_ujian_mahasiswa_detail.mahasiswa_id' , $mahasiswa->id)
             ->join('jadwal_ujian_mahasiswa','jadwal_ujian_mahasiswa.id','=','jadwal_ujian_mahasiswa_detail.jadwal_ujian_id')
             ->join('kelas_perkuliahan_mata_kuliah','kelas_perkuliahan_mata_kuliah.id', '=','jadwal_ujian_mahasiswa.kelas_perkuliahan_detail_id')
@@ -560,7 +560,7 @@ class JadwalPerkuliahan extends Controller
 
     function print_khs($id_semester){
         $report = ReportSettingModel::where('row_status' ,'active')->first();
-        //print_r($report); exit;
+
         $semester_aktif = SemesterModel::where('id' , $id_semester)->first();
         $master = SemesterModel::where('row_status' ,'active')->get();
         $kurikulum = MahasiswaModel::join('master_kelas' ,'master_kelas.id' ,'mahasiswa.kelas_id')
@@ -601,7 +601,7 @@ class JadwalPerkuliahan extends Controller
         ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah', 'nilai_mahasiswa.semester_id', 'master_semester.title as semester_title')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->orderby('kurikulum_mata_kuliah.semester' , 'ASC')->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        //return view("mahasiswa/print_transkrip" , compact("data" , "title" ,"mahasiswa" , "master","report"));
+
         $pdf = PDF::setPaper('legal','potrait')->loadView('mahasiswa/print_transkrip', compact("data" , "title" ,"mahasiswa" ,"report"));
         return $pdf->download('TanskriNilai_'.'_'.Auth::user()->id.'_'.date('Y-m-d_H-i-s').'.pdf');
         

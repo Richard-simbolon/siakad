@@ -77,10 +77,10 @@
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label>Jurusan</label>
+                                                    <label>Program Studi</label>
                                                     <div class="form-group">
                                                         <select name="jurusan_id" class="form-control kt-select2 kelas-kurikulum-select">
-                                                            <option value="">-- Pilih Jurusan --</option>
+                                                            <option value="">-- Pilih Program Studi --</option>
                                                             @foreach ($master['jurusan'] as $item)
                                                                 <option value="{{$item['id']}}">{{$item['title']}}</option>
                                                             @endforeach
