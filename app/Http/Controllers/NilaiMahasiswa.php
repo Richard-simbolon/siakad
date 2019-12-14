@@ -31,7 +31,7 @@ class NilaiMahasiswa extends Controller
             if(!$this->user){
                 Redirect::to('login')->send();
             }
-            if($this->user->login_type != 'admin'){
+            if($this->user->login_type != 'admin' && $this->user->login_type != 'jurusan'){
                 return abort(404);
             }else{
                 return $next($request);

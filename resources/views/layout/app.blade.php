@@ -121,6 +121,44 @@
             </div>
         </div>
         <!--end modal-->
+
+        <!--modal : ubah password-->
+        <div class="modal fade" id="kt_modal_ganti_passowrd" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Ubah Password</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group row">
+                            <label class="col-lg-4 col-form-label">Password Lama</label>
+                            <div class="col-lg-8">
+                                <input type="password" class="form-control" autocomplete="off" name="password_lama" id="password_lama" placeholder="Isikan password lama">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-4 col-form-label">Password Baru</label>
+                            <div class="col-lg-8">
+                                <input type="password" class="form-control" autocomplete="off" name="password_baru" id="password_baru" placeholder="Isikan password baru">
+                            </div>
+                        </div>
+                        <div class="form-group form-group-last row">
+                            <label class="col-lg-4 col-form-label">Konfirmasi</label>
+                            <div class="col-lg-8">
+                                <input type="password" class="form-control" autocomplete="off" name="konfirmasi" id="password_konfirmasi" placeholder="Ketik ulang password baru">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btn_ubah_password_admin" class="btn btn-success">Ubah Password</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end modal-->
     </body>
 
 		<script src="{{asset('assets/plugins/general/popper.js/dist/umd/popper.js')}}" type="text/javascript"></script>
@@ -231,8 +269,85 @@
                     $("#info_dasar").hide();
                 });
 
+                $(document).on('click','#ganti_password_admin' , function(){
+                    $("#kt_modal_ganti_passowrd").modal({backdrop: 'static', keyboard: false});
+                });
+
+                changePasswordAdmin();
+
                 getCalender();
             });
+
+            function changePasswordAdmin(){
+                $(document).on('click','#btn_ubah_password_admin' , function(){
+                    Swal.fire({
+                        title: 'Ubah Password',
+                        text: "Apakah anda yakin ubah password ini?",
+                        type: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#0abb87',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ya, Ubah Password!'
+                    }).then((result) => {
+                        if (result.value) {
+                            if($("#password_lama").val()==''){
+                                Swal.fire({
+                                    title: 'Hapus',
+                                    text: "Password Lama Harus Diisi",
+                                    type: 'warning',
+                                })
+                            }
+                            else if($("#password_baru").val()==''){
+                                Swal.fire({
+                                    title: 'Hapus',
+                                    text: "Password Baru Harus Diisi",
+                                    type: 'warning',
+                                })
+                            }
+                            else if($("#password_konfirmasi").val()==''){
+                                Swal.fire({
+                                    title: 'Hapus',
+                                    text: "Konfirmasi Password Harus Diisi",
+                                    type: 'warning',
+                                })
+                            }else if($("#password_baru").val() != $("#password_konfirmasi").val()){
+                                Swal.fire({
+                                    title: 'Hapus',
+                                    text: "Password dan Konfirmasi Password Harus Sama",
+                                    type: 'warning',
+                                })
+                            }
+                            else{
+                                $.ajaxSetup({
+                                    headers: {
+                                        'X-CSRF-TOKEN': $('#csrf_').val()
+                                    }
+                                });
+                                $.ajax({
+                                    type:'POST',
+                                    dataType:'json',
+                                    url: "/administrator/change_password",
+                                    data:{password_lama:$("#password_lama").val(),password_baru:$("#password_baru").val(),konfirmasi:$("#password_konfirmasi").val()},
+                                    success:function(result) {
+
+                                        if(result.status){
+                                            Swal.fire(
+                                                'Deleted!',
+                                                'Password sudah diubah.',
+                                                'success'
+                                            )
+                                        }
+                                        else{
+                                            alert(result.msg);
+                                        }
+                                    }
+                                });
+
+                            }
+                        }
+                    })
+                });
+            }
 
             function getCookie(cname) {
                 var name = cname + "=";

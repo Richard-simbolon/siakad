@@ -21,7 +21,7 @@
                 </div>
                 <div class="kt-subheader__toolbar">
                     <div class="kt-subheader__wrapper">
-                        <a href="{{url('dosen/uploadsoal/create')}}" class="btn btn-success"> <i class="la la-plus"></i> Tambah</a>
+                        <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
                     </div>
                 </div>
             </div>

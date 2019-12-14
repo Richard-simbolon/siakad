@@ -36,10 +36,14 @@ trait AuthenticatesUsers
         $userCheck = DB::table('auth')->where('login','=', $request->login)->first();
 
         if($userCheck){
-            if($userCheck->login_type != $request->login_type_role){
-                throw ValidationException::withMessages([
-                    $this->username() => [trans('auth.failed')],
-                ]);
+            if(($userCheck->login_type == 'jurusan' && $request->login_type_role=='admin')){
+
+            }else{
+                if($userCheck->login_type != $request->login_type_role){
+                    throw ValidationException::withMessages([
+                        $this->username() => [trans('auth.failed')],
+                    ]);
+                }
             }
         }else{
             throw ValidationException::withMessages([

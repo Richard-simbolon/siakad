@@ -7,55 +7,55 @@
     <!-- begin:: Page -->
     <div class="kt-grid kt-grid--ver kt-grid--root">
         <div class="kt-grid kt-grid--hor kt-grid--root  kt-login kt-login--v3 kt-login--signin" id="kt_login">
-            <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" style="background-image: url({{url('assets/media/bg/bg-3.jpg')}});">
+            <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" style="background-image: url({{url('assets/media/bg/bg-3-3.png')}});background-size: cover">
                 <div class="kt-grid__item kt-grid__item--fluid kt-login__wrapper">
                     <div class="kt-login__container" style="width: 550px!important;">
-                        <div class="kt-login__logo">
-                            <a href="#">
-                                {{--<img src="https://polbangtanmedan.ac.id/upload/pagesdir/page_a_2019629122941.png">--}}
-                                <img src="{{url('assets/logo/logopolbangtan.png')}}" width="100px">
-                            </a>
-                        </div>
+
 
                         <div class="kt-login__signin">
+                            <div class="kt-login__logo" style="margin:0;">
+                                <a href="#">
+                                    <img src="{{url('assets/logo/logopolbangtan.png')}}" width="100px">
+                                </a>
+                            </div>
                             <div class="kt-login__head">
-                                <h3 class="kt-login__title">SIAPDUDIK  (Sistem Aplikasi Terpadu Pendidikan)</h3>
+                                <h3 class="kt-login__title" style="font-size: 14pt!important;">SIAPDUDIK <br/> (Sistem Aplikasi Terpadu Pendidikan)</h3>
                             </div>
                             <div class="row">
                                 <div class="col-xl-12 icon">
-                                    <div class="row" style="padding-top: 50px;">
+                                    <div class="row" style="padding-top: 100px;">
                                         <div class="col-xl-4">
-                                            <div style="width: 100%;text-align: center;">
+                                            <div style="width: 100%;text-align: left;">
                                                 <a href="/login/akademik">
-                                                    <img src="{{url('assets/logo/akademik.png')}}" width="90%" style="max-width: 110px">
+                                                    <img src="{{url('assets/logo/akademik.png')}}" width="90%" style="max-width: 100px">
                                                 </a>
                                             </div>
-                                            <div style="width: 100%;text-align: center;padding-top: 10px">
+                                            <div style="width: 100%;text-align: left;padding-top: 20px;color: #00ac8e;">
                                                 <p><b>Administrator</b></p>
                                             </div>
-                                            <div style="width: 70%;margin:auto;height:1px;background-image: linear-gradient(to right, #fafafa, #0b6541 , #fafafa);margin-bottom: 5px;"></div>
+                                            <div style="width: 70%;height:1px;max-width:100px;background-image: linear-gradient(to right, #fafafa, #00ac8e , #fafafa);margin-bottom: 5px;"></div>
                                         </div>
                                         <div class="col-xl-4">
                                             <div style="width: 100%;text-align: center;">
                                                 <a href="/login/dosen">
-                                                    <img src="{{url('assets/logo/lecture.png')}}" width="90%" style="max-width: 110px">
+                                                    <img src="{{url('assets/logo/lecture.png')}}" width="90%" style="max-width: 100px">
                                                 </a>
                                             </div>
-                                            <div style="width: 100%;text-align: center;padding-top: 10px">
+                                            <div style="width: 100%;text-align: center;padding-top: 20px;color: #00ac8e;">
                                                 <p><b>Dosen</b></p>
                                             </div>
-                                            <div style="width: 70%;margin:auto;height:1px;background-image: linear-gradient(to right, #fafafa, #0b6541 , #fafafa);margin-bottom: 5px;"></div>
+                                            <div style="width: 70%;margin:auto;height:1px;max-width:100px;background-image: linear-gradient(to right, #fafafa, #00ac8e , #fafafa);margin-bottom: 5px;"></div>
                                         </div>
                                         <div class="col-xl-4">
-                                            <div style="width: 100%;text-align: center;">
+                                            <div style="width: 100%;text-align: right;">
                                                 <a href="/login/mahasiswa">
-                                                    <img src="{{url('assets/logo/graduation.png')}}" width="90%" style="max-width: 110px" >
+                                                    <img src="{{url('assets/logo/graduation.png')}}" width="90%" style="max-width: 100px" >
                                                 </a>
                                             </div>
-                                            <div style="width: 100%;text-align: center;padding-top: 10px">
+                                            <div style="width: 100%;text-align: right;padding-right:15px;padding-top: 20px;color: #00ac8e;">
                                                 <p><b>Mahasiswa</b></p>
                                             </div>
-                                            <div style="width: 70%;margin:auto;height:1px;background-image: linear-gradient(to right, #fafafa, #0b6541 , #fafafa);margin-bottom: 5px;"></div>
+                                            <div style="width: 70%;float:right;height:1px;max-width:100px;background-image: linear-gradient(to right, #fafafa, #00ac8e, #fafafa);margin-bottom: 5px;"></div>
                                         </div>
                                     </div>
                                 </div>

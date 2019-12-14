@@ -29,7 +29,7 @@ class Administrator extends Controller
                 if(!$this->user){
                     Redirect::to('login')->send();
                 }
-                if($this->user->login_type != 'admin'){
+                if($this->user->login_type != 'admin' && $this->user->login_type != 'jurusan'){
                     return abort(404);
                 }else{
                     return $next($request);
@@ -156,6 +156,38 @@ class Administrator extends Controller
                     $m->to($data->email, $data->nama)->subject('Your Reminder!');
                 });
             
+            }
+        }
+
+        function change_password(Request $request){
+            $input = $request->all();
+            $data = AdministratorModel::where('id' , '=',Auth::user()->id)->first();
+            if($data){
+                if(!$input['password_lama'] || $input['password_lama'] == ''){
+                    return json_encode(["status"=> false, "message"=> "Password lama wajib diisi"]);
+                }elseif (!$input['konfirmasi'] || $input['konfirmasi'] ==''){
+                    return json_encode(["status"=> false, "message"=> "Konfirmasi Password baru wajib diisi"]);
+                }else if(!$input['password_baru'] || $input['password_baru'] == ''){
+                    return json_encode(["status"=> false, "message"=> "Password baru wajib diisi"]);
+                }
+
+                if($input['password_baru'] != $input['konfirmasi']){
+                    return json_encode(["status"=> false, "message"=> "Password baru dan konfirmasi tidak sama"]);
+                }
+
+                if(Hash::check($input['password_lama'], Auth::user()->password))
+                {
+                    $data['password'] = Hash::make($input['konfirmasi']);
+                    if($data->save()){
+                        return json_encode(["status"=> true, "message"=> "Password sudah diubuah"]);
+                    }else{
+                        return json_encode(["status"=> false, "message"=> "Terjadi kesalahan saat mengubah data."]);
+                    }
+                }else{
+                    return json_encode(["status"=> false, "message"=> "Password yang anda masukkan salah."]);
+                }
+            }else{
+                return json_encode(["status"=> false, "message"=> "Data tidak ditemukan"]);
             }
         }
 
