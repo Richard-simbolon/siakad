@@ -98,17 +98,22 @@ class Ruangan extends Controller
                     $html = static::$html;
                     $column = 1;
                     $controller = "ruangan";
-                    return view("setting/master_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow","tableid", "column", "controller"));
+                    return view("setting/master_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow", "column", "controller"));
                 }
 
                 public function update(Request $request){
                     $this->validate($request,[
-                        'title' => 'required'
+                        'kode_ruangan' => 'required',
+                        'nama_ruangan' => 'required'
                     ]);
 
                     $data =  RuanganModel::where('id' , $request->id)->first();
-                    $data->title = $request->title;
+                    $data->kode_ruangan = $request->kode_ruangan;
+                    $data->nama_ruangan = $request->nama_ruangan;
+                    $data->keterangan = $request->keterangan;
                     $data->row_status = $request->row_status;
+                    $data->update_by = Auth::user()->nama;
+                    $data->updated_at = date('Y-m-d H:m:s');
 
                     $data->save();
                     return redirect('/master/ruangan');

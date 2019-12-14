@@ -33,13 +33,18 @@ trait AuthenticatesUsers
     {
         $this->validateLogin($request);
 
-        $userCheck = DB::table('auth')->where('id' , $request->login)->first();
+        $userCheck = DB::table('auth')->where('login','=', $request->login)->first();
+
         if($userCheck){
-            if($userCheck->login_type != $request->login_type){
+            if($userCheck->login_type != $request->login_type_role){
                 throw ValidationException::withMessages([
                     $this->username() => [trans('auth.failed')],
                 ]);
             }
+        }else{
+            throw ValidationException::withMessages([
+                $this->username() => [trans('auth.failed')],
+            ]);
         }
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle

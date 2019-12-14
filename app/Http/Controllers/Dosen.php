@@ -809,7 +809,7 @@ class Dosen extends Controller
         return view('/data/dosen_activity' , compact('data','master','idTable' ));
     }
 
-    public function activity_paging(Request $request){
+    public function activity_paging_data(Request $request){
         $post= $request->all();
         $where = ['dosen_id' => $post['dosen_id']];
 

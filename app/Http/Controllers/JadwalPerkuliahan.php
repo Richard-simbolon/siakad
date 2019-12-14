@@ -552,7 +552,8 @@ class JadwalPerkuliahan extends Controller
                 'jadwal_ujian_mahasiswa.jam',
                 'jadwal_ujian_mahasiswa.selesai',
                 'jadwal_ujian_mahasiswa.tanggal_ujian',
-                'master_ruangan.nama_ruangan as ruangan_title')
+                'master_ruangan.nama_ruangan as ruangan_title',
+                'jadwal_ujian_mahasiswa.catatan')
             ->where('kelas_perkuliahan.semester_id', $semester_active->id)
             ->where('jadwal_ujian_mahasiswa.jenis_ujian', '=', $request->jadwal_perkuliahan)
             ->get())->addIndexColumn()->make(true);

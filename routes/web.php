@@ -107,8 +107,8 @@ Route::get('/data/dosen/grafik_status', 'Dosen@grafik_status')->name('grafik_sta
 Route::get('/data/dosen/activity/{id}', 'Dosen@activity')->name('activity');
 Route::get('/data/dosen/activitydosen', 'DosenModule@activity')->name('activity');
 Route::post('dosen/penguji_paging', 'Dosen@penguji_paging')->name('penguji_paging');
-Route::post('/dosen/activity_paging', 'DosenModule@activity_paging')->name('activity_paging');
-Route::post('data/dosen/activity_paging', 'DosenModule@activity_paging')->name('activity_paging');
+Route::post('/data/dosen/activity_paging', 'DosenModule@activity_paging')->name('activity_paging');
+Route::post('dosen/activity_paging_data', 'Dosen@activity_paging_data')->name('activity_paging_data');
 
 Route::post('/data/dosen/update', 'Dosen@update')->name('update');
 Route::get('dosen/penugasan/{id}', 'Dosen@penugasan')->name('penugasan');

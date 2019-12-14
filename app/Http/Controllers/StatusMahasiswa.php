@@ -94,7 +94,7 @@ class StatusMahasiswa extends Controller
                     $html = static::$html;
                     $column = 1;
                     $controller = "statusmahasiswa";
-                    return view("setting/master_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow","tableid", "column", "controller"));
+                    return view("setting/master_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow", "column", "controller"));
                 }
 
                 public function update(Request $request){

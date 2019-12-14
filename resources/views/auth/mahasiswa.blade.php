@@ -23,7 +23,7 @@
 
                             <form class="kt-form" method="POST" action="{{ route('login') }}">
                                 @csrf
-                                <input type="hidden" name="login_type" value="mahasiswa">
+                                <input type="hidden" name="login_type_role" value="mahasiswa">
                                 <div class="row kt-login__extra text-center" style="display: block;text-align: center">
                                     <p style="font-size: 11pt;">Anda akan login sebagai <u>Mahasiswa</u></p>
                                 </div>

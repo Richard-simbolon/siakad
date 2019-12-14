@@ -107,17 +107,6 @@
                             </div>
                             <br/>
                             <div class="row">
-                                {{--<div class="col-xl-6">--}}
-                                    {{--<div class="form-group">--}}
-                                        {{--<label>Tahun Akademik</label>--}}
-                                        {{--<select id="jadwal_ujian" name="angkatan_id" class="form-control kt-select2">--}}
-                                            {{--<option value="">Select</option>--}}
-                                            {{--@foreach ($select2 as $item)--}}
-                                                {{--<option value="{{$item['semester_id']}}" > {{$item['semseter_title']}} </option>--}}
-                                            {{--@endforeach--}}
-                                        {{--</select>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
                                 <div class="col-xl-6">
                                     <div class="form-group row">
                                         <label style="max-width: 125px;" class="col-sm-3 col-form-label">Jenis Ujian</label>
@@ -134,6 +123,7 @@
                             <table class=" table table-striped- table-bordered table-hover table-checkable" id="jadwalujiandata">
                             <thead>
                             <tr>
+                                <th style="text-align: center">No</th>
                                 <th>Kode MK</th>
                                 <th>Mata Kuliah</th>
                                 <th style="text-align: center">Bobot SKS</th>
@@ -142,6 +132,7 @@
                                 <th style="text-align: center">Tanggal Ujian</th>
                                 <th>Ruangan</th>
                                 <th>Hari</th>
+                                <th>Catatan</th>
                             </tr>
                             </thead>
                             <tbody>
