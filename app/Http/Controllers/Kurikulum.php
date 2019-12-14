@@ -42,7 +42,7 @@ class Kurikulum extends Controller
 
     public function index()
     {
-        $master['tahun_ajaran'] = TahunAjaranModel::where('row_status' ,'active')->get();
+        $master['semester'] = SemesterModel::where('row_status' ,'active')->get();
         $master['jurusan'] = JurusanModel::where('row_status' ,'active')->get();
         $data = KurikulumModel::join('master_jurusan as b' , 'kurikulum.program_studi_id' , '=' , 'b.id')
         ->join('kurikulum_mata_kuliah as c' , 'c.kurikulum_id' ,'=' ,'kurikulum.id')
@@ -62,6 +62,7 @@ class Kurikulum extends Controller
     }
 
     public function filtering_table(Request $request){
+        //print_r($request->all());
         $ajax  = $request->all();
         $studi = $ajax['id_p'];
         $tahun = $ajax['id_t'];

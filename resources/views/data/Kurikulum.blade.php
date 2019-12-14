@@ -62,12 +62,12 @@
                 <div class="kt-portlet__body">
                     <div class="row">
                         <div class="col-xl-4">
-                            <label class="select2-label"> Tahun Ajaran</label>
+                            <label class="select2-label"> Angkatan </label>
                             <div class="form-group">
                                 <select id="tahun_berlaku" class="form-control kt-select2 kurikulum_filter" id="kt_select2_1">
-                                        <option value="0">-- Tahun Ajaran --</option>
-                                        @foreach ($master['tahun_ajaran'] as $item)
-                                        <option value="{{$item->id}}">{{$item->title}}</option>
+                                        <option value="0">-- Mulai Berlaku --</option>
+                                        @foreach ($master['semester'] as $item)
+                                            <option value="{{$item->id}}">{{$item->title}}</option>
                                         @endforeach
                                 </select>
                             </div>
