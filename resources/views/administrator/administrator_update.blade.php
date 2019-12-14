@@ -143,11 +143,14 @@
                                         <input type="hidden" value="{{$data->id}}" name="id">
                                         <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
                                         <div class="kt-form__actions">
+                                            <a href="{{url()->previous()}}" class="btn btn-label-success">
+                                                <i class="la la-arrow-left"></i> Kembali
+                                            </a>&nbsp;
                                             <a style="color:#ffffff;" data-prev-url="{{url()->previous()}}" class="btn btn-success updateadminuser">
-                                                Update <i class="la la-save"></i>
+                                                <i class="la la-save"></i> Simpan Perubahan
                                             </a>
                                             <a style="color:#ffffff;" data-prev-url="{{url()->previous()}}" attr="{{$data->id}}" class="btn btn-danger delete_user">
-                                                Hapus <i class="la la-trash"></i>
+                                                <i class="la la-trash"></i> Hapus
                                             </a>
                                         </div>
                                     </div>

@@ -45,7 +45,7 @@
                                 </svg>
                             </span>
                             <span class="kt-menu__link-text">Dashboard</span>
-
+                            <i class="kt-menu__ver-arrow la fa fa-circle" style="display: none"></i>
                         </a>
                     </li>
 

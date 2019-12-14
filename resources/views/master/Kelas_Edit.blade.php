@@ -126,10 +126,10 @@
                                             </div>
                                         </div>
                                         <div class="kt-form__actions">
-                                            {{--<a class="btn btn-success generaledit">--}}
-                                                {{--Simpan <i class="la la-save"></i>--}}
-                                            {{--</a>--}}
-                                            <button type="submit" class="btn btn-success"><i class="la la-save"></i> Edit</button>
+                                            <a href="{{url()->previous()}}" class="btn btn-label-success">
+                                                <i class="la la-arrow-left"></i> Kembali
+                                            </a>&nbsp;
+                                            <button type="submit" class="btn btn-success"><i class="la la-save"></i> Simpan Perubahan</button>
                                             <button type="button" class="btn btn-danger" id="btn_delete_kelas"><i class="flaticon-delete"></i> Hapus</button>
                                         </div>
                                     </div>

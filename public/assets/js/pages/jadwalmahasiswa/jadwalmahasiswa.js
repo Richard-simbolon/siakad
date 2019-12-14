@@ -161,17 +161,18 @@ $(document).ready(function() {
 				var api = this.api();
 				var rows = api.rows({page: 'current'}).nodes();
 				var last = null;
-				api.column(7, {page: 'current'}).data().each(function(group, i) {
+				api.column(8, {page: 'current'}).data().each(function(group, i) {
                     var a = new Date(group);
 					if (last !== group) {
 						$(rows).eq(i).before(
-							'<tr class="group"><td colspan="8">' + hari[a.getDay()] + '</td></tr>',
+							'<tr class="group"><td colspan="10">' + hari[a.getDay()] + '</td></tr>',
 						);
 						last = group;
 					}
 				});
 			},
         columns: [
+            { data: 'DT_RowIndex', name: 'DT_RowIndex'},
             { data: 'kode_mata_kuliah', name: 'kode_mata_kuliah'},
             { data: 'nama_mata_kuliah', name: 'nama_mata_kuliah' },
             { data: 'bobot_mata_kuliah', name: 'bobot_mata_kuliah' },
@@ -182,27 +183,27 @@ $(document).ready(function() {
             { data: 'tanggal_ujian', name: 'tanggal_ujian', render: function(data, type, full, meta) {
                     var a = new Date(full.tanggal_ujian);
                     return hari[a.getDay()];//hari[full.hari_id];
-                }, 
+                },
             },
-            
+            { data: 'catatan', name: 'catatan' },
         ],
         columnDefs: [
             {
-                targets: 3,
+                targets: 4,
                 render : function (data, type, full, meta) {
                     var t = full.jam.split(":");
                     return t[0] + ":" + t[1];
                 }
             },
             {
-                targets: 4,
+                targets: 5,
                 render : function (data, type, full, meta) {
                     var t = full.selesai.split(":");
                     return t[0] + ":" + t[1];
                 }
             },
             {
-                targets: 2,
+                targets: 0,
                 className: "text-center"
             },
             {
@@ -215,6 +216,10 @@ $(document).ready(function() {
             },
             {
                 targets: 5,
+                className: "text-center"
+            },
+            {
+                targets: 6,
                 className: "text-center"
             }
         ]

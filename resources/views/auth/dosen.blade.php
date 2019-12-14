@@ -23,7 +23,7 @@
 
                             <form class="kt-form" method="POST" action="{{ route('login') }}">
                                 @csrf
-                                <input type="hidden" name="login_type" value="dosen">
+                                <input type="hidden" name="login_type_role" value="dosen">
                                 <div class="row kt-login__extra text-center" style="display: block;text-align: center">
                                     <p style="font-size: 11pt;">Anda akan login sebagai <u>Dosen</u></p>
                                 </div>
@@ -31,7 +31,7 @@
                                     <input id="login" placeholder="User Login" type="text" class="form-control @error('login') is-invalid @enderror" name="login" value="{{ old('login') }}" required autocomplete="login" autofocus>
                                     @error('login')
                                         <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        {{ $message }}
                                         </span>
                                     @enderror
                                 </div>

@@ -68,7 +68,7 @@ class Tinggal extends Controller
                     $html = static::$html;
                     $column = 1;
                     $controller = "jenis/tinggal";
-                    return view("setting/master_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow","tableid", "column", "controller"));
+                    return view("setting/master_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow", "column", "controller"));
                 }
 
                 public function save(Request $request){

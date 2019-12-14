@@ -199,6 +199,19 @@
             $(document).ready(function(){
                 var current_path  = window.location;
                 $('a[href="'+current_path+'"]').parent().addClass('kt-menu__item--active');
+                var i=0;
+                $('.kt-menu__item a').each(function(){
+                    var $this = $(this);
+                    // if the current path is like this link, make it active
+                    if($this.attr('href').indexOf(current_path) !== -1){
+                        document.cookie = "active-menu-url=" + current_path;
+                        i++;
+                    }
+                });
+
+                if(i == 0){
+                    $('a[href="'+getCookie("active-menu-url")+'"]').parent().addClass('kt-menu__item--active');
+                }
 
                 $(".form-mahasiswa input , .form-mahasiswa select , .form-mahasiswa textarea , .form-mahasiswa option").prop("disabled", true);
                 $("#form-update-dosen input , #form-update-dosen select , #form-update-dosen textarea , #form-update-dosen option").prop("disabled", true);
@@ -219,7 +232,22 @@
                 });
 
                 getCalender();
-            })
+            });
+
+            function getCookie(cname) {
+                var name = cname + "=";
+                var ca = document.cookie.split(';');
+                for(var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') {
+                        c = c.substring(1);
+                    }
+                    if (c.indexOf(name) == 0) {
+                        return c.substring(name.length, c.length);
+                    }
+                }
+                return "";
+            }
 
             function getCalender(){
                 $.ajax({
