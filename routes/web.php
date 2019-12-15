@@ -235,6 +235,7 @@ foreach($results as $val){
 Route::get('admin/jadwalkuliah', 'AdminJadwalPerkuliahan@index')->name('Jadwal Perkuliahan');
 Route::get('admin/administrator', 'Administrator@index')->name('Jadwal Perkuliahan');
 Route::post('admin/jadwalkuliah/paging', 'AdminJadwalPerkuliahan@paging')->name('Jadwal Perkuliahan');
+Route::post('administrator/change_password', 'Administrator@change_password')->name('change_password');
 //Route::post('module/administrator/create', 'Administrator@create')->name('Jadwal Perkuliahan');
 
 Auth::routes();

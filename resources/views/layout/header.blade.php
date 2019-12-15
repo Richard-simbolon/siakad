@@ -107,7 +107,23 @@
                                 </div>
                             </div>
                         </a>
-                        @if(Auth::user()->login_type != 'admin')
+                        @if(Auth::user()->login_type == 'admin' || Auth::user()->login_type == 'jurusan')
+                            <a href="javascript:void(0)" id="ganti_password_admin" class="kt-notification__item">
+                                <div class="kt-notification__item-icon">
+                                    <i class="flaticon2-menu-4 kt-font-success"></i>
+                                </div>
+                                <div class="kt-notification__item-details">
+                                    <div class="kt-notification__item-title kt-font-bold">
+                                        Ganti Password
+                                    </div>
+                                    <div class="kt-notification__item-time">
+                                        Ubah password anda
+                                    </div>
+                                </div>
+                            </a>
+                        @endif
+
+                        @if(Auth::user()->login_type != 'admin' && Auth::user()->login_type != 'jurusan')
                         <a href="{{url('/data/'.Auth::user()->login_type .'/profile')}}" class="kt-notification__item">
                             <div class="kt-notification__item-icon">
                                 <i class="flaticon2-calendar-3 kt-font-success"></i>
@@ -140,7 +156,7 @@
                             @guest
                             @else
                             <a href="{{ route('logout') }}"  onclick="event.preventDefault();
-                            document.getElementById('logout-form').submit();" class="btn btn-label-success btn-sm btn-bold pull-right">Keluar</a>
+                            document.getElementById('logout-form').submit();" class="btn btn-outline-success pull-right"><i class="fa fa-sign-out-alt"></i> Keluar</a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>

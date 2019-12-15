@@ -7,7 +7,7 @@
     <!-- begin:: Page -->
     <div class="kt-grid kt-grid--ver kt-grid--root">
         <div class="kt-grid kt-grid--hor kt-grid--root  kt-login kt-login--v3 kt-login--signin" id="kt_login">
-            <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" style="background-image: url({{url('assets/media/bg/bg-3.jpg')}});">
+            <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" style="background-image: url({{url('assets/media/bg/bg-3-3.png')}});background-size: cover;">
                 <div class="kt-grid__item kt-grid__item--fluid kt-login__wrapper">
                     <div class="kt-login__container">
                         <div class="kt-login__logo">
@@ -18,7 +18,7 @@
 
                         <div class="kt-login__signin">
                             <div class="kt-login__head">
-                                <h3 class="kt-login__title">SIAPDUDIK  (Sistem Aplikasi Terpadu Pendidikan)</h3>
+                                <h3 class="kt-login__title">SIAPDUDIK <br/>  (Sistem Aplikasi Terpadu Pendidikan)</h3>
                             </div>
 
                             <form class="kt-form" method="POST" action="{{ route('login') }}">
@@ -45,7 +45,7 @@
                                 </div>
 
                                 <div class="kt-login__actions">
-                                    <button  type="submit" class="btn btn-brand btn-elevate kt-login__btn-primary"><h5>{{ __('Masuk') }}</h5></button>
+                                    <button style="width: 150px"  type="submit" class="btn btn-outline-success kt-login__btn-success">{{ __('Masuk') }} <i class="fa fa-arrow-right"></i> </button>
                                 </div>
                                 <div class="row kt-login__extra text-center" style="display: block;text-align: center">
                                     Unduh cara penggunaan <a href="#"><u>di sini</u></a>, atau kembali ke <a href="{{url('login')}}"><u>Beranda</u></a>

@@ -136,7 +136,7 @@
                                     <a href="{{url()->previous()}}" class="btn btn-label-success">
                                         <i class="la la-arrow-left"></i> Kembali
                                     </a>&nbsp
-                                    <input type="submit" class="btn btn-success" value="Simpan">
+                                    <button type="submit" class="btn btn-success"><i class="la la-save"></i> Simpan</button>
                                 </div>
                             </form>
                         </div>

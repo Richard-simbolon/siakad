@@ -85,8 +85,8 @@
                                                 <div class="form-group">
                                                     <label>Tipe Admin</label>
                                                     <select name="type" class="form-control" id="status_admin">
-                                                        <option value="super">Super Admin</option>
-                                                        <option value="admin" selected>Admin</option>
+                                                        <option value="admin">Super Admin</option>
+                                                        <option value="jurusan" selected>Jurusan</option>
                                                     </select>
                                                 </div>
                                             </div>

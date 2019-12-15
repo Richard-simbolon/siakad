@@ -117,7 +117,7 @@
                                 <div class="root">
                                     <div class="kt-form__actions">
                                         <br/>
-                                        <a class="btn btn-label-success" id="print_kartu"><i class="la la-print"></i>Cetak</a>
+                                        <button class="btn btn-outline-success" id="print_kartu"><i class="la la-print"></i>Cetak</button>
                                     </div>
                                 </div>
                             </div>

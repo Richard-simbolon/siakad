@@ -198,7 +198,7 @@
                                                         <input class="form-control" type="text" name="kecamatan" value="{{$data['kecamatan']}}">
                                                     </div>
                                                 </div>
-                                                <div class="form-group form-group-last row">
+                                                <div class="form-group row form-group-last">
                                                     <label class="col-xl-3 col-lg-3 col-form-label">Kode Pos</label>
                                                     <div class="col-lg-9 col-xl-6">
                                                         <input class="form-control" type="text" name="kode_pos" value="{{$data['kode_pos']}}">
@@ -213,7 +213,7 @@
                                                 <div class="col-lg-3 col-xl-3">
                                                 </div>
                                                 <div class="col-lg-9 col-xl-9">
-                                                    <button type="button" id="btn_edit_biodata" class="btn btn-success">Ubah</button>&nbsp;
+                                                    <button type="button" id="btn_edit_biodata" class="btn btn-outline-success"><i class="fa fa-save"></i> Simpan Perubahan</button>&nbsp;
                                                 </div>
                                             </div>
                                         </div>

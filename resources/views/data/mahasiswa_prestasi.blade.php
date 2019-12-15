@@ -103,7 +103,7 @@
                                                 {{--<div class="col-lg-3 col-xl-3">--}}
                                                 {{--</div>--}}
                                                 <div class="col-lg-9 col-xl-9">
-                                                    <button type="button" id="btn_add_prestasi" class="btn btn-success"><i class="fa fa-plus"></i> Tambah</button>&nbsp;
+                                                    <button type="button" id="btn_add_prestasi" class="btn btn-outline-success"><i class="fa fa-plus"></i> Tambah</button>&nbsp;
                                                 </div>
                                             </div>
                                         </div>
