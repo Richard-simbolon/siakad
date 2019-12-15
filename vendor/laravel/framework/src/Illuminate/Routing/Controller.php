@@ -7,6 +7,8 @@ use BadMethodCallException;
 use File;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
 
 abstract class Controller
 {
@@ -51,6 +53,32 @@ abstract class Controller
         }else{
             return ['key'=> 'E' , 'value' => 0];
         }
+    }
+
+    public function send_password_mail($to = '' , $nama = '' , $password=''){
+        if(!$to){
+            return ;
+        }
+        $data = [];
+        $data['nama'] = $nama;
+        $data['password'] = $password;
+        Mail::send('email.password', $data, function($message) use ($to) {
+            $message->to($to)
+            ->subject('Password SIAPDUDIK (Sistem Aplikasi Terpadu Pendidikan)');
+            $message->from('polbangtan@noreply.com','polbangtan@noreply.com');
+        });
+    }
+
+    public function generate_password(){
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $pass = array(); //remember to declare $pass as an array
+        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        $new_password = implode($pass);
+        return array('pass' => $new_password , 'hash'=>Hash::make($new_password));
     }
 
     public function generate_ip($data , $semester_aktif){

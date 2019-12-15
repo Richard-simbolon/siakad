@@ -147,10 +147,12 @@ class Dosen extends Controller
 
             if(array_key_exists('dosen' , $data)){
                 // SAVE TO TABLE mahasiswa
+                $password = $this->generate_password();
+                $data['dosen']['password'] = $password['hash'];
                 if($data['dosen']['tanggal_lahir'] != '' && $data['dosen']['tanggal_lahir'] != null){
                     $data['dosen']['tanggal_lahir'] = date($data['dosen']['tanggal_lahir']);
                 }
-                
+                $this->send_password_mail($data['dosen']['email'],$data['dosen']['nama'], $password['pass']);
                 $dosenid = DosenModel::create($data['dosen']);
             }
 
@@ -172,17 +174,17 @@ class Dosen extends Controller
                     'isyarat' => $data['isyarat'],
                 );
                 DosenKebutuhanModel::create($data_kebutuhan_khusus);
-
+                
             }
             
 
             DB::commit();
-            return json_encode(array('status' => 'success' , 'msg' => 'Data berhasil disimpan.'));
+            return json_encode(array('status' => 'success' , 'message' => 'Data berhasil disimpan.'));
         } catch(\Exception $e){
             
             DB::rollBack(); 
             //throw $e;
-            return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan saat menyimpan, silahkan coba lagi.'));
+            return json_encode(array('status' => 'error' , 'message' => 'Terjadi kesalahan saat menyimpan, silahkan coba lagi.'));
         }
 
     }
@@ -273,21 +275,10 @@ class Dosen extends Controller
             $pass[] = $alphabet[$n];
         }
         $new_password = implode($pass);
+
         $password['password'] = Hash::make($new_password);
-
-
-
-        $to_name = "Richard";
-        $to_email = 'richard.simbolon28@gmail.com';
-        $data = array('name'=>"Ogbonna Vitalis(sender_name)", "body" => "A test mail");
-        Mail::send('email.password', $data, function($message) use ($to_name, $to_email) {
-            $message->to($to_email, $to_name)
-            ->subject('Laravel Test Mail');
-            $message->from('polbangtan@noreply.com','noreply polbangtan');
-        });
-
-
-
+        $data = DosenModel::select('email' ,'nama')->where('id' ,$id)->first();
+        //$this->send_password_mail($data->email,$data->nama, $password['password']);
         if($id != '' || $id != null){
             if(DosenModel::where('id' ,$id)->update($password)){
                 return json_encode(["status"=> true, "message"=> $new_password]);

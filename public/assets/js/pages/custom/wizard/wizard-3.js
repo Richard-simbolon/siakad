@@ -25,7 +25,7 @@ var KTWizard3 = function () {
                 data:formEl.serialize()+'&step='+wizardObj.currentStep+'&_token='+$('#csrf_').val(),
                 success:function(result) {
                     var res = JSON.parse(result);
-                    console.log(result);
+                    //console.log(result);
                     if(res.status == 'false'){
 
                         var text = '';
@@ -90,6 +90,7 @@ var KTWizard3 = function () {
 	var initSubmit = function() {
 		var btn = formEl.find('[data-ktwizard-type="action-submit"]');
 		btn.on('click', function(e) {
+            //$(this).attr("disabled", true);
             e.preventDefault();
             Swal.fire({
                 title: 'Tambah Mahasiswa',
@@ -108,6 +109,7 @@ var KTWizard3 = function () {
                         success: function(result) {
                             var res = JSON.parse(result);
                             //console.log(res);
+                            //$(this).attr("disabled", false);
                             KTApp.unprogress(btn);
                             //KTApp.unblock(formEl);
                             if(res.status == 'false'){
@@ -124,8 +126,9 @@ var KTWizard3 = function () {
                                     "type": "error",
                                     "confirmButtonClass": "btn btn-secondary"
                                 });
-        
+                                //$(this).attr("disabled", false);
                             }else{
+                                //$(this).attr("disabled", false);
                                 swal.fire({
                                     "title": "",
                                     "text": res.message,
@@ -136,6 +139,8 @@ var KTWizard3 = function () {
                         }
                     });
     
+                }else{
+                    //$(this).attr("disabled", false);
                 }
             })
 		});
