@@ -30,8 +30,8 @@
                                                     <img src="{{url('assets/logo/akademik.png')}}" width="90%" style="max-width: 100px">
                                                 </a>
                                             </div>
-                                            <div style="width: 100%;text-align: left;padding-top: 20px;color: #00ac8e;">
-                                                <p><b>Administrator</b></p>
+                                            <div style="width: 100%;text-align: left;padding-top: 20px;padding-left:15px;color: #00ac8e;">
+                                                <p><b>Akademik</b></p>
                                             </div>
                                             <div style="width: 70%;height:1px;max-width:100px;background-image: linear-gradient(to right, #fafafa, #00ac8e , #fafafa);margin-bottom: 5px;"></div>
                                         </div>

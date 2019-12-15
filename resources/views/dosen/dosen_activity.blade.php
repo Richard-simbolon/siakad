@@ -23,7 +23,9 @@
                     </div>
                 </div>
                 <div class="kt-subheader__toolbar">
-                    @include('layout.dosen_detail')
+                    <div class="kt-subheader__wrapper">
+                        <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
+                    </div>
                 </div>
             </div>
         </div>

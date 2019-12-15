@@ -113,7 +113,7 @@
                                 </div>
                             </div>
                             <div class="kt-form__actions">
-                                <button class="btn btn-success btn-sm" id="btn-search-nilai-matakuliah"><i class="flaticon-search"></i>Tampilkan</button>
+                                <button class="btn btn-success " id="btn-search-nilai-matakuliah"><i class="flaticon-search"></i>Tampilkan</button>
                             </div>
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
 

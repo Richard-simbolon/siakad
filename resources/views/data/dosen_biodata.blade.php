@@ -208,7 +208,7 @@
                                                 <div class="col-lg-3 col-xl-3">
                                                 </div>
                                                 <div class="col-lg-9 col-xl-9">
-                                                    <button type="button" id="btn_edit_biodata" class="btn btn-success">Ubah</button>&nbsp;
+                                                    <button type="button" id="btn_edit_biodata" class="btn btn-outline-success"><i class="fa fa-save"></i> Simpan Perubahan</button>&nbsp;
                                                 </div>
                                             </div>
                                         </div>
