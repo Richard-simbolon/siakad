@@ -238,6 +238,8 @@ Route::post('admin/jadwalkuliah/paging', 'AdminJadwalPerkuliahan@paging')->name(
 Route::post('administrator/change_password', 'Administrator@change_password')->name('change_password');
 //Route::post('module/administrator/create', 'Administrator@create')->name('Jadwal Perkuliahan');
 
+Route::get('data/sinkronisasi', 'Sinkronisasi@index')->name('Sinkronisasi Data');
+
 Auth::routes();
 Route::post('g_password/generate_key', 'Administrator@generate_key')->name('generate_key');
 Route::get('/home', 'HomeController@index')->name('home');
