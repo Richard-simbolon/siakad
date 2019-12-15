@@ -129,159 +129,161 @@
                                 </thead>    
                                     <tbody id="body-khs">
                                             <?php
-                                            $data_group = [];
-                                            foreach ($data as $key => $value) {
-                                                $data_group[$value->semester][] = $value;
-                                            }
-                                            $i = 0;
-                                            $j = 0;
-                                            $nipg =[];
-                                            foreach ($data_group as $g) {
-                                                $j++;
-                                                $sks = 0;
-                                                $nipk = 0;
-                                                    echo '<tr>
-                                                            <td align="center"></td>
-                                                            <td colspan="2"><b>SEMESTER '.$j.'</b></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>';
-                                                foreach ($g as $key => $item) {
-                            
-                                                    $i++;
-                                                    $sks += $item->bobot_mata_kuliah;
-                                                    $nangka = 0;
-                                                    $nhuruf = 'E';
-                                                    $indexvsks = 0;
-                                                    $nhuruf = 'E';
-                                                    $nuts = $item->nilai_uts > 0 ? $item->nilai_uts : 0;
-                                                    $nuas = $item->nilai_uas > 0 ? $item->nilai_uas : 0;
-                                                    $ntgs = $item->nilai_tugas > 0 ? $item->nilai_tugas : 0;
-                                                    $nlapopkl = $item->nilai_laporan_pkl > 0 ? $item->nilai_laporan_pkl : 0;
-                                                    $nlapo = $item->nilai_laporan > 0 ? $item->nilai_laporan : 0;
-                                                    $nujian = $item->nilai_ujian > 0 ? $item->nilai_ujian : 0;
-                            
-                                                    if($item->tipe_mata_kuliah == 'praktik'){
-                                                        $nangka = ( (($ntgs * 20) / 100) + (($nuts * 40) / 100) + (($nuas * 40)/100));
-                                                    }elseif ($item->tipe_mata_kuliah == 'teori') {
-                                                        $nangka = ( (($ntgs * 30) / 100) + (($nuts * 30) / 100) + (($nuas * 40)/100));
-                                                    }elseif ($item->tipe_mata_kuliah == 'seminar') {
-                                                        $nangka = ( (($ntgs * 40) / 100) + (($nuts * 30) / 100) + (($nuas * 30)/100));
-                                                    }elseif ($item->tipe_mata_kuliah == 'pkl') {
-                                                        $nangka = ( (($ntgs * 20) / 100) + (($nuts * 20) / 100) + (($nuas * 40)/100) + (($nlapopkl * 20) / 100));
-                                                    }elseif ($item->tipe_mata_kuliah == 'skripsi') {
-                                                        $nangka = ( (($ntgs * 30) / 100) + (($nuts * 20) / 100) + (($nuas * 10)/100) + (($nlapopkl * 10) / 100) + (($nujian * 20) / 100) + (($nlapo * 10) / 100));
-                                                    }
-                                                    if($nangka < 45){
-                                                        $nhuruf = 'E';
-                                                        $nipk += 0 * $item->bobot_mata_kuliah;
-                                                        $indexvsks = 0 * $item->bobot_mata_kuliah;
-                                                        $index = 0;
-                                                    }elseif($nangka > 44 && $nangka< 60){
-                                                        $nhuruf = 'D';
-                                                        $nipk += 1 * $item->bobot_mata_kuliah;
-                                                        $indexvsks = 1 * $item->bobot_mata_kuliah;
-                                                        $index = 1;
-                                                    }elseif($nangka > 59 && $nangka < 70){
-                                                        if((int)($mahasiswa->angkatan_title) < 2018 && $nangka > 65 && $nangka < 70){
-                                                            $nhuruf = 'C+';
-                                                        }else{
-                                                            $nhuruf = 'C';
-                                                        }
-                                                        $nipk += 2 * $item->bobot_mata_kuliah;
-                                                        $indexvsks = 2 * $item->bobot_mata_kuliah;
-                                                        $index = 2;
-                                                    }elseif($nangka > 69 && $nangka <  80){
-                                                        if((int)($mahasiswa->angkatan_title) < 2018 && $nangka > 75 && $nangka <  80){
-                                                            $nhuruf = 'B+';
-                                                        }else{
-                                                            $nhuruf = 'B';
-                                                        }
-                                                        $nipk += 3 * $item->bobot_mata_kuliah;
-                                                        $indexvsks = 3 * $item->bobot_mata_kuliah;
-                                                        $index = 3;
-                                                    }elseif($nangka > 79 && $nangka<= 100){
-                                                        $nhuruf = 'A';
-                                                        $nipk += 4 * $item->bobot_mata_kuliah;
-                                                        $indexvsks = 4 * $item->bobot_mata_kuliah;
-                                                        $index = 4;
-                                                    }else{
-                                                        $nhuruf = 'E';
-                                                        $nipk += 0 * $item->bobot_mata_kuliah;
-                                                        $indexvsks = 0 * $item->bobot_mata_kuliah;
-                                                        $index = 0;
-                                                    }
-                
-                                                    if($item->tipe_mata_kuliah == 'praktek' || $item->tipe_mata_kuliah == 'skripsi' ||$item->tipe_mata_kuliah == 'seminar' ||$item->tipe_mata_kuliah == 'pkl'){
-                                                        $sksteori = 0; 
-                                                        $skspraktek = $item->bobot_mata_kuliah;
-                                                        $jumlahpr = $item->bobot_mata_kuliah;
-                                                        
-                                                        $nilaiteoriangka = 0;
-                                                        $nilaiteorimutu = '-';  
-                                                        $nilaipraktekangka = $nangka;
-                                                        $nilaipraktekmutu = $nhuruf;
-                                                    }else{
-                                                        $sksteori = $item->bobot_mata_kuliah; 
-                                                        $skspraktek = '-';
-                                                        $jumlahpr = $item->bobot_mata_kuliah;
-                
-                                                        $nilaiteoriangka = $nangka;
-                                                        $nilaiteorimutu = $nhuruf;  
-                                                        $nilaipraktekangka = "-";
-                                                        $nilaipraktekmutu = '-';
-                                                    }
-                                                    echo '
-                                                    <tr>
-                                                        <td align="center">'.$i.'</td>
-                                                        <td>'.$item->kode_mata_kuliah.'</td>
-                                                        <td>'.$item->nama_mata_kuliah.'</td>
-                                                        <td align="center">'.$sksteori.'</td>
-                                                        <td align="center">'.$skspraktek.'</td>
-                                                        <td align="center">'.$jumlahpr.'</td>
-                                                        <td align="center">'.$nilaiteoriangka.'</td>
-                                                        <td align="center">'.$nilaiteorimutu.'</td>
-                                                        <td align="center">'.$nilaipraktekangka.'</td>
-                                                        <td align="center">'.$nilaipraktekmutu.'</td>
-                                                    </tr>
-                                                    ';
+                                            if(count($data) > 0){
+                                                $data_group = [];
+                                                foreach ($data as $key => $value) {
+                                                    $data_group[$value->semester][] = $value;
                                                 }
-                            
-                                                echo '
-                                                
+                                                $i = 0;
+                                                $j = 0;
+                                                $nipg =[];
+                                                foreach ($data_group as $g) {
+                                                    $j++;
+                                                    $sks = 0;
+                                                    $nipk = 0;
+                                                        echo '<tr>
+                                                                <td align="center"></td>
+                                                                <td colspan="2"><b>SEMESTER '.$j.'</b></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>';
+                                                    foreach ($g as $key => $item) {
+                                
+                                                        $i++;
+                                                        $sks += $item->bobot_mata_kuliah;
+                                                        $nangka = 0;
+                                                        $nhuruf = 'E';
+                                                        $indexvsks = 0;
+                                                        $nhuruf = 'E';
+                                                        $nuts = $item->nilai_uts > 0 ? $item->nilai_uts : 0;
+                                                        $nuas = $item->nilai_uas > 0 ? $item->nilai_uas : 0;
+                                                        $ntgs = $item->nilai_tugas > 0 ? $item->nilai_tugas : 0;
+                                                        $nlapopkl = $item->nilai_laporan_pkl > 0 ? $item->nilai_laporan_pkl : 0;
+                                                        $nlapo = $item->nilai_laporan > 0 ? $item->nilai_laporan : 0;
+                                                        $nujian = $item->nilai_ujian > 0 ? $item->nilai_ujian : 0;
+                                
+                                                        if($item->tipe_mata_kuliah == 'praktik'){
+                                                            $nangka = ( (($ntgs * 20) / 100) + (($nuts * 40) / 100) + (($nuas * 40)/100));
+                                                        }elseif ($item->tipe_mata_kuliah == 'teori') {
+                                                            $nangka = ( (($ntgs * 30) / 100) + (($nuts * 30) / 100) + (($nuas * 40)/100));
+                                                        }elseif ($item->tipe_mata_kuliah == 'seminar') {
+                                                            $nangka = ( (($ntgs * 40) / 100) + (($nuts * 30) / 100) + (($nuas * 30)/100));
+                                                        }elseif ($item->tipe_mata_kuliah == 'pkl') {
+                                                            $nangka = ( (($ntgs * 20) / 100) + (($nuts * 20) / 100) + (($nuas * 40)/100) + (($nlapopkl * 20) / 100));
+                                                        }elseif ($item->tipe_mata_kuliah == 'skripsi') {
+                                                            $nangka = ( (($ntgs * 30) / 100) + (($nuts * 20) / 100) + (($nuas * 10)/100) + (($nlapopkl * 10) / 100) + (($nujian * 20) / 100) + (($nlapo * 10) / 100));
+                                                        }
+                                                        if($nangka < 45){
+                                                            $nhuruf = 'E';
+                                                            $nipk += 0 * $item->bobot_mata_kuliah;
+                                                            $indexvsks = 0 * $item->bobot_mata_kuliah;
+                                                            $index = 0;
+                                                        }elseif($nangka > 44 && $nangka< 60){
+                                                            $nhuruf = 'D';
+                                                            $nipk += 1 * $item->bobot_mata_kuliah;
+                                                            $indexvsks = 1 * $item->bobot_mata_kuliah;
+                                                            $index = 1;
+                                                        }elseif($nangka > 59 && $nangka < 70){
+                                                            if((int)($mahasiswa->angkatan_title) < 2018 && $nangka > 65 && $nangka < 70){
+                                                                $nhuruf = 'C+';
+                                                            }else{
+                                                                $nhuruf = 'C';
+                                                            }
+                                                            $nipk += 2 * $item->bobot_mata_kuliah;
+                                                            $indexvsks = 2 * $item->bobot_mata_kuliah;
+                                                            $index = 2;
+                                                        }elseif($nangka > 69 && $nangka <  80){
+                                                            if((int)($mahasiswa->angkatan_title) < 2018 && $nangka > 75 && $nangka <  80){
+                                                                $nhuruf = 'B+';
+                                                            }else{
+                                                                $nhuruf = 'B';
+                                                            }
+                                                            $nipk += 3 * $item->bobot_mata_kuliah;
+                                                            $indexvsks = 3 * $item->bobot_mata_kuliah;
+                                                            $index = 3;
+                                                        }elseif($nangka > 79 && $nangka<= 100){
+                                                            $nhuruf = 'A';
+                                                            $nipk += 4 * $item->bobot_mata_kuliah;
+                                                            $indexvsks = 4 * $item->bobot_mata_kuliah;
+                                                            $index = 4;
+                                                        }else{
+                                                            $nhuruf = 'E';
+                                                            $nipk += 0 * $item->bobot_mata_kuliah;
+                                                            $indexvsks = 0 * $item->bobot_mata_kuliah;
+                                                            $index = 0;
+                                                        }
+                    
+                                                        if($item->tipe_mata_kuliah == 'praktek' || $item->tipe_mata_kuliah == 'skripsi' ||$item->tipe_mata_kuliah == 'seminar' ||$item->tipe_mata_kuliah == 'pkl'){
+                                                            $sksteori = 0; 
+                                                            $skspraktek = $item->bobot_mata_kuliah;
+                                                            $jumlahpr = $item->bobot_mata_kuliah;
+                                                            
+                                                            $nilaiteoriangka = 0;
+                                                            $nilaiteorimutu = '-';  
+                                                            $nilaipraktekangka = $nangka;
+                                                            $nilaipraktekmutu = $nhuruf;
+                                                        }else{
+                                                            $sksteori = $item->bobot_mata_kuliah; 
+                                                            $skspraktek = '-';
+                                                            $jumlahpr = $item->bobot_mata_kuliah;
+                    
+                                                            $nilaiteoriangka = $nangka;
+                                                            $nilaiteorimutu = $nhuruf;  
+                                                            $nilaipraktekangka = "-";
+                                                            $nilaipraktekmutu = '-';
+                                                        }
+                                                        echo '
                                                         <tr>
-                                                            <td align="center"></td>
-                                                            <td></td>
-                                                            <td>TOTAL SKS</td>
-                                                            <td align="center" colspan="7">'.$sks.'</td>
+                                                            <td align="center">'.$i.'</td>
+                                                            <td>'.$item->kode_mata_kuliah.'</td>
+                                                            <td>'.$item->nama_mata_kuliah.'</td>
+                                                            <td align="center">'.$sksteori.'</td>
+                                                            <td align="center">'.$skspraktek.'</td>
+                                                            <td align="center">'.$jumlahpr.'</td>
+                                                            <td align="center">'.$nilaiteoriangka.'</td>
+                                                            <td align="center">'.$nilaiteorimutu.'</td>
+                                                            <td align="center">'.$nilaipraktekangka.'</td>
+                                                            <td align="center">'.$nilaipraktekmutu.'</td>
                                                         </tr>
-                                                        <tr>
-                                                            <td align="center"></td>
-                                                            <td></td>
-                                                            <td>INDEKS PRESTASI (IP)</td>
-                                                            <td align="center" colspan="7">'.round($nipk / $sks ,2).'</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td align="center"></td>
-                                                            <td style="color:#ffffff;height: 2px;font-size:9pt;">.</td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    ';
+                                                        ';
+                                                    }
+                                
+                                                    echo '
                                                     
-                                                    $nipg[] = $nipk / $sks;
-                                            }
+                                                            <tr>
+                                                                <td align="center"></td>
+                                                                <td></td>
+                                                                <td>TOTAL SKS</td>
+                                                                <td align="center" colspan="7">'.$sks.'</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="center"></td>
+                                                                <td></td>
+                                                                <td>INDEKS PRESTASI (IP)</td>
+                                                                <td align="center" colspan="7">'.round($nipk / $sks ,2).'</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td align="center"></td>
+                                                                <td style="color:#ffffff;height: 2px;font-size:9pt;">.</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                        ';
+                                                        
+                                                        $nipg[] = $nipk / $sks;
+                                                }
+                                            
                             
                                             echo '  
                                                     <tr>
@@ -291,6 +293,7 @@
                                                         <td align="center" colspan="7">'.round(array_sum($nipg) / count($nipg) ,2).'</td>
                                                     </tr>
                                           ';
+                                        }
                                             
                                         ?>
                                 </tbody>

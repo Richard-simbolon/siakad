@@ -171,6 +171,10 @@ class Mahasiswa extends Controller
                 if($data['mahasiswa']['tanggal_lahir'] != '' && $data['mahasiswa']['tanggal_lahir'] != null){
                     $data['mahasiswa']['tanggal_lahir'] = date($data['mahasiswa']['tanggal_lahir']);
                 }
+                $password = $this->generate_password();
+                $data['mahasiswa']['password']= $password['hash'];
+                $this->send_password_mail($data['mahasiswa']['email'],$data['mahasiswa']['nama'], $password['pass']);
+                
                 $mahasiswa = MahasiswaModel::create($data['mahasiswa']);
             }
             // SAVE TO TABLE mahasiswa_orang_tua_wali

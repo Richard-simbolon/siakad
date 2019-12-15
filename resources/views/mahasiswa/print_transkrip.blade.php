@@ -169,6 +169,8 @@
                     </thead>
                     <tbody>
                         <?php
+
+                        if(count($data) > 0){
                             $data_group = [];
                             foreach ($data as $key => $value) {
                                 $data_group[$value->semester][] = $value;
@@ -331,6 +333,7 @@
                                         <td align="center" colspan="7">'.round(array_sum($nipg) / count($nipg) ,2).'</td>
                                     </tr>
                           ';
+                        }
                             
                         ?>
 

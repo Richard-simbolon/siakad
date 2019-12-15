@@ -59,7 +59,7 @@
                     <div class="col-lg-12">
                         <?php
                             if(count($data) > 0){
-                                $profile = $data[0];
+                                //$profile = $data[0];
                                 //print_r($profile); 
                             }    
                         ?>
@@ -91,8 +91,9 @@
                                         <tr>
                                             <td>Program Studi</td>
                                             <td>:</td>
-                                            <td><b>{{$profile->program_studi_title}}</b></td>
+                                            <td><b>{{$profile->jurusan_title}}</b></td>
                                         </tr>
+                                       
                                         <tr>
                                             <td>Kelas</td>
                                             <td>:</td>
