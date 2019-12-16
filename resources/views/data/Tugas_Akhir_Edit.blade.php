@@ -24,7 +24,7 @@
                 </div>
                 <div class="kt-subheader__toolbar">
                     <div class="kt-subheader__wrapper">
-                        <a href="{{url('data/tugasakhir')}}" class="btn btn-success"><i class="la la-bars"></i> Daftar</a>
+                        <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
                     </div>
                 </div>
             </div>
@@ -49,6 +49,11 @@
                                 <h3 class="kt-portlet__head-title">
                                     {{$title}}
                                 </h3>
+                            </div>
+                            <div class="kt-portlet__head-toolbar">
+                                <div class="dropdown dropdown-inline show">
+                                    <a href="{{url('data/tugasakhir')}}" class="btn btn-success"><i class="la la-bars"></i> Daftar</a>
+                                </div>
                             </div>
                         </div>
                         <div class="kt-portlet__body">
@@ -140,8 +145,8 @@
                                                                 </select>
                                                             </td>
                                                             <td width="150px" align="center" style="vertical-align: middle">
-                                                            <a href="javascript:void(0)" onclick="addrow()"><i class="la la-plus" style="font-size: 16px;"></i> </a> &nbsp;
-                                                            <a href="javascript:void(0)" onclick="deleterow_exist({{$detail['id']}})"><i class="la la-trash" style="font-size: 16px;"></i> </a>
+                                                            <a href="javascript:void(0)" onclick="addrow()"><i class="la la-plus" style="font-size: 18px;"></i> </a> &nbsp;
+                                                            <a href="javascript:void(0)" onclick="deleterow_exist({{$detail['id']}})"><i class="la la-trash" style="font-size: 18px;"></i> </a>
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -155,7 +160,7 @@
                                                 <i class="la la-arrow-left"></i> Kembali
                                             </a>&nbsp;
                                             <a style="color:#ffffff;" data-prev-url="{{url()->previous()}}" class="btn btn-success" id="update_tugas_akhir">
-                                                 <i class="la la-save"></i> Edit
+                                                 <i class="la la-save"></i> Simpan Perubahan
                                             </a>
                                             <a style="color:#ffffff;" data-prev-url="{{url()->previous()}}" class="btn btn-danger" id="delete_tugas_akhir">
                                                  <i class="la la-trash"></i> Hapus

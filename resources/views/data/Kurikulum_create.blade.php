@@ -26,9 +26,7 @@
             </div>
             <div class="kt-subheader__toolbar">
                 <div class="kt-subheader__wrapper">
-                    <a href="{{ url('/data/kurikulum') }}" class="btn btn-success">
-                        <i class="la la-bars"></i> Daftar &nbsp;
-                    </a>
+                    <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
                 </div>
             </div>
         </div>
@@ -56,6 +54,13 @@
                             <h3 class="kt-portlet__head-title">
                                 &nbsp;Kurikulum
                             </h3>
+                        </div>
+                        <div class="kt-portlet__head-toolbar">
+                            <div class="dropdown dropdown-inline show">
+                                <a href="{{ url('/data/kurikulum') }}" class="btn btn-success">
+                                    <i class="la la-bars"></i> Daftar &nbsp;
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <!--begin::Form-->

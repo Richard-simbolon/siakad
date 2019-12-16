@@ -24,11 +24,10 @@
                         Daftar </a>
                 </div>
             </div>
+
             <div class="kt-subheader__toolbar">
                 <div class="kt-subheader__wrapper">
-                    <a href="{{ url('/data/kurikulum/create') }}" class="btn btn-success">
-                        <i class="flaticon2-plus"></i> Tambah Kurikulum &nbsp;
-                    </a>
+                    <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
                 </div>
             </div>
         </div>
@@ -56,6 +55,13 @@
                         <h3 class="kt-portlet__head-title">
                             &nbsp; Daftar Kurikulum
                         </h3>
+                    </div>
+                    <div class="kt-portlet__head-toolbar">
+                        <div class="dropdown dropdown-inline show">
+                            <a href="{{ url('/data/kurikulum/create') }}" class="btn btn-success">
+                                <i class="la la-plus"></i> Tambah &nbsp;
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <!--begin::Form-->

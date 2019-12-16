@@ -21,7 +21,7 @@
                 </div>
                 <div class="kt-subheader__toolbar">
                     <div class="kt-subheader__wrapper">
-                        <a href="{{url()->current()}}/create" class="btn btn-success"><i class="la la-plus"></i> Tambah</a>
+                        <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
                     </div>
                 </div>
             </div>
@@ -42,6 +42,11 @@
                                 <h3 class="kt-portlet__head-title">
                                     &nbsp;Nilai Perkuliahan
                                 </h3>
+                            </div>
+                            <div class="kt-portlet__head-toolbar">
+                                <div class="dropdown dropdown-inline show">
+                                    <a href="{{url()->current()}}/create" class="btn btn-success"><i class="la la-plus"></i> Tambah</a>
+                                </div>
                             </div>
                         </div>
                         <!--begin::Form-->
@@ -94,7 +99,7 @@
                                 </div>
                             </div>
                             <div class="kt-form__actions">
-                                <button class="btn btn-success btn-sm" id="btn-search-nilai-matakuliah"><i class="flaticon-search"></i>Tampilkan</button>
+                                <button class="btn btn-success" id="btn-search-nilai-matakuliah"><i class="flaticon-search"></i>Tampilkan</button>
                             </div>
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
 
@@ -115,20 +120,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                                {{-- < ?$i = 0?>
-                                                @foreach ($data as $item)
-                                                < ? $i++ ?>
-                                                <tr>
-                                                    <td align="center">{{$i}}</td> 
-                                                    <td align="center">{{$item->nama_mata_kuliah}}</td>
-                                                    <td align="center">{{$item->nama_angkatan}}</td>
-                                                    <td>{{$item->nama_semester}}</td>
-                                                    <td style="vertical-align: center;">{{$item->nama_jurusan}}t</td>
-                                                    <td align="center">{{$item->nama_kelas}}</td>
-                                                    <td align="center">{{$item->nama_dosen}}</td>
-                                                    <td><a href="{{url('data/nilaimahasiswa/view/'. $item->id)}}" > edit/view </a></td>
-                                                </tr>
-                                                @endforeach --}}
+
                                         </tbody>
                                     </table>
                                 </div>

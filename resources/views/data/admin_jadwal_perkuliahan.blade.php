@@ -106,7 +106,7 @@
                         </div>
                         <div class="col-xl-4">
                             <div class="kt-form__actions">
-                                <button class="btn btn-success btn-sm" id="search-jadwal-kuliah"><i class="flaticon-search"></i>Tampilkan</button>
+                                <button class="btn btn-success" id="search-jadwal-kuliah"><i class="flaticon-search"></i>Tampilkan</button>
                             </div>
                         </div>
                         <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>

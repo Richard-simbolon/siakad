@@ -24,7 +24,7 @@
                 </div>
                 <div class="kt-subheader__toolbar">
                     <div class="kt-subheader__wrapper">
-                        <a href="{{url('dosen/uploadsoal')}}" class="btn btn-success"> <i class="la la-bars"></i> Daftar</a>
+                        <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
                     </div>
                 </div>
             </div>
@@ -45,6 +45,11 @@
                                 <h3 class="kt-portlet__head-title">
                                     &nbsp;Upload Soal Ujian
                                 </h3>
+                            </div>
+                            <div class="kt-portlet__head-toolbar">
+                                <div class="dropdown dropdown-inline show">
+                                    <a href="{{url('dosen/uploadsoal')}}" class="btn btn-success"> <i class="la la-bars"></i> Daftar</a>
+                                </div>
                             </div>
                         </div>
                         <!--begin::Form-->
@@ -143,7 +148,7 @@
                                     <a href="{{url()->previous()}}" class="btn btn-label-success">
                                         <i class="la la-arrow-left"></i> Kembali
                                     </a>&nbsp
-                                    <input type="submit" class="btn btn-success" value="Simpan">&nbsp
+                                    <button type="submit" class="btn btn-success"><i class="la la-save"></i> Simpan Perubahan</button>
                                     <a href="javascript:void(0)" class="btn btn-danger" id="btn_hapus_data">
                                         <i class="la la-trash"></i> Hapus
                                     </a>&nbsp

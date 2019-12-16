@@ -20,9 +20,7 @@
             </div>
             <div class="kt-subheader__toolbar">
                 <div class="kt-subheader__wrapper">
-                    <a href="{{url()->current()}}/create" class="btn btn-success">
-                        <i class="la la-plus"></i> Tambah Mahasiswa &nbsp;
-                    </a>
+                    <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
                 </div>
             </div>
         </div>
@@ -46,90 +44,96 @@
                                     Daftar Mahasiswa
                                 </h3>
                             </div>
+                            <div class="kt-portlet__head-toolbar">
+                                <div class="dropdown dropdown-inline show">
+                                    <a href="{{url()->current()}}/create" class="btn btn-success">
+                                        <i class="la la-plus"></i> Tambah  &nbsp;
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                         <div class="kt-portlet__body">
                             <div class="m-portlet__body">
+                                <div class="row">
+                                    <div class="col-xl-4">
+                                        <label>NIM / Nama</label>
+                                        <div class="form-group">
+                                            <select name="jenis_peringkat" id="nimnama" class="form-control  kt-select2">
+                                                <option value=" ">-- Pilih Semua --</option>
+                                                <option value="1">NIM</option>
+                                                <option value="2">Nama</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4">
+                                        <label>Program Studi</label>
+                                        <div class="form-group">
+                                            <select name="mahasiswa[jurusan_id]" id="jurusan" class="form-control kt-select2">
+                                                <option value=" ">-- Pilih Semua --</option>
+                                                @foreach ($master['jurusan'] as $item)
+                                                    <option value="{{$item['title']}}">{{$item['title']}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4">
+                                        <label>Angkatan</label>
+                                        <div class="form-group">
+                                            <select id="search_angkatan" class="form-control kt-select2">
+                                                <option value=" ">-- Pilih Semua --</option>
+                                                @foreach ($master['angkatan'] as $item)
+                                                    <option value="{{$item['title']}}" > {{$item['title']}} </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-4">
+                                        <label>Status</label>
+                                        <div class="form-group">
+                                            <select  id="search_status" class="form-control kt-select2">
+                                                <option value=" ">-- Pilih Semua --</option>
+                                                @foreach ($master['status_mahasiswa'] as $item)
+                                                    <option value="{{$item['title']}}" > {{$item['title']}} </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4">
+                                        <label>Jenis Kelamin</label>
+                                        <div class="form-group">
+                                            <select name="mahasiswa[jk]" id="search_jk" class="form-control">
+                                                <option value=" ">-- Pilih Semua --</option>
+                                                <option value="laki-laki">Laki - laki</option>
+                                                <option value="perempuan">Perempuan</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4">
+                                        <label>Agama</label>
+                                        <div class="form-group">
+                                            <select name="mahasiswa[agama]" id="search_agama" class="form-control kt-select2">
+                                                <option value=" ">-- Pilih Semua --</option>
+                                                @foreach ($master['agama'] as $item)
+                                                    <option value="{{$item['title']}}" > {{$item['title']}} </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-8">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="keyword" id="inputdata" placeholder="Kata kunci">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="kt-form__actions">
+                                    <button class="btn btn-success btn-wide" id="search-button"><i class="flaticon-search"></i>Cari</button>
+                                </div>
 
-                                            <div class="row">
-                                                <div class="col-xl-4">
-                                                    <label>NIM / Nama</label>
-                                                    <div class="form-group">
-                                                        <select name="jenis_peringkat" id="nimnama" class="form-control  kt-select2">
-                                                            <option value=" ">-- Pilih Semua --</option>
-                                                            <option value="1">NIM</option>
-                                                            <option value="2">Nama</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-4">
-                                                    <label>Program Studi</label>
-                                                    <div class="form-group">
-                                                        <select name="mahasiswa[jurusan_id]" id="jurusan" class="form-control kt-select2">
-                                                            <option value=" ">-- Pilih Semua --</option>
-                                                            @foreach ($master['jurusan'] as $item)
-                                                                <option value="{{$item['title']}}">{{$item['title']}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-4">
-                                                    <label>Angkatan</label>
-                                                    <div class="form-group">
-                                                        <select id="search_angkatan" class="form-control kt-select2">
-                                                            <option value=" ">-- Pilih Semua --</option>
-                                                            @foreach ($master['angkatan'] as $item)
-                                                                <option value="{{$item['title']}}" > {{$item['title']}} </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xl-4">
-                                                    <label>Status</label>
-                                                    <div class="form-group">
-                                                        <select  id="search_status" class="form-control kt-select2">
-                                                            <option value=" ">-- Pilih Semua --</option>
-                                                            @foreach ($master['status_mahasiswa'] as $item)
-                                                                <option value="{{$item['title']}}" > {{$item['title']}} </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-4">
-                                                    <label>Jenis Kelamin</label>
-                                                    <div class="form-group">
-                                                        <select name="mahasiswa[jk]" id="search_jk" class="form-control">
-                                                            <option value=" ">-- Pilih Semua --</option>
-                                                            <option value="laki-laki">Laki - laki</option>
-                                                            <option value="perempuan">Perempuan</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-4">
-                                                    <label>Agama</label>
-                                                    <div class="form-group">
-                                                        <select name="mahasiswa[agama]" id="search_agama" class="form-control kt-select2">
-                                                            <option value=" ">-- Pilih Semua --</option>
-                                                            @foreach ($master['agama'] as $item)
-                                                                <option value="{{$item['title']}}" > {{$item['title']}} </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xl-8">
-                                                    <div class="form-group">
-                                                        <input type="text" class="form-control" name="keyword" id="inputdata" placeholder="Kata kunci">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="kt-form__actions">
-                                                <button class="btn btn-success btn-wide" id="search-button"><i class="flaticon-search"></i>Cari</button>
-                                            </div>
-
-                                        <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
+                                <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
 
                                 <table class="table table-striped table-bordered table-hover table-checkable responsive no-wrap general-data-table" id="{{$tableid}}">
                                     <thead>
@@ -155,10 +159,8 @@
             </div>
         </div>
     </div>
-    
-
 <style>
-    .m-content{width:100%};
+    .m-content{width:100%}
     </style>
 
 @section('js')

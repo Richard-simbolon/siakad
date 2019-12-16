@@ -51,7 +51,7 @@
                         <div class="kt-portlet__head-toolbar">
                             <div class="kt-subheader__wrapper">
                                 <a href="javascript:void(0);" class="btn btn-success tambah_pendidikan_dosen">
-                                    <i class="flaticon-plus"></i> Tambah Riwayat &nbsp;
+                                    <i class="la la-plus"></i> Tambah  &nbsp;
                                 </a>
                             </div>
                         </div>

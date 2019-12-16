@@ -24,7 +24,7 @@
                 </div>
                 <div class="kt-subheader__toolbar">
                     <div class="kt-subheader__wrapper">
-                        <a href="{{url('/data/jadwalujian')}}" class="btn btn-success"><i class="la la-bars"></i> Daftar</a>
+                        <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
                     </div>
                 </div>
             </div>
@@ -47,6 +47,11 @@
                                 <h3 class="kt-portlet__head-title">
                                     Tambah Jadwal Ujian - {{strtoupper($jenis_ujian)}}
                                 </h3>
+                            </div>
+                            <div class="kt-portlet__head-toolbar">
+                                <div class="dropdown dropdown-inline show">
+                                    <a href="{{url('/data/jadwalujian')}}" class="btn btn-success"><i class="la la-bars"></i> Daftar</a>
+                                </div>
                             </div>
                         </div>
 

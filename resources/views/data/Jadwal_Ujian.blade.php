@@ -27,7 +27,7 @@
                 </div>
                 <div class="kt-subheader__toolbar">
                     <div class="kt-subheader__wrapper">
-                        <a href="{{url('data/jadwalujian')}}" class="btn btn-success"> <i class="la la-bars"></i> Daftar</a>
+                        <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
                     </div>
                 </div>
             </div>
@@ -48,6 +48,11 @@
                                 <h3 class="kt-portlet__head-title">
                                     &nbsp;Daftar Kelas Perkuliahan
                                 </h3>
+                            </div>
+                            <div class="kt-portlet__head-toolbar">
+                                <div class="dropdown dropdown-inline show">
+                                    <a href="{{url('data/jadwalujian')}}" class="btn btn-success"> <i class="la la-bars"></i> Daftar</a>
+                                </div>
                             </div>
                         </div>
                         <!--begin::Form-->
@@ -89,7 +94,7 @@
                                 </div>
                             </div>
                             <div class="kt-form__actions">
-                                <button class="btn btn-success btn-sm" id="btn-search-nilai-matakuliah"><i class="flaticon-search"></i>Tampilkan</button>
+                                <button class="btn btn-success" id="btn-search-nilai-matakuliah"><i class="flaticon-search"></i>Tampilkan</button>
                             </div>
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
 

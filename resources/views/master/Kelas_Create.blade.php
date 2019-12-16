@@ -22,6 +22,11 @@
                         </div>
                     </div>
                 </div>
+                <div class="kt-subheader__toolbar">
+                    <div class="kt-subheader__wrapper">
+                        <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
@@ -42,6 +47,13 @@
                                 <h3 class="kt-portlet__head-title">
                                     {{$title}}
                                 </h3>
+                            </div>
+                            <div class="kt-portlet__head-toolbar">
+                                <div class="dropdown dropdown-inline show">
+                                    <a href="{{url('master/kelas')}}" class="btn btn-success">
+                                        <i class="la la-bars"></i> Daftar
+                                    </a>
+                                </div>
                             </div>
                         </div>
 

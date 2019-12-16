@@ -24,7 +24,7 @@
                 </div>
                 <div class="kt-subheader__toolbar">
                     <div class="kt-subheader__wrapper">
-                        <a href="{{url('/data/kalenderakademik')}}" class="btn btn-success"><i class="la la-bars"></i> Daftar</a>
+                        <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
                     </div>
                 </div>
             </div>
@@ -49,6 +49,11 @@
                                 <h3 class="kt-portlet__head-title">
                                    Tambah Kalender Akademik
                                 </h3>
+                            </div>
+                            <div class="kt-portlet__head-toolbar">
+                                <div class="dropdown dropdown-inline show">
+                                    <a href="{{url('/data/kalenderakademik')}}" class="btn btn-success"><i class="la la-bars"></i> Daftar</a>
+                                </div>
                             </div>
                         </div>
                         <!-- begin:: Content -->
@@ -134,7 +139,7 @@
                                                         <i class="la la-arrow-left"></i> Kembali
                                                     </a>&nbsp;
                                                     <a style="color:#ffffff;" data-prev-url="{{url()->previous()}}" class="btn btn-success" id="saveKalender">
-                                                        Simpan <i class="la la-save"></i>
+                                                        <i class="la la-save"></i>Simpan
                                                     </a>
                                                 </div>
                                             </div>
