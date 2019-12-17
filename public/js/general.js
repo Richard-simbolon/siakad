@@ -40,6 +40,13 @@ $(document).ready(function(){
                 'X-CSRF-TOKEN': $('#csrf_').val()
             }
         });
+        Swal.fire({
+            title: "Mohon menunggu",
+            imageUrl: "/assets/media/ajaxloader.gif",
+            html:"Data sedang diproses...",
+            showConfirmButton: false,
+            allowOutsideClick: false
+        });
         $.ajax({
             type:'POST',
             dataType:'json',

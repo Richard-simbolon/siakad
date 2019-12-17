@@ -10,6 +10,13 @@ $(document).ready(function() {
             confirmButtonText: 'Ya, hapus data!'
         }).then((result) => {
             if (result.value) {
+                Swal.fire({
+                    title: "Mohon menunggu",
+                    imageUrl: "/assets/media/ajaxloader.gif",
+                    html:"Data sedang diproses...",
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
                 var url = $(this).attr("data-url");
                 $.ajaxSetup({
                     headers: {

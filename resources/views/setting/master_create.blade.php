@@ -141,7 +141,7 @@
                                             <i class="la la-arrow-left"></i> Kembali
                                         </a>&nbsp;
                                         <a style="color:#ffffff;" data-prev-url="{{url()->previous()}}" class="btn btn-success generalsave">
-                                            Submit
+                                            <i class="la la-save"></i> Simpan
                                         </a>
                                         {{--<a href="{{url()->previous()}}" class="btn btn-secondary">--}}
                                             {{--Cancel--}}

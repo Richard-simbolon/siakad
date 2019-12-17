@@ -102,6 +102,13 @@ var KTWizard3 = function () {
                 confirmButtonText: 'Ya, Simpan data!'
             }).then((result) => {
                 if (result.value) {
+                    Swal.fire({
+                        title: "Mohon menunggu",
+                        imageUrl: "/assets/media/ajaxloader.gif",
+                        html:"Data sedang diproses...",
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
                     $.ajax({
                         type:'POST',
                         url: url+'/save',

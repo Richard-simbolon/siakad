@@ -141,15 +141,7 @@ class Mahasiswa extends Controller
             'nama' => 'required',
             'email'=> 'required | email',
             'nim' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
-            'nik' => 'max:20',
-            'nisn' => 'max:20',
             'email' => 'required|email|unique:mahasiswa',
-            'nik' => 'required',
-            'nisn' => 'required',
-            'kewarganegaraan' => 'required',
-            'alamat' => 'required',
             'jurusan_id'=>'required',
             'kelas_id' => 'required'
         ]);
@@ -308,15 +300,9 @@ class Mahasiswa extends Controller
                 'nama' => 'required',
                 'email'=> 'required | email',
                 'nim' => 'required',
-                'tempat_lahir' => 'required',
-                'tanggal_lahir' => 'required',
-                'nik' => 'max:20',
-                'nisn' => 'max:20',
-                'email' => 'required|email',
-                'nik' => 'required',
-                'nisn' => 'required',
-                'kewarganegaraan' => 'required',
-                'alamat' => 'required',
+                'email' => 'required|email|unique:mahasiswa',
+                'jurusan_id'=>'required',
+                'kelas_id' => 'required'
             ]);
 
             if ($validation->fails()) {

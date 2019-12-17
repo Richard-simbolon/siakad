@@ -43,11 +43,6 @@
                                     &nbsp;Nilai Perkuliahan
                                 </h3>
                             </div>
-                            <div class="kt-portlet__head-toolbar">
-                                <div class="dropdown dropdown-inline show">
-                                    <a href="{{url()->current()}}/create" class="btn btn-success"><i class="la la-plus"></i> Tambah</a>
-                                </div>
-                            </div>
                         </div>
                         <!--begin::Form-->
                         <div class="kt-portlet__body">
