@@ -47,6 +47,32 @@ class KebutuhanKhusus extends Controller
                     return view("setting/general_view" , compact("data" , "title" ,"table_display" ,"exclude" ,"Tableshow","tableid"));
 
                 }
+
+                public function sinc(){
+                    $token = $this->check_auth_siakad();
+                    $data = array('act'=>"GetKebutuhanKhusus" , "token"=>$token, "filter"=> "","limit"=>"" , "offset" =>0);
+                    $result_string = $this->runWS($data, 'json');
+                    $result = json_decode($result_string , true);
+                    //print_r($result); exit;
+                    if(array_key_exists('data' , $result)){
+                        if(count($result['data']) > 0){
+                            DB::beginTransaction();
+                            try{
+                                foreach($result['data'] as $item){
+                                    KebutuhanKhususModel::updateOrInsert(array('id'=> $item['id_kebutuhan_khusus'] , 'title' => $item['nama_kebutuhan_khusus']));
+                                }
+                                DB::commit();
+                                DB::table('sinkronisasi_logs')
+                                ->insert(array('title' => 'GetKebutuhanKhusus' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                                return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
+                            } catch(\Exception $e){
+                                DB::rollBack(); 
+                                throw $e;
+                                return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+                            }      
+                        }
+                    }
+                }
                 public function create(){
                     $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
                     $table = array_diff(DB::getSchemaBuilder()->getColumnListing("master_kebutuhan_khusus"), static::$exclude);

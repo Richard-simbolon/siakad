@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
+use Session;
 
 abstract class Controller
 {
@@ -180,6 +181,74 @@ abstract class Controller
 
     public function failed($data){
 
+    }
+
+    function runWS($data, $type='json') {
+        $url = 'http://202.162.198.147:7072/ws/live2.php';
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_POST, 1);
+        $headers = array();
+        if ($type == 'xml')
+            $headers[] = 'Content-Type: application/xml';
+        else
+            $headers[] = 'Content-Type: application/json';
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        if ($data) {
+            if ($type == 'xml') {
+                $data = stringXML($data);
+            }else{
+                /* contoh json:
+                {"act":"GetToken","username":"agus","password":"abcdef"}
+                */
+                $data = json_encode($data);
+            }
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        }
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
+    }
+    
+    function stringXML($data) {
+        $xml = new SimpleXMLElement('<?xml version="1.0"?><data></data>');
+        $this->array_to_xml($data, $xml);
+        return $xml->asXML();
+    }
+    
+    function array_to_xml( $data, &$xml_data ) {
+        foreach( $data as $key => $value ) {
+            if( is_array($value) ) {
+                $subnode = $xml_data->addChild($key);
+                array_to_xml($value, $subnode);
+            } else {
+            //$xml_data->addChild("$key",htmlspecialchars("$value"));
+                $xml_data->addChild("$key",$value);
+            }
+        }
+    }
+
+    public function check_auth_siakad(){
+        return '65d0382866cedf4b5f33a18881556f74';
+        if(!Session::has('login_siakad')){
+           Session::put('login_siakad', $this->GetToken());
+        }
+        return Session::get('login_siakad');
+    }
+
+    public function GetToken(){
+        $username = '445003';
+        $password = '445003123';
+        $data =array('act'=>"GetToken", 'username'=>$username, 'password'=>$password);
+        $result_string = $this->runWS($data, 'json');
+        $result_string = json_decode($result_string , true);
+        if($result_string){
+           return $result_string['data']['token'];
+        }else{
+            echo false;
+        }
+    
     }
 
     public function middleware($middleware, array $options = [])

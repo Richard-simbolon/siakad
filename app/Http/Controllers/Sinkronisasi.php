@@ -10,6 +10,7 @@
     use Illuminate\Support\Facades\Mail;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Redirect;
+    use Session;
 
 class Sinkronisasi extends Controller
     {
@@ -148,8 +149,6 @@ class Sinkronisasi extends Controller
             }
             if($data){
 
-                $to_name = 'Ridcat';
-                $to_email = 'richardsimbolon28@gmail.com';
                 $data = array("name"=>"Ogbonna Vitalis(sender_name)", "body" => "A test mail");
 
                 Mail::send('emails.reminder', ['user' => $data], function ($m) use ($data) {
@@ -192,5 +191,170 @@ class Sinkronisasi extends Controller
             }
         }
 
+    
+    function runWS($data, $type='json') {
+        error_reporting(E_ALL ^ E_WARNING ^ E_NOTICE ^ E_DEPRECATED);
+        session_start();
+        $url = 'http://202.162.198.147:7072/ws/live2.php';
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_POST, 1);
+        $headers = array();
+        if ($type == 'xml')
+            $headers[] = 'Content-Type: application/xml';
+        else
+            $headers[] = 'Content-Type: application/json';
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        if ($data) {
+            if ($type == 'xml') {
+                $data = stringXML($data);
+            }else{
+                /* contoh json:
+                {"act":"GetToken","username":"agus","password":"abcdef"}
+                */
+                $data = json_encode($data);
+            }
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        }
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
     }
+    
+    function stringXML($data) {
+        $xml = new SimpleXMLElement('<?xml version="1.0"?><data></data>');
+        $this->array_to_xml($data, $xml);
+        return $xml->asXML();
+    }
+    
+    function array_to_xml( $data, &$xml_data ) {
+        foreach( $data as $key => $value ) {
+            if( is_array($value) ) {
+                $subnode = $xml_data->addChild($key);
+                array_to_xml($value, $subnode);
+            } else {
+            //$xml_data->addChild("$key",htmlspecialchars("$value"));
+                $xml_data->addChild("$key",$value);
+            }
+        }
+    }
+
+    public function get_data_mahasiswa_need_update(){
+        
+        $token = $this->check_auth_siakad();
+        $data = MahasiswaModel::where('is_sinc' ,'1')->get();
+        if($data){
+            foreach($data as $item){
+
+                if(strlen($item->id_mahasiswa) > 5){
+                    echo 'diupdate';
+                }else{
+                    //echo 'insert';
+                    $this->InsertBiodataMahasiswa($item , $token);
+                }
+            }
+        }
+    }
+
+    public function check_auth_siakad(){
+
+        if(!Session::has('login_siakad')){
+           Session::put('login_siakad', $this->GetToken());
+        }
+        return Session::get('login_siakad');
+    }
+
+    public function GetToken(){
+        $username = '445003';
+        $password = '445003123';
+        $data =array('act'=>"GetToken", 'username'=>$username, 'password'=>$password);
+
+        $result_string = $this->runWS($data, 'json');
+        
+        $result_string = json_decode($result_string , true);
+        
+        if($result_string){
+           return $result_string['data']['token'];
+        }else{
+            echo false;
+        }
+    
+    }
+
+    public function GetBiodataMahasiswa($token){
+        $data = array('act'=>"GetBiodataMahasiswa" , "token"=>$token, "filter"=> "","limit"=>3 , "offset" =>0);
+        $result_string = $this->runWS($data, 'json');
+        return json_decode($result_string , true);
+    }
+
+    public function InsertBiodataMahasiswa($item , $token){
+               
+        $jk = array('laki-laki'=>'L', 'perempuan'=>'P');
+        $data['nama_mahasiswa'] = $item->nama;		    //varying(100)	not null	Nama Mahasiswa
+        $data['jenis_kelamin'] = $jk[$item->jk];		        //character(1)	not null	L: Laki-laki, P: Perempuan, *: Belum ada informasi
+        $data['jalan'] = $item->alamat;		                //character varying(80)		Jalan
+        $data['rt'] = $item->rt;		                //numeric(2,0)		
+        $data['rw'] = $item->rw;		                //numeric(2,0)		
+        $data['dusun'] = $item->dusun;		                //character varying(60)		Nama Dusun
+        $data['kelurahan'] = $item->kelurahan;		            //character varying(60)	not null	
+        $data['kode_pos'] = $item->kode_pos;		            //character(5)		
+        $data['nisn'] = $item->nisn;		                //character(10)		Nomor Induk Siswa Nasional
+        $data['nik'] = $item->nik;		                //character(16)	not null	Nomor Induk Kependudukan, wajib di isi
+        $data['tempat_lahir'] = $item->tempat_lahir;		        //character varying(32)	not null	
+        $data['tanggal_lahir'] = $item->tanggal_lahir;		        //date	not null	yyyy-mm-dd
+        $data['nama_ayah'] = '';		            //varying(100)		
+        $data['tanggal_lahir_ayah'] = '';		//date		yyyy-mm-dd
+        $data['nik_ayah'] = '';		            //character(16)		
+        //$data['id_jenjang_pendidikan_ayah'] = 0;		//numeric(2,0)		Web Service: GetJenjangPendidikan
+        $data['id_pekerjaan_ayah'] = '';		    //integer		Web Service: GetPekerjaan
+        $data['id_penghasilan_ayah'] = '';		//integer		Web Service: GetPenghasilan
+        $data['id_kebutuhan_khusus_ayah'] = 0;  //integer	not null	Default 0	
+        $data['nama_ibu_kandung'] = $item->nama_ibu;		    //varying(100)	not null	
+        $data['tanggal_lahir_ibu'] = '';		    //date		yyyy-mm-dd
+        $data['nik_ibu'] = '';		            //character(16)		
+        //$data['id_jenjang_pendidikan_ibu'] = 0;		//numeric(2,0)		Web Service: GetJenjangPendidikan
+        $data['id_pekerjaan_ibu'] = '';		    //integer		Web Service: GetPekerjaan
+        $data['id_penghasilan_ibu'] = '';	    //	integer		Web Service: GetPenghasilan
+        $data['id_kebutuhan_khusus_ibu'] = 0;   //integer	not null	Default 0
+        $data['nama_wali'] = '';		            //varying(100)		
+        $data['tanggal_lahir_wali'] = '';        //date		yyyy-mm-dd
+        //$data['id_jenjang_pendidikan_wali'] = 0;//		numeric(2,0)		Web Service: GetRecordset:jenjang_pendidikan
+        $data['id_pekerjaan_wali'] = '';		    //integer		Web Service: GetPekerjaan
+        $data['id_penghasilan_wali'] = '';	    //	integer		Web Service: GetPenghasilan
+        $data['id_kebutuhan_khusus_mahasiswa'] = 0;//		integer	not null	Default 0
+        $data['telepon'] = '';		            ///character varying(20)		
+        $data['handphone'] = '';		            //character varying(20)		
+        $data['email'] = '';	//character varying(60)	
+        $data["penerima_kps"] = "0";
+        $data["id_wilayah"] = "056000";
+        $data["id_agama"] = "1";
+        $data["kewarganegaraan"] = "ID";
+        $datas = array('act'=>'InsertBiodataMahasiswa',
+            'token'=>$token,
+            'record'=>$data,
+        );
+        $result_string = $this->runWS($datas, 'json');
+        $result_string = json_decode($result_string , true);
+        if($result_string){
+            MahasiswaModel::where('id' , $item->id)->update(array('id_mahasiswa' => $result_string['data']['id_mahasiswa']));
+           print_r($result_string);
+        }else{
+            echo false;
+        }
+        
+
+    }
+
+    public function GetPekerjaan(){
+        
+    }
+
+
+
+
+
+        
+
+}
         

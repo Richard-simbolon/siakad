@@ -11,31 +11,32 @@ use Illuminate\Support\Facades\Redirect;
 
 class Agama extends Controller
 {
-            static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
-                "title" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Title"],
-                "row_status" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Status"],
-                ];
-            static $html = ["id"=>["type"=>"null" , "value"=>"null" , "validation" => "required"] ,
-                            "title"=>["type"=>"text" , "value"=>"null" , "validation" => ""] ,
-                            "row_status"=>["type"=>"radio" , "value"=>"active,notactive,deleted" , "validation" => "required"] ,
-                            ];
-            static $exclude = ["id","created_at","updated_at","created_by","updated_by"];
-            static $tablename = "agama";
-            public function __construct()
-                {
-                    $this->middleware(function ($request, $next) {
-                        $this->user = Auth::user();
-                        if(!$this->user){
-                            Redirect::to('login')->send();
-                        }
-                        if($this->user->login_type != 'admin'){
-                            return abort(404);
-                        }else{
-                            return $next($request);
-                        }
-                    });
-                    
+    static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
+        "title" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Title"],
+        "row_status" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Status"],
+        ];
+    static $html = ["id"=>["type"=>"null" , "value"=>"null" , "validation" => "required"] ,
+                    "title"=>["type"=>"text" , "value"=>"null" , "validation" => ""] ,
+                    "row_status"=>["type"=>"radio" , "value"=>"active,notactive,deleted" , "validation" => "required"] ,
+                    ];
+    static $exclude = ["id","created_at","updated_at","created_by","updated_by"];
+    static $tablename = "agama";
+    public function __construct()
+        {
+            $this->middleware(function ($request, $next) {
+                $this->user = Auth::user();
+                if(!$this->user){
+                    Redirect::to('login')->send();
                 }
+                if($this->user->login_type != 'admin'){
+                    return abort(404);
+                }else{
+                    return $next($request);
+                }
+            });
+            
+        }
+
     public function index()
     {
         $data = AgamaModel::get();
@@ -56,8 +57,36 @@ class Agama extends Controller
         $html = static::$html;
         $column = 1;
         return view('setting/master_create' , compact('table' ,'exclude' , 'Tableshow' , 'title' , 'html' , "column"));
-
     }
+
+
+    public function sinc(){
+        $token = $this->check_auth_siakad();
+        $data = array('act'=>"GetAgama" , "token"=>$token, "filter"=> "","limit"=>"" , "offset" =>0);
+        $result_string = $this->runWS($data, 'json');
+        
+        $result = json_decode($result_string , true);
+        //print_r($result); exit;
+        if(array_key_exists('data' , $result)){
+            if(count($result['data']) > 0){
+                DB::beginTransaction();
+                try{
+                    foreach($result['data'] as $item){
+                        AgamaModel::updateOrInsert(array('id'=> $item['id_agama'], 'title'=>$item['nama_agama']));
+                    }
+                    DB::commit();
+                    DB::table('sinkronisasi_logs')
+                    ->insert(array('title' => 'GetAgama' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                    return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
+                } catch(\Exception $e){
+                    DB::rollBack(); 
+                    throw $e;
+                    return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+                }      
+            }
+        }
+    }
+
 
     public function view($id){
         $data = AgamaModel::where('id' , $id)->first();

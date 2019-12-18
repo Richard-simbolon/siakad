@@ -52,6 +52,7 @@ class Jurusan extends Controller
                     return view("setting/general_view" , compact("data" , "title" ,"table_display" ,"exclude" ,"Tableshow","tableid"));
 
                 }
+
                 public function create(){
                     $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
                     $table = array_diff(DB::getSchemaBuilder()->getColumnListing("master_jurusan"), static::$exclude);

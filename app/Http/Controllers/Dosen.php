@@ -277,7 +277,7 @@ class Dosen extends Controller
         $new_password = implode($pass);
 
         $password['password'] = Hash::make($new_password);
-        $data = DosenModel::select('email' ,'nama')->where('id' ,$id)->first();
+        //$data = DosenModel::select('email' ,'nama')->where('id' ,$id)->first();
         //$this->send_password_mail($data->email,$data->nama, $password['password']);
         if($id != '' || $id != null){
             if(DosenModel::where('id' ,$id)->update($password)){

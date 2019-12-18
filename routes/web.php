@@ -213,6 +213,10 @@ foreach($results as $val){
     if($val->crud == 1){
         Route::get(strtolower($val->link), $val->mval.'@index')->name($val->mval);
         Route::post(strtolower($val->link).'/save', $val->mval.'@'.'save')->name($val->mval.'save');
+
+        Route::get(strtolower($val->link).'/sinc', $val->mval.'@'.'sinc')->name($val->mval.'sinc');
+
+
         Route::get(strtolower($val->link).'/create', $val->mval.'@'.'create')->name($val->mval.'create');
         Route::post(strtolower($val->link).'/update', $val->mval.'@'.'update')->name($val->mval.'update');
         Route::get(strtolower($val->link).'/edit/{id}', $val->mval.'@'.'edit')->name($val->mval.'edit');
@@ -239,6 +243,7 @@ Route::post('administrator/change_password', 'Administrator@change_password')->n
 //Route::post('module/administrator/create', 'Administrator@create')->name('Jadwal Perkuliahan');
 
 Route::get('data/sinkronisasi', 'Sinkronisasi@index')->name('Sinkronisasi Data');
+Route::post('sinkronisasi/mahasiswa', 'Sinkronisasi@get_data_mahasiswa_need_update')->name('Sinkronisasi Mahasiswa');
 
 Auth::routes();
 Route::post('g_password/generate_key', 'Administrator@generate_key')->name('generate_key');
