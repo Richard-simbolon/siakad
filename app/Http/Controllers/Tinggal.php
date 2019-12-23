@@ -47,6 +47,37 @@ class Tinggal extends Controller
                     return view("setting/general_view" , compact("data" , "title" ,"table_display" ,"exclude" ,"Tableshow","tableid"));
 
                 }
+
+                public function sinc(){
+                    //echo 'ad';
+                    $token = $this->check_auth_siakad();
+                    //echo $token; exit;
+                    $data = array('act'=>"GetJenisTinggal" , "token"=>$token, "filter"=> "","limit"=>"" , "offset" =>0);
+                    $result_string = $this->runWS($data, 'json');
+                    
+                    $result = json_decode($result_string , true);
+                    //echo count($result['data']);
+                    //print_r($result); exit;
+                    if(array_key_exists('data' , $result)){
+                        if(count($result['data']) > 1){
+                            DB::beginTransaction();
+                            try{
+                                foreach($result['data'] as $item){
+                                    TinggalModel::updateOrInsert(array('id'=> $item['id_jenis_tinggal'] , 'title'=>$item['nama_jenis_tinggal']));
+                                }
+                                DB::commit();
+                                DB::table('sinkronisasi_logs')
+                                ->insert(array('title' => 'GetJenisTinggal' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                                return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
+                            } catch(\Exception $e){
+                                DB::rollBack(); 
+                                throw $e;
+                                return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+                            }      
+                        }
+                    }
+                }
+
                 public function create(){
                     $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
                     $table = array_diff(DB::getSchemaBuilder()->getColumnListing("master_jenis_tinggal"), static::$exclude);

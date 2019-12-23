@@ -99,13 +99,26 @@
                                     <div class="kt-form__section kt-form__section--first">
                                         <div class="kt-wizard-v3__form">
                                             <div class="row">
-                                                <div class="col-xl-6">
+                                                <div class="col-xl-3">
                                                     <div class="form-group">
                                                         <label>Angkatan</label>
                                                         <div class="form-group">
                                                             <select name="mahasiswa[angkatan]" class="form-control kt-select2">
                                                                 <option value="">-- Pilih Angkatan --</option>
                                                                 @foreach ($master['angkatan'] as $item)
+                                                                    <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-3">
+                                                    <div class="form-group">
+                                                        <label>Periode Masuk</label>
+                                                        <div class="form-group">
+                                                            <select name="mahasiswa[id_periode_masuk]" class="form-control kt-select2">
+                                                                <option value="">-- Pilih Periode Masuk --</option>
+                                                                @foreach ($master['periode_masuk'] as $item)
                                                                     <option value="{{$item['id']}}">{{$item['title']}}</option>
                                                                 @endforeach
                                                             </select>
@@ -204,11 +217,11 @@
                                                         <label>Jenis Kelamin</label>
                                                         <div class="kt-radio-inline" style="padding-top: 9px!important;">
                                                             <label class="kt-radio">
-                                                                <input type="radio" name="mahasiswa[jk]" value="laki-laki" checked> Laki-laki
+                                                                <input type="radio" name="mahasiswa[jk]" value="L" checked> Laki-laki
                                                                 <span></span>
                                                             </label>
                                                             <label class="kt-radio">
-                                                                <input type="radio" name="mahasiswa[jk]" value="perempuan"> Perempuan
+                                                                <input type="radio" name="mahasiswa[jk]" value="P"> Perempuan
                                                                 <span></span>
                                                             </label>
                                                         </div>
@@ -355,10 +368,15 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Kewarganegaraan *</label>
                                                     <div class="form-group">
-                                                        <label>Kewarganegaraan *</label>
-                                                        <input type="text" class="form-control" name="mahasiswa[kewarganegaraan]" placeholder="Isikan Kewarganegaraan">
+                                                        <select name="mahasiswa[kewarganegaraan]" class="form-control kt-select2">
+                                                            <option value="">-- Kewarganegaraan --</option>
+                                                            @foreach ($master['negara'] as $item)
+                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">

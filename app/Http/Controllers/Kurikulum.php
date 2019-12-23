@@ -1,17 +1,18 @@
 <?php
-            namespace App\Http\Controllers;
-            use App\SemesterModel;
-            use Illuminate\Support\Facades\DB;
-            use Illuminate\Support\Facades\Validator;
-            use Illuminate\Http\Request;
-            use App\ KurikulumModel;
-            use Yajra\DataTables\DataTables;
-            use App\AngkatanModel;
-            use App\JurusanModel;
-            use App\MataKuliahModel;
+namespace App\Http\Controllers;
+use App\SemesterModel;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use App\ KurikulumModel;
+use Yajra\DataTables\DataTables;
+use App\AngkatanModel;
+use App\JurusanModel;
+use App\MataKuliahModel;
 use App\TahunAjaranModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\KurikulumMatkulModel;
 
 class Kurikulum extends Controller
 {
@@ -23,6 +24,27 @@ class Kurikulum extends Controller
     ];
     static $exclude = ["id","created_at","updated_at","created_by","update_by"];
     static $tablename = "Kurikulum";
+
+
+    static $webserviceget = [
+        'id_kurikulum' => 'id_kurikulum',
+        'nama_kurikulum' => 'nama_kurikulum',
+        'program_studi_id' => 'id_prodi',
+        'mulai_berlaku' => 'id_semester',
+        'jumlah_sks' => 'jumlah_sks_lulus',
+        'jumlah_bobot_mata_kuliah_wajib' => 'jumlah_sks_wajib',
+        'jumlah_bobot_mata_kuliah_pilihan' => 'jumlah_sks_pilihan',
+        'jumlah_sks_mata_kuliah_wajib' => 'jumlah_sks_mata_kuliah_wajib',
+        'jumlah_sks_mata_kuliah_pilihan' => 'jumlah_sks_mata_kuliah_pilihan',
+    ];
+
+    static $webservicegetmatkul = [
+        'kurikulum_id' => 'id_kurikulum',
+        'mata_kuliah_id' => 'id_matkul',
+        'id_prodi' => 'id_prodi',
+        'semester' => 'semester',
+        'is_wajib' =>'apakah_wajib'
+    ];
 
     public function __construct()
     {
@@ -59,6 +81,68 @@ class Kurikulum extends Controller
         ->get();
         return view("data/kurikulum" , compact('data' ,"master"));
 
+    }
+    
+    public function sinc(){
+        $token = $this->check_auth_siakad();
+        $data = array('act'=>"GetListKurikulum" , "token"=>$token, "filter"=> "","limit"=>"" , "offset" =>0);
+        $result_string = $this->runWS($data, 'json');
+        $result = json_decode($result_string , true);
+       // print_r($result); exit;
+        if(array_key_exists('data' , $result)){
+            DB::beginTransaction();
+            try{
+                foreach($result['data'] as $item){
+                    $service_data = [];
+                    foreach(static::$webserviceget as $key=>$val){         
+                        if($item[$val]){
+                            $service_data[$key] = $item[$val];
+                        }
+                    }
+                    KurikulumModel::updateOrCreate(array('id_kurikulum' => $item['id_kurikulum']) , $service_data);
+                }
+                DB::commit();
+                DB::table('sinkronisasi_logs')
+                ->insert(array('title' => 'GetListKurikulum' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
+            } catch(\Exception $e){
+                    DB::rollBack(); 
+                    throw $e;
+                    return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+                }
+            }
+        
+    }
+
+    public function sinc_kurikulum_mata_kuliah(){
+        $token = $this->check_auth_siakad();
+        $data = array('act'=>"GetMatkulKurikulum" , "token"=>$token, "filter"=> "","limit"=>"" , "offset" =>0);
+        $result_string = $this->runWS($data, 'json');
+        $result = json_decode($result_string , true);
+        //print_r($result); exit;
+        if(array_key_exists('data' , $result)){
+            DB::beginTransaction();
+            try{
+                foreach($result['data'] as $item){
+                    $service_data = [];
+                    foreach(static::$webservicegetmatkul as $key=>$val){         
+                        if($item[$val]){
+                            $service_data[$key] = $item[$val];
+                        }
+                    }
+                   KurikulumMatkulModel::updateOrCreate(array('kurikulum_id' => $item['id_kurikulum'] , 'mata_kuliah_id'=> $item['id_matkul'] ,'id_prodi'=>$item['id_prodi']) , $service_data);
+                }
+                DB::commit();
+                DB::table('sinkronisasi_logs')
+                ->insert(array('title' => 'GetMatkulKurikulum' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
+            } catch(\Exception $e){
+                    DB::rollBack(); 
+                    throw $e;
+                    return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+                }
+            }
+        
     }
 
     public function filtering_table(Request $request){

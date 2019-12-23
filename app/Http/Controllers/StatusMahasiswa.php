@@ -57,6 +57,32 @@ class StatusMahasiswa extends Controller
 
                 }
 
+                public function sinc(){
+                    $token = $this->check_auth_siakad();
+                    $data = array('act'=>"GetStatusMahasiswa" , "token"=>$token, "filter"=> "","limit"=>"" , "offset" =>0);
+                    $result_string = $this->runWS($data, 'json');
+                    $result = json_decode($result_string , true);
+                    //print_r($result); exit;
+                    if(array_key_exists('data' , $result)){
+                        if(count($result['data']) > 1){
+                            DB::beginTransaction();
+                            try{
+                                foreach($result['data'] as $item){
+                                    StatusMahasiswaModel::updateOrInsert(array('id'=> $item['id_status_mahasiswa'] , 'title'=>$item['nama_status_mahasiswa']));
+                                }
+                                DB::commit();
+                                DB::table('sinkronisasi_logs')
+                                ->insert(array('title' => 'GetStatusMahasiswa' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                                return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
+                            } catch(\Exception $e){
+                                DB::rollBack(); 
+                                throw $e;
+                                return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+                            }      
+                        }
+                    }
+                }
+
                 public function save(Request $request){
                     $input = $request->all();
                     $field = [];

@@ -215,6 +215,10 @@ foreach($results as $val){
     if($val->crud == 1){
         Route::get(strtolower($val->link), $val->mval.'@index')->name($val->mval);
         Route::post(strtolower($val->link).'/save', $val->mval.'@'.'save')->name($val->mval.'save');
+
+        Route::get(strtolower($val->link).'/sinc', $val->mval.'@'.'sinc')->name($val->mval.'sinc');
+
+
         Route::get(strtolower($val->link).'/create', $val->mval.'@'.'create')->name($val->mval.'create');
         Route::post(strtolower($val->link).'/update', $val->mval.'@'.'update')->name($val->mval.'update');
         Route::get(strtolower($val->link).'/edit/{id}', $val->mval.'@'.'edit')->name($val->mval.'edit');
@@ -223,6 +227,7 @@ foreach($results as $val){
        // Route::post(strtolower($val->link).'/delete', $val->mval.'@'.'delete')->name($val->mval.'delete');
         Route::post(strtolower($val->link).'/paging', $val->mval.'@'.'paging')->name('pagination');
     }else if($val->crud == 2){
+        
         Route::get(strtolower($val->link), $val->mval.'@index')->name($val->mval);
         Route::get(strtolower($val->link), $val->mval)->name($val->mval);
     }else{
@@ -241,6 +246,7 @@ Route::post('administrator/change_password', 'Administrator@change_password')->n
 //Route::post('module/administrator/create', 'Administrator@create')->name('Jadwal Perkuliahan');
 
 Route::get('data/sinkronisasi', 'Sinkronisasi@index')->name('Sinkronisasi Data');
+Route::post('sinkronisasi/mahasiswa', 'Sinkronisasi@get_data_mahasiswa_need_update')->name('Sinkronisasi Mahasiswa');
 
 Auth::routes();
 Route::post('g_password/generate_key', 'Administrator@generate_key')->name('generate_key');
@@ -249,3 +255,11 @@ Route::get('/home/getcalender', 'HomeController@getcalender')->name('getcalender
 
 //Route::get('/mahasiswa/login', 'Auth\LoginController@showLoginForm')->name('login');
 
+
+// WEB SERVICE
+Route::get('sinc_riwayat_pend', 'Mahasiswa@sinc_riwayat_pend')->name('sinc_riwayat_pend');
+Route::get('sinc_insert', 'Mahasiswa@sinc_insert')->name('sinc_insert');
+
+Route::get('sinc_krs', 'Mahasiswa@sinc_krs')->name('sinc_krs');
+Route::get('sinc_kelas_perkuliahan', 'KelasPerkuliahan@sinc_kelas_perkuliahan')->name('sinc_kelas_perkuliahan');
+Route::get('sinc_kurikulum_mata_kuliah', 'Kurikulum@sinc_kurikulum_mata_kuliah')->name('sinc_kurikulum_mata_kuliah');

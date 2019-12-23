@@ -52,6 +52,33 @@ class Jurusan extends Controller
                     return view("setting/general_view" , compact("data" , "title" ,"table_display" ,"exclude" ,"Tableshow","tableid"));
 
                 }
+
+                public function sinc(){
+                    $token = $this->check_auth_siakad();
+                    //echo $token;
+                    $data = array('act'=>"GetProdi" , "token"=>$token, "filter"=> "","limit"=>"" , "offset" =>0);
+                    $result_string = $this->runWS($data, 'json');
+                    $result = json_decode($result_string , true);
+                    if(array_key_exists('data' , $result)){
+                        if(count($result['data']) > 1){
+                            DB::beginTransaction();
+                            try{
+                                foreach($result['data'] as $item){
+                                    JurusanModel::updateOrInsert(array('id'=> $item['id_prodi']) , array('id'=> $item['id_prodi'] , 'title'=>$item['nama_program_studi'], 'kode_program_studi'=>$item['kode_program_studi'], 'status'=>$item['status'], 'id_jenjang_pendidikan'=>$item['id_jenjang_pendidikan']));
+                                }
+                                DB::commit();
+                                DB::table('sinkronisasi_logs')
+                                ->insert(array('title' => 'GetProdi' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                                return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
+                            } catch(\Exception $e){
+                                DB::rollBack(); 
+                                throw $e;
+                                return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+                            }      
+                        }
+                    }
+                }
+
                 public function create(){
                     $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
                     $table = array_diff(DB::getSchemaBuilder()->getColumnListing("master_jurusan"), static::$exclude);

@@ -110,7 +110,19 @@
                 confirmButtonText: 'Sync Sekarang'
             }).then((result) => {
                 if (result.value) {
-
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('#csrf_').val()
+                        }
+                    });
+                    $.ajax({
+                        type:'POST',
+                        url:'/sinkronisasi/mahasiswa',
+                        data:{'jurusan':$('#jurusan-mahasiswa').val() , 'angkatan':$('#angkatan-mahasiswa').val()},
+                        success:function(result) {
+                            console.log(result);
+                        }
+                    });
                 }
             });
         }

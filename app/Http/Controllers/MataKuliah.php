@@ -85,6 +85,35 @@ class MataKuliah extends Controller
         return view("setting/general_view" , compact("data" , "title" ,"table_display" ,"exclude" ,"Tableshow","tableid"));
 
     }
+    
+
+    public function sinc(){
+        $token = $this->check_auth_siakad();
+        $data = array('act'=>"GetDetailMataKuliah" , "token"=>$token, "filter"=> "","limit"=>"" , "offset" =>0);
+        $result_string = $this->runWS($data, 'json');
+        $result = json_decode($result_string , true);
+        //print_r($result); exit;
+        if(array_key_exists('data' , $result)){
+            if(count($result['data']) > 1){
+                DB::beginTransaction();
+                try{
+                    foreach($result['data'] as $item){
+                        unset($item['nama_program_studi']);
+                        MataKuliahModel::updateOrInsert($item);
+                    }
+                    DB::commit();
+                    DB::table('sinkronisasi_logs')
+                    ->insert(array('title' => 'GetListMataKuliah' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                    return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
+                } catch(\Exception $e){
+                    DB::rollBack(); 
+                    throw $e;
+                    return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+                }      
+            }
+        }
+    }
+
     public function create(){
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
