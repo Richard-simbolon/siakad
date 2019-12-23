@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+                    
 
 class Dosen extends Controller
 {
@@ -41,6 +42,48 @@ class Dosen extends Controller
 ];
     static $exclude = ["id","created_at","updated_at","created_by","update_by"];
     static $tablename = "Dosen";
+
+    static $bio_websevice = [
+        'bio' => [
+            'id_dosen' => 'id_dosen',
+            'nama'=> 'nama_dosen',
+            'tempat_lahir' =>'tempat_lahir',
+            'tanggal_lahir' =>'tanggal_lahir',
+            'jenis_kelamin'=>'jenis_kelamin',
+            'agama' =>'id_agama',
+            'status_pegawai'=>'id_status_aktif',
+            'nidn_nup_nidk'=>'nidn',
+            'nama_ibu'=>'nama_ibu',
+            'nik'=>'nik',
+            'nip'=>'nip',
+            'npwp'=>'npwp',
+            'jenis_pegawai'=>'id_jenis_sdm',
+            'no_sk_cpns'=>'no_sk_cpns',
+            'tanggal_sk_cpns'=>'tanggal_sk_cpns',
+            'no_sk_pengangkatan'=>'no_sk_pengangkatan',
+            'tgl_sk_pengangkatan'=>'mulai_sk_pengangkatan',
+            'lembaga_pengangkatan'=>'id_lembaga_pengangkatan',
+            'pangkat_golongan'=>'id_pangkat_golongan',
+            'sumber_gaji'=>'id_sumber_gaji',
+            'alamat'=>'jalan',
+            'dusun'=>'dusun',
+            'rt'=>'rt',
+            'rw'=>'rw',
+            'kelurahan'=>'ds_kel',
+            'kode_pos'=>'kode_pos',
+            'id_wilayah'=>'id_wilayah',
+            'telepon'=>'telepon',
+            'no_hp'=>'handphone',
+            'email'=>'email'
+        ],
+        'pernikahan'=> [
+            'status_pernikahan'=>'status_pernikahan',
+            'nama_pasangan'=>'nama_suami_istri',
+            'nip_pasangan'=>'nip_suami_istri',
+            'tmt_pns'=>'tanggal_mulai_pns',
+            'pekerjaan'=>'id_pekerjaan_suami_istri'
+        ]
+];
 
     public function __construct()
     {
@@ -58,8 +101,47 @@ class Dosen extends Controller
         
     }
 
+    public function sinc(){
+        
+        $token = $this->check_auth_siakad();
+        //echo $token; exit;
+        $data = array('act'=>"DetailBiodataDosen" , "token"=>$token, "filter"=> "","limit"=>"" , "offset" =>0);
+        $result_string = $this->runWS($data, 'json');
+        $result = json_decode($result_string , true);
+        print_r($result );
+        if(array_key_exists('data' , $result)){
+            //DB::beginTransaction();
+            //    try{
+            foreach($result['data'] as $item){
+                
+                    $service_data = [];
+                    foreach(static::$bio_websevice as $key=>$val){
+                        foreach(static::$bio_websevice[$key] as $key2=>$val2){
+                            $service_data[$key][$key2] = $item[$val2];
+                        }
+                    }
+                    $dosen_id = DosenModel::updateOrCreate(array('id_dosen' => $service_data['bio']['id_dosen']), $service_data['bio']);
+                    DosenKeluargaModel::updateOrCreate(array('dosen_id' => $dosen_id->id) , $service_data['pernikahan']);
+                    
+                    
+                }
+                DB::table('sinkronisasi_logs')
+                ->insert(array('title' => 'DetailBiodataDosen' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
+                //DB::commit();
+            //} catch(\Exception $e){
+            //    DB::rollBack(); 
+            //    throw $e;
+            //    return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+            //}  
+        
+        }
+        
+    }
+
     public function index()
     {
+        
         $data = DosenModel::get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $tableid = "Dosen";

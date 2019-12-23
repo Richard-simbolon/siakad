@@ -34,6 +34,8 @@ use App\ReportSettingModel;
 use PDF;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
+use App\NegaraModel;
+use App\ProfilePTModel;
 
 class Mahasiswa extends Controller
 {
@@ -57,7 +59,7 @@ class Mahasiswa extends Controller
                                 'nik' => 'nik' , 
                                 'nisn' => 'nisn' , 
                                 'npwp' => 'npwp' , 
-                                'kewarganegaraan' => 'id_negara' , 
+                                //'kewarganegaraan' => 'id_negara' , 
                                 'alamat' => 'jalan' , 
                                 'dusun' => 'dusun' , 
                                 'rt' => 'rt' , 
@@ -72,23 +74,16 @@ class Mahasiswa extends Controller
                                 'email' => 'email' , 
                                 'is_penerima_kps' => 'penerima_kps' , 
                                 'no_kps' => 'nomor_kps' , 
-                                
+                                'kewarganegaraan'=>'kewarganegaraan',
+                                //'kecamatan' => 'kecamatan' , 
+                                //'nama_ibu' => 'nama_ibu_kandung', 
                                 /*'kelas_id' => 'kelas_id' , 
                                 'angkatan' => 'angkatan' , 
                                 'status' => 'status' , 
                                 'nama_ibu' => 'nama_ibu' , 
                                 'password' => 'password' , 
-                                'nim' => 'nim' , 
-                                'jurusan_id' => 'jurusan_id' , 
-                                'jenis_pendaftaran' => 'jenis_pendaftaran' , 
-                                'jalur_pendaftaran' => 'jalur_pendaftaran' , 
                                 'pembimbing_akademik' => 'pembimbing_akademik' , 
-                                'tanggal_masuk' => 'tanggal_masuk' , 
-                                'jenis_pembiayaan' => 'jenis_pembiayaan' , 
-                                'biaya_masuk' => 'biaya_masuk' , 
-                                'asal_program_studi' => 'asal_program_studi' , 
-                                'jumlah_sks_diakui' => 'jumlah_sks_diakui' , 
-                                'asal_perguruan_tinggi' => 'asal_perguruan_tinggi' , 
+                                'biaya_masuk' => 'jenis_pembiayaan' , 
                                 'kecamatan' => 'kecamatan' , 
                                 'created_at' => 'created_at' , 
                                 'created_by' => 'created_by' , 
@@ -98,7 +93,7 @@ class Mahasiswa extends Controller
                             ],
                             'ibu' =>
                             [
-                                'nama' =>'nama_ibu' , 
+                                'nama' =>'nama_ibu_kandung' , 
                                 'nik' => 'nik_ibu', 
                                 'tanggal_lahir'=>'tanggal_lahir_ibu',
                                 'pendidikan_id'=>'id_pendidikan_ibu',
@@ -131,6 +126,21 @@ class Mahasiswa extends Controller
                                 'kebutuhan_mahasiswa' => 'id_kebutuhan_khusus_mahasiswa',
                             ]
                         ];
+    static $webserviceriwayatpendidikan = [
+                                            'id_registrasi_mahasiswa' => 'id_registrasi_mahasiswa',
+                                            'id_mahasiswa' => 'id_mahasiswa' ,
+                                            'nim' => 'nim' , 
+                                            'jenis_pendaftaran' => 'id_jenis_daftar' , 
+                                            'jalur_pendaftaran' => 'id_jalur_daftar' , 
+                                            'jurusan_id' => 'id_prodi' , 
+                                            'id_semester' => 'id_periode_masuk',
+                                            'tanggal_masuk' => 'tanggal_daftar' ,
+                                            //'id_perguruan_tinggi' =>'id_perguruan_tinggi',
+                                            'jumlah_sks_diakui' => 'sks_diakui' , 
+                                            'asal_perguruan_tinggi' => 'id_perguruan_tinggi_asal' , 
+                                            'asal_program_studi' => 'id_prodi_asal' , 
+                                            'jenis_pembiayaan' => 'id_pembiayaan'
+                                          ];
 
     public function __construct()
     {
@@ -151,7 +161,7 @@ class Mahasiswa extends Controller
     
     public function index()
     {
-        
+       
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
             'jenis_pendaftaran' => JenisPendaftaranModel::where('row_status' , 'active')->get(),
@@ -167,6 +177,7 @@ class Mahasiswa extends Controller
             'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
             'agama' => AgamaModel::where('row_status' , 'active')->get(),
             'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'periode_masuk' => SemesterModel::where('row_status' , 'active')->get(),
             'status_mahasiswa' => StatusMahasiswaModel::where('row_status' , 'active')->get()
         );
         
@@ -190,30 +201,24 @@ class Mahasiswa extends Controller
 
 
     public function sinc(){
-        /*$service_data = [];
-        foreach(static::$webservice as $key=>$val){
-            foreach(static::$webservice[$key] as $key2=>$val2){
-                $service_data[$key][$key2] = $val2;
-            }
-        }   
-        print_r($service_data); exit;*/
-       
+        
         $token = $this->check_auth_siakad();
-        $data = array('act'=>"GetBiodataMahasiswa" , "token"=>$token, "filter"=> "","limit"=>"" , "offset" =>0);
+        //echo $token; exit;
+        $data = array('act'=>"GetBiodataMahasiswa" , "token"=>$token, "filter"=> "","limit"=>"1" , "offset" =>0);
         $result_string = $this->runWS($data, 'json');
         $result = json_decode($result_string , true);
         //print_r($result); exit;
         if(array_key_exists('data' , $result)){
             foreach($result['data'] as $item){
-                $service_data = [];
-                foreach(static::$webservice as $key=>$val){
-                    foreach(static::$webservice[$key] as $key2=>$val2){
-                        $service_data[$key][$key2] = $item[$val2];
+                DB::beginTransaction();
+                try{
+                    $service_data = [];
+                    foreach(static::$webservice as $key=>$val){
+                        foreach(static::$webservice[$key] as $key2=>$val2){
+                            $service_data[$key][$key2] = $item[$val2];
+                        }
                     }
-                }
-                //echo strlen($item['id_mahasiswa']); exit;
-                //if(strlen($item['id_mahasiswa']) < 8){
-                    $mahasiswa = MahasiswaModel::firstOrCreate(array('id_mahasiswa' => $service_data['mahasiswa']['id_mahasiswa']), $service_data['mahasiswa']);
+                    $mahasiswa = MahasiswaModel::updateOrCreate(array('id_mahasiswa' => $service_data['mahasiswa']['id_mahasiswa']), $service_data['mahasiswa']);
                     $service_data['ibu']['mahasiswa_id'] = $mahasiswa->id;
                     $service_data['ibu']['kategori'] = 'ibu';
                     $service_data['ayah']['mahasiswa_id'] = $mahasiswa->id;
@@ -221,28 +226,143 @@ class Mahasiswa extends Controller
                     $service_data['wali']['mahasiswa_id'] = $mahasiswa->id;
                     $service_data['wali']['kategori'] = 'wali';
                     $service_data['kebutuhan_khusus']['mahasiswa_id'] = $mahasiswa->id;
-                    MahasiswaOrangtuawaliModel::firstOrCreate(array('mahasiswa_id' => $mahasiswa->id , 'kategori' => 'ibu') , $service_data['ibu']);
-                    MahasiswaOrangtuawaliModel::firstOrCreate(array('mahasiswa_id' => $mahasiswa->id , 'kategori' => 'ayah') , $service_data['ayah']);
-                    MahasiswaOrangtuawaliModel::firstOrCreate(array('mahasiswa_id' => $mahasiswa->id, 'kategori' => 'wali') , $service_data['wali']);
-                    MahasiswaKebutuhanModel::firstOrCreate(array('mahasiswa_id' => $mahasiswa->id), $service_data['kebutuhan_khusus']);
-                /*}else{
-                   // echo $service_data['mahasiswa']['id_mahasiswa']; exit;
-                    $mahasiswa = MahasiswaModel::where('id_mahasiswa' , $service_data['mahasiswa']['id_mahasiswa'])->update($service_data['mahasiswa']);
-                    $service_data['ibu']['mahasiswa_id'] = $mahasiswa->id;
-                    //$service_data['ibu']['kategori'] = 'ibu';
-                    $service_data['ayah']['mahasiswa_id'] = $mahasiswa->id;
-                    //$service_data['ayah']['kategori'] = 'ayah';
-                    $service_data['wali']['mahasiswa_id'] = $mahasiswa->id;
-                    //$service_data['wali']['kategori'] = 'wali';
-                    $service_data['kebutuhan_khusus']['mahasiswa_id'] = $mahasiswa->id;
-                    MahasiswaOrangtuawaliModel::where('mahasiswa_id' , $mahasiswa->id)->where('kategori' , 'ibu')->update($service_data['ibu']);
-                    MahasiswaOrangtuawaliModel::where('mahasiswa_id' , $mahasiswa->id)->where('kategori' , 'ayah')->update($service_data['ayah']);
-                    MahasiswaOrangtuawaliModel::where('mahasiswa_id' , $mahasiswa->id)->where('kategori' , 'wali')->update($service_data['wali']);
-                    MahasiswaKebutuhanModel::where('mahasiswa_id' , $mahasiswa->id)->update($service_data['kebutuhan_khusus']);
-                }*/
-                
+                    MahasiswaOrangtuawaliModel::updateOrCreate(array('mahasiswa_id' => $mahasiswa->id , 'kategori' => 'ibu') , $service_data['ibu']);
+                    MahasiswaOrangtuawaliModel::updateOrCreate(array('mahasiswa_id' => $mahasiswa->id , 'kategori' => 'ayah') , $service_data['ayah']);
+                    MahasiswaOrangtuawaliModel::updateOrCreate(array('mahasiswa_id' => $mahasiswa->id, 'kategori' => 'wali') , $service_data['wali']);
+                    MahasiswaKebutuhanModel::updateOrCreate(array('mahasiswa_id' => $mahasiswa->id), $service_data['kebutuhan_khusus']);
+                    DB::table('sinkronisasi_logs')
+                    ->insert(array('title' => 'GetBiodataMahasiswa' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                    DB::commit();
+                    return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
+                } catch(\Exception $e){
+                    DB::rollBack(); 
+                    throw $e;
+                    return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+                }  
             }
         }
+        
+    }
+
+    public function profilePT(){
+        return ProfilePTModel::select('id_perguruan_tinggi')->first();
+    }
+
+    public function sinc_insert(){
+        $data = [];
+        $data_sinc = MahasiswaModel::select('id','id_mahasiswa','id_registrasi_mahasiswa')->where("is_sinc" ,"0")->get();
+        
+        foreach($data_sinc as $item){
+            $bio = MahasiswaModel::leftJoin('mahasiswa_kebutuhan_khusu','mahasiswa_kebutuhan_khusu.mahasiswa_id','=','mahasiswa.id')
+            ->leftJoin('master_semester' ,'master_semester.id' ,'=' ,'mahasiswa.id_periode_masuk')
+            ->select('mahasiswa.*','kebutuhan_ayah','kebutuhan_ibu','kebutuhan_mahasiswa','kewarganegaraan','nama_ibu' ,'master_semester.id_semester')
+            ->where('mahasiswa.id' , $item->id)->first();
+            //print_r($bio);exit;
+            if($bio){
+                foreach(static::$webservice['mahasiswa'] as $key => $val){
+                    $data[$val] = $bio->$key;
+                }
+                foreach(static::$webservice['kebutuhan_khusus'] as $key => $val){
+                    $data[$val] = $bio->$key;
+                }
+            }
+            $ibu = MahasiswaOrangtuawaliModel::select('nama','nik','tanggal_lahir','pendidikan_id','pekerjaan_id','penghasilan')->where('mahasiswa_id',$item->id)->where('kategori' ,"ibu")->first();
+            if($ibu){
+                foreach(static::$webservice['ibu'] as $key => $val){
+                    $data[$val] = $ibu->$key;
+                }
+            }
+            $ayah = MahasiswaOrangtuawaliModel::select('nama','nik','tanggal_lahir','pendidikan_id','pekerjaan_id','penghasilan')->where('mahasiswa_id',$item->id)->where('kategori' ,"ayah")->first();
+            if($ayah){
+                foreach(static::$webservice['ayah'] as $key => $val){
+                    $data[$val] = $ayah->$key;
+                }
+            }
+            $wali = MahasiswaOrangtuawaliModel::select('nama','nik','tanggal_lahir','pendidikan_id','pekerjaan_id','penghasilan')->where('mahasiswa_id',$item->id)->where('kategori' ,"wali")->first();
+            if($wali){
+                foreach(static::$webservice['wali'] as $key => $val){
+                    $data[$val] = $wali->$key;
+                }
+            }
+            $data_pendidikan = [];
+            if($bio){
+                foreach(static::$webserviceriwayatpendidikan as $key => $val){
+                    $data_pendidikan[$val] = $bio->$key;
+                    $data_pendidikan['id_perguruan_tinggi'] = $this->profilePT()->id_perguruan_tinggi;
+                }
+            }
+            unset($data_pendidikan['id_registrasi_mahasiswa']);
+
+            if(strlen($item->id_mahasiswa) > 8){
+                unset($data_pendidikan['id_mahasiswa']);
+                $token = $this->check_auth_siakad();
+                $action_bio = array('act'=>"UpdateBiodataMahasiswa" , "token"=>$token ,'key' => $item->id_mahasiswa, "record"=> $data);
+                $response_bio = $this->runWS($action_bio, 'json');
+                print_r($response_bio);
+
+                $action_rwyt_pend = array('act'=>"UpdateRiwayatPendidikanMahasiswa" ,'key'=>$item->id_registrasi_mahasiswa , "token"=>$token, "record"=> $data_pendidikan);
+                $response_rwyt_pend = $this->runWS($action_rwyt_pend, 'json');
+                print_r($response_rwyt_pend);
+                print_r($action_rwyt_pend);
+                if(strlen($item->id_registrasi_mahasiswa) > 8){
+                
+                }
+                
+            }else{
+                
+                $token = $this->check_auth_siakad();
+                //echo $token; exit;
+                $action_bio = array('act'=>"InsertBiodataMahasiswa" , "token"=>$token, "record"=> $data);
+                $response_bio = $this->runWS($action_bio, 'json');
+                $result_mhs = json_decode($response_bio , true);
+                //print_r($result_mhs);
+                $id_mahasiswa = $result_mhs['data']['id_mahasiswa'];
+                // INSERT TO BIO
+                if(MahasiswaModel::where('id' ,$item->id)->update(array('id_mahasiswa'=>$id_mahasiswa))){
+                    $data_pendidikan['id_mahasiswa'] = $id_mahasiswa;
+                    $action_rwyt_pend = array('act'=>"InsertRiwayatPendidikanMahasiswa" , "token"=>$token, "record"=> $data_pendidikan);
+                    $response_rwyt_pend = $this->runWS($action_rwyt_pend, 'json');
+                    $result_rwyt_pend = json_decode($response_rwyt_pend , true);
+                    //print_r($response_rwyt_pend);
+                    $id_registrasi = $result_rwyt_pend['data']['id_registrasi_mahasiswa'];
+                    //INSERT TO RIWAYAT PENDIDIKAN
+                    MahasiswaModel::where('id' ,$item->id)->update(array('id_registrasi_mahasiswa' => $id_registrasi));
+                }
+            }
+        }
+    }
+
+    public function sinc_riwayat_pend(){
+          
+        $token = $this->check_auth_siakad();
+        //echo $token; exit;
+        $data = array('act'=>"GetListRiwayatPendidikanMahasiswa" , "token"=>$token, "filter"=> "","limit"=>"" , "offset" =>0);
+        $result_string = $this->runWS($data, 'json');
+        $result = json_decode($result_string , true);
+        //print_r($result); exit;
+        if(array_key_exists('data' , $result)){
+            DB::beginTransaction();
+            try{
+                foreach($result['data'] as $item){
+                    $service_data = [];
+                    foreach(static::$webserviceriwayatpendidikan as $key=>$val){         
+                        if($item[$val]){
+                            $service_data[$key] = $item[$val];
+                        }
+                    }
+                    //print_r($service_data);
+                    MahasiswaModel::where('id_mahasiswa', $item['id_mahasiswa'])->update($service_data);
+                }
+                DB::commit();
+                DB::table('sinkronisasi_logs')
+                ->insert(array('title' => 'GetListRiwayatPendidikanMahasiswa' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
+            } catch(\Exception $e){
+                    DB::rollBack(); 
+                    throw $e;
+                    return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+                }
+            }
         
     }
 
@@ -264,6 +384,8 @@ class Mahasiswa extends Controller
             'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
             'agama' => AgamaModel::where('row_status' , 'active')->get(),
             'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'negara' => NegaraModel::get(),
+            'periode_masuk' => SemesterModel::orderby('id_tahun_ajaran' ,'DESC')->get(),
             'dosen'=> DosenModel::where('dosen.row_status', 'active')->where('master_status_pegawai.title','Aktif')
                 ->join('master_status_pegawai','master_status_pegawai.id','=', 'dosen.status_pegawai')
                 ->select('dosen.id', 'dosen.nidn_nup_nidk', 'dosen.nama')
@@ -280,9 +402,6 @@ class Mahasiswa extends Controller
 
     public function save(Request $request){
         $data = $request->all();
-
-        // print_r($data['mahasiswa']); exit;
-        
         $validation = Validator::make($data['mahasiswa'], [
             'angkatan' => 'required',
             'nama' => 'required',
@@ -351,7 +470,7 @@ class Mahasiswa extends Controller
     }
 
     public function view($id){
-
+        //echo $id; exit;
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
             'jenis_pendaftaran' => JenisPendaftaranModel::where('row_status' , 'active')->get(),
@@ -374,10 +493,9 @@ class Mahasiswa extends Controller
                 ->get()
         );
 
-
         $data = MahasiswaModel::join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
-            ->join('master_angkatan' ,'master_angkatan.id' ,'=' ,'mahasiswa.angkatan')
-            ->join('master_kelas' ,'master_kelas.id' ,'=' ,'mahasiswa.kelas_id')
+            ->leftJoin('master_angkatan' ,'master_angkatan.id' ,'=' ,'mahasiswa.angkatan')
+            ->leftJoin('master_kelas' ,'master_kelas.id' ,'=' ,'mahasiswa.kelas_id')
             ->leftJoin('master_status_mahasiswa' ,'master_status_mahasiswa.id' ,'=' ,'mahasiswa.status')
             ->leftJoin('dosen', 'dosen.id' ,'=', 'mahasiswa.pembimbing_akademik')
             ->select('mahasiswa.*' ,'dosen.nama as nama_dosen', 'master_jurusan.title' ,'master_jurusan.id as id_jurusan' ,'master_kelas.title as kelas_title' , 'master_angkatan.title as angkatan_title' ,'master_status_mahasiswa.title as status_mhs')
@@ -391,7 +509,7 @@ class Mahasiswa extends Controller
     }
 
     public function paging(Request $request){
-    return Datatables::of(MahasiswaModel::where('mahasiswa.row_status', 'active')
+        return Datatables::of(MahasiswaModel::where('mahasiswa.row_status', 'active')
         ->leftJoin('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
         ->leftJoin('master_agama', 'mahasiswa.agama', '=', 'master_agama.id')
         ->leftJoin('master_kelas', 'mahasiswa.kelas_id', '=', 'master_kelas.id')
@@ -444,7 +562,7 @@ class Mahasiswa extends Controller
         if($id != '' ){
             $validation = Validator::make($data['mahasiswa'], [
                 'angkatan' => 'required',
-                'nama' => 'required',
+                'nama' => 'required|max:100',
                 'email'=> 'required | email',
                 'nim' => 'required',
                 'email' => 'required|email|unique:mahasiswa',
@@ -803,7 +921,37 @@ class Mahasiswa extends Controller
         return Datatables::of(DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $post['id'])->get())->addIndexColumn()->make(true);
     }
 
-
+    public function sinc_krs(){
+        $token = $this->check_auth_siakad();
+        //echo $token; exit;
+        $data = array('act'=>"GetKRSMahasiswa" , "token"=>$token, "filter"=> "","limit"=>"10" , "offset" =>0);
+        $result_string = $this->runWS($data, 'json');
+        $result = json_decode($result_string , true);
+        print_r($result); exit;
+        if(array_key_exists('data' , $result)){
+            DB::beginTransaction();
+            try{
+                foreach($result['data'] as $item){
+                    $service_data = [];
+                    foreach(static::$webserviceriwayatpendidikan as $key=>$val){         
+                        if($item[$val]){
+                            $service_data[$key] = $item[$val];
+                        }
+                    }
+                    MahasiswaModel::where('id_mahasiswa', $item['id_mahasiswa'])->update($service_data);
+                }
+                DB::commit();
+                DB::table('sinkronisasi_logs')
+                ->insert(array('title' => 'GetKRSMahasiswa' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
+            } catch(\Exception $e){
+                    DB::rollBack(); 
+                    throw $e;
+                    return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+                }
+            }
+        
+    }
     public function krs($ids)
     {
         $semester_active = SemesterModel::where('status_semester' ,'enable')->first();

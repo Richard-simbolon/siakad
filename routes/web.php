@@ -225,6 +225,7 @@ foreach($results as $val){
        // Route::post(strtolower($val->link).'/delete', $val->mval.'@'.'delete')->name($val->mval.'delete');
         Route::post(strtolower($val->link).'/paging', $val->mval.'@'.'paging')->name('pagination');
     }else if($val->crud == 2){
+        
         Route::get(strtolower($val->link), $val->mval.'@index')->name($val->mval);
         Route::get(strtolower($val->link), $val->mval)->name($val->mval);
     }else{
@@ -252,3 +253,11 @@ Route::get('/home/getcalender', 'HomeController@getcalender')->name('getcalender
 
 //Route::get('/mahasiswa/login', 'Auth\LoginController@showLoginForm')->name('login');
 
+
+// WEB SERVICE
+Route::get('sinc_riwayat_pend', 'Mahasiswa@sinc_riwayat_pend')->name('sinc_riwayat_pend');
+Route::get('sinc_insert', 'Mahasiswa@sinc_insert')->name('sinc_insert');
+
+Route::get('sinc_krs', 'Mahasiswa@sinc_krs')->name('sinc_krs');
+Route::get('sinc_kelas_perkuliahan', 'KelasPerkuliahan@sinc_kelas_perkuliahan')->name('sinc_kelas_perkuliahan');
+Route::get('sinc_kurikulum_mata_kuliah', 'Kurikulum@sinc_kurikulum_mata_kuliah')->name('sinc_kurikulum_mata_kuliah');

@@ -67,7 +67,7 @@ class Semester extends Controller
                             DB::beginTransaction();
                             try{
                                 foreach($result['data'] as $item){
-                                    SemesterModel::updateOrInsert(array('id_semester'=> $item['id_semester'] , 'title'=>$item['nama_semester'], 'semester'=>$item['semester'], 'a_periode_aktif'=>$item['a_periode_aktif'], 'tanggal_mulai'=>$item['tanggal_mulai'], 'tanggal_selesai'=>$item['tanggal_selesai']));
+                                    SemesterModel::updateOrInsert(array('id_semester' => $item['id_semester']) , array('id_semester'=> $item['id_semester'] , 'title'=>$item['nama_semester'], 'semester'=>$item['semester'], 'a_periode_aktif'=>$item['a_periode_aktif'], 'id_tahun_ajaran'=>$item['id_tahun_ajaran'], 'tanggal_mulai'=>$item['tanggal_mulai'], 'tanggal_selesai'=>$item['tanggal_selesai']));
                                 }
                                 DB::commit();
                                 DB::table('sinkronisasi_logs')

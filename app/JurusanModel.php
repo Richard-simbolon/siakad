@@ -8,7 +8,7 @@
         {
 
             protected $table = "master_jurusan";
-
+            public $incrementing = false;
             protected $fillable = [
                 "id","row_status","title","jurusan","updated_at" ,"created_at","created_by", "update_by"
             ];

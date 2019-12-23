@@ -71,6 +71,38 @@ class KelasPerkuliahan extends Controller
 
     }
 
+    public function sinc_kelas_perkuliahan(){
+        $token = $this->check_auth_siakad();
+        //echo $token; exit;
+        $data = array('act'=>"GetListKelasKuliah" , "token"=>$token, "filter"=> "","limit"=>"10" , "offset" =>0);
+        $result_string = $this->runWS($data, 'json');
+        $result = json_decode($result_string , true);
+        //print_r($result); exit;
+        if(array_key_exists('data' , $result)){
+            DB::beginTransaction();
+            try{
+                foreach($result['data'] as $item){
+                    $service_data = [];
+                    foreach(static::$webserviceriwayatpendidikan as $key=>$val){         
+                        if($item[$val]){
+                            $service_data[$key] = $item[$val];
+                        }
+                    }
+                    MahasiswaModel::where('id_mahasiswa', $item['id_mahasiswa'])->update($service_data);
+                }
+                DB::commit();
+                DB::table('sinkronisasi_logs')
+                ->insert(array('title' => 'GetListKelasKuliah' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
+            } catch(\Exception $e){
+                    DB::rollBack(); 
+                    throw $e;
+                    return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+                }
+            }
+        
+    }
+
     public function filtering_kelas_perkuliahan_index(Request $request){
         $post = $request->all();
         //print_r($post);
