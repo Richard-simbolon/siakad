@@ -1,6 +1,9 @@
 @extends('layout.app')
 
 @section('content')
+
+<?php $arrEditable = ['default','Ruangan','JenisPegawai','SumberGaji','JenisMatakuliah','matakuliah'] ?>
+
 <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
 
         <!-- begin:: Content Head -->
@@ -49,16 +52,19 @@
                                 {{$title}}
                             </h3>
                         </div>
-                        <div class="kt-portlet__head-toolbar">
-                            <div class="dropdown dropdown-inline show">
-                                <a href="{{url()->current()}}/create" class="btn btn-success"><i class="la la-plus"></i> Tambah</a>
+
+                        @if(array_search($tableid,$arrEditable))
+                            <div class="kt-portlet__head-toolbar">
+                                <div class="dropdown dropdown-inline show">
+                                    <a href="{{url()->current()}}/create" class="btn btn-success"><i class="la la-plus"></i> Tambah</a>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
 
                     <div class="kt-portlet__body">
                         <div class="m-portlet__body">
-                            <table class="table table-striped table-bordered table-hover table-sm responsive no-wrap general-data-table" id="{{$tableid}}">
+                            <table class="table table-striped table-bordered table-hover responsive no-wrap general-data-table" id="{{$tableid}}">
                                 <thead>
                                     <tr>
                                         <th style="max-width: 75px;">
@@ -76,7 +82,9 @@
 
                                         @endif
                                         @endforeach
-                                    <th style="max-width: 75px;"></th>
+                                        @if(array_search($tableid,$arrEditable))
+                                            <th style="max-width: 150px;"></th>
+                                        @endif
                                     </tr>
                                 </thead>
                             </table>

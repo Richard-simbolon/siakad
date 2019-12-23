@@ -228,7 +228,7 @@
                                                     <td style="vertical-align: middle">{{$item['tahun']}}</td>
                                                     <td nowrap="" align="center">
                                                         <a style="font-size: 18px;color: #607D8B;" class="call-modal-penelitian" href="javascript:void(0)" attr="{{$item['id']}}"><i class="la la-edit"></i></a>  &nbsp;
-                                                        <a style="font-size: 18px;color: #607D8B;" class="delete_item" href="javascript:void(0)" type="fungsional" attr="{{$item['id']}}"><i class="la la-trash"></i></a>
+                                                        <a style="font-size: 18px;color: #607D8B;" class="delete_item" href="javascript:void(0)" type="penelitian" attr="{{$item['id']}}"><i class="la la-trash"></i></a>
                                                     </td>
                                                 </tr>
                                                 

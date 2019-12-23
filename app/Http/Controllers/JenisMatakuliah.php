@@ -18,7 +18,7 @@ class JenisMatakuliah extends Controller
                     "row_status"=>["type"=>"radio" , "value"=>"active, notactive" , "validation" => ""] ,
                     "title"=>["type"=>"text" , "value"=>"null" , "validation" => ""] ,
                     ];
-                static $exclude = ["id","created_at","updated_at","created_by","update_by"];
+                static $exclude = ["id","row_status","created_at","updated_at","created_by","update_by"];
                 static $tablename = "JenisMatakuliah";
                 public function __construct()
                 {

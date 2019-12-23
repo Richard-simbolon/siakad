@@ -183,6 +183,8 @@ Route::post('kurikulum/filtering_table', 'Kurikulum@filtering_table')->name('Fil
 Route::get('/data/absensimahasiswa/absensi/{id}', 'AbsensiMahasiswa@absensi')->name('index');
 // DOSEN
 Route::get('/dosen/absensi/absensi/{id}', 'DosenAbsensi@absensi')->name('index');
+Route::get('/dosen/absensi/view/{id}', 'DosenAbsensi@view')->name('view');
+Route::get('/dosen/absensi/check/{id}', 'DosenAbsensi@check')->name('check');
 
 Route::get('/data/jadwalujian/form/{id}/{jenis}', 'JadwalUjian@form')->name('index');
 Route::get('data/jadwalujian/kelas/{jenis}', 'JadwalUjian@kelas')->name('kelas');

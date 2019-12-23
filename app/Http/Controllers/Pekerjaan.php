@@ -19,7 +19,7 @@ class Pekerjaan extends Controller
                         "title"=>["type"=>"text" , "value"=>"text" , "validation" => "required"] ,
                         "row_status"=>["type"=>"radio" , "value"=>"active,notactive,deleted" , "validation" => "required"] ,
                         ];
-                static $exclude = ["id","created_at","updated_at","created_by","update_by"];
+                static $exclude = ["id","row_status","created_at","updated_at","created_by","update_by"];
                 static $tablename = "Pekerjaan";
                 public function __construct()
                 {

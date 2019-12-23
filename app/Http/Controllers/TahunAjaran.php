@@ -20,7 +20,7 @@ class TahunAjaran extends Controller
                                 "title"=>["type"=>"text" , "value"=>"null" , "validation" => ""] ,
                                 "angkatan"=>["type"=>"text" , "value"=>"null" , "validation" => ""] ,
                                 ];
-                static $exclude = ["id","created_at","updated_at","created_by","update_by"];
+                static $exclude = ["id","row_status","created_at","updated_at","created_by","update_by"];
                 static $tablename = "TahunAjaran";
                 public function __construct()
                     {

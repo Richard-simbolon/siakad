@@ -32,17 +32,22 @@ class KalenderAkademik extends Controller
 
                 public function __construct()
                 {
-                    $this->middleware(function ($request, $next) {
-                        $this->user = Auth::user();
-                        if(!$this->user){
-                            Redirect::to('login')->send();
-                        }
-                        if($this->user->login_type != 'admin'){
-                            return abort(404);
-                        }else{
-                            return $next($request);
-                        }
-                    });
+                    $this->middleware('auth');
+//                    $this->user = Auth::user();
+//                    if(!$this->user){
+//                        Redirect::to('login')->send();
+//                    }
+//                    $this->middleware(function ($request, $next) {
+//                        $this->user = Auth::user();
+//                        if(!$this->user){
+//                            Redirect::to('login')->send();
+//                        }
+//                        if($this->user->login_type != 'admin'){
+//                            return abort(404);
+//                        }else{
+//                            return $next($request);
+//                        }
+//                    });
                     
                 }
                 

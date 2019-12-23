@@ -18,7 +18,7 @@ class SumberGaji extends Controller
                                 "row_status"=>["type"=>"radio" , "value"=>"active,notactive,deleted" , "validation" => ""] ,
                                 "title"=>["type"=>"text" , "value"=>"null" , "validation" => ""] ,
                                 ];
-                static $exclude = ["id","created_at","updated_at","created_by","update_by"];
+                static $exclude = ["id","row_status","created_at","updated_at","created_by","update_by"];
                 static $tablename = "JenisPegawai";
                 public function __construct()
                 {

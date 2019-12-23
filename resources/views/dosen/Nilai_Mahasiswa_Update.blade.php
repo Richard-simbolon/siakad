@@ -57,7 +57,7 @@
                                                 <table cellpadding="5">
                                                     <tbody>
                                                     <tr>
-                                                        <td width="107px">Matakuliah</td>
+                                                        <td width="137px">Matakuliah</td>
                                                         <td>:</td>
                                                         <td><b>{{$data->kode_mata_kuliah}}</b></td>
                                                     </tr>
@@ -83,7 +83,7 @@
                                                 <table cellpadding="5">
                                                     <tbody>
                                                     <tr>
-                                                        <td width="107px">Matakuliah</td>
+                                                        <td width="127px">Matakuliah</td>
                                                         <td>:</td>
                                                         <td><b>{{$data->nama_mata_kuliah}}</b></td>
                                                     </tr>
@@ -103,10 +103,10 @@
                                                         <td><b>{{$data->ruangan}}</b></td>
                                                     </tr>
                                                     <tr>
-                                                            <td>Bobot Matakuliah</td>
-                                                            <td>:</td>
-                                                            <td><b>{{$data->sks}}</b></td>
-                                                        </tr>
+                                                        <td>Bobot Matakuliah</td>
+                                                        <td>:</td>
+                                                        <td><b>{{$data->sks}}</b></td>
+                                                    </tr>
                                                 </tbody></table>
                                             </div>
                                         </div>
@@ -204,7 +204,7 @@
                                                                 <td style="vertical-align: middle" align="center">{{$i}}</td>
                                                                 <td style="vertical-align: middle">{{ucfirst($item->nama)}}</td>
                                                                 <td style="vertical-align: middle" align="center">{{ucfirst($item->nim)}}</td>
-                                                                <td style="vertical-align: middle" align="center">{{ucfirst($item->jk)}}</td>
+                                                                <td style="vertical-align: middle">{{ucfirst($item->jk)}}</td>
                                                                 <?php
                                                                     if($data->tipe_mata_kuliah != '' || $data->tipe_mata_kuliah != null){
                                                                         //print_r(config('global.tipe_matakuliah.'.$data->tipe_mata_kuliah));

@@ -381,7 +381,7 @@
                                 value['title'] +
                                 '</div>\n' +
                                 '<div class="kt-notification__item-time">\n' +
-                                value['start'] +
+                                value['start'] + ' s.d ' + value['end'] +
                                 '</div>\n' +
                                 '</div>\n' +
                                 '</a>'

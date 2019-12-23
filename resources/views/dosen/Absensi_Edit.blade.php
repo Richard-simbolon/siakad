@@ -59,7 +59,7 @@
                                                     <div class="col-lg-12">
                                                         <div class="row">
                                                             <div class="col-lg-6">
-                                                                <table cellpadding="7">
+                                                                <table cellpadding="5">
                                                                     <tbody>
                                                                         <tr>
                                                                             <td width="35%">Matakuliah</td>
@@ -72,14 +72,14 @@
                                                                             <td><b>{{$data->nama_dosen}}</b></td>
                                                                         </tr>
                                                                         <tr>
+                                                                            <td>SKS</td>
+                                                                            <td>:</td>
+                                                                            <td><b>{{$data->sks}}</b></td>
+                                                                        </tr>
+                                                                        <tr>
                                                                             <td>Program Studi</td>
                                                                             <td>:</td>
                                                                             <td><b>{{$data->nama_jurusan}}</b></td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>Jumlah Mahasiswa</td>
-                                                                            <td>:</td>
-                                                                            <td><b></b></td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
@@ -103,9 +103,9 @@
                                                                             <td><b>{{$data->ruangan}}</b></td>
                                                                         </tr>
                                                                         <tr>
-                                                                            <td>SKS</td>
+                                                                            <td>Jumlah Mahasiswa</td>
                                                                             <td>:</td>
-                                                                            <td><b></b></td>
+                                                                            <td><b>{{count($mahasiswa)}}</b></td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
@@ -188,7 +188,7 @@
                                                         <a href="{{url()->previous()}}" class="btn btn-label-success">
                                                             <i class="la la-arrow-left"></i> Kembali
                                                         </a>&nbsp;
-                                                        <button type="button" class="btn btn-success" id="save-absensi-perkuliahan"><i class="la la-save"></i>Simpan</button>
+                                                        {{--<button type="button" class="btn btn-success" id="save-absensi-perkuliahan"><i class="la la-save"></i>Simpan</button>--}}
                                                     </div>
                                                 </div>
                                             </div>

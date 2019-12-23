@@ -24,22 +24,10 @@ var KTDatatablesExtensionsResponsive = function() {
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                { data: 'title', name: 'title' },
-                { data: 'row_status', name: 'row_status' },
-                { defaultContent : '<td></td>'}
+                { data: 'title', name: 'title' }
             ],
 			columnDefs: [
 				{
-					targets: 3,
-					title: 'Actions',
-					orderable: false,
-                    className :"text-center",
-                    render: function(data, type, full, meta) {
-                        return `
-                       <a class="btn btn-" href="agama/view/`+full.id+`"><i class="la la-edit"></i></a>
-                       `;
-                    },
-				},{
                     targets: 0,
                     className: "text-center"
                 }
@@ -79,12 +67,11 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'bobot_mata_kuliah', name: 'bobot_mata_kuliah' },
                 { data: 'program_studi_id', name: 'program_studi_id' },
                 { data: 'jenis_mata_kuliah_id', name: 'jenis_mata_kuliah_id' },
-                { data: 'row_status', name: 'row_status' },
                 { defaultContent : '<td></td>'}
             ],
 			columnDefs: [
 				{
-					targets: 7,
+					targets: 6,
 					title: 'Actions',
 					orderable: false,
                     className :"text-center",
@@ -102,7 +89,7 @@ var KTDatatablesExtensionsResponsive = function() {
                     targets: 3,
                     className: "text-center"
                 },{
-                    targets: 6,
+                    targets: 5,
                     className: "text-center"
                 }
             ],
@@ -136,19 +123,11 @@ var KTDatatablesExtensionsResponsive = function() {
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                     { data: 'title', name: 'title' },
-                    { data: 'row_status', name: 'row_status' },
-                    { defaultContent : '<td></td>'}
+                    // { data: 'row_status', name: 'row_status' },
+                    // { defaultContent : '<td></td>'}
                 ],
                 columnDefs: [
                     {
-                        targets: 3,
-                        title: 'Actions',
-                        orderable: false,
-                        className : 'text-center',
-                        render: function(data, type, full, meta) {
-                            return `<a class="btn btn-" href="tinggal/view/`+full.id+`"><i class="la la-edit"></i></a>`;
-                        },
-                    },{
                         targets: 0,
                         className: "text-center"
                     },
@@ -183,26 +162,11 @@ var KTDatatablesExtensionsResponsive = function() {
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                { data: 'title', name: 'title' },
-                { data: 'row_status', name: 'row_status' },
-                { defaultContent: '<td></td>'}
+                { data: 'title', name: 'title' }
             ],
             columnDefs: [
                 {
-                    targets: 3,
-                    title: 'Actions',
-                    orderable: false,
-                    className : 'text-center',
-                    render: function(data, type, full, meta) {
-                        return `<a class="btn btn-" href="alattransportasi/view/`+full.id+`"><i class="la la-edit"></i></a>`;
-                    },
-                },
-                {
                     targets: 0,
-                    className: "text-center"
-                },
-                {
-                    targets: 2,
                     className: "text-center"
                 }
             ],
@@ -226,36 +190,18 @@ var KTDatatablesExtensionsResponsive = function() {
             ajax: {
                 url:'/master/pendidikan/paging',
                 type:"POST",
-                //data:{"_token": $('#csrf_').val(),'table':key},
                 data: function ( d ) {
                     d.myKey = "myValue";
                     d._token = $('#csrf_').val()
-                    // d.custom = $('#myInput').val();
-                    // etc
                 }
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                { data: 'title', name: 'title' },
-                { data: 'row_status', name: 'row_status' },
-                { defaultContent: '<td></td>'}
+                { data: 'title', name: 'title' }
             ],
             columnDefs: [
                 {
-                    targets: 3,
-                    title: 'Actions',
-                    orderable: false,
-                    className : 'text-center',
-                    render: function(data, type, full, meta) {
-                        return `<a class="btn btn-" href="pendidikan/view/`+full.id+`"><i class="la la-edit"></i></a>`;
-                    },
-                },
-                {
                     targets: 0,
-                    className: "text-center"
-                },
-                {
-                    targets: 2,
                     className: "text-center"
                 }
             ],
@@ -279,35 +225,17 @@ var KTDatatablesExtensionsResponsive = function() {
             ajax: {
                 url:'/master/kebutuhankhusus/paging',
                 type:"POST",
-                //data:{"_token": $('#csrf_').val(),'table':key},
                 data: function ( d ) {
                     d.myKey = "myValue";
                     d._token = $('#csrf_').val()
-                    // d.custom = $('#myInput').val();
-                    // etc
                 }
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                { data: 'title', name: 'title' },
-                { data: 'row_status', name: 'row_status' },
-                { defaultContent: '<td></td>'}
+                { data: 'title', name: 'title' }
             ],
-            columnDefs: [
-                {
-                    targets: 3,
-                    title: 'Actions',
-                    className : 'text-center',
-                    orderable: false,
-                    render: function(data, type, full, meta) {
-                        return `<a class="btn btn-" href="kebutuhankhusus/view/`+full.id+`"><i class="la la-edit"></i></a>`;
-                    },
-                },{
+            columnDefs: [{
                     targets: 0,
-                    className : 'text-center'
-                }
-                ,{
-                    targets: 2,
                     className : 'text-center'
                 }
             ],
@@ -330,36 +258,18 @@ var KTDatatablesExtensionsResponsive = function() {
             ajax: {
                 url:'/master/penghasilan/paging',
                 type:"POST",
-                //data:{"_token": $('#csrf_').val(),'table':key},
                 data: function ( d ) {
                     d.myKey = "myValue";
                     d._token = $('#csrf_').val()
-                    // d.custom = $('#myInput').val();
-                    // etc
                 }
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                { data: 'title', name: 'title' },
-                { data: 'row_status', name: 'row_status' },
-                { defaultContent: '<td></td>'}
+                { data: 'title', name: 'title' }
             ],
             columnDefs: [
                 {
-                    targets: 3,
-                    title: 'Actions',
-                    orderable: false,
-                    className : 'text-center',
-                    render: function(data, type, full, meta) {
-                        return `<a class="btn btn-" href="penghasilan/view/`+full.id+`"><i class="la la-edit"></i></a>`;
-                    },
-                },
-                {
                     targets: 0,
-                    className: "text-center"
-                },
-                {
-                    targets: 2,
                     className: "text-center"
                 }
             ],
@@ -382,37 +292,19 @@ var KTDatatablesExtensionsResponsive = function() {
             ajax: {
                 url:'/master/jurusan/paging',
                 type:"POST",
-                //data:{"_token": $('#csrf_').val(),'table':key},
                 data: function ( d ) {
                     d.myKey = "myValue";
                     d._token = $('#csrf_').val()
-                    // d.custom = $('#myInput').val();
-                    // etc
                 }
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
-                { data: 'jurusan', name: 'jurusan' },
-                { data: 'row_status', name: 'row_status' },
-                { defaultContent:'<td></td>' }
+                { data: 'jurusan', name: 'jurusan' }
             ],
             columnDefs: [
                 {
-                    targets: 4,
-                    title: 'Actions',
-                    orderable: false,
-                    className : 'text-center',
-                    render: function(data, type, full, meta) {
-                        return `<a class="btn btn-" href="jurusan/view/`+full.id+`"><i class="la la-edit"></i></a>`;
-                    },
-                },
-                {
                     targets: 0,
-                    className: "text-center"
-                },
-                {
-                    targets: 3,
                     className: "text-center"
                 }
             ],
@@ -445,31 +337,9 @@ var KTDatatablesExtensionsResponsive = function() {
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                { data: 'title', name: 'title' },
-                { data: 'row_status', name: 'row_status' },
+                { data: 'title', name: 'title' }
             ],
             columnDefs: [
-                {
-                    targets: 3,
-                    title: 'Actions',
-                    orderable: false,
-                    render: function(data, type, full, meta) {
-                        return `
-                        <span class="dropdown">
-                            <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="true">
-                              <i class="la la-ellipsis-h"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#"><i class="la la-edit"></i> Edit Details</a>
-                                <a class="dropdown-item" href="#"><i class="la la-leaf"></i> Update Status</a>
-                                <a class="dropdown-item" href="#"><i class="la la-print"></i> Generate Report</a>
-                            </div>
-                        </span>
-                        <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" title="View">
-                          <i class="la la-edit"></i>
-                        </a>`;
-                    },
-                },
                 {
                     targets: 0,
                     className: "text-center"
@@ -672,36 +542,18 @@ var KTDatatablesExtensionsResponsive = function() {
             ajax: {
                 url:'/master/pekerjaan/paging',
                 type:"POST",
-                //data:{"_token": $('#csrf_').val(),'table':key},
                 data: function ( d ) {
                     d.myKey = "myValue";
                     d._token = $('#csrf_').val()
-                    // d.custom = $('#myInput').val();
-                    // etc
                 }
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                { data: 'title', name: 'title' },
-                { data: 'row_status', name: 'row_status' },
-                { defaultContent : '<td></td>'}
+                { data: 'title', name: 'title' }
             ],
             columnDefs: [
                 {
-                    targets: 3,
-                    title: 'Actions',
-                    orderable: false,
-                    className : 'text-center',
-                    render: function(data, type, full, meta) {
-                        return `<a class="btn btn-" href="pekerjaan/view/`+full.id+`"><i class="la la-edit"></i></a>`;
-                    },
-                },
-                {
                     targets: 0,
-                    className: "text-center"
-                },
-                {
-                    targets: 2,
                     className: "text-center"
                 }
             ],
@@ -824,36 +676,18 @@ var KTDatatablesExtensionsResponsive = function() {
             ajax: {
                 url:'/master/angkatan/paging',
                 type:"POST",
-                //data:{"_token": $('#csrf_').val(),'table':key},
                 data: function ( d ) {
                     d.myKey = "myValue";
                     d._token = $('#csrf_').val()
-                    // d.custom = $('#myInput').val();
-                    // etc
                 }
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                { data: 'title', name: 'title' },
-                { data: 'row_status', name: 'row_status' },
-                { defaultContent: '<td></td>'}
+                { data: 'title', name: 'title' }
             ],
             columnDefs: [
                 {
-                    targets: 3,
-                    title: 'Actions',
-                    orderable: false,
-                    className : 'text-center',
-                    render: function(data, type, full, meta) {
-                        return `<a class="btn btn-" href="angkatan/view/`+full.id+`"><i class="la la-edit"></i></a>`;
-                    },
-                },
-                {
                     targets: 0,
-                    className: "text-center"
-                },
-                {
-                    targets: 2,
                     className: "text-center"
                 }
             ],
@@ -876,32 +710,16 @@ var KTDatatablesExtensionsResponsive = function() {
             ajax: {
                 url:'/master/statusmahasiswa/paging',
                 type:"POST",
-                //data:{"_token": $('#csrf_').val(),'table':key},
                 data: function ( d ) {
                     d.myKey = "myValue";
                     d._token = $('#csrf_').val()
-                    // d.custom = $('#myInput').val();
-                    // etc
                 }
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                { data: 'title', name: 'title' },
-                { data: 'row_status', name: 'row_status' },
-                { defaultContent : '<td></td>'}
+                { data: 'title', name: 'title' }
             ],
             columnDefs: [
-                {
-                    targets: 3,
-                    title: 'Actions',
-                    orderable: false,
-                    className: "text-center",
-                    render: function(data, type, full, meta) {
-                        return `
-                       <a class="btn btn-" href="statusmahasiswa/view/`+full.id+`"><i class="la la-edit"></i></a>
-                       `;
-                    },
-                },
                 {
                     targets: 0,
                     className: "text-center"
@@ -1009,32 +827,16 @@ var KTDatatablesExtensionsResponsive = function() {
             ajax: {
                 url:'/master/statuspegawai/paging',
                 type:"POST",
-                //data:{"_token": $('#csrf_').val(),'table':key},
                 data: function ( d ) {
                     d.myKey = "myValue";
                     d._token = $('#csrf_').val()
-                    // d.custom = $('#myInput').val();
-                    // etc
                 }
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                { data: 'title', name: 'title' },
-                { data: 'row_status', name: 'row_status' },
-                { defaultContent : '<td></td>'}
+                { data: 'title', name: 'title' }
             ],
             columnDefs: [
-                {
-                    targets: 3,
-                    title: 'Actions',
-                    orderable: false,
-                    className: "text-center",
-                    render: function(data, type, full, meta) {
-                        return `
-                       <a class="btn btn-" href="statuspegawai/view/`+full.id+`"><i class="la la-edit"></i></a>
-                       `;
-                    },
-                },
                 {
                     targets: 0,
                     className: "text-center"
@@ -1059,23 +861,19 @@ var KTDatatablesExtensionsResponsive = function() {
             ajax: {
                 url:'/master/jenispegawai/paging',
                 type:"POST",
-                //data:{"_token": $('#csrf_').val(),'table':key},
                 data: function ( d ) {
                     d.myKey = "myValue";
                     d._token = $('#csrf_').val()
-                    // d.custom = $('#myInput').val();
-                    // etc
                 }
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
-                { data: 'row_status', name: 'row_status' },
                 { defaultContent : '<td></td>'}
             ],
             columnDefs: [
                 {
-                    targets: 3,
+                    targets: 2,
                     title: 'Actions',
                     orderable: false,
                     className: "text-center",
@@ -1120,12 +918,11 @@ var KTDatatablesExtensionsResponsive = function() {
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
-                { data: 'row_status', name: 'row_status' },
                 { defaultContent : '<td></td>'}
             ],
             columnDefs: [
                 {
-                    targets: 3,
+                    targets: 2,
                     title: 'Actions',
                     orderable: false,
                     className: "text-center",
@@ -1364,12 +1161,9 @@ var KTDatatablesExtensionsResponsive = function() {
             ajax: {
                 url:'/master/ruangan/paging',
                 type:"POST",
-                //data:{"_token": $('#csrf_').val(),'table':key},
                 data: function ( d ) {
                     d.myKey = "myValue";
                     d._token = $('#csrf_').val()
-                    // d.custom = $('#myInput').val();
-                    // etc
                 }
             },
             columns: [
@@ -1377,12 +1171,11 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'kode_ruangan', name: 'kode_ruangan'},
                 { data: 'nama_ruangan', name: 'nama_ruangan' },
                 { data: 'keterangan', name:'keterangan'},
-                { data: 'row_status', name: 'row_status' },
                 {defaultContent : '<td></td>'}
             ],
             columnDefs: [
                 {
-                    targets: 5,
+                    targets: 4,
                     title: 'Actions',
                     orderable: false,
                     className: "text-center",
@@ -1395,11 +1188,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 {
                     targets: 0,
                     className: "text-center"
-                },
-                {
-                    targets: 4,
-                    className: "text-center"
-                },
+                }
             ]
         });
     }
@@ -1430,12 +1219,11 @@ var KTDatatablesExtensionsResponsive = function() {
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
-                { data: 'row_status', name: 'row_status' },
                 { defaultContent : '<td></td>'}
             ],
             columnDefs: [
                 {
-                    targets: 3,
+                    targets: 2,
                     title: 'Actions',
                     orderable: false,
                     className: "text-center",
