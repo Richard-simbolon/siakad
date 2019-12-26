@@ -299,14 +299,27 @@ var KTDatatablesExtensionsResponsive = function() {
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                { data: 'kode_program_studi', name: 'kode_program_studi' },
                 { data: 'title', name: 'title' },
                 { data: 'jurusan', name: 'jurusan' }
+                // { data: 'status', name: 'status' },
             ],
             columnDefs: [
                 {
                     targets: 0,
                     className: "text-center"
-                }
+                },
+                {
+                    targets: 4,
+                    title: 'Actions',
+                    orderable: false,
+                    className :"text-center",
+                    render: function(data, type, full, meta) {
+                        return `
+                       <a  style="font-size: 18px;color: #607D8B;" href="jurusan/view/`+full.id+`"><i class="la la-edit"></i></a>
+                       `;
+                    },
+                },
             ],
         });
 
@@ -689,6 +702,18 @@ var KTDatatablesExtensionsResponsive = function() {
                 {
                     targets: 0,
                     className: "text-center"
+                },
+                {
+                    targets: 2,
+                    title: 'Actions',
+                    className: 'text-center',
+                    width:100,
+                    orderable: false,
+                    render: function(data, type, full, meta) {
+                        return `
+                        <a class="btn btn-sm" href="angkatan/view/`+full.id+`""><i class="la la-edit"></i></a>
+                        `;
+                    },
                 }
             ],
         });
@@ -1218,21 +1243,48 @@ var KTDatatablesExtensionsResponsive = function() {
             },
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                { data: 'title', name: 'title' },
-                { defaultContent : '<td></td>'}
+                { data: 'title', name: 'title' }
             ],
             columnDefs: [
                 {
-                    targets: 2,
-                    title: 'Actions',
-                    orderable: false,
-                    className: "text-center",
-                    render: function(data, type, full, meta) {
-                        return `
-                       <a class="btn btn-" href="jenismatakuliah/view/`+full.id+`"><i class="la la-edit"></i></a>
-                       `;
-                    },
+                    targets: 0,
+                    className: "text-center"
                 },
+            ]
+        });
+    }
+
+    var initTahunAjaran = function(a) {
+
+        var table = $('#TahunAjaran');
+
+        // begin first table
+        table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
+            ajax: {
+                url:'/master/tahunajaran/paging',
+                type:"POST",
+                //data:{"_token": $('#csrf_').val(),'table':key},
+                data: function ( d ) {
+                    d.myKey = "myValue";
+                    d._token = $('#csrf_').val()
+                    // d.custom = $('#myInput').val();
+                    // etc
+                }
+            },
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                { data: 'title', name: 'title' },
+                { data: 'a_periode_aktif', name: 'a_periode_aktif' },
+                { data: 'tanggal_mulai', name: 'tanggal_mulai' },
+                { data: 'tanggal_selesai', name: 'tanggal_selesai' }
+            ],
+            columnDefs: [
                 {
                     targets: 0,
                     className: "text-center"
@@ -1511,6 +1563,7 @@ var KTDatatablesExtensionsResponsive = function() {
             jenispegawai();
             sumbergaji();
             initReportSetting();
+            initTahunAjaran();
 		},
 
 	};

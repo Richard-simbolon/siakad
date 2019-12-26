@@ -13,6 +13,9 @@ class TahunAjaran extends Controller
                 static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
                     "row_status" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Status"],
                     "title" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Title"],
+                    "a_periode_aktif" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Periode Aktif"],
+                    "tanggal_mulai" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Tanggal Mulai"],
+                    "tanggal_selesai" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Tanggal Selesai"],
                     "angkatan" => ["table" => ["tablename" =>"null" , "field"=> "angkatan"] , "record"=>"Angkatan"],
                     ];
                 static $html = ["id"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
@@ -20,7 +23,7 @@ class TahunAjaran extends Controller
                                 "title"=>["type"=>"text" , "value"=>"null" , "validation" => ""] ,
                                 "angkatan"=>["type"=>"text" , "value"=>"null" , "validation" => ""] ,
                                 ];
-                static $exclude = ["id","row_status","created_at","updated_at","created_by","update_by"];
+                static $exclude = ["id","row_status","angkatan","created_at","updated_at","created_by","update_by"];
                 static $tablename = "TahunAjaran";
                 public function __construct()
                     {
@@ -40,7 +43,7 @@ class TahunAjaran extends Controller
                 public function index()
                 {
                     $data = TahunAjaranModel::get();
-                    $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+                    $title = "Daftar Tahun Ajaran";
                     $tableid = "TahunAjaran";
                     $table_display = DB::getSchemaBuilder()->getColumnListing("master_tahun_ajaran");
                     $exclude = static::$exclude;
@@ -151,7 +154,9 @@ class TahunAjaran extends Controller
                 }
 
                 public function paging(Request $request){
-                    return Datatables::of(TahunAjaranModel::where('row_status', '!=', 'deleted')->get())->addIndexColumn()->make(true);
+                    return Datatables::of(TahunAjaranModel::where('row_status', '!=', 'deleted')
+                        ->orderBy('title', 'desc')
+                        ->get())->addIndexColumn()->make(true);
                 }
 
             }

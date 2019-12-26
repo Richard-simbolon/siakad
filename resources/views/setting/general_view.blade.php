@@ -2,7 +2,8 @@
 
 @section('content')
 
-<?php $arrEditable = ['default','Ruangan','JenisPegawai','SumberGaji','JenisMatakuliah','matakuliah'] ?>
+<?php $arrEditambah = ['default','Ruangan','JenisPegawai','SumberGaji','matakuliah','Angkatan'] ?>
+<?php $arrEditable = ['default','Ruangan','JenisPegawai','SumberGaji','matakuliah','Angkatan','Jurusan'] ?>
 
 <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
 
@@ -53,7 +54,7 @@
                             </h3>
                         </div>
 
-                        @if(array_search($tableid,$arrEditable))
+                        @if(array_search($tableid,$arrEditambah))
                             <div class="kt-portlet__head-toolbar">
                                 <div class="dropdown dropdown-inline show">
                                     <a href="{{url()->current()}}/create" class="btn btn-success"><i class="la la-plus"></i> Tambah</a>

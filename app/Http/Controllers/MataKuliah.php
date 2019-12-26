@@ -53,8 +53,8 @@ class MataKuliah extends Controller
                     "modified_by"=>["type"=>"null" , "value"=>"null" , "validation" => "required"],
                     "updated_at"=>["type"=>"null" , "value"=>"null" , "validation" => "required"],
                     ];
-    static $exclude = ["id","created_at","updated_at","created_by","modified_by"];
-    static $exclude_table = ["id","row_status","created_at","updated_at","created_by","modified_by", "bobot_tatap_muka", "bobot_praktikum", "bobot_praktek_lapangan", "bobot_simulasi", "metode_pembelajaran","tanggal_mulai_efektif","tanggal_akhir_efektif", "tipe_mata_kuliah"];
+    static $exclude = ["id","id_matkul","created_at","updated_at","created_by","modified_by"];
+    static $exclude_table = ["id","id_matkul","row_status","created_at","updated_at","created_by","modified_by", "bobot_tatap_muka", "bobot_praktikum", "bobot_praktek_lapangan", "bobot_simulasi", "metode_pembelajaran","tanggal_mulai_efektif","tanggal_akhir_efektif", "tipe_mata_kuliah"];
 
 
     public function __construct()
