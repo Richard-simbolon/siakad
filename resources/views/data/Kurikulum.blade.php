@@ -117,7 +117,7 @@
                                 <th style="text-align: center">Pilihan</th>
                                 <th style="text-align: center">Wajib</th>
                                 <th style="text-align: center">Pilihan</th>
-                                <th style="text-align: center"></th>
+                                <th style="text-align: center;width: 80px">Aksi</th>
                             </tr>
                             </thead>
                             <tbody class="kurikulum_table">
@@ -129,20 +129,14 @@
                                         <td>{{$item['nama_kurikulum']}}</td>
                                         <td>{{$item['title']}}</td>
                                         <td>{{$item['mulai_berlaku']}}</td>
-                                        <td align="center">{{$item['jumlah_sks']}}</td>
-                                        <td align="center">{{$item['jumlah_bobot_mata_kuliah_wajib']}}</td>
-                                        <td align="center">{{$item['jumlah_bobot_mata_kuliah_pilihan']}}</td>
-                                        <td align="center">{{$item['total_matakuliah']}}</td>
-                                        <td align="center">{{$item['total_wajib']}}</td>
-                                        <td><span class="dropdown">
-                                                <a href="#" class="btn btn-sm btn-clean btn-icon btn-icon-md" data-toggle="dropdown" aria-expanded="false">
-                                                  <i class="la la la-edit"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-203px, 24px, 0px);">
-                                                    <a class="dropdown-item" href="{{url('/data/kurikulum/view/'.$item['id'])}}"><i class="la la-eye"></i> View</a>
-                                                    <a class="dropdown-item" href="{{url('/data/kurikulum/edit/'.$item['id'])}}"><i class="la la-edit"></i> Edit</a>
-                                                </div>
-                                            </span>
+                                        <td align="center">{{$item['jumlah_sks'] == '' ? 0 : $item['jumlah_sks'] }}</td>
+                                        <td align="center">{{$item['jumlah_bobot_mata_kuliah_wajib']== '' ? 0 : $item['jumlah_bobot_mata_kuliah_wajib']}}</td>
+                                        <td align="center">{{$item['jumlah_bobot_mata_kuliah_pilihan']== '' ? 0 : $item['jumlah_bobot_mata_kuliah_pilihan']}}</td>
+                                        <td align="center">{{$item['total_matakuliah']== '' ? 0 :$item['total_matakuliah']}}</td>
+                                        <td align="center">{{$item['total_wajib']== '' ? 0 : $item['total_wajib']}}</td>
+                                        <td align="center">
+                                            <a style="font-size: 18px;" href="{{url('/data/kurikulum/view/'.$item['id'])}}"><i class="la la-eye"></i></a> &nbsp;
+                                            <a style="font-size: 18px;" href="{{url('/data/kurikulum/edit/'.$item['id'])}}"><i class="la la-edit"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

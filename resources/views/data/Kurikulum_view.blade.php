@@ -103,13 +103,13 @@
                                 <div class="col-xl-4">
                                     <div class="form-group">
                                         <label>Nama Kurikulum * </label>
-                                        <input type="text" class="form-control" value="{{$kurikulum['nama_kurikulum']}}" name="nama_kurikulum" placeholder="Isikan Nama Kurikulum">
+                                        <input type="text" class="form-control" value="{{$kurikulum['nama_kurikulum']}}" name="nama_kurikulum" placeholder="Isikan Nama Kurikulum" disabled>
                                     </div>
                                 </div>
                                 <div class="col-xl-4">
                                     <label class="select2-label">Program Studi *</label>
                                     <div class="form-group">
-                                        <select name="program_studi_id" class="form-control kt-select2 update_list_matakuliah" >
+                                        <select name="program_studi_id" class="form-control kt-select2 update_list_matakuliah" disabled>
                                             <option value="">-- Pilih Program Studi --</option>
                                             @foreach ($master['jurusan'] as $item)
                                                 <option attr="{{$item['id'].'-'.$kurikulum['program_studi_id']}}" value="{{$item['id']}}" {{ $item['id'] == $kurikulum['program_studi_id'] ? 'selected' : '' }}>{{$item['title']}}</option>
@@ -122,7 +122,7 @@
                                 <div class="col-xl-4">
                                     <label class="select2-label">Mulai berlaku *</label>
                                     <div class="form-group">
-                                        <select name="mulai_berlaku" class="form-control kt-select2">
+                                        <select name="mulai_berlaku" class="form-control kt-select2" disabled>
                                             <option value=" ">-- Pilih Semester --</option>
                                             @foreach ($master['semester'] as $item)
                                                 <option value="{{$item['id']}}" {{ $item['id'] == $kurikulum['mulai_berlaku'] ? 'selected' : '' }}>{{$item['title']}}</option>
@@ -133,13 +133,13 @@
                                 <div class="col-xl-4">
                                     <div class="form-group">
                                         <label>Jumlah Bobot Matakuliah Wajib *</label>
-                                        <input type="text" class="form-control" name="jumlah_bobot_mk_wajib" value="{{$kurikulum['jumlah_bobot_mata_kuliah_wajib']}}" placeholder="Isikan Jumlah Bobot Matakuliah Wajib">
+                                        <input type="text" class="form-control" name="jumlah_bobot_mk_wajib" value="{{$kurikulum['jumlah_bobot_mata_kuliah_wajib']}}" placeholder="Isikan Jumlah Bobot Matakuliah Wajib" disabled>
                                     </div>
                                 </div>
                                 <div class="col-xl-4">
                                     <div class="form-group">
                                         <label>Jumlah Bobot Matakuliah Pilihan *</label>
-                                        <input type="text" class="form-control" name="jumlah_bobot_mk_pilihan" value="{{$kurikulum['jumlah_bobot_mata_kuliah_pilihan']}}" placeholder="Isikan Jumlah Bobot Matakuliah Pilihan">
+                                        <input type="text" class="form-control" name="jumlah_bobot_mk_pilihan" value="{{$kurikulum['jumlah_bobot_mata_kuliah_pilihan'] == '' ? 0 : $kurikulum['jumlah_bobot_mata_kuliah_pilihan']}}" placeholder="Isikan Jumlah Bobot Matakuliah Pilihan" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -162,7 +162,7 @@
                                             <th style="text-align: center">Tatap Muka</th>
                                             <th style="text-align: center">Praktikum</th>
                                             <th style="text-align: center">Praktek Lapangan</th>
-                                            <th style="text-align: center">Simulasi</th>
+                                            <th style="text-align: center;border-right: 1px solid #ffffff;">Simulasi</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -177,21 +177,21 @@
 
                                                 <?php 
                                                 $i++;
-                                                $bobot_mata_kuliah += $item->bobot_mata_kuliah;
-                                                $bobot_tatap_muka = $item->bobot_tatap_muka;
-                                                $bobot_praktikum = $item->bobot_praktikum;
-                                                $bobot_praktek_lapangan = $item->bobot_praktek_lapangan;
-                                                $bobot_simulasi = $item->bobot_simulasi;
+                                                $bobot_mata_kuliah += $item->sks_mata_kuliah;
+                                                $bobot_tatap_muka += $item->sks_tatap_muka;
+                                                $bobot_praktikum += $item->sks_praktek;
+                                                $bobot_praktek_lapangan += $item->sks_praktek_lapangan;
+                                                $bobot_simulasi += $item->sks_simulasi;
                                                 ?>
                                                 <tr>
                                                     <td align="center">{{$i}}</td>
                                                     <td>{{$item->kode_mata_kuliah}}</td>
                                                     <td>{{$item->nama_mata_kuliah}}</td>
-                                                    <td align="center">{{$item->bobot_mata_kuliah}}</td>
-                                                    <td align="center">{{$item->bobot_tatap_muka}}</td>
-                                                    <td align="center">{{$item->bobot_praktikum}}</td>
-                                                    <td align="center">{{$item->bobot_praktek_lapangan}}</td>
-                                                    <td align="center">{{$item->bobot_simulasi}}</td>
+                                                    <td align="center">{{$item->sks_mata_kuliah}}</td>
+                                                    <td align="center">{{$item->sks_tatap_muka}}</td>
+                                                    <td align="center">{{$item->sks_praktek}}</td>
+                                                    <td align="center">{{$item->sks_praktek_lapangan}}</td>
+                                                    <td align="center">{{$item->sks_simulasi}}</td>
                                                     <td align="center">{{$item->semester}}</td>
                                                     <td align="center"><?php if($item->is_wajib == '1'){echo '<i class="la la-check"></i>';} ?></td>
                                                 </tr>

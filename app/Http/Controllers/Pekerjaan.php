@@ -1,5 +1,6 @@
 <?php
             namespace App\Http\Controllers;
+            use App\SinkronisasiModel;
             use Illuminate\Support\Facades\DB;
             use Illuminate\Support\Facades\Validator;
             use Illuminate\Http\Request;
@@ -54,7 +55,15 @@ class Pekerjaan extends Controller
                     $result_string = $this->runWS($data, 'json');
                     
                     $result = json_decode($result_string , true);
-                    //print_r($result); exit;
+                    if(!$result){
+                        $sinkronisasi = SinkronisasiModel::where('sync_code','sync_pekerjaan')->first();
+                        $sinkronisasi->last_sync = date('Y-m-d H:m:s');
+                        $sinkronisasi->last_sync_status = 'gagal';
+                        $sinkronisasi->last_sync_by = Auth::user()->nama;
+                        $sinkronisasi->save();
+
+                        return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+                    }
                     if(array_key_exists('data' , $result)){
                         if(count($result['data']) > 0){
                             DB::beginTransaction();

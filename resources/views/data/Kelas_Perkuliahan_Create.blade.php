@@ -98,19 +98,19 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-4">
-                                        <label class="select2-label">Kelas</label>
-                                        <div class="form-group">
-                                            <select name="kelas_id" id="kelas-mahasiswa" class="form-control search-kurikulum kt-select2">
-                                                <option value="">-- Pilih Kelas --</option>
+                                    <label class="select2-label">Kelas</label>
+                                    <div class="form-group">
+                                        <select name="kelas_id" id="kelas-mahasiswa" class="form-control search-kurikulum kt-select2">
+                                            <option value="">-- Pilih Kelas --</option>
 
-                                            </select>
-                                        </div>
+                                        </select>
                                     </div>
+                                </div>
                             </div>
 
                         <div class="row">
                                 <div class="col-xl-4">
-                                    <button type="button" id="btn-search-kurikulum" class="btn btn-success btn-sm"><i class="flaticon2-search"></i>Cari Matakuliah</button>
+                                    <button type="button" id="btn-search-kurikulum" class="btn btn-success"><i class="flaticon2-search"></i>Cari Matakuliah</button>
                                 </div>
                             </div>
                             <div class="kt-separator kt-separator--border-dashed kt-separator--space-md kt-separator--portlet-fit"></div>

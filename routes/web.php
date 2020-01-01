@@ -174,7 +174,7 @@ Route::post('data/aktivitasperkuliahan/paging', 'AktivitasPerkuliahan@paging')->
 //end of aktivitas perkuliahan
 
 Route::post('kurikulum/carimatakuliah', 'Kurikulum@carimatakuliah')->name('CariMatakuliah');
-Route::post('kurikulum/filtering_table', 'Kurikulum@filtering_table')->name('FilteringTable');
+Route::post('/kurikulum/filtering_table', 'Kurikulum@filtering_table')->name('FilteringTable');
 
 //Route::post('master/agama/paging', 'Agama@paging')->name('pagination');
 //Route::post('master/matakuliah/paging', 'MataKuliah@paging')->name('pagination');
@@ -262,4 +262,4 @@ Route::get('sinc_insert', 'Mahasiswa@sinc_insert')->name('sinc_insert');
 
 Route::get('sinc_krs', 'Mahasiswa@sinc_krs')->name('sinc_krs');
 Route::get('sinc_kelas_perkuliahan', 'KelasPerkuliahan@sinc_kelas_perkuliahan')->name('sinc_kelas_perkuliahan');
-Route::get('sinc_kurikulum_mata_kuliah', 'Kurikulum@sinc_kurikulum_mata_kuliah')->name('sinc_kurikulum_mata_kuliah');
+Route::get('/data/kurikulum/sinc_kurikulum_mata_kuliah', 'Kurikulum@sinc_kurikulum_mata_kuliah')->name('sinc_kurikulum_mata_kuliah');

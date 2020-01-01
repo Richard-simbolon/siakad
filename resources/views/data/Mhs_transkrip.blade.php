@@ -116,7 +116,7 @@
                                             <tr>
                                                 <td>Angkatan</td>
                                                 <td>:</td>
-                                                <td><b>{{$mahasiswa->angkatan_title}}</b></td>
+                                                <td><b>{{$mahasiswa->angkatan}}</b></td>
                                             </tr>
                                             
                                         </tbody></table>
@@ -204,7 +204,7 @@
                                                         $nlapo = $item->nilai_laporan > 0 ? $item->nilai_laporan : 0;
                                                         $nujian = $item->nilai_ujian > 0 ? $item->nilai_ujian : 0;
                                 
-                                                        if($item->tipe_mata_kuliah == 'praktik'){
+                                                        if($item->tipe_mata_kuliah == 'praktek'){
                                                             $nangka = ( (($ntgs * 20) / 100) + (($nuts * 40) / 100) + (($nuas * 40)/100));
                                                         }elseif ($item->tipe_mata_kuliah == 'teori') {
                                                             $nangka = ( (($ntgs * 30) / 100) + (($nuts * 30) / 100) + (($nuas * 40)/100));
@@ -317,15 +317,27 @@
                                                         
                                                         $nipg[] = $nipk / $sks;
                                                 }
-                                
-                                                echo '  
+
+                                                if(array_sum($nipg) > 0){
+                                                    echo '
                                                         <tr>
                                                             <td align="center"></td>
                                                             <td></td>
                                                             <td>INDEKS PRESTASI KUMULATIF (IPK)</td>
-                                                            <td align="center" colspan="7">'.round(array_sum($nipg) / count($nipg) ,2).'</td>
+                                                            <td align="center" colspan="7">'.round(array_sum($nipg) / count($nipg) ,2) .'</td>
                                                         </tr>
                                               ';
+                                                }else{
+                                                    echo '
+                                                        <tr>
+                                                            <td align="center"></td>
+                                                            <td></td>
+                                                            <td>INDEKS PRESTASI KUMULATIF (IPK)</td>
+                                                            <td align="center" colspan="7">0</td>
+                                                        </tr>
+                                              ';
+                                                }
+
                                                 
                                             ?>
                                     </tbody>

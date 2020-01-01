@@ -102,7 +102,7 @@
                                 <div class="col-xl-4">
                                     <div class="form-group">
                                         <label>Jumlah Bobot Matakuliah Pilihan *</label>
-                                        <input type="text" class="form-control" name="jumlah_bobot_mk_pilihan" value="{{$kurikulum['jumlah_bobot_mata_kuliah_pilihan']}}" placeholder="Isikan Jumlah Bobot Matakuliah Pilihan">
+                                        <input type="text" class="form-control" name="jumlah_bobot_mk_pilihan" value="{{$kurikulum['jumlah_bobot_mata_kuliah_pilihan'] == '' ? 0 : $kurikulum['jumlah_bobot_mata_kuliah_pilihan']}}" placeholder="Isikan Jumlah Bobot Matakuliah Pilihan">
                                     </div>
                                 </div>
                             </div>
@@ -137,7 +137,7 @@
                                             <th style="text-align: center">Tatap Muka</th>
                                             <th style="text-align: center">Praktikum</th>
                                             <th style="text-align: center">Praktek Lapangan</th>
-                                            <th style="text-align: center">Simulasi</th>
+                                            <th style="text-align: center;border-right: 1px solid #ffffff;">Simulasi</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -154,21 +154,21 @@
                                                 <?php 
                                                 $ignore[] = $item->mata_kuliah_id;
                                                 $i++;
-                                                $bobot_mata_kuliah += $item->bobot_mata_kuliah;
-                                                $bobot_tatap_muka += $item->bobot_tatap_muka;
-                                                $bobot_praktikum += $item->bobot_praktikum;
-                                                $bobot_praktek_lapangan += $item->bobot_praktek_lapangan;
-                                                $bobot_simulasi += $item->bobot_simulasi;
+                                                $bobot_mata_kuliah += $item->sks_mata_kuliah;
+                                                $bobot_tatap_muka += $item->sks_tatap_muka;
+                                                $bobot_praktikum += $item->sks_praktek;
+                                                $bobot_praktek_lapangan += $item->sks_praktek_lapangan;
+                                                $bobot_simulasi += $item->sks_simulasi;
                                                 ?>
                                                 <tr>
-                                                    <td align="center"><input type="checkbox" attr="{{$item->bobot_mata_kuliah}}" class="matakuliah-chck" name="matkulid[{{$item->mata_kuliah_id}}][id]" {{ $item->semester != '' ? 'checked="checked"' : '' }} value="{{$item->mata_kuliah_id}}"/></td>
+                                                    <td align="center"><input type="checkbox" attr="{{$item->sks_mata_kuliah}}" class="matakuliah-chck" name="matkulid[{{$item->mata_kuliah_id}}][id]" {{ $item->semester != '' ? 'checked="checked"' : '' }} value="{{$item->mata_kuliah_id}}"/></td>
                                                     <td>{{$item->kode_mata_kuliah}}</td>
                                                     <td>{{$item->nama_mata_kuliah}}</td>
-                                                    <td align="center">{{$item->bobot_mata_kuliah}}</td>
-                                                    <td align="center">{{$item->bobot_tatap_muka}}</td>
-                                                    <td align="center">{{$item->bobot_praktikum}}</td>
-                                                    <td align="center">{{$item->bobot_praktek_lapangan}}</td>
-                                                    <td align="center">{{$item->bobot_simulasi}}</td>
+                                                    <td align="center">{{$item->sks_mata_kuliah}}</td>
+                                                    <td align="center">{{$item->sks_tatap_muka}}</td>
+                                                    <td align="center">{{$item->sks_praktek}}</td>
+                                                    <td align="center csks_praktikumenter">{{$item->sks_praktek_lapangan}}</td>
+                                                    <td align="center">{{$item->sks_simulasi}}</td>
                                                     <td align="center">
                                                         <select class="form-control form-control-sm" name="matkulid[{{$item->mata_kuliah_id}}][smstr]">
                                                             <option {{$item->semester == '1' ? 'selected' : ''}} value="1">1</option>
@@ -181,7 +181,7 @@
                                                             <option {{$item->semester == '8' ? 'selected' : ''}} value="8">8</option>
                                                         </select>
                                                         </td>
-                                                    <td align="center"><input class="wajib-chck form-control-sm" attr="{{$item->bobot_mata_kuliah}}" type="checkbox" name="matkulid[{{$item->mata_kuliah_id}}][wajib]"  {{ $item->is_wajib == 1 ? 'checked="checked"' : '' }} value="1"></td>
+                                                    <td align="center"><input class="wajib-chck form-control-sm" attr="{{$item->sks_mata_kuliah}}" type="checkbox" name="matkulid[{{$item->mata_kuliah_id}}][wajib]"  {{ $item->is_wajib == 1 ? 'checked="checked"' : '' }} value="1"></td>
                                                 </tr>
                                             @endforeach
 
@@ -190,25 +190,25 @@
                                                 if(count($ignore) > 0){
                                                     $ignorematakuliah =DB::table('mata_kuliah')
                                                     ->whereNotIn('id', $ignore)
-                                                    ->where('program_studi_id', $kurikulum['program_studi_id'])
+                                                    ->where('id_prodi', $kurikulum['program_studi_id'])
                                                     ->where('row_status' , '=' , 'active')->get();
                                                 }else{
                                                     $ignorematakuliah =DB::table('mata_kuliah')
-                                                    ->where('program_studi_id', $kurikulum['program_studi_id'])
+                                                    ->where('id_prodi', $kurikulum['program_studi_id'])
                                                     ->where('row_status' , '=' , 'active')->get();
                                                 }
                                             ?>
 
                                                 @foreach ($ignorematakuliah as $item)
                                                 <tr>
-                                                    <td align="center"><input type="checkbox" attr="{{$item->bobot_mata_kuliah}}" class="matakuliah-chck" name="matkulid[{{$item->id}}][id]" value="{{$item->id}}"/></td>
+                                                    <td align="center"><input type="checkbox" attr="{{$item->sks_mata_kuliah}}" class="matakuliah-chck" name="matkulid[{{$item->id}}][id]" value="{{$item->id}}"/></td>
                                                     <td>{{$item->kode_mata_kuliah}}</td>
                                                     <td>{{$item->nama_mata_kuliah}}</td>
-                                                    <td align="center">{{$item->bobot_mata_kuliah}}</td>
-                                                    <td align="center">{{$item->bobot_tatap_muka}}</td>
-                                                    <td align="center">{{$item->bobot_praktikum}}</td>
-                                                    <td align="center">{{$item->bobot_praktek_lapangan}}</td>
-                                                    <td align="center">{{$item->bobot_simulasi}}</td>
+                                                    <td align="center">{{$item->sks_mata_kuliah}}</td>
+                                                    <td align="center">{{$item->sks_tatap_muka}}</td>
+                                                    <td align="center">{{$item->sks_praktek}}</td>
+                                                    <td align="center">{{$item->sks_praktek_lapangan}}</td>
+                                                    <td align="center">{{$item->sks_simulasi}}</td>
                                                     <td align="center">
                                                         <select class="form-control form-control-sm" name="matkulid[{{$item->id}}][smstr]">
                                                             <option value="1">1</option>
@@ -221,7 +221,7 @@
                                                             <option value="8">8</option>
                                                         </select>
                                                         </td>
-                                                    <td align="center"><input class="wajib-chck form-control-sm" attr="{{$item->bobot_mata_kuliah}}" type="checkbox" name="matkulid[{{$item->id}}][wajib]" value="1"></td>
+                                                    <td align="center"><input class="wajib-chck form-control-sm" attr="{{$item->sks_mata_kuliah}}" type="checkbox" name="matkulid[{{$item->id}}][wajib]" value="1"></td>
                                                 </tr>
                                                 @endforeach
                                             

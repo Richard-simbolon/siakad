@@ -14,13 +14,13 @@
 
             public function scopeget_row(){
                return [
-                    "id","kode_mata_kuliah","nama_mata_kuliah","tipe_mata_kuliah","row_status","program_studi_id","jenis_mata_kuliah_id","bobot_mata_kuliah","bobot_tatap_muka","bobot_praktikum","bobot_praktek_lapangan","bobot_simulasi","metode_pembelajaran","tanggal_mulai_efektif","tanggal_akhir_efektif","created_by","created_at","modified_by","updated_at"
+                    "id","kode_mata_kuliah","nama_mata_kuliah","tipe_mata_kuliah","row_status","id_prodi","jenis_mata_kuliah_id","sks_mata_kuliah","sks_tatap_muka","sks_praktek","sks_praktek_lapangan","sks_simulasi","metode_kuliah","tanggal_mulai_efektif","tanggal_selesai_efektif","created_by","created_at","modified_by","updated_at"
                 ];
             }
 
             public static function tabel_column(){
                 return [
-                    "id","kode_mata_kuliah","nama_mata_kuliah","bobot_mata_kuliah","program_studi_id","jenis_mata_kuliah_id","row_status"
+                    "id","kode_mata_kuliah","nama_mata_kuliah","sks_mata_kuliah","program_studi_id","id_jenis_mata_kuliah","row_status"
                 ];
             }
 

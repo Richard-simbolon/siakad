@@ -115,7 +115,7 @@
                                         <tr>
                                             <td>Angkatan</td>
                                             <td>:</td>
-                                            <td><b>{{$profile->angkatan_title}}</b></td>
+                                            <td><b>{{$profile->angkatan}}</b></td>
                                         </tr>
                                         
                                     </tbody></table>

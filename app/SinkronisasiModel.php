@@ -10,11 +10,11 @@
             protected $table = "sinkronisasi";
 
             protected $fillable = [
-                "id","nama","nip","username","password","email","telp","updated_at" ,"created_at","created_by", "update_by"
+                "id","row_status","sync_code","url","name","description","jumlah_sync","last_sync","last_sync_by" ,"last_sync_status"
             ];
             public function scopeget_row(){
                 return [
-                    "id","nama","updated_at" ,"created_at","created_by", "update_by"
+                    "id","row_status","sync_code","url","name","description","jumlah_sync","last_sync","last_sync_by" ,"last_sync_status"
                  ];
              }
 

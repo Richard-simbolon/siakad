@@ -64,7 +64,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'kode_mata_kuliah', name: 'kode_mata_kuliah' },
                 { data: 'nama_mata_kuliah', name: 'nama_mata_kuliah' },
-                { data: 'bobot_mata_kuliah', name: 'bobot_mata_kuliah' },
+                { data: 'sks_mata_kuliah', name: 'sks_mata_kuliah' },
                 { data: 'program_studi_id', name: 'program_studi_id' },
                 { data: 'jenis_mata_kuliah_id', name: 'jenis_mata_kuliah_id' },
                 { defaultContent : '<td></td>'}
@@ -647,6 +647,10 @@ var KTDatatablesExtensionsResponsive = function() {
 					},
                 },
                 {
+                    targets: 6,
+                    className: "text-center"
+                },
+                {
                     targets: 9,
                     className: "text-center"
                 },
@@ -1123,8 +1127,8 @@ var KTDatatablesExtensionsResponsive = function() {
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 { data: 'title', name: 'title' },
-                { data: 'tanggal_mulai_berlaku', name: 'tanggal_mulai_berlaku' },
-                { data: 'tanggal_akhir', name: 'tanggal_akhir' },
+                { data: 'tanggal_mulai', name: 'tanggal_mulai' },
+                { data: 'tanggal_selesai', name: 'tanggal_selesai' },
                 { data: 'tanggal_mulai_penilaian', name: 'tanggal_mulai_penilaian' },
                 { data: 'tanggal_akhir_penilaian', name: 'tanggal_akhir_penilaian' },
                 { data: 'status_semester', name: 'status_semester' },

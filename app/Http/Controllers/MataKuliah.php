@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\SemesterModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -19,15 +20,15 @@ class MataKuliah extends Controller
                             "tipe_mata_kuliah"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Tipe"],
                             "program_studi_id"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Program Studi"],
                             "row_status"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Status"],
-                            "jenis_mata_kuliah_id"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Jenis MK"],
-                            "bobot_mata_kuliah"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Bobot MK"],
-                            "bobot_tatap_muka"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Bobot TM"],
-                            "bobot_praktikum"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"B. Praktikum"],
-                            "bobot_praktek_lapangan"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"B. PKL"],
-                            "bobot_simulasi"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"B. Simulasi"],
-                            "metode_pembelajaran"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Metode Pembelajaran"],
+                            "id_jenis_mata_kuliah"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Jenis MK"],
+                            "sks_mata_kuliah"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Bobot MK"],
+                            "sks_tatap_muka"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Bobot TM"],
+                            "sks_praktek"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"B. Praktikum"],
+                            "sks_praktek_lapangan"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"B. PKL"],
+                            "sks_simulasi"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"B. Simulasi"],
+                            "metode_kuliah"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Metode Pembelajaran"],
                             "tanggal_mulai_efektif"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Efektif"],
-                            "tanggal_akhir_efektif"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Berakhir"],
+                            "tanggal_selesai_efektif"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Berakhir"],
                             "created_by"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"id"],
                             "created_at"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"id"],
                             "modified_by"=> ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"id"],
@@ -39,15 +40,15 @@ class MataKuliah extends Controller
                     "nama_mata_kuliah"=>["type"=>"text" , "value"=>"null" , "validation" => "required"],
                     "tipe_mata_kuliah"=>["type"=>"text" , "value"=>"null" , "validation" => "required"],
                     "program_studi_id"=>["type"=>"select" , "value"=>"null" , "validation" => "required"],
-                    "jenis_mata_kuliah_id"=>["type"=>"select" , "value"=>"null" , "validation" => "required"],
-                    "bobot_mata_kuliah"=>["type"=>"number" , "value"=>"null" , "validation" => "required"],
-                    "bobot_tatap_muka"=>["type"=>"number" , "value"=>"null" , "validation" => "required"],
-                    "bobot_praktikum"=>["type"=>"number" , "value"=>"null" , "validation" => "required"],
-                    "bobot_praktek_lapangan"=>["type"=>"number" , "value"=>"null" , "validation" => "required"],
-                    "bobot_simulasi"=>["type"=>"number" , "value"=>"null" , "validation" => "required"],
-                    "metode_pembelajaran"=>["type"=>"textarea" , "value"=>"null" , "validation" => "required"],
+                    "id_jenis_mata_kuliah"=>["type"=>"select" , "value"=>"null" , "validation" => "required"],
+                    "sks_mata_kuliah"=>["type"=>"number" , "value"=>"null" , "validation" => "required"],
+                    "sks_tatap_muka"=>["type"=>"number" , "value"=>"null" , "validation" => "required"],
+                    "sks_praktek"=>["type"=>"number" , "value"=>"null" , "validation" => "required"],
+                    "sks_praktek_lapangan"=>["type"=>"number" , "value"=>"null" , "validation" => "required"],
+                    "sks_simulasi"=>["type"=>"number" , "value"=>"null" , "validation" => "required"],
+                    "metode_kuliah"=>["type"=>"textarea" , "value"=>"null" , "validation" => "required"],
                     "tanggal_mulai_efektif"=>["type"=>"date" , "value"=>"null" , "validation" => "required"],
-                    "tanggal_akhir_efektif"=>["type"=>"date" , "value"=>"null" , "validation" => "required"],
+                    "tanggal_selesai_efektif"=>["type"=>"date" , "value"=>"null" , "validation" => "required"],
                     "created_by"=>["type"=>"null" , "value"=>"null" , "validation" => "required"],
                     "created_at"=>["type"=>"null" , "value"=>"null" , "validation" => "required"],
                     "modified_by"=>["type"=>"null" , "value"=>"null" , "validation" => "required"],
@@ -92,7 +93,11 @@ class MataKuliah extends Controller
         $data = array('act'=>"GetDetailMataKuliah" , "token"=>$token, "filter"=> "","limit"=>"" , "offset" =>0);
         $result_string = $this->runWS($data, 'json');
         $result = json_decode($result_string , true);
-        //print_r($result); exit;
+        if(!$result){
+            $this->sinkron_log('sync_mata_kuliah_get','gagal', 0);
+
+            return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+        }
         if(array_key_exists('data' , $result)){
             if(count($result['data']) > 1){
                 DB::beginTransaction();
@@ -102,6 +107,7 @@ class MataKuliah extends Controller
                         MataKuliahModel::updateOrInsert($item);
                     }
                     DB::commit();
+                    $this->sinkron_log('sync_mata_kuliah_get','sukses', count($result['data']));
                     DB::table('sinkronisasi_logs')
                     ->insert(array('title' => 'GetListMataKuliah' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
                     return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
@@ -165,8 +171,10 @@ class MataKuliah extends Controller
         $data = MataKuliahModel::where('id' , $id)->first();
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
-            'jenis' => JenisMatakuliahModel::where('row_status' , 'active')->get()
+            'jenis_mata_kuliah' => JenisMatakuliahModel::where('row_status' , 'active')->get()
         );
+
+
         $title = "View ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $table = array_diff(DB::getSchemaBuilder()->getColumnListing("mata_kuliah") , static::$exclude);
         $exclude = static::$exclude;
@@ -181,8 +189,9 @@ class MataKuliah extends Controller
         $data = MataKuliahModel::where('id' , $id)->first();
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
-            'jenis' => JenisMatakuliahModel::where('row_status' , 'active')->get()
+            'jenis_mata_kuliah' => JenisMatakuliahModel::where('row_status' , 'active')->get()
         );
+
         $title = "Edit ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $table = array_diff(DB::getSchemaBuilder()->getColumnListing("mata_kuliah") , static::$exclude);
         $exclude = static::$exclude;
@@ -190,7 +199,8 @@ class MataKuliah extends Controller
         $html = static::$html;
         $column = 1;
         $controller = "matakuliah";
-        return view("master/matakuliah_edit" , compact("data" , "title" , 'html' ,"table" ,"exclude" ,"Tableshow", "column", "controller", "master"));
+
+        return view("master/matakuliah_edit" , compact("data" , "title" , 'html' ,"table"  ,"Tableshow", "column", "controller", "master"));
     }
 
 
@@ -212,19 +222,18 @@ class MataKuliah extends Controller
 
         $data =  MataKuliahModel::where('id' , $request->id)->first();
         $data->kode_mata_kuliah = $request->kode_mata_kuliah;
-        $data->row_status = $request->row_status;
         $data->nama_mata_kuliah = $request->nama_mata_kuliah;
         $data->tipe_mata_kuliah = $request->tipe_mata_kuliah;
-        $data->program_studi_id = $request->program_studi_id;
-        $data->jenis_mata_kuliah_id = $request->jenis_mata_kuliah_id;
-        $data->bobot_mata_kuliah = $request->bobot_mata_kuliah;
-        $data->bobot_tatap_muka = $request->bobot_tatap_muka;
-        $data->bobot_praktikum = $request->bobot_praktikum;
-        $data->bobot_praktek_lapangan = $request->bobot_praktek_lapangan;
-        $data->bobot_simulasi = $request->bobot_simulasi;
-        $data->metode_pembelajaran = $request->metode_pembelajaran;
+        $data->id_prodi = $request->id_prodi;
+        $data->id_jenis_mata_kuliah = $request->id_jenis_mata_kuliah;
+        $data->sks_mata_kuliah = $request->sks_mata_kuliah;
+        $data->sks_tatap_muka = $request->sks_tatap_muka;
+        $data->sks_praktek = $request->sks_praktek;
+        $data->sks_praktek_lapangan = $request->sks_praktek_lapangan;
+        $data->sks_simulasi = $request->sks_simulasi;
+        $data->metode_kuliah = $request->metode_kuliah;
         $data->tanggal_mulai_efektif = $request->tanggal_mulai_efektif;
-        $data->tanggal_akhir_efektif = $request->tanggal_akhir_efektif;
+        $data->tanggal_selesai_efektif = $request->tanggal_selesai_efektif;
         $data->modified_by = Auth::user()->nama;
 
         if($data->save()){
@@ -247,9 +256,9 @@ class MataKuliah extends Controller
 
     public function paging(Request $request){
         return Datatables::of(MataKuliahModel::where('mata_kuliah.row_status', 'active')
-            ->join('master_jurusan', 'master_jurusan.id', '=', 'mata_kuliah.program_studi_id')
-            ->join('master_jenis_matakuliah', 'master_jenis_matakuliah.id', '=', 'mata_kuliah.jenis_mata_kuliah_id')
-            ->select("mata_kuliah.id", "kode_mata_kuliah", "nama_mata_kuliah", "bobot_mata_kuliah", "master_jurusan.title as program_studi_id", "master_jenis_matakuliah.title as jenis_mata_kuliah_id", "mata_kuliah.row_status")
+            ->join('master_jurusan', 'master_jurusan.id', '=', 'mata_kuliah.id_prodi')
+            ->join('master_jenis_matakuliah', 'master_jenis_matakuliah.id', '=', 'mata_kuliah.id_jenis_mata_kuliah')
+            ->select("mata_kuliah.id", "kode_mata_kuliah", "nama_mata_kuliah", "sks_mata_kuliah", "master_jurusan.title as program_studi_id", "master_jenis_matakuliah.title as jenis_mata_kuliah_id", "mata_kuliah.row_status")
             ->get())->addIndexColumn()->make(true);
     }
 }

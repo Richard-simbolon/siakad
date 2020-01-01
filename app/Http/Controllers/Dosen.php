@@ -104,11 +104,13 @@ class Dosen extends Controller
     public function sinc(){
         
         $token = $this->check_auth_siakad();
-        //echo $token; exit;
+
         $data = array('act'=>"DetailBiodataDosen" , "token"=>$token, "filter"=> "","limit"=>"" , "offset" =>0);
         $result_string = $this->runWS($data, 'json');
         $result = json_decode($result_string , true);
-        print_r($result );
+        if(!$result){
+            return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+        }
         if(array_key_exists('data' , $result)){
             //DB::beginTransaction();
             //    try{

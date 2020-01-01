@@ -1,5 +1,6 @@
 <?php
             namespace App\Http\Controllers;
+            use App\SinkronisasiModel;
             use Illuminate\Support\Facades\DB;
             use Illuminate\Support\Facades\Validator;
             use Illuminate\Http\Request;
@@ -59,23 +60,29 @@ class Semester extends Controller
 
     public function sinc(){
         $token = $this->check_auth_siakad();
+
         $data = array('act'=>"GetSemester" , "token"=>$token, "filter"=> "","limit"=>"" , "offset" =>0);
         $result_string = $this->runWS($data, 'json');
         $result = json_decode($result_string , true);
+        if(!$result){
+            $this->sinkron_log('sync_semester','gagal', 0);
+            return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+        }
         if(array_key_exists('data' , $result)){
             if(count($result['data']) > 1){
                 DB::beginTransaction();
                 try{
                     foreach($result['data'] as $item){
-                        SemesterModel::updateOrInsert(array('id_semester' => $item['id_semester']) , array('id_semester'=> $item['id_semester'] , 'title'=>$item['nama_semester'], 'semester'=>$item['semester'], 'a_periode_aktif'=>$item['a_periode_aktif'], 'id_tahun_ajaran'=>$item['id_tahun_ajaran'], 'tanggal_mulai'=>$item['tanggal_mulai'], 'tanggal_selesai'=>$item['tanggal_selesai']));
+                        SemesterModel::updateOrInsert(array('id' => $item['id_semester']) , array('id_semester'=> $item['id_semester'] , 'title'=>$item['nama_semester'], 'semester'=>$item['semester'], 'a_periode_aktif'=>$item['a_periode_aktif'], 'id_tahun_ajaran'=>$item['id_tahun_ajaran'], 'tanggal_mulai'=>$item['tanggal_mulai'], 'tanggal_selesai'=>$item['tanggal_selesai']));
                     }
                     DB::commit();
+                    $this->sinkron_log('sync_semester','sukses', count($result['data']));
                     DB::table('sinkronisasi_logs')
                     ->insert(array('title' => 'GetSemester' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
                     return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
                 } catch(\Exception $e){
                     DB::rollBack();
-                    throw $e;
+                    //throw $e;
                     return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
                 }
             }
@@ -168,14 +175,10 @@ class Semester extends Controller
 
     public function update(Request $request){
         $this->validate($request,[
-            'title' => 'required'
+            //'title' => 'required'
         ]);
 
         $data =  SemesterModel::where('id' , $request->id)->first();
-        $data->title = $request->title;
-        $data->row_status = $request->row_status;
-        $data->tanggal_mulai_berlaku = $request->tanggal_mulai_berlaku;
-        $data->tanggal_akhir = $request->tanggal_akhir;
         $data->tanggal_mulai_penilaian = $request->tanggal_mulai_penilaian;
         $data->tanggal_akhir_penilaian = $request->tanggal_akhir_penilaian;
 
@@ -206,12 +209,16 @@ class Semester extends Controller
         $data =  SemesterModel::where('id', $request->id)->first();
         $data['status_semester'] = 'enable';
 
-        if(SemesterModel::where('status_semester', 'enable')->update(array('status_semester'=>'disable'))){
-            if($data->save()){
-                return $this->success("Data berhasil disimpan.");
-            }else{
-                return json_encode(["status"=> "false", "msg"=> "Mohon maaf, terjadi kesalahan sistem"]);
-            }
+        $data =  SemesterModel::where('id' , $request->id)->first();
+        $data->status_semester = 'enable';
+        $data->updated_at = date('Y-m-d H:m:s');
+        $data->update_by = Auth::user()->nama;
+
+        SemesterModel::where('status_semester', 'enable')->update(array('status_semester'=>'disable'));
+        if($data->save()){
+            return $this->success("Data berhasil disimpan.");
+        }else{
+            return json_encode(["status"=> "false", "msg"=> "Mohon maaf, terjadi kesalahan sistem"]);
         }
     }
     public function paging(Request $request){

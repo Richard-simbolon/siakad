@@ -65,7 +65,7 @@
                                                     <label>Tipe Admin</label>
                                                     <select name="type" class="form-control" id="status_admin">
                                                         <option value="super" {{$data->type == 'super' ? 'selected' : ''}}>Super Admin</option>
-                                                        <option value="admin" {{$data->type == 'admin' ? 'selected' : ''}}>Admin</option>
+                                                        <option value="admin" {{$data->type == 'jurusan' ? 'selected' : ''}}>Jurusan</option>
                                                     </select>
                                                 </div>
                                             </div>

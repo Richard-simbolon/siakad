@@ -59,6 +59,7 @@
                         <div class="kt-portlet__body">
                             <form class="kt-form kt-form--label-right" action="update" method="POST">
                                 <input type="hidden" name="id" value="{{$data['id']}}">
+                                <input type="hidden" name="row_status" value="{{$data['row_status']}}">
                                 <div class="kt-portlet__body">
                                     <div class="kt-section kt-section--first">
                                         <div class="row">
@@ -96,10 +97,10 @@
                                                 <div class="form-group">
                                                     <label>Jenis Matakuliah</label>
                                                     <div class="form-group">
-                                                        <select name="jenis_mata_kuliah_id" class="form-control kt-select2">
-                                                            <option value="">-- Pilih Jenis Matakuliah --</option>
-                                                            @foreach ($master['jenis'] as $item)
-                                                                <option value="{{$item['id']}}" {{$item['id']==$data['jenis_mata_kuliah_id']? "selected" : ""}}>{{$item['title']}}</option>
+                                                        <select name="id_jenis_mata_kuliah" class="form-control kt-select2">
+                                                            <option value=" ">-- Pilih Jenis Matakuliah --</option>
+                                                            @foreach ($master['jenis_mata_kuliah'] as $item)
+                                                                <option value="{{$item['id']}}" {{$item['id']==$data['id_jenis_mata_kuliah']? "selected" : ""}}>{{$item['title']}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -111,10 +112,10 @@
                                                 <div class="form-group">
                                                     <label>Program Studi</label>
                                                     <div class="form-group">
-                                                        <select name="program_studi_id" class="form-control kt-select2">
+                                                        <select name="id_prodi" class="form-control kt-select2">
                                                             <option value="">-- Pilih Program Studi --</option>
                                                             @foreach ($master['jurusan'] as $item)
-                                                                <option value="{{$item['id']}}" {{$item['id']==$data['program_studi_id']? "selected" : ""}}>{{$item['title']}}</option>
+                                                                <option value="{{$item['id']}}" {{$item['id']==$data['id_prodi']? "selected" : ""}}>{{$item['title']}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -124,7 +125,7 @@
                                                 <div class="form-group">
                                                     <label>Metode Pembelajaran</label>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" name="metode_pembelajaran" value="{{$data['metode_pembelajaran']}}" placeholder="Isikan Nama Metode Pembelajaran">
+                                                        <input type="text" class="form-control" name="metode_kuliah" value="{{$data['metode_kuliah']}}" placeholder="Isikan Nama Metode Pembelajaran">
                                                     </div>
                                                 </div>
                                             </div>
@@ -134,7 +135,7 @@
                                                 <div class="form-group">
                                                     <label>Bobot Tatap Muka</label>
                                                     <div class="form-group">
-                                                        <input type="number" class="form-control" name="bobot_tatap_muka" value="{{$data['bobot_tatap_muka']}}" id="bobot_tatap_muka" min="0" placeholder="Isikan Bobot">
+                                                        <input type="number" class="form-control" name="sks_tatap_muka" value="{{$data['sks_tatap_muka']}}" id="bobot_tatap_muka" min="0" placeholder="Isikan Bobot">
                                                     </div>
                                                 </div>
                                             </div>
@@ -142,7 +143,7 @@
                                                 <div class="form-group">
                                                     <label>Bobot Praktikum</label>
                                                     <div class="form-group">
-                                                        <input type="number" class="form-control" name="bobot_praktikum" value="{{$data['bobot_praktikum']}}" id="bobot_praktikum" min="0" placeholder="Isikan Bobot">
+                                                        <input type="number" class="form-control" name="sks_praktek" value="{{$data['sks_praktek']}}" id="bobot_praktikum" min="0" placeholder="Isikan Bobot">
                                                     </div>
                                                 </div>
                                             </div>
@@ -152,7 +153,7 @@
                                                 <div class="form-group">
                                                     <label>Bobot Praktek Lapangan</label>
                                                     <div class="form-group">
-                                                        <input type="number" class="form-control" name="bobot_praktek_lapangan" value="{{$data['bobot_praktek_lapangan']}}" id="bobot_praktek_lapangan" min="0" placeholder="Isikan Bobot">
+                                                        <input type="number" class="form-control" name="sks_praktek_lapangan" value="{{$data['sks_praktek_lapangan']}}" id="bobot_praktek_lapangan" min="0" placeholder="Isikan Bobot">
                                                     </div>
                                                 </div>
                                             </div>
@@ -160,7 +161,7 @@
                                                 <div class="form-group">
                                                     <label>Bobot Simulasi</label>
                                                     <div class="form-group">
-                                                        <input type="number" class="form-control" name="bobot_simulasi" value="{{$data['bobot_simulasi']}}" id="bobot_simulasi" min="0" placeholder="Isikan Bobot">
+                                                        <input type="number" class="form-control" name="sks_simulasi" value="{{$data['sks_simulasi']}}" id="bobot_simulasi" min="0" placeholder="Isikan Bobot">
                                                     </div>
                                                 </div>
                                             </div>
@@ -170,15 +171,15 @@
                                                 <div class="form-group">
                                                     <label>Bobot Mata Kuliah</label>
                                                     <div class="form-group">
-                                                        <input type="number" style="background-color: #fafafa;" class="form-control form-control-sm" name="bobot_mata_kuliah" value="{{$data['bobot_mata_kuliah']}}" id="bobot_mata_kuliah" value="0" readonly>
+                                                        <input type="number" style="background-color: #fafafa;" class="form-control form-control-sm" name="sks_mata_kuliah" value="{{$data['sks_mata_kuliah']}}" id="bobot_mata_kuliah" value="0" readonly>
                                                         <span class="form-text text-muted">( sks Tatap Muka + sks Praktikum + sks Praktek Lapangan + sks Simulasi )</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row form-group-last">
                                             <div class="col-lg-6">
-                                                <div class="form-group">
+                                                <div class="form-group form-group-last">
                                                     <label>Tanggal Mulai Efektif</label>
                                                     <div class="form-group">
                                                         <input type="date" class="form-control" name="tanggal_mulai_efektif" value="{{$data['tanggal_mulai_efektif']}}">
@@ -186,34 +187,34 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
-                                                <div class="form-group">
+                                                <div class="form-group form-group-last">
                                                     <label>Tanggal Akhir Efektif</label>
                                                     <div class="form-group">
-                                                        <input type="date" class="form-control" name="tanggal_akhir_efektif" value="{{$data['tanggal_akhir_efektif']}}" >
+                                                        <input type="date" class="form-control" name="tanggal_selesai_efektif" value="{{$data['tanggal_selesai_efektif']}}" >
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label>Status</label>
-                                                    <div class="form-group form-group-last">
-                                                        <label class="kt-radio">
-                                                            <input type="radio" name="row_status" value="active" {{$data['row_status']=='active'? "checked" : ""}} >
-                                                            Active
-                                                            <span></span>
-                                                        </label>
-                                                        &nbsp;&nbsp;
-                                                        <label class="kt-radio">
-                                                            <input type="radio" name="row_status" value="notactive" {{$data['row_status']=='notactive'? "checked" : ""}} >
-                                                            Not Active
-                                                            <span></span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        {{--<div class="row">--}}
+                                            {{--<div class="col-lg-6">--}}
+                                                {{--<div class="form-group">--}}
+                                                    {{--<label>Status</label>--}}
+                                                    {{--<div class="form-group form-group-last">--}}
+                                                        {{--<label class="kt-radio">--}}
+                                                            {{--<input type="radio" name="row_status" value="active" {{$data['row_status']=='active'? "checked" : ""}} >--}}
+                                                            {{--Active--}}
+                                                            {{--<span></span>--}}
+                                                        {{--</label>--}}
+                                                        {{--&nbsp;&nbsp;--}}
+                                                        {{--<label class="kt-radio">--}}
+                                                            {{--<input type="radio" name="row_status" value="notactive" {{$data['row_status']=='notactive'? "checked" : ""}} >--}}
+                                                            {{--Not Active--}}
+                                                            {{--<span></span>--}}
+                                                        {{--</label>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
                                         <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
                                         <div class="kt-form__actions">
                                             <a href="{{url()->previous()}}" class="btn btn-label-success">

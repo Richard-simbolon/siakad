@@ -259,7 +259,7 @@
                     //$("#form-update-dosen input , #form-update-dosen select , #form-update-dosen textarea , #form-update-dosen option").prop("disabled", true);
                     $("#informasidasar").show();
                     $("#info_dasar").hide();
-                    $("#")
+                    $("#updatemahasiswa").show();
                 });
 
                 $(document).on('click','#editdosen' , function(){
