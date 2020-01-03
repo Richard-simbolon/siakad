@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-        <title>Siakad Login Page</title>
+		<title>Polbangtan Medan | SIAPDUDIK</title>
         
     <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">

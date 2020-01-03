@@ -63,10 +63,10 @@
                                 <div class="col-xl-3">
                                     <div class="form-group">
                                         <label>Angkatan</label>
-                                        <select id="angkatan-mahasiswa" name="angkatan_id" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
+                                        <select id="angkatan-mahasiswa" name="nama_angkatan" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
                                             <option value="">Select</option>
                                             @foreach ($master['angkatan'] as $item)
-                                                <option value="{{$item['id']}}" > {{$item['title']}} </option>
+                                                <option value="{{$item['id_tahun_ajaran']}}" > {{$item['id_tahun_ajaran']}} </option>
                                             @endforeach
                                         </select>
                                     </div>

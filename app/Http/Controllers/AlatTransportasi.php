@@ -58,12 +58,7 @@ class AlatTransportasi extends Controller
                     
                     $result = json_decode($result_string , true);
                     if(!$result){
-                        $sinkronisasi = SinkronisasiModel::where('sync_code','sync_alat_transportasi')->first();
-                        $sinkronisasi->last_sync = date('Y-m-d H:m:s');
-                        $sinkronisasi->last_sync_status = 'gagal';
-                        $sinkronisasi->last_sync_by = Auth::user()->nama;
-                        $sinkronisasi->save();
-
+                        $this->sinkron_log('sync_alat_transportasi','gagal', 0);
                         return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
                     }
                     if(array_key_exists('data' , $result)){
@@ -74,6 +69,7 @@ class AlatTransportasi extends Controller
                                     AlatTransportasiModel::updateOrInsert(array('id'=> $item['id_alat_transportasi'] , 'title'=>$item['nama_alat_transportasi']));
                                 }
                                 DB::commit();
+                                $this->sinkron_log('sync_alat_transportasi','sukses', count($result['data']));
                                 DB::table('sinkronisasi_logs')
                                 ->insert(array('title' => 'GetAlatTransportasi' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
                                 return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));

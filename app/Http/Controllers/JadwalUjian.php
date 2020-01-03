@@ -46,12 +46,18 @@ class JadwalUjian extends Controller
     {
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
-            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'angkatan' => MahasiswaModel::where('mahasiswa.row_status' , 'active')
+                ->join('master_semester','master_semester.id', '=', 'mahasiswa.id_periode_masuk')
+                ->select('master_semester.id_tahun_ajaran')
+                ->distinct()
+                ->orderBy('id_tahun_ajaran','desc')
+                ->get(),
             'kelas' => KelasModel::where('row_status' , 'active')->get(),
-            'semester'=> SemesterModel::where('row_status', 'active')->get(),
+            'semester'=> SemesterModel::where('row_status', 'active')
+                ->orderBy('id', 'desc')
+                ->get(),
         );
-        //print_r($master); exit;
-        //$data = DB::table('view_input_nilai_mahasiswa')->get();
+
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $tableid = "JadwalUjian";
         $table_display = DB::getSchemaBuilder()->getColumnListing(static::$tablename);
@@ -65,9 +71,16 @@ class JadwalUjian extends Controller
     {
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
-            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'angkatan' => MahasiswaModel::where('mahasiswa.row_status' , 'active')
+                ->join('master_semester','master_semester.id', '=', 'mahasiswa.id_periode_masuk')
+                ->select('master_semester.id_tahun_ajaran')
+                ->distinct()
+                ->orderBy('id_tahun_ajaran','desc')
+                ->get(),
             'kelas' => KelasModel::where('row_status' , 'active')->get(),
-            'semester'=> SemesterModel::where('row_status', 'active')->get(),
+            'semester'=> SemesterModel::where('row_status', 'active')
+                ->orderBy('id', 'desc')
+                ->get(),
         );
 
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
@@ -82,9 +95,16 @@ class JadwalUjian extends Controller
     public function create(){
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
-            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'angkatan' => MahasiswaModel::where('mahasiswa.row_status' , 'active')
+                ->join('master_semester','master_semester.id', '=', 'mahasiswa.id_periode_masuk')
+                ->select('master_semester.id_tahun_ajaran')
+                ->distinct()
+                ->orderBy('id_tahun_ajaran','desc')
+                ->get(),
             'kelas' => KelasModel::where('row_status' , 'active')->get(),
-            'semester'=> SemesterModel::where('row_status', 'active')->get(),
+            'semester'=> SemesterModel::where('row_status', 'active')
+                ->orderBy('id', 'desc')
+                ->get(),
         );
 
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
@@ -98,9 +118,16 @@ class JadwalUjian extends Controller
     public function kelas($jenis){
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
-            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'angkatan' => MahasiswaModel::where('mahasiswa.row_status' , 'active')
+                ->join('master_semester','master_semester.id', '=', 'mahasiswa.id_periode_masuk')
+                ->select('master_semester.id_tahun_ajaran')
+                ->distinct()
+                ->orderBy('id_tahun_ajaran','desc')
+                ->get(),
             'kelas' => KelasModel::where('row_status' , 'active')->get(),
-            'semester'=> SemesterModel::where('row_status', 'active')->get(),
+            'semester'=> SemesterModel::where('row_status', 'active')
+                ->orderBy('id', 'desc')
+                ->get(),
         );
 
         $jenis = strtolower($jenis);
@@ -197,7 +224,7 @@ class JadwalUjian extends Controller
             $jadwalPerkuliahan->selesai = $post['selesai'];
             $jadwalPerkuliahan->catatan = $post['catatan'];
             $jadwalPerkuliahan->updated_at = date('Y-m-d H:i:s');
-            $jadwalPerkuliahan->update_by = Auth::user()->nama;
+            $jadwalPerkuliahan->modified_by = Auth::user()->nama;
 
             if($jadwalPerkuliahan->save()){
                 foreach($absensi as $key=> $item){
@@ -256,10 +283,10 @@ class JadwalUjian extends Controller
             ->join('mata_kuliah','mata_kuliah.id','=','kelas_perkuliahan_mata_kuliah.mata_kuliah_id')
             ->join('master_jurusan','master_jurusan.id','=','kelas_perkuliahan.program_studi_id')
             ->join('master_kelas','master_kelas.id','=','kelas_perkuliahan.kelas_id')
-            ->join('master_angkatan','master_angkatan.id','=','kelas_perkuliahan.angkatan_id')
+           // ->join('master_angkatan','master_angkatan.id','=','kelas_perkuliahan.angkatan_id')
             ->join('dosen','dosen.id','=','kelas_perkuliahan_mata_kuliah.dosen_id')
             ->leftJoin('jadwal_ujian_mahasiswa','jadwal_ujian_mahasiswa.kelas_perkuliahan_detail_id', '=', 'kelas_perkuliahan_mata_kuliah.id')
-            ->select('kelas_perkuliahan_mata_kuliah.id', 'mata_kuliah.kode_mata_kuliah','mata_kuliah.nama_mata_kuliah','dosen.nama as nama_dosen','master_jurusan.title as nama_jurusan','master_angkatan.title as nama_angkatan','master_kelas.title as nama_kelas', 'jadwal_ujian_mahasiswa.jenis_ujian')
+            ->select('kelas_perkuliahan_mata_kuliah.id', 'mata_kuliah.kode_mata_kuliah','mata_kuliah.nama_mata_kuliah','dosen.nama as nama_dosen','master_jurusan.title as nama_jurusan','kelas_perkuliahan.angkatan_id as nama_angkatan','master_kelas.title as nama_kelas', 'jadwal_ujian_mahasiswa.jenis_ujian')
             ->whereNull('jadwal_ujian_mahasiswa.jenis_ujian')
             ->orWhere('jadwal_ujian_mahasiswa.jenis_ujian','!=', strtolower($post['jenis_ujian_jadwal']))
             ->get())->addIndexColumn()->make(true);
@@ -272,10 +299,10 @@ class JadwalUjian extends Controller
             ->join('master_jurusan', 'master_jurusan.id','=', 'kelas_perkuliahan.program_studi_id')
             ->join('mata_kuliah', 'mata_kuliah.id', '=', 'kelas_perkuliahan_mata_kuliah.mata_kuliah_id')
             ->join('dosen', 'dosen.id', 'kelas_perkuliahan_mata_kuliah.dosen_id')
-            ->join('master_angkatan', 'master_angkatan.id','=', 'kelas_perkuliahan.angkatan_id')
+            //->join('master_angkatan', 'master_angkatan.id','=', 'kelas_perkuliahan.angkatan_id')
             ->join('master_semester', 'master_semester.id', '=','kelas_perkuliahan.semester_id')
             ->join('master_kelas', 'master_kelas.id', '=', 'kelas_perkuliahan.kelas_id')
-            ->select('jadwal_ujian_mahasiswa.id','mata_kuliah.kode_mata_kuliah', 'mata_kuliah.nama_mata_kuliah', 'dosen.nama as nama_dosen', 'master_jurusan.title as program_studi','master_angkatan.title as nama_angkatan','master_semester.title as nama_semester', 'master_kelas.title as nama_kelas', 'jadwal_ujian_mahasiswa.jenis_ujian')
+            ->select('jadwal_ujian_mahasiswa.id','mata_kuliah.kode_mata_kuliah', 'mata_kuliah.nama_mata_kuliah', 'dosen.nama as nama_dosen', 'master_jurusan.title as program_studi','kelas_perkuliahan.angkatan_id as nama_angkatan','master_semester.title as nama_semester', 'master_kelas.title as nama_kelas', 'jadwal_ujian_mahasiswa.jenis_ujian')
             ->orderBy('jadwal_ujian_mahasiswa.id', 'desc')
             ->get())->addIndexColumn()->make(true);
 
@@ -322,18 +349,18 @@ class JadwalUjian extends Controller
             ->join('mata_kuliah','mata_kuliah.id','=','kelas_perkuliahan_mata_kuliah.mata_kuliah_id')
             ->join('master_jurusan','master_jurusan.id','=','kelas_perkuliahan.program_studi_id')
             ->join('master_kelas','master_kelas.id','=','kelas_perkuliahan.kelas_id')
-            ->join('master_angkatan','master_angkatan.id','=','kelas_perkuliahan.angkatan_id')
             ->join('master_semester', 'master_semester.id', '=', 'kelas_perkuliahan.semester_id')
             ->join('dosen','dosen.id','=','kelas_perkuliahan_mata_kuliah.dosen_id')
+            ->join('master_ruangan','master_ruangan.id','=','kelas_perkuliahan_mata_kuliah.ruangan')
             ->select('kelas_perkuliahan_mata_kuliah.id',
                 'mata_kuliah.kode_mata_kuliah',
                 'mata_kuliah.nama_mata_kuliah',
                 'mata_kuliah.sks_mata_kuliah as sks',
                 'dosen.nama as nama_dosen',
                 'master_jurusan.title as nama_jurusan',
-                'master_angkatan.title as nama_angkatan',
+                'kelas_perkuliahan.angkatan_id as nama_angkatan',
                 'master_kelas.title as nama_kelas',
-                'kelas_perkuliahan_mata_kuliah.ruangan',
+                'master_ruangan.nama_ruangan as ruangan',
                 'kelas_perkuliahan.kelas_id',
                 'master_semester.title as nama_semester')
             ->first();
@@ -352,9 +379,9 @@ class JadwalUjian extends Controller
         }
 
         $master = [];
-        $master['dosen'] = DosenModel::select('id' , 'nama')->where('row_status' , 'active')->where('status' , 'aktif')->get();
+        $master['dosen'] = DosenModel::select('id' , 'nidn_nup_nidk', 'nama')->where('row_status' , 'active')->get();
         $master['ruangan'] = RuanganModel::select('id' , 'kode_ruangan' , 'nama_ruangan')->where('row_status' , 'active')->get();
-        $mahasiswa = MahasiswaModel::where('kelas_id' , $data->kelas_id)->where('status' , '1')->get();
+        $mahasiswa = MahasiswaModel::where('kelas_id' , $data->kelas_id)->where('nama_status_mahasiswa' , 'AKTIF')->get();
 
         return view("data/ujian_create" , compact("title" , "mahasiswa", "data" ,"master","jenis_ujian", 'eligible'));
     }
@@ -362,35 +389,36 @@ class JadwalUjian extends Controller
     public function view($id){
         $title = "Ubah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
 
+        $dataheader = JadwalUjianModel::where('id',$id)
+            ->select('id',
+                'jadwal_ujian_mahasiswa.jenis_ujian',
+                'jadwal_ujian_mahasiswa.tanggal_ujian',
+                'jadwal_ujian_mahasiswa.jam',
+                'jadwal_ujian_mahasiswa.kelas_perkuliahan_detail_id',
+                'jadwal_ujian_mahasiswa.selesai',
+                'jadwal_ujian_mahasiswa.catatan')->first();
+
         $data = KelasPerkuliahanModel::where('kelas_perkuliahan.row_status','=','active')
-            ->where('kelas_perkuliahan_mata_kuliah.id','=', $id)
+            ->where('kelas_perkuliahan_mata_kuliah.id','=', $dataheader->kelas_perkuliahan_detail_id)
             ->join('kelas_perkuliahan_mata_kuliah','kelas_perkuliahan_mata_kuliah.kelas_perkuliahan_id','=','kelas_perkuliahan.id')
             ->join('mata_kuliah','mata_kuliah.id','=','kelas_perkuliahan_mata_kuliah.mata_kuliah_id')
             ->join('master_jurusan','master_jurusan.id','=','kelas_perkuliahan.program_studi_id')
             ->join('master_kelas','master_kelas.id','=','kelas_perkuliahan.kelas_id')
-            ->join('master_angkatan','master_angkatan.id','=','kelas_perkuliahan.angkatan_id')
             ->join('master_semester', 'master_semester.id', '=', 'kelas_perkuliahan.semester_id')
             ->join('dosen','dosen.id','=','kelas_perkuliahan_mata_kuliah.dosen_id')
+            ->leftJoin('master_ruangan', 'master_ruangan.id', '=', 'kelas_perkuliahan_mata_kuliah.ruangan')
             ->select('kelas_perkuliahan_mata_kuliah.id',
                 'mata_kuliah.kode_mata_kuliah',
                 'mata_kuliah.nama_mata_kuliah',
                 'mata_kuliah.sks_mata_kuliah as sks',
                 'dosen.nama as nama_dosen',
                 'master_jurusan.title as nama_jurusan',
-                'master_angkatan.title as nama_angkatan',
+                'kelas_perkuliahan.angkatan_id as nama_angkatan',
                 'master_kelas.title as nama_kelas',
-                'kelas_perkuliahan_mata_kuliah.ruangan',
+                'master_ruangan.nama_ruangan as ruangan',
                 'kelas_perkuliahan.kelas_id',
                 'master_semester.title as nama_semester')
             ->first();
-
-        $dataheader = JadwalUjianModel::where('id',$id)
-            ->select('id',
-                'jadwal_ujian_mahasiswa.jenis_ujian',
-                'jadwal_ujian_mahasiswa.tanggal_ujian',
-                'jadwal_ujian_mahasiswa.jam',
-                'jadwal_ujian_mahasiswa.selesai',
-                'jadwal_ujian_mahasiswa.catatan')->first();
 
         $detail = JadwalUjianModel::where('jadwal_ujian_mahasiswa.id',$id)
             ->join('jadwal_ujian_mahasiswa_detail','jadwal_ujian_mahasiswa_detail.jadwal_ujian_id', 'jadwal_ujian_mahasiswa.id')
@@ -405,7 +433,7 @@ class JadwalUjian extends Controller
             ->get();
 
         $master = [];
-        $master['dosen'] = DosenModel::select('id' , 'nama')->where('row_status' , 'active')->where('status' , 'aktif')->get();
+        $master['dosen'] = DosenModel::select('id' , 'nama')->where('row_status' , 'active')->get();
         $master['ruangan'] = RuanganModel::select('id' , 'kode_ruangan' , 'nama_ruangan')->where('row_status' , 'active')->get();
         //$mahasiswa = MahasiswaModel::where('kelas_id' , $data->kelas_id)->where('status' , '1')->get();
 

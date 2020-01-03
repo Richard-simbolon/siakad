@@ -151,6 +151,19 @@
                             </div>
                         </a>
                         @endif
+                        <a href="javascript:void(0)" id="ganti_password_admin" class="kt-notification__item">
+                            <div class="kt-notification__item-icon">
+                                <i class="flaticon2-download kt-font-success"></i>
+                            </div>
+                            <div class="kt-notification__item-details">
+                                <div class="kt-notification__item-title kt-font-bold">
+                                    Panduan
+                                </div>
+                                <div class="kt-notification__item-time">
+                                    Download Panduan Penggunaan
+                                </div>
+                            </div>
+                        </a>
                         <div class="kt-notification__custom kt-space-between">
 
                             @guest

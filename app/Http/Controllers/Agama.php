@@ -69,11 +69,7 @@ class Agama extends Controller
         
         $result = json_decode($result_string , true);
         if(!$result){
-            $sinkronisasi = SinkronisasiModel::where('sync_code','sync_agama')->first();
-            $sinkronisasi->last_sync = date('Y-m-d H:m:s');
-            $sinkronisasi->last_sync_status = 'gagal';
-            $sinkronisasi->last_sync_by = Auth::user()->nama;
-            $sinkronisasi->save();
+            $this->sinkron_log('sync_agama','gagal', 0);
 
             return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
         }
@@ -85,6 +81,7 @@ class Agama extends Controller
                         AgamaModel::updateOrInsert(array('id'=> $item['id_agama'], 'title'=>$item['nama_agama']));
                     }
                     DB::commit();
+                    $this->sinkron_log('sync_agama','sukses', count($result['data']));
                     DB::table('sinkronisasi_logs')
                     ->insert(array('title' => 'GetAgama' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
                     return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));

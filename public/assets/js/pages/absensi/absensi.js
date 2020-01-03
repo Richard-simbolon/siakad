@@ -74,7 +74,7 @@ $(document).ready(function() {
                           <i class="la la-ellipsis-h"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="absensimahasiswa/view/`+full.id+`"><i class="la la-edit"></i>Cek Absensi</a>
+                            <a class="dropdown-item" href="absensimahasiswa/view/`+full.id+`"><i class="la la-edit"></i>Lihat Absensi</a>
                             <a class="dropdown-item" href="absensimahasiswa/absensi/`+full.id+`"><i class="la la-plus"></i>Tambah</a>
                         </div>
                     </span>`;
@@ -123,6 +123,10 @@ $(document).ready(function() {
                         "text": res.message,
                         "type": res.status,
                         "confirmButtonClass": "btn btn-secondary"
+                    }).then((result) => {
+                        if (result.value) {
+                            window.location = '/data/absensimahasiswa';
+                        }
                     });
                 }
 
@@ -163,6 +167,10 @@ $(document).ready(function() {
                         "text": res.message,
                         "type": res.status,
                         "confirmButtonClass": "btn btn-secondary"
+                    }).then((result) => {
+                        if (result.value) {
+                            window.location='/data/absensimahasiswa';
+                        }
                     });
                 }
 

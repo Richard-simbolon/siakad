@@ -331,6 +331,14 @@ $(document).ready(function(){
             });
             return false;
         }
+
+        Swal.fire({
+            title: "Mohon menunggu . . .",
+            imageUrl: "/../assets/media/ajaxloader.gif",
+            showConfirmButton: false,
+            allowOutsideClick: false
+        });
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('#csrf_').val()
@@ -345,13 +353,14 @@ $(document).ready(function(){
             success:function(result) {
                 $('#kelasperkuliahan').html('');
                 $('#kelasperkuliahan').html(result.html);
-                $('#nama-kurikulum').text(result.nama.nama_kurikulum);
+                $('#nama-kurikulum').text(result.nama_kurikulum);
                 //$('#table-matakuliah').html(result.html);
                 $('.kt-select2').select2({
                     width:'100%'
                 });
                 $('#table-matakuliah').DataTable(
                     {
+                        responsive: false,
                         language:{
                             url: '/assets/lang/id.json'
                         },
@@ -364,10 +373,11 @@ $(document).ready(function(){
                     showMeridian: false,
                     snapToStep: true
                 });
+                Swal.close();
             }
          });
 
-
+        // $("#table-matakuliah").parent().css({"overflow-x" : "auto"})
     });
     
 
@@ -433,6 +443,10 @@ $(document).ready(function(){
                                     "text": res.message,
                                     "type": res.status,
                                     "confirmButtonClass": "btn btn-secondary"
+                                }).then((result) => {
+                                    if (result.value) {
+                                        window.location = '/data/kelasperkuliahan';
+                                    }
                                 });
                             }
 

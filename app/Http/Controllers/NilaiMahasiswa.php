@@ -19,8 +19,8 @@ class NilaiMahasiswa extends Controller
         "row_status" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Row_status"],
         ];
     static $html = ["id"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
-"row_status"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
-];
+        "row_status"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
+        ];
     static $exclude = ["id","created_at","updated_at","created_by","update_by"];
     static $tablename = "NilaiMahasiswa";
 
@@ -45,17 +45,24 @@ class NilaiMahasiswa extends Controller
         
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
-            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'angkatan' => MahasiswaModel::where('mahasiswa.row_status' , 'active')
+                ->join('master_semester','master_semester.id', '=', 'mahasiswa.id_periode_masuk')
+                ->select('master_semester.id_tahun_ajaran')
+                ->distinct()
+                ->orderBy('id_tahun_ajaran','desc')
+                ->get(),
             'kelas' => KelasModel::where('row_status' , 'active')->get(),
-            'semester'=> SemesterModel::where('row_status', 'active')->get(),
+            'semester'=> SemesterModel::where('row_status', 'active')
+                ->orderBy('id', 'desc')
+                ->get(),
         );
-        //print_r($master); exit;
-        //$data = DB::table('view_input_nilai_mahasiswa')->get();
+
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $tableid = "KelasPerkuliahan";
         $table_display = DB::getSchemaBuilder()->getColumnListing(static::$tablename);
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
+
         return view("data/nilai_mahasiswa" , compact("title" ,"table_display" ,"exclude" ,"Tableshow","tableid", "master"));
     }
 
@@ -66,16 +73,13 @@ class NilaiMahasiswa extends Controller
         $Tableshow = static::$Tableshow;
         $html = static::$html;
         $column = 1;
-        return view("setting/master_create" , compact("table" ,"exclude" , "Tableshow" , "title" , "html", "column"));
 
+        return view("setting/master_create" , compact("table" ,"exclude" , "Tableshow" , "title" , "html", "column"));
     }
 
     public function save(Request $request){
         $post = $request->all();
 
-        //print_r($post['mahasiswa']); exit;
-        
-        
         $where = [];
         foreach($post['mahasiswa'] as $key => $item){
             
@@ -122,14 +126,13 @@ class NilaiMahasiswa extends Controller
             ->where('nilai_mahasiswa.kelas_perkuliahan_detail_id' , $id)->get();
             
         }else{
-            $mahasiswa = MahasiswaModel::where('kelas_id' , $data->kelas_id)->where('status' , '1')->get();
+            $mahasiswa = MahasiswaModel::where('kelas_id' , $data->kelas_id)->where('nama_status_mahasiswa' , 'AKTIF')->get();
         }
         
         return view("data/nilai_mahasiswa_update" , compact("data" ,"mahasiswa"));
     }
 
     public function paging(Request $request){
-        //print_r($request->all()); exit;
         $post= $request->all();
         $where = [];
         foreach($post['filter'] as $key=>$val){

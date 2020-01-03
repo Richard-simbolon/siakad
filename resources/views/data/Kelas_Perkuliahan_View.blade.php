@@ -92,7 +92,7 @@
                                         <label class="select2-label">Kelas</label>
                                         <div class="form-group">
                                             <select name="kelas_id" id="kelas-mahasiswa" class="form-control search-kurikulum">
-                                                <option value="{{$kurikulum->kelas_id}}">{{$kurikulum->kelas_id}}</option>
+                                                <option value="{{$kurikulum->kelas_id}}">{{$kurikulum->nama_kelas}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -110,8 +110,8 @@
                                 </div>
                                 
                             <div class="row">
-                                <div class="col-lg-12" id="kelasperkuliahan">
-                                    <table class="dataTable table table-striped table-bordered table-hover responsive" id="table-matakuliah">
+                                <div class="col-lg-12" id="kelasperkuliahan" style="overflow-x: auto">
+                                    <table class="dataTable table table-striped table-bordered table-hover" id="table-matakuliah">
                                         <thead>
                                         <tr>
                                             <th>Pilih</th>
@@ -136,20 +136,25 @@
                                                         $selected = $dosen_item['id'] ==  $item->dosen_id ? 'selected' :'';
                                                         $dosen_html .= '<option value="'.$dosen_item['id'].'" '.$selected.'> '.$dosen_item['nama'].'</option>';
                                                     }
+                                                    $ruangan_html = '<option value="0"> -- Pilih ruangan --</option>';
+                                                    foreach($master['ruangan'] as $ruangan_item){
+                                                        $selected = $ruangan_item['id'] ==  $item->ruangan ? 'selected' :'';
+                                                        $ruangan_html .= '<option value="'.$ruangan_item['id'].'"'.$selected.'> '.$ruangan_item['kode_ruangan'].' - '.$ruangan_item['nama_ruangan'].'</option>';
+                                                    }
                                                     $checked = $item->mata_kuliah_id ? 'checked' : '';
                                                 echo'
                                                     <tr>
                                                         <td align="center"><input type="checkbox" '.$checked.' name="item['.$item->matakuliah_id.'][mata_kuliah_id]" value="'.$item->matakuliah_id.'" class="form-control-sm"></td></td>
                                                         <td>'.$item->kode_mata_kuliah.'</td>
                                                         <td>'.$item->nama_mata_kuliah.'</td>
-                                                        <td align="center">'.$item->bobot_mata_kuliah.'</td>
+                                                        <td align="center">'.$item->sks_mata_kuliah.'</td>
                                                         <td align="center">'.$item->semester.'</td>
                                                         <td>
                                                             <select class="form-control  kt-select2" name="item['.$item->matakuliah_id.'][dosen_id]">
                                                                 '.$dosen_html.'
                                                             </select>
                                                         </td>
-                                                        <td align="center"><input type="text" value="'.$item->asisten.'" name="item['.$item->matakuliah_id.'][asisten]" class="form-control " /> </td>
+                                                        <td align="center"><input style="min-width: 100px;" type="text" value="'.$item->asisten.'" name="item['.$item->matakuliah_id.'][asisten]" class="form-control " /> </td>
                                                         <td align="center">
                                                             <select style="min-width: 75px" class="form-control" name="item['.$item->matakuliah_id.'][hari_id]">
                                                                 <option value="1" '.(($item->hari_id) == "1" ? 'selected' : '') .' >Senin</option>
@@ -161,16 +166,18 @@
                                                             </select>
                                                         </td>
                                                         <td align="center">
-                                                            <input type="text"class="form-control " value="'.$item->ruangan.'"  name="item['.$item->matakuliah_id.'][ruangan]"/>
+                                                            <select class="form-control form-control kt-select2" name="item['.$item->matakuliah_id.'][ruangan]">
+                                                                '.$ruangan_html.'
+                                                            </select>
                                                         </td>
                                                         <td align="center">
                                                             <div class="input-group timepicker">
-                                                                <input style="max-width: 90px" type="text" name="item['.$item->matakuliah_id.'][jam]" value="'.$item->jam.'" class="form-control m-input time-picker" placeholder="Pilih Jam"/>
+                                                                <input style="width: 90px" type="text" name="item['.$item->matakuliah_id.'][jam]" value="'.$item->jam.'" class="form-control m-input time-picker" placeholder="Pilih Jam"/>
                                                             </div>
                                                         </td>
                                                         <td align="center">
                                                             <div class="input-group timepicker">
-                                                                <input style="max-width: 90px" type="text" name="item['.$item->matakuliah_id.'][selesai]" value="'.$item->selesai.'" class="form-control m-input time-picker" placeholder="Pilih Jam"/>
+                                                                <input style="width: 90px" type="text" name="item['.$item->matakuliah_id.'][selesai]" value="'.$item->selesai.'" class="form-control m-input time-picker" placeholder="Pilih Jam"/>
                                                             </div>
                                                         </td>
                                                         <td>

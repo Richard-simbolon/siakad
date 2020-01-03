@@ -12,7 +12,7 @@
                             Akademik </h3>
                         <span class="kt-subheader__separator kt-hidden"></span>
                         <div class="kt-subheader__breadcrumbs">
-                            <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                            <a href="{{url('data/absensimahasiswa')}}" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="" class="kt-subheader__breadcrumbs-link">
                                 Daftar Absensi</a>
@@ -66,7 +66,7 @@
                                         <select id="angkatan-mahasiswa" name="angkatan_id" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
                                             <option value="">Select</option>
                                             @foreach ($master['angkatan'] as $item)
-                                                <option value="{{$item['id']}}" > {{$item['title']}} </option>
+                                                <option value="{{$item['id_tahun_ajaran']}}" > {{$item['id_tahun_ajaran']}} </option>
                                             @endforeach
                                         </select>
                                     </div>

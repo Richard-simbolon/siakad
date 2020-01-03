@@ -44,19 +44,20 @@ class AbsensiMahasiswa extends Controller
     }
     public function index()
     {
-        //print_r(Cache::get('absensi_18'));
-        //print_r(Cache::get('absensi_29_detail'));
-        //Cache::get('key', 'default');
-        //exit;
-        ///echo implode( "','", DB::getSchemaBuilder()->getColumnListing('absensi_mahasiswa')); exit;
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
-            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'angkatan' => MahasiswaModel::where('mahasiswa.row_status' , 'active')
+                ->join('master_semester','master_semester.id', '=', 'mahasiswa.id_periode_masuk')
+                ->select('master_semester.id_tahun_ajaran')
+                ->distinct()
+                ->orderBy('id_tahun_ajaran','desc')
+                ->get(),
             'kelas' => KelasModel::where('row_status' , 'active')->get(),
-            'semester'=> SemesterModel::where('row_status', 'active')->get(),
+            'semester'=> SemesterModel::where('row_status', 'active')
+                ->orderBy('id', 'desc')
+                ->get(),
         );
-        //print_r($master); exit;
-        //$data = DB::table('view_input_nilai_mahasiswa')->get();
+
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $tableid = "KelasPerkuliahan";
         $table_display = DB::getSchemaBuilder()->getColumnListing(static::$tablename);
@@ -66,8 +67,6 @@ class AbsensiMahasiswa extends Controller
 
     }
     public function absensi($id){
-
-        //echo $id; exit;
         $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         
         $data = DB::table('view_input_nilai_mahasiswa')->where('id' , $id)->first();
@@ -83,7 +82,7 @@ class AbsensiMahasiswa extends Controller
             
         }else{
 
-            $mahasiswa = MahasiswaModel::where('kelas_id' , $data->kelas_id)->where('status' , '1')->get();
+            $mahasiswa = MahasiswaModel::where('kelas_id' , $data->kelas_id)->where('status' , 'AKTIF')->get();
         }
 
         return view("data/absensi_create" , compact("title" , "mahasiswa", "data"));
@@ -109,14 +108,7 @@ class AbsensiMahasiswa extends Controller
             $all_mhs = $this->get_detail_absensi($item->id , 'absensi_'.$item->id.'_detail');
 
             foreach($all_mhs as $key2=>$val2){
-
-                if (Cache::has('absensi_'.$item->id)){
-                    $h = Cache::get('absensi_'.$item->id);
-                }else{
-                    $this->cache_header_absensi($item->id,'absensi_'.$item->id);
-                    $h = Cache::get('absensi_'.$item->id);
-                
-                }
+                $h = $this->cache_header_absensi($item->id,'absensi_'.$item->id);
                 $detail[$val2->mahasiswa_id][$val2->id] = array(
                     'status_absensi' => $val2->status_absensi,
                     'id' => $val2->absensi_id,
@@ -127,24 +119,19 @@ class AbsensiMahasiswa extends Controller
                 $mahasiswa[$val2->mahasiswa_id] = $val2;
             }
         }
+
         return view("data/absensi_edit" , compact("title", "data" ,"mahasiswa" ,"detail"));
 
     }
 
     public function cache_header_absensi($id, $key){
-        if (Cache::has($key)){
-            return Cache::get($key);
-        }else{
-            $new_cache = DB::table('view_input_nilai_mahasiswa')
+        $new_cache = DB::table('view_input_nilai_mahasiswa')
             ->join('absensi_mahasiswa' , 'absensi_mahasiswa.kelas_perkuliahan_detail_id' , '=' , 'view_input_nilai_mahasiswa.id')
             ->select('view_input_nilai_mahasiswa.*' , 'absensi_mahasiswa.id as absensi_id' , 'absensi_mahasiswa.pembahasan' , 'absensi_mahasiswa.tanggal_perkuliahan')
             ->where('absensi_mahasiswa.id' , $id)
             ->first();
-            $this->store_memcached($key , $new_cache);
-            Cache::get($key); 
-        
-        }
-        
+
+        return $new_cache;
     }
 
     public function get_detail_absensi($id , $key){
@@ -171,7 +158,7 @@ class AbsensiMahasiswa extends Controller
         $post['created_at'] = date('Y-m-d H:i:s');
         $post['updated_at'] = date('Y-m-d H:i:s');
         $validation = Validator::make($post, [
-            'tanggal_perkulian' => 'required',
+            'tanggal_perkuliahan' => 'required',
             'pembahasan' => 'required',
             'kelas_perkuliahan_detail_id' => 'required',
             'semester_id' => 'required',

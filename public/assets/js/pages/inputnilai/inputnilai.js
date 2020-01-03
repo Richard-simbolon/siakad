@@ -69,10 +69,13 @@ $(document).ready(function() {
                 title: 'Actions',
                 orderable: false,
                 render: function(data, type, full, meta) {
-                    return `<a class="btn" href="nilaimahasiswa/edit/`+full.id+`"><i class="la la-edit"></i> Isi Nilai</a>`;
+                    return `<a class="btn" href="nilaimahasiswa/edit/`+full.id+`"><i class="la la-edit"></i></a>`;
                 },
             },{
                 targets: 0,
+                className: "text-center"
+            },{
+                targets: 3,
                 className: "text-center"
             }
 

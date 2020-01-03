@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\AngkatanModel;
 use App\KelasModel;
+use App\MahasiswaModel;
 use App\SemesterModel;
 use App\SoalUjianModel;
 use App\StatusMahasiswaModel;
@@ -109,13 +110,14 @@ class Dosen extends Controller
         $result_string = $this->runWS($data, 'json');
         $result = json_decode($result_string , true);
         if(!$result){
+            $this->sinkron_log('sync_dosen','gagal', 0);
+
             return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
         }
         if(array_key_exists('data' , $result)){
             //DB::beginTransaction();
             //    try{
             foreach($result['data'] as $item){
-                
                     $service_data = [];
                     foreach(static::$bio_websevice as $key=>$val){
                         foreach(static::$bio_websevice[$key] as $key2=>$val2){
@@ -124,9 +126,8 @@ class Dosen extends Controller
                     }
                     $dosen_id = DosenModel::updateOrCreate(array('id_dosen' => $service_data['bio']['id_dosen']), $service_data['bio']);
                     DosenKeluargaModel::updateOrCreate(array('dosen_id' => $dosen_id->id) , $service_data['pernikahan']);
-                    
-                    
                 }
+                $this->sinkron_log('sync_dosen','sukses', count($result['data']));
                 DB::table('sinkronisasi_logs')
                 ->insert(array('title' => 'DetailBiodataDosen' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
                 return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
@@ -909,10 +910,17 @@ class Dosen extends Controller
         $master = array(
             'status' => StatusMahasiswaModel::where('row_status' , 'active')->get(),
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
-            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'angkatan' => MahasiswaModel::where('mahasiswa.row_status' , 'active')
+                ->join('master_semester','master_semester.id', '=', 'mahasiswa.id_periode_masuk')
+                ->select('master_semester.id_tahun_ajaran')
+                ->distinct()
+                ->orderBy('id_tahun_ajaran','desc')
+                ->get(),
             'kelas' => KelasModel::where('row_status' , 'active')->get(),
             'dosen' => DosenModel::where('row_status', 'active'),
-            'semester'=>SemesterModel::where('row_status', 'active')->get(),
+            'semester'=> SemesterModel::where('row_status', 'active')
+                ->orderBy('id', 'desc')
+                ->get(),
         );
 
         return view("data/daftar_soal", compact('master'));
