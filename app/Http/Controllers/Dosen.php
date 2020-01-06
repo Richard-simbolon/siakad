@@ -89,6 +89,16 @@ class Dosen extends Controller
         ]
 ];
 
+static $service_penugasan = [
+                    'id_registrasi_dosen' =>'id_registrasi_dosen',
+                    'id_dosen' => 'id_dosen',
+                    'tahun_ajran' => 'id_tahun_ajaran',
+                    'id_perguruan_tinggi'=>'id_perguruan_tinggi',
+                    'program_studi_id'=>'id_prodi',
+                    'no_surat_tugas'=>'nomor_surat_tugas',
+                    'tanggal_surat_tugas'=>'tanggal_surat_tugas',
+                    'tmt_surat_tugas' => 'mulai_surat_tugas'
+                    ];
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
@@ -142,6 +152,44 @@ class Dosen extends Controller
             }
         
 
+        }
+        
+    }
+
+    public function sinc_penugasan(){
+        
+        $token = $this->check_auth_siakad();
+        //echo $token; exit;
+        $data = array('act'=>"GetListPenugasanDosen" , "token"=>$token, "filter"=> "","limit"=>"2" , "offset" =>0);
+        $result_string = $this->runWS($data, 'json');
+        $result = json_decode($result_string , true);
+        //print_r($result ); exit;
+        if(array_key_exists('data' , $result)){
+            //DB::beginTransaction();
+            //    try{
+            foreach($result['data'] as $item){
+                
+                    $service_data = [];
+                    foreach(static::$service_penugasan as $key=>$val){
+                        foreach(static::$service_penugasan[$key] as $key2=>$val2){
+                            $service_data[$key][$key2] = $item[$val2];
+                        }
+                    }
+                    $dosen_id = DosenModel::updateOrCreate(array('id_dosen' => $service_data['bio']['id_dosen']), $service_data['bio']);
+                    DosenKeluargaModel::updateOrCreate(array('dosen_id' => $dosen_id->id) , $service_data['pernikahan']);
+                    
+                    
+                }
+                DB::table('sinkronisasi_logs')
+                ->insert(array('title' => 'DetailBiodataDosen' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
+                //DB::commit();
+            //} catch(\Exception $e){
+            //    DB::rollBack(); 
+            //    throw $e;
+            //    return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+            //}  
+        
         }
         
     }
