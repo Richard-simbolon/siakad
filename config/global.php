@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'jenis_kelamin' => ['laki-laki' => 'Laki-Laki' , 'perempuan' => 'Perempuan'],
+    'jenis_kelamin' => ['L' => 'Laki-Laki' , 'P' => 'Perempuan'],
     'status_pernikahan' => ['single' => 'Belum Menikah' , 'menikah' => 'Menikah'],
     'hari' =>   [
                     '0'=>'-',

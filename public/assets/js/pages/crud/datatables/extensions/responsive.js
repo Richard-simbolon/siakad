@@ -37,6 +37,41 @@ var KTDatatablesExtensionsResponsive = function() {
 
     };
 
+    var initIkatanKerjaSdm = function(a) {
+        var table = $('#IkatanKerjaSdm');
+        // begin first table
+        table.DataTable({
+            responsive: true,
+            processing: true,
+            serverSide: true,
+            language:{
+                url: '/assets/lang/id.json'
+            },
+            ajax: {
+                url:'/master/ikatankerjasdm/paging',
+                type:"POST",
+                //data:{"_token": $('#csrf_').val(),'table':key},
+                data: function ( d ) {
+                    d.myKey = "myValue";
+                    d._token = $('#csrf_').val()
+                    // d.custom = $('#myInput').val();
+                    // etc
+                }
+            },
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                { data: 'nama_ikatan_kerja', name: 'nama_ikatan_kerja' }
+            ],
+            columnDefs: [
+                {
+                    targets: 0,
+                    className: "text-center"
+                }
+
+            ],
+        });
+
+    };
 
     var initTable2 = function(a) {
 
@@ -1568,6 +1603,7 @@ var KTDatatablesExtensionsResponsive = function() {
             sumbergaji();
             initReportSetting();
             initTahunAjaran();
+            initIkatanKerjaSdm();
 		},
 
 	};

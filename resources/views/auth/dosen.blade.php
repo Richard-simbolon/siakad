@@ -48,7 +48,7 @@
                                     <button style="width: 150px"  type="submit" class="btn btn-outline-success kt-login__btn-success">{{ __('Masuk') }} <i class="fa fa-arrow-right"></i> </button>
                                 </div>
                                 <div class="row kt-login__extra text-center" style="display: block;text-align: center">
-                                    Unduh cara penggunaan <a href="#"><u>di sini</u></a>, atau kembali ke <a href="{{url('login')}}"><u>Beranda</u></a>
+                                    Kembali ke <a href="{{url('login')}}"><u>Beranda</u></a>
                                 </div>
                             </form>
                         </div>

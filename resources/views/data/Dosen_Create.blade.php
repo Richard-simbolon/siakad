@@ -207,7 +207,12 @@
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label>Ikatan Kerja </label>
-                                                        <input type="text" class="form-control" name="dosen[ikatan_kerja]" placeholder="Isikan Ikatan Kerja">
+                                                        <select name="dosen[ikatan_kerja]" class="form-control kt-select2">
+                                                            <option value="">--Pilih Status--</option>
+                                                            @foreach ($master['ikatan_kerja_sdm'] as $item)
+                                                                <option value="{{$item['id']}}">{{$item['id']}} - {{$item['nama_ikatan_kerja']}}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">

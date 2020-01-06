@@ -390,8 +390,7 @@ class Mahasiswa extends Controller
             'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
             'negara' => NegaraModel::get(),
             'periode_masuk' => SemesterModel::orderby('id_tahun_ajaran' ,'DESC')->get(),
-            'dosen'=> DosenModel::where('dosen.row_status', 'active')->where('master_status_pegawai.title','Aktif')
-                ->join('master_status_pegawai','master_status_pegawai.id','=', 'dosen.status_pegawai')
+            'dosen'=> DosenModel::where('dosen.row_status', 'active')
                 ->select('dosen.id', 'dosen.nidn_nup_nidk', 'dosen.nama')
                 ->get()
         );
@@ -491,8 +490,7 @@ class Mahasiswa extends Controller
             'agama' => AgamaModel::where('row_status' , 'active')->get(),
             'semester' => SemesterModel::where('row_status' , 'active')->get(),
             'status_mahasiswa' => StatusMahasiswaModel::where('row_status' , 'active')->get(),
-            'dosen'=> DosenModel::where('dosen.row_status', 'active')->where('master_status_pegawai.title','Aktif')
-                ->join('master_status_pegawai','master_status_pegawai.id','=', 'dosen.status_pegawai')
+            'dosen'=> DosenModel::where('dosen.row_status', 'active')
                 ->select('dosen.id', 'dosen.nidn_nup_nidk', 'dosen.nama')
                 ->get()
         );

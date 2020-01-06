@@ -216,6 +216,7 @@
                                         </thead>
                                         <tbody>
                                             <?php $i = 0;?>
+                                            @if($penugasan)
                                             @foreach ($penugasan as $item)
                                             <?php $i++;?>
                                                 <tr>
@@ -232,7 +233,7 @@
                                                 </tr>
                                                 
                                             @endforeach
-                                        
+                                        @endif
                                         </tbody>
                                     </table>
                                 </div>

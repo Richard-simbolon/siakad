@@ -71,6 +71,7 @@
                                         <th style="text-align: center">No</th>
                                         <th>Nama</th>
                                         <th>Keterangan</th>
+                                        <th>Modul</th>
                                         <th style="text-align: center">Jumlah Data</th>
                                         <th style="text-align: center">Waktu Sinkronisasi</th>
                                         <th style="text-align: center">Sinkronisasi Status</th>
@@ -85,6 +86,7 @@
                                                 <td align="center">{{$i}}</td>
                                                 <td>{{$item->name}}</td>
                                                 <td>{{$item->description}}</td>
+                                                <td>{{$item->module}}</td>
                                                 <td align="center">{{$item->jumlah_sync}}</td>
                                                 <td align="center">{{$item->last_sync}}</td>
                                                 @if($item->last_sync_status == 'sukses')

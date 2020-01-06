@@ -263,3 +263,10 @@ Route::get('sinc_insert', 'Mahasiswa@sinc_insert')->name('sinc_insert');
 Route::get('sinc_krs', 'Mahasiswa@sinc_krs')->name('sinc_krs');
 Route::get('sinc_kelas_perkuliahan', 'KelasPerkuliahan@sinc_kelas_perkuliahan')->name('sinc_kelas_perkuliahan');
 Route::get('/data/kurikulum/sinc_kurikulum_mata_kuliah', 'Kurikulum@sinc_kurikulum_mata_kuliah')->name('sinc_kurikulum_mata_kuliah');
+
+Route::get('dosen/sinc_penugasan_dosen', 'Dosen@sinc_penugasan_dosen')->name('sinc_penugasan_dosen');
+Route::get('dosen/sinc_fungsional_dosen', 'Dosen@sinc_fungsional_dosen')->name('sinc_fungsional_dosen');
+Route::get('dosen/sinc_kepangkatan', 'Dosen@sinc_kepangkatan')->name('sinc_kepangkatan');
+Route::get('dosen/sinc_pendidikan', 'Dosen@sinc_pendidikan')->name('sinc_pendidikan');
+Route::get('dosen/sinc_sertifikasi', 'Dosen@sinc_sertifikasi')->name('sinc_sertifikasi');
+Route::get('dosen/sinc_penelitian', 'Dosen@sinc_penelitian')->name('sinc_penelitian');
