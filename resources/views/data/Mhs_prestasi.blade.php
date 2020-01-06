@@ -184,7 +184,6 @@
                                         <th>Penyelenggara </th>
                                         <th style="text-align: center">Nama Prestasi</th>
                                         <th style="text-align: center">Peringkat</th>
-                                        <th>Aksi</th>
                                     </tr>
                                     </thead>
                                     <tbody>

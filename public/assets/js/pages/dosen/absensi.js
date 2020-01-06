@@ -76,7 +76,7 @@ $(document).ready(function() {
                           <i class="la la-ellipsis-h"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="absensi/view/`+full.id+`"><i class="la la-edit"></i>Cek Absensi</a>
+                            <a class="dropdown-item" onclick="checkAbsensi('`+full.id+`');" href="#"><i class="la la-edit"></i>Cek Absensi</a>
                             <a class="dropdown-item" href="absensi/absensi/`+full.id+`"><i class="la la-plus"></i>Tambah</a>
                         </div>
                     </span>`;
@@ -713,4 +713,26 @@ $(document).ready(function() {
     });
 
 });
+
+function checkAbsensi(id){
+    $.ajax({
+        type:'GET',
+        dataType:'json',
+        url:'/dosen/absensi/check/'+id,
+        success:function(result) {
+            if(result.status == 'error'){
+                var text = '';
+                swal.fire({
+                    "title": "",
+                    "html": result.message,
+                    "type": "error",
+                    "confirmButtonClass": "btn btn-secondary"
+                });
+            }else{
+                window.location = '/dosen/absensi/view/'+id;
+            }
+
+        }
+    });
+}
 

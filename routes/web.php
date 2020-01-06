@@ -174,7 +174,7 @@ Route::post('data/aktivitasperkuliahan/paging', 'AktivitasPerkuliahan@paging')->
 //end of aktivitas perkuliahan
 
 Route::post('kurikulum/carimatakuliah', 'Kurikulum@carimatakuliah')->name('CariMatakuliah');
-Route::post('kurikulum/filtering_table', 'Kurikulum@filtering_table')->name('FilteringTable');
+Route::post('/kurikulum/filtering_table', 'Kurikulum@filtering_table')->name('FilteringTable');
 
 //Route::post('master/agama/paging', 'Agama@paging')->name('pagination');
 //Route::post('master/matakuliah/paging', 'MataKuliah@paging')->name('pagination');
@@ -183,6 +183,8 @@ Route::post('kurikulum/filtering_table', 'Kurikulum@filtering_table')->name('Fil
 Route::get('/data/absensimahasiswa/absensi/{id}', 'AbsensiMahasiswa@absensi')->name('index');
 // DOSEN
 Route::get('/dosen/absensi/absensi/{id}', 'DosenAbsensi@absensi')->name('index');
+Route::get('/dosen/absensi/view/{id}', 'DosenAbsensi@view')->name('view');
+Route::get('/dosen/absensi/check/{id}', 'DosenAbsensi@check')->name('check');
 
 Route::get('/data/jadwalujian/form/{id}/{jenis}', 'JadwalUjian@form')->name('index');
 Route::get('data/jadwalujian/kelas/{jenis}', 'JadwalUjian@kelas')->name('kelas');
@@ -264,4 +266,4 @@ Route::get('sinc_penugasan', 'Dosen@sinc_penugasan')->name('sinc_penugasan');
 
 Route::get('sinc_krs', 'Mahasiswa@sinc_krs')->name('sinc_krs');
 Route::get('sinc_kelas_perkuliahan', 'KelasPerkuliahan@sinc_kelas_perkuliahan')->name('sinc_kelas_perkuliahan');
-Route::get('sinc_kurikulum_mata_kuliah', 'Kurikulum@sinc_kurikulum_mata_kuliah')->name('sinc_kurikulum_mata_kuliah');
+Route::get('/data/kurikulum/sinc_kurikulum_mata_kuliah', 'Kurikulum@sinc_kurikulum_mata_kuliah')->name('sinc_kurikulum_mata_kuliah');

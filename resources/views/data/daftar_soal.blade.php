@@ -62,7 +62,7 @@
                                     <div class="form-group">
                                         <label>Semester</label>
                                         <select name="semester_id" id="semester-ujian-admin" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
-                                            <option value=" ">-- Pilih Program Studi --</option>
+                                            <option value=" ">-- Pilih Semester --</option>
                                             @foreach ($master['semester'] as $item)
                                                 <option value="{{$item['id']}}">{{$item['title']}}</option>
                                             @endforeach
@@ -75,7 +75,7 @@
                                         <select name="program_studi_id" id="angkatan-mahasiswa-admin" class="form-control kt-select2 search-nilai-matakuliah looping_class_input">
                                             <option value=" ">-- Pilih Angkatan --</option>
                                             @foreach ($master['angkatan'] as $item)
-                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                <option value="{{$item['id_tahun_ajaran']}}">{{$item['id_tahun_ajaran']}}</option>
                                             @endforeach
                                         </select>
                                     </div>

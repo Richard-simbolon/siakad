@@ -1,5 +1,6 @@
 <?php
             namespace App\Http\Controllers;
+            use App\SinkronisasiModel;
             use Illuminate\Support\Facades\DB;
             use Illuminate\Support\Facades\Validator;
             use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class AlatTransportasi extends Controller
                                 "title"=>["type"=>"text" , "value"=>"null" , "validation" => "required"] ,
                                 "row_status"=>["type"=>"radio" , "value"=>"active,notactive,deleted" , "validation" => "required"] ,
                                 ];
-                static $exclude = ["id","created_at","updated_at","created_by","update_by"];
+                static $exclude = ["id","row_status","created_at","updated_at","created_by","update_by"];
                 static $tablename = "AlatTransportasi";
                 public function __construct()
                 {
@@ -56,8 +57,10 @@ class AlatTransportasi extends Controller
                     $result_string = $this->runWS($data, 'json');
                     
                     $result = json_decode($result_string , true);
-                    //echo count($result['data']);
-                    //print_r($result); exit;
+                    if(!$result){
+                        $this->sinkron_log('sync_alat_transportasi','gagal', 0);
+                        return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+                    }
                     if(array_key_exists('data' , $result)){
                         if(count($result['data']) > 1){
                             DB::beginTransaction();
@@ -66,6 +69,7 @@ class AlatTransportasi extends Controller
                                     AlatTransportasiModel::updateOrInsert(array('id'=> $item['id_alat_transportasi'] , 'title'=>$item['nama_alat_transportasi']));
                                 }
                                 DB::commit();
+                                $this->sinkron_log('sync_alat_transportasi','sukses', count($result['data']));
                                 DB::table('sinkronisasi_logs')
                                 ->insert(array('title' => 'GetAlatTransportasi' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
                                 return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));

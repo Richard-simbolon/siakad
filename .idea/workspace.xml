@@ -17,32 +17,12 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/data/nilai_mahasiswa.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="29" column="29" lean-forward="true" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/dosen/nilai_mahasiswa.blade.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="61" column="42" selection-start-line="61" selection-start-column="42" selection-end-line="61" selection-end-column="42" />
-              <folding>
-                <element signature="e#4126#4132#0#HTML" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/assets/js/pages/crud/datatables/extensions/responsive.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="464" column="100" selection-start-line="464" selection-start-column="94" selection-end-line="464" selection-end-column="100" />
+            <state relative-caret-position="385">
+              <caret line="1275" column="36" selection-start-line="1275" selection-start-column="36" selection-end-line="1275" selection-end-column="36" />
               <folding>
+                <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
                 <element signature="e#55#61#1" expanded="true" />
                 <element signature="e#55#61#1" expanded="true" />
               </folding>
@@ -50,29 +30,32 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/setting/create.blade.php">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TahunAjaran.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="485">
-              <caret line="125" column="104" selection-start-line="125" selection-start-column="96" selection-end-line="125" selection-end-column="104" />
+            <state relative-caret-position="550">
+              <caret line="157" column="48" selection-start-line="157" selection-start-column="48" selection-end-line="157" selection-end-column="48" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/setting/master_create.blade.php">
+        <entry file="file://$PROJECT_DIR$/config/database.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="746">
-              <caret line="136" column="49" lean-forward="true" selection-start-line="136" selection-start-column="49" selection-end-line="136" selection-end-column="49" />
+            <state relative-caret-position="95">
+              <caret line="63" column="20" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/js/general.js">
+        <entry file="file://$PROJECT_DIR$/resources/views/setting/general_view.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="48" column="11" lean-forward="true" selection-start-line="42" selection-start-column="8" selection-end-line="48" selection-end-column="11" />
+            <state relative-caret-position="285">
+              <caret line="19" column="70" lean-forward="true" selection-start-line="19" selection-start-column="70" selection-end-line="19" selection-end-column="70" />
+              <folding>
+                <element signature="e#5011#5036#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -80,35 +63,59 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/setting/master_edit.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="144" column="64" selection-start-line="144" selection-start-column="58" selection-end-line="144" selection-end-column="64" />
+            <state relative-caret-position="336">
+              <caret line="79" column="60" lean-forward="true" selection-start-line="79" selection-start-column="60" selection-end-line="79" selection-end-column="60" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/resources/views/data/mhs_create.blade.php">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MataKuliah.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="731" column="159" selection-start-line="731" selection-start-column="146" selection-end-line="731" selection-end-column="159" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/assets/js/pages/custom/wizard/wizard-3.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
-              <caret line="110" column="23" selection-start-line="110" selection-start-column="23" selection-end-line="110" selection-end-column="23" />
+            <state relative-caret-position="465">
+              <caret line="40" column="37" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="37" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/assets/js/pages/master/delete.js">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/JenisMatakuliah.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="19" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
+            <state relative-caret-position="-710">
+              <caret line="41" column="47" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/JenisMatakuliahModel.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Jurusan.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="144" column="45" lean-forward="true" selection-start-line="144" selection-start-column="45" selection-end-line="144" selection-end-column="45" />
+              <folding>
+                <element signature="e#1815#2391#0#PHP" />
+                <element signature="e#3052#4791#0#PHP" />
+                <element signature="e#4809#5387#0#PHP" />
+                <element signature="e#5405#6829#0#PHP" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/Kashtree-Android/app/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2880">
+              <caret line="192" column="22" selection-start-line="192" selection-start-column="17" selection-end-line="192" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -124,36 +131,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>#JadwalUjian</find>
-      <find>jenis</find>
-      <find>Saat ini jadwal pengisian nilai untuk</find>
-      <find>daftar_jadwal_ujian</find>
-      <find>mahasiswa</find>
-      <find>$row</find>
-      <find>mahasiswajadwalujian</find>
-      <find>Ujian</find>
-      <find>jadwalujiandata</find>
-      <find>ujian_create</find>
-      <find>jadwal_ujian</find>
-      <find>if(count($ip_smstr_prev) &gt; 0){</find>
-      <find>ip_smstr_prev</find>
-      <find>kt-login__container</find>
-      <find>LoginController</find>
-      <find>login</find>
-      <find>#jadwalperkuliahandata</find>
-      <find>login_type</find>
-      <find>not found</find>
-      <find>Dosen_Kepangkatan</find>
-      <find>email.password</find>
-      <find>send_password_mail</find>
-      <find>generate_password</find>
-      <find>.generalsave</find>
-      <find>Nilai Perkuliahan</find>
-      <find>general</find>
-      <find>btn_delete_general</find>
-      <find>genera</find>
-      <find>action-submit</find>
-      <find>save</find>
+      <find>#Jenis</find>
+      <find>#ruangan</find>
+      <find>#rua</find>
+      <find>JenisPe</find>
+      <find>sumber</find>
+      <find>#matakuliah</find>
+      <find>JenisM</find>
+      <find>Ruangan</find>
+      <find>kalenderakademik</find>
+      <find>topbar_notifications_events</find>
+      <find>notif_calender</find>
+      <find>jadwalperkuliahandata</find>
+      <find>paging</find>
+      <find>savepenelitiandosen</find>
+      <find>jadwalIsiNilai</find>
+      <find>nilaidatatable</find>
+      <find>absensimatakuliah</find>
+      <find>dosen/absensi/view</find>
+      <find>dosen/absensi/</find>
+      <find>check</find>
+      <find>save-absensi-perkuliahan</find>
+      <find>Admob</find>
+      <find>admob</find>
+      <find>ids</find>
+      <find>#Angkatan</find>
+      <find>bobot_mata_kuliah</find>
+      <find>JenisMatakuliah</find>
+      <find>#Jurusan</find>
+      <find>TahunAjaran</find>
+      <find>orderb</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -165,43 +172,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Http/Controllers/JadwalPerkuliahan.php" />
-        <option value="$PROJECT_DIR$/app/Http/Controllers/Sinkronisasi.php" />
-        <option value="$PROJECT_DIR$/routes/web.php" />
-        <option value="$PROJECT_DIR$/resources/views/layout/sidemenu.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/administrator/sinkronisasi.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/auth/login.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/data/mahasiswa.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/data/dosen.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/setting/general_view.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/master/matakuliah.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/master/matakuliah_edit.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/data/kurikulum.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/data/kurikulum_create.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/data/kelas_perkuliahan.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/data/kelas_perkuliahan_create.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/data/kelas_perkuliahan_view.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/data/kelas.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/master/kelas.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/master/kelas_create.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/master/kelas_edit.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/data/admin_jadwal_perkuliahan.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/data/daftar_jadwal_ujian.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/data/jadwal_ujian.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/data/ujian_create.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/data/ujian_edit.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/data/tugas_akhir.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/data/tugas_akhir_create.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/data/tugas_akhir_edit.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/data/kalender_akademik.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/data/kalender_akademik_create.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/data/kalender_akademik_edit.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/data/kalender_akademik_view.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/data/daftar_soal.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/administrator/administrator.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/administrator/administrator_create.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/administrator/administrator_update.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/dosen/Dosen_Fungsional.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/dosen/Dosen_Penugasan.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/dosen/Dosen_Kepangkatan.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/dosen/Dosen_Pendidikan.blade.php" />
@@ -216,6 +186,43 @@
         <option value="$PROJECT_DIR$/resources/views/setting/master_create.blade.php" />
         <option value="$PROJECT_DIR$/public/assets/js/pages/master/delete.js" />
         <option value="$PROJECT_DIR$/public/assets/js/pages/custom/wizard/wizard-3.js" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Tinggal.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/AlatTransportasi.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Pekerjaan.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Pendidikan.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Penghasilan.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/KebutuhanKhusus.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/StatusMahasiswa.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Angkatan.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/StatusPegawai.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/JenisPegawai.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Ruangan.php" />
+        <option value="$PROJECT_DIR$/resources/views/auth/akademik.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/SumberGaji.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/JenisMatakuliah.php" />
+        <option value="$PROJECT_DIR$/storage/framework/views/1cc5ac476caf8a74915aad314972c92cd62e6280.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/KalenderAkademik.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" />
+        <option value="$PROJECT_DIR$/resources/views/layout/app.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/mahasiswa/jadwal_perkuliahan.blade.php" />
+        <option value="$PROJECT_DIR$/public/assets/js/pages/jadwalmahasiswa/jadwalmahasiswa.js" />
+        <option value="$PROJECT_DIR$/resources/views/dosen/Dosen_Fungsional.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/dosen/dosen_penelitian.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/DosenNilai.php" />
+        <option value="$PROJECT_DIR$/resources/views/dosen/nilai_mahasiswa_update.blade.php" />
+        <option value="$PROJECT_DIR$/routes/web.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/DosenAbsensi.php" />
+        <option value="$PROJECT_DIR$/public/assets/js/pages/dosen/absensi.js" />
+        <option value="$PROJECT_DIR$/resources/views/dosen/absensi_edit.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Agama.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Semester.php" />
+        <option value="$PROJECT_DIR$/config/database.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/Jurusan.php" />
+        <option value="$PROJECT_DIR$/resources/views/setting/master_edit.blade.php" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/MataKuliah.php" />
+        <option value="$PROJECT_DIR$/resources/views/setting/general_view.blade.php" />
+        <option value="$PROJECT_DIR$/public/assets/js/pages/crud/datatables/extensions/responsive.js" />
+        <option value="$PROJECT_DIR$/app/Http/Controllers/TahunAjaran.php" />
       </list>
     </option>
   </component>
@@ -319,11 +326,13 @@
     <option name="width" value="1440" />
     <option name="height" value="824" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -334,6 +343,29 @@
             <path>
               <item name="siakad" type="b2602c69:ProjectViewProjectNode" />
               <item name="siakad" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="siakad" type="b2602c69:ProjectViewProjectNode" />
+              <item name="siakad" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="siakad" type="b2602c69:ProjectViewProjectNode" />
+              <item name="siakad" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="Http" type="462c0819:PsiDirectoryNode" />
+              <item name="Controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="siakad" type="b2602c69:ProjectViewProjectNode" />
+              <item name="siakad" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="siakad" type="b2602c69:ProjectViewProjectNode" />
+              <item name="siakad" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -347,7 +379,7 @@
               <item name="siakad" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="layout" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="siakad" type="b2602c69:ProjectViewProjectNode" />
@@ -356,11 +388,42 @@
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="setting" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="siakad" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Kashtree-Android" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="siakad" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Kashtree-Android" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="siakad" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Kashtree-Android" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="libs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="siakad" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Kashtree-Android" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="siakad" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Kashtree-Android" type="462c0819:PsiDirectoryNode" />
+              <item name="gradle" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="siakad" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Kashtree-Android" type="462c0819:PsiDirectoryNode" />
+              <item name="gradle" type="462c0819:PsiDirectoryNode" />
+              <item name="wrapper" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -409,12 +472,14 @@
       <workItem from="1574821016576" duration="100000" />
       <workItem from="1575298616511" duration="74583000" />
       <workItem from="1575905836813" duration="43926000" />
-      <workItem from="1576466676451" duration="13386000" />
+      <workItem from="1576466676451" duration="15114000" />
+      <workItem from="1576643823860" duration="17654000" />
+      <workItem from="1577368406654" duration="3221000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="210418000" />
+    <option name="totallyTimeSpent" value="233021000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -429,7 +494,7 @@
     <frame x="0" y="23" width="1440" height="824" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26752505" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2746781" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -441,7 +506,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32891566" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.329235" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32891566" />
       <window_info anchor="bottom" id="Terminal" order="11" weight="0.32891566" />
@@ -454,369 +519,425 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/views/master/kelas.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AdminJadwalPerkuliahan.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Tinggal.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="34" column="89" selection-start-line="34" selection-start-column="89" selection-end-line="34" selection-end-column="89" />
+        <state relative-caret-position="210">
+          <caret line="21" column="53" selection-start-line="21" selection-start-column="53" selection-end-line="21" selection-end-column="53" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/master/kelas_create.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AlatTransportasi.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="56" column="34" lean-forward="true" selection-start-line="50" selection-start-column="28" selection-end-line="56" selection-end-column="34" />
+        <state relative-caret-position="165">
+          <caret line="18" column="66" selection-start-line="18" selection-start-column="66" selection-end-line="18" selection-end-column="66" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/master/kelas_edit.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Pendidikan.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="56" column="34" selection-start-line="56" selection-start-column="34" selection-end-line="56" selection-end-column="34" />
+        <state relative-caret-position="210">
+          <caret line="21" column="53" selection-start-line="21" selection-start-column="53" selection-end-line="21" selection-end-column="53" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/data/admin_jadwal_perkuliahan.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StatusPegawai.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="108" column="62" selection-start-line="108" selection-start-column="62" selection-end-line="108" selection-end-column="62" />
+        <state relative-caret-position="210">
+          <caret line="20" column="53" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/data/daftar_jadwal_ujian.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Angkatan.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="23" column="106" lean-forward="true" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="106" />
+        <state relative-caret-position="210">
+          <caret line="20" column="53" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/data/jadwal_ujian.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/StatusMahasiswa.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="96" column="62" lean-forward="true" selection-start-line="96" selection-start-column="62" selection-end-line="96" selection-end-column="62" />
+        <state relative-caret-position="210">
+          <caret line="20" column="53" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/data/ujian_create.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/KebutuhanKhusus.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="54" column="34" selection-start-line="54" selection-start-column="34" selection-end-line="54" selection-end-column="34" />
+        <state relative-caret-position="210">
+          <caret line="21" column="53" selection-start-line="21" selection-start-column="53" selection-end-line="21" selection-end-column="53" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/data/ujian_edit.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Penghasilan.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="58">
-          <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+        <state relative-caret-position="210">
+          <caret line="21" column="53" selection-start-line="21" selection-start-column="53" selection-end-line="21" selection-end-column="53" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/data/tugas_akhir.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/auth/login.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="53" column="28" selection-start-line="53" selection-start-column="28" selection-end-line="57" selection-end-column="34" />
+        <state relative-caret-position="510">
+          <caret line="34" column="59" selection-start-line="34" selection-start-column="59" selection-end-line="34" selection-end-column="59" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/data/tugas_akhir_create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="605">
-          <caret line="56" column="34" lean-forward="true" selection-start-line="52" selection-start-column="28" selection-end-line="56" selection-end-column="34" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/app/JenisPegawaiModel.php">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/data/tugas_akhir_edit.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/auth/akademik.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+        <state relative-caret-position="281">
+          <caret line="31" column="51" lean-forward="true" selection-start-line="31" selection-start-column="51" selection-end-line="31" selection-end-column="51" />
           <folding>
-            <element signature="e#12004#12028#0#HTML" expanded="true" />
-            <element signature="e#12203#12227#0#HTML" expanded="true" />
+            <element signature="e#1617#1658#0#HTML" expanded="true" />
+            <element signature="e#1699#1723#0#HTML" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/data/kalender_akademik.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/SumberGaji.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="58">
-          <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+        <state relative-caret-position="210">
+          <caret line="29" column="54" selection-start-line="29" selection-start-column="54" selection-end-line="29" selection-end-column="54" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/data/kalender_akademik_create.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/master/matakuliah.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="141" column="82" selection-start-line="141" selection-start-column="82" selection-end-line="141" selection-end-column="82" />
+        <state relative-caret-position="-1221">
+          <caret line="82" column="74" lean-forward="true" selection-start-line="82" selection-start-column="74" selection-end-line="82" selection-end-column="74" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/data/kalender_akademik_edit.blade.php">
+    <entry file="file://$PROJECT_DIR$/storage/framework/views/1cc5ac476caf8a74915aad314972c92cd62e6280.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="53" column="141" selection-start-line="53" selection-start-column="141" selection-end-line="53" selection-end-column="141" />
+        <state relative-caret-position="528">
+          <caret line="55" column="24" selection-start-line="55" selection-start-column="24" selection-end-line="55" selection-end-column="77" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/data/kalender_akademik_view.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Ruangan.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="53" column="141" selection-start-line="53" selection-start-column="141" selection-end-line="53" selection-end-column="141" />
+        <state relative-caret-position="368">
+          <caret line="45" column="39" selection-start-line="45" selection-start-column="32" selection-end-line="45" selection-end-column="39" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/data/daftar_soal.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/JenisPegawai.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="22" lean-forward="true" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
+        <state relative-caret-position="390">
+          <caret line="32" column="32" lean-forward="true" selection-start-line="32" selection-start-column="32" selection-end-line="32" selection-end-column="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/administrator/administrator.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/KalenderAkademik.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="24" column="12" lean-forward="true" selection-start-line="24" selection-start-column="12" selection-end-line="28" selection-end-column="18" />
+        <state relative-caret-position="401">
+          <caret line="34" column="46" selection-start-line="34" selection-start-column="46" selection-end-line="34" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/HomeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="554">
+          <caret line="113" column="59" selection-start-line="113" selection-start-column="59" selection-end-line="113" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/layout/header.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-298">
+          <caret line="45" column="59" selection-start-line="45" selection-start-column="45" selection-end-line="45" selection-end-column="59" />
           <folding>
-            <element signature="e#3623#3629#0#HTML" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#a#0;n#div#0;n#div#0;n#div#1;n#form#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/administrator/administrator_create.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/layout/app.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="54" column="34" lean-forward="true" selection-start-line="50" selection-start-column="28" selection-end-line="54" selection-end-column="34" />
+        <state relative-caret-position="385">
+          <caret line="383" column="54" selection-start-line="383" selection-start-column="54" selection-end-line="383" selection-end-column="54" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/administrator/administrator_update.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/mahasiswa/jadwal_perkuliahan.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="28" column="22" selection-start-line="28" selection-start-column="22" selection-end-line="28" selection-end-column="22" />
+        <state relative-caret-position="294">
+          <caret line="119" column="141" selection-start-line="119" selection-start-column="120" selection-end-line="119" selection-end-column="141" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dosen/Dosen_Fungsional.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/JadwalPerkuliahan.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="52" column="51" selection-start-line="52" selection-start-column="51" selection-end-line="52" selection-end-column="51" />
+        <state relative-caret-position="324">
+          <caret line="106" column="14" lean-forward="true" selection-start-line="106" selection-start-column="14" selection-end-line="106" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dosen/dosen_penugasan.blade.php">
+    <entry file="file://$PROJECT_DIR$/public/assets/js/pages/jadwalmahasiswa/jadwalmahasiswa.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="51" column="70" selection-start-line="51" selection-start-column="70" selection-end-line="51" selection-end-column="70" />
+        <state relative-caret-position="419">
+          <caret line="61" column="62" selection-start-line="61" selection-start-column="62" selection-end-line="61" selection-end-column="62" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/dosen/dosen_kepangkatan.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="53" column="51" selection-start-line="53" selection-start-column="51" selection-end-line="53" selection-end-column="51" />
+        <state relative-caret-position="494">
+          <caret line="204" column="70" selection-start-line="204" selection-start-column="70" selection-end-line="204" selection-end-column="70" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dosen/dosen_pendidikan.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/dosen/Dosen_Fungsional.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="515">
-          <caret line="53" column="51" selection-start-line="53" selection-start-column="51" selection-end-line="53" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dosen/dosen_sertifikasi.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="52" column="51" selection-start-line="52" selection-start-column="51" selection-end-line="52" selection-end-column="51" />
+        <state relative-caret-position="219">
+          <caret line="196" column="73" selection-start-line="196" selection-start-column="73" selection-end-line="196" selection-end-column="73" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/dosen/dosen_penelitian.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="53" column="51" selection-start-line="53" selection-start-column="51" selection-end-line="53" selection-end-column="51" />
+        <state relative-caret-position="569">
+          <caret line="230" column="161" selection-start-line="230" selection-start-column="161" selection-end-line="230" selection-end-column="161" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dosen/upload_soal.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/DosenNilai.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="478">
-          <caret line="47" column="143" selection-start-line="47" selection-start-column="143" selection-end-line="47" selection-end-column="143" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dosen/upload_soal_create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="48" column="28" selection-start-line="48" selection-start-column="28" selection-end-line="52" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Support/Facades/Mail.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="3" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="27" column="29" lean-forward="true" selection-start-line="27" selection-start-column="29" selection-end-line="27" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/email/password.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="6" lean-forward="true" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/laravel/framework/src/Illuminate/Routing/Controller.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="64" column="25" selection-start-line="64" selection-start-column="25" selection-end-line="64" selection-end-column="25" />
-          <folding>
-            <element signature="e#2425#5367#0#PHP" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/data/mahasiswa.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="553">
-          <caret line="154" column="32" lean-forward="true" selection-start-line="154" selection-start-column="32" selection-end-line="154" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Controller.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Dosen.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="132" column="32" lean-forward="true" selection-start-line="132" selection-start-column="32" selection-end-line="132" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Mahasiswa.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="547" lean-forward="true" selection-start-line="547" selection-end-line="547" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/dosen/upload_soal_edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="145" column="37" selection-start-line="145" selection-start-column="37" selection-end-line="145" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/web.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1271">
-          <caret line="22" column="40" selection-start-line="22" selection-start-column="40" selection-end-line="22" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/pages/absensi/absensi.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="21" lean-forward="true" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/data/nilai.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/data/nilaimahasiswa.blade.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/data/nilai_mahasiswa_update.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="n#style#0;n#th#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/data/nilai_mahasiswa.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="29" column="29" lean-forward="true" selection-start-line="29" selection-start-column="29" selection-end-line="29" selection-end-column="29" />
+        <state relative-caret-position="408">
+          <caret line="153" column="13" selection-start-line="153" selection-start-column="13" selection-end-line="153" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/dosen/nilai_mahasiswa.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="61" column="42" selection-start-line="61" selection-start-column="42" selection-end-line="61" selection-end-column="42" />
+        <state relative-caret-position="241">
+          <caret line="121" column="200" selection-start-line="121" selection-start-column="186" selection-end-line="121" selection-end-column="200" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/js/pages/absensi/absensi.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-167">
+          <caret line="32" column="8" selection-start-line="32" selection-start-column="8" selection-end-line="32" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/dosen/nilai_mahasiswa_update.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="187" column="77" selection-start-line="187" selection-start-column="77" selection-end-line="187" selection-end-column="77" />
           <folding>
-            <element signature="e#4126#4132#0#HTML" expanded="true" />
+            <element signature="e#9666#9696#0#HTML" expanded="true" />
+            <element signature="e#9775#9805#0#HTML" expanded="true" />
+            <element signature="n#style#0;n#th#0;n#!!top" expanded="true" />
+            <element signature="e#12621#12698#0#PHP" expanded="true" />
+            <element signature="e#17140#17170#0#HTML" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/setting/create.blade.php">
+    <entry file="file://$PROJECT_DIR$/resources/views/dosen/absensi_mahasiswa.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="125" column="104" selection-start-line="125" selection-start-column="96" selection-end-line="125" selection-end-column="104" />
+        <state relative-caret-position="280">
+          <caret line="105" column="130" selection-start-line="105" selection-start-column="113" selection-end-line="105" selection-end-column="130" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/setting/master_create.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/AbsensiMahasiswa.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="746">
-          <caret line="136" column="49" lean-forward="true" selection-start-line="136" selection-start-column="49" selection-end-line="136" selection-end-column="49" />
+        <state relative-caret-position="90">
+          <caret line="93" column="24" selection-start-line="93" selection-start-column="20" selection-end-line="93" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/pages/crud/datatables/extensions/responsive.js">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/DosenAbsensi.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="464" column="100" selection-start-line="464" selection-start-column="94" selection-end-line="464" selection-end-column="100" />
+        <state relative-caret-position="331">
+          <caret line="153" column="4" selection-start-line="153" selection-start-column="4" selection-end-line="153" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="199" column="55" selection-start-line="199" selection-start-column="55" selection-end-line="199" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/js/pages/dosen/absensi.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="720" column="39" selection-start-line="720" selection-start-column="39" selection-end-line="720" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/dosen/absensi_edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="191" column="56" selection-start-line="191" selection-start-column="56" selection-end-line="191" selection-end-column="56" />
           <folding>
-            <element signature="e#55#61#1" expanded="true" />
-            <element signature="e#55#61#1" expanded="true" />
+            <element signature="n#style#0;n#th#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/pages/master/delete.js">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Semester.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="19" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
+        <state relative-caret-position="900">
+          <caret line="66" column="39" selection-start-line="66" selection-start-column="39" selection-end-line="66" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Sinkronisasi.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4065">
+          <caret line="281" column="4" selection-start-line="281" selection-start-column="4" selection-end-line="281" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Pekerjaan.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="795">
+          <caret line="60" column="32" selection-start-line="60" selection-start-column="32" selection-end-line="60" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Agama.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Kashtree-Android/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2880">
+          <caret line="192" column="22" selection-start-line="192" selection-start-column="17" selection-end-line="192" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="63" column="20" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/Jurusan.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="144" column="45" lean-forward="true" selection-start-line="144" selection-start-column="45" selection-end-line="144" selection-end-column="45" />
+          <folding>
+            <element signature="e#1815#2391#0#PHP" />
+            <element signature="e#3052#4791#0#PHP" />
+            <element signature="e#4809#5387#0#PHP" />
+            <element signature="e#5405#6829#0#PHP" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/setting/master_edit.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="144" column="64" selection-start-line="144" selection-start-column="58" selection-end-line="144" selection-end-column="64" />
+        <state relative-caret-position="336">
+          <caret line="79" column="60" lean-forward="true" selection-start-line="79" selection-start-column="60" selection-end-line="79" selection-end-column="60" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/data/mhs_create.blade.php">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/MataKuliah.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="731" column="159" selection-start-line="731" selection-start-column="146" selection-end-line="731" selection-end-column="159" />
+        <state relative-caret-position="465">
+          <caret line="40" column="37" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="37" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/general.js">
+    <entry file="file://$PROJECT_DIR$/app/JenisMatakuliahModel.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="48" column="11" lean-forward="true" selection-start-line="42" selection-start-column="8" selection-end-line="48" selection-end-column="11" />
+        <state relative-caret-position="315">
+          <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/js/pages/custom/wizard/wizard-3.js">
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/JenisMatakuliah.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="110" column="23" selection-start-line="110" selection-start-column="23" selection-end-line="110" selection-end-column="23" />
+        <state relative-caret-position="-710">
+          <caret line="41" column="47" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/setting/general_view.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="70" lean-forward="true" selection-start-line="19" selection-start-column="70" selection-end-line="19" selection-end-column="70" />
+          <folding>
+            <element signature="e#5011#5036#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/js/pages/crud/datatables/extensions/responsive.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="1275" column="36" selection-start-line="1275" selection-start-column="36" selection-end-line="1275" selection-end-column="36" />
+          <folding>
+            <element signature="n#style#0;n#a#0;n#!!top" expanded="true" />
+            <element signature="e#55#61#1" expanded="true" />
+            <element signature="e#55#61#1" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/TahunAjaran.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="157" column="48" selection-start-line="157" selection-start-column="48" selection-end-line="157" selection-end-column="48" />
         </state>
       </provider>
     </entry>

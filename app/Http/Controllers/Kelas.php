@@ -1,5 +1,6 @@
 <?php
             namespace App\Http\Controllers;
+            use App\MahasiswaModel;
             use Illuminate\Support\Facades\DB;
             use Illuminate\Support\Facades\Validator;
             use Illuminate\Http\Request;
@@ -73,7 +74,12 @@ class Kelas extends Controller
                 public function create(){
                     $master = array(
                         'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
-                        'angkatan' => AngkatanModel::where('row_status' , 'active')->get()
+                        'angkatan' => MahasiswaModel::where('mahasiswa.row_status' , 'active')
+                            ->join('master_semester','master_semester.id', '=', 'mahasiswa.id_periode_masuk')
+                            ->select('master_semester.id_tahun_ajaran')
+                            ->distinct()
+                            ->orderBy('id_tahun_ajaran','desc')
+                            ->get()
                     );
                     $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
                     $table = array_diff(DB::getSchemaBuilder()->getColumnListing("master_kelas"), static::$exclude);

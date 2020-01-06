@@ -57,6 +57,7 @@
 
                         <div class="kt-portlet__body">
                             <form id="form_matakuliah" class="kt-form kt-form--label-right" action="save" method="POST">
+                                <input type="hidden" value="active" name="row_status">
                                 <div class="kt-portlet__body">
                                     <div class="kt-section kt-section--first">
                                         <div class="row">
@@ -94,7 +95,7 @@
                                                 <div class="form-group">
                                                     <label>Jenis Matakuliah *</label>
                                                     <div class="form-group">
-                                                        <select name="jenis_mata_kuliah_id" class="form-control kt-select2">
+                                                        <select name="id_jenis_mata_kuliah" class="form-control kt-select2">
                                                             <option value="">-- Pilih Jenis Matakuliah --</option>
                                                             @foreach ($master['jenis'] as $item)
                                                                 <option value="{{$item['id']}}">{{$item['title']}}</option>
@@ -109,7 +110,7 @@
                                                 <div class="form-group">
                                                     <label>Program Studi *</label>
                                                     <div class="form-group">
-                                                        <select name="program_studi_id" class="form-control kt-select2">
+                                                        <select name="id_prodi" class="form-control kt-select2">
                                                             <option value="">-- Pilih Program Studi --</option>
                                                             @foreach ($master['jurusan'] as $item)
                                                                 <option value="{{$item['id']}}">{{$item['title']}}</option>
@@ -122,7 +123,7 @@
                                                 <div class="form-group">
                                                     <label>Metode Pembelajaran *</label>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" name="metode_pembelajaran" placeholder="Isikan Nama Metode Pembelajaran">
+                                                        <input type="text" class="form-control" name="metode_kuliah" placeholder="Isikan Nama Metode Pembelajaran">
                                                     </div>
                                                 </div>
                                             </div>
@@ -132,7 +133,7 @@
                                                 <div class="form-group">
                                                     <label>Bobot Tatap Muka *</label>
                                                     <div class="form-group">
-                                                        <input type="number" value="0" class="form-control" name="bobot_tatap_muka" id="bobot_tatap_muka" min="0" placeholder="Isikan Bobot">
+                                                        <input type="number" value="0" class="form-control" name="sks_tatap_muka" id="bobot_tatap_muka" min="0" placeholder="Isikan Bobot">
                                                     </div>
                                                 </div>
                                             </div>
@@ -140,7 +141,7 @@
                                                 <div class="form-group">
                                                     <label>Bobot Praktikum *</label>
                                                     <div class="form-group">
-                                                        <input type="number" value="0" class="form-control" name="bobot_praktikum" id="bobot_praktikum" min="0" placeholder="Isikan Bobot">
+                                                        <input type="number" value="0" class="form-control" name="sks_praktek" id="bobot_praktikum" min="0" placeholder="Isikan Bobot">
                                                     </div>
                                                 </div>
                                             </div>
@@ -150,7 +151,7 @@
                                                 <div class="form-group">
                                                     <label>Bobot Praktek Lapangan *</label>
                                                     <div class="form-group">
-                                                        <input type="number" value="0" class="form-control" name="bobot_praktek_lapangan" id="bobot_praktek_lapangan" min="0" placeholder="Isikan Bobot">
+                                                        <input type="number" value="0" class="form-control" name="sks_praktek_lapangan" id="bobot_praktek_lapangan" min="0" placeholder="Isikan Bobot">
                                                     </div>
                                                 </div>
                                             </div>
@@ -158,7 +159,7 @@
                                                 <div class="form-group">
                                                     <label>Bobot Simulasi *</label>
                                                     <div class="form-group">
-                                                        <input type="number" value="0" class="form-control" name="bobot_simulasi" id="bobot_simulasi" min="0" placeholder="Isikan Bobot">
+                                                        <input type="number" value="0" class="form-control" name="sks_simulasi" id="bobot_simulasi" min="0" placeholder="Isikan Bobot">
                                                     </div>
                                                 </div>
                                             </div>
@@ -168,7 +169,7 @@
                                                 <div class="form-group">
                                                     <label>Bobot Mata Kuliah *</label>
                                                     <div class="form-group">
-                                                        <input type="number" style="background-color: #fafafa;" class="form-control form-control-sm" name="bobot_mata_kuliah" id="bobot_mata_kuliah" value="0" readonly>
+                                                        <input type="number" style="background-color: #fafafa;" class="form-control form-control-sm" name="sks_mata_kuliah" id="bobot_mata_kuliah" value="0" readonly>
                                                         <span class="form-text text-muted">( sks Tatap Muka + sks Praktikum + sks Praktek Lapangan + sks Simulasi )</span>
                                                     </div>
                                                 </div>
@@ -187,31 +188,31 @@
                                                 <div class="form-group">
                                                     <label>Tanggal Akhir Efektif *</label>
                                                     <div class="form-group">
-                                                        <input type="date" class="form-control" name="tanggal_akhir_efektif" >
+                                                        <input type="date" class="form-control" name="tanggal_selesai_efektif" >
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="form-group form-group-last">
-                                                    <label>Status</label>
-                                                    <div class="form-group">
-                                                        <label class="kt-radio">
-                                                            <input type="radio" name="row_status" value="active" checked>
-                                                            Active
-                                                            <span></span>
-                                                        </label>
-                                                        &nbsp;&nbsp;
-                                                        <label class="kt-radio">
-                                                            <input type="radio" name="row_status" value="notactive">
-                                                            Not Active
-                                                            <span></span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        {{--<div class="row">--}}
+                                            {{--<div class="col-lg-6">--}}
+                                                {{--<div class="form-group form-group-last">--}}
+                                                    {{--<label>Status</label>--}}
+                                                    {{--<div class="form-group">--}}
+                                                        {{--<label class="kt-radio">--}}
+                                                            {{--<input type="radio" name="row_status" value="active" checked>--}}
+                                                            {{--Active--}}
+                                                            {{--<span></span>--}}
+                                                        {{--</label>--}}
+                                                        {{--&nbsp;&nbsp;--}}
+                                                        {{--<label class="kt-radio">--}}
+                                                            {{--<input type="radio" name="row_status" value="notactive">--}}
+                                                            {{--Not Active--}}
+                                                            {{--<span></span>--}}
+                                                        {{--</label>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
                                         <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
                                         <div class="kt-form__actions">
                                             <a href="{{url()->previous()}}" class="btn btn-label-success">

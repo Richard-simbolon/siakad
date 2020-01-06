@@ -59,6 +59,7 @@
 
                         <div class="kt-portlet__body">
                             <form class="kt-form kt-form--label-right" action="save" method="POST">
+                                <input type="hidden" name="row_status" value="active" />
                                 <div class="kt-portlet__body">
                                     <div class="kt-section kt-section--first">
                                         <div class="row">
@@ -79,7 +80,7 @@
                                                         <select name="angkatan_id" class="form-control kt-select2">
                                                             <option value="">-- Pilih Angkatan --</option>
                                                             @foreach ($master['angkatan'] as $item)
-                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                                <option value="{{$item['id_tahun_ajaran']}}">{{$item['id_tahun_ajaran']}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -113,31 +114,31 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label>Status</label>
-                                                    <div class="form-group">
-                                                        <label class="kt-radio">
-                                                            <input type="radio" name="row_status" value="active" checked>
-                                                            Active
-                                                            <span></span>
-                                                        </label>
-                                                        &nbsp;&nbsp;
-                                                        <label class="kt-radio">
-                                                            <input type="radio" name="row_status" value="notactive">
-                                                            Not Active
-                                                            <span></span>
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        {{--<div class="row">--}}
+                                            {{--<div class="col-lg-6">--}}
+                                                {{--<div class="form-group">--}}
+                                                    {{--<label>Status</label>--}}
+                                                    {{--<div class="form-group">--}}
+                                                        {{--<label class="kt-radio">--}}
+                                                            {{--<input type="radio" name="row_status" value="active" checked>--}}
+                                                            {{--Active--}}
+                                                            {{--<span></span>--}}
+                                                        {{--</label>--}}
+                                                        {{--&nbsp;&nbsp;--}}
+                                                        {{--<label class="kt-radio">--}}
+                                                            {{--<input type="radio" name="row_status" value="notactive">--}}
+                                                            {{--Not Active--}}
+                                                            {{--<span></span>--}}
+                                                        {{--</label>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
                                         <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
                                         <div class="kt-form__actions">
                                             <a href="{{url()->previous()}}" class="btn btn-label-success">
                                                 <i class="la la-arrow-left"></i> Kembali
-                                            </a>
+                                            </a>&nbsp;
                                             <a style="color:#ffffff;" data-prev-url="{{url()->previous()}}" class="btn btn-success generalsave">
                                                 <i class="la la-save"></i> Simpan
                                             </a>

@@ -24,7 +24,7 @@
                 </div>
                 <div class="kt-subheader__toolbar">
                     <div class="kt-subheader__wrapper">
-                        <a href="{{url()->previous()}}" class="btn btn-success"><i class="la la-bars"></i> Daftar</a>
+                        <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
                     </div>
                 </div>
             </div>
@@ -48,6 +48,13 @@
                                     {{$title}}
                                 </h3>
                             </div>
+                            <div class="kt-portlet__head-toolbar">
+                                <div class="dropdown dropdown-inline show">
+                                    <a href="{{ url('/master/semester') }}" class="btn btn-success">
+                                        <i class="la la-bars"></i> Daftar &nbsp;
+                                    </a>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="kt-portlet__body">
@@ -61,13 +68,7 @@
                                                 <div class="form-group">
                                                     <label>Nama Semester *</label>
                                                     <div class="form-group">
-                                                        <select class="form-control kt-select2" name="title">
-                                                            @foreach ($tahun_ajaran as $item)
-                                                                @if($item['value'] == $data['title'])
-                                                                    <option value="{{$item['value']}}" {{$item['value'] == $data['title'] ? "selected" : ""}}>{{$item['text']}}</option>
-                                                                @endif
-                                                            @endforeach
-                                                        </select>
+                                                        <input type="text" class="form-control required" value="{{$data['title']}}" name="title" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -77,7 +78,7 @@
                                                 <div class="form-group">
                                                     <label>Tanggal Mulai Berlaku *</label>
                                                     <div class="form-group">
-                                                        <input type="date" class="form-control required" value="{{$data['tanggal_mulai_berlaku']}}" name="tanggal_mulai_berlaku" title="Tanggal Mulai Berlaku Harus Diisi" required>
+                                                        <input type="date" class="form-control required" value="{{$data['tanggal_mulai']}}" name="tanggal_mulai" title="Tanggal Mulai Berlaku Harus Diisi" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -85,7 +86,7 @@
                                                 <div class="form-group">
                                                     <label>Tanggal Berakhir *</label>
                                                     <div class="form-group">
-                                                        <input type="date" class="form-control required" value="{{$data['tanggal_akhir']}}" name="tanggal_akhir" title="Tanggal Akhir Berlaku Harus Diisi" required>
+                                                        <input type="date" class="form-control required" value="{{$data['tanggal_selesai']}}" name="tanggal_selesai" title="Tanggal Akhir Berlaku Harus Diisi" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -115,10 +116,7 @@
                                             </a>&nbsp;
                                             <a id="update_semester" style="color:#ffffff;" class="btn btn-success">
                                                 Ubah <i class="la la-save"></i>
-                                            </a>&nbsp;
-                                            <a style="color:#ffffff;" id="delete_semester" class="btn btn-danger">
-                                                Hapus <i class="la la-trash"></i>
-                                            </a>
+                                            </a>&nbsp
                                         </div>
                                     </div>
                                 </div>
@@ -140,7 +138,7 @@
                 showCancelButton: true,
                 confirmButtonColor: '#0abb87',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, Hapus'
+                confirmButtonText: 'Ya, Ubah'
             }).then((result) => {
                 if (result.value) {
                     var prev_url = $(this).attr("data-prev-url");
@@ -168,9 +166,8 @@
                                     }
                                 });
                             }else {
-                                // alert(data.msg);
                                 var text = '';
-                                $.each(data.message, function( index, value ) {
+                                $.each(data.msg, function( index, value ) {
                                     text += '<p class="error">'+ value[0]+'</p>';
                                 });
                                 Swal.fire({

@@ -1,5 +1,6 @@
 <?php
             namespace App\Http\Controllers;
+            use App\SinkronisasiModel;
             use Illuminate\Support\Facades\DB;
             use Illuminate\Support\Facades\Validator;
             use Illuminate\Http\Request;
@@ -13,6 +14,9 @@ class TahunAjaran extends Controller
                 static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
                     "row_status" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Status"],
                     "title" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Title"],
+                    "a_periode_aktif" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Periode Aktif"],
+                    "tanggal_mulai" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Tanggal Mulai"],
+                    "tanggal_selesai" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Tanggal Selesai"],
                     "angkatan" => ["table" => ["tablename" =>"null" , "field"=> "angkatan"] , "record"=>"Angkatan"],
                     ];
                 static $html = ["id"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
@@ -20,7 +24,7 @@ class TahunAjaran extends Controller
                                 "title"=>["type"=>"text" , "value"=>"null" , "validation" => ""] ,
                                 "angkatan"=>["type"=>"text" , "value"=>"null" , "validation" => ""] ,
                                 ];
-                static $exclude = ["id","created_at","updated_at","created_by","update_by"];
+                static $exclude = ["id","row_status","angkatan","created_at","updated_at","created_by","update_by"];
                 static $tablename = "TahunAjaran";
                 public function __construct()
                     {
@@ -40,7 +44,7 @@ class TahunAjaran extends Controller
                 public function index()
                 {
                     $data = TahunAjaranModel::get();
-                    $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
+                    $title = "Daftar Tahun Ajaran";
                     $tableid = "TahunAjaran";
                     $table_display = DB::getSchemaBuilder()->getColumnListing("master_tahun_ajaran");
                     $exclude = static::$exclude;
@@ -54,7 +58,15 @@ class TahunAjaran extends Controller
                     $data = array('act'=>"GetTahunAjaran" , "token"=>$token, "filter"=> "","limit"=>"" , "offset" =>0);
                     $result_string = $this->runWS($data, 'json');
                     $result = json_decode($result_string , true);
-                    //print_r($result); exit;
+                    if(!$result){
+                        $sinkronisasi = SinkronisasiModel::where('sync_code','sync_tahun_ajaran')->first();
+                        $sinkronisasi->last_sync = date('Y-m-d H:m:s');
+                        $sinkronisasi->last_sync_status = 'gagal';
+                        $sinkronisasi->last_sync_by = Auth::user()->nama;
+                        $sinkronisasi->save();
+
+                        return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+                    }
                     if(array_key_exists('data' , $result)){
                         if(count($result['data']) > 1){
                             DB::beginTransaction();
@@ -151,7 +163,9 @@ class TahunAjaran extends Controller
                 }
 
                 public function paging(Request $request){
-                    return Datatables::of(TahunAjaranModel::where('row_status', '!=', 'deleted')->get())->addIndexColumn()->make(true);
+                    return Datatables::of(TahunAjaranModel::where('row_status', '!=', 'deleted')
+                        ->orderBy('title', 'desc')
+                        ->get())->addIndexColumn()->make(true);
                 }
 
             }

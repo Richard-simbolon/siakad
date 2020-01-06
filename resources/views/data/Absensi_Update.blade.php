@@ -14,7 +14,7 @@
                         <div class="kt-subheader__breadcrumbs">
                             <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
-                            <a href="{{url('/master/matakuliah')}}" class="kt-subheader__breadcrumbs-link">
+                            <a href="{{url('/data/absensimahasiswa')}}" class="kt-subheader__breadcrumbs-link">
                                 Absensi </a>
                             <span class="kt-subheader__breadcrumbs-separator"></span>
                             <a href="{{url()->current()}}" class="kt-subheader__breadcrumbs-link">
@@ -24,7 +24,7 @@
                 </div>
                 <div class="kt-subheader__toolbar">
                     <div class="kt-subheader__wrapper">
-                        <a href="{{url()->previous()}}" class="btn btn-success"><i class="la la-bars"></i> Daftar</a>
+                        <a href="#" class="btn btn-label-success"> Semester {{Auth::user()->semester}}</a>
                     </div>
                 </div>
             </div>
@@ -48,6 +48,11 @@
                                     Tambah Data Absensi
                                 </h3>
                             </div>
+                            <div class="kt-portlet__head-toolbar">
+                                <div class="dropdown dropdown-inline show">
+                                    <a href="{{url()->previous()}}" class="btn btn-success"><i class="la la-bars"></i> Daftar</a>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="kt-portlet__body">
@@ -60,10 +65,21 @@
                                                     <div class="row">
                                                         <div class="col-lg-6">
                                                             <table cellpadding="5">
-                                                                <tbody><tr>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td width="35%">Kode Matakuliah</td>
+                                                                    <td>:</td>
+                                                                    <td><b>{{$data->kode_mata_kuliah}}</b></td>
+                                                                </tr>
+                                                                <tr>
                                                                     <td width="35%">Matakuliah</td>
                                                                     <td>:</td>
                                                                     <td><b>{{$data->nama_mata_kuliah}}</b></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>SKS</td>
+                                                                    <td>:</td>
+                                                                    <td><b>{{$data->sks}}</b></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Dosen</td>
@@ -75,16 +91,13 @@
                                                                     <td>:</td>
                                                                     <td><b>{{$data->nama_jurusan}}</b></td>
                                                                 </tr>
-                                                                <tr>
-                                                                    <td>Jumlah Mahasiswa</td>
-                                                                    <td>:</td>
-                                                                    <td><b>{{count($mahasiswa)}}</b></td>
-                                                                </tr>
-                                                            </tbody></table>
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                         <div class="col-lg-6">
                                                             <table cellpadding="5">
-                                                                <tbody><tr>
+                                                                <tbody>
+                                                                <tr>
                                                                     <td>Semester</td>
                                                                     <td>:</td>
                                                                     <td><b>{{$data->nama_semester}}</b></td>
@@ -95,16 +108,22 @@
                                                                     <td><b>{{$data->nama_angkatan}}</b></td>
                                                                 </tr>
                                                                 <tr>
+                                                                    <td>Kelas</td>
+                                                                    <td>:</td>
+                                                                    <td><b>{{$data->nama_kelas}}</b></td>
+                                                                </tr>
+                                                                <tr>
                                                                     <td>Ruangan</td>
                                                                     <td>:</td>
                                                                     <td><b>{{$data->ruangan}}</b></td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>SKS</td>
+                                                                    <td>Jumlah Mahasiswa</td>
                                                                     <td>:</td>
-                                                                    <td><b>{{$data->sks}}</b></td>
+                                                                    <td><b>{{count($mahasiswa)}}</b></td>
                                                                 </tr>
-                                                            </tbody></table>
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -113,7 +132,7 @@
                                             <br/>
                                             <br/>
                                             <div class="row">
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-4">
                                                     <div class="form-group">
                                                         <label>Tanggal Kelas Perkuliahan</label>
                                                         <div class="form-group">
@@ -127,7 +146,7 @@
                                                     <div class="form-group">
                                                         <label>Pembahasan</label>
                                                         <div class="form-group">
-                                                            <textarea type="text" class="form-control" value="{{$data->pembahasan}}" name="pembahasan"  placeholder="Isikan Pembahasan di Kelas"></textarea>
+                                                            <textarea type="text" class="form-control" name="pembahasan"  placeholder="Isikan Pembahasan di Kelas">{{$data->pembahasan}}</textarea>
                                                         </div>
                                                     </div>
                                                 </div>

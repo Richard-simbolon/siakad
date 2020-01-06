@@ -233,7 +233,7 @@
                                                                         <select name="mahasiswa[{{$mhs->id}}][pengawas_id]" class="form-control form-control-sm kt-select2">
                                                                             <option value="0"> -Pilih Pengawas- </option>
                                                                             @foreach ($master['dosen'] as $item)
-                                                                                <option value="{{$item['id']}}" {{ $item['id'] == $data->pengawas_id ? 'selected' : ''}}> {{$item['nama']}} </option>
+                                                                                <option value="{{$item['id']}}" {{ $item['id'] == $data->pengawas_id ? 'selected' : ''}}> {{$item['nidn_nup_nidk']}} - {{$item['nama']}} </option>
                                                                             @endforeach
                                                                         </select>
                                                                     </td>

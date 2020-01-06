@@ -56,9 +56,16 @@ class KelasPerkuliahan extends Controller
     {
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
-            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'angkatan' => MahasiswaModel::where('mahasiswa.row_status' , 'active')
+                ->join('master_semester','master_semester.id', '=', 'mahasiswa.id_periode_masuk')
+                ->select('master_semester.id_tahun_ajaran')
+                ->distinct()
+                ->orderBy('id_tahun_ajaran','desc')
+                ->get(),
             'kelas' => KelasModel::where('row_status' , 'active')->get(),
-            'semester'=> SemesterModel::where('row_status', 'active')->get(),
+            'semester'=> SemesterModel::where('row_status', 'active')
+                ->orderBy('id','desc')
+                ->get(),
         );
 
         $data = DB::table('view_kelas_perkuliahan')->get();
@@ -144,8 +151,15 @@ class KelasPerkuliahan extends Controller
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
             //'kelas' => KelasModel::where('row_status' , 'active')->get(),
-            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
-            'semester'=> SemesterModel::where('row_status', 'active')->get(),
+            'angkatan' => MahasiswaModel::where('mahasiswa.row_status' , 'active')
+                ->join('master_semester','master_semester.id', '=', 'mahasiswa.id_periode_masuk')
+                ->select('master_semester.id_tahun_ajaran')
+                ->distinct()
+                ->orderBy('id_tahun_ajaran','desc')
+                ->get(),
+            'semester'=> SemesterModel::where('row_status', 'active')
+                ->orderBy('id','desc')
+                ->get(),
 
         );
         $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
@@ -283,17 +297,18 @@ class KelasPerkuliahan extends Controller
 
     public function view($id){
         $master = array(
-            'dosen' => DosenModel::where('row_status' , 'active')->get()
+            'dosen' => DosenModel::where('row_status' , 'active')->get(),
+            'ruangan' => RuanganModel::where('row_status' , 'active')->get(),
         );
         
         $kurikulum = DB::table('kelas_perkuliahan')
             ->join('master_kelas' , 'master_kelas.id' , '=' , 'kelas_perkuliahan.kelas_id')
             ->join('kurikulum' , 'kurikulum.id' , '=' , 'master_kelas.kurikulum_id')
-            ->join('master_angkatan' , 'master_angkatan.id' , '=' , 'kelas_perkuliahan.angkatan_id')
+            //->join('master_angkatan' , 'master_angkatan.id' , '=' , 'kelas_perkuliahan.angkatan_id')
             ->join('master_jurusan' , 'master_jurusan.id' , '=' , 'kelas_perkuliahan.program_studi_id')
             ->join('master_semester' , 'master_semester.id' , '=' , 'kelas_perkuliahan.semester_id')
             ->where('kelas_perkuliahan.id' ,$id)
-            ->select('kurikulum.nama_kurikulum','master_semester.title as nama_semester','master_jurusan.title as nama_jurusan','master_angkatan.title as nama_angkatan','master_kelas.title as nama_kelas','kurikulum.id as kurikulum_id', 'kelas_perkuliahan.*')->first();
+            ->select('kurikulum.nama_kurikulum','master_semester.title as nama_semester','master_jurusan.title as nama_jurusan','kelas_perkuliahan.angkatan_id as nama_angkatan','master_kelas.title as nama_kelas','kurikulum.id as kurikulum_id', 'kelas_perkuliahan.*')->first();
         if(!$kurikulum){
             return 'data tidak di temukan';
         }
@@ -318,7 +333,7 @@ class KelasPerkuliahan extends Controller
         $dosen = DosenModel::where('row_status' , 'active')->get();
         $dosen_html = '<option value="0"> -- Pilih dosen --</option>';
         foreach($dosen as $item){
-            $dosen_html .= '<option value="'.$item['id'].'"> '.$item['nama'].'</option>';
+            $dosen_html .= '<option value="'.$item['id'].'"> '.$item['nidn_nup_nidk'].' - ' .$item['nama'].'</option>';
         }
         $ruangan = RuanganModel::where('row_status', 'active')->get();
         $ruangan_html = '<option value="0"> -- Pilih Ruangan --</option>';
@@ -339,7 +354,7 @@ class KelasPerkuliahan extends Controller
                         <td align="center"><input type="checkbox" name="item['.$item->id.'][mata_kuliah_id]" value="'.$item->id.'" class="form-control-sm"></td></td>
                         <td>'.$item->kode_mata_kuliah.'</td>
                         <td>'.$item->nama_mata_kuliah.'</td>
-                        <td align="center">'.$item->bobot_mata_kuliah.'</td>
+                        <td align="center">'.$item->sks_mata_kuliah.'</td>
                         <td align="center">'.$item->semester.'</td>
                         <td>
                             <select class="form-control  form-control-sm kt-select2" name="item['.$item->id.'][dosen_id]">
@@ -347,6 +362,12 @@ class KelasPerkuliahan extends Controller
                             </select>
                         </td>
                         <td align="center"><input type="text" name="item['.$item->id.'][asisten]" class="form-control form-control-sm" /> </td>
+                        <td align="center">
+                        <!--<input type="text" class="form-control" name="item['.$item->id.'][ruangan]">-->
+                            <select class="form-control form-control kt-select2" name="item['.$item->id.'][ruangan]">
+                                '.$ruangan_html.'
+                            </select>
+                        </td>
                         <td align="center">
                             <select style="min-width: 75px" class="form-control form-control-sm" name="item['.$item->id.'][hari_id]">
                                 <option value="1">Senin</option>
@@ -358,22 +379,16 @@ class KelasPerkuliahan extends Controller
                             </select>
                         </td>
                         <td align="center">
-                            <input type="text" class="form-control" name="item['.$item->id.'][ruangan]">
-                           <!-- <select class="form-control form-control-sm kt-select2" name="item[.$item->id.][ruangan]">
-                                .$ruangan_html.
-                            </select>-->
-
-                        </td>
-                        <td align="center">
                             <div class="input-group timepicker">
-                                <input style="max-width: 100px" type="text" name="item['.$item->id.'][jam]" class="form-control form-control-sm m-input time-picker" placeholder="Pilih Jam" type="text"/>
+                                <input style="width: 80px" type="text" name="item['.$item->id.'][jam]" class="form-control form-control-sm m-input time-picker" placeholder="Pilih Jam" type="text"/>
                             </div>
                         </td>
                         <td align="center">
                         <div class="input-group timepicker">
-                            <input style="max-width: 100px" type="text" name="item['.$item->id.'][selesai]" class="form-control form-control-sm m-input time-picker" placeholder="Pilih Jam" type="text"/>
+                            <input style="width: 80px" type="text" name="item['.$item->id.'][selesai]" class="form-control form-control-sm m-input time-picker" placeholder="Pilih Jam" type="text"/>
                         </div>
-                    </td>
+                        </td>
+                       
                         <td>
                             <input style="max-width: 75px" type="number"class="form-control form-control-sm" min="1"  value="14"  name="item['.$item->id.'][pertemuan]"/>
                         </td>
@@ -381,7 +396,7 @@ class KelasPerkuliahan extends Controller
         ';
         }
 
-        $htmls =   '<table class="table table-striped table-bordered table-hover responsive" id="table-matakuliah">
+        $htmls =   '<div style="overflow-x: auto"><table class="table table-striped table-bordered table-hover" id="table-matakuliah">
                         <thead>
                         <tr>
                             <th>Pilih</th>
@@ -391,17 +406,17 @@ class KelasPerkuliahan extends Controller
                             <th>Semester</th>
                             <th>Dosen</th>
                             <th>Asisten</th>
-                            <th>Hari</th>
-                            <th>Ruangan</th>
+                            <th>Hari</th>                            
                             <th>Jam</th>
                             <th>Selesai</th>
+                            <th>Ruangan</th>
                             <th>Pertemuan</th>
                         </tr>
                         </thead>
                         <tbody>
                             '.$html.'
                         </tbody>
-                    </table>';
+                    </table></div> ';
         return array('html'=>$htmls , 'nama' => $kurikulum);
         
         

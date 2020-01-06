@@ -137,6 +137,21 @@ class DosenAbsensi extends Controller
 
     }
 
+    public function check($id)
+    {
+        $dosen_id = DosenModel::where('nidn_nup_nidk', Auth::user()->id)->first();
+        $data = DB::table('absensi_mahasiswa')
+            ->join('view_input_nilai_mahasiswa', 'view_input_nilai_mahasiswa.id', '=', 'absensi_mahasiswa.kelas_perkuliahan_detail_id')
+            ->select('view_input_nilai_mahasiswa.*', 'absensi_mahasiswa.tanggal_perkuliahan', 'absensi_mahasiswa.pembahasan')
+            ->where('kelas_perkuliahan_detail_id', $id)->first();
+
+        if (!$data) {
+            return json_encode(['status'=> 'error', 'message'=> "Belum ada data absensi yang diinput"]);
+        }else{
+            return json_encode(['status'=> 'sukses']);
+        }
+    }
+    
     public function cache_header_absensi($id, $key){
         if (Cache::has($key)){
             return Cache::get($key);

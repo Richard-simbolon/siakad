@@ -28,7 +28,7 @@
                                     <p style="font-size: 11pt;">Anda akan login sebagai <u>Akademik</u></p>
                                 </div>
                                 <div class="input-group">
-                                    <input id="login" placeholder="User Login" type="text" class="form-control @error('login') is-invalid @enderror" name="login" value="{{ old('login') }}" required autocomplete="login" autofocus>
+                                    <input id="login" placeholder="User Login" type="text" class="form-control @error('login') is-invalid @enderror" name="login" value="{{ old('login') }}" required  autofocus>
                                     @error('login')
                                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -36,7 +36,7 @@
                                     @enderror
                                 </div>
                                 <div class="input-group">
-                                    <input id="password" placeholder="Password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                    <input id="password" placeholder="Password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required >
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

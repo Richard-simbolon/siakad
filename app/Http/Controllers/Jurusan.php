@@ -1,5 +1,6 @@
 <?php
             namespace App\Http\Controllers;
+            use App\SinkronisasiModel;
             use Illuminate\Support\Facades\DB;
             use Illuminate\Support\Facades\Validator;
             use Illuminate\Http\Request;
@@ -12,17 +13,19 @@ use Illuminate\Support\Facades\Redirect;
 class Jurusan extends Controller
             {
                 static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
-                    "row_status" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Status"],
+                    "status" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Status"],
+                    "kode_program_studi" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Kode"],
                     "title" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Program Studi"],
                     "jurusan" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Jurusan"],
                     "deskripsi" => ["table" => ["tablename" =>"null" , "field"=> "deskripsi"] , "record"=>"Deskripsi"],
                     ];
                 static $html = ["id"=>["type"=>"" , "value"=>"null" , "validation" => ""] ,
-                                "row_status"=>["type"=>"radio" , "value"=>"active,notactive,deletd" , "validation" => "required"] ,
+//                                "status"=>["type"=>"radio" , "value"=>"active,notactive,deletd" , "validation" => "required"] ,
                                 "title"=>["type"=>"text" , "value"=>"null" , "validation" => "required"] ,
-                                "jurusan"=>["type"=>"text" , "value"=>"null" , "validation" => "required"] ,
+                                "kode_program_studi"=>["type"=>"text" , "value"=>"null" , "validation" => "required"] ,
+                                "jurusan"=>["type"=>"radio" , "value"=>"Pertanian,Perkebunan" , "validation" => "required"] ,
                                 ];
-                static $exclude = ["id","created_at","updated_at","created_by","update_by"];
+                static $exclude = ["id","ids","id_jenjang_pendidikan","status","row_status","created_at","updated_at","created_by","update_by"];
                 static $tablename = "Jurusan";
                 public function __construct()
                 {
@@ -55,10 +58,21 @@ class Jurusan extends Controller
 
                 public function sinc(){
                     $token = $this->check_auth_siakad();
-                    //echo $token;
+
                     $data = array('act'=>"GetProdi" , "token"=>$token, "filter"=> "","limit"=>"" , "offset" =>0);
                     $result_string = $this->runWS($data, 'json');
                     $result = json_decode($result_string , true);
+
+                    if(!$result){
+                        $sinkronisasi = SinkronisasiModel::where('sync_code','sync_jurusan')->first();
+                        $sinkronisasi->last_sync = date('Y-m-d H:m:s');
+                        $sinkronisasi->last_sync_status = 'gagal';
+                        $sinkronisasi->last_sync_by = Auth::user()->nama;
+                        $sinkronisasi->save();
+
+                        return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+                    }
+
                     if(array_key_exists('data' , $result)){
                         if(count($result['data']) > 1){
                             DB::beginTransaction();
@@ -144,8 +158,7 @@ class Jurusan extends Controller
                     ]);
 
                     $data =  JurusanModel::where('id' , $request->id)->first();
-                    $data->title = $request->title;
-                    $data->row_status = $request->row_status;
+                    $data->jurusan = $request->jurusan;
 
                     $data->save();
                     return redirect('/master/jurusan');

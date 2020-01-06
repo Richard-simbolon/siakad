@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-
+    <?php $arrDeleteTable = ['default','ruangan','jenispegawai','sumbergaji','jenismatakuliah','matakuliah','angkatan'] ?>
     <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" id="kt_content">
         <!-- begin:: Content Head -->
         <div class="kt-subheader  kt-grid__item" id="kt_subheader">
@@ -143,7 +143,9 @@
                                                 <i class="la la-arrow-left"></i> Kembali
                                             </a>&nbsp;
                                             <button type="submit" class="btn btn-success"><i class="la la-save"></i>Simpan Perubahan</button>
-                                            <button type="button" class="btn btn-danger" data-url="/master/{{$controller}}/" id="btn_delete_general"><i class="flaticon-delete"></i> Hapus</button>
+                                            @if(array_search($controller,$arrDeleteTable))
+                                                <button type="button" class="btn btn-danger" data-url="/master/{{$controller}}/" id="btn_delete_general"><i class="flaticon-delete"></i> Hapus</button>
+                                            @endif
                                         </div>
 
                                     </div>

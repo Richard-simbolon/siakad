@@ -1,5 +1,6 @@
 <?php
             namespace App\Http\Controllers;
+            use App\SinkronisasiModel;
             use Illuminate\Support\Facades\DB;
             use Illuminate\Support\Facades\Validator;
             use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class StatusMahasiswa extends Controller
                     "row_status"=>["type"=>"radio" , "value"=>"active,notactive,deleted" , "validation" => ""] ,
                     "title"=>["type"=>"text" , "value"=>"null" , "validation" => ""] ,
                     ];
-                static $exclude = ["id","created_at","updated_at","created_by","update_by"];
+                static $exclude = ["id","row_status","created_at","updated_at","created_by","update_by"];
                 static $tablename = "StatusMahasiswa";
                 public function __construct()
                 {
@@ -62,15 +63,22 @@ class StatusMahasiswa extends Controller
                     $data = array('act'=>"GetStatusMahasiswa" , "token"=>$token, "filter"=> "","limit"=>"" , "offset" =>0);
                     $result_string = $this->runWS($data, 'json');
                     $result = json_decode($result_string , true);
-                    //print_r($result); exit;
+
+                    if(!$result){
+                        $this->sinkron_log('sync_status_mahasiswa','gagal', 0);
+
+                        return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+                    }
+
                     if(array_key_exists('data' , $result)){
                         if(count($result['data']) > 1){
                             DB::beginTransaction();
                             try{
                                 foreach($result['data'] as $item){
-                                    StatusMahasiswaModel::updateOrInsert(array('id'=> $item['id_status_mahasiswa'] , 'title'=>$item['nama_status_mahasiswa']));
+                                    StatusMahasiswaModel::updateOrInsert(array('id'=> $item['id_status_mahasiswa'] , 'title'=>preg_replace('/\s+/', '', $item['nama_status_mahasiswa'])));
                                 }
                                 DB::commit();
+                                $this->sinkron_log('sync_status_mahasiswa','sukses', count($result['data']));
                                 DB::table('sinkronisasi_logs')
                                 ->insert(array('title' => 'GetStatusMahasiswa' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
                                 return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));

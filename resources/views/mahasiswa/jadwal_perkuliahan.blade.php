@@ -129,6 +129,7 @@
                                 <th>Hari</th>
                                 <th>Jam</th>
                                 <th>Selesai</th>
+                                <th>Ruangan</th>
                             </tr>
                             </thead>
                             <tbody>

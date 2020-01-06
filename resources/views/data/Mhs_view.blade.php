@@ -182,6 +182,11 @@
                                                             <td>:</td>
                                                             <td><b>{{$data['status_mhs']}}</b></td>
                                                         </tr>
+                                                        <tr>
+                                                            <td>Agama</td>
+                                                            <td>:</td>
+                                                            <td><b>{{$data['nama_agama']}}</b></td>
+                                                        </tr>
                                                     </table>
                                                 </div>
                                                 <div class="col-lg-3">
@@ -254,12 +259,12 @@
                                                     </div>
                                                     <div class="col-xl-4">
                                                         <div class="form-group">
-                                                            <label>Angkatan</label>
+                                                            <label>Periode Masuk</label>
                                                             <div class="form-group">
                                                                 <select name="mahasiswa[angkatan]" class="form-control kt-select2">
-                                                                    <option value="">-- Pilih Angkatan --</option>
-                                                                    @foreach ($master['angkatan'] as $item)
-                                                                        <option value="{{$item['id']}}" {{$item['id'] == $data['angkatan'] ? 'selected' : ''}}>{{$item['title']}}</option>
+                                                                    <option value="">-- Pilih Periode Masuk --</option>
+                                                                    @foreach ($master['semester'] as $item)
+                                                                        <option value="{{$item['id']}}" {{$item['id'] == $data['id_periode_masuk'] ? 'selected' : ''}}>{{$item['title']}}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
@@ -271,7 +276,7 @@
                                                         <div class="form-group">
                                                             <label class="select2-label">Program Studi</label>
                                                             <select name="mahasiswa[jurusan_id]" class="form-control kt-select2">
-                                                                <option value="">-- Pilih Jurusan --</option>
+                                                                <option value="">-- Pilih Program Studi --</option>
                                                                 @foreach ($master['jurusan'] as $item)
                                                                     <option value="{{$item['id']}}" {{$item['id'] == $data['id_jurusan'] ? 'selected' : ''}} >{{$item['title']}}</option>
                                                                 @endforeach
@@ -311,7 +316,7 @@
                                                                 <select name="mahasiswa[status]" class="form-control kt-select2">
                                                                     <option value="">-- Pilih Status --</option>
                                                                     @foreach ($master['status_mahasiswa'] as $item)
-                                                                        <option value="{{$item['id']}}" {{$item['id'] == $data['status'] ? 'selected' : ''}}>{{$item['title']}}</option>
+                                                                        <option value="{{$item['title']}}" {{$item['title'] == $data['status_mhs'] ? 'selected' : ''}}>{{$item['title']}}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
@@ -337,6 +342,15 @@
                                                             <option value="">Pilih Dosen</option>
                                                             @foreach ($master['dosen'] as $item)
                                                                 <option value="{{$item['id']}}" {{$item['id'] == $data['pembimbing_akademik'] ? 'selected' : ''}}> {{$item['nidn_nup_nidk'] .' - '. $item['nama']}} </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        <label>Agama:</label>
+                                                        <select name="mahasiswa[agama]" class="form-control kt-select2">
+                                                            <option value="">Pilih Agama</option>
+                                                            @foreach ($master['agama'] as $item)
+                                                                <option value="{{$item['id']}}" {{$item['id'] == $data['agama'] ? 'selected' : ''}}> {{$item['title']}} </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -813,7 +827,7 @@
                                 </div>
                                 <div class="kt-portlet__foot">
                                     <div class="kt-form__actions">
-                                        <button type="button" id="updatemahasiswa" class="btn btn-success pull-right">Submit</button>
+                                        <button type="button" style="display: none" id="updatemahasiswa" class="btn btn-success pull-right">Submit</button>
                                     </div>
                                 </div>
                             </div>

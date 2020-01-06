@@ -22,7 +22,7 @@ class Ruangan extends Controller
                     "keterangan"=>["type"=>"text" , "value"=>"null" , "validation" => ""] ,
                     "row_status"=>["type"=>"radio" , "value"=>"active,notactive" , "validation" => ""] ,
                     ];
-                static $exclude = ["id","created_at","updated_at","created_by","update_by"];
+                static $exclude = ["id","row_status","created_at","updated_at","created_by","update_by"];
                 static $tablename = "Ruangan";
                 public function __construct()
                 {

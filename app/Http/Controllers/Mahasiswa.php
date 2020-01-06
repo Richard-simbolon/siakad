@@ -207,7 +207,10 @@ class Mahasiswa extends Controller
         $data = array('act'=>"GetBiodataMahasiswa" , "token"=>$token, "filter"=> "","limit"=>"1" , "offset" =>0);
         $result_string = $this->runWS($data, 'json');
         $result = json_decode($result_string , true);
-        //print_r($result); exit;
+        if(!$result){
+            $this->sinkron_log('sync_mahasiswa_get','gagal', 0);
+            return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+        }
         if(array_key_exists('data' , $result)){
             foreach($result['data'] as $item){
                 DB::beginTransaction();
@@ -232,6 +235,7 @@ class Mahasiswa extends Controller
                     MahasiswaKebutuhanModel::updateOrCreate(array('mahasiswa_id' => $mahasiswa->id), $service_data['kebutuhan_khusus']);
                     DB::table('sinkronisasi_logs')
                     ->insert(array('title' => 'GetBiodataMahasiswa' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                    //$this->sinkron_log('sync_semester','sukses', count($result['data']));
                     DB::commit();
                     return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
                 } catch(\Exception $e){
@@ -403,7 +407,7 @@ class Mahasiswa extends Controller
     public function save(Request $request){
         $data = $request->all();
         $validation = Validator::make($data['mahasiswa'], [
-            'angkatan' => 'required',
+            'id_periode_masuk' => 'required',
             'nama' => 'required',
             'email'=> 'required | email',
             'nim' => 'required',
@@ -485,7 +489,7 @@ class Mahasiswa extends Controller
             'penghasilan' => PenghasilanModel::where('row_status' , 'active')->get(),
             'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
             'agama' => AgamaModel::where('row_status' , 'active')->get(),
-            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'semester' => SemesterModel::where('row_status' , 'active')->get(),
             'status_mahasiswa' => StatusMahasiswaModel::where('row_status' , 'active')->get(),
             'dosen'=> DosenModel::where('dosen.row_status', 'active')->where('master_status_pegawai.title','Aktif')
                 ->join('master_status_pegawai','master_status_pegawai.id','=', 'dosen.status_pegawai')
@@ -494,11 +498,13 @@ class Mahasiswa extends Controller
         );
 
         $data = MahasiswaModel::join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
-            ->leftJoin('master_angkatan' ,'master_angkatan.id' ,'=' ,'mahasiswa.angkatan')
+            //->leftJoin('master_angkatan' ,'master_angkatan.id' ,'=' ,'mahasiswa.angkatan')
+            ->leftJoin('master_semester', 'master_semester.id', '=', 'mahasiswa.id_periode_masuk')
             ->leftJoin('master_kelas' ,'master_kelas.id' ,'=' ,'mahasiswa.kelas_id')
-            ->leftJoin('master_status_mahasiswa' ,'master_status_mahasiswa.id' ,'=' ,'mahasiswa.status')
+            //->leftJoin('master_status_mahasiswa' ,'master_status_mahasiswa.id' ,'=' ,'mahasiswa.status')
             ->leftJoin('dosen', 'dosen.id' ,'=', 'mahasiswa.pembimbing_akademik')
-            ->select('mahasiswa.*' ,'dosen.nama as nama_dosen', 'master_jurusan.title' ,'master_jurusan.id as id_jurusan' ,'master_kelas.title as kelas_title' , 'master_angkatan.title as angkatan_title' ,'master_status_mahasiswa.title as status_mhs')
+            ->leftJoin('master_agama', 'master_agama.id', '=', 'mahasiswa.agama')
+            ->select('mahasiswa.*', 'master_agama.title as nama_agama' ,'dosen.nama as nama_dosen', 'master_jurusan.title' ,'master_jurusan.id as id_jurusan' ,'master_kelas.title as kelas_title' , 'master_semester.id_tahun_ajaran as angkatan_title' ,'nama_status_mahasiswa as status_mhs')
             ->where('mahasiswa.id' , $id)->first();
         $orangtuawali = MahasiswaOrangtuawaliModel::where('mahasiswa_id' , $id)->get();
         $kebutuhan_selected = MahasiswaKebutuhanModel::where('mahasiswa_id' , $id)->first();
@@ -516,11 +522,11 @@ class Mahasiswa extends Controller
         ->leftJoin('kurikulum', 'master_kelas.kurikulum_id', '=', 'kurikulum.id')
         ->leftJoin('view_total_sks_by_kurikulum', 'view_total_sks_by_kurikulum.id', '=', 'kurikulum.id')
         ->leftJoin('master_status_mahasiswa','master_status_mahasiswa.id', '=', 'mahasiswa.status' )
-        ->leftJoin('master_angkatan','master_angkatan.id', '=', 'mahasiswa.angkatan')
-        ->select("mahasiswa.id" ,"master_agama.title as t_agama","nim" ,"mahasiswa.jurusan_id" , "master_jurusan.title", "agama" , "master_status_mahasiswa.title as status","nama","nik","nisn","tanggal_lahir","jk", "master_angkatan.title as angkatan" , DB::raw("IF(view_total_sks_by_kurikulum.total_sks > 0 , view_total_sks_by_kurikulum.total_sks ,'0') as total_sks "))
+        //->leftJoin('master_angkatan','master_angkatan.id', '=', 'mahasiswa.angkatan')
+        ->leftJoin('master_semester', 'master_semester.id', '=', 'mahasiswa.id_periode_masuk')
+        ->select("mahasiswa.id" ,"master_agama.title as t_agama","nim" ,"mahasiswa.jurusan_id" , "master_jurusan.title", "agama" , "mahasiswa.nama_status_mahasiswa as status","nama","nik","nisn","tanggal_lahir","jk", "master_semester.id_tahun_ajaran as angkatan" , DB::raw("IF(view_total_sks_by_kurikulum.total_sks > 0 , view_total_sks_by_kurikulum.total_sks ,'0') as total_sks "))
         ->get())->addIndexColumn()->make(true);
     }
-    
 
     public function validatewizard(Request $request){
         $data = $request->all();
@@ -528,7 +534,7 @@ class Mahasiswa extends Controller
         if(isset($data['step'])){
             if($data['step'] == '1'){
                 $validation = Validator::make($data['mahasiswa'], [
-                    'angkatan' => 'required',
+                    'id_periode_masuk' => 'required',
                     'nama' => 'required',
                     'email'=> 'required | email',
                     'nim' => 'required',
@@ -552,8 +558,6 @@ class Mahasiswa extends Controller
 
         return json_encode(['status'=> 'true', 'message'=> []]);
     }
-    
-
 
     public function update(Request $request){
         $data = $request->all();
@@ -565,15 +569,19 @@ class Mahasiswa extends Controller
                 'nama' => 'required|max:100',
                 'email'=> 'required | email',
                 'nim' => 'required',
-                'email' => 'required|email|unique:mahasiswa',
-                'jurusan_id'=>'required',
-                'kelas_id' => 'required'
+                //'email' => 'required|email|unique:mahasiswa',
+                'jurusan_id'=>'required'
+                //'kelas_id' => 'required'
             ]);
 
             if ($validation->fails()) {
                 return json_encode(['status'=> 'false', 'message'=> $validation->messages()]);
             }
-            
+
+            if(MahasiswaModel::where('email', $data['mahasiswa']['email'])->where('id', '!=', $id)->first()){
+                return json_encode(["status"=> "false", "message"=> array(["Email ini sudah digunakan mahasiswa lain"])]);
+            }
+
             DB::beginTransaction();
             try{
 
@@ -862,10 +870,10 @@ class Mahasiswa extends Controller
         );
         $global['id'] = $id;
         $data = MahasiswaModel::join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
-        ->join('master_angkatan' ,'master_angkatan.id' ,'=' ,'mahasiswa.angkatan')
+        ->join('master_semester' ,'master_semester.id' ,'=' ,'mahasiswa.id_periode_masuk')
         ->join('master_kelas' ,'master_kelas.id' ,'=' ,'mahasiswa.kelas_id')
         ->join('master_status_mahasiswa' ,'master_status_mahasiswa.id' ,'=' ,'mahasiswa.status')
-        ->select('mahasiswa.*' , 'master_jurusan.title' ,'master_jurusan.id as id_jurusan' ,'master_kelas.title as kelas_title' , 'master_angkatan.title as angkatan_title' ,'master_status_mahasiswa.title as status_mhs')
+        ->select('mahasiswa.*' , 'master_jurusan.title' ,'master_jurusan.id as id_jurusan' ,'master_kelas.title as kelas_title' , 'master_semester.id_tahun_ajaran as angkatan_title' ,'master_status_mahasiswa.title as status_mhs')
         ->where('mahasiswa.id' , $id)->first();
         $orangtuawali = MahasiswaOrangtuawaliModel::where('mahasiswa_id' , $id)->get();
         $kebutuhan_selected = MahasiswaKebutuhanModel::where('mahasiswa_id' , $id)->first();
@@ -952,6 +960,7 @@ class Mahasiswa extends Controller
             }
         
     }
+
     public function krs($ids)
     {
         $semester_active = SemesterModel::where('status_semester' ,'enable')->first();
@@ -1019,7 +1028,7 @@ class Mahasiswa extends Controller
             $join->on('nilai_mahasiswa.mata_kuliah_id' ,'=','kurikulum_mata_kuliah.mata_kuliah_id')
             ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $ids);
         })
-        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah','mata_kuliah.tipe_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas')
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah','mata_kuliah.tipe_mata_kuliah', 'mata_kuliah.sks_mata_kuliah' , 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->where('nilai_mahasiswa.semester_id' , $semester_aktif->id)->get();
         
         $ip_smstr_prev = JadwalPerkuliahanModel::leftJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.mata_kuliah_id' ,'=' ,'view_jadwal_kelas_perkuliahan.mata_kuliah_id')
@@ -1056,7 +1065,6 @@ class Mahasiswa extends Controller
         
     }
 
-    
     public function khs_load(Request $request)
     {
         //print_r($request->all());
@@ -1075,7 +1083,7 @@ class Mahasiswa extends Controller
             $join->on('nilai_mahasiswa.mata_kuliah_id' ,'=','kurikulum_mata_kuliah.mata_kuliah_id')
             ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $id);
         })
-        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_laporan', 'nilai_mahasiswa.nilai_laporan_pkl', 'nilai_mahasiswa.nilai_ujian', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah')
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.sks_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_laporan', 'nilai_mahasiswa.nilai_laporan_pkl', 'nilai_mahasiswa.nilai_ujian', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->where('nilai_mahasiswa.semester_id' , $request->all()['id'])->get();
         $html = '';
 
@@ -1263,7 +1271,7 @@ class Mahasiswa extends Controller
             ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $ids);
         })
         ->leftJoin('master_semester' , 'master_semester.id' ,'=' , 'nilai_mahasiswa.semester_id')
-        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah', 'nilai_mahasiswa.semester_id', 'master_semester.title as semester_title', 'nilai_mahasiswa.nilai_laporan', 'nilai_mahasiswa.nilai_laporan_pkl', 'nilai_mahasiswa.nilai_ujian')
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.sks_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah', 'nilai_mahasiswa.semester_id', 'master_semester.title as semester_title', 'nilai_mahasiswa.nilai_laporan', 'nilai_mahasiswa.nilai_laporan_pkl', 'nilai_mahasiswa.nilai_ujian')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->orderby('kurikulum_mata_kuliah.semester' , 'ASC')->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $global['id'] = $id;
@@ -1316,7 +1324,7 @@ class Mahasiswa extends Controller
             $join->on('nilai_mahasiswa.mata_kuliah_id' ,'=','kurikulum_mata_kuliah.mata_kuliah_id')
             ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $id);
         })
-        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah','mata_kuliah.tipe_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas')
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah','mata_kuliah.tipe_mata_kuliah', 'mata_kuliah.sks_mata_kuliah' , 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->where('nilai_mahasiswa.semester_id' , $id_semester)->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         //return view("mahasiswa/print_khs" , compact("data" , "title" ,"mahasiswa" , "master" , "semester_aktif" ,"report"));
@@ -1340,7 +1348,7 @@ class Mahasiswa extends Controller
             ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $id);
         })
         ->leftJoin('master_semester' , 'master_semester.id' ,'=' , 'nilai_mahasiswa.semester_id')
-        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah', 'nilai_mahasiswa.semester_id', 'master_semester.title as semester_title')
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.sks_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah', 'nilai_mahasiswa.semester_id', 'master_semester.title as semester_title')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->orderby('kurikulum_mata_kuliah.semester' , 'ASC')->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         //return view("mahasiswa/print_transkrip" , compact("data" , "title" ,"mahasiswa" , "master","report"));
@@ -1404,7 +1412,7 @@ class Mahasiswa extends Controller
             $join->on('nilai_mahasiswa.mata_kuliah_id' ,'=','kurikulum_mata_kuliah.mata_kuliah_id')
             ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $ids);
         })
-        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah','mata_kuliah.tipe_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas')
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah','mata_kuliah.tipe_mata_kuliah', 'mata_kuliah.sks_mata_kuliah' , 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->where('nilai_mahasiswa.semester_id' , $id_semester)->get();
         if(count($data) > 0){
             $i = 0;

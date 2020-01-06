@@ -52,6 +52,18 @@
                         </div>
                         <!--begin::Form-->
                         <div class="kt-portlet__body">
+                            <div style="display: block;text-align: right;margin-bottom: 5px;">
+                                Status Forlap :
+                                <?php
+                                $host = '202.162.198.147';
+                                if($socket = @fsockopen($host, 7072, $errno, $errstr, 30)) {
+                                    echo '<input type="hidden" id="status_forlap" value="true"/><span class="kt-badge kt-badge--success kt-badge--inline kt-badge--pill kt-badge--rounded">Online <span class="dot-online"></span></span>';
+                                    fclose($socket);
+                                } else {
+                                    echo '<input type="hidden" id="status_forlap" value="false"/><span class="kt-badge kt-badge--dark kt-badge--inline kt-badge--pill kt-badge--rounded">Offline <span class="dot"></span> </span>';
+                                }
+                                ?>
+                            </div>
                             <div>
                                 <table class="dataTable table table-striped table-bordered table-hover table-checkable responsive no-wrap">
                                     <thead>
@@ -59,8 +71,8 @@
                                         <th style="text-align: center">No</th>
                                         <th>Nama</th>
                                         <th>Keterangan</th>
-                                        <th style="text-align: center">Pending Data</th>
-                                        <th>Waktu Sinkronisasi</th>
+                                        <th style="text-align: center">Jumlah Data</th>
+                                        <th style="text-align: center">Waktu Sinkronisasi</th>
                                         <th style="text-align: center">Sinkronisasi Status</th>
                                         <th style="text-align: center">Aksi</th>
                                     </tr>
@@ -73,14 +85,16 @@
                                                 <td align="center">{{$i}}</td>
                                                 <td>{{$item->name}}</td>
                                                 <td>{{$item->description}}</td>
-                                                <td align="center">15</td>
-                                                <td>{{$item->last_sync}}</td>
+                                                <td align="center">{{$item->jumlah_sync}}</td>
+                                                <td align="center">{{$item->last_sync}}</td>
                                                 @if($item->last_sync_status == 'sukses')
                                                     <td align="center"><span class="kt-badge kt-badge--success kt-badge--inline kt-badge--pill kt-badge--rounded">Sukses</span></td>
-                                                @else
+                                                @elseif($item->last_sync_status == 'gagal')
                                                     <td align="center"><span class="kt-badge kt-badge--danger kt-badge--inline kt-badge--pill kt-badge--rounded">Gagal</span></td>
+                                                @else
+                                                    <td align="center"><span class="kt-badge kt-badge--warning kt-badge--inline kt-badge--pill kt-badge--rounded">Belum Disinkron</span></td>
                                                 @endif
-                                                <td align="center"><a href="javascript:void(0)" onclick="sync('{{$item->sync_code}}')" style="font-size: 16px;" ><b><i class="la la-refresh"></i></b></a></td>
+                                                <td align="center"><a href="javascript:void(0)" onclick="synchronize('{{$item->url}}','{{$item->name}}')" style="font-size: 16px;" ><b><i class="la la-refresh"></i></b></a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -94,7 +108,38 @@
 </div>
 
 <style>
-    .m-content{width:100%};
+    .m-content{width:100%}
+    .swal2-image{
+        margin:0!important;
+    }
+    .dot {
+        height: 8px;
+        width: 8px;
+        margin-left: 5px;
+        background-color: #fff;
+        border-radius: 50%;
+        display: inline-block;
+        animation: blink 1s steps(5, start) infinite;
+        -webkit-animation: blink 1s steps(5, start) infinite;
+    }
+    .dot-online {
+        height: 8px;
+        width: 8px;
+        margin-left: 5px;
+        background-color: #85ff00;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    @keyframes blink {
+        to {
+            visibility: hidden;
+        }
+    }
+    @-webkit-keyframes blink {
+        to {
+            visibility: hidden;
+        }
+    }
     </style>
 
 @section('js')
@@ -121,6 +166,69 @@
                         data:{'jurusan':$('#jurusan-mahasiswa').val() , 'angkatan':$('#angkatan-mahasiswa').val()},
                         success:function(result) {
                             console.log(result);
+                        }
+                    });
+                }
+            });
+        }
+
+        function synchronize(url, name){
+            var status = $("#status_forlap").val();
+            if(status == "false"){
+                Swal.fire({
+                    title: 'Gagal',
+                    text: 'Situs Forlap sedang Offline, mohon dicek terlebih dahulu.',
+                    type: 'error'
+                });
+                return;
+            }
+            Swal.fire({
+                title: 'Sinkronisasi Data',
+                html: "Anda Yakin Melakukan Sinkronisasi Data <b>"+ name+"</b> ?",
+                type: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#08976d',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sync Sekarang'
+            }).then((result) => {
+                if (result.value) {
+                    Swal.fire({
+                        title: "Sinkronisasi Data . . .",
+                        imageUrl: "../assets/media/ajaxloader.gif",
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('#csrf_').val()
+                        }
+                    });
+                    $.ajax({
+                        type:'GET',
+                        url:url,
+                        dataType:'json',
+                        success:function(result) {
+                            if(result.status == 'error'){
+                                Swal.fire({
+                                    title: 'Sinkronisasi Data',
+                                    text: result.msg,
+                                    type: 'error'
+                                }).then((result) => {
+                                    if (result.value) {
+                                        location.reload();
+                                    }
+                                });
+                            }else{
+                                Swal.fire({
+                                    title: 'Sinkronisasi Data',
+                                    text: "Data berhasil di sinkronisasi?",
+                                    type: 'success'
+                                }).then((result) => {
+                                    if (result.value) {
+                                        location.reload();
+                                    }
+                                });
+                            }
                         }
                     });
                 }

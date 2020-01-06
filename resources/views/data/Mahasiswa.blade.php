@@ -144,7 +144,7 @@
                                             <th>Tanggal Lahir</th>
                                             <th>Jenis Kelamin</th>
                                             <th>Agama</th>
-                                            <th>Total SKS</th>
+                                            <th style="text-align: center">Total SKS</th>
                                             <th>Program Studi</th>
                                             <th>Status</th>
                                             <th>Angkatan</th>

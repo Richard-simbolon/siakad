@@ -102,7 +102,7 @@
                                                         <tr>
                                                             <td>Ruangan</td>
                                                             <td>:</td>
-                                                            <td><b>{{$data->ruangan}}</b></td>
+                                                            <td><b>{{$data->kode_ruangan}} - {{$data->ruangan}}</b></td>
                                                         </tr>
                                                         <tr>
                                                             <td>Semester</td>
@@ -121,7 +121,7 @@
                                     <input type="hidden" name="semester_id" value="{{$data->semester_id}}" />
                                     <input type="hidden" name="mata_kuliah_id" value="{{$data->mata_kuliah_id}}" />
                                     <input type="hidden" name="jurusan_id" value="{{$data->jurusan_id}}" />
-                                    <input type="hidden" name="angkatan_id" value="{{$data->angkatan_id}}" />
+                                    <input type="hidden" name="angkatan_id" value="{{$data->nama_angkatan}}" />
                                     <input type="hidden" name="kelas_perkuliahan_id" value="{{$data->kelas_perkuliahan_id}}" />
                                     <div class="col-lg-12">
                                         <table class="table table-striped table-bordered table-hover dataTable responsive">
@@ -133,10 +133,9 @@
                                                     <th style="vertical-align: middle" rowspan="2">Jenis Kelamin</th>
                                                     <?php
                                                         if($data->tipe_mata_kuliah != '' || $data->tipe_mata_kuliah != null){
-                                                            //print_r(config('global.tipe_matakuliah.'.$data->tipe_mata_kuliah));
-                                                                foreach (config('global.tipe_matakuliah.'.$data->tipe_mata_kuliah) as $key => $value) {
-                                                                    echo '<th style="vertical-align: middle" rowspan="2">'.$value.'</th>';
-                                                                }
+                                                            foreach (config('global.tipe_matakuliah.'.$data->tipe_mata_kuliah) as $key => $value) {
+                                                                echo '<th style="vertical-align: middle" rowspan="2">'.$value.'</th>';
+                                                            }
                                                         }else{
                                                             echo '
                                                             <th style="vertical-align: middle" rowspan="2">UTS</th>
@@ -153,69 +152,68 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                    <?$i = 0;
-                                                    ?>
-                                                    
-                                                    @foreach ($mahasiswa as $item)
-                                                    <? 
-                                                    $nangka = 0;
+                                                <?$i = 0;
+                                                ?>
+
+                                                @foreach ($mahasiswa as $item)
+                                                <?
+                                                $nangka = 0;
+                                                $nhuruf = 'E';
+                                                $nuts = $item->nilai_uts > 0 ? $item->nilai_uts : 0;
+                                                $nuas = $item->nilai_uas > 0 ? $item->nilai_uas : 0;
+                                                $ntgs = $item->nilai_tugas > 0 ? $item->nilai_tugas : 0;
+                                                $nlapopkl = $item->nilai_laporan_pkl > 0 ? $item->nilai_laporan_pkl : 0;
+                                                $nlapo = $item->nilai_laporan > 0 ? $item->nilai_laporan : 0;
+                                                $nujian = $item->nilai_ujian > 0 ? $item->nilai_ujian : 0;
+
+                                                if($data->tipe_mata_kuliah == 'praktek'){
+                                                    $nangka = ( (($ntgs * 20) / 100) + (($nuts * 40) / 100) + (($nuas * 40)/100));
+                                                }elseif ($data->tipe_mata_kuliah == 'teori') {
+                                                    $nangka = ( (($ntgs * 30) / 100) + (($nuts * 30) / 100) + (($nuas * 40)/100));
+                                                }elseif ($data->tipe_mata_kuliah == 'seminar') {
+                                                    $nangka = ( (($ntgs * 40) / 100) + (($nuts * 30) / 100) + (($nuas * 30)/100));
+                                                }elseif ($data->tipe_mata_kuliah == 'pkl') {
+                                                    $nangka = ( (($ntgs * 20) / 100) + (($nuts * 20) / 100) + (($nuas * 40)/100) + (($nlapopkl * 20) / 100));
+                                                }elseif ($data->tipe_mata_kuliah == 'skripsi') {
+                                                    $nangka = ( (($ntgs * 30) / 100) + (($nuts * 20) / 100) + (($nuas * 10)/100) + (($nlapopkl * 10) / 100) + (($nujian * 20) / 100) + (($nlapo * 10) / 100));
+                                                }
+                                                if($nangka < 45){
                                                     $nhuruf = 'E';
-                                                    $nuts = $item->nilai_uts > 0 ? $item->nilai_uts : 0;
-                                                    $nuas = $item->nilai_uas > 0 ? $item->nilai_uas : 0;
-                                                    $ntgs = $item->nilai_tugas > 0 ? $item->nilai_tugas : 0;
-                                                    $nlapopkl = $item->nilai_laporan_pkl > 0 ? $item->nilai_laporan_pkl : 0;
-                                                    $nlapo = $item->nilai_laporan > 0 ? $item->nilai_laporan : 0;
-                                                    $nujian = $item->nilai_ujian > 0 ? $item->nilai_ujian : 0;
+                                                }elseif($nangka > 44 && $nangka<= 59){
+                                                    $nhuruf = 'D';
+                                                }elseif($nangka > 59 && $nangka<= 69){
+                                                    $nhuruf = 'C';
+                                                }elseif($nangka > 69 && $nangka<= 79){
+                                                    $nhuruf = 'B';
+                                                }elseif($nangka > 79 && $nangka<= 100){
+                                                    $nhuruf = 'A';
+                                                }else{
+                                                    $nhuruf = 'E';
+                                                }
+                                                $i++; ?>
 
-                                                    if($data->tipe_mata_kuliah == 'praktek'){
-                                                        $nangka = ( (($ntgs * 20) / 100) + (($nuts * 40) / 100) + (($nuas * 40)/100));
-                                                    }elseif ($data->tipe_mata_kuliah == 'teori') {
-                                                        $nangka = ( (($ntgs * 30) / 100) + (($nuts * 30) / 100) + (($nuas * 40)/100));
-                                                    }elseif ($data->tipe_mata_kuliah == 'seminar') {
-                                                        $nangka = ( (($ntgs * 40) / 100) + (($nuts * 30) / 100) + (($nuas * 30)/100));
-                                                    }elseif ($data->tipe_mata_kuliah == 'pkl') {
-                                                        $nangka = ( (($ntgs * 20) / 100) + (($nuts * 20) / 100) + (($nuas * 40)/100) + (($nlapopkl * 20) / 100));
-                                                    }elseif ($data->tipe_mata_kuliah == 'skripsi') {
-                                                        $nangka = ( (($ntgs * 30) / 100) + (($nuts * 20) / 100) + (($nuas * 10)/100) + (($nlapopkl * 10) / 100) + (($nujian * 20) / 100) + (($nlapo * 10) / 100));
-                                                    }
-                                                    if($nangka < 45){
-                                                        $nhuruf = 'E';
-                                                    }elseif($nangka > 44 && $nangka<= 59){
-                                                        $nhuruf = 'D';
-                                                    }elseif($nangka > 59 && $nangka<= 69){
-                                                        $nhuruf = 'C';
-                                                    }elseif($nangka > 69 && $nangka<= 79){
-                                                        $nhuruf = 'B';
-                                                    }elseif($nangka > 79 && $nangka<= 100){
-                                                        $nhuruf = 'A';
-                                                    }else{
-                                                        $nhuruf = 'E';
-                                                    }
-                                                    $i++; ?>
-
-                                                    <tr>
-                                                        <td style="vertical-align: middle" align="center">{{$i}}</td>
-                                                        <td style="vertical-align: middle">{{ucfirst($item->nama)}}</td>
-                                                        <td style="vertical-align: middle" align="center">{{ucfirst($item->nim)}}</td>
-                                                        <td style="vertical-align: middle" align="center">{{ucfirst($item->jk)}}</td>
-                                                        <?php
-                                                            if($data->tipe_mata_kuliah != '' || $data->tipe_mata_kuliah != null){
-                                                                //print_r(config('global.tipe_matakuliah.'.$data->tipe_mata_kuliah));
-                                                                foreach (config('global.tipe_matakuliah.'.$data->tipe_mata_kuliah) as $key => $value) {
-                                                                    echo '<td style="vertical-align: middle"><input type="text" value="'.$item->$key.'" class="form-control nilai_realtime n_'.$key.'_'.$item->id.'" attr="'.$item->id.'" char="'.$data->tipe_mata_kuliah.'" name="mahasiswa['.$item->id.']['.$key.']" placeholder="0"></td>';
-                                                                }
-                                                            }else{
-                                                                echo '
-                                                                    <td style="vertical-align: middle"><input type="text" value="'.$item->nilai_uts.'" class="form-control nilai_realtime n_uts_'.$item->id.'" attr="'.$item->id.'" char="'.$data->tipe_mata_kuliah.'" name="mahasiswa['.$item->id.'][nilai_uts]" placeholder="0"></td>
-                                                                    <td style="vertical-align: middle"><input type="text" value="'.$item->nilai_tugas.'" class="form-control nilai_realtime n_tgs_'.$item->id.'" attr="'.$item->id.'" char="'.$data->tipe_mata_kuliah.'" name="mahasiswa['.$item->id.'][nilai_tugas]" placeholder="0"></td>
-                                                                    <td style="vertical-align: middle"><input type="text" value="'.$item->nilai_uas.'" class="form-control nilai_realtime n_uas_'.$item->id.'"  attr="'.$item->id.'" char="'.$data->tipe_mata_kuliah.'" name="mahasiswa['.$item->id.'][nilai_uas]" placeholder="0"></td>
-                                                                ';
+                                                <tr>
+                                                    <td style="vertical-align: middle" align="center">{{$i}}</td>
+                                                    <td style="vertical-align: middle">{{ucfirst($item->nama)}}</td>
+                                                    <td style="vertical-align: middle" align="center">{{ucfirst($item->nim)}}</td>
+                                                    <td style="vertical-align: middle" align="center">{{ucfirst($item->jk)}}</td>
+                                                    <?php
+                                                        if($data->tipe_mata_kuliah != '' || $data->tipe_mata_kuliah != null){
+                                                            foreach (config('global.tipe_matakuliah.'.$data->tipe_mata_kuliah) as $key => $value) {
+                                                                echo '<td style="vertical-align: middle"><input type="text" value="'.$item->$key.'" class="form-control nilai_realtime n_'.$key.'_'.$item->id.'" attr="'.$item->id.'" char="'.$data->tipe_mata_kuliah.'" name="mahasiswa['.$item->id.']['.$key.']" placeholder="0"></td>';
                                                             }
-                                                        ?>
-                                                        <td style="vertical-align: middle" style="text-align: center;vertical-align: middle;"> <b class="nangka n_angka_{{$item->id}}">{{$nangka}}</b></td>
-                                                        <td style="vertical-align: middle" style="text-align: center;vertical-align: middle;"><b class="nuruf n_huruf_{{$item->id}}">{{$nhuruf}}</b></td>
-                                                    </tr>
-                                                    @endforeach
+                                                        }else{
+                                                            echo '
+                                                                <td style="vertical-align: middle"><input type="text" value="'.$item->nilai_uts.'" class="form-control nilai_realtime n_uts_'.$item->id.'" attr="'.$item->id.'" char="'.$data->tipe_mata_kuliah.'" name="mahasiswa['.$item->id.'][nilai_uts]" placeholder="0"></td>
+                                                                <td style="vertical-align: middle"><input type="text" value="'.$item->nilai_tugas.'" class="form-control nilai_realtime n_tgs_'.$item->id.'" attr="'.$item->id.'" char="'.$data->tipe_mata_kuliah.'" name="mahasiswa['.$item->id.'][nilai_tugas]" placeholder="0"></td>
+                                                                <td style="vertical-align: middle"><input type="text" value="'.$item->nilai_uas.'" class="form-control nilai_realtime n_uas_'.$item->id.'"  attr="'.$item->id.'" char="'.$data->tipe_mata_kuliah.'" name="mahasiswa['.$item->id.'][nilai_uas]" placeholder="0"></td>
+                                                            ';
+                                                        }
+                                                    ?>
+                                                    <td style="text-align: center;vertical-align: middle;"><b class="nangka n_angka_{{$item->id}}">{{$nangka}}</b></td>
+                                                    <td style="text-align: center;vertical-align: middle;"><b class="nuruf n_huruf_{{$item->id}}">{{$nhuruf}}</b></td>
+                                                </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -223,6 +221,7 @@
                                 <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg kt-separator--portlet-fit"></div>
                                 <div class="root">
                                     <div class="kt-form__actions">
+
                                         <button type="button" class="btn btn-success" id="save-nilai-perkuliahan"><i class="la la-save"></i>Simpan</button>
                                     </div>
                                 </div>

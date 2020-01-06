@@ -194,7 +194,7 @@
                                     <ul class="nav nav-tabs nav-tabs-bold nav-tabs-line   nav-tabs-line-right nav-tabs-line-brand" role="tablist">
                                         <li class="nav-item">
                                             <a class="nav-link active" data-toggle="tab" href="#info_dasar" role="tab">
-                                                Daftar Pendidikan
+                                                Daftar Riwayat Fungsional
                                             </a>
                                         </li>
                                     </ul>

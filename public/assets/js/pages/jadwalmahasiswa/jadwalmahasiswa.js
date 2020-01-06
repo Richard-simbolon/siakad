@@ -59,7 +59,7 @@ $(document).ready(function() {
 				api.column(6, {page: 'current'}).data().each(function(group, i) {
 					if (last !== group) {
 						$(rows).eq(i).before(
-							'<tr class="group"><td colspan="9">' + hari[group] + '</td></tr>',
+							'<tr class="group"><td colspan="10">' + hari[group] + '</td></tr>',
 						);
 						last = group;
 					}
@@ -77,7 +77,8 @@ $(document).ready(function() {
                 }, 
             },
             { data: 'jam', name: 'jam' }, 
-            { data: 'selesai', name: 'selesai' },   
+            { data: 'selesai', name: 'selesai' },
+            { data: 'ruangan', name: 'ruangan' },
         ],
         columnDefs: [
             {

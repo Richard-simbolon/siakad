@@ -104,13 +104,14 @@ class HomeController extends Controller
         $today = date("Y-m-d");
         $kalender = DB::table("kalender_akademik")
             ->where("row_status", 'active')
-            ->where("start",">=", $today)
+            ->where("start","<=", $today)
             ->where("end", ">=", $today)
-            ->select("kalender_akademik.id",'kalender_akademik.title', 'kalender_akademik.start')
+            ->select("kalender_akademik.id",'kalender_akademik.title', 'kalender_akademik.start','kalender_akademik.end')
             ->get();
         $result = [];
         foreach ($kalender as $item){
             $item->start = date('Y-m-d', strtotime($item->start));
+            $item->end = date('Y-m-d', strtotime($item->end));
             array_push($result, $item);
         }
 

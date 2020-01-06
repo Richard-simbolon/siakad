@@ -85,6 +85,9 @@
                             <div class="kt-footer__copyright">
                                 2019&nbsp;&copy;&nbsp;<a href="http://polbangtanmedan.ac.id" target="_blank" class="kt-link">Polbangtan Medan</a>
                             </div>
+                            <div class="kt-footer__menu">
+                                <a href="http://keenthemes.com/metronic" target="_blank" class="kt-footer__menu-link kt-link">Download Panduan Penggunaan</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -259,7 +262,7 @@
                     //$("#form-update-dosen input , #form-update-dosen select , #form-update-dosen textarea , #form-update-dosen option").prop("disabled", true);
                     $("#informasidasar").show();
                     $("#info_dasar").hide();
-                    $("#")
+                    $("#updatemahasiswa").show();
                 });
 
                 $(document).on('click','#editdosen' , function(){
@@ -381,7 +384,7 @@
                                 value['title'] +
                                 '</div>\n' +
                                 '<div class="kt-notification__item-time">\n' +
-                                value['start'] +
+                                value['start'] + ' s.d ' + value['end'] +
                                 '</div>\n' +
                                 '</div>\n' +
                                 '</a>'

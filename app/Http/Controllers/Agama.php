@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\SinkronisasiModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class Agama extends Controller
 {
+
     static $Tableshow = ["id" => ["table" => ["tablename" =>"null" , "field"=> "id"] , "record"=>"Id"],
         "title" => ["table" => ["tablename" =>"null" , "field"=> "title"] , "record"=>"Title"],
         "row_status" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Status"],
@@ -19,23 +21,23 @@ class Agama extends Controller
                     "title"=>["type"=>"text" , "value"=>"null" , "validation" => ""] ,
                     "row_status"=>["type"=>"radio" , "value"=>"active,notactive,deleted" , "validation" => "required"] ,
                     ];
-    static $exclude = ["id","created_at","updated_at","created_by","updated_by"];
+    static $exclude = ["id","row_status","created_at","updated_at","created_by","updated_by"];
     static $tablename = "agama";
     public function __construct()
-        {
-            $this->middleware(function ($request, $next) {
-                $this->user = Auth::user();
-                if(!$this->user){
-                    Redirect::to('login')->send();
-                }
-                if($this->user->login_type != 'admin'){
-                    return abort(404);
-                }else{
-                    return $next($request);
-                }
-            });
-            
-        }
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user();
+            if (!$this->user) {
+                Redirect::to('login')->send();
+            }
+            if ($this->user->login_type != 'admin') {
+                return abort(404);
+            } else {
+                return $next($request);
+            }
+        });
+    }
+
 
     public function index()
     {
@@ -66,7 +68,11 @@ class Agama extends Controller
         $result_string = $this->runWS($data, 'json');
         
         $result = json_decode($result_string , true);
-        //print_r($result); exit;
+        if(!$result){
+            $this->sinkron_log('sync_agama','gagal', 0);
+
+            return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
+        }
         if(array_key_exists('data' , $result)){
             if(count($result['data']) > 0){
                 DB::beginTransaction();
@@ -75,6 +81,7 @@ class Agama extends Controller
                         AgamaModel::updateOrInsert(array('id'=> $item['id_agama'], 'title'=>$item['nama_agama']));
                     }
                     DB::commit();
+                    $this->sinkron_log('sync_agama','sukses', count($result['data']));
                     DB::table('sinkronisasi_logs')
                     ->insert(array('title' => 'GetAgama' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
                     return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
