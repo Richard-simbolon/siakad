@@ -44,8 +44,6 @@ class Jurusan extends Controller
                 }
                 public function index()
                 {
-
-                    //echo 'asdasd'; exit;
                     $data = JurusanModel::get();
                     $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
                     $tableid = "Jurusan";

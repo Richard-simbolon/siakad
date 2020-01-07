@@ -293,15 +293,20 @@
                                                     <div class="col-xl-6">
                                                         <div class="form-group">
                                                             <label>Ikatan Kerja </label>
-                                                            <input type="text" class="form-control" name="dosen[ikatan_kerja]"  value="{{$data['ikatan_kerja']}}" placeholder="Isikan Ikatan Kerja">
+                                                            <select name="dosen[jenis_pegawai]" class="form-control kt-select2">
+                                                                <option value="">--Pilih Status--</option>
+                                                                @foreach ($master['status_pegawai'] as $item)
+                                                                    <option value="{{$item['id']}}" {{$item['id'] == $data['jenis_pegawai'] ? 'selected' : ''}} >{{$item['title']}}</option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-6">
                                                         <div class="form-group">
-                                                            <label class="block" style="display: block">Status Pegawai</label>
+                                                            <label class="block" style="display: block">Status Keaktifan Pegawai</label>
                                                             <select name="dosen[status_pegawai]" class="form-control kt-select2">
                                                                 <option value="">--Pilih Status--</option>
-                                                                @foreach ($master['status_pegawai'] as $item)
+                                                                @foreach ($master['status_keaktifan'] as $item)
                                                                     <option value="{{$item['id']}}" {{$item['id'] == $data['status_pegawai'] ? 'selected' : ''}} >{{$item['title']}}</option>
                                                                 @endforeach
                                                             </select>

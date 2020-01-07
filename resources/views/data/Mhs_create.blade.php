@@ -99,19 +99,6 @@
                                     <div class="kt-form__section kt-form__section--first">
                                         <div class="kt-wizard-v3__form">
                                             <div class="row">
-                                                {{--<div class="col-xl-3">--}}
-                                                    {{--<div class="form-group">--}}
-                                                        {{--<label>Angkatan</label>--}}
-                                                        {{--<div class="form-group">--}}
-                                                            {{--<select name="mahasiswa[angkatan]" class="form-control kt-select2">--}}
-                                                                {{--<option value="">-- Pilih Angkatan --</option>--}}
-                                                                {{--@foreach ($master['angkatan'] as $item)--}}
-                                                                    {{--<option value="{{$item['id']}}">{{$item['title']}}</option>--}}
-                                                                {{--@endforeach--}}
-                                                            {{--</select>--}}
-                                                        {{--</div>--}}
-                                                    {{--</div>--}}
-                                                {{--</div>--}}
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Periode Masuk</label>
@@ -368,18 +355,18 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="form-group">
-                                                    <label>Kewarganegaraan *</label>
-                                                    <div class="form-group">
-                                                        <select name="mahasiswa[kewarganegaraan]" class="form-control kt-select2">
-                                                            <option value="">-- Kewarganegaraan --</option>
-                                                            @foreach ($master['negara'] as $item)
-                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
                                                 <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label>Kewarganegaraan *</label>
+                                                        <div class="form-group">
+                                                            <select name="mahasiswa[kewarganegaraan]" class="form-control kt-select2">
+                                                                <option value="">-- Kewarganegaraan --</option>
+                                                                @foreach ($master['negara'] as $item)
+                                                                    <option value="{{$item['id']}}">{{$item['title']}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="row">

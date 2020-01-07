@@ -212,7 +212,8 @@
                                             <th>SK Jabatan</th>
                                             <th>Tanggal Surat Tugas</th>
                                             <th>TMT SK Jabatan</th>
-                                            <th>Masa Kerja</th>
+                                            <th>Masa Kerja Dalam Bulan</th>
+                                            <th>Masa Kerja Dalam Tahun</th>
                                             <th style="text-align: center">Aksi</th>
                                         </tr>
                                         </thead>
@@ -228,7 +229,8 @@
                                                     <td style="vertical-align: middle">{{$item['sk_pangkat']}}</td>
                                                     <td style="vertical-align: middle">{{$item['tanggal_sk_pangkat']}}</td>
                                                     <td style="vertical-align: middle">{{$item['tmt_sk_pangkat']}}</td>
-                                                    <td style="vertical-align: middle">{{$item['masa_kerja']}}</td>
+                                                    <td align="center" style="vertical-align: middle">{{$item['masa_kerja_bulan']}}</td>
+                                                    <td align="center" style="vertical-align: middle">{{$item['masa_kerja_tahun']}}</td>
                                                     <td nowrap="" style="vertical-align: middle" align="center">
                                                         <a style="font-size: 18px;color: #607D8B;" class="call-modal-kepangkatan" href="javascript:void(0)" attr="{{$item['id']}}"><i class="la la-edit"></i></a>  &nbsp;
                                                         <a style="font-size: 18px;color: #607D8B;" class="delete_item" href="javascript:void(0)" type="kepangkatan" attr="{{$item['id']}}"><i class="la la-trash"></i></a>
@@ -298,7 +300,7 @@
                                                         </div>
                                                         <div class="col-xl-6">
                                                             <div class="form-group">
-                                                            <label>TMT SK Pengankatan</label>
+                                                            <label>TMT SK Pengangkatan</label>
                                                                 <input type="date" class="form-control" name="tmt_sk_pangkat">
                                                             </div>
                                                         </div>
@@ -306,8 +308,14 @@
                                                     <div class="row">
                                                         <div class="col-xl-6">
                                                             <div class="form-group">
-                                                                <label>Masa Kerja</label>
-                                                                <input type="text" class="form-control" name="masa_kerja" placeholder="Isikan Masa Kerja" >
+                                                                <label>Masa Kerja Dalam Bulan</label>
+                                                                <input type="text" class="form-control" name="masa_kerja_bulan" placeholder="Isikan Masa Kerja" >
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6">
+                                                            <div class="form-group">
+                                                                <label>Masa Kerja Dalam Tahun</label>
+                                                                <input type="text" class="form-control" name="masa_kerja_tahun" placeholder="Isikan Masa Kerja" >
                                                             </div>
                                                         </div>
                                                     </div>

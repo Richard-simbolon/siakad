@@ -57,31 +57,33 @@ class Pendidikan extends Controller
                     $result = json_decode($result_string , true);
 
                     if(!$result){
-                        $sinkronisasi = SinkronisasiModel::where('sync_code','sync_pendidikan')->first();
-                        $sinkronisasi->last_sync = date('Y-m-d H:m:s');
-                        $sinkronisasi->last_sync_status = 'gagal';
-                        $sinkronisasi->last_sync_by = Auth::user()->nama;
-                        $sinkronisasi->save();
+                        $this->sinkron_log('sync_pendidikan','gagal', 0);
 
                         return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
                     }
 
                     if(array_key_exists('data' , $result)){
-                        if(count($result['data']) > 0){
-                            DB::beginTransaction();
-                            try{
-                                foreach($result['data'] as $item){
-                                    PendidikanModel::updateOrInsert(array('id'=> $item['id_jenjang_didik'], 'title'=>$item['nama_jenjang_didik']));
+                        if($result['data']) {
+                            if (count($result['data']) > 0) {
+                                DB::beginTransaction();
+                                try {
+                                    foreach ($result['data'] as $item) {
+                                        PendidikanModel::updateOrInsert(array('id' => $item['id_jenjang_didik'], 'title' => $item['nama_jenjang_didik']));
+                                    }
+                                    DB::commit();
+                                    $this->sinkron_log('sync_pendidikan', 'sukses', count($result['data']));
+                                    DB::table('sinkronisasi_logs')
+                                        ->insert(array('title' => 'GetJenjangPendidikan', 'created_by' => Auth::user()->id, 'created_at' => date('Y-m-d H:i:s')));
+                                    return json_encode(array('status' => 'success', 'msg' => 'Data Berhasil Disinkronisai.'));
+                                } catch (\Exception $e) {
+                                    DB::rollBack();
+                                    throw $e;
+                                    return json_encode(array('status' => 'error', 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
                                 }
-                                DB::commit();
-                                DB::table('sinkronisasi_logs')
-                                ->insert(array('title' => 'GetJenjangPendidikan' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
-                                return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
-                            } catch(\Exception $e){
-                                DB::rollBack(); 
-                                throw $e;
-                                return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
-                            }      
+                            }
+                        }
+                        else{
+                            return json_encode(array('status' => 'error' , 'msg' => 'Data tidak tersedia'));
                         }
                     }
                 }

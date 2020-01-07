@@ -88,7 +88,7 @@
                                                 <td>{{$item->description}}</td>
                                                 <td>{{$item->module}}</td>
                                                 <td align="center">{{$item->jumlah_sync}}</td>
-                                                <td align="center">{{$item->last_sync}}</td>
+                                                <td width="75">{{$item->last_sync}}</td>
                                                 @if($item->last_sync_status == 'sukses')
                                                     <td align="center"><span class="kt-badge kt-badge--success kt-badge--inline kt-badge--pill kt-badge--rounded">Sukses</span></td>
                                                 @elseif($item->last_sync_status == 'gagal')
