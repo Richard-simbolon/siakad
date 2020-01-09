@@ -39,7 +39,7 @@ class MataKuliah extends Controller
                     "kode_mata_kuliah"=>["type"=>"text" , "value"=>"null" , "validation" => "required"],
                     "nama_mata_kuliah"=>["type"=>"text" , "value"=>"null" , "validation" => "required"],
                     "tipe_mata_kuliah"=>["type"=>"text" , "value"=>"null" , "validation" => "required"],
-                    "program_studi_id"=>["type"=>"select" , "value"=>"null" , "validation" => "required"],
+                    "id_prodi"=>["type"=>"select" , "value"=>"null" , "validation" => "required"],
                     "id_jenis_mata_kuliah"=>["type"=>"select" , "value"=>"null" , "validation" => "required"],
                     "sks_mata_kuliah"=>["type"=>"number" , "value"=>"null" , "validation" => "required"],
                     "sks_tatap_muka"=>["type"=>"number" , "value"=>"null" , "validation" => "required"],

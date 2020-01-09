@@ -62,11 +62,7 @@ class Jurusan extends Controller
                     $result = json_decode($result_string , true);
 
                     if(!$result){
-                        $sinkronisasi = SinkronisasiModel::where('sync_code','sync_jurusan')->first();
-                        $sinkronisasi->last_sync = date('Y-m-d H:m:s');
-                        $sinkronisasi->last_sync_status = 'gagal';
-                        $sinkronisasi->last_sync_by = Auth::user()->nama;
-                        $sinkronisasi->save();
+                        $this->sinkron_log('sync_jurusan','gagal', 0);
 
                         return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
                     }
@@ -79,6 +75,7 @@ class Jurusan extends Controller
                                     JurusanModel::updateOrInsert(array('id'=> $item['id_prodi']) , array('id'=> $item['id_prodi'] , 'title'=>$item['nama_program_studi'], 'kode_program_studi'=>$item['kode_program_studi'], 'status'=>$item['status'], 'id_jenjang_pendidikan'=>$item['id_jenjang_pendidikan']));
                                 }
                                 DB::commit();
+                                $this->sinkron_log('sync_jurusan','sukses', count($result['data']));
                                 DB::table('sinkronisasi_logs')
                                 ->insert(array('title' => 'GetProdi' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
                                 return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));

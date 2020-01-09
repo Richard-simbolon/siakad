@@ -89,6 +89,9 @@
                                                             <option value="">-- Pilih Tipe Matakuliah --</option>
                                                             <option value="praktek" {{$data['tipe_mata_kuliah'] == "praktek" ? "selected" : ""}}>Praktek</option>
                                                             <option value="teori" {{$data['tipe_mata_kuliah'] == "teori" ? "selected" : ""}}>Teori</option>
+                                                            <option value="pkl" {{$data['tipe_mata_kuliah'] == "pkl" ? "selected" : ""}}>Pkl</option>
+                                                            <option value="skripsi" {{$data['tipe_mata_kuliah'] == "skripsi" ? "selected" : ""}}>Skripsi</option>
+                                                            <option value="seminar" {{$data['tipe_mata_kuliah'] == "seminar" ? "selected" : ""}}>Seminar</option>
                                                         </select>
                                                     </div>
                                                 </div>

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\AngkatanModel;
 use App\IkatanKerjaSdmModel;
+use App\JenisPegawaiModel;
 use App\KelasModel;
 use App\MahasiswaModel;
 use App\PangkatGolonganModel;
@@ -222,7 +223,8 @@ static $service_penugasan = [
             'agama' => AgamaModel::where('row_status' , 'active')->get(),
             'sumber_gaji'=> SumberGajiModel::where('row_status', 'active')->get(),
             'ikatan_kerja_sdm' => IkatanKerjaSdmModel::where('row_status', 'active')->get(),
-            'status_keaktifan'=>StatusKeaktifanPegawaiModel::where('row_status', 'active')->get()
+            'status_keaktifan'=>StatusKeaktifanPegawaiModel::where('row_status', 'active')->get(),
+            'jenis_pegawai'=>JenisPegawaiModel::where('row_status', 'active')->get()
         );
         $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $table = array_diff(DB::getSchemaBuilder()->getColumnListing("dosen"), static::$exclude);
@@ -446,14 +448,16 @@ static $service_penugasan = [
             'pekerjaan' => PekerjaanModel::where('row_status' , 'active')->get(),
             'status_pegawai' => StatusPegawaiModel::where('row_status' , 'active')->get(),
             'jenis_kelamin' => config('global.jenis_kelamin'),
-            'status_keaktifan'=>StatusKeaktifanPegawaiModel::where('row_status', 'active')->get()
+            'status_keaktifan'=>StatusKeaktifanPegawaiModel::where('row_status', 'active')->get(),
+            'jenis_pegawai'=>JenisPegawaiModel::where('row_status', 'active')->get()
         );
 
         $data = DosenModel::leftJoin('master_agama', 'master_agama.id', '=', 'dosen.agama')
-        ->leftJoin('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
-        ->leftJoin('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
-        ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
-        ->where('dosen.id' , $id)->first();
+            ->leftJoin('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
+            ->leftJoin('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
+            ->leftJoin('master_status_keaktifan_pegawai','master_status_keaktifan_pegawai.id','dosen.status_pegawai')
+            ->select('dosen.*','dosen_keluarga.pekerjaan' ,'master_status_keaktifan_pegawai.title as status_keaktifan','dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
+            ->where('dosen.id' , $id)->first();
 
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $tableid = "Mahasiswa";
@@ -480,7 +484,8 @@ static $service_penugasan = [
         ->where('dosen_penugasan.dosen_id' , $id)->where('dosen_penugasan.row_status' , 'active')->get();
 
         $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
-            ->select('dosen.*','master_agama.title')
+            ->leftJoin('master_status_keaktifan_pegawai','master_status_keaktifan_pegawai.id','dosen.status_pegawai')
+            ->select('dosen.*','master_status_keaktifan_pegawai.title as status_keaktifan','master_agama.title')
             ->where('dosen.id' , $id)->first();
 
         return view('/data/dosen_penugasan' , compact('data' , 'master' , 'penugasan'));
@@ -522,7 +527,8 @@ static $service_penugasan = [
         $pengangkatan = PengangkatanModel::where('dosen_riwayat_kepangkatan.dosen_id' , $id)->where('dosen_riwayat_kepangkatan.row_status' , 'active')->get();
 
         $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
-            ->select('dosen.*','master_agama.title')
+            ->leftJoin('master_status_keaktifan_pegawai','master_status_keaktifan_pegawai.id','dosen.status_pegawai')
+            ->select('dosen.*','master_status_keaktifan_pegawai.title as status_keaktifan','master_agama.title')
             ->where('dosen.id' , $id)->first();
 
         return view('/data/dosen_kepangkatan' , compact('data' , 'master' , 'pengangkatan'));
@@ -577,7 +583,8 @@ static $service_penugasan = [
         $pendidikan = RiwayatPendidikanModel::where('dosen_riwayat_pendidikan.dosen_id' , $id)->where('dosen_riwayat_pendidikan.row_status' , 'active')->get();
 
         $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
-            ->select('dosen.*','master_agama.title')
+            ->leftJoin('master_status_keaktifan_pegawai','master_status_keaktifan_pegawai.id','dosen.status_pegawai')
+            ->select('dosen.*','master_status_keaktifan_pegawai.title as status_keaktifan','master_agama.title')
             ->where('dosen.id' , $id)->first();
 
         return view('/data/dosen_pendidikan' , compact('data' , 'master' , 'pendidikan'));
@@ -630,7 +637,8 @@ static $service_penugasan = [
         $sertifikasi = RiwayatSertifikasiModel::where('dosen_riwayat_sertifikasi.dosen_id' , $id)->where('dosen_riwayat_sertifikasi.row_status' , 'active')->get();
 
         $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
-            ->select('dosen.*','master_agama.title')
+            ->leftJoin('master_status_keaktifan_pegawai','master_status_keaktifan_pegawai.id','dosen.status_pegawai')
+            ->select('dosen.*','master_status_keaktifan_pegawai.title as status_keaktifan','master_agama.title')
             ->where('dosen.id' , $id)->first();
 
         return view('/data/dosen_sertifikasi' , compact('data' , 'master' , 'sertifikasi'));
@@ -680,7 +688,8 @@ static $service_penugasan = [
         $penelitian = RiwayatPenelitianModel::where('dosen_riwayat_penelitian.dosen_id' , $id)->where('dosen_riwayat_penelitian.row_status' , 'active')->get();
 
         $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
-            ->select('dosen.*','master_agama.title')
+            ->leftJoin('master_status_keaktifan_pegawai','master_status_keaktifan_pegawai.id','dosen.status_pegawai')
+            ->select('dosen.*','master_status_keaktifan_pegawai.title as status_keaktifan','master_agama.title')
             ->where('dosen.id' , $id)->first();
         return view('/data/dosen_penelitian' , compact('data' , 'master' , 'penelitian'));
     }
@@ -728,7 +737,8 @@ static $service_penugasan = [
         $fungsional = RiwayatFungsionalModel::where('dosen_riwayat_fungsional.dosen_id' , $id)->where('dosen_riwayat_fungsional.row_status' , 'active')->get();
 
         $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
-            ->select('dosen.*','master_agama.title')
+            ->leftJoin('master_status_keaktifan_pegawai','master_status_keaktifan_pegawai.id','dosen.status_pegawai')
+            ->select('dosen.*','master_status_keaktifan_pegawai.title as status_keaktifan','master_agama.title')
             ->where('dosen.id' , $id)->first();
         return view('/data/dosen_fungsional' , compact('data' , 'master' , 'fungsional'));
     }
@@ -889,7 +899,8 @@ static $service_penugasan = [
         $page = "Pembimbing";
 
         $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
-            ->select('dosen.*','master_agama.title')
+            ->leftJoin('master_status_keaktifan_pegawai','master_status_keaktifan_pegawai.id','dosen.status_pegawai')
+            ->select('dosen.*','master_status_keaktifan_pegawai.title as status_keaktifan','master_agama.title')
             ->where('dosen.id' , $id)->first();
         return view('/data/dosen_tugas_akhir' , compact('data','master','idTable','title','page'));
     }
@@ -909,7 +920,8 @@ static $service_penugasan = [
         $page = "Penguji";
 
         $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
-            ->select('dosen.*','master_agama.title')
+            ->leftJoin('master_status_keaktifan_pegawai','master_status_keaktifan_pegawai.id','dosen.status_pegawai')
+            ->select('dosen.*','master_status_keaktifan_pegawai.title as status_keaktifan','master_agama.title')
             ->where('dosen.id' , $id)->first();
         return view('/data/dosen_tugas_akhir' , compact('data','master','idTable', 'title','page'));
     }
@@ -927,7 +939,8 @@ static $service_penugasan = [
         $idTable ="tbl_dosen_aktivitas_mengajar";
 
         $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
-            ->select('dosen.*','master_agama.title')
+            ->leftJoin('master_status_keaktifan_pegawai','master_status_keaktifan_pegawai.id','dosen.status_pegawai')
+            ->select('dosen.*','master_status_keaktifan_pegawai.title as status_keaktifan','master_agama.title')
             ->where('dosen.id' , $id)->first();
         return view('/data/dosen_activity' , compact('data','master','idTable' ));
     }

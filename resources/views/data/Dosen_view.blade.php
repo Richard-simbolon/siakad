@@ -160,7 +160,7 @@
                                                         <tr>
                                                             <td width="107px">Status</td>
                                                             <td>:</td>
-                                                            <td><b>{{$data['status_pegawai'] ? $master['status_pegawai'][$data['status_pegawai']]['title'] : "-"}}</b></td>
+                                                            <td><b>{{$data['status_keaktifan']}}</b></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -292,10 +292,10 @@
                                                 <div class="row">
                                                     <div class="col-xl-6">
                                                         <div class="form-group">
-                                                            <label>Ikatan Kerja </label>
+                                                            <label>Jenis Pegawai </label>
                                                             <select name="dosen[jenis_pegawai]" class="form-control kt-select2">
                                                                 <option value="">--Pilih Status--</option>
-                                                                @foreach ($master['status_pegawai'] as $item)
+                                                                @foreach ($master['jenis_pegawai'] as $item)
                                                                     <option value="{{$item['id']}}" {{$item['id'] == $data['jenis_pegawai'] ? 'selected' : ''}} >{{$item['title']}}</option>
                                                                 @endforeach
                                                             </select>
