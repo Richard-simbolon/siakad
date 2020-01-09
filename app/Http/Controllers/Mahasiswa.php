@@ -155,6 +155,22 @@ class Mahasiswa extends Controller
                 return $next($request);
             }
         });
+
+        //public static function GetWeek($dt = null) {
+            $dt = -5;
+            if (is_numeric($dt)) {
+                $dt .= ' days';
+            }
+            echo $dt.'---'; 
+
+            $tm = $dt ? strtotime($dt) : time();
+            
+           // echo $tm.'----';
+           // echo strtotime($dt);
+            echo  date('YW', $tm);
+             exit;
+
+        //}
         
     }
     
@@ -255,7 +271,7 @@ class Mahasiswa extends Controller
     public function sinc_insert(){
         $data = [];
         $data_sinc = MahasiswaModel::select('id','id_mahasiswa','id_registrasi_mahasiswa')->where("is_sinc" ,"0")->get();
-        
+        //print_r($data_sinc); exit;
         foreach($data_sinc as $item){
             $bio = MahasiswaModel::leftJoin('mahasiswa_kebutuhan_khusu','mahasiswa_kebutuhan_khusu.mahasiswa_id','=','mahasiswa.id')
             ->leftJoin('master_semester' ,'master_semester.id' ,'=' ,'mahasiswa.id_periode_masuk')
@@ -296,20 +312,25 @@ class Mahasiswa extends Controller
                 }
             }
             unset($data_pendidikan['id_registrasi_mahasiswa']);
-
+            //print_r($data); exit;
             if(strlen($item->id_mahasiswa) > 8){
                 unset($data_pendidikan['id_mahasiswa']);
+                unset($data['id_mahasiswa']);
                 $token = $this->check_auth_siakad();
-                $action_bio = array('act'=>"UpdateBiodataMahasiswa" , "token"=>$token ,'key' => $item->id_mahasiswa, "record"=> $data);
+                $action_bio = array('act'=>"UpdateBiodataMahasiswa" , "token"=>$token ,'key' => array('id_mahasiswa' => $item->id_mahasiswa), "record"=> $data);
                 $response_bio = $this->runWS($action_bio, 'json');
-                print_r($response_bio);
-
-                $action_rwyt_pend = array('act'=>"UpdateRiwayatPendidikanMahasiswa" ,'key'=>$item->id_registrasi_mahasiswa , "token"=>$token, "record"=> $data_pendidikan);
-                $response_rwyt_pend = $this->runWS($action_rwyt_pend, 'json');
-                print_r($response_rwyt_pend);
-                print_r($action_rwyt_pend);
+                $res1 = json_decode($response_bio);
+                if($res1->error_code != '0'){
+                    return json_encode(array('status'=>'error','message' => 'Terjadi kesalahan pada saat sinkron biodata mahasiswa dengan nama '.$data['nama_mahasiswa'].' error_desc '.$res1->error_desc));    
+                }
                 if(strlen($item->id_registrasi_mahasiswa) > 8){
-                
+                    $action_rwyt_pend = array('act'=>"UpdateRiwayatPendidikanMahasiswa" ,'key'=>array('id_registrasi_mahasiswa'=>$item->id_registrasi_mahasiswa) , "token"=>$token, "record"=> $data_pendidikan);
+                    $response_rwyt_pend = $this->runWS($action_rwyt_pend, 'json');
+                    
+                    $res2 = json_decode($response_rwyt_pend);
+                    if($res2->error_code != '0'){
+                        return json_encode(array('status'=>'error','message' => 'Terjadi kesalahan pada saat sinkron riwayat pendidikan mahasiswa dengan nama '.$data['nama_mahasiswa'].' error_desc '.$res2->error_desc));     
+                    }
                 }
                 
             }else{
@@ -327,7 +348,7 @@ class Mahasiswa extends Controller
                     $action_rwyt_pend = array('act'=>"InsertRiwayatPendidikanMahasiswa" , "token"=>$token, "record"=> $data_pendidikan);
                     $response_rwyt_pend = $this->runWS($action_rwyt_pend, 'json');
                     $result_rwyt_pend = json_decode($response_rwyt_pend , true);
-                    //print_r($response_rwyt_pend);
+                    print_r($response_rwyt_pend);
                     $id_registrasi = $result_rwyt_pend['data']['id_registrasi_mahasiswa'];
                     //INSERT TO RIWAYAT PENDIDIKAN
                     MahasiswaModel::where('id' ,$item->id)->update(array('id_registrasi_mahasiswa' => $id_registrasi));
