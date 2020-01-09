@@ -155,23 +155,6 @@ class Mahasiswa extends Controller
                 return $next($request);
             }
         });
-
-        //public static function GetWeek($dt = null) {
-            $dt = -5;
-            if (is_numeric($dt)) {
-                $dt .= ' days';
-            }
-            echo $dt.'---'; 
-
-            $tm = $dt ? strtotime($dt) : time();
-            
-           // echo $tm.'----';
-           // echo strtotime($dt);
-            echo  date('YW', $tm);
-             exit;
-
-        //}
-        
     }
     
     
