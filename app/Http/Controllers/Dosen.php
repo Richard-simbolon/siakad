@@ -7,6 +7,7 @@ use App\MahasiswaModel;
 use App\PangkatGolonganModel;
 use App\SemesterModel;
 use App\SoalUjianModel;
+use App\StatusKeaktifanPegawaiModel;
 use App\StatusMahasiswaModel;
 use App\SumberGajiModel;
 use App\TahunAjaranModel;
@@ -220,7 +221,8 @@ static $service_penugasan = [
             'status_pegawai' => StatusPegawaiModel::where('row_status' , 'active')->get(),
             'agama' => AgamaModel::where('row_status' , 'active')->get(),
             'sumber_gaji'=> SumberGajiModel::where('row_status', 'active')->get(),
-            'ikatan_kerja_sdm' => IkatanKerjaSdmModel::where('row_status', 'active')->get()
+            'ikatan_kerja_sdm' => IkatanKerjaSdmModel::where('row_status', 'active')->get(),
+            'status_keaktifan'=>StatusKeaktifanPegawaiModel::where('row_status', 'active')->get()
         );
         $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $table = array_diff(DB::getSchemaBuilder()->getColumnListing("dosen"), static::$exclude);
@@ -432,8 +434,8 @@ static $service_penugasan = [
     public function paging(Request $request){
         return Datatables::of(DosenModel::where("dosen.row_status", "active")
             ->leftJoin('master_agama', 'dosen.agama', '=', 'master_agama.id')
-            ->leftJoin('master_status_pegawai','master_status_pegawai.id', 'dosen.status_pegawai')
-        ->select("dosen.id" ,"master_agama.title as t_agama","nip" ,"nidn_nup_nidk", "agama" , "dosen.status","master_status_pegawai.title as status_pegawai","nama","tanggal_lahir","jenis_kelamin")->get())->addIndexColumn()->make(true);
+            ->leftJoin('master_status_keaktifan_pegawai','master_status_keaktifan_pegawai.id', 'dosen.status_pegawai')
+        ->select("dosen.id" ,"master_agama.title as t_agama","nip" ,"nidn_nup_nidk", "agama" , "dosen.status","master_status_keaktifan_pegawai.title as status_pegawai","nama","tanggal_lahir","jenis_kelamin")->get())->addIndexColumn()->make(true);
     }
 
     public function view($id){
@@ -443,7 +445,8 @@ static $service_penugasan = [
             'agama' => AgamaModel::where('row_status' , 'active')->get(),
             'pekerjaan' => PekerjaanModel::where('row_status' , 'active')->get(),
             'status_pegawai' => StatusPegawaiModel::where('row_status' , 'active')->get(),
-            'jenis_kelamin' => config('global.jenis_kelamin')
+            'jenis_kelamin' => config('global.jenis_kelamin'),
+            'status_keaktifan'=>StatusKeaktifanPegawaiModel::where('row_status', 'active')->get()
         );
 
         $data = DosenModel::leftJoin('master_agama', 'master_agama.id', '=', 'dosen.agama')
@@ -528,14 +531,15 @@ static $service_penugasan = [
     public function tambahkepangkatan(Request $request){
 
         $data = $request->all();
-        //print_r($data); exit;
+
         $validation = Validator::make($data, [
             'dosen_id' => 'required',
             'pangkat' => 'required',
             'sk_pangkat' => 'required',
             'tanggal_sk_pangkat' => 'required',
             'tmt_sk_pangkat' => 'required',
-            'masa_kerja' => 'required'
+            'masa_kerja_bulan' => 'required',
+            'masa_kerja_tahun' => 'required'
         ]);
         $penugasan_id = $data['id_kepangkatan'];
         unset($data['id_kepangkatan']);
@@ -860,9 +864,9 @@ static $service_penugasan = [
 
     public function grafik_status(){
         $data = DosenModel::where('dosen.row_status','active')
-            ->join('master_status_pegawai', 'master_status_pegawai.id', '=', 'dosen.status_pegawai')
-            ->select('master_status_pegawai.title as label', DB::raw('count(dosen.id) as value'))
-            ->groupBy('master_status_pegawai.title')->get();
+            ->join('master_status_keaktifan_pegawai', 'master_status_keaktifan_pegawai.id', '=', 'dosen.status_pegawai')
+            ->select('master_status_keaktifan_pegawai.title as label', DB::raw('count(dosen.id) as value'))
+            ->groupBy('master_status_keaktifan_pegawai.title')->get();
 
         $count = DosenModel::where('row_status','active')->count();
 
@@ -994,36 +998,40 @@ static $service_penugasan = [
             return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
         }
         if(array_key_exists('data' , $result)){
-            if(count($result['data']) > 0){
-                $row_count = 0;
-                DB::beginTransaction();
-                try{
-                    foreach($result['data'] as $item){
-                        $dosen = DosenModel::where('id_dosen', $item['id_dosen'])->first();
-                        if($dosen){
-                            $arr_data = array('dosen_id'=> $dosen->id,
-                                'id_registrasi'=> $item['id_registrasi_dosen'],
-                                'tahun_ajaran'=>$item['id_tahun_ajaran'],
-                                'program_studi_id'=>$item['id_prodi'],
-                                'no_surat_tugas'=>$item['nomor_surat_tugas'],
-                                'tmt_surat_tugas'=>$item['mulai_surat_tugas'],
-                                'tanggal_surat_tugas'=>$item['tanggal_surat_tugas'],
-                                'is_sinc'=>1);
+            if($result['data']) {
+                if (count($result['data']) > 0) {
+                    $row_count = 0;
+                    DB::beginTransaction();
+                    try {
+                        foreach ($result['data'] as $item) {
+                            $dosen = DosenModel::where('id_dosen', $item['id_dosen'])->first();
+                            if ($dosen) {
+                                $arr_data = array('dosen_id' => $dosen->id,
+                                    'id_registrasi' => $item['id_registrasi_dosen'],
+                                    'tahun_ajaran' => $item['id_tahun_ajaran'],
+                                    'program_studi_id' => $item['id_prodi'],
+                                    'no_surat_tugas' => $item['nomor_surat_tugas'],
+                                    'tmt_surat_tugas' => $item['mulai_surat_tugas'],
+                                    'tanggal_surat_tugas' => $item['tanggal_surat_tugas'],
+                                    'is_sinc' => 1);
 
-                            PenugasanModel::updateOrInsert(array('id_registrasi'=> $item['id_registrasi_dosen']), $arr_data);
-                            $row_count++;
+                                PenugasanModel::updateOrInsert(array('id_registrasi' => $item['id_registrasi_dosen']), $arr_data);
+                                $row_count++;
+                            }
                         }
+                        DB::commit();
+                        $this->sinkron_log('sync_penugasan', 'sukses', $row_count);
+                        DB::table('sinkronisasi_logs')
+                            ->insert(array('title' => 'GetListPenugasanDosen', 'created_by' => Auth::user()->nama, 'created_at' => date('Y-m-d H:i:s')));
+                        return json_encode(array('status' => 'success', 'msg' => 'Data Berhasil Disinkronisai.'));
+                    } catch (\Exception $e) {
+                        DB::rollBack();
+                        throw $e;
+                        return json_encode(array('status' => 'error', 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
                     }
-                    DB::commit();
-                    $this->sinkron_log('sync_penugasan','sukses', $row_count);
-                    DB::table('sinkronisasi_logs')
-                        ->insert(array('title' => 'GetListPenugasanDosen' ,'created_by'=> Auth::user()->nama ,'created_at'=>date('Y-m-d H:i:s')));
-                    return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
-                } catch(\Exception $e){
-                    DB::rollBack();
-                    throw $e;
-                    return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
                 }
+            }else{
+                return json_encode(array('status' => 'error' , 'msg' => 'Data tidak tersedia'));
             }
         }
     }
@@ -1040,34 +1048,38 @@ static $service_penugasan = [
             return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
         }
         if(array_key_exists('data' , $result)){
-            if(count($result['data']) > 0){
-                $row_count = 0;
-                DB::beginTransaction();
-                try{
-                    foreach($result['data'] as $item){
-                        $dosen = DosenModel::where('id_dosen', $item['id_dosen'])->first();
-                        if($dosen){
-                            $arr_data = array('dosen_id'=> $dosen->id,
-                                'id_jabatan_fungsional'=> $item['id_jabatan_fungsional'],
-                                'jabatan'=>$item['nama_jabatan_fungsional'],
-                                'sk_jabatan'=>$item['sk_jabatan_fungsional'],
-                                'tmt_jabatan'=>$item['mulai_sk_jabatan'],
-                                'is_sinc'=>1);
+            if($result['data']) {
+                if (count($result['data']) > 0) {
+                    $row_count = 0;
+                    DB::beginTransaction();
+                    try {
+                        foreach ($result['data'] as $item) {
+                            $dosen = DosenModel::where('id_dosen', $item['id_dosen'])->first();
+                            if ($dosen) {
+                                $arr_data = array('dosen_id' => $dosen->id,
+                                    'id_jabatan_fungsional' => $item['id_jabatan_fungsional'],
+                                    'jabatan' => $item['nama_jabatan_fungsional'],
+                                    'sk_jabatan' => $item['sk_jabatan_fungsional'],
+                                    'tmt_jabatan' => $item['mulai_sk_jabatan'],
+                                    'is_sinc' => 1);
 
-                            RiwayatFungsionalModel::updateOrInsert(array('id_jabatan_fungsional'=> $item['id_jabatan_fungsional']), $arr_data);
-                            $row_count++;
+                                RiwayatFungsionalModel::updateOrInsert(array('id_jabatan_fungsional' => $item['id_jabatan_fungsional']), $arr_data);
+                                $row_count++;
+                            }
                         }
+                        DB::commit();
+                        $this->sinkron_log('sinc_fungsional_dosen', 'sukses', $row_count);
+                        DB::table('sinkronisasi_logs')
+                            ->insert(array('title' => 'GetRiwayatFungsionalDosen', 'created_by' => Auth::user()->nama, 'created_at' => date('Y-m-d H:i:s')));
+                        return json_encode(array('status' => 'success', 'msg' => 'Data Berhasil Disinkronisai.'));
+                    } catch (\Exception $e) {
+                        DB::rollBack();
+                        throw $e;
+                        return json_encode(array('status' => 'error', 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
                     }
-                    DB::commit();
-                    $this->sinkron_log('sinc_fungsional_dosen','sukses', $row_count);
-                    DB::table('sinkronisasi_logs')
-                        ->insert(array('title' => 'GetRiwayatFungsionalDosen' ,'created_by'=> Auth::user()->nama ,'created_at'=>date('Y-m-d H:i:s')));
-                    return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
-                } catch(\Exception $e){
-                    DB::rollBack();
-                    throw $e;
-                    return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
                 }
+            }else{
+                return json_encode(array('status' => 'error' , 'msg' => 'Data tidak tersedia'));
             }
         }
     }
@@ -1084,37 +1096,41 @@ static $service_penugasan = [
             return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
         }
         if(array_key_exists('data' , $result)){
-            if(count($result['data']) > 0){
-                $row_count = 0;
-                DB::beginTransaction();
-                try{
-                    foreach($result['data'] as $item){
-                        $dosen = DosenModel::where('id_dosen', $item['id_dosen'])->first();
-                        if($dosen){
-                            $arr_data = array('dosen_id'=> $dosen->id,
-                                'id_pangkat_golongan'=> $item['id_pangkat_golongan'],
-                                'pangkat'=>$item['nama_pangkat_golongan'],
-                                'sk_pangkat'=>$item['sk_pangkat'],
-                                'tanggal_sk_pangkat'=>$item['tanggal_sk_pangkat'],
-                                'tmt_sk_pangkat'=>$item['mulai_sk_pangkat'],
-                                'masa_kerja_bulan'=>$item['masa_kerja_dalam_bulan'],
-                                'masa_kerja_tahun'=>$item['masa_kerja_dalam_tahun'],
-                                'is_sinc'=>1);
+            if($result['data']) {
+                if (count($result['data']) > 0) {
+                    $row_count = 0;
+                    DB::beginTransaction();
+                    try {
+                        foreach ($result['data'] as $item) {
+                            $dosen = DosenModel::where('id_dosen', $item['id_dosen'])->first();
+                            if ($dosen) {
+                                $arr_data = array('dosen_id' => $dosen->id,
+                                    'id_pangkat_golongan' => $item['id_pangkat_golongan'],
+                                    'pangkat' => $item['nama_pangkat_golongan'],
+                                    'sk_pangkat' => $item['sk_pangkat'],
+                                    'tanggal_sk_pangkat' => $item['tanggal_sk_pangkat'],
+                                    'tmt_sk_pangkat' => $item['mulai_sk_pangkat'],
+                                    'masa_kerja_bulan' => $item['masa_kerja_dalam_bulan'],
+                                    'masa_kerja_tahun' => $item['masa_kerja_dalam_tahun'],
+                                    'is_sinc' => 1);
 
-                            PengangkatanModel::updateOrInsert(array('id_pangkat_golongan'=> $item['id_pangkat_golongan']), $arr_data);
-                            $row_count++;
+                                PengangkatanModel::updateOrInsert(array('id_pangkat_golongan' => $item['id_pangkat_golongan']), $arr_data);
+                                $row_count++;
+                            }
                         }
+                        DB::commit();
+                        $this->sinkron_log('sinc_kepangkatan', 'sukses', $row_count);
+                        DB::table('sinkronisasi_logs')
+                            ->insert(array('title' => 'GetRiwayatPangkatDosen', 'created_by' => Auth::user()->nama, 'created_at' => date('Y-m-d H:i:s')));
+                        return json_encode(array('status' => 'success', 'msg' => 'Data Berhasil Disinkronisai.'));
+                    } catch (\Exception $e) {
+                        DB::rollBack();
+                        throw $e;
+                        return json_encode(array('status' => 'error', 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
                     }
-                    DB::commit();
-                    $this->sinkron_log('sinc_kepangkatan','sukses', $row_count);
-                    DB::table('sinkronisasi_logs')
-                        ->insert(array('title' => 'GetRiwayatPangkatDosen' ,'created_by'=> Auth::user()->nama ,'created_at'=>date('Y-m-d H:i:s')));
-                    return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
-                } catch(\Exception $e){
-                    DB::rollBack();
-                    throw $e;
-                    return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
                 }
+            }else{
+                return json_encode(array('status' => 'error' , 'msg' => 'Data tidak tersedia'));
             }
         }
     }
@@ -1131,36 +1147,50 @@ static $service_penugasan = [
             return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
         }
         if(array_key_exists('data' , $result)){
-            if(count($result['data']) > 0){
-                $row_count = 0;
-                DB::beginTransaction();
-                try{
-                    foreach($result['data'] as $item){
-                        $dosen = DosenModel::where('id_dosen', $item['id_dosen'])->first();
-                        if($dosen){
-                            $arr_data = array('dosen_id'=> $dosen->id,
-                                'id_pangkat_golongan'=> $item['id_pangkat_golongan'],
-                                'pangkat'=>$item['nama_pangkat_golongan'],
-                                'sk_pangkat'=>$item['sk_pangkat'],
-                                'tanggal_sk_pangkat'=>$item['tanggal_sk_pangkat'],
-                                'tmt_sk_pangkat'=>$item['mulai_sk_pangkat'],
-                                'masa_kerja_bulan'=>$item['masa_kerja_dalam_bulan'],
-                                'masa_kerja_tahun'=>$item['masa_kerja_dalam_tahun'],
-                                'is_sinc'=>1);
-                            PengangkatanModel::updateOrInsert(array('id_pangkat_golongan'=> $item['id_pangkat_golongan']), $arr_data);
-                            $row_count++;
+            if($result['data']){
+                if(count($result['data']) > 0){
+                    $row_count = 0;
+                    DB::beginTransaction();
+                    try{
+                        foreach($result['data'] as $item){
+                            $dosen = DosenModel::where('id_dosen', $item['id_dosen'])->first();
+                            if($dosen){
+                                $arr_data = array('dosen_id'=> $dosen->id,
+                                    'id_perguruan_tinggi'=> $item['id_perguruan_tinggi'],
+                                    'id_bidang_studi'=> $item['id_bidang_studi'],
+                                    'id_jenjang_pendidikan'=> $item['id_jenjang_pendidikan'],
+                                    'bidang_studi'=>$item['nama_bidang_studi'],
+                                    'jenjang'=>$item['nama_jenjang_pendidikan'],
+                                    'gelar'=>$item['nama_gelar_akademik'],
+                                    'perguruan_tinggi'=>$item['nama_perguruan_tinggi'],
+                                    'fakultas'=>$item['fakultas'],
+                                    'tahun_lulus'=>$item['tahun_lulus'],
+                                    'sks'=>$item['sks_lulus'],
+                                    'ipk'=>$item['masa_kerja_dalam_tahun']
+                                );
+                                RiwayatPendidikanModel::updateOrInsert(
+                                    array(
+                                        'id_perguruan_tinggi'=> $item['id_perguruan_tinggi'],
+                                        'id_bidang_studi'=> $item['id_bidang_studi'],
+                                        'id_jenjang_pendidikan'=> $item['id_jenjang_pendidikan']
+                                    )
+                                    , $arr_data);
+                                $row_count++;
+                            }
                         }
+                        DB::commit();
+                        $this->sinkron_log('sinc_pendidikan','sukses', $row_count);
+                        DB::table('sinkronisasi_logs')
+                            ->insert(array('title' => 'GetRiwayatPendidikanDosen' ,'created_by'=> Auth::user()->nama ,'created_at'=>date('Y-m-d H:i:s')));
+                        return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
+                    } catch(\Exception $e){
+                        DB::rollBack();
+                        throw $e;
+                        return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
                     }
-                    DB::commit();
-                    $this->sinkron_log('sinc_pendidikan','sukses', $row_count);
-                    DB::table('sinkronisasi_logs')
-                        ->insert(array('title' => 'GetRiwayatPendidikanDosen' ,'created_by'=> Auth::user()->nama ,'created_at'=>date('Y-m-d H:i:s')));
-                    return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
-                } catch(\Exception $e){
-                    DB::rollBack();
-                    throw $e;
-                    return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
                 }
+            }else{
+                return json_encode(array('status' => 'error' , 'msg' => 'Data tidak tersedia'));
             }
         }
     }
@@ -1177,36 +1207,38 @@ static $service_penugasan = [
             return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
         }
         if(array_key_exists('data' , $result)){
-            if(count($result['data']) > 0){
-                $row_count = 0;
-                DB::beginTransaction();
-                try{
-                    foreach($result['data'] as $item){
-                        $dosen = DosenModel::where('id_dosen', $item['id_dosen'])->first();
-                        if($dosen){
-                            $arr_data = array('dosen_id'=> $dosen->id,
-                                'id_pangkat_golongan'=> $item['id_pangkat_golongan'],
-                                'pangkat'=>$item['nama_pangkat_golongan'],
-                                'sk_pangkat'=>$item['sk_pangkat'],
-                                'tanggal_sk_pangkat'=>$item['tanggal_sk_pangkat'],
-                                'tmt_sk_pangkat'=>$item['mulai_sk_pangkat'],
-                                'masa_kerja_bulan'=>$item['masa_kerja_dalam_bulan'],
-                                'masa_kerja_tahun'=>$item['masa_kerja_dalam_tahun'],
-                                'is_sinc'=>1);
-                            PengangkatanModel::updateOrInsert(array('id_pangkat_golongan'=> $item['id_pangkat_golongan']), $arr_data);
-                            $row_count++;
+            if($result['data']) {
+                if (count($result['data']) > 0) {
+                    $row_count = 0;
+                    DB::beginTransaction();
+                    try {
+                        foreach ($result['data'] as $item) {
+                            $dosen = DosenModel::where('id_dosen', $item['id_dosen'])->first();
+                            if ($dosen) {
+                                $arr_data = array('dosen_id' => $dosen->id,
+                                    'nomor' => $item['nomor_peserta'],
+                                    'bidang_studi' => $item['nama_bidang_studi'],
+                                    'jenis_sertifikasi' => $item['nama_jenis_sertifikasi'],
+                                    'tahun_sertifikasi' => $item['tahun_sertifikasi'],
+                                    'no_sk_sertifikasi' => $item['sk_sertifikasi']
+                                );
+                                RiwayatSertifikasiModel::updateOrInsert(array('nomor' => $item['nomor_peserta']), $arr_data);
+                                $row_count++;
+                            }
                         }
+                        DB::commit();
+                        $this->sinkron_log('sinc_sertifikasi', 'sukses', $row_count);
+                        DB::table('sinkronisasi_logs')
+                            ->insert(array('title' => 'GetRiwayatSertifikasiDosen', 'created_by' => Auth::user()->nama, 'created_at' => date('Y-m-d H:i:s')));
+                        return json_encode(array('status' => 'success', 'msg' => 'Data Berhasil Disinkronisai.'));
+                    } catch (\Exception $e) {
+                        DB::rollBack();
+                        throw $e;
+                        return json_encode(array('status' => 'error', 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
                     }
-                    DB::commit();
-                    $this->sinkron_log('sinc_sertifikasi','sukses', $row_count);
-                    DB::table('sinkronisasi_logs')
-                        ->insert(array('title' => 'GetRiwayatSertifikasiDosen' ,'created_by'=> Auth::user()->nama ,'created_at'=>date('Y-m-d H:i:s')));
-                    return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
-                } catch(\Exception $e){
-                    DB::rollBack();
-                    throw $e;
-                    return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
                 }
+            }else{
+                return json_encode(array('status' => 'error' , 'msg' => 'Data tidak tersedia'));
             }
         }
     }
@@ -1223,37 +1255,39 @@ static $service_penugasan = [
             return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
         }
         if(array_key_exists('data' , $result)){
-            if(count($result['data']) > 0){
-                $row_count = 0;
-                DB::beginTransaction();
-                try{
-                    foreach($result['data'] as $item){
-                        $dosen = DosenModel::where('id_dosen', $item['id_dosen'])->first();
-                        if($dosen){
-                            $arr_data = array('dosen_id'=> $dosen->id,
-                                'id_penelitian' => $item['id_penelitian'],
-                                'id_lembaga_iptek'=> $item['id_pangkat_golongan'],
-                                'judul_penelitian'=>$item['nama_pangkat_golongan'],
-                                'bidang_ilmu'=>$item['sk_pangkat'],
-                                'lembaga'=>$item['tanggal_sk_pangkat'],
-                                'tahun'=>$item['mulai_sk_pangkat'],
-                                'masa_kerja_bulan'=>$item['masa_kerja_dalam_bulan'],
-                                'masa_kerja_tahun'=>$item['masa_kerja_dalam_tahun'],
-                                'is_sinc'=>1);
-                            RiwayatPenelitianModel::updateOrInsert(array('id_pangkat_golongan'=> $item['id_pangkat_golongan']), $arr_data);
-                            $row_count++;
+            if($result['data']) {
+                if (count($result['data']) > 0) {
+                    $row_count = 0;
+                    DB::beginTransaction();
+                    try {
+                        foreach ($result['data'] as $item) {
+                            $dosen = DosenModel::where('id_dosen', $item['id_dosen'])->first();
+                            if ($dosen) {
+                                $arr_data = array('dosen_id' => $dosen->id,
+                                    'id_penelitian' => $item['id_penelitian'],
+                                    'id_lembaga_iptek' => $item['id_pangkat_golongan'],
+                                    'judul_penelitian' => $item['judul_penelitian'],
+                                    'bidang_ilmu' => $item['nama_kelompok_bidang'],
+                                    'lembaga' => $item['nama_lembaga_iptek'],
+                                    'tahun' => $item['tahun_kegiatan']
+                                );
+                                RiwayatPenelitianModel::updateOrInsert(array('id_penelitian' => $item['id_penelitian']), $arr_data);
+                                $row_count++;
+                            }
                         }
+                        DB::commit();
+                        $this->sinkron_log('sinc_penelitian', 'sukses', $row_count);
+                        DB::table('sinkronisasi_logs')
+                            ->insert(array('title' => 'GetRiwayatPenelitianDosen', 'created_by' => Auth::user()->nama, 'created_at' => date('Y-m-d H:i:s')));
+                        return json_encode(array('status' => 'success', 'msg' => 'Data Berhasil Disinkronisai.'));
+                    } catch (\Exception $e) {
+                        DB::rollBack();
+                        throw $e;
+                        return json_encode(array('status' => 'error', 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
                     }
-                    DB::commit();
-                    $this->sinkron_log('sinc_penelitian','sukses', $row_count);
-                    DB::table('sinkronisasi_logs')
-                        ->insert(array('title' => 'GetRiwayatPenelitianDosen' ,'created_by'=> Auth::user()->nama ,'created_at'=>date('Y-m-d H:i:s')));
-                    return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
-                } catch(\Exception $e){
-                    DB::rollBack();
-                    throw $e;
-                    return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
                 }
+            }else{
+                return json_encode(array('status' => 'error' , 'msg' => 'Data tidak tersedia'));
             }
         }
     }

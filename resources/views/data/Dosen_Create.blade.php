@@ -171,7 +171,6 @@
 
                                 <!--begin: Form Wizard Step 2  - Data Alamat-->
                                 <div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
-                                    {{--<div class="kt-heading kt-heading--md">Formulir Biodata Dosen</div>--}}
                                     <div class="kt-form__section kt-form__section--first">
                                         <div class="kt-wizard-v3__form">
                                             <div class="row">
@@ -207,10 +206,10 @@
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label>Ikatan Kerja </label>
-                                                        <select name="dosen[ikatan_kerja]" class="form-control kt-select2">
+                                                        <select name="dosen[jenis_pegawai]" class="form-control kt-select2">
                                                             <option value="">--Pilih Status--</option>
-                                                            @foreach ($master['ikatan_kerja_sdm'] as $item)
-                                                                <option value="{{$item['id']}}">{{$item['id']}} - {{$item['nama_ikatan_kerja']}}</option>
+                                                            @foreach ($master['status_pegawai'] as $item)
+                                                                <option value="{{$item['id']}}">{{$item['title']}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -220,7 +219,7 @@
                                                         <label>Status Pegawai </label>
                                                         <select name="dosen[status_pegawai]" class="form-control kt-select2">
                                                             <option value="">--Pilih Status--</option>
-                                                            @foreach ($master['status_pegawai'] as $item)
+                                                            @foreach ($master['status_keaktifan'] as $item)
                                                                 <option value="{{$item['id']}}">{{$item['title']}}</option>
                                                             @endforeach
                                                         </select>
@@ -273,7 +272,6 @@
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label>Sumber Gaji </label>
-                                                        {{--<input type="text" class="form-control" name="dosen[sumber_gaji]" placeholder="Isikan Sumber Gaji">--}}
                                                         <select name="dosen[sumber_gaji]" class="form-control kt-select2">
                                                             <option value="">--Pilih Sumber Gaji--</option>
                                                             @foreach ($master['sumber_gaji'] as $item)
@@ -339,17 +337,7 @@
                                                         <input type="text" class="form-control" name="dosen[telepon]" placeholder="Isikan Nomor Telepon">
                                                     </div>
                                                 </div>
-                                                {{--<div class="col-xl-6">--}}
-                                                    {{--<div class="form-group">--}}
-                                                        {{--<label>Kode Pos</label>--}}
-                                                        {{--<input type="text" class="form-control" name="dosen[no_hp]" placeholder="Isikan Nomor HP">--}}
-                                                    {{--</div>--}}
-                                                {{--</div>--}}
                                             </div>
-                                            {{--<div class="form-group">--}}
-                                                {{--<label>Email</label>--}}
-                                                {{--<input type="text" class="form-control" name="dosen[email]" placeholder="Isikan Email">--}}
-                                            {{--</div>--}}
                                         </div>
                                     </div>
                                 </div>

@@ -14,9 +14,9 @@ class StatusKeaktifanPegawai extends Controller
                     "row_status" => ["table" => ["tablename" =>"null" , "field"=> "row_status"] , "record"=>"Row_status"],
                     ];
                 static $html = ["id"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
-            "title"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
-            "row_status"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
-            ];
+                "title"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
+                "row_status"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
+                ];
                 static $exclude = ["id","created_at","updated_at","created_by","update_by"];
                 static $tablename = "StatusKeaktifanPegawai";
                 public function index()
