@@ -86,7 +86,13 @@
                                 2019&nbsp;&copy;&nbsp;<a href="http://polbangtanmedan.ac.id" target="_blank" class="kt-link">Polbangtan Medan</a>
                             </div>
                             <div class="kt-footer__menu">
-                                <a href="http://keenthemes.com/metronic" target="_blank" class="kt-footer__menu-link kt-link">Download Panduan Penggunaan</a>
+                                @if(Auth::user()->login_type == 'admin' || Auth::user()->login_type == 'jurusan')
+                                    <a href="{{asset('/assets/media/panduan-akademik.pdf')}}" target="_blank" class="kt-footer__menu-link kt-link">Download Panduan Penggunaan</a>
+                                @elseif (Auth::user()->login_type == 'dosen')
+                                    <a href="{{asset('/assets/media/panduan-dosen.pdf')}}" target="_blank" class="kt-footer__menu-link kt-link">Download Panduan Penggunaan</a>
+                                @elseif (Auth::user()->login_type == 'mahasiswa')
+                                    <a href="{{asset('/assets/media/panduan-mahasiswa.pdf')}}" target="_blank" class="kt-footer__menu-link kt-link">Download Panduan Penggunaan</a>
+                                @endif
                             </div>
                         </div>
                     </div>
