@@ -116,7 +116,7 @@
                                                         <tr>
                                                             <td width="107px">Status</td>
                                                             <td>:</td>
-                                                            <td><b>{{$data['status_pegawai'] ? $master['status_pegawai'][$data['status_pegawai']]['title'] : "-"}}</b></td>
+                                                            <td><b>{{$data['status_keaktifan']}}</b></td>
                                                         </tr>
                                                     </table>
                                                 </div>

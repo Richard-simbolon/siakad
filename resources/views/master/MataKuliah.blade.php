@@ -87,6 +87,9 @@
                                                             <option value="">-- Pilih Tipe Matakuliah --</option>
                                                             <option value="Praktek">Praktek</option>
                                                             <option value="Teori">Teori</option>
+                                                            <option value="pkl" >Pkl</option>
+                                                            <option value="skripsi">Skripsi</option>
+                                                            <option value="seminar">Seminar</option>
                                                         </select>
                                                     </div>
                                                 </div>

@@ -59,12 +59,8 @@ class TahunAjaran extends Controller
                     $result_string = $this->runWS($data, 'json');
                     $result = json_decode($result_string , true);
                     if(!$result){
-                        $sinkronisasi = SinkronisasiModel::where('sync_code','sync_tahun_ajaran')->first();
-                        $sinkronisasi->last_sync = date('Y-m-d H:m:s');
-                        $sinkronisasi->last_sync_status = 'gagal';
-                        $sinkronisasi->last_sync_by = Auth::user()->nama;
-                        $sinkronisasi->save();
-
+                        $this->sinkron_log('sync_tahun_ajaran','gagal', 0);
+                        
                         return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
                     }
                     if(array_key_exists('data' , $result)){
@@ -75,6 +71,7 @@ class TahunAjaran extends Controller
                                     TahunAjaranModel::updateOrInsert(array('id'=> $item['id_tahun_ajaran'] , 'title'=>$item['nama_tahun_ajaran'], 'a_periode_aktif'=>$item['a_periode_aktif'], 'tanggal_mulai'=>$item['tanggal_mulai'], 'tanggal_selesai'=>$item['tanggal_selesai']));
                                 }
                                 DB::commit();
+                                $this->sinkron_log('sync_tahun_ajaran','sukses', count($result['data']));
                                 DB::table('sinkronisasi_logs')
                                 ->insert(array('title' => 'GetTahunAjaran' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
                                 return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
