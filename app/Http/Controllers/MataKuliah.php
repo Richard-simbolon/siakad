@@ -57,7 +57,27 @@ class MataKuliah extends Controller
     static $exclude = ["id","id_matkul","created_at","updated_at","created_by","modified_by"];
     static $exclude_table = ["id","id_matkul","row_status","created_at","updated_at","created_by","modified_by", "bobot_tatap_muka", "bobot_praktikum", "bobot_praktek_lapangan", "bobot_simulasi", "metode_pembelajaran","tanggal_mulai_efektif","tanggal_akhir_efektif", "tipe_mata_kuliah"];
 
-
+    static $webservice = [ 
+            'id_matkul' =>'id_matkul',
+            'kode_mata_kuliah' => 'kode_mata_kuliah',
+            'nama_mata_kuliah' => 'nama_mata_kuliah',
+            'id_prodi' => 'id_prodi',
+            'id_jenis_mata_kuliah' => 'id_jenis_mata_kuliah',
+            'id_kelompok_mata_kuliah' => 'id_kelompok_mata_kuliah',
+            'sks_mata_kuliah' => 'sks_mata_kuliah',
+            'sks_tatap_muka' => 'sks_tatap_muka',
+            'sks_praktek' => 'sks_praktek',
+            'sks_praktek_lapangan' => 'sks_praktek_lapangan',
+            'sks_simulasi' => 'sks_simulasi',
+            'metode_kuliah' => 'metode_kuliah',
+            'ada_sap' => 'ada_sap',
+            'ada_silabus' => 'ada_silabus',
+            'ada_bahan_ajar' => 'ada_bahan_ajar',
+            'ada_acara_praktek' => 'ada_acara_praktek',
+            'ada_diktat' => 'ada_diktat',
+            'tanggal_mulai_efektif' => 'tanggal_mulai_efektif',
+            'tanggal_selesai_efektif' => 'tanggal_akhir_efektif'
+         ];
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
@@ -118,6 +138,70 @@ class MataKuliah extends Controller
                 }      
             }
         }
+    }
+
+    public function add_mat_kul_sinc(){
+        $token = $this->check_auth_siakad();
+        //echo $token; exit;
+        //$table_display = DB::getSchemaBuilder()->getColumnListing("mata_kuliah");
+        $data_sinc = MataKuliahModel::select('id','id_matkul','row_status')->where("is_sinc" ,"0")->get();
+        foreach($data_sinc as $item){
+            $data = [];
+            $data_master = MataKuliahModel::select('mata_kuliah.*' ,'master_jurusan.title as nama_program_studi')->join( 'master_jurusan' , 'mata_kuliah.id_prodi' , '=' ,'master_jurusan.id')->where('mata_kuliah.id' , '=' , $item->id)->first();
+            if($data_master){
+                foreach(static::$webservice as $key => $val){
+                    $data[$val] = $data_master->$key;
+                }
+            }
+            if($item->row_status != 'deleted'){
+                if(strlen($item->id_matkul) > 8){
+                    unset($data['id_matkul']);
+                    $action = array('act'=>"UpdateMataKuliah" , "token"=>$token ,'key' => array('id_matkul' => $item->id_matkul), "record"=> $data);
+                    $response = $this->runWS($action, 'json');
+                    $res1 = json_decode($response);
+                    
+                    if($res1->error_code != '0'){
+                        DB::table('sinkronisasi')->update(array('last_sync_status'=>'gagal'))->where('sync_code' ,'sync_mata_kuliah_get');
+                        return json_encode(array('status'=>'error','message' => 'Terjadi kesalahan pada saat sinkron biodata mahasiswa dengan nama '.$data['nama_mahasiswa'].' error_desc '.$res1->error_desc));
+                    }else{
+                        if(!MataKuliahModel::where('id' ,$item->id)->update(array('is_sinc' =>'1'))){
+                            DB::table('sinkronisasi_logs')
+                            ->insert(array('title' => 'InsertMataKuliah' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                        }
+                    }
+
+                }else{
+                    unset($data['id_matkul']);
+                    $action = array('act'=>"InsertMataKuliah" , "token"=>$token, "record"=> $data);
+                    $response = $this->runWS($action, 'json');
+                    $result = json_decode($response , true);
+                    //print_r($result_mhs);
+                    $id_matkul = $result['data']['id_matkul'];
+                    if($id_matkul){
+                        if(!MataKuliahModel::where('id' ,$item->id)->update(array('id_matkul'=>$id_matkul , 'is_sinc' =>'1'))){
+                            DB::table('sinkronisasi_logs')
+                            ->insert(array('title' => 'InsertMataKuliah' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                            return json_encode(array('status' => 'Error' , 'msg' => 'Data Tidak Berhasil Disinkronisai.'));
+                        }
+                    }
+                }
+            }else{
+                if(strlen($item->id_matkul) > 8){
+                    $action = array('act'=>"DeleteMataKuliah" , "token"=>$token ,'key' => array('id_matkul' => $item->id_matkul));
+                    $response = $this->runWS($action, 'json');
+                    $res1 = json_decode($response);
+                    if(!MataKuliahModel::where('id' ,$item->id)->update(array('is_sinc' =>'1'))){
+                        DB::table('sinkronisasi_logs')
+                        ->insert(array('title' => 'InsertMataKuliah' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                        return json_encode(array('status' => 'Error' , 'msg' => 'Data Tidak Berhasil Disinkronisai.'));
+                    }
+                }else{
+                    MataKuliahModel::where('id' ,$item->id)->update(array('is_sinc' =>'1'));
+                }
+            }
+        }
+        DB::table('sinkronisasi')->where('sync_code','like','%sync_mata_kuliah_get%')->update(array('last_sync_status'=>'success'));
+        return json_encode(array('status' => 'Success' , 'msg' => 'Data Berhasil Disinkronisai.'));
     }
 
     public function create(){
