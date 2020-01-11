@@ -64,7 +64,7 @@ class Kurikulum extends Controller
 
     public function index()
     {
-        $master['semester'] = SemesterModel::where('row_status' ,'active')->get();
+        $master['semester'] = SemesterModel::where('row_status' ,'active')->orderBy('title','desc')->get();
         $master['jurusan'] = JurusanModel::where('row_status' ,'active')->get();
 
 //        $data = KurikulumModel::join('master_jurusan as b' , 'kurikulum.program_studi_id' , '=' , 'b.id')
@@ -94,7 +94,7 @@ class Kurikulum extends Controller
             ->where('kurikulum.row_status' ,'=' ,'active')
             ->select('kurikulum.id' ,
                 'kurikulum.nama_kurikulum',
-                'kurikulum.mulai_berlaku',
+                'master_semester.title as mulai_berlaku',
                 'kurikulum.jumlah_bobot_mata_kuliah_wajib',
                 'kurikulum.jumlah_bobot_mata_kuliah_pilihan',
                 'kurikulum.jumlah_sks','b.title',
@@ -284,7 +284,7 @@ class Kurikulum extends Controller
         ->where($where)
         ->select('kurikulum.id' ,
             'kurikulum.nama_kurikulum',
-            'kurikulum.mulai_berlaku',
+            'master_semester.title as mulai_berlaku',
             'kurikulum.jumlah_bobot_mata_kuliah_wajib',
             'kurikulum.jumlah_bobot_mata_kuliah_pilihan',
             'kurikulum.jumlah_sks','b.title',
@@ -326,7 +326,9 @@ class Kurikulum extends Controller
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
             'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
-            'semester' => SemesterModel::where('row_status', 'active')->get()
+            'semester' => SemesterModel::where('row_status', 'active')
+                ->orderBy('title', 'desc')
+                ->get()
         );
         return view("data/kurikulum_create" , compact('master'));
 
@@ -416,7 +418,9 @@ class Kurikulum extends Controller
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
             'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
-            'semester' => SemesterModel::where('row_status', 'active')->get()
+            'semester' => SemesterModel::where('row_status', 'active')
+                ->orderBy('title','desc')
+                ->get()
         );
         $kurikulum = KurikulumModel::where('id' , $id)->first();
         $matakuliah = DB::table('kurikulum_mata_kuliah')
@@ -432,23 +436,21 @@ class Kurikulum extends Controller
 
     public function carimatakuliah(Request $request){
         $post = $request->all();
-        //print_r($post); exit;
-        $matakuliah = MataKuliahModel::where('program_studi_id' , $post['id'])
+        $matakuliah = MataKuliahModel::where('id_prodi' , $post['id'])
         ->where('row_status' , 'active')->get();
 
-        //print_r($matakuliah); exit;
         $html = '';
         if($matakuliah){
             foreach($matakuliah as $item){
                 $html .= '<tr>
-                <td><input type="checkbox" attr="'.$item['bobot_mata_kuliah'].'" class="matakuliah-chck" name="matkulid['.$item['id'].'][id]" value="'.$item['id'].'"/></td>
+                <td><input type="checkbox" attr="'.$item['sks_mata_kuliah'].'" class="matakuliah-chck" name="matkulid['.$item['id'].'][id]" value="'.$item['id'].'"/></td>
                 <td>'.$item['kode_mata_kuliah'].'</td>
                 <td>'.$item['nama_mata_kuliah'].'</td>
-                <td align="center">'.$item['jenis_mata_kuliah'].'</td>
-                <td align="center">'.$item['bobot_tatap_muka'].'</td>
-                <td align="center">'.$item['bobot_praktikum'].'</td>
-                <td align="center">'.$item['bobot_praktek_lapangan'].'</td>
-                <td align="center">'.$item['bobot_simulasi'].'</td>
+                <td align="center">'. 1 .'</td>
+                <td align="center">'.($item['sks_tatap_muka'] ? $item['sks_tatap_muka'] : 0 ) .'</td>
+                <td align="center">'.($item['sks_praktek'] ? $item['sks_praktek'] : 0 ) .'</td>
+                <td align="center">'.($item['sks_praktek_lapangan'] ? $item['sks_praktek_lapangan'] : 0 ) .'</td>
+                <td align="center">'.($item['sks_simulasi'] ? $item['sks_simulasi'] : 0 ) .'</td>
                 <td align="center">
                     <select class="form-control form-control-sm" name="matkulid['.$item['id'].'][smstr]">
                         <option>1</option>
@@ -461,7 +463,7 @@ class Kurikulum extends Controller
                         <option>8</option>
                     </select>
                 </td>
-                <td align="center"><input class="wajib-chck" attr="'.$item['bobot_mata_kuliah'].'" type="checkbox" class="form-control-sm" name="matkulid['.$item['id'].'][wajib]" value="wajib"></td></td>
+                <td align="center"><input class="wajib-chck" attr="'.$item['sks_mata_kuliah'].'" type="checkbox" class="form-control-sm" name="matkulid['.$item['id'].'][wajib]" value="wajib"></td></td>
                 <!--dipakai untuk view-->
                 <!--<td align="center"><span class="flaticon2-cancel-music"></span> </td>-->
             </tr>';
