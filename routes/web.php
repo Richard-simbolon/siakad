@@ -262,6 +262,10 @@ Route::get('sinc_riwayat_pend', 'Mahasiswa@sinc_riwayat_pend')->name('sinc_riway
 Route::get('sinc_insert', 'Mahasiswa@sinc_insert')->name('sinc_insert');
 // DOSEN
 Route::get('sinc_penugasan', 'Dosen@sinc_penugasan')->name('sinc_penugasan');
+//MATAKULIAH
+Route::get('add_mat_kul_sinc', 'Matakuliah@add_mat_kul_sinc')->name('add_mat_kul_sinc');
+
+Route::get('kurikulum_sinc', 'Kurikulum@kurikulum_sinc')->name('kurikulum_sinc');
 
 
 Route::get('sinc_krs', 'Mahasiswa@sinc_krs')->name('sinc_krs');

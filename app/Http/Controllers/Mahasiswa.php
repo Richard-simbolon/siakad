@@ -331,7 +331,7 @@ class Mahasiswa extends Controller
                     $action_rwyt_pend = array('act'=>"InsertRiwayatPendidikanMahasiswa" , "token"=>$token, "record"=> $data_pendidikan);
                     $response_rwyt_pend = $this->runWS($action_rwyt_pend, 'json');
                     $result_rwyt_pend = json_decode($response_rwyt_pend , true);
-                    print_r($response_rwyt_pend);
+                    //print_r($response_rwyt_pend);
                     $id_registrasi = $result_rwyt_pend['data']['id_registrasi_mahasiswa'];
                     //INSERT TO RIWAYAT PENDIDIKAN
                     MahasiswaModel::where('id' ,$item->id)->update(array('id_registrasi_mahasiswa' => $id_registrasi));
