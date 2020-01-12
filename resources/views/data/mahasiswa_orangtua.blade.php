@@ -83,6 +83,8 @@
                                                 <input type="hidden" name="mahasiswa_id" value="{{$data['id']}}">
                                                 <input type="hidden" name="mahasiswa_orang_tua_wali[ayah][id]" value="{{$otw['ayah']['id']}}">
                                                 <input type="hidden" name="mahasiswa_orang_tua_wali[ibu][id]" value="{{$otw['ibu']['id']}}">
+                                                <input type="hidden" name="mahasiswa_orang_tua_wali[ayah][kategori]" value="ayah">
+                                                <input type="hidden" name="mahasiswa_orang_tua_wali[ibu][kategori]" value="ibu">
                                                 <div class="row">
                                                     <label class="col-xl-3"></label>
                                                     <div class="col-lg-9 col-xl-6">

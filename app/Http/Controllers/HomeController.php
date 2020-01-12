@@ -43,9 +43,9 @@ class HomeController extends Controller
             ->where('nim' , Auth::user()->id)->first();
             $data = MahasiswaModel::where('nim' , '=', Auth::user()->id)
                 ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')
-                ->join('master_angkatan', 'master_angkatan.id', '=', 'mahasiswa.angkatan')
+                ->join('master_semester', 'master_semester.id', '=', 'mahasiswa.id_periode_masuk')
                 ->join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
-                ->select('mahasiswa.id', 'mahasiswa.nik', 'mahasiswa.nama', 'mahasiswa.nim','mahasiswa.email','mahasiswa.angkatan', 'master_kelas.title as kelas', 'master_angkatan.title as angkatan', 'master_jurusan.title as jurusan')
+                ->select('mahasiswa.id', 'mahasiswa.nik', 'mahasiswa.nama', 'mahasiswa.nim','mahasiswa.email','master_kelas.title as kelas', 'master_semester.id_tahun_ajaran as angkatan', 'master_jurusan.title as jurusan')
                 ->first();
             $semester = SemesterModel::where('status_semester','=', 'enable')->first();
             $id = MahasiswaModel::where('nim' , Auth::user()->id)->first();

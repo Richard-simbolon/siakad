@@ -33,7 +33,7 @@ $(document).ready(function() {
             }
          });
     });
-    var hari  = ['-','SENIN','SELASA','RABU','KAMIS','JUMAT','SABTU','MINGGU'];
+    var hari  = ['MINGGU','SENIN','SELASA','RABU','KAMIS','JUMAT','SABTU','MINGGU'];
     //alert()
     $('#jadwalperkuliahandata').DataTable({
         "pageLength": 50,

@@ -191,9 +191,9 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="POST" id="form_prestasi">
+                                    <form method="POST" id="form_prestasi_edit">
                                         <div class="row">
-                                            <input type="hidden" name="id">
+                                            <input type="hidden" name="id" id="id_prestasi">
                                             <input type="hidden" name="mahasiswa_id" value="{{$data['id']}}">
                                             <div class="col-xl-6">
                                                 <div class="form-group">

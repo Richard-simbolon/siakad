@@ -136,7 +136,7 @@
                                     </tr>
                                 @endforeach
                                 <tr>
-                                    <td style="text-align: center" colspan="4"><b>Total SKS</b></td>
+                                    <td style="text-align: center" colspan="3"><b>Total SKS</b></td>
                                     <td style="text-align: center" ><b>{{$sks}}</b></td>
                                     <td style="text-align: center" ></td>
                                 </tr>

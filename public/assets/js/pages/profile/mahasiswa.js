@@ -47,6 +47,107 @@ $(document).ready(function() {
         })
     });
 
+    $(document).on('click' , '#btn_edit_prestasi' , function(){
+        Swal.fire({
+            title: 'Hapus',
+            text: "Apakah anda yakin mengubah data?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#0abb87',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, ubah sekarang!'
+        }).then((result) => {
+            if (result.value) {
+                var url = $(this).attr("data-url");
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('#csrf_').val()
+                    }
+                });
+                $.ajax({
+                    type:'POST',
+                    dataType:'json',
+                    url:'/data/mahasiswa/edit_prestasi',
+                    data:$("#form_prestasi_edit").serialize(),
+                    success:function(result) {
+                        if(result.status){
+                            Swal.fire(
+                                'Berhasil!',
+                                'Password sudah diubah.',
+                                'success'
+                            ).then((result) => {
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        }
+                        else{
+                            var text = result.message;
+                            Swal.fire({
+                                title: 'Gagal',
+                                html: text,
+                                type: 'error',
+                                confirmButtonColor: '#0abb87',
+                                confirmButtonText: 'OK'
+                            })
+                        }
+                    }
+                });
+
+            }
+        })
+    });
+
+    $(document).on('click' , '#btn_hapus_prestasi' , function(){
+        Swal.fire({
+            title: 'Hapus',
+            text: "Apakah anda yakin hapus data ini?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#0abb87',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus sekarang!'
+        }).then((result) => {
+            if (result.value) {
+                var id = $("#id_prestasi").val();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('#csrf_').val()
+                    }
+                });
+                $.ajax({
+                    type:'GET',
+                    dataType:'json',
+                    url:'/data/mahasiswa/delete_prestasi/'+id,
+                    success:function(result) {
+                        if(result.status){
+                            Swal.fire(
+                                'Berhasil!',
+                                'Data sudah dihapus.',
+                                'success'
+                            ).then((result) => {
+                                if (result.value) {
+                                    location.reload();
+                                }
+                            });
+                        }
+                        else{
+                            var text = result.message;
+                            Swal.fire({
+                                title: 'Gagal',
+                                html: text,
+                                type: 'error',
+                                confirmButtonColor: '#0abb87',
+                                confirmButtonText: 'OK'
+                            })
+                        }
+                    }
+                });
+
+            }
+        })
+    });
+
     $(document).on('click' , '#btn_add_prestasi' , function(){
         $("#kt_modal_prestasi").modal();
     });
@@ -303,8 +404,11 @@ $(document).ready(function() {
                                 'Berhasil!',
                                 'Data sudah diubah.',
                                 'success'
-                            );
-                            window.location='/data/mahasiswa/kebutuhankhusus'
+                            ).then((result) => {
+                                if (result.value) {
+                                    window.location='/data/mahasiswa/kebutuhankhusus'
+                                }
+                            });
                         }
                         else{
                             var text = result.message;
@@ -373,7 +477,39 @@ $(document).ready(function() {
     });
 });
 
-function editPrestasi(){
+function editPrestasi(id){
+    $.ajax({
+        url:'/data/mahasiswa/get_prestasi/'+id,
+        data: {base64:$('#profile_mhs').val()},
+        type:"GET",
+        error:function(err){
+            console.error(err);
+        },
+        success:function(result){
+            var res = JSON.parse(result);
+            if(res.status){
+                console.log(res.data);
+                $("#id_prestasi").val(id);
+                $("#jenis_prestasi").val(res.data['jenis_prestasi']);
+                $("#tingkat_prestasi").val(res.data['tingkat_prestasi']);
+                $("#penyelenggara").val(res.data['penyelenggara']);
+                $("#nama_prestasi").html(res.data['nama_prestasi']);
+                $("#peringkat").val(res.data['peringkat']);
+                $("#tahun").val(res.data['tahun']);
+            }else{
+                swal.fire({
+                    "title": "",
+                    "text": res.message,
+                    "type": "error",
+                    "confirmButtonClass": "btn btn-secondary"
+                });
+                location.reload();
+            }
+        },
+        complete:function(){
+            console.log("Request finished.");
+        }
+    });
     $("#kt_modal_edit_prestasi").modal();
 }
 

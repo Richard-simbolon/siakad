@@ -888,7 +888,6 @@ class Mahasiswa extends Controller
 
     public function save_prestasi(Request $request){
         $data = $request->all();
-        //print_r( $data); exit;
 
         $id = $data['id'];
         unset($data['id']);

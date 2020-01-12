@@ -135,7 +135,7 @@
                                                 <td>{{$item->nidn_nup_nidk}}</td>
                                                 <td>{{$item->nama}}</td>
                                                 <td>{{$item->no_hp}}</td>
-                                                <td>{{$item->status_dosen .' '. $item->status_dosen_ke}}</td>
+                                                <td>{{$item->status_dosen}}</td>
                                             </tr>
                                             <?php
                                             $no+=1;

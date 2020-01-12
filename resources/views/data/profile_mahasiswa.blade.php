@@ -139,11 +139,11 @@
                                                     <div class="col-lg-9 col-xl-6">
                                                         <div class="kt-checkbox-inline">
                                                             <label class="kt-radio">
-                                                                <input type="radio" name="jk" value="{{$data['jk']}}" {{$data['jk']=='laki-laki' ? 'checked':''}}> Laki-laki
+                                                                <input type="radio" name="jk" value="{{$data['jk']}}" {{$data['jk']=='L' ? 'checked':''}}> Laki-laki
                                                                 <span></span>
                                                             </label> &nbsp;
                                                             <label class="kt-radio">
-                                                                <input type="radio" name="jk" value="{{$data['jk']}}" {{$data['jk']=='perempuan' ? 'checked' :''}}> Perempuan
+                                                                <input type="radio" name="jk" value="{{$data['jk']}}" {{$data['jk']=='P' ? 'checked' :''}}> Perempuan
                                                                 <span></span>
                                                             </label>
                                                         </div>
