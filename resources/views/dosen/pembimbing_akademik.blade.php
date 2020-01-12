@@ -81,7 +81,7 @@
                                                 <select id="search_angkatan" class="form-control kt-select2">
                                                     <option value=" ">-- Pilih Semua --</option>
                                                     @foreach ($master['angkatan'] as $item)
-                                                        <option value="{{$item['title']}}" > {{$item['title']}} </option>
+                                                        <option value="{{$item['id_tahun_ajaran']}}" > {{$item['id_tahun_ajaran']}} </option>
                                                     @endforeach
                                                 </select>
                                             </div>

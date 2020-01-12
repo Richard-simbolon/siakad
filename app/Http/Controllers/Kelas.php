@@ -35,7 +35,7 @@ class Kelas extends Controller
                         if(!$this->user){
                             Redirect::to('login')->send();
                         }
-                        if($this->user->login_type != 'admin'){
+                        if($this->user->login_type != 'admin' && $this->user->login_type != 'dosen'){
                             return abort(404);
                         }else{
                             return $next($request);
@@ -171,7 +171,7 @@ class Kelas extends Controller
 
                 public function listkelas(Request $request){
                     $post = $request->all();
-                    //print_r($post); exit;
+
                     $kelas = KelasModel::where('row_status' , 'active')
                     ->where('jurusan_id',$post['jurusan'])
                     ->where('angkatan_id',$post['angkatan'])

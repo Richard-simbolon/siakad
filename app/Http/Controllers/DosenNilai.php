@@ -51,9 +51,16 @@ class DosenNilai extends Controller
     {
         $master = array(
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
-            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'angkatan' => MahasiswaModel::where('mahasiswa.row_status' , 'active')
+                ->join('master_semester','master_semester.id', '=', 'mahasiswa.id_periode_masuk')
+                ->select('master_semester.id_tahun_ajaran')
+                ->distinct()
+                ->orderBy('id_tahun_ajaran','desc')
+                ->get(),
             'kelas' => KelasModel::where('row_status' , 'active')->get(),
-            'semester'=> SemesterModel::where('row_status', 'active')->get(),
+            'semester'=> SemesterModel::where('row_status', 'active')
+                ->orderBy('id', 'desc')
+                ->get(),
         );
 
         $date = date('Y-m-d');

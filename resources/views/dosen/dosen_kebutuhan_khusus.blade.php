@@ -92,7 +92,11 @@
                                                             <div class="kt-checkbox-list">
                                                                 @foreach ($item as $value)
                                                                     <label class="kt-checkbox kt-checkbox--tick kt-checkbox--success">
-                                                                        <input type="checkbox" name="dosen_kh[]" value="{{$value['id']}}" {{in_array($value['id'] , $kebdosen['dosen']) ? 'checked' : ''}} > {{$value['title']}}
+                                                                        @if($kebdosen)
+                                                                            <input type="checkbox" name="dosen_kh[]" value="{{$value['id']}}" {{in_array($value['id'] , $kebdosen['dosen']) ? 'checked' : ''}} > {{$value['title']}}
+                                                                        @else
+                                                                            <input type="checkbox" value="{{$value['id']}}" name="dosen_kh[]"> {{$value['title']}}
+                                                                        @endif
                                                                         <span></span>
                                                                     </label>
                                                                 @endforeach

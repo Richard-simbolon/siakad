@@ -100,7 +100,7 @@
                                             <select name="angkatan_id" id="angkatan-mahasiswa" class="form-control kt-select2" disabled>
                                                 <option value=" ">-- Pilih Angkatan --</option>
                                                 @foreach ($master['angkatan'] as $item)
-                                                    <option value="{{$item['id']}}" {{$item['id']==$data['angkatan_id'] ? "selected" : ""}}>{{$item['title']}}</option>
+                                                    <option value="{{$item['id_tahun_ajaran']}}" {{$item['id_tahun_ajaran']==$data['angkatan_id'] ? "selected" : ""}}>{{$item['title']}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

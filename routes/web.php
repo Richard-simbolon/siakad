@@ -145,7 +145,7 @@ Route::post('dosen/activity_paging', 'Dosen@activity_paging')->name('activity_pa
 Route::post('/master/kelas/edit', 'Kelas@edit')->name('edit');
 Route::post('master/kelas/delete', 'Kelas@delete')->name('delete');
 Route::post('/kelas/listkurikulum', 'Kelas@listkurikulum')->name('ListKurikulum');
-Route::post('/kelas/listkelas', 'Kelas@listkelas')->name('ListKelas');
+Route::post('/kelas/listkelas', 'Kelas@listkelas')->name('listkelas');
 
 Route::post('/master/semester/activate', 'Semester@activate')->name('activate');
 
