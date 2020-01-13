@@ -49,8 +49,9 @@ class HomeController extends Controller
                 ->first();
             $semester = SemesterModel::where('status_semester','=', 'enable')->first();
             $id = MahasiswaModel::where('nim' , Auth::user()->id)->first();
-            //echo 'ip_mhs_proc('.$id->id.' , '.$id->kelas_id.' ,'.$semester_aktif->id.')'; exit;
+
             $data_nilai = DB::select('call profile_ip_mhs_proc('.$id->id.' , '.$kurikulum->kurikulum_id.')');
+            
             if(count($data_nilai) > 0) {
                 $ip = $this->generate_ip($data_nilai , $semester->id);
             }else{
