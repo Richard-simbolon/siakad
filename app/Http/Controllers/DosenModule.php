@@ -9,6 +9,7 @@ use App\PendidikanModel;
 use App\StatusKeaktifanPegawaiModel;
 use App\StatusMahasiswaModel;
 use App\SumberGajiModel;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -210,8 +211,8 @@ class DosenModule extends Controller
     public function kebutuhankhusus()
     {
         $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
-            ->join('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
-            ->join('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
+            ->leftjoin('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
+            ->leftjoin('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
             ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
             ->where('dosen.nidn_nup_nidk' , Auth::user()->id)->first();
 
@@ -231,15 +232,22 @@ class DosenModule extends Controller
         $data = $request->all();
         try{
             $data_kebutuhan_khusus = array(
+                'dosen_id' => $data['id'],
                 'row_status' => 'active',
-                'created_by' => 1,
-                'updated_by' => 1,
+                'created_by' => Auth::user()->nama,
+                'created_at' => date('Y-m-d'),
+                'updated_by' => Auth::user()->nama,
+                'updated_at' => date('Y-m-d'),
                 'kebutuhan_khusus' => array_key_exists('dosen_kh' , $data) ? json_encode(array('dosen' => $data['dosen_kh'])) : json_encode(array('dosen' =>[])),
                 'braile'=> $data['braile'],
                 'isyarat' => $data['isyarat'],
             );
-            DosenKebutuhanModel::where('dosen_id' , $data['id'])->update($data_kebutuhan_khusus);
 
+            if(DosenKebutuhanModel::where('dosen_id' , $data['id'])->first()){
+                DosenKebutuhanModel::where('dosen_id' , $data['id'])->update($data_kebutuhan_khusus);
+            }else{
+                DosenKebutuhanModel::firstOrCreate($data_kebutuhan_khusus);
+            }
             return json_encode(array('status' => true , 'message' => 'Data berhasil disimpan.'));
         } catch(\Exception $e){
             throw $e;

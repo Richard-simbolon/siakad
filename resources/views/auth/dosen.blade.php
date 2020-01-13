@@ -21,14 +21,14 @@
                                 <h3 class="kt-login__title">SIAPDUDIK <br/>  (Sistem Aplikasi Terpadu Pendidikan)</h3>
                             </div>
 
-                            <form class="kt-form" method="POST" action="{{ route('login') }}">
+                            <form class="kt-form" method="POST" action="{{ route('login') }}" autocomplete="off">
                                 @csrf
                                 <input type="hidden" name="login_type_role" value="dosen">
                                 <div class="row kt-login__extra text-center" style="display: block;text-align: center">
                                     <p style="font-size: 11pt;">Anda akan login sebagai <u>Dosen</u></p>
                                 </div>
                                 <div class="input-group">
-                                    <input id="login" placeholder="User Login" type="text" class="form-control @error('login') is-invalid @enderror" name="login" value="{{ old('login') }}" required autocomplete="login" autofocus>
+                                    <input id="login" placeholder="User Login" type="text" class="form-control @error('login') is-invalid @enderror" name="login" value="{{ old('login') }}" required autocomplete="login" autofocus autocomplete="off-login">
                                     @error('login')
                                         <span class="invalid-feedback" role="alert">
                                         {{ $message }}

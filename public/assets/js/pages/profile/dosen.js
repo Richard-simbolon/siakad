@@ -168,8 +168,11 @@ $(document).ready(function() {
                                 'Berhasil!',
                                 'Data sudah diubah.',
                                 'success'
-                            );
-                            window.location='/data/dosen/kebutuhankhusus'
+                            ).then((result) => {
+                                if (result.value) {
+                                    window.location='/data/dosen/kebutuhankhusus'
+                                }
+                            });
                         }
                         else{
                             var text = result.message;
