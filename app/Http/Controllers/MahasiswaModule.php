@@ -62,7 +62,7 @@ class MahasiswaModule extends Controller
 
     public function profile()
     {
-        $data = $this->getDosen();
+        $data = $this->getMahasiswa();
 
         $master = array(
             'agama' => AgamaModel::where('row_status' , 'active')->get()
@@ -70,7 +70,7 @@ class MahasiswaModule extends Controller
 
         $menu['submenu'] = "profile";
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
+        $count=DB::table('mahasiswa_prestasi')->where('row_status', 'active')->where('mahasiswa_id' , $data['id'])->count();
 
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
@@ -104,7 +104,7 @@ class MahasiswaModule extends Controller
 
     public function alamat()
     {
-        $data = $this->getDosen();
+        $data = $this->getMahasiswa();
 
         $master = array(
             'jenis_tinggal' => TinggalModel::where('row_status' , 'active')->get(),
@@ -112,7 +112,7 @@ class MahasiswaModule extends Controller
         );
 
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
+        $count=DB::table('mahasiswa_prestasi')->where('row_status', 'active')->where('mahasiswa_id' , $data['id'])->count();
         $menu['submenu'] = "alamat";
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
@@ -151,7 +151,7 @@ class MahasiswaModule extends Controller
 
     public function orangtua()
     {
-        $data = $this->getDosen();
+        $data = $this->getMahasiswa();
 
         $orangtuawali = MahasiswaOrangtuawaliModel::where('mahasiswa_id' , $data['id'])->get();
         $master = array(
@@ -161,7 +161,7 @@ class MahasiswaModule extends Controller
         );
         $menu['submenu'] = "orangtua";
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
+        $count=DB::table('mahasiswa_prestasi')->where('row_status', 'active')->where('mahasiswa_id' , $data['id'])->count();
 
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
@@ -173,11 +173,36 @@ class MahasiswaModule extends Controller
         $data = $request->all();
         if(array_key_exists('mahasiswa_orang_tua_wali' , $data)){
             foreach($data['mahasiswa_orang_tua_wali'] as $key=>$val){
-                $where_detail['mahasiswa_id'] =  $data['mahasiswa_id'];
-                $where_detail['kategori'] = "'".$key ."'";
-                $data['mahasiswa_orang_tua_wali'][$key]['mahasiswa_id'] = $data['mahasiswa_id'];
-                $data['mahasiswa_orang_tua_wali'][$key]['kategori'] = $key;
-                MahasiswaOrangtuawaliModel::updateOrInsert($where_detail, $data['mahasiswa_orang_tua_wali'][$key]);
+                $arrData = array(
+                    "nik" => $data['mahasiswa_orang_tua_wali'][$key]['nik'],
+                    "nama" => $data['mahasiswa_orang_tua_wali'][$key]['nama'],
+                    "tanggal_lahir" => $data['mahasiswa_orang_tua_wali'][$key]['tanggal_lahir'],
+                    "pendidikan_id" => $data['mahasiswa_orang_tua_wali'][$key]['pendidikan_id'],
+                    "pekerjaan_id" => $data['mahasiswa_orang_tua_wali'][$key]['pekerjaan_id'],
+                    "penghasilan" => $data['mahasiswa_orang_tua_wali'][$key]['penghasilan'],
+                    "mahasiswa_id" => $data['mahasiswa_id'],
+                    "kategori" => $data['mahasiswa_orang_tua_wali'][$key]['kategori']
+                );
+//                $where_detail['mahasiswa_id'] =  $data['mahasiswa_id'];
+//                $where_detail['kategori'] = "'".$key ."'";
+//                $where_detail['id'] =  $data['mahasiswa_orang_tua_wali'][$key]['id'];
+//                $data['mahasiswa_orang_tua_wali'][$key]['mahasiswa_id'] = $data['mahasiswa_id'];
+//                $data['mahasiswa_orang_tua_wali'][$key]['kategori'] = $key;
+
+                $orangtua_wali = MahasiswaOrangtuawaliModel::where('id',$data['mahasiswa_orang_tua_wali'][$key]['id'])->first();;
+                if($orangtua_wali){
+                    $orangtua_wali->nik = $data['mahasiswa_orang_tua_wali'][$key]['nik'];
+                    $orangtua_wali->nama = $data['mahasiswa_orang_tua_wali'][$key]['nama'];
+                    $orangtua_wali->tanggal_lahir = $data['mahasiswa_orang_tua_wali'][$key]['tanggal_lahir'];
+                    $orangtua_wali->pendidikan_id = $data['mahasiswa_orang_tua_wali'][$key]['pendidikan_id'];
+                    $orangtua_wali->pekerjaan_id = $data['mahasiswa_orang_tua_wali'][$key]['pekerjaan_id'];
+                    $orangtua_wali->penghasilan = $data['mahasiswa_orang_tua_wali'][$key]['penghasilan'];
+                    $orangtua_wali->mahasiswa_id = $data['mahasiswa_id'];
+                    $orangtua_wali->kategori = $data['mahasiswa_orang_tua_wali'][$key]['kategori'];
+                    $orangtua_wali->save();
+                }else{
+                    MahasiswaOrangtuawaliModel::firstOrCreate($arrData);
+                }
             }
             return $this->success("Data berhasil disimpan.");
         }else{
@@ -188,7 +213,7 @@ class MahasiswaModule extends Controller
 
     public function wali()
     {
-        $data = $this->getDosen();
+        $data = $this->getMahasiswa();
 
         $orangtuawali = MahasiswaOrangtuawaliModel::where('mahasiswa_id' , $data['id'])->get();
         $master = array(
@@ -196,7 +221,7 @@ class MahasiswaModule extends Controller
             'penghasilan' => PenghasilanModel::where('row_status' , 'active')->get(),
             'pendidikan' => PendidikanModel::where('row_status' , 'active')->get(),
         );
-        $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
+        $count=DB::table('mahasiswa_prestasi')->where('row_status', 'active')->where('mahasiswa_id' , $data['id'])->count();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $menu['submenu'] = "wali";
         $exclude = static::$exclude;
@@ -210,11 +235,28 @@ class MahasiswaModule extends Controller
 
         if(array_key_exists('mahasiswa_orang_tua_wali' , $data)){
             foreach($data['mahasiswa_orang_tua_wali'] as $key=>$val){
-                $where_detail['mahasiswa_id'] =  $data['mahasiswa_id'];
-                $where_detail['kategori'] = "'".$key ."'";
-                $data['mahasiswa_orang_tua_wali'][$key]['mahasiswa_id'] = $data['mahasiswa_id'];
-                $data['mahasiswa_orang_tua_wali'][$key]['kategori'] = $key;
-                MahasiswaOrangtuawaliModel::updateOrInsert($where_detail, $data['mahasiswa_orang_tua_wali'][$key]);
+                $arrData = array(
+                    "nama" => $data['mahasiswa_orang_tua_wali'][$key]['nama'],
+                    "tanggal_lahir" => $data['mahasiswa_orang_tua_wali'][$key]['tanggal_lahir'],
+                    "pendidikan_id" => $data['mahasiswa_orang_tua_wali'][$key]['pendidikan_id'],
+                    "pekerjaan_id" => $data['mahasiswa_orang_tua_wali'][$key]['pekerjaan_id'],
+                    "penghasilan" => $data['mahasiswa_orang_tua_wali'][$key]['penghasilan'],
+                    "mahasiswa_id" => $data['mahasiswa_id'],
+                    "kategori" => $data['mahasiswa_orang_tua_wali'][$key]['kategori']
+                );
+                $orangtua_wali = MahasiswaOrangtuawaliModel::where('id',$data['mahasiswa_orang_tua_wali'][$key]['id'])->first();;
+                if($orangtua_wali){
+                    $orangtua_wali->nama = $data['mahasiswa_orang_tua_wali'][$key]['nama'];
+                    $orangtua_wali->tanggal_lahir = $data['mahasiswa_orang_tua_wali'][$key]['tanggal_lahir'];
+                    $orangtua_wali->pendidikan_id = $data['mahasiswa_orang_tua_wali'][$key]['pendidikan_id'];
+                    $orangtua_wali->pekerjaan_id = $data['mahasiswa_orang_tua_wali'][$key]['pekerjaan_id'];
+                    $orangtua_wali->penghasilan = $data['mahasiswa_orang_tua_wali'][$key]['penghasilan'];
+                    $orangtua_wali->mahasiswa_id = $data['mahasiswa_id'];
+                    $orangtua_wali->kategori = $data['mahasiswa_orang_tua_wali'][$key]['kategori'];
+                    $orangtua_wali->save();
+                }else{
+                    MahasiswaOrangtuawaliModel::firstOrCreate($arrData);
+                }
             }
             return $this->success("Data berhasil disimpan.");
         }else{
@@ -224,7 +266,7 @@ class MahasiswaModule extends Controller
 
     public function kebutuhankhusus()
     {
-        $data = $this->getDosen();
+        $data = $this->getMahasiswa();
 
         $master = array(
             'jenis_tinggal' => TinggalModel::where('row_status' , 'active')->get(),
@@ -234,7 +276,7 @@ class MahasiswaModule extends Controller
         $kebutuhan_selected = MahasiswaKebutuhanModel::where('mahasiswa_id' , $data['id'])->first();
         $menu['submenu'] = "kebutuhan_khusus";
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
+        $count=DB::table('mahasiswa_prestasi')->where('row_status', 'active')->where('mahasiswa_id' , $data['id'])->count();
 
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
@@ -252,7 +294,14 @@ class MahasiswaModule extends Controller
                 'kebutuhan_ayah' =>array_key_exists('ayah_kh' , $data) ? json_encode(array('ayah' =>$data['ayah_kh'])) : json_encode(array('ayah' =>[])),
                 'kebutuhan_ibu' =>array_key_exists('ibu_kh' , $data) ? json_encode(array('ibu'=>$data['ibu_kh'])) : json_encode(array('ibu' =>[])),
             );
-            MahasiswaKebutuhanModel::where('mahasiswa_id' , $data['mahasiswa_id'])->update($data_kebutuhan_khusus);
+
+            //print_r($data_kebutuhan_khusus);die();
+            if(MahasiswaKebutuhanModel::where('mahasiswa_id' , $data['mahasiswa_id'])->first()){
+                MahasiswaKebutuhanModel::where('mahasiswa_id' , $data['mahasiswa_id'])->update($data_kebutuhan_khusus);
+            }else{
+                MahasiswaKebutuhanModel::where('mahasiswa_id' , $data['mahasiswa_id'])->create($data_kebutuhan_khusus);
+            }
+
 
             return json_encode(array('status' => true , 'message' => 'Data berhasil disimpan.'));
         } catch(\Exception $e){
@@ -263,7 +312,7 @@ class MahasiswaModule extends Controller
 
     public function prestasi()
     {
-        $data = $this->getDosen();
+        $data = $this->getMahasiswa();
 
         $master = array(
             'jenis_tinggal' => TinggalModel::where('row_status' , 'active')->get(),
@@ -271,7 +320,7 @@ class MahasiswaModule extends Controller
         );
 
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
+        $count=DB::table('mahasiswa_prestasi')->where('row_status', 'active')->where('mahasiswa_id' , $data['id'])->count();
         $menu['submenu'] = "prestasi";
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
@@ -279,9 +328,20 @@ class MahasiswaModule extends Controller
 
     }
 
+    public function get_prestasi($id)
+    {
+        $prestasi = DB::table('mahasiswa_prestasi')->where('id' , $id)->first();
+
+        if($prestasi){
+            return json_encode(["status"=> true, "data"=> $prestasi]);
+        }else{
+            return json_encode(["status"=> false, "message"=> "Data tidak ditemukan"]);
+        }
+    }
+
     public function prestasipaging(Request $request){
         $post = $request->all();
-        return Datatables::of(DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $post['id'])->get())->addIndexColumn()->make(true);
+        return Datatables::of(DB::table('mahasiswa_prestasi')->where('row_status', 'active')->where('mahasiswa_id' , $post['id'])->get())->addIndexColumn()->make(true);
     }
 
     public function submitprestasi(Request $request){
@@ -314,6 +374,47 @@ class MahasiswaModule extends Controller
         }
     }
 
+    public function edit_prestasi(Request $request){
+        $data = $request->all();
+        try{
+
+            $arr_data= array(
+                "jenis_prestasi" => $data['jenis_prestasi'],
+                "tingkat_prestasi" => $data['tingkat_prestasi'],
+                "nama_prestasi" => $data['nama_prestasi'],
+                "tahun" => $data['tahun'],
+                "penyelenggara" => $data['penyelenggara'],
+                "peringkat" => $data['peringkat'],
+                "updated_at" => date('Y-m-d H:i:s'),
+                "modified_by" => Auth::user()->nama
+            );
+            DB::table('mahasiswa_prestasi')->where('id' , $data['id'])->update($arr_data);
+
+            return json_encode(array('status' => true , 'message' => 'Data berhasil dihapus.'));
+        } catch(\Exception $e){
+
+            throw $e;
+            return json_encode(array('status' => false , 'message' => 'Terjadi kesalahan saat menyimpan, silahkan coba lagi.'));
+        }
+    }
+
+    public function delete_prestasi($id){
+        try{
+            $arr_data= array(
+                "row_status" => "deleted",
+                "updated_at" => date('Y-m-d H:i:s'),
+                "modified_by" => Auth::user()->nama
+            );
+            DB::table('mahasiswa_prestasi')->where('id' , $id)->update($arr_data);
+
+            return json_encode(array('status' => true , 'message' => 'Data berhasil dihapus.'));
+        } catch(\Exception $e){
+
+            throw $e;
+            return json_encode(array('status' => false , 'message' => 'Terjadi kesalahan saat menyimpan, silahkan coba lagi.'));
+        }
+    }
+
     public function gantipassword()
     {
         $data = MahasiswaModel::where('nim' , '=',Auth::user()->id)
@@ -324,7 +425,7 @@ class MahasiswaModule extends Controller
             ->first();
 
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
-        $count=DB::table('mahasiswa_prestasi')->where('mahasiswa_id' , $data['id'])->count();
+        $count=DB::table('mahasiswa_prestasi')->where('row_status', 'active')->where('mahasiswa_id' , $data['id'])->count();
         $menu['submenu'] = "ganti_password";
         $exclude = static::$exclude;
         $Tableshow = static::$Tableshow;
@@ -394,25 +495,25 @@ class MahasiswaModule extends Controller
     }
 
     public function tugasakhir(){
-        $data = $this->getDosen();
+        $data = $this->getMahasiswa();
 
         $dosen = TugasAkhirModel::where('mahasiswa_tugas_akhir.row_status','active')
             ->join("mahasiswa_tugas_akhir_detail", "mahasiswa_tugas_akhir_detail.tugas_akhir_id","=", "mahasiswa_tugas_akhir.id")
             ->join("dosen", "dosen.id", "=", "mahasiswa_tugas_akhir_detail.dosen_id")
-            ->select("dosen.nidn_nup_nidk","dosen.nama", "dosen.no_hp", "mahasiswa_tugas_akhir_detail.status_dosen","mahasiswa_tugas_akhir_detail.status_dosen_ke")
+            ->select("dosen.nidn_nup_nidk","dosen.nama", "dosen.no_hp", "mahasiswa_tugas_akhir_detail.status_dosen")
             ->orderBy("mahasiswa_tugas_akhir_detail.status_dosen")
             ->get();
 
         return view("mahasiswa/tugas_akhir" , compact("data", "dosen" ));
     }
 
-    public function getDosen(){
+    public function getMahasiswa(){
         $data = MahasiswaModel::where('nim' , '=',Auth::user()->id)
             ->join('master_kelas', 'master_kelas.id', '=', 'mahasiswa.kelas_id')
-            ->join('master_angkatan', 'master_angkatan.id', '=', 'mahasiswa.angkatan')
+            ->join('master_semester', 'master_semester.id', '=', 'mahasiswa.id_periode_masuk')
             ->join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
             ->leftJoin('dosen', 'dosen.id' ,'=', 'mahasiswa.pembimbing_akademik')
-            ->select('mahasiswa.*','dosen.nama as nama_dosen', 'master_kelas.title as kelas', 'master_angkatan.title as angkatan', 'master_jurusan.title as jurusan')
+            ->select('mahasiswa.*','dosen.nama as nama_dosen', 'master_kelas.title as kelas', 'master_semester.id_tahun_ajaran as angkatan', 'master_jurusan.title as jurusan')
             ->first();
 
         return $data;

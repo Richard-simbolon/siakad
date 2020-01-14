@@ -708,7 +708,7 @@ class KelasPerkuliahan extends Controller
                             '.$html.'
                         </tbody>
                     </table></div> ';
-        return array('html'=>$htmls , 'nama' => $kurikulum);
+        return array('html'=>$htmls , 'nama' => $kurikulum->nama_kurikulum);
         
         
        

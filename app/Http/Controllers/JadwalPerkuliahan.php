@@ -113,12 +113,10 @@ class JadwalPerkuliahan extends Controller
 
     public function krs()
     {
-       
-        
         $semester_active = SemesterModel::where('status_semester' ,'enable')->first();
         $mahasiswa = MahasiswaModel::where('nim' , Auth::user()->id)->first();
         $profile = DB::table('view_profile_mahasiswa')->where('id' , $mahasiswa->id)->first();
-        //print_r($profile); exit;
+
         $data = JadwalPerkuliahanModel::leftJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.mata_kuliah_id' ,'=' ,'view_jadwal_kelas_perkuliahan.mata_kuliah_id')
         ->where('kelas_id' , $mahasiswa->kelas_id)
         ->where('semester_id' , $semester_active->id)
@@ -130,6 +128,7 @@ class JadwalPerkuliahan extends Controller
         ->where('semester_id' , $semester_active->id)
         ->groupby('semester_id','kurikulum_mata_kuliah.semester')
         ->first();
+
         if($ip_smstr_prev){
             $ipk = $this->get_ipk(($ip_smstr_prev->semester_id - 1));
             $total_sks_header = $ip_smstr_prev->sks;
@@ -150,8 +149,7 @@ class JadwalPerkuliahan extends Controller
                 DB::table('ipk_ips_mahasiswa')->updateOrInsert($where, $data_ips);   
             } 
         }
-        
-        
+
         $select2 = JadwalPerkuliahanModel::select('semester_id' ,'semseter_title')
         ->where('kelas_id' , $mahasiswa->kelas_id)
         ->groupBy('semester_id')
@@ -172,14 +170,14 @@ class JadwalPerkuliahan extends Controller
         $id = $kurikulum->id;
         $mahasiswa = DB::table('view_profile_mahasiswa')->where('id' , $id)->first();
         $data = KurikulumModel::rightJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.kurikulum_id','=' ,'kurikulum.id')
-        ->join('mata_kuliah' ,'mata_kuliah.id' , '=' ,'kurikulum_mata_kuliah.mata_kuliah_id')
-        ->leftJoin('nilai_mahasiswa', function ($join) use($id) {
+            ->join('mata_kuliah' ,'mata_kuliah.id' , '=' ,'kurikulum_mata_kuliah.mata_kuliah_id')
+            ->leftJoin('nilai_mahasiswa', function ($join) use($id) {
             $join->on('nilai_mahasiswa.mata_kuliah_id' ,'=','kurikulum_mata_kuliah.mata_kuliah_id')
             ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $id);
         })
-        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah','mata_kuliah.tipe_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas', 'nilai_mahasiswa.nilai_laporan', 'nilai_mahasiswa.nilai_laporan_pkl', 'nilai_mahasiswa.nilai_ujian')
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah','mata_kuliah.tipe_mata_kuliah', 'mata_kuliah.sks_mata_kuliah' , 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas', 'nilai_mahasiswa.nilai_laporan', 'nilai_mahasiswa.nilai_laporan_pkl', 'nilai_mahasiswa.nilai_ujian')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->where('nilai_mahasiswa.semester_id' , $semester_aktif->id)->get();
-        //print_r($data); exit;
+
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         return view("mahasiswa/khs" , compact("data" , "title" ,"mahasiswa" , "master" ,"semester_aktif"));
 
@@ -195,13 +193,13 @@ class JadwalPerkuliahan extends Controller
         $id = $kurikulum->id;
         $mahasiswa = DB::table('view_profile_mahasiswa')->where('id' , $id)->first();
         $data = KurikulumModel::rightJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.kurikulum_id','=' ,'kurikulum.id')
-        ->join('mata_kuliah' ,'mata_kuliah.id' , '=' ,'kurikulum_mata_kuliah.mata_kuliah_id')
-        ->leftJoin('nilai_mahasiswa', function ($join) use($id) {
+            ->join('mata_kuliah' ,'mata_kuliah.id' , '=' ,'kurikulum_mata_kuliah.mata_kuliah_id')
+            ->leftJoin('nilai_mahasiswa', function ($join) use($id) {
             $join->on('nilai_mahasiswa.mata_kuliah_id' ,'=','kurikulum_mata_kuliah.mata_kuliah_id')
             ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $id);
         })
         ->leftJoin('master_semester' , 'master_semester.id' ,'=' , 'nilai_mahasiswa.semester_id')
-        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah', 'nilai_mahasiswa.semester_id', 'master_semester.title as semester_title', 'nilai_mahasiswa.nilai_laporan', 'nilai_mahasiswa.nilai_laporan_pkl', 'nilai_mahasiswa.nilai_ujian')
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.sks_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah', 'nilai_mahasiswa.semester_id', 'master_semester.title as semester_title', 'nilai_mahasiswa.nilai_laporan', 'nilai_mahasiswa.nilai_laporan_pkl', 'nilai_mahasiswa.nilai_ujian')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->orderby('kurikulum_mata_kuliah.semester' , 'ASC')->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         return view("mahasiswa/transkrip" , compact("data" , "title" ,"mahasiswa"));
@@ -403,12 +401,12 @@ class JadwalPerkuliahan extends Controller
         $id = $kurikulum->id;
         $mahasiswa = DB::table('view_profile_mahasiswa')->where('id' , $id)->first();
         $data = KurikulumModel::rightJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.kurikulum_id','=' ,'kurikulum.id')
-        ->join('mata_kuliah' ,'mata_kuliah.id' , '=' ,'kurikulum_mata_kuliah.mata_kuliah_id')
-        ->leftJoin('nilai_mahasiswa', function ($join) use($id) {
+            ->join('mata_kuliah' ,'mata_kuliah.id' , '=' ,'kurikulum_mata_kuliah.mata_kuliah_id')
+            ->leftJoin('nilai_mahasiswa', function ($join) use($id) {
             $join->on('nilai_mahasiswa.mata_kuliah_id' ,'=','kurikulum_mata_kuliah.mata_kuliah_id')
             ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $id);
         })
-        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah','mata_kuliah.tipe_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas')
+        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah','mata_kuliah.tipe_mata_kuliah', 'mata_kuliah.sks_mata_kuliah' , 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas')
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->where('nilai_mahasiswa.semester_id' , $id_semester)->get();
         if(count($data) > 0){
             $i = 0;
@@ -548,7 +546,7 @@ class JadwalPerkuliahan extends Controller
             ->select('jadwal_ujian_mahasiswa_detail.id',
                 'mata_kuliah.kode_mata_kuliah',
                 'mata_kuliah.nama_mata_kuliah',
-                'mata_kuliah.bobot_mata_kuliah',
+                'mata_kuliah.sks_mata_kuliah as bobot_mata_kuliah',
                 'jadwal_ujian_mahasiswa.jam',
                 'jadwal_ujian_mahasiswa.selesai',
                 'jadwal_ujian_mahasiswa.tanggal_ujian',
@@ -593,14 +591,14 @@ class JadwalPerkuliahan extends Controller
         $id = $kurikulum->id;
         $mahasiswa = DB::table('view_profile_mahasiswa')->where('id' , $id)->first();
         $data = KurikulumModel::rightJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.kurikulum_id','=' ,'kurikulum.id')
-        ->join('mata_kuliah' ,'mata_kuliah.id' , '=' ,'kurikulum_mata_kuliah.mata_kuliah_id')
-        ->leftJoin('nilai_mahasiswa', function ($join) use($id) {
+            ->join('mata_kuliah' ,'mata_kuliah.id' , '=' ,'kurikulum_mata_kuliah.mata_kuliah_id')
+            ->leftJoin('nilai_mahasiswa', function ($join) use($id) {
             $join->on('nilai_mahasiswa.mata_kuliah_id' ,'=','kurikulum_mata_kuliah.mata_kuliah_id')
             ->Where('nilai_mahasiswa.mahasiswa_id' , '=' , $id);
         })
-        ->leftJoin('master_semester' , 'master_semester.id' ,'=' , 'nilai_mahasiswa.semester_id')
-        ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.bobot_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah', 'nilai_mahasiswa.semester_id', 'master_semester.title as semester_title')
-        ->where('kurikulum.id' , $kurikulum->kurikulum_id)->orderby('kurikulum_mata_kuliah.semester' , 'ASC')->get();
+            ->leftJoin('master_semester' , 'master_semester.id' ,'=' , 'nilai_mahasiswa.semester_id')
+            ->select('kurikulum_mata_kuliah.*' , 'kurikulum.nama_kurikulum' , 'mata_kuliah.nama_mata_kuliah', 'mata_kuliah.kode_mata_kuliah', 'mata_kuliah.sks_mata_kuliah' , 'nilai_mahasiswa.nilai_akhir', 'nilai_mahasiswa.nilai_uts', 'nilai_mahasiswa.nilai_tugas', 'nilai_mahasiswa.nilai_uas','mata_kuliah.tipe_mata_kuliah', 'nilai_mahasiswa.semester_id', 'master_semester.title as semester_title')
+            ->where('kurikulum.id' , $kurikulum->kurikulum_id)->orderby('kurikulum_mata_kuliah.semester' , 'ASC')->get();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
 
         $pdf = PDF::setPaper('legal','potrait')->loadView('mahasiswa/print_transkrip', compact("data" , "title" ,"mahasiswa" ,"report"));

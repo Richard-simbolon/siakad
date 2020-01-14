@@ -6,7 +6,12 @@ $(document).ready(function() {
     });
 
     $(document).on('click' , '#btn-search-nilai-matakuliah' , function(){
-        $('#nilaidatatable').DataTable().ajax.reload();
+        if($("#hdnjadwalIsiNilai")){
+            $('#nilaidatatableDisable').DataTable().ajax.reload();
+        }else{
+            $('#nilaidatatable').DataTable().ajax.reload();
+
+        }
     });
 
 
@@ -181,9 +186,7 @@ $(document).ready(function() {
 
         
     });
-
     
-
     $(document).on('change' , '.nilai_realtime' , function(){
         var this_ = $(this).attr('attr');
         var tipe = $(this).attr('char');

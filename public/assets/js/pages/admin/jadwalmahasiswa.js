@@ -80,7 +80,7 @@ $(document).ready(function() {
             { data: 'matakuliah_title', name: 'matakuliah_title' },
             { data: 'kelas_title', name: 'kelas_title' },
             { data: 'program_studi_title', name: 'program_studi_title' },
-            { data: 'sks_mata_kuliah', name: 'sks_mata_kuliah' },
+            { data: 'bobot_mata_kuliah', name: 'bobot_mata_kuliah' },
             { data: 'nama', name: 'nama' },
             { data: 'hari_id', name: 'hari_id', render: function(data, type, full, meta) {
                     return hari[full.hari_id];

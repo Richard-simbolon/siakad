@@ -6,8 +6,10 @@ use App\DosenModel;
 use App\JenisPegawaiModel;
 use App\KelasPerkuliahanModel;
 use App\PendidikanModel;
+use App\StatusKeaktifanPegawaiModel;
 use App\StatusMahasiswaModel;
 use App\SumberGajiModel;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -209,15 +211,15 @@ class DosenModule extends Controller
     public function kebutuhankhusus()
     {
         $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
-            ->join('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
-            ->join('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
+            ->leftjoin('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
+            ->leftjoin('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
             ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
             ->where('dosen.nidn_nup_nidk' , Auth::user()->id)->first();
 
         $master = array(
             'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
         );
-        $kebutuhan_selected = MahasiswaKebutuhanModel::where('mahasiswa_id' , $data['id'])->first();
+        $kebutuhan_selected = DosenKebutuhanModel::where('dosen_id' , $data['id'])->first();
         $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
         $menu['submenu'] = "kebutuhan_khusus";
         $exclude = static::$exclude;
@@ -230,15 +232,22 @@ class DosenModule extends Controller
         $data = $request->all();
         try{
             $data_kebutuhan_khusus = array(
+                'dosen_id' => $data['id'],
                 'row_status' => 'active',
-                'created_by' => 1,
-                'updated_by' => 1,
+                'created_by' => Auth::user()->nama,
+                'created_at' => date('Y-m-d'),
+                'updated_by' => Auth::user()->nama,
+                'updated_at' => date('Y-m-d'),
                 'kebutuhan_khusus' => array_key_exists('dosen_kh' , $data) ? json_encode(array('dosen' => $data['dosen_kh'])) : json_encode(array('dosen' =>[])),
                 'braile'=> $data['braile'],
                 'isyarat' => $data['isyarat'],
             );
-            DosenKebutuhanModel::where('dosen_id' , $data['id'])->update($data_kebutuhan_khusus);
 
+            if(DosenKebutuhanModel::where('dosen_id' , $data['id'])->first()){
+                DosenKebutuhanModel::where('dosen_id' , $data['id'])->update($data_kebutuhan_khusus);
+            }else{
+                DosenKebutuhanModel::firstOrCreate($data_kebutuhan_khusus);
+            }
             return json_encode(array('status' => true , 'message' => 'Data berhasil disimpan.'));
         } catch(\Exception $e){
             throw $e;
@@ -299,13 +308,14 @@ class DosenModule extends Controller
             'tahun_ajaran' => TahunAjaranModel::where('row_status' , 'active')->get(),
             'agama' => AgamaModel::where('row_status' , 'active')->get(),
             'pekerjaan' => PekerjaanModel::where('row_status' , 'active')->get(),
-            'status_pegawai' => StatusPegawaiModel::where('row_status' , 'active')->get(),
+            'status_pegawai' => StatusKeaktifanPegawaiModel::where('row_status' , 'active')->get(),
             'jenis_kelamin' => config('global.jenis_kelamin')
         );
         $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
-            ->join('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
-            ->join('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
-            ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
+            ->leftJoin('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
+            ->leftJoin('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
+            ->leftJoin('master_status_keaktifan_pegawai','master_status_keaktifan_pegawai.id', '=', 'dosen.status_pegawai')
+            ->select('dosen.*','master_status_keaktifan_pegawai.title as status', 'dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
             ->where('dosen.nidn_nup_nidk' , Auth::user()->id)->first();
 
         $penugasan = PenugasanModel::join('master_jurusan' , 'master_jurusan.id','=', 'dosen_penugasan.program_studi_id')
@@ -435,10 +445,11 @@ class DosenModule extends Controller
         );
 
         $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
-            ->join('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
-            ->join('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
-            ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
-            ->where('dosen.nidn_nup_nidk' , $nik)->first();
+            ->leftJoin('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
+            ->leftJoin('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
+            ->leftJoin('master_status_keaktifan_pegawai','master_status_keaktifan_pegawai.id', '=', 'dosen.status_pegawai')
+            ->select('dosen.*','master_status_keaktifan_pegawai.title as status', 'dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
+            ->where('dosen.nidn_nup_nidk' , Auth::user()->id)->first();
 
         $pengangkatan = PengangkatanModel::where('dosen_riwayat_kepangkatan.dosen_id' , $data['id'])->where('dosen_riwayat_kepangkatan.row_status' , 'active')->get();
 
@@ -494,10 +505,12 @@ class DosenModule extends Controller
             'jenis_kelamin' => config('global.jenis_kelamin')
         );
         $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
-            ->join('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
-            ->join('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
-            ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
-            ->where('dosen.nidn_nup_nidk' , $nik)->first();
+            ->leftJoin('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
+            ->leftJoin('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
+            ->leftJoin('master_status_keaktifan_pegawai','master_status_keaktifan_pegawai.id', '=', 'dosen.status_pegawai')
+            ->select('dosen.*','master_status_keaktifan_pegawai.title as status', 'dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
+            ->where('dosen.nidn_nup_nidk' , Auth::user()->id)->first();
+
         $pendidikan = RiwayatPendidikanModel::where('dosen_riwayat_pendidikan.dosen_id' , $data['id'])->where('dosen_riwayat_pendidikan.row_status' , 'active')->get();
 
         return view('/dosen/dosen_pendidikan' , compact('data' , 'master' , 'pendidikan'));
@@ -551,10 +564,12 @@ class DosenModule extends Controller
             'jenis_kelamin' => config('global.jenis_kelamin')
         );
         $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
-            ->join('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
-            ->join('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
-            ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
-            ->where('dosen.nidn_nup_nidk' , $nik)->first();
+            ->leftJoin('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
+            ->leftJoin('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
+            ->leftJoin('master_status_keaktifan_pegawai','master_status_keaktifan_pegawai.id', '=', 'dosen.status_pegawai')
+            ->select('dosen.*','master_status_keaktifan_pegawai.title as status', 'dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
+            ->where('dosen.nidn_nup_nidk' , Auth::user()->id)->first();
+
         $sertifikasi = RiwayatSertifikasiModel::where('dosen_riwayat_sertifikasi.dosen_id' , $data['id'])->where('dosen_riwayat_sertifikasi.row_status' , 'active')->get();
 
         return view('/dosen/dosen_sertifikasi' , compact('data' , 'master' , 'sertifikasi'));
@@ -605,10 +620,12 @@ class DosenModule extends Controller
             'jenis_kelamin' => config('global.jenis_kelamin')
         );
         $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
-            ->join('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
-            ->join('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
-            ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
-            ->where('dosen.nidn_nup_nidk' , $nik)->first();
+            ->leftJoin('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
+            ->leftJoin('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
+            ->leftJoin('master_status_keaktifan_pegawai','master_status_keaktifan_pegawai.id', '=', 'dosen.status_pegawai')
+            ->select('dosen.*','master_status_keaktifan_pegawai.title as status', 'dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
+            ->where('dosen.nidn_nup_nidk' , Auth::user()->id)->first();
+
         $penelitian = RiwayatPenelitianModel::where('dosen_riwayat_penelitian.dosen_id' , $data['id'])->where('dosen_riwayat_penelitian.row_status' , 'active')->get();
 
         return view('/dosen/dosen_penelitian' , compact('data' , 'master' , 'penelitian'));
@@ -659,10 +676,12 @@ class DosenModule extends Controller
             'jenis_kelamin' => config('global.jenis_kelamin')
         );
         $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
-            ->join('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
-            ->join('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
-            ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
-            ->where('dosen.nidn_nup_nidk' , $nik)->first();
+            ->leftJoin('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
+            ->leftJoin('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
+            ->leftJoin('master_status_keaktifan_pegawai','master_status_keaktifan_pegawai.id', '=', 'dosen.status_pegawai')
+            ->select('dosen.*','master_status_keaktifan_pegawai.title as status', 'dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
+            ->where('dosen.nidn_nup_nidk' , Auth::user()->id)->first();
+
         $fungsional = RiwayatFungsionalModel::where('dosen_riwayat_fungsional.dosen_id' , $data['id'])->where('dosen_riwayat_fungsional.row_status' , 'active')->get();
 
         return view('/dosen/dosen_fungsional' , compact('data' , 'master' , 'fungsional'));
@@ -738,16 +757,17 @@ class DosenModule extends Controller
             'kebutuhan' => KebutuhanKhususModel::where('row_status' , 'active')->get(),
             'agama' => AgamaModel::where('row_status' , 'active')->get(),
             'pekerjaan' => PekerjaanModel::where('row_status' , 'active')->get(),
-            'status_pegawai' => StatusPegawaiModel::where('row_status' , 'active')->get(),
+            'status_pegawai' => StatusKeaktifanPegawaiModel::where('row_status' , 'active')->get(),
             'jenis_kelamin' => config('global.jenis_kelamin')
         );
 
         $idTable ="tbl_dosen_aktivitas_mengajar";
 
         $data = DosenModel::join('master_agama', 'master_agama.id', '=', 'dosen.agama')
-            ->join('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
-            ->join('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
-            ->select('dosen.*','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
+            ->leftJoin('dosen_keluarga' , 'dosen_keluarga.dosen_id' ,'=' , 'dosen.id')
+            ->leftJoin('dosen_kebutuhan_khusus' , 'dosen_kebutuhan_khusus.dosen_id' , '=' , 'dosen.id')
+            ->leftJoin('master_status_keaktifan_pegawai','master_status_keaktifan_pegawai.id','dosen.status_pegawai')
+            ->select('dosen.*','master_status_keaktifan_pegawai.title as status_keaktifan','dosen_keluarga.pekerjaan' ,'dosen_keluarga.tmt_pns' ,'dosen_keluarga.nip_pasangan','dosen_keluarga.nama_pasangan','dosen_keluarga.status_pernikahan', 'master_agama.title' , 'dosen_kebutuhan_khusus.kebutuhan_khusus' , 'dosen_kebutuhan_khusus.braile' , 'dosen_kebutuhan_khusus.isyarat')
             ->where('dosen.nidn_nup_nidk' , $nik)->first();
         return view('/dosen/dosen_activity' , compact('data','master','idTable' ));
     }
@@ -765,7 +785,12 @@ class DosenModule extends Controller
         $master = array(
             'status' => StatusMahasiswaModel::where('row_status' , 'active')->get(),
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
-            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'angkatan' => MahasiswaModel::where('mahasiswa.row_status' , 'active')
+                ->join('master_semester','master_semester.id', '=', 'mahasiswa.id_periode_masuk')
+                ->select('master_semester.id_tahun_ajaran')
+                ->distinct()
+                ->orderBy('id_tahun_ajaran','desc')
+                ->get(),
             'kelas' => KelasModel::where('row_status' , 'active')->get()
         );
 
@@ -780,8 +805,8 @@ class DosenModule extends Controller
             ->join('master_jurusan', 'master_jurusan.id', '=', 'mahasiswa.jurusan_id')
             ->join('master_status_mahasiswa', 'master_status_mahasiswa.id', '=', 'mahasiswa.status')
             ->join('master_kelas','master_kelas.id', '=', 'mahasiswa.kelas_id')
-            ->join('master_angkatan', 'master_angkatan.id', '=', 'mahasiswa.angkatan')
-            ->select('mahasiswa.nim as nim', 'master_status_mahasiswa.title as status', 'mahasiswa.nama','mahasiswa.jk', 'master_jurusan.title as jurusan', 'master_angkatan.title as angkatan', 'master_kelas.title as kelas')
+            ->join('master_semester', 'master_semester.id', '=', 'mahasiswa.id_periode_masuk')
+            ->select('mahasiswa.nim as nim', 'master_status_mahasiswa.title as status', 'mahasiswa.nama','mahasiswa.jk', 'master_jurusan.title as jurusan', 'master_semester.id_tahun_ajaran as angkatan', 'master_kelas.title as kelas')
             ->where($where)
             ->get())->addIndexColumn()->make(true);
     }

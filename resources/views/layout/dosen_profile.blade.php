@@ -11,7 +11,7 @@
                 </a>
                 <span class="kt-widget__subtitle">
                     {{$data['tempat_lahir']}} <br/> {{$data['tanggal_lahir']}} <br/>
-                    {{ ucfirst($data['jenis_kelamin'])}}
+                    {{ ucfirst($data['jenis_kelamin'] == "L" ? "Laki-laki" : "Perempuan")}}
                 </span>
             </div>
         </div>
@@ -20,7 +20,7 @@
         <div class="kt-widget__content">
             <div class="kt-widget__info">
                 <span class="kt-widget__label"><i class="la la-user"></i> NIDN / NUP / NIDK:</span>
-                <span class="kt-widget__data"><b>{{$data['nik']}}</b></span>
+                <span class="kt-widget__data"><b>{{$data['nidn_nup_nidk']}}</b></span>
             </div>
             <div class="kt-widget__info">
                 <span class="kt-widget__label"><i class="la la-envelope"></i> Email:</span>

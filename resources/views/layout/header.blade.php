@@ -151,21 +151,50 @@
                             </div>
                         </a>
                         @endif
-                        <a href="javascript:void(0)" id="ganti_password_admin" class="kt-notification__item">
-                            <div class="kt-notification__item-icon">
-                                <i class="flaticon2-download kt-font-success"></i>
-                            </div>
-                            <div class="kt-notification__item-details">
-                                <div class="kt-notification__item-title kt-font-bold">
-                                    Panduan
+                        @if(Auth::user()->login_type == 'admin' || Auth::user()->login_type == 'jurusan')
+                            <a href="{{asset('/assets/media/panduan-akademik.pdf')}}" target="_blank" id="ganti_password_admin" class="kt-notification__item">
+                                <div class="kt-notification__item-icon">
+                                    <i class="flaticon2-download kt-font-success"></i>
                                 </div>
-                                <div class="kt-notification__item-time">
-                                    Download Panduan Penggunaan
+                                <div class="kt-notification__item-details">
+                                    <div class="kt-notification__item-title kt-font-bold">
+                                        Panduan
+                                    </div>
+                                    <div class="kt-notification__item-time">
+                                        Download Panduan Penggunaan
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        @elseif (Auth::user()->login_type == 'dosen')
+                            <a href="{{asset('/assets/media/panduan-dosen.pdf')}}" target="_blank" id="ganti_password_admin" class="kt-notification__item">
+                                <div class="kt-notification__item-icon">
+                                    <i class="flaticon2-download kt-font-success"></i>
+                                </div>
+                                <div class="kt-notification__item-details">
+                                    <div class="kt-notification__item-title kt-font-bold">
+                                        Panduan
+                                    </div>
+                                    <div class="kt-notification__item-time">
+                                        Download Panduan Penggunaan
+                                    </div>
+                                </div>
+                            </a>
+                        @elseif (Auth::user()->login_type == 'mahasiswa')
+                            <a href="{{asset('/assets/media/panduan-mahasiswa.pdf')}}" target="_blank" id="ganti_password_admin" class="kt-notification__item">
+                                <div class="kt-notification__item-icon">
+                                    <i class="flaticon2-download kt-font-success"></i>
+                                </div>
+                                <div class="kt-notification__item-details">
+                                    <div class="kt-notification__item-title kt-font-bold">
+                                        Panduan
+                                    </div>
+                                    <div class="kt-notification__item-time">
+                                        Download Panduan Penggunaan
+                                    </div>
+                                </div>
+                            </a>
+                        @endif
                         <div class="kt-notification__custom kt-space-between">
-
                             @guest
                             @else
                             <a href="{{ route('logout') }}"  onclick="event.preventDefault();
@@ -174,8 +203,6 @@
                                         @csrf
                                     </form>
                             @endguest
-
-                            
                         </div>
                     </div>
 

@@ -5,6 +5,7 @@ use App\DosenModel;
 use App\JurusanModel;
 use App\KelasModel;
 use App\KelasPerkuliahanModel;
+use App\MahasiswaModel;
 use App\SoalUjianModel;
 use App\StatusMahasiswaModel;
 use Illuminate\Support\Facades\Auth;
@@ -40,10 +41,17 @@ class DosenUploadUjian extends Controller
         $master = array(
             'status' => StatusMahasiswaModel::where('row_status' , 'active')->get(),
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
-            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'angkatan' => MahasiswaModel::where('mahasiswa.row_status' , 'active')
+                ->join('master_semester','master_semester.id', '=', 'mahasiswa.id_periode_masuk')
+                ->select('master_semester.id_tahun_ajaran')
+                ->distinct()
+                ->orderBy('id_tahun_ajaran','desc')
+                ->get(),
             'kelas' => KelasModel::where('row_status' , 'active')->get(),
             'dosen' => DosenModel::where('row_status', 'active'),
-            'semester'=>SemesterModel::where('row_status', 'active')->get(),
+            'semester'=> SemesterModel::where('row_status', 'active')
+                ->orderBy('id', 'desc')
+                ->get(),
         );
 
         return view("dosen/upload_soal", compact('master', 'data'));
@@ -56,9 +64,16 @@ class DosenUploadUjian extends Controller
         $master = array(
             'status' => StatusMahasiswaModel::where('row_status' , 'active')->get(),
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
-            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'angkatan' => MahasiswaModel::where('mahasiswa.row_status' , 'active')
+                ->join('master_semester','master_semester.id', '=', 'mahasiswa.id_periode_masuk')
+                ->select('master_semester.id_tahun_ajaran')
+                ->distinct()
+                ->orderBy('id_tahun_ajaran','desc')
+                ->get(),
             'kelas' => KelasModel::where('row_status' , 'active')->get(),
-            'semester'=>SemesterModel::where('status_semester', 'enable')->get(),
+            'semester'=> SemesterModel::where('row_status', 'active')
+                ->orderBy('id', 'desc')
+                ->get(),
             'matakuliah' => KelasPerkuliahanModel::where('kelas_perkuliahan.row_status', 'active')
                 ->where('kelas_perkuliahan_mata_kuliah.dosen_id', '=', $data['id'])
                 ->join('kelas_perkuliahan_mata_kuliah', 'kelas_perkuliahan_mata_kuliah.kelas_perkuliahan_id','kelas_perkuliahan.id')
@@ -132,9 +147,16 @@ class DosenUploadUjian extends Controller
         $master = array(
             'status' => StatusMahasiswaModel::where('row_status' , 'active')->get(),
             'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
-            'angkatan' => AngkatanModel::where('row_status' , 'active')->get(),
+            'angkatan' => MahasiswaModel::where('mahasiswa.row_status' , 'active')
+                ->join('master_semester','master_semester.id', '=', 'mahasiswa.id_periode_masuk')
+                ->select('master_semester.id_tahun_ajaran')
+                ->distinct()
+                ->orderBy('id_tahun_ajaran','desc')
+                ->get(),
             'kelas' => KelasModel::where('row_status' , 'active')->get(),
-            'semester'=>SemesterModel::where('status_semester', 'enable')->get(),
+            'semester'=> SemesterModel::where('row_status', 'active')
+                ->orderBy('id', 'desc')
+                ->get(),
             'matakuliah' => KelasPerkuliahanModel::where('kelas_perkuliahan.row_status', 'active')
                 ->where('kelas_perkuliahan_mata_kuliah.dosen_id', '=', $data['dosen_id'])
                 ->join('kelas_perkuliahan_mata_kuliah', 'kelas_perkuliahan_mata_kuliah.kelas_perkuliahan_id','kelas_perkuliahan.id')
@@ -218,8 +240,7 @@ class DosenUploadUjian extends Controller
             ->join('master_jurusan', 'master_jurusan.id', 'soal_ujian.jurusan_id')
             ->join('master_semester', 'master_semester.id', 'soal_ujian.semester_id')
             ->join('master_kelas', 'master_kelas.id', 'soal_ujian.kelas_id')
-            ->join('master_angkatan', 'master_angkatan.id', 'soal_ujian.angkatan_id')
-            ->select('soal_ujian.id','soal_ujian.jenis_ujian', 'soal_ujian.nama_file', 'mata_kuliah.kode_mata_kuliah','master_jurusan.title as jurusan','master_angkatan.title as angkatan','mata_kuliah.nama_mata_kuliah', 'master_semester.title as semester', 'master_kelas.title as kelas')
+            ->select('soal_ujian.id','soal_ujian.jenis_ujian', 'soal_ujian.nama_file', 'mata_kuliah.kode_mata_kuliah','master_jurusan.title as jurusan','master_semester.id_tahun_ajaran as angkatan','mata_kuliah.nama_mata_kuliah', 'master_semester.title as semester', 'master_kelas.title as kelas')
             ->orderBy('soal_ujian.id', 'desc')
             ->get())->addIndexColumn()->make(true);
     }

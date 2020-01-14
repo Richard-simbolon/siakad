@@ -12,9 +12,13 @@
             protected $guarded = [];
             public function scopeget_row(){
                 return [
-                    "id","updated_at" ,"created_at","created_by", "update_by"
+                    "id","row_status","mahasiswa_id","pendidikan_id","kategori","nik","nama","tempat_lahir","tanggal_lahir","pekerjaan_id","penghasilan","updated_at" ,"created_at","created_by", "update_by"
                  ];
              }
+
+            protected $fillable = [
+                "id","row_status","mahasiswa_id","pendidikan_id","kategori","nik","nama","tempat_lahir","tanggal_lahir","pekerjaan_id","penghasilan","updated_at" ,"created_at","created_by", "update_by"
+            ];
 
             /**************************************/
             /*COPY THIS FUNCTION TO YOUR MIGRATION*/

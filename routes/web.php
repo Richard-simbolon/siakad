@@ -44,6 +44,10 @@ Route::get('/data/mahasiswa/prestasi', 'MahasiswaModule@prestasi')->name('presta
 Route::get('/data/mahasiswa/kebutuhankhusus', 'MahasiswaModule@kebutuhankhusus')->name('kebutuhankhusus');
 Route::get('/data/mahasiswa/gantipassword', 'MahasiswaModule@gantipassword')->name('gantipassword');
 Route::get('/data/mahasiswa/tugasakhir', 'MahasiswaModule@tugasakhir')->name('tugasakhir');
+Route::get('/data/mahasiswa/get_prestasi/{id}', 'MahasiswaModule@get_prestasi')->name('get_prestasi');
+Route::get('/data/mahasiswa/delete_prestasi/{id}', 'MahasiswaModule@delete_prestasi')->name('delete_prestasi');
+Route::post('/data/mahasiswa/edit_prestasi', 'MahasiswaModule@edit_prestasi')->name('edit_prestasi');
+
 Route::post('/data/mahasiswa/submit_gantipassword', 'MahasiswaModule@submit_gantipassword')->name('submit_gantipassword');
 Route::post('/data/mahasiswa/prestasipaging', 'MahasiswaModule@prestasipaging')->name('prestasipaging');
 Route::post('/data/mahasiswa/delete', 'MahasiswaModule@delete')->name('delete');

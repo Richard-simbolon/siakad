@@ -353,7 +353,7 @@ $(document).ready(function(){
             success:function(result) {
                 $('#kelasperkuliahan').html('');
                 $('#kelasperkuliahan').html(result.html);
-                $('#nama-kurikulum').text(result.nama_kurikulum);
+                $('#nama-kurikulum').html(result.nama);
                 //$('#table-matakuliah').html(result.html);
                 $('.kt-select2').select2({
                     width:'100%'

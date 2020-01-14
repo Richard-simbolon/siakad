@@ -55,12 +55,12 @@
                                     </div>
                                     <div class="kt-widget__info">
                                         <div class="kt-widget__desc" style="display: inline-block!important;width: 100%;">
-                                            Angkatan {{$data['angkatan']}} <br/> {{$data['jurusan']}} <br/>
+                                            Angkatan : {{$data['angkatan']}} <br/> {{$data['jurusan']}} <br/>
 
                                         </div>
                                         <div class="kt-widget__progress">
                                             <div class="progress" style="height: 5px;width: 100%;">
-                                                <div class="progress-bar kt-bg-success" role="progressbar" style="width: 65%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                                                <div class="progress-bar kt-bg-success" role="progressbar" style="width: {{ $ip[2] == 0 ? 0 : ($total_sks_kurikulum / $ip[2])*100 }}%;" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                         </div>
                                     </div>

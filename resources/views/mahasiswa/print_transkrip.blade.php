@@ -306,7 +306,7 @@
                                             <td align="center"></td>
                                             <td></td>
                                             <td>INDEKS PRESTASI (IP)</td>
-                                            <td align="center" colspan="7">'.round($nipk / $sks ,2).'</td>
+                                            <td align="center" colspan="7">'.($sks == 0 ? 0 : round($nipk / $sks ,2)).'</td>
                                         </tr>
                                         <tr>
                                             <td align="center"></td>
@@ -322,7 +322,7 @@
                                         </tr>
                                     ';
                                     
-                                    $nipg[] = $nipk / $sks;
+                                    $nipg[] = $sks==0?0 : $nipk / $sks;
                             }
             
                             echo '  

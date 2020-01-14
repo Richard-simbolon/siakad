@@ -125,7 +125,7 @@
                                 <div class="row">
                                     <div class="col-xl-8">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="keyword" id="inputdata" placeholder="Kata kunci">
+                                            <input readonly onfocus="this.removeAttribute('readonly');" type="text" class="form-control" name="keyword" id="inputdata" placeholder="Kata kunci" autocomplete="off" />
                                         </div>
                                     </div>
                                 </div>
