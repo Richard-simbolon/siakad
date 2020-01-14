@@ -232,7 +232,7 @@ abstract class Controller
 
     public function check_auth_siakad(){
         //return $this->GetToken();
-        return '97424806cb24023b0f0c6f384b96bd6f';
+        return '2ddfcdd123827e6e497511c1815b2236';
         if(!Session::has('login_siakad')){
            Session::put('login_siakad', $this->GetToken());
         }

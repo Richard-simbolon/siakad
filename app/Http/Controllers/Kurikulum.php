@@ -34,8 +34,8 @@ class Kurikulum extends Controller
         'jumlah_sks' => 'jumlah_sks_lulus',
         'jumlah_bobot_mata_kuliah_wajib' => 'jumlah_sks_wajib',
         'jumlah_bobot_mata_kuliah_pilihan' => 'jumlah_sks_pilihan',
-        'jumlah_sks_mata_kuliah_wajib' => 'jumlah_sks_mata_kuliah_wajib',
-        'jumlah_sks_mata_kuliah_pilihan' => 'jumlah_sks_mata_kuliah_pilihan',
+        //'jumlah_sks_mata_kuliah_wajib' => 'jumlah_sks_mata_kuliah_wajib',
+        //'jumlah_sks_mata_kuliah_pilihan' => 'jumlah_sks_mata_kuliah_pilihan',
     ];
 
     static $webservicegetmatkul = [
@@ -149,67 +149,110 @@ class Kurikulum extends Controller
     }
 
     public function kurikulum_sinc(){
+        $data_sinc = KurikulumModel::select('id','id_kurikulum','row_status')->where("is_sinc" ,"0")->get();
+        $data = [];
         $token = $this->check_auth_siakad();
-        $data_sinc = KurikulumModel::select('id','id_matkul','row_status')->where("is_sinc" ,"0")->get();
-        
+       // echo $token; exit;
         foreach($data_sinc as $item){
-            $data = [];
-            $data_master = KurikulumModel::select('mata_kuliah.*' ,'master_jurusan.title as nama_program_studi')->join( 'master_jurusan' , 'mata_kuliah.id_prodi' , '=' ,'master_jurusan.id')->where('mata_kuliah.id' , '=' , $item->id)->first();
+            $data_master = KurikulumModel::where('id' , '=' , $item->id)->first();
             if($data_master){
-                foreach(static::$webservice as $key => $val){
+                foreach(static::$webserviceget as $key => $val){
                     $data[$val] = $data_master->$key;
                 }
             }
-
-            /*if($item->row_status != 'deleted'){
-                if(strlen($item->id_matkul) > 8){
-                    unset($data['id_matkul']);
-                    $action = array('act'=>"UpdateMataKuliah" , "token"=>$token ,'key' => array('id_matkul' => $item->id_matkul), "record"=> $data);
+            if($item->row_status != 'deleted'){
+                if(strlen($item->id_kurikulum) > 8){
+                    unset($data['id_kurikulum']);
+                    $action = array('act'=>"UpdateKurikulum" , "token"=>$token ,'key' => array('id_kurikulum' => $item->id_kurikulum), "record"=> $data);
                     $response = $this->runWS($action, 'json');
                     $res1 = json_decode($response);
-                    
                     if($res1->error_code != '0'){
                         DB::table('sinkronisasi')->update(array('last_sync_status'=>'gagal'))->where('sync_code' ,'sync_mata_kuliah_get');
-                        return json_encode(array('status'=>'error','message' => 'Terjadi kesalahan pada saat sinkron biodata mahasiswa dengan nama '.$data['nama_mahasiswa'].' error_desc '.$res1->error_desc));
+                        return json_encode(array('status'=>'error','message' => 'Terjadi kesalahan pada saat sinkron kurikulum perkuliahan : error_desc '.$res1->error_desc));
                     }else{
                         if(!KurikulumModel::where('id' ,$item->id)->update(array('is_sinc' =>'1'))){
                             DB::table('sinkronisasi_logs')
-                            ->insert(array('title' => 'InsertMataKuliah' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                            ->insert(array('title' => 'Update Kurikkulum' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
                         }
                     }
 
                 }else{
-                    unset($data['id_matkul']);
-                    $action = array('act'=>"InsertMataKuliah" , "token"=>$token, "record"=> $data);
+                    //echo 'exit';
+                    unset($data['id_kurikulum']);
+                    $action = array('act'=>"InsertKurikulum" , "token"=>$token, "record"=> $data);
                     $response = $this->runWS($action, 'json');
                     $result = json_decode($response , true);
-                    //print_r($result_mhs);
-                    $id_matkul = $result['data']['id_matkul'];
-                    if($id_matkul){
-                        if(!KurikulumModel::where('id' ,$item->id)->update(array('id_matkul'=>$id_matkul , 'is_sinc' =>'1'))){
+                    //print_r($result);
+                    $id_kurikulum = $result['data']['id_kurikulum'];
+                    
+                    if($id_kurikulum){
+                        if(!KurikulumModel::where('id' ,$item->id)->update(array('id_kurikulum'=>$id_kurikulum , 'is_sinc' =>'1'))){
                             DB::table('sinkronisasi_logs')
-                            ->insert(array('title' => 'InsertMataKuliah' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                            ->insert(array('title' => 'InsertKurikulum' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
                             return json_encode(array('status' => 'Error' , 'msg' => 'Data Tidak Berhasil Disinkronisai.'));
                         }
                     }
+                    $this->kurikulum_first_data_insert_matkul($id_kurikulum);
                 }
             }else{
-                if(strlen($item->id_matkul) > 8){
-                    $action = array('act'=>"DeleteMataKuliah" , "token"=>$token ,'key' => array('id_matkul' => $item->id_matkul));
+                if(strlen($item->id_kurikulum) > 8){
+                    $action = array('act'=>"DeleteKurikulum" , "token"=>$token ,'key' => array('id_kurikulum' => $item->id_kurikulum));
                     $response = $this->runWS($action, 'json');
                     $res1 = json_decode($response);
                     if(!KurikulumModel::where('id' ,$item->id)->update(array('is_sinc' =>'1'))){
                         DB::table('sinkronisasi_logs')
-                        ->insert(array('title' => 'InsertMataKuliah' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                        ->insert(array('title' => 'DeleteKurikulum' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
                         return json_encode(array('status' => 'Error' , 'msg' => 'Data Tidak Berhasil Disinkronisai.'));
                     }
                 }else{
                     KurikulumModel::where('id' ,$item->id)->update(array('is_sinc' =>'1'));
                 }
-            }*/
+            }
         }
         //DB::table('sinkronisasi')->where('sync_code','like','%sync_mata_kuliah_get%')->update(array('last_sync_status'=>'success'));
         //return json_encode(array('status' => 'Success' , 'msg' => 'Data Berhasil Disinkronisai.'));
+    }
+
+    public function kurikulum_first_data_insert_matkul($id_kurikulum){
+        //echo $id_kurikulum;
+        $token = $this->check_auth_siakad();
+        $matkul_data = DB::table('kurikulum_mata_kuliah')
+           ->select(
+               'kurikulum.id_kurikulum' ,
+               'mata_kuliah.id_matkul',
+               'kurikulum_mata_kuliah.mata_kuliah_id',
+               'kurikulum_mata_kuliah.semester',
+               'mata_kuliah.sks_mata_kuliah',
+               'mata_kuliah.sks_tatap_muka',
+               'mata_kuliah.sks_praktek',
+               'mata_kuliah.sks_praktek_lapangan',
+               'mata_kuliah.sks_simulasi',
+               'kurikulum_mata_kuliah.is_wajib'
+               )
+           ->leftJoin('kurikulum' ,'kurikulum.id' , '=' , 'kurikulum_mata_kuliah.kurikulum_id')
+           ->leftJoin('mata_kuliah' ,'kurikulum_mata_kuliah.mata_kuliah_id' , '=' , 'mata_kuliah.id')
+           ->where('kurikulum.id_kurikulum' , $id_kurikulum)->get();
+            //print_r($matkul_data);
+            foreach($matkul_data as $val){
+                $data = [
+                    'id_kurikulum' => $val->id_kurikulum,
+                    'id_matkul' => $val->id_matkul,
+                    'semester' => $val->semester,
+                    'sks_mata_kuliah' => $val->sks_mata_kuliah,
+                    'sks_tatap_muka' => $val->sks_tatap_muka,
+                    'sks_praktek' => $val->sks_praktek,
+                    'sks_praktek_lapangan' => $val->sks_praktek_lapangan,
+                    'sks_simulasi' => $val->sks_simulasi,
+                    'apakah_wajib' => $val->is_wajib
+
+                ];
+                $action = array('act'=>"InsertMatkulKurikulum" , "token"=>$token, "record"=> $data);
+                $response = $this->runWS($action, 'json');
+                $result = json_decode($response , true);
+                //print_r($result);
+            }
+            
+
     }
 
     public function sinc_kurikulum_mata_kuliah(){
@@ -262,6 +305,10 @@ class Kurikulum extends Controller
                 return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
             }
         }
+    }
+
+    public function kurikulum_matakuliah_sinc(){
+        
     }
 
     public function filtering_table(Request $request){
@@ -355,7 +402,8 @@ class Kurikulum extends Controller
                 'mulai_berlaku' =>$data['mulai_berlaku'],
                 'jumlah_sks' =>  (int)($data['jumlah_bobot_mk_wajib']) + (int)($data['jumlah_bobot_mk_pilihan']),
                 'jumlah_bobot_mata_kuliah_wajib' =>$data['jumlah_bobot_mk_wajib'],
-                'jumlah_bobot_mata_kuliah_pilihan' =>$data['jumlah_bobot_mk_pilihan']
+                'jumlah_bobot_mata_kuliah_pilihan' =>$data['jumlah_bobot_mk_pilihan'],
+                'is_sinc' => '0'
             );
             $kurikulum = KurikulumModel::create($master);
             $matakuliah = array();
@@ -381,6 +429,7 @@ class Kurikulum extends Controller
             //print_r($matakuliah);
             $insert_mk = DB::table('kurikulum_mata_kuliah')->insert($matakuliah);
             DB::commit();
+            $this->kurikulum_sinc();
             return json_encode(array('status' => 'success' , 'msg' => 'Data berhasil disimpan.'));
         } catch(\Exception $e){
             
@@ -433,7 +482,7 @@ class Kurikulum extends Controller
     public function carimatakuliah(Request $request){
         $post = $request->all();
         //print_r($post); exit;
-        $matakuliah = MataKuliahModel::where('program_studi_id' , $post['id'])
+        $matakuliah = MataKuliahModel::where('id_prodi' , $post['id'])
         ->where('row_status' , 'active')->get();
 
         //print_r($matakuliah); exit;
@@ -441,14 +490,14 @@ class Kurikulum extends Controller
         if($matakuliah){
             foreach($matakuliah as $item){
                 $html .= '<tr>
-                <td><input type="checkbox" attr="'.$item['bobot_mata_kuliah'].'" class="matakuliah-chck" name="matkulid['.$item['id'].'][id]" value="'.$item['id'].'"/></td>
+                <td><input type="checkbox" attr="'.$item['sks_mata_kuliah'].'" class="matakuliah-chck" name="matkulid['.$item['id'].'][id]" value="'.$item['id'].'"/></td>
                 <td>'.$item['kode_mata_kuliah'].'</td>
                 <td>'.$item['nama_mata_kuliah'].'</td>
-                <td align="center">'.$item['jenis_mata_kuliah'].'</td>
-                <td align="center">'.$item['bobot_tatap_muka'].'</td>
-                <td align="center">'.$item['bobot_praktikum'].'</td>
-                <td align="center">'.$item['bobot_praktek_lapangan'].'</td>
-                <td align="center">'.$item['bobot_simulasi'].'</td>
+                <td align="center">'.$item['sks_mata_kuliah'].'</td>
+                <td align="center">'.$item['sks_tatap_muka'].'</td>
+                <td align="center">'.$item['sks_praktek'].'</td>
+                <td align="center">'.$item['sks_praktek_lapangan'].'</td>
+                <td align="center">'.$item['sks_simulasi'].'</td>
                 <td align="center">
                     <select class="form-control form-control-sm" name="matkulid['.$item['id'].'][smstr]">
                         <option>1</option>
@@ -461,7 +510,7 @@ class Kurikulum extends Controller
                         <option>8</option>
                     </select>
                 </td>
-                <td align="center"><input class="wajib-chck" attr="'.$item['bobot_mata_kuliah'].'" type="checkbox" class="form-control-sm" name="matkulid['.$item['id'].'][wajib]" value="wajib"></td></td>
+                <td align="center"><input class="wajib-chck" attr="'.$item['sks_mata_kuliah'].'" type="checkbox" class="form-control-sm" name="matkulid['.$item['id'].'][wajib]" value="wajib"></td></td>
                 <!--dipakai untuk view-->
                 <!--<td align="center"><span class="flaticon2-cancel-music"></span> </td>-->
             </tr>';
@@ -490,6 +539,12 @@ class Kurikulum extends Controller
 
         DB::beginTransaction();
         try{
+
+           $last_kurikulum_data = DB::table('kurikulum_mata_kuliah')
+           ->select('kurikulum.id_kurikulum' ,'mata_kuliah.id_matkul','kurikulum_mata_kuliah.mata_kuliah_id')
+           ->leftJoin('kurikulum' ,'kurikulum.id' , '=' , 'kurikulum_mata_kuliah.kurikulum_id')
+           ->leftJoin('mata_kuliah' ,'kurikulum_mata_kuliah.mata_kuliah_id' , '=' , 'mata_kuliah.id')
+           ->where('kurikulum_id' , $kurikulum_id)->get();
            DB::table('kurikulum_mata_kuliah')->where('kurikulum_id' , $kurikulum_id)->delete();
             $master = array(
                 'nama_kurikulum' => $data['nama_kurikulum'],
@@ -497,7 +552,8 @@ class Kurikulum extends Controller
                 'mulai_berlaku' =>$data['mulai_berlaku'],
                 'jumlah_sks' =>  (int)($data['jumlah_bobot_mk_wajib']) + (int)($data['jumlah_bobot_mk_pilihan']),
                 'jumlah_bobot_mata_kuliah_wajib' =>$data['jumlah_bobot_mk_wajib'],
-                'jumlah_bobot_mata_kuliah_pilihan' =>$data['jumlah_bobot_mk_pilihan']
+                'jumlah_bobot_mata_kuliah_pilihan' =>$data['jumlah_bobot_mk_pilihan'],
+                'is_sinc' => '0'
             );
             KurikulumModel::where('id' , $kurikulum_id)->update($master);
             $matakuliah = array();
@@ -517,13 +573,20 @@ class Kurikulum extends Controller
                         );
                     }
                 }
+            }
+            
+            
+            DB::table('kurikulum_mata_kuliah')->insert($matakuliah);
+            DB::commit();
 
+            if($last_kurikulum_data){
+                $id_kur = KurikulumModel::select('id_kurikulum')->where('id' , $kurikulum_id)->first();
+                $response_sync = $this->sync_update_matkul($last_kurikulum_data , $id_kur->id_kurikulum);
+                if(!$response_sync){
+                    //return json_encode(array('status' => 'error' , 'msg' => 'Silahkan Sinkronisasi Tabel matakuliah terlebih dahulu'));
+                }
             }
 
-            //print_r($matakuliah);
-            DB::table('kurikulum_mata_kuliah')->insert($matakuliah);
-
-            DB::commit();
             return json_encode(array('status' => 'success' , 'msg' => 'Data berhasil disimpan.'));
         } catch(\Exception $e){
             
@@ -531,6 +594,27 @@ class Kurikulum extends Controller
             throw $e;
             return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan saat menyimpan, silahkan coba lagi.'));
         }
+    }
+
+
+    public function sync_update_matkul($data = array() , $kurikulum_id){
+        // DELETE FROM FORLAP
+        $token = $this->check_auth_siakad();
+        foreach($data as $key=>$val){
+            if(strlen($val->id_kurikulum ) > 8 && strlen($val->id_matkul ) > 8){
+                $data_delete = [
+                    'id_kurikulum' => $val->id_kurikulum,
+                    'id_matkul' => $val->id_matkul
+                ];
+                //print_r($data_delete);
+                $action = array('act'=>"DeleteMatkulKurikulum" , "token"=>$token, "key"=> $data_delete);
+                $response = $this->runWS($action, 'json');
+                $result = json_decode($response , true);
+                //print_r($result);
+            }   
+        }
+
+        $this->kurikulum_first_data_insert_matkul($kurikulum_id);
     }
 
 }

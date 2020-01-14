@@ -21,9 +21,6 @@ class AbsensiMahasiswaModel extends Model
             ];
         }
 
-
-
-
             /**************************************/
             /*COPY THIS FUNCTION TO YOUR MIGRATION*/
             /**************************************/

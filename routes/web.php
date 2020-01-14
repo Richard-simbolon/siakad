@@ -141,7 +141,7 @@ Route::post('dosen/activity_paging', 'Dosen@activity_paging')->name('activity_pa
 Route::post('/master/kelas/edit', 'Kelas@edit')->name('edit');
 Route::post('master/kelas/delete', 'Kelas@delete')->name('delete');
 Route::post('/kelas/listkurikulum', 'Kelas@listkurikulum')->name('ListKurikulum');
-Route::post('/kelas/listkelas', 'Kelas@listkelas')->name('ListKelas');
+Route::post('kelas/listkelas', 'Kelas@listkelas')->name('ListKelas');
 
 Route::post('/master/semester/activate', 'Semester@activate')->name('activate');
 
@@ -264,6 +264,9 @@ Route::get('sinc_insert', 'Mahasiswa@sinc_insert')->name('sinc_insert');
 Route::get('sinc_penugasan', 'Dosen@sinc_penugasan')->name('sinc_penugasan');
 //MATAKULIAH
 Route::get('add_mat_kul_sinc', 'Matakuliah@add_mat_kul_sinc')->name('add_mat_kul_sinc');
+
+// KELAS PERKULIAHAN
+Route::get('sinc_kelas_perkulaihan_mata_kuliah', 'KelasPerkuliahan@sinc_kelas_perkulaihan_mata_kuliah')->name('sinc_kelas_perkulaihan_mata_kuliah');
 
 Route::get('kurikulum_sinc', 'Kurikulum@kurikulum_sinc')->name('kurikulum_sinc');
 

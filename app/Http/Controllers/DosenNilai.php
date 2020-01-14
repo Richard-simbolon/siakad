@@ -118,6 +118,8 @@ class DosenNilai extends Controller
     public function edit($id){
         $dosen_id = DosenModel::where('nidn_nup_nidk' , Auth::user()->id)->first();
         $data = DB::table('view_input_nilai_mahasiswa')->where('id' , $id)->first();
+
+        //print_r($data); exit;
         if(!$data){
             return abort(404);
         }
@@ -136,9 +138,10 @@ class DosenNilai extends Controller
             ->where('nilai_mahasiswa.kelas_perkuliahan_detail_id' , $id)->get();
             
         }else{
-            $mahasiswa = MahasiswaModel::where('kelas_id' , $data->kelas_id)->where('status' , '1')->get();
+            //$mahasiswa = MahasiswaModel::where('kelas_id' , $data->kelas_id)->where('status' , '1')->get();
+            $mahasiswa = MahasiswaModel::where('kelas_id' , $data->kelas_id)->get();
         }
-        
+        //print_r($mahasiswa); exit;
         return view("dosen/Nilai_Mahasiswa_Update" , compact("data" ,"mahasiswa"));
     }
 

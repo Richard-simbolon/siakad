@@ -28,21 +28,21 @@ class Kelas extends Controller
 
                 static $exclude = ["id","created_at","updated_at","created_by","update_by"];
                 static $tablename = "Kelas";
-                public function __construct()
+                /*public function __construct()
                 {
                     $this->middleware(function ($request, $next) {
                         $this->user = Auth::user();
                         if(!$this->user){
                             Redirect::to('login')->send();
                         }
-                        if($this->user->login_type != 'admin'){
+                        if($this->user->login_type != 'admin' || $this->user->login_type != 'dosen'){
                             return abort(404);
                         }else{
                             return $next($request);
                         }
                     });
                     
-                }
+                }*/
                 public function index()
                 {
                     $data = KelasModel::where('row_status', 'active')->get();
@@ -171,7 +171,6 @@ class Kelas extends Controller
 
                 public function listkelas(Request $request){
                     $post = $request->all();
-                    //print_r($post); exit;
                     $kelas = KelasModel::where('row_status' , 'active')
                     ->where('jurusan_id',$post['jurusan'])
                     ->where('angkatan_id',$post['angkatan'])
