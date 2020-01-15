@@ -210,6 +210,9 @@
                         url:url,
                         dataType:'json',
                         success:function(result) {
+                            
+                            console.log(result);
+
                             if(result.status == 'error'){
                                 Swal.fire({
                                     title: 'Sinkronisasi Data',

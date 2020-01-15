@@ -263,11 +263,11 @@ Route::get('/home/getcalender', 'HomeController@getcalender')->name('getcalender
 // WEB SERVICE
 // MAHSISWA
 Route::get('sinc_riwayat_pend', 'Mahasiswa@sinc_riwayat_pend')->name('sinc_riwayat_pend');
-Route::get('sinc_insert', 'Mahasiswa@sinc_insert')->name('sinc_insert');
+Route::get('sync_mahasiswa', 'Mahasiswa@sinc_insert')->name('sinc_insert');
 // DOSEN
 Route::get('sinc_penugasan', 'Dosen@sinc_penugasan')->name('sinc_penugasan');
 //MATAKULIAH
-Route::get('add_mat_kul_sinc', 'Matakuliah@add_mat_kul_sinc')->name('add_mat_kul_sinc');
+Route::get('sync_mata_kuliah', 'Matakuliah@add_mat_kul_sinc')->name('sync_mata_kuliah');
 
 // KELAS PERKULIAHAN
 Route::get('sinc_kelas_perkulaihan_mata_kuliah', 'KelasPerkuliahan@sinc_kelas_perkulaihan_mata_kuliah')->name('sinc_kelas_perkulaihan_mata_kuliah');

@@ -206,7 +206,7 @@ class KelasPerkuliahan extends Controller
                         $action = array('act'=>"DeleteDosenPengajarKelasKuliah" , "token"=>$token ,'key' => array('id_aktivitas_mengajar' => $item->id_aktivitas_mengajar));
                         $response = $this->runWS($action, 'json');
                         $result = json_decode($response , true);
-                        print_r($result);
+                        //print_r($result);
                     }
                     // hapus mahasiswa jika ada
                     $data_mahasiswa_per_kelas = AbsensiMahasiswaModel::select('mahasiswa.id_registrasi_mahasiswa as id_registrasi_mahasiswa')
@@ -214,19 +214,20 @@ class KelasPerkuliahan extends Controller
                     ->leftJoin('mahasiswa' , 'mahasiswa.id' ,'absensi_mahasiswa_detail.mahasiswa_id')
                     ->where('kelas_perkuliahan_detail_id' , '38')->groupBy('absensi_mahasiswa_detail.mahasiswa_id')->get();
                     if($data_mahasiswa_per_kelas){
+                        // hapus nilai mahasiswa
                         // hapus semua mahasiswa
                         foreach($data_mahasiswa_per_kelas as $m_item){
                             $action = array('act'=>"DeletePesertaKelasKuliah" , "token"=>$token , "key"=> array('id_kelas_kuliah' => $item->id_kelas_kuliah , 'id_registrasi_mahasiswa' => $m_item->id_registrasi_mahasiswa));
                             $response = $this->runWS($action, 'json');
                             $result = json_decode($response , true);
-                            print_r($result);
+                            //print_r($result);
                         }
                     }
 
                     $action = array('act'=>"DeleteKelasKuliah" , "token"=>$token ,'key' => array('id_kelas_kuliah' => $item->id_kelas_kuliah));
                     $response = $this->runWS($action, 'json');
                     $result = json_decode($response , true);
-                    print_r($result);
+                    //print_r($result);
                     if($result['error_code'] != '0'){
                         if(!DB::table('kelas_perkuliahan_mata_kuliah')->where('id' ,$item->id)->update(array('is_sinc' =>'0'))){
                             DB::table('sinkronisasi_logs')
@@ -247,7 +248,6 @@ class KelasPerkuliahan extends Controller
     }
 
     public function sinc_mahasiswa_kelas_perkuliahan($data){
-        print_r($data);
         $token = $this->check_auth_siakad();
         $data_mahasiswa_per_kelas = 
         AbsensiMahasiswaModel::select('mahasiswa.id_registrasi_mahasiswa as id_registrasi_mahasiswa' , 'mahasiswa.id')
@@ -261,7 +261,7 @@ class KelasPerkuliahan extends Controller
                 $response = $this->runWS($action, 'json');
                 $result = json_decode($response , true);
                 //print_r($result);
-                if($result['error_code'] != '0'){
+                if($result['error_code'] == '0'){
                     $nilai = NilaiMahasiswaModel::where('kelas_perkuliahan_detail_id' ,$data->id)->where('mahasiswa_id' ,$m_item->id)->first();
                     if($nilai){
                         $nangka = 0;
@@ -310,14 +310,8 @@ class KelasPerkuliahan extends Controller
                         $nhuruf = 'E';
                         $nindex = 0;
                     }
-                    
-                    echo $nhuruf;
-
                     $update_nilai = array('act'=>"UpdateNilaiPerkuliahanKelas" , "token"=>$token , "key"=> array('id_kelas_kuliah' => $data->id_kelas_kuliah , 'id_registrasi_mahasiswa' => $m_item->id_registrasi_mahasiswa) , 'record' => array('nilai_angka' => $nangka , 'nilai_huruf'=>$nhuruf ,'nilai_indeks'=>$nindex));
                     $response_nilai = $this->runWS($update_nilai, 'json');
-                    //$result = json_decode($response_nilai , true);
-                    print_r(json_decode($response_nilai , true));
-
                 }
 
             }
@@ -339,7 +333,7 @@ class KelasPerkuliahan extends Controller
             $action = array('act'=>"InsertDosenPengajarKelasKuliah" , "token"=>$token, "record"=> $data_dosen_pengajar);
             $response = $this->runWS($action, 'json');
             $result = json_decode($response , true);
-            print_r($result);
+            //print_r($result);
             $id_aktivitas_mengajar = $result['data']['id_aktivitas_mengajar'];
             //DB::table('kelas_perkuliahan_mata_kuliah')->where('id' ,$data->id)->update(array('id_kelas_kuliah'=>$id_aktivitas_mengajar));
             DB::table('kelas_perkuliahan_mata_kuliah')->where('id' ,$data->id)->update(array('id_aktivitas_mengajar'=>$id_aktivitas_mengajar));
@@ -361,7 +355,7 @@ class KelasPerkuliahan extends Controller
                 $action = array('act'=>"UpdateDosenPengajarKelasKuliah" , "token"=>$token, 'key' => array('id_aktivitas_mengajar' => $data->id_aktivitas_mengajar), "record"=> $data_dosen_pengajar);
                 $response = $this->runWS($action, 'json');
                 $result = json_decode($response , true);
-                print_r($result);
+                //print_r($result);
                 //$id_aktivitas_mengajar = $result['data']['id_aktivitas_mengajar'];
                 //echo $id_aktivitas_mengajar;
                 //DB::table('kelas_perkuliahan_mata_kuliah')->where('id' ,$data->id)->update(array('id_aktivitas_mengajar'=>$id_aktivitas_mengajar));

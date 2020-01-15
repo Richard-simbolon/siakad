@@ -175,10 +175,6 @@ class Kelas extends Controller
 
                 public function listkelas(Request $request){
                     $post = $request->all();
-<<<<<<< HEAD
-=======
-
->>>>>>> a9efd3b2277153b84fd6b85cf2dbcb0b75b8dbd1
                     $kelas = KelasModel::where('row_status' , 'active')
                     ->where('jurusan_id',$post['jurusan'])
                     ->where('angkatan_id',$post['angkatan'])

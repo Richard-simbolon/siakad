@@ -147,12 +147,13 @@ class Kurikulum extends Controller
             }
         }
     }
+    
 
     public function kurikulum_sinc(){
         $data_sinc = KurikulumModel::select('id','id_kurikulum','row_status')->where("is_sinc" ,"0")->get();
         $data = [];
         $token = $this->check_auth_siakad();
-       // echo $token; exit;
+        //echo $token; exit;
         foreach($data_sinc as $item){
             $data_master = KurikulumModel::where('id' , '=' , $item->id)->first();
             if($data_master){
@@ -175,7 +176,6 @@ class Kurikulum extends Controller
                             ->insert(array('title' => 'Update Kurikkulum' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
                         }
                     }
-
                 }else{
                     //echo 'exit';
                     unset($data['id_kurikulum']);
@@ -189,7 +189,7 @@ class Kurikulum extends Controller
                         if(!KurikulumModel::where('id' ,$item->id)->update(array('id_kurikulum'=>$id_kurikulum , 'is_sinc' =>'1'))){
                             DB::table('sinkronisasi_logs')
                             ->insert(array('title' => 'InsertKurikulum' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
-                            return json_encode(array('status' => 'Error' , 'msg' => 'Data Tidak Berhasil Disinkronisai.'));
+                            return json_encode(array('status' => 'error' , 'msg' => 'Data Tidak Berhasil Disinkronisai.'));
                         }
                     }
                     $this->kurikulum_first_data_insert_matkul($id_kurikulum);
@@ -202,7 +202,7 @@ class Kurikulum extends Controller
                     if(!KurikulumModel::where('id' ,$item->id)->update(array('is_sinc' =>'1'))){
                         DB::table('sinkronisasi_logs')
                         ->insert(array('title' => 'DeleteKurikulum' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
-                        return json_encode(array('status' => 'Error' , 'msg' => 'Data Tidak Berhasil Disinkronisai.'));
+                        return json_encode(array('status' => 'error' , 'msg' => 'Data Tidak Berhasil Disinkronisai.'));
                     }
                 }else{
                     KurikulumModel::where('id' ,$item->id)->update(array('is_sinc' =>'1'));

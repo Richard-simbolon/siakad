@@ -365,11 +365,11 @@
                                         <div class="kt-portlet__head">
                                             <div class="kt-portlet__head-toolbar">
                                                 <ul class="nav nav-tabs nav-tabs-bold nav-tabs-line   nav-tabs-line-right nav-tabs-line-brand" role="tablist">
-                                                    {{--<li class="nav-item">--}}
-                                                        {{--<a class="nav-link active" data-toggle="tab" href="#kt_portlet_history_pendaftaran" role="tab">--}}
-                                                            {{--History Pendaftaran--}}
-                                                        {{--</a>--}}
-                                                    {{--</li>--}}
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" data-toggle="tab" href="#kt_portlet_history_pendaftaran" role="tab">
+                                                            History Pendaftaran
+                                                        </a>
+                                                    </li>
                                                     <li class="nav-item">
                                                         <a class="nav-link active" data-toggle="tab" href="#kt_portlet_alamat" role="tab">
                                                             Alamat
@@ -395,59 +395,59 @@
                                         </div>
                                         <div class="kt-portlet__body">
                                             <div class="tab-content">
-                                                {{--<div class="tab-pane active" id="kt_portlet_history_pendaftaran">--}}
-                                                    {{--<div class="row">--}}
-                                                        {{--<div class="col-xl-6">--}}
-                                                            {{--<div class="form-group">--}}
-                                                                {{--<label>Jenis Pendaftaran *</label>--}}
-                                                                {{--<select name="mahasiswa[jenis_pendaftaran]"  class="form-control">--}}
-                                                                    {{--<option value="">-- Jenis Pendaftaran --</option>--}}
-                                                                    {{--@foreach ($master['jenis_pendaftaran'] as $item)--}}
-                                                                        {{--<option value="{{$item['id']}}" {{$item['id'] == $data['jenis_pendaftaran'] ? 'selected' : ''}} >{{$item['title']}}</option>--}}
-                                                                    {{--@endforeach--}}
-                                                                {{--</select>--}}
-                                                            {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--<div class="col-xl-6">--}}
-                                                            {{--<div class="form-group">--}}
-                                                                {{--<label>Jalur Pendaftaran</label>--}}
-                                                                {{--<select name="mahasiswa[jalur_pendaftaran]" class="form-control">--}}
-                                                                    {{--<option value="">-- Jalur Pendaftaran --</option>--}}
-                                                                    {{--@foreach ($master['jalur_pendaftaran'] as $item)--}}
-                                                                        {{--<option value="{{$item['id']}}" {{$item['id'] == $data['jalur_pendaftaran'] ? 'selected' : ''}} >{{$item['title']}}</option>--}}
-                                                                    {{--@endforeach--}}
-                                                                {{--</select>--}}
-                                                            {{--</div>--}}
-                                                        {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--<div class="row">--}}
-                                                        {{--<div class="col-xl-6">--}}
-                                                            {{--<div class="form-group">--}}
-                                                                {{--<label>Tanggal Masuk *</label>--}}
-                                                            {{--<input type="date" class="form-control" name="mahasiswa[tanggal_masuk]" placeholder="Tanggal Masuk" value="{{$data['tanggal_masuk']}}">--}}
-                                                            {{--</div>--}}
-                                                        {{--</div>--}}
-                                                        {{--<div class="col-xl-6">--}}
-                                                            {{--<div class="form-group">--}}
-                                                                {{--<label>Pembiayaan Awal</label>--}}
-                                                                {{--<select name="mahasiswa[jenis_pembiayaan]" class="form-control">--}}
-                                                                    {{--<option value="">-- Jenis Pembiayaan --</option>--}}
-                                                                    {{--@foreach ($master['jenis_pembiayaan'] as $item)--}}
-                                                                        {{--<option value="{{$item['id']}}" {{$item['id'] == $data['jenis_pembiayaan'] ? 'selected' : ''}} >{{$item['title']}}</option>--}}
-                                                                    {{--@endforeach--}}
-                                                                {{--</select>--}}
-                                                            {{--</div>--}}
-                                                        {{--</div>--}}
-                                                    {{--</div>--}}
-                                                    {{--<div class="row">--}}
-                                                        {{--<div class="col-xl-6">--}}
-                                                            {{--<div class="form-group">--}}
-                                                                {{--<label>Biaya Masuk </label>--}}
-                                                            {{--<input type="text" class="form-control" name="mahasiswa[biaya_masuk]" placeholder="Isikan Biaya Masuk" value="{{$data['biaya_masuk']}}">--}}
-                                                            {{--</div>--}}
-                                                        {{--</div>--}}
-                                                    {{--</div>--}}
-                                                {{--</div>--}}
+                                                <div class="tab-pane" id="kt_portlet_history_pendaftaran">
+                                                    <div class="row">
+                                                        <div class="col-xl-6">
+                                                            <div class="form-group">
+                                                                <label>Jenis Pendaftaran *</label>
+                                                                <select name="mahasiswa[jenis_pendaftaran]"  class="form-control">
+                                                                    <option value="">-- Jenis Pendaftaran --</option>
+                                                                    @foreach ($master['jenis_pendaftaran'] as $item)
+                                                                        <option value="{{$item['id']}}" {{$item['id'] == $data['jenis_pendaftaran'] ? 'selected' : ''}} >{{$item['title']}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6">
+                                                            <div class="form-group">
+                                                                <label>Jalur Pendaftaran</label>
+                                                                <select name="mahasiswa[jalur_pendaftaran]" class="form-control">
+                                                                    <option value="">-- Jalur Pendaftaran --</option>
+                                                                    @foreach ($master['jalur_pendaftaran'] as $item)
+                                                                        <option value="{{$item['id']}}" {{$item['id'] == $data['jalur_pendaftaran'] ? 'selected' : ''}} >{{$item['title']}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xl-6">
+                                                            <div class="form-group">
+                                                                <label>Tanggal Masuk *</label>
+                                                            <input type="date" class="form-control" name="mahasiswa[tanggal_masuk]" placeholder="Tanggal Masuk" value="{{$data['tanggal_masuk']}}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xl-6">
+                                                            <div class="form-group">
+                                                                <label>Pembiayaan Awal</label>
+                                                                <select name="mahasiswa[jenis_pembiayaan]" class="form-control">
+                                                                    <option value="">-- Jenis Pembiayaan --</option>
+                                                                    @foreach ($master['jenis_pembiayaan'] as $item)
+                                                                        <option value="{{$item['id']}}" {{$item['id'] == $data['jenis_pembiayaan'] ? 'selected' : ''}} >{{$item['title']}}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xl-6">
+                                                            <div class="form-group">
+                                                                <label>Biaya Masuk </label>
+                                                            <input type="text" class="form-control" name="mahasiswa[biaya_masuk]" placeholder="Isikan Biaya Masuk" value="{{$data['biaya_masuk']}}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
                                                 <div class="tab-pane active" id="kt_portlet_alamat">
                                                     <div class="row">
@@ -469,7 +469,12 @@
                                                         <div class="col-lg-6">
                                                             <div class="form-group">
                                                                 <label>Kewarganegaraan *</label>
-                                                                <input type="text" class="form-control" name="mahasiswa[kewarganegaraan]" placeholder="Isikan Kewarganegaraan" value="{{$data['kewarganegaraan']}}">
+                                                                <select name="mahasiswa[kewarganegaraan]" class="form-control kt-select2">
+                                                                    <option value="">-- Kewarganegaraan --</option>
+                                                                    @foreach ($master['negara'] as $item)
+                                                                    <option value="{{$item['code']}}" {{$item['code'] == $data['kewarganegaraan'] ? 'selected' : ''}}>{{$item['title']}}</option>
+                                                                    @endforeach
+                                                            </select>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -507,7 +512,12 @@
                                                         <div class="col-lg-4">
                                                             <div class="form-group">
                                                                 <label>Kecamatan</label>
-                                                                <input type="text" class="form-control" name="mahasiswa[kecamatan]" placeholder="Isikan Kecamatan" value="{{$data['kecamatan']}}">
+                                                                <select name="mahasiswa[id_wilayah]" class="form-control kt-select2">
+                                                                    <option value="">-- Kecamatan --</option>
+                                                                    @foreach ($master['wilayah'] as $item)
+                                                                    <option value="{{$item['id']}}" {{$item['id'] == $data['id_wilayah'] ? 'selected' : ''}}>{{$item['title']}}</option>
+                                                                    @endforeach
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-4">

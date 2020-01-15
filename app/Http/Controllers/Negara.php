@@ -32,6 +32,7 @@ class Negara extends Controller
                 }
                 public function sinc(){
                     $token = $this->check_auth_siakad();
+                    //echo $token; exit;
                     $data = array('act'=>"GetNegara" , "token"=>$token, "filter"=> "","limit"=>"" , "offset" =>0);
                     $result_string = $this->runWS($data, 'json');
                     
@@ -43,7 +44,7 @@ class Negara extends Controller
                             DB::beginTransaction();
                             try{
                                 foreach($result['data'] as $item){
-                                    NegaraModel::updateOrInsert(array('id'=> $item['id_negara'], 'title'=>$item['nama_negara']));
+                                    NegaraModel::updateOrInsert(array('code'=> $item['id_negara'], 'title'=>$item['nama_negara']));
                                 }
                                 DB::commit();
                                 DB::table('sinkronisasi_logs')

@@ -11,6 +11,7 @@ use App\JenisMatakuliahModel;
 use Yajra\DataTables\DataTables;
 Use File;
 use Illuminate\Support\Facades\Redirect;
+use App\SinkronisasiModel;
 
 class MataKuliah extends Controller
 {
@@ -144,7 +145,8 @@ class MataKuliah extends Controller
         $token = $this->check_auth_siakad();
         //echo $token; exit;
         //$table_display = DB::getSchemaBuilder()->getColumnListing("mata_kuliah");
-        $data_sinc = MataKuliahModel::select('id','id_matkul','row_status')->where("is_sinc" ,"0")->get();
+        $data_sinc = MataKuliahModel::select('id','id_matkul','row_status' ,'kode_mata_kuliah')->where("is_sinc" ,"0")->get();
+        //print_r($data_sinc); exit;
         foreach($data_sinc as $item){
             $data = [];
             $data_master = MataKuliahModel::select('mata_kuliah.*' ,'master_jurusan.title as nama_program_studi')->join( 'master_jurusan' , 'mata_kuliah.id_prodi' , '=' ,'master_jurusan.id')->where('mata_kuliah.id' , '=' , $item->id)->first();
@@ -158,16 +160,12 @@ class MataKuliah extends Controller
                     unset($data['id_matkul']);
                     $action = array('act'=>"UpdateMataKuliah" , "token"=>$token ,'key' => array('id_matkul' => $item->id_matkul), "record"=> $data);
                     $response = $this->runWS($action, 'json');
-                    $res1 = json_decode($response);
-                    
-                    if($res1->error_code != '0'){
-                        DB::table('sinkronisasi')->update(array('last_sync_status'=>'gagal'))->where('sync_code' ,'sync_mata_kuliah_get');
-                        return json_encode(array('status'=>'error','message' => 'Terjadi kesalahan pada saat sinkron biodata mahasiswa dengan nama '.$data['nama_mahasiswa'].' error_desc '.$res1->error_desc));
-                    }else{
-                        if(!MataKuliahModel::where('id' ,$item->id)->update(array('is_sinc' =>'1'))){
-                            DB::table('sinkronisasi_logs')
-                            ->insert(array('title' => 'InsertMataKuliah' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
-                        }
+                    $res1 = json_decode($response , true);
+                    //print_r($res1); exit;
+                    if($res1['error_code'] == '0'){
+                        MataKuliahModel::where('id' ,$item->id)->update(array('is_sinc' =>'1'));
+                    }else{                        
+                        return $this->fail_sync('InsertMataKuliah' , 'Terjadi kesalahan pada saat sinkron matakuliah dengan kode <b>'.$item->kode_mata_kuliah.'</b> . '.$res1['error_desc']);
                     }
 
                 }else{
@@ -176,32 +174,52 @@ class MataKuliah extends Controller
                     $response = $this->runWS($action, 'json');
                     $result = json_decode($response , true);
                     //print_r($result_mhs);
-                    $id_matkul = $result['data']['id_matkul'];
-                    if($id_matkul){
-                        if(!MataKuliahModel::where('id' ,$item->id)->update(array('id_matkul'=>$id_matkul , 'is_sinc' =>'1'))){
-                            DB::table('sinkronisasi_logs')
-                            ->insert(array('title' => 'InsertMataKuliah' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
-                            return json_encode(array('status' => 'Error' , 'msg' => 'Data Tidak Berhasil Disinkronisai.'));
+                    
+                    if($result['error_code'] == '0'){
+                        $id_matkul = $result['data']['id_matkul'];
+                        if($id_matkul){
+                            if(!MataKuliahModel::where('id' ,$item->id)->update(array('id_matkul'=>$id_matkul , 'is_sinc' =>'1'))){
+                                DB::table('sinkronisasi_logs')
+                                ->insert(array('title' => 'InsertMataKuliah' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                                return json_encode(array('status' => 'error' , 'msg' => 'Data Tidak Berhasil Disinkronisai.'));
+                            }
                         }
+                    }else{
+                        return $this->fail_sync('InsertMataKuliah' , 'Terjadi kesalahan pada saat sinkron matakuliah dengan kode <b>'.$item->kode_mata_kuliah.'</b> . '.$result['error_desc']);
                     }
                 }
             }else{
                 if(strlen($item->id_matkul) > 8){
                     $action = array('act'=>"DeleteMataKuliah" , "token"=>$token ,'key' => array('id_matkul' => $item->id_matkul));
                     $response = $this->runWS($action, 'json');
-                    $res1 = json_decode($response);
-                    if(!MataKuliahModel::where('id' ,$item->id)->update(array('is_sinc' =>'1'))){
-                        DB::table('sinkronisasi_logs')
-                        ->insert(array('title' => 'InsertMataKuliah' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
-                        return json_encode(array('status' => 'Error' , 'msg' => 'Data Tidak Berhasil Disinkronisai.'));
+                    $res1 = json_decode($response , true);
+                    if($res1['error_code'] == '0'){
+                        MataKuliahModel::where('id' ,$item->id)->update(array('is_sinc' =>'1' , 'id_matkul' => ''));
+                    }else{
+                        return $this->fail_sync('InsertMataKuliah' , 'Terjadi kesalahan pada saat sinkron matakuliah dengan kode <b>'.$item->kode_mata_kuliah.'</b> . '.$res1['error_desc']);
                     }
                 }else{
                     MataKuliahModel::where('id' ,$item->id)->update(array('is_sinc' =>'1'));
                 }
             }
         }
-        DB::table('sinkronisasi')->where('sync_code','like','%sync_mata_kuliah_get%')->update(array('last_sync_status'=>'success'));
-        return json_encode(array('status' => 'Success' , 'msg' => 'Data Berhasil Disinkronisai.'));
+        return $this->success_sync();
+        //DB::table('sinkronisasi')->where('sync_code','like','%sync_mata_kuliah_get%')->update(array('last_sync_status'=>'success'));
+        //return json_encode(array('status' => 'Success' , 'msg' => 'Data Berhasil Disinkronisai.'));
+    }
+
+    public function success_sync(){
+        SinkronisasiModel::where('sync_code' ,'like','%sync_mata_kuliah%')->update(array('last_sync_status'=>'sukses'));
+        DB::table('sinkronisasi_logs')
+                    ->insert(array('title' => 'Sinkronisasi Matakuliah Sukses' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s') , 'message' => 'Data Matakuliah berhasil di sinkronisasi'));
+        return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
+    }
+
+    public function fail_sync($api = '' , $response = ''){
+        SinkronisasiModel::where('sync_code' ,'like','%sync_mata_kuliah%')->update(array('last_sync_status'=>'gagal'));
+        DB::table('sinkronisasi_logs')
+                    ->insert(array('title' => $api ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s') , 'message' => $response));
+        return json_encode(array('status' => 'error' , 'msg' => $response));
     }
 
     public function create(){
