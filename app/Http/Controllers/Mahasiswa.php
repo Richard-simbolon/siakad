@@ -635,6 +635,7 @@ class Mahasiswa extends Controller
 
     public function update(Request $request){
         $data = $request->all();
+        //print_r($data); exit;
         $id = $data['mahasiswa']['id'];
         unset($data['mahasiswa']['id']);
         if($id != '' ){
@@ -669,6 +670,7 @@ class Mahasiswa extends Controller
                     }else{
                         $data['mahasiswa']['is_penerima_kps'] = '0';
                     }
+                    $data['mahasiswa']['is_sinc'] = '0'; 
                     $mahasiswa = MahasiswaModel::where('id' , $id)->update($data['mahasiswa']);
                 }
                 // SAVE TO TABLE mahasiswa_orang_tua_wali

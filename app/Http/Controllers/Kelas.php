@@ -35,11 +35,7 @@ class Kelas extends Controller
                         if(!$this->user){
                             Redirect::to('login')->send();
                         }
-<<<<<<< HEAD
                         if($this->user->login_type != 'admin' || $this->user->login_type != 'dosen'){
-=======
-                        if($this->user->login_type != 'admin' && $this->user->login_type != 'dosen'){
->>>>>>> a9efd3b2277153b84fd6b85cf2dbcb0b75b8dbd1
                             return abort(404);
                         }else{
                             return $next($request);

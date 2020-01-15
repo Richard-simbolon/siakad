@@ -38,13 +38,13 @@ class Wilayah extends Controller
                     
                     $result = json_decode($result_string , true);
 
-                   // print_r($result); exit;
+                   //print_r($result); exit;
                     if(array_key_exists('data' , $result)){
                         if(count($result['data']) > 0){
                             DB::beginTransaction();
                             try{
                                 foreach($result['data'] as $item){
-                                    WilayahModel::updateOrInsert(array('id'=> $item['id_wilayah'] , 'id_negara' => $item['id_negara'], 'title'=>$item['nama_wilayah']));
+                                    WilayahModel::updateOrInsert(array('code'=> $item['id_wilayah'] , 'id_negara' => $item['id_negara'], 'title'=>$item['nama_wilayah']));
                                 }
                                 DB::commit();
                                 DB::table('sinkronisasi_logs')

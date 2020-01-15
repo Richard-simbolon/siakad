@@ -232,7 +232,7 @@ abstract class Controller
 
     public function check_auth_siakad(){
         //return $this->GetToken();
-        return '8bf32bda8a37b520859c15b8582413d5';
+        return '8846530ba80694a4f08e49883c2018d1';
         if(!Session::has('login_siakad')){
            Session::put('login_siakad', $this->GetToken());
         }
@@ -245,10 +245,10 @@ abstract class Controller
         $data =array('act'=>"GetToken", 'username'=>$username, 'password'=>$password);
         $result_string = $this->runWS($data, 'json');
         $result_string = json_decode($result_string , true);
-        if($result_string){
+        if($result_string['error_code'] == 0){
            return $result_string['data']['token'];
         }else{
-            echo false;
+           return false;
         }
     
     }

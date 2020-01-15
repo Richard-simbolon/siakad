@@ -123,17 +123,22 @@ class KelasPerkuliahan extends Controller
     }
 
 
+    public function fail_sync($api = '' , $response = ''){
+        SinkronisasiModel::where('sync_code' ,'like','%sinc_kelas_perkulaihan_mata_kuliah%')->update(array('last_sync_status'=>'gagal', 'last_sync' => date('Y-m-d H:i:s')));
+        DB::table('sinkronisasi_logs')
+                    ->insert(array('title' => $api ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s') , 'message' => $response));
+        return json_encode(array('status' => 'error' , 'msg' => $response));
+    }
+
+    public function success_sync(){
+        SinkronisasiModel::where('sync_code' ,'like','%sinc_kelas_perkulaihan_mata_kuliah%')->update(array('last_sync_status'=>'sukses', 'last_sync' => date('Y-m-d H:i:s')));
+        DB::table('sinkronisasi_logs')
+                    ->insert(array('title' => 'Kelas Perkuliahan' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s') , 'message' => 'Data Kelas Perkuliahan berhasil di sinkronisasi'));
+        return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
+    }
+
     public function sinc_kelas_perkulaihan_mata_kuliah(){
         $token = $this->check_auth_siakad();
-        //echo $token;
-        //$data = array('act'=>"GetJenisEvaluasi" , "token"=>$token, "filter"=> "","limit"=>"20" , "offset" =>0);
-        //$result_string = $this->runWS($data, 'json');
-        //$result = json_decode($result_string , true);
-        //print_r($result);
-        //exit;
-        //echo $token; exit;
-
-        
         $data_kelas = DB::table('kelas_perkuliahan_mata_kuliah')
         ->select('kelas_perkuliahan_mata_kuliah.*' ,'master_kelas.title', 'kelas_perkuliahan.program_studi_id', 'kelas_perkuliahan.semester_id' , 'mata_kuliah.id_matkul', 'mata_kuliah.sks_mata_kuliah as sks_substansi_total', 'mata_kuliah.tipe_mata_kuliah' ,'kelas_perkuliahan.tanggal_mulai_efektif' ,'kelas_perkuliahan.tanggal_akhir_efektif' ,'dosen.id_dosen' ,'dosen_penugasan.id_registrasi as id_registrasi_dosen')
         ->leftJoin('kelas_perkuliahan' ,'kelas_perkuliahan.id' ,'kelas_perkuliahan_mata_kuliah.kelas_perkuliahan_id')
@@ -144,11 +149,7 @@ class KelasPerkuliahan extends Controller
         ->where('kelas_perkuliahan_mata_kuliah.is_sinc' ,'0')
         ->get();
         $evaluaisi = DB::table('master_jenis_evaluasi')->first();
-
         //print_r($data_kelas); exit;
-        //print_r($evaluaisi);
-        //print_r($data_kelas);
-        //exit;
         foreach($data_kelas as $item){
 
             foreach(static::$webservice as $key => $val){
@@ -162,39 +163,49 @@ class KelasPerkuliahan extends Controller
                     unset($data['id_kelas_kuliah']);
                     $action = array('act'=>"UpdateKelasKuliah" , "token"=>$token ,'key' => array('id_kelas_kuliah' => $item->id_kelas_kuliah), "record"=> $data);
                     $response = $this->runWS($action, 'json');
-                    $result = json_decode($response);
+                    $result = json_decode($response , true);
                     
                     $dosen_sync = $this->sinc_dosen_kelas_perkuliahan('update', $item);
                     $mahasiswa_sync = $this->sinc_mahasiswa_kelas_perkuliahan($item);
+                    //$result_1 = json_decode($mahasiswa_sync , true);
                     if(!$dosen_sync){
-                        return json_encode(array('status' => 'Error' , 'msg' => 'Data Tidak Berhasil Disinkronisai , Cek sinkronisasi logs untuk melihat detail.'));
+                        return json_encode(array('status' => 'error' , 'msg' => 'Data Tidak Berhasil Disinkronisai , Cek sinkronisasi logs untuk melihat detail.'));
                     }
                     if(!DB::table('kelas_perkuliahan_mata_kuliah')->where('id' ,$item->id)->update(array('id_kelas_kuliah'=>$item->id_kelas_kuliah , 'is_sinc' =>'1'))){
                         DB::table('sinkronisasi_logs')
                         ->insert(array('title' => 'InsertKelasKuliah' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
-                        return json_encode(array('status' => 'Error' , 'msg' => 'Data Tidak Berhasil Disinkronisai.'));
+                        $this->fail_sync('Kelas perkuliahan' , 'Data tidak berhasil disinkronisai.' . $result['error_desc']);
+                        return json_encode(array('status' => 'error' , 'msg' => 'Data Tidak Berhasil Disinkronisai.'));
                     }
                 }else{
                     unset($data['id_kelas_kuliah']);
                     $action = array('act'=>"InsertKelasKuliah" , "token"=>$token, "record"=> $data);
                     $response = $this->runWS($action, 'json');
                     $result = json_decode($response , true);
-                    //print_r($result);
-                    $id_kelas_kuliah = $result['data']['id_kelas_kuliah'];
-                    if($id_kelas_kuliah){
-                        DB::table('kelas_perkuliahan_mata_kuliah')->where('id' ,$item->id)->update(array('id_kelas_kuliah'=>$id_kelas_kuliah));
-                        $item->id_kelas_kuliah = $id_kelas_kuliah;
-                        $dosen_sync = $this->sinc_dosen_kelas_perkuliahan('insert',$item);
-                        $mahasiswa_sync = $this->sinc_mahasiswa_kelas_perkuliahan($item);
-                        if(!$dosen_sync){
-                            return json_encode(array('status' => 'Error' , 'msg' => 'Data Tidak Berhasil Disinkronisai , Cek sinkronisasi logs untuk melihat detail.'));
+                    if($result['error_code'] == 0){
+                        $id_kelas_kuliah = $result['data']['id_kelas_kuliah'];
+                        if($id_kelas_kuliah){
+                            DB::table('kelas_perkuliahan_mata_kuliah')->where('id' ,$item->id)->update(array('id_kelas_kuliah'=>$id_kelas_kuliah));
+                            $item->id_kelas_kuliah = $id_kelas_kuliah;
+                            $dosen_sync = $this->sinc_dosen_kelas_perkuliahan('insert' , $item);
+                            $mahasiswa_sync = $this->sinc_mahasiswa_kelas_perkuliahan($item);
+                            //$result_2 = json_decode($mahasiswa_sync , true);;
+                            if(!$dosen_sync){
+                                //$this->fail_sync('Kelas perkuliahan' , 'Data tidak berhasil disinkronisai.' . $result['error_desc']);
+                                return json_encode(array('status' => 'error' , 'msg' => 'Data Tidak Berhasil Disinkronisai , Cek sinkronisasi logs untuk melihat detail.'));
+                            }
+                            if(!DB::table('kelas_perkuliahan_mata_kuliah')->where('id' ,$item->id)->update(array('id_kelas_kuliah'=>$id_kelas_kuliah , 'is_sinc' =>'1'))){
+                                DB::table('sinkronisasi_logs')
+                                ->insert(array('title' => 'InsertKelasKuliah' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
+                                $this->fail_sync('Kelas perkuliahan' , 'Data tidak berhasil disinkronisai.' . $result['error_desc']);
+                                return json_encode(array('status' => 'error' , 'msg' => 'Data Tidak Berhasil Disinkronisai.'));
+                            }
                         }
-                        if(!DB::table('kelas_perkuliahan_mata_kuliah')->where('id' ,$item->id)->update(array('id_kelas_kuliah'=>$id_kelas_kuliah , 'is_sinc' =>'1'))){
-                            DB::table('sinkronisasi_logs')
-                            ->insert(array('title' => 'InsertKelasKuliah' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
-                            return json_encode(array('status' => 'Error' , 'msg' => 'Data Tidak Berhasil Disinkronisai.'));
-                        }
+                    }else{
+                        $this->fail_sync('Kelas perkuliahan' , 'Data tidak berhasil disinkronisai.' . $result['error_desc']);
+                        return json_encode(array('status' => 'error' , 'msg' => 'Data tidak berhasil disinkronisai.' . $result['error_desc']));
                     }
+                    
                 }
             }else{
                 if(strlen($item->id_kelas_kuliah) > 8){
@@ -206,6 +217,10 @@ class KelasPerkuliahan extends Controller
                         $action = array('act'=>"DeleteDosenPengajarKelasKuliah" , "token"=>$token ,'key' => array('id_aktivitas_mengajar' => $item->id_aktivitas_mengajar));
                         $response = $this->runWS($action, 'json');
                         $result = json_decode($response , true);
+                        if($result['error_code'] != 0){
+                            $this->fail_sync('Kelas perkuliahan' , 'Data tidak berhasil disinkronisai.' . $result['error_desc']);
+                            return json_encode(array('status' => 'error' , 'msg' => 'Data tidak berhasil disinkronisai.' . $result['error_desc']));
+                        }
                         //print_r($result);
                     }
                     // hapus mahasiswa jika ada
@@ -219,20 +234,25 @@ class KelasPerkuliahan extends Controller
                         foreach($data_mahasiswa_per_kelas as $m_item){
                             $action = array('act'=>"DeletePesertaKelasKuliah" , "token"=>$token , "key"=> array('id_kelas_kuliah' => $item->id_kelas_kuliah , 'id_registrasi_mahasiswa' => $m_item->id_registrasi_mahasiswa));
                             $response = $this->runWS($action, 'json');
-                            $result = json_decode($response , true);
+                            $result_3 = json_decode($response , true);
                             //print_r($result);
+                            if($result_3['error_code'] != 0){
+                                $this->fail_sync('Kelas perkuliahan' , 'Data tidak berhasil disinkronisai.' . $result_3['error_desc']);
+                                return json_encode(array('status' => 'error' , 'msg' => 'Data tidak berhasil disinkronisai.' . $result_3['error_desc']));
+                            }
                         }
                     }
 
                     $action = array('act'=>"DeleteKelasKuliah" , "token"=>$token ,'key' => array('id_kelas_kuliah' => $item->id_kelas_kuliah));
                     $response = $this->runWS($action, 'json');
-                    $result = json_decode($response , true);
+                    $result_4 = json_decode($response , true);
                     //print_r($result);
-                    if($result['error_code'] != '0'){
+                    if($result_4['error_code'] != '0'){
                         if(!DB::table('kelas_perkuliahan_mata_kuliah')->where('id' ,$item->id)->update(array('is_sinc' =>'0'))){
                             DB::table('sinkronisasi_logs')
                             ->insert(array('title' => 'DeleteKelasKuliah' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
-                            return json_encode(array('status' => 'Error' , 'msg' => 'Data Tidak Berhasil Disinkronisai.'));
+                            $this->fail_sync('Kelas perkuliahan' , 'Data tidak berhasil disinkronisai.' . $result_4['error_desc']);
+                            return json_encode(array('status' => 'error' , 'msg' => 'Data Tidak Berhasil Disinkronisai.'));
                         }
                     }else{
                         DB::table('kelas_perkuliahan_mata_kuliah')->where('id' ,$item->id)->update(array('is_sinc' =>'1' , 'id_kelas_kuliah' => '' ,'id_aktivitas_mengajar' => ''));
@@ -244,6 +264,8 @@ class KelasPerkuliahan extends Controller
                 }
             }
         }
+        $this->success_sync();
+        return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
         
     }
 
@@ -312,6 +334,11 @@ class KelasPerkuliahan extends Controller
                     }
                     $update_nilai = array('act'=>"UpdateNilaiPerkuliahanKelas" , "token"=>$token , "key"=> array('id_kelas_kuliah' => $data->id_kelas_kuliah , 'id_registrasi_mahasiswa' => $m_item->id_registrasi_mahasiswa) , 'record' => array('nilai_angka' => $nangka , 'nilai_huruf'=>$nhuruf ,'nilai_indeks'=>$nindex));
                     $response_nilai = $this->runWS($update_nilai, 'json');
+                    $result = json_decode($response_nilai , true);
+                    if($result['error_code'] != '0'){
+                        $this->fail_sync('Kelas perkuliahan' , 'Data tidak berhasil disinkronisai.' . $result['error_desc']);
+                    }
+                    //print_r($result);
                 }
 
             }
@@ -338,6 +365,7 @@ class KelasPerkuliahan extends Controller
             //DB::table('kelas_perkuliahan_mata_kuliah')->where('id' ,$data->id)->update(array('id_kelas_kuliah'=>$id_aktivitas_mengajar));
             DB::table('kelas_perkuliahan_mata_kuliah')->where('id' ,$data->id)->update(array('id_aktivitas_mengajar'=>$id_aktivitas_mengajar));
             if($result['error_code'] != '0'){
+                $this->fail_sync('Kelas perkuliahan' , 'Data tidak berhasil disinkronisai.' . $result['error_desc']);
                 SinkronisasiModel::where('sync_code' ,'like','%sync_dosen_pengajar_kelas_kuliah%')->update(array('last_sync_status'=>'gagal'));
                 DB::table('sinkronisasi_logs')
                     ->insert(array('title' => 'InsertDosenPengajarKelasKuliah' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s') , 'message' => $response));
@@ -360,6 +388,7 @@ class KelasPerkuliahan extends Controller
                 //echo $id_aktivitas_mengajar;
                 //DB::table('kelas_perkuliahan_mata_kuliah')->where('id' ,$data->id)->update(array('id_aktivitas_mengajar'=>$id_aktivitas_mengajar));
                 if($result['error_code'] != '0'){
+                    $this->fail_sync('Kelas perkuliahan' , 'Data tidak berhasil disinkronisai.' . $result['error_desc']);
                     SinkronisasiModel::where('sync_code' ,'like','%sync_dosen_pengajar_kelas_kuliah%')->update(array('last_sync_status'=>'gagal'));
                     DB::table('sinkronisasi_logs')
                         ->insert(array('title' => 'UpdateDosenPengajarKelasKuliah' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s') , 'message' => $response));
@@ -379,6 +408,7 @@ class KelasPerkuliahan extends Controller
                 $id_aktivitas_mengajar = $result['data']['id_aktivitas_mengajar'];
                 DB::table('kelas_perkuliahan_mata_kuliah')->where('id' ,$data->id)->update(array('id_aktivitas_mengajar'=>$id_aktivitas_mengajar));
                 if($result['error_code'] != '0'){
+                    $this->fail_sync('Kelas perkuliahan' , 'Data tidak berhasil disinkronisai.' . $result['error_desc']);
                     SinkronisasiModel::where('sync_code' ,'like','%sync_dosen_pengajar_kelas_kuliah%')->update(array('last_sync_status'=>'gagal'));
                     DB::table('sinkronisasi_logs')
                         ->insert(array('title' => 'InsertDosenPengajarKelasKuliah' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s') , 'message' => $response));

@@ -81,10 +81,9 @@ class AbsensiMahasiswa extends Controller
             ->where('nilai_mahasiswa.kelas_perkuliahan_detail_id' , $id)->get();
             
         }else{
-
-            $mahasiswa = MahasiswaModel::where('kelas_id' , $data->kelas_id)->where('status' , 'AKTIF')->get();
+            $mahasiswa = MahasiswaModel::where('kelas_id' , $data->kelas_id)->where('row_status' , 'active')->get();
         }
-
+        
         return view("data/absensi_create" , compact("title" , "mahasiswa", "data"));
 
     }

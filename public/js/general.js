@@ -155,40 +155,56 @@ $(document).ready(function(){
     });
 
     $(document).on('click' , '.save-kurikulum' , function(){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('#csrf_').val()
-            }
-        });
-        $.ajax({
-            type:'POST',
-            //dataType:'json',
-            url:'/data/kurikulum/save',
-            data:$(this).closest('form').serialize(),
-            success:function(result) {
-                var res = JSON.parse(result);
-                if(res.status == 'error'){
-                    var text = '';
-                    $.each(res.msg, function( index, value ) {
-                        text += '<p class="error">'+ value[0]+'</p>';
-                    });
-                    swal.fire({
-                        "title": "",
-                        "html": text,
-                        "type": "error",
-                        "confirmButtonClass": "btn btn-secondary"
-                    });
-                }else{
-                    swal.fire({
-                        "title": "",
-                        "text": res.msg,
-                        "type": res.status,
-                        "confirmButtonClass": "btn btn-secondary"
-                    });
-                }
 
-            }
-         });
+        var _this = $(this).closest('form');
+        Swal.fire({
+            title: 'Tambah data',
+            text: "Anda Yakin akan menambah kurikulum ?",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#08976d',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Tambah'
+          }).then((result) => {
+                if (result.value) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('#csrf_').val()
+                        }
+                    });
+                    $.ajax({
+                        type:'POST',
+                        //dataType:'json',
+                        url:'/data/kurikulum/save',
+                        data:$(this).closest('form').serialize(),
+                        success:function(result) {
+                            var res = JSON.parse(result);
+                            if(res.status == 'error'){
+                                var text = '';
+                                $.each(res.msg, function( index, value ) {
+                                    text += '<p class="error">'+ value[0]+'</p>';
+                                });
+                                swal.fire({
+                                    "title": "",
+                                    "html": text,
+                                    "type": "error",
+                                    "confirmButtonClass": "btn btn-secondary"
+                                });
+                            }else{
+                                swal.fire({
+                                    "title": "",
+                                    "text": res.msg,
+                                    "type": res.status,
+                                    "confirmButtonClass": "btn btn-secondary"
+                                });
+                            }
+            
+                        }
+                     });
+                }
+            
+          });
+        
     });
 
     $(document).on('change','.matakuliah-chck' , function(){
@@ -239,7 +255,7 @@ $(document).ready(function(){
         var _this = $(this).closest('form');
         Swal.fire({
             title: 'Update data',
-            text: "Anda Yakin akan mngubah data ?",
+            text: "Anda Yakin akan mengubah data ?",
             type: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#08976d',
@@ -259,7 +275,7 @@ $(document).ready(function(){
                         data: _this.serialize(),
                         success:function(response) {
                             var res = JSON.parse(response);
-                            console.log(res);
+                            //console.log(res);
                             if(res.status == 'error'){
                                 var text = '';
                                 $.each(res.msg, function( index, value ) {
