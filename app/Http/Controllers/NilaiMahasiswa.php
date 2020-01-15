@@ -141,9 +141,14 @@ class NilaiMahasiswa extends Controller
             }
         }
         if(count($where) > 0){
-            return Datatables::of(DB::table('view_input_nilai_mahasiswa')->where($where)->get())->addIndexColumn()->make(true);
+            return Datatables::of(DB::table('view_input_nilai_mahasiswa')
+                ->where($where)
+                ->select("view_input_nilai_mahasiswa.*", DB::raw("(SELECT count(absensi_mahasiswa.kelas_perkuliahan_detail_id) from absensi_mahasiswa where kelas_perkuliahan_detail_id=view_input_nilai_mahasiswa.id) as jumlah") )
+                ->get())->addIndexColumn()->make(true);
         }
-        return Datatables::of(DB::table('view_input_nilai_mahasiswa')->get())->addIndexColumn()->make(true);
+        return Datatables::of(DB::table('view_input_nilai_mahasiswa')
+            ->select("view_input_nilai_mahasiswa.*", DB::raw("(SELECT count(absensi_mahasiswa.kelas_perkuliahan_detail_id) from absensi_mahasiswa where kelas_perkuliahan_detail_id=view_input_nilai_mahasiswa.id) as jumlah") )
+            ->get())->addIndexColumn()->make(true);
 
     }
 

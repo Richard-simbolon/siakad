@@ -115,6 +115,7 @@
                                             <th>Kelas</th>
                                             <th>Ruangan</th>
                                             <th>Dosen</th>
+                                            <th>Jumlah Pertemuan</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>

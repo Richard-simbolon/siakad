@@ -242,46 +242,63 @@
 @section('js')
 <script>
     $(document).on('click' , '#update_matakuliah' , function(){
-        var prev_url = $(this).attr("data-prev-url");
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('#csrf_').val()
-            }
-        });
-        $.ajax({
-            type:'POST',
-            dataType:'json',
-            url:'/master/matakuliah/update',
-            data:$(this).closest('form').serialize(),
-            success:function(data) {
-                if(data.status==='success'){
-                    Swal.fire({
-                        title: 'Berhasil',
-                        text: "Data sudah disimpan",
-                        type: 'success',
-                        confirmButtonColor: '#0abb87',
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        if (result.value){
-                            window.location = prev_url;
+        Swal.fire({
+            title: 'Ubah Data',
+            html: "Anda Yakin Mengubah Data Ini?",
+            type: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#08976d',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ubah Sekarang'
+        }).then((result) => {
+            if (result.value) {
+                Swal.fire({
+                    title: "Menyimpan Data . . .",
+                    imageUrl: "../assets/media/ajaxloader.gif",
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
+                var prev_url = $(this).attr("data-prev-url");
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('#csrf_').val()
+                    }
+                });
+                $.ajax({
+                    type:'POST',
+                    dataType:'json',
+                    url:'/master/matakuliah/update',
+                    data:$(this).closest('form').serialize(),
+                    success:function(data) {
+                        if(data.status==='success'){
+                            Swal.fire({
+                                title: 'Berhasil',
+                                text: "Data sudah disimpan",
+                                type: 'success',
+                                confirmButtonColor: '#0abb87',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.value){
+                                    window.location = prev_url;
+                                }
+                            });
+                        }else {
+                            var text = '';
+                            $.each(data.message, function( index, value ) {
+                                text += '<p class="error">'+ value[0]+'</p>';
+                            });
+                            Swal.fire({
+                                title: 'Gagal',
+                                html: text,
+                                type: 'error',
+                                confirmButtonColor: '#0abb87',
+                                confirmButtonText: 'OK'
+                            })
                         }
-                    });
-                }else {
-                    // alert(data.msg);
-                    var text = '';
-                    $.each(data.message, function( index, value ) {
-                        text += '<p class="error">'+ value[0]+'</p>';
-                    });
-                    Swal.fire({
-                        title: 'Gagal',
-                        html: text,
-                        type: 'error',
-                        confirmButtonColor: '#0abb87',
-                        confirmButtonText: 'OK'
-                    })
-                }
+                    }
+                });
             }
-        });
+        })
     });
 </script>
 @stop

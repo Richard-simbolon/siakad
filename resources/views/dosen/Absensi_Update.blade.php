@@ -193,5 +193,5 @@
 @endsection
 
 @section('js')
-    <script src="{{asset('assets/js/pages/absensi/absensi.js')}}" type="text/javascript"></script>
+    <script src="{{asset('assets/js/pages/dosen/absensi.js')}}" type="text/javascript"></script>
 @endsection

@@ -112,24 +112,12 @@
                                             <th>Kelas</th>
                                             <th>Ruangan</th>
                                             <th>Dosen</th>
+                                            <th>Jumlah Pertemuan</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                                {{-- < ?$i = 0?>
-                                                @foreach ($data as $item)
-                                                < ? $i++ ?>
-                                                <tr>
-                                                    <td align="center">{{$i}}</td> 
-                                                    <td align="center">{{$item->nama_mata_kuliah}}</td>
-                                                    <td align="center">{{$item->nama_angkatan}}</td>
-                                                    <td>{{$item->nama_semester}}</td>
-                                                    <td style="vertical-align: center;">{{$item->nama_jurusan}}t</td>
-                                                    <td align="center">{{$item->nama_kelas}}</td>
-                                                    <td align="center">{{$item->nama_dosen}}</td>
-                                                    <td><a href="{{url('data/nilaimahasiswa/view/'. $item->id)}}" > edit/view </a></td>
-                                                </tr>
-                                                @endforeach --}}
+
                                         </tbody>
                                     </table>
                                 </div>

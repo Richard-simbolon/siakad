@@ -81,21 +81,8 @@
                                                         <select name="angkatan_id" class="form-control kt-select2">
                                                             <option value="">-- Pilih Angkatan --</option>
                                                             @foreach ($master['angkatan'] as $item)
-                                                                <option value="{{$item['id']}}" {{$item['id']==$data['angkatan_id']? "selected" : ""}}>{{$item['title']}}</option>
+                                                                <option value="{{$item['id_tahun_ajaran']}}" {{$item['id_tahun_ajaran']==$data['angkatan_id']? "selected" : ""}}>{{$item['id_tahun_ajaran']}}</option>
                                                             @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label>Kurikulum</label>
-                                                    <div class="form-group">
-                                                        <select name="kurikulum_id" class="form-control kt-select2">
-                                                            <option value="">-- Pilih Kurikulum --</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -117,6 +104,23 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Kurikulum</label>
+                                                    <div class="form-group">
+                                                        <select name="kurikulum_id" class="form-control kt-select2">
+                                                            <option value="">-- Pilih Kurikulum --</option>
+                                                            @foreach ($master['kurikulum'] as $item)
+                                                                <option value="{{$item['id']}}" {{$item['id']==$data['kurikulum_id']? "selected" : ""}}>{{$item['nama_kurikulum']}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-group">
