@@ -60,7 +60,13 @@ class Kelas extends Controller
                     $data = KelasModel::where('id' , $id)->first();
                     $master = array(
                         'jurusan' => JurusanModel::where('row_status' , 'active')->get(),
-                        'angkatan' => AngkatanModel::where('row_status' , 'active')->get()
+                        'angkatan' => MahasiswaModel::where('mahasiswa.row_status' , 'active')
+                            ->join('master_semester','master_semester.id', '=', 'mahasiswa.id_periode_masuk')
+                            ->select('master_semester.id_tahun_ajaran')
+                            ->distinct()
+                            ->orderBy('id_tahun_ajaran','desc')
+                            ->get(),
+                        'kurikulum' => KurikulumModel::where('program_studi_id', $data->jurusan_id)->get()
                     );
 
                     $title = ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
@@ -171,11 +177,15 @@ class Kelas extends Controller
 
                 public function listkelas(Request $request){
                     $post = $request->all();
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2766c7b327b18fb32b8d95f07a40ce1ead57c7f
                     $kelas = KelasModel::where('row_status' , 'active')
                     ->where('jurusan_id',$post['jurusan'])
                     ->where('angkatan_id',$post['angkatan'])
                     ->get();
-                   $html = '<option value="0">-- Pilih Kelas --</option>';
+                    $html = '<option value="0">-- Pilih Kelas --</option>';
                     if($kelas){
                         foreach($kelas as $item){
                             $html .= '<option value="'.$item['id'].'" attr="'.$item['kurikulum_id'].'" >'.$item['title'].'</option>';

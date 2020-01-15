@@ -26,6 +26,7 @@ class DosenAbsensi extends Controller
                     "title"=>["type"=>"null" , "value"=>"null" , "validation" => ""] ,
                     ];
     static $exclude = ["id","created_at","updated_at","created_by","update_by"];
+
     static $tablename = "AbsensiMahasiswa";
 
     public function __construct()
@@ -43,6 +44,7 @@ class DosenAbsensi extends Controller
         });
         
     }
+
     public function index()
     {
         $master = array(
@@ -66,6 +68,7 @@ class DosenAbsensi extends Controller
         return view("dosen/absensi_mahasiswa" , compact("title" ,"table_display" ,"exclude" ,"Tableshow","tableid", "master"));
 
     }
+
     public function absensi($id){
 
         $title = "Tambah ".ucfirst(request()->segment(1))." ".ucfirst(request()->segment(2));
@@ -89,7 +92,6 @@ class DosenAbsensi extends Controller
         return view("dosen/absensi_create" , compact("title" , "mahasiswa", "data"));
 
     }
-
 
     public function view($id){
         $dosen_id = DosenModel::where('nidn_nup_nidk' , Auth::user()->id)->first();
@@ -253,7 +255,12 @@ class DosenAbsensi extends Controller
         $post = $request->all();
 
         $dosen_id = DosenModel::where('nidn_nup_nidk' , Auth::user()->id)->first();
-        $data = DB::table('view_input_nilai_mahasiswa')->where('id' , $post['absensi'])->first();
+        //$data = DB::table('view_input_nilai_mahasiswa')->where('id' , $post['absensi'])->first();
+        $data = DB::table('absensi_mahasiswa')
+            ->join('view_input_nilai_mahasiswa' , 'view_input_nilai_mahasiswa.id' , '=' , 'absensi_mahasiswa.kelas_perkuliahan_detail_id')
+            ->select('view_input_nilai_mahasiswa.dosen_id')
+            ->where('absensi_mahasiswa.id' , $post['absensi'])->first();
+
         if(!$data){
             return abort(404);
         }
@@ -261,7 +268,7 @@ class DosenAbsensi extends Controller
             return abort(404);
         }
 
-        $post['created_at'] = date('Y-m-d H:i:s');
+        $post['modified_by'] = Auth::user()->nama;
         $post['updated_at'] = date('Y-m-d H:i:s');
         $validation = Validator::make($post, [
             'tanggal_perkuliahan' => 'required',
@@ -348,7 +355,10 @@ class DosenAbsensi extends Controller
             }
         }
 
-        return Datatables::of(DB::table('view_input_nilai_mahasiswa')->where($where)->get())->addIndexColumn()->make(true);
+        return Datatables::of(DB::table('view_input_nilai_mahasiswa')
+            ->where($where)
+            ->select("view_input_nilai_mahasiswa.*", DB::raw("(SELECT count(absensi_mahasiswa.kelas_perkuliahan_detail_id) from absensi_mahasiswa where kelas_perkuliahan_detail_id=view_input_nilai_mahasiswa.id) as jumlah") )
+            ->get())->addIndexColumn()->make(true);
     }
 
 }

@@ -60,11 +60,11 @@ $(document).ready(function() {
             { data: 'nama_kelas', name: 'nama_kelas' },
             { data: 'ruangan', name: 'ruangan' },
             { data: 'nama_dosen', name: 'nama_dosen' },
-           
+            { data: 'jumlah', name: 'jumlah' },
         ],
         columnDefs: [
             {
-                targets: 9,
+                targets: 10,
                 title: 'Actions',
                 orderable: false,
                 render: function(data, type, full, meta) {
@@ -85,97 +85,132 @@ $(document).ready(function() {
             },{
                 targets: 1,
                 className: "text-center"
+            },{
+                targets: 9,
+                className: "text-center"
             }
 
         ],
     });
 
     $(document).on('click' , '#save-absensi-perkuliahan' , function(){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('#csrf_').val()
-            }
-        });
-        $.ajax({
-            type:'POST',
-            //dataType:'json',
-            url:'/data/absensimahasiswa/save',
-            data:$(this).closest('form').serialize(),
-            success:function(result) {
-                //console.log(result);
-                //console.log(result);
-                var res = JSON.parse(result);
-                if(res.status == 'error'){
-                    var text = '';
-                    $.each(res.message, function( index, value ) {
-                        console.log(value);
-                        text += '<p class="error">'+ value[0]+'</p>';
-                    });
-                    swal.fire({
-                        "title": "",
-                        "html": text,
-                        "type": "error",
-                        "confirmButtonClass": "btn btn-secondary"
-                    });
-                }else{
-                    swal.fire({
-                        "title": "",
-                        "text": res.message,
-                        "type": res.status,
-                        "confirmButtonClass": "btn btn-secondary"
-                    }).then((result) => {
-                        if (result.value) {
-                            window.location = '/data/absensimahasiswa';
-                        }
-                    });
+        Swal.fire({
+            title: 'Simpan Data',
+            html: "Anda Yakin Meyimpan Data Absensi ?",
+            type: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#08976d',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Simpan Sekarang'
+        }).then((result) => {
+            Swal.fire({
+                title: "Menyimpan Data . . .",
+                imageUrl: "../assets/media/ajaxloader.gif",
+                showConfirmButton: false,
+                allowOutsideClick: false
+            });
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('#csrf_').val()
                 }
+            });
+            $.ajax({
+                type:'POST',
+                url:'/data/absensimahasiswa/save',
+                data:$(this).closest('form').serialize(),
+                success:function(result) {
+                    var res = JSON.parse(result);
+                    if(res.status == 'error'){
+                        var text = '';
+                        $.each(res.message, function( index, value ) {
+                            console.log(value);
+                            text += '<p class="error">'+ value[0]+'</p>';
+                        });
+                        swal.fire({
+                            "title": "",
+                            "html": text,
+                            "type": "error",
+                            "confirmButtonClass": "btn btn-secondary"
+                        });
+                    }else{
+                        swal.fire({
+                            "title": "",
+                            "text": res.message,
+                            "type": res.status,
+                            "confirmButtonClass": "btn btn-secondary"
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location = '/data/absensimahasiswa';
+                            }
+                        });
+                    }
 
-            }
-         });
+                }
+            });
+        });
     });
 
-    $(document).on('click' , '#update-absensi-perkuliahan' , function(){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('#csrf_').val()
+
+    $(document).on('click' , '#update-absensi-perkuliahan' , function() {
+        Swal.fire({
+            title: 'Ubah Data',
+            html: "Anda Yakin Melakukan Perubahan Data Absensi?",
+            type: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#08976d',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ubah Sekarang'
+        }).then((result) => {
+            if (result.value) {
+                Swal.fire({
+                    title: "Menyimpan Data . . .",
+                    imageUrl: "../assets/media/ajaxloader.gif",
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('#csrf_').val()
+                    }
+                });
+                $.ajax({
+                    type:'POST',
+                    //dataType:'json',
+                    url:'/data/absensimahasiswa/update',
+                    data:$(this).closest('form').serialize(),
+                    success:function(result) {
+                        //console.log(result);
+                        //console.log(result);
+                        var res = JSON.parse(result);
+                        if(res.status == 'error'){
+                            var text = '';
+                            $.each(res.message, function( index, value ) {
+                                //console.log(value);
+                                text += '<p class="error">'+ value[0]+'</p>';
+                            });
+                            swal.fire({
+                                "title": "",
+                                "html": text,
+                                "type": "error",
+                                "confirmButtonClass": "btn btn-secondary"
+                            });
+                        }else{
+                            swal.fire({
+                                "title": "",
+                                "text": res.message,
+                                "type": res.status,
+                                "confirmButtonClass": "btn btn-secondary"
+                            }).then((result) => {
+                                if (result.value) {
+                                    window.location='/data/absensimahasiswa';
+                                }
+                            });
+                        }
+
+                    }
+                });
             }
         });
-        $.ajax({
-            type:'POST',
-            //dataType:'json',
-            url:'/data/absensimahasiswa/update',
-            data:$(this).closest('form').serialize(),
-            success:function(result) {
-                //console.log(result);
-                //console.log(result);
-                var res = JSON.parse(result);
-                if(res.status == 'error'){
-                    var text = '';
-                    $.each(res.message, function( index, value ) {
-                        //console.log(value);
-                        text += '<p class="error">'+ value[0]+'</p>';
-                    });
-                    swal.fire({
-                        "title": "",
-                        "html": text,
-                        "type": "error",
-                        "confirmButtonClass": "btn btn-secondary"
-                    });
-                }else{
-                    swal.fire({
-                        "title": "",
-                        "text": res.message,
-                        "type": res.status,
-                        "confirmButtonClass": "btn btn-secondary"
-                    }).then((result) => {
-                        if (result.value) {
-                            window.location='/data/absensimahasiswa';
-                        }
-                    });
-                }
-
-            }
-         });
     });
 
 });

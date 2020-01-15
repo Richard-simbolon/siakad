@@ -198,9 +198,7 @@
                                             <div class="root">
                                                 <div class="kt-form__actions">
                                                     <a href="{{url('data/absensimahasiswa')}}" style="align:right" class="btn btn-label-success"><i class="la la-arrow-left"></i>Kembali</a>
-                                                    @if(count($mahasiswa) > 0)
-                                                        <button type="button" class="btn btn-success" id="save-absensi-perkuliahan"><i class="la la-save"></i>Simpan</button>
-                                                    @endif
+
                                                 </div>
                                             </div>
                                         </div>

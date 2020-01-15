@@ -34,8 +34,11 @@ $(document).ready(function() {
                                 'Deleted!',
                                 'Data sudah dihapus.',
                                 'success'
-                            )
-                            window.location=url;
+                            ).then((result) => {
+                                if (result.value){
+                                    window.location=url;
+                                }
+                            });
                         }
                         else{
                             alert(result.msg);

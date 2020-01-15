@@ -129,7 +129,7 @@
                                                     <td align="center">{{$i}}</td>
                                                     <td align="center">{{$item->angkatan}}</td>
                                                     <td>{{$item->semester}}</td>
-                                                    <td style="vertical-align: center;">{{$item->jurusan}}t</td>
+                                                    <td style="vertical-align: center;">{{$item->jurusan}}</td>
                                                     <td align="center">{{$item->kelas}}</td>
                                                     <td align="center">{{$item->sks}}</td>
                                                     <td align="center">{{$item->total_mhs}}</td>

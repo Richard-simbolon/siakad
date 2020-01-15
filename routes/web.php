@@ -189,6 +189,7 @@ Route::get('/data/absensimahasiswa/absensi/{id}', 'AbsensiMahasiswa@absensi')->n
 Route::get('/dosen/absensi/absensi/{id}', 'DosenAbsensi@absensi')->name('index');
 Route::get('/dosen/absensi/view/{id}', 'DosenAbsensi@view')->name('view');
 Route::get('/dosen/absensi/check/{id}', 'DosenAbsensi@check')->name('check');
+Route::post('/dosen/absensi/update', 'DosenAbsensi@update')->name('update');
 
 Route::get('/data/jadwalujian/form/{id}/{jenis}', 'JadwalUjian@form')->name('index');
 Route::get('data/jadwalujian/kelas/{jenis}', 'JadwalUjian@kelas')->name('kelas');

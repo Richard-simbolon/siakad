@@ -34,53 +34,71 @@ $(document).ready(function(){
     });
 
     $(document).on('click' , '.generalsave' , function(){
-        var prev_url = $(this).attr("data-prev-url");
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('#csrf_').val()
-            }
-        });
         Swal.fire({
-            title: "Mohon menunggu",
-            imageUrl: "/assets/media/ajaxloader.gif",
-            html:"Data sedang diproses...",
-            showConfirmButton: false,
-            allowOutsideClick: false
-        });
-        $.ajax({
-            type:'POST',
-            dataType:'json',
-            url:'save',
-            data:$(this).closest('form').serialize(),
-            success:function(data) {
-                if(data.status==='success'){
-                    Swal.fire({
-                        title: 'Berhasil',
-                        text: "Data sudah disimpan",
-                        type: 'success',
-                        confirmButtonColor: '#0abb87',
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        if (result.value){
-                            window.location = prev_url;
+            title: 'Simpan Data',
+            html: "Anda Yakin Menyimpan Data Ini?",
+            type: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#08976d',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Simpan Sekarang'
+        }).then((result) => {
+            if (result.value) {
+                Swal.fire({
+                    title: "Menyimpan Data . . .",
+                    imageUrl: "../assets/media/ajaxloader.gif",
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
+                var prev_url = $(this).attr("data-prev-url");
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('#csrf_').val()
+                    }
+                });
+                Swal.fire({
+                    title: "Mohon menunggu",
+                    imageUrl: "/assets/media/ajaxloader.gif",
+                    html:"Data sedang diproses...",
+                    showConfirmButton: false,
+                    allowOutsideClick: false
+                });
+                $.ajax({
+                    type:'POST',
+                    dataType:'json',
+                    url:'save',
+                    data:$(this).closest('form').serialize(),
+                    success:function(data) {
+                        if(data.status==='success'){
+                            Swal.fire({
+                                title: 'Berhasil',
+                                text: "Data sudah disimpan",
+                                type: 'success',
+                                confirmButtonColor: '#0abb87',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.value){
+                                    window.location = prev_url;
+                                }
+                            });
+                        }else {
+                            // alert(data.msg);
+                            var text = '';
+                            $.each(data.message, function( index, value ) {
+                                text += '<p class="error">'+ value[0]+'</p>';
+                            });
+                            Swal.fire({
+                                title: 'Gagal',
+                                html: text,
+                                type: 'error',
+                                confirmButtonColor: '#0abb87',
+                                confirmButtonText: 'OK'
+                            })
                         }
-                    });
-                }else {
-                    // alert(data.msg);
-                    var text = '';
-                    $.each(data.message, function( index, value ) {
-                        text += '<p class="error">'+ value[0]+'</p>';
-                    });
-                    Swal.fire({
-                        title: 'Gagal',
-                        html: text,
-                        type: 'error',
-                        confirmButtonColor: '#0abb87',
-                        confirmButtonText: 'OK'
-                    })
-                }
+                    }
+                });
             }
-         });
+        })
     });
 
 
