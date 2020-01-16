@@ -406,7 +406,7 @@
                                                         <select name="mahasiswa[id_wilayah]" class="form-control kt-select2">
                                                             <option value="">-- Kecamatan --</option>
                                                             @foreach ($master['wilayah'] as $item)
-                                                            <option value="{{$item['code']}}" {{$item['code'] == $data['id_wilayah'] ? 'selected' : ''}}>{{$item['title']}}</option>
+                                                            <option value="{{$item['code']}}">{{$item['title']}}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
