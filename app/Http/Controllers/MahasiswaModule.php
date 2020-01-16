@@ -496,15 +496,15 @@ class MahasiswaModule extends Controller
 
     public function tugasakhir(){
         $data = $this->getMahasiswa();
-
-        $dosen = TugasAkhirModel::where('mahasiswa_tugas_akhir.row_status','active')
+        $tugas_akhir = TugasAkhirModel::where('mahasiswa_tugas_akhir.row_status','active')->where('mahasiswa_tugas_akhir.mahasiswa_id',Auth::user()->id)->first();
+        $dosen = TugasAkhirModel::where('mahasiswa_tugas_akhir.row_status','active')->where('mahasiswa_tugas_akhir.mahasiswa_id',Auth::user()->id)
             ->join("mahasiswa_tugas_akhir_detail", "mahasiswa_tugas_akhir_detail.tugas_akhir_id","=", "mahasiswa_tugas_akhir.id")
             ->join("dosen", "dosen.id", "=", "mahasiswa_tugas_akhir_detail.dosen_id")
             ->select("dosen.nidn_nup_nidk","dosen.nama", "dosen.no_hp", "mahasiswa_tugas_akhir_detail.status_dosen")
             ->orderBy("mahasiswa_tugas_akhir_detail.status_dosen")
             ->get();
 
-        return view("mahasiswa/tugas_akhir" , compact("data", "dosen" ));
+        return view("mahasiswa/tugas_akhir" , compact("data", "dosen","tugas_akhir" ));
     }
 
     public function getMahasiswa(){

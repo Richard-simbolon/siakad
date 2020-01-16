@@ -106,7 +106,7 @@
                                             <tr>
                                                 <td>Judul</td>
                                                 <td>:</td>
-                                                <td><b>Analisis Pengaruh Kelengkapan Fasilitas terhadap Kepuasan Pasien Rawat Inap di Rumah Sakit XXX Kota XXX.</b></td>
+                                                <td><b>{{$tugas_akhir['judul']}}</b></td>
                                             </tr>
                                         </tbody>
                                     </table>

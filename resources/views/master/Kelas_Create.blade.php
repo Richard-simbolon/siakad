@@ -67,7 +67,7 @@
                                                 <div class="form-group">
                                                     <label>Nama Kelas</label>
                                                     <div class="form-group">
-                                                        <input type="text" class="form-control" name="title" placeholder="Isikan Nama Kelas">
+                                                        <input type="text" maxlength="5" class="form-control" name="title" placeholder="Isikan Nama Kelas">
                                                     </div>
                                                 </div>
                                             </div>

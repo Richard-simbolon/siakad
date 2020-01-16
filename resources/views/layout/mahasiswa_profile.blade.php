@@ -27,7 +27,7 @@
             </div>
             <div class="kt-widget__info">
                 <span class="kt-widget__label">No Handphone :</span>
-                <a href="#" class="kt-widget__data">{{$data['no_telepon']}}</a>
+                <a href="#" class="kt-widget__data">{{$data['no_hp']}}</a>
             </div>
         </div>
         <div class="kt">

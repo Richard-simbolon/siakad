@@ -154,7 +154,7 @@
                                                     <div class="col-lg-9 col-xl-6">
                                                         <div class="input-group">
                                                             <div class="input-group-prepend"><span class="input-group-text"><i class="la la-phone"></i></span></div>
-                                                            <input type="text" class="form-control" name="no_telepon" value="{{$data['no_telepon']}}" placeholder="Isi Nomor Handphone" aria-describedby="basic-addon1">
+                                                            <input type="text" class="form-control" name="no_hp" value="{{$data['no_hp']}}" placeholder="Isi Nomor Handphone" aria-describedby="basic-addon1">
                                                         </div>
                                                     </div>
                                                 </div>
