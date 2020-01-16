@@ -126,7 +126,7 @@ class NilaiMahasiswa extends Controller
             ->where('nilai_mahasiswa.kelas_perkuliahan_detail_id' , $id)->get();
             
         }else{
-            $mahasiswa = MahasiswaModel::where('kelas_id' , $data->kelas_id)->where('nama_status_mahasiswa' , 'AKTIF')->get();
+            $mahasiswa = MahasiswaModel::where('kelas_id' , $data->kelas_id)->get();
         }
         
         return view("data/nilai_mahasiswa_update" , compact("data" ,"mahasiswa"));
