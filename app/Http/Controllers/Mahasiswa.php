@@ -268,9 +268,9 @@ class Mahasiswa extends Controller
             //print_r($bio);exit;
             if($bio){
                 foreach(static::$webservice['mahasiswa'] as $key => $val){
-                    //if($bio->$key){
+                    if($bio->$key){
                         $data[$val] = $bio->$key;
-                    //}
+                    }
                     
                 }
                 foreach(static::$webservice['kebutuhan_khusus'] as $key => $val){
@@ -280,25 +280,26 @@ class Mahasiswa extends Controller
             $ibu = MahasiswaOrangtuawaliModel::select('nama','nik','tanggal_lahir','pendidikan_id','pekerjaan_id','penghasilan')->where('mahasiswa_id',$item->id)->where('kategori' ,"ibu")->first();
             if($ibu){
                 foreach(static::$webservice['ibu'] as $key => $val){
-                    //if($ibu->$key){
+                    if($ibu->$key){
                         $data[$val] = $ibu->$key;
-                    //}
+                    }
                 }
             }
+
             $ayah = MahasiswaOrangtuawaliModel::select('nama','nik','tanggal_lahir','pendidikan_id','pekerjaan_id','penghasilan')->where('mahasiswa_id',$item->id)->where('kategori' ,"ayah")->first();
             if($ayah){
                 foreach(static::$webservice['ayah'] as $key => $val){
-                    //if($ayah->$key){
+                    if($ayah->$key){
                         $data[$val] = $ayah->$key;
-                    //}
+                    }
                 }
             }
             $wali = MahasiswaOrangtuawaliModel::select('nama','nik','tanggal_lahir','pendidikan_id','pekerjaan_id','penghasilan')->where('mahasiswa_id',$item->id)->where('kategori' ,"wali")->first();
             if($wali){
                 foreach(static::$webservice['wali'] as $key => $val){
-                    //if($wali->$key){
+                    if($wali->$key){
                         $data[$val] = $wali->$key;
-                    //}
+                    }
                 }
             }
             $data_pendidikan = [];
@@ -472,11 +473,17 @@ class Mahasiswa extends Controller
         $validation = Validator::make($data['mahasiswa'], [
             'id_periode_masuk' => 'required',
             'nama' => 'required',
+            'nama_ibu' => 'required|max:100',
             'email'=> 'required | email',
             'nim' => 'required',
             'email' => 'required|email|unique:mahasiswa',
             'jurusan_id'=>'required',
-            'kelas_id' => 'required'
+            'kelas_id' => 'required',
+            'agama'=> 'required',
+            'no_hp'=>'required|min:10',
+            'nik'=>'required|max:16',
+            'kewarganegaraan'=>'required',
+            'id_wilayah'=>'required'
         ]);
 
         if ($validation->fails()) {
@@ -610,13 +617,22 @@ class Mahasiswa extends Controller
                 $validation = Validator::make($data['mahasiswa'], [
                     'id_periode_masuk' => 'required',
                     'nama' => 'required',
+                    'nama_ibu' => 'required|max:100',
                     'email'=> 'required | email',
                     'nim' => 'required',
+                    'email' => 'required|email|unique:mahasiswa',
                     'jurusan_id'=>'required',
-                    'kelas_id' => 'required'
+                    'kelas_id' => 'required',
+                    'agama'=> 'required',
+                    'no_hp'=>'required|min:10',
+                    'tempat_lahir'=>'required',
+                    'tanggal_lahir'=>'required',
                 ]);
             }elseif($data['step'] == '2'){
                 $validation = Validator::make($data['mahasiswa'], [
+                    'nik'=>'required|max:16',
+                    'kewarganegaraan'=>'required',
+                    'id_wilayah'=>'required'
                 ]);
             }else{
                 $validation = Validator::make($data['mahasiswa'], [

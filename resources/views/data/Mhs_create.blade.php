@@ -101,7 +101,7 @@
                                             <div class="row">
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
-                                                        <label>Periode Masuk</label>
+                                                        <label>Periode Masuk*</label>
                                                         <div class="form-group">
                                                             <select name="mahasiswa[id_periode_masuk]" class="form-control kt-select2">
                                                                 <option value="">-- Pilih Periode Masuk --</option>
@@ -114,7 +114,7 @@
                                                 </div>
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
-                                                        <label>Program Studi</label>
+                                                        <label>Program Studi*</label>
                                                         <div class="form-group">
                                                             <select name="mahasiswa[jurusan_id]" class="form-control kt-select2">
                                                                 <option value="">-- Pilih Jurusan --</option>
@@ -129,13 +129,13 @@
                                             <div class="row">
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
-                                                        <label>NIM</label>
+                                                        <label>NIM*</label>
                                                         <input type="text" class="form-control" name="mahasiswa[nim]" placeholder="Isikan NIM">
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
-                                                        <label>Kelas:</label>
+                                                        <label>Kelas*</label>
                                                         <select name="mahasiswa[kelas_id]" class="form-control kt-select2">
                                                             <option value="">Select</option>
                                                             @foreach ($master['kelas'] as $item)
@@ -148,41 +148,41 @@
                                             <div class="row">
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
-                                                        <label>Email</label>
+                                                        <label>Email*</label>
                                                         <input type="text" class="form-control" name="mahasiswa[email]" placeholder="Isikan Email">
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>No Handphone</label>
-                                                        <input type="text" class="form-control" name="mahasiswa[no_hp]" placeholder="Isikan Nomor HP">
+                                                        <input type="text" maxlength="11" class="form-control" name="mahasiswa[no_hp]" placeholder="Isikan Nomor HP">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
-                                                        <label>Nama Lengkap</label>
+                                                        <label>Nama Lengkap*</label>
                                                         <input type="text" class="form-control" name="mahasiswa[nama]" placeholder="isikan nama lengkap">
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
-                                                        <label>Nama Ibu</label>
-                                                        <input type="text" class="form-control" name="mahasiswa[nama_ibu]" placeholder="isikan nama ibu">
+                                                        <label>Nama Ibu*</label>
+                                                        <input type="text" onchange="isi_nama_ibu($(this))" class="form-control" name="mahasiswa[nama_ibu]" placeholder="isikan nama ibu">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
-                                                        <label>Tempat lahir</label>
-                                                        <input type="text" class="form-control" name="mahasiswa[tempat_lahir]" placeholder="isikan tempat lahir">
+                                                        <label>Tempat lahir*</label>
+                                                        <input type="text" maxlength="32" class="form-control" name="mahasiswa[tempat_lahir]" placeholder="isikan tempat lahir">
                                                     </div>
                                                 </div>
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
-                                                        <label>Tanggal lahir</label>
+                                                        <label>Tanggal lahir*</label>
                                                         <input type="date" class="form-control" name="mahasiswa[tanggal_lahir]" placeholder="isikan nama ibu">
                                                     </div>
                                                 </div>
@@ -343,21 +343,21 @@
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label>NIK *</label>
-                                                        <input type="text" class="form-control" name="mahasiswa[nik]" placeholder="Isikan NIK">
+                                                        <input type="text" maxlength="16" class="form-control" name="mahasiswa[nik]" placeholder="Isikan NIK">
                                                         <span class="form-text text-muted">Nomor KTP tanpa tanda baca, Isikan Nomor Paspor untuk Warga Negara Asing</span>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label>NISN</label>
-                                                        <input type="text" class="form-control" name="mahasiswa[nisn]" placeholder="Isikan NISN">
+                                                        <input type="text" maxlength="10" class="form-control" name="mahasiswa[nisn]" placeholder="Isikan NISN">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
-                                                        <label>Kewarganegaraan *</label>
+                                                        <label>Kewarganegaraan*</label>
                                                         <div class="form-group">
                                                             <select name="mahasiswa[kewarganegaraan]" class="form-control kt-select2">
                                                                 <option value="">-- Kewarganegaraan --</option>
@@ -402,7 +402,7 @@
                                             <div class="row">
                                                 <div class="col-xl-4">
                                                     <div class="form-group">
-                                                        <label>Kecamatan</label>
+                                                        <label>Kecamatan*</label>
                                                         <select name="mahasiswa[id_wilayah]" class="form-control kt-select2">
                                                             <option value="">-- Kecamatan --</option>
                                                             @foreach ($master['wilayah'] as $item)
@@ -413,7 +413,7 @@
                                                 </div>
                                                 <div class="col-xl-4">
                                                     <div class="form-group">
-                                                        <label>Kelurahan</label>
+                                                        <label>Kelurahan*</label>
                                                         <input type="text" class="form-control" name="mahasiswa[kelurahan]" placeholder="Isikan Kelurahan">
                                                     </div>
                                                 </div>
@@ -551,7 +551,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Nama Ibu</label>
-                                                    <input type="text" class="form-control" name="mahasiswa_orang_tua_wali[ibu][nama]" placeholder="Isikan Nama">
+                                                    <input type="text" id="nama_ibu" readonly class="form-control" name="mahasiswa_orang_tua_wali[ibu][nama]" placeholder="Isikan Nama">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Tanggal Lahir Ibu</label>
@@ -766,6 +766,11 @@
         var form = 'form-add-mahasiswa';
     </script>
 @section('js')
+    <script>
+        function isi_nama_ibu(v){
+            $("#nama_ibu").val(v.val());
+        }
+    </script>
     <script src="{{asset('assets/js/pages/custom/wizard/wizard-3.js')}}" type="text/javascript"></script>
 @stop
 
