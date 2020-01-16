@@ -185,6 +185,12 @@ $(document).ready(function(){
             confirmButtonText: 'Tambah'
           }).then((result) => {
                 if (result.value) {
+                    Swal.fire({
+                        title: "Menyimpan Data . . .",
+                        imageUrl: "../assets/media/ajaxloader.gif",
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': $('#csrf_').val()
@@ -281,6 +287,12 @@ $(document).ready(function(){
             confirmButtonText: 'Update'
           }).then((result) => {
                 if (result.value) {
+                    Swal.fire({
+                        title: "Menyimpan Data . . .",
+                        imageUrl: "../assets/media/ajaxloader.gif",
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-TOKEN': $('#csrf_').val()

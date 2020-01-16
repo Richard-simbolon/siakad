@@ -139,6 +139,9 @@ class Kelas extends Controller
                     $data->title = $request->title;
                     $data->jurusan_id = $request->jurusan_id;
                     $data->row_status = $request->row_status;
+                    $data->kurikulum_id =$request->kurikulum_id;
+                    $data->update_by = Auth::user()->nama;
+                    $data->updated_at = date('Y-m-d H:m:s');
 
                     $data->save();
                     return redirect('/master/kelas');

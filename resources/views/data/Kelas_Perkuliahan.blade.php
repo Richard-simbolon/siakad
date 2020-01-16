@@ -71,7 +71,7 @@
                                 <div class="col-xl-3">
                                     <div class="form-group">
                                         <label>Angkatan</label>
-                                        <select id="angkatan-mahasiswa" name="angkatan_id" class="form-control kt-select2 search-kelas-perkuliahan looping_class">
+                                        <select id="angkatan-mahasiswa" name="angkatan" class="form-control kt-select2 search-kelas-perkuliahan looping_class">
                                             <option value="">Select</option>
                                             @foreach ($master['angkatan'] as $item)
                                                 <option value="{{$item['id_tahun_ajaran']}}" > {{$item['id_tahun_ajaran']}} </option>
@@ -82,7 +82,7 @@
                                 <div class="col-xl-3">
                                     <div class="form-group">
                                         <label>Program Studi</label>
-                                        <select name="program_studi_id" id="jurusan-mahasiswa" class="form-control kt-select2 search-kelas-perkuliahan looping_class">
+                                        <select name="jurusan_id" id="jurusan-mahasiswa" class="form-control kt-select2 search-kelas-perkuliahan looping_class">
                                             <option value="">-- Pilih Program Studi --</option>
                                             @foreach ($master['jurusan'] as $item)
                                                 <option value="{{$item['id']}}">{{$item['title']}}</option>
