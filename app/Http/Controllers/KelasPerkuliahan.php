@@ -148,7 +148,7 @@ class KelasPerkuliahan extends Controller
         ->leftJoin('dosen_penugasan' , 'dosen_penugasan.dosen_id' , '=' ,'kelas_perkuliahan_mata_kuliah.dosen_id')
         ->where('kelas_perkuliahan_mata_kuliah.is_sinc' ,'0')
         ->get();
-        $evaluaisi = DB::table('master_jenis_evaluasi')->first();
+        $evaluasi = DB::table('master_jenis_evaluasi')->first();
         //print_r($data_kelas); exit;
         foreach($data_kelas as $item){
 
@@ -157,7 +157,7 @@ class KelasPerkuliahan extends Controller
             }
             $realisasi = AbsensiMahasiswaModel::where('kelas_perkuliahan_detail_id' , $item->id)->count();
             $item->realisasi_tatap_muka = $realisasi;
-            $item->id_jenis_evaluasi = $evaluaisi->id_jenis_evaluai;
+            $item->id_jenis_evaluasi = $evaluasi->id_jenis_evaluasi;
             if($item->row_status != 'deleted'){
                 if(strlen($item->id_kelas_kuliah) > 8){
                     unset($data['id_kelas_kuliah']);
