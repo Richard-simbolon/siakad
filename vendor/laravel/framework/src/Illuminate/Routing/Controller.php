@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 use Session;
+use Illuminate\Support\Facades\DB;
 
 abstract class Controller
 {
@@ -164,6 +165,10 @@ abstract class Controller
             //echo $t_sks; exit;
         }
         return [round(array_sum($nipg) / count($nipg) ,2) , $nipa ? $nipa : 0 , $t_sks ? $t_sks:0];
+    }
+
+    public function change_sync_status_kelas_perkuliahan($kelas_perkuliahan_id){
+        DB::table('kelas_perkuliahan_mata_kuliah')->where('id' , $kelas_perkuliahan_id)->update(array('is_sinc'=>'0'));
     }
 
     public function getSemester(){

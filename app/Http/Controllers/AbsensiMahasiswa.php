@@ -201,7 +201,7 @@ class AbsensiMahasiswa extends Controller
             //Cache::forever('absensi_'.$id , $mahsiswa_cahce);
             //Cache::forever('absensi_'.$id.'_detail' , $mahsiswa_detail_cahce);
             DB::commit();
-
+            $this->change_sync_status_kelas_perkuliahan($post['kelas_perkuliahan_detail_id']);
             Cache::forever('absensi_'.$id , $mahsiswa_cahce);
             Cache::forever('absensi_'.$id.'_detail' , $mahsiswa_detail_cahce);
             return json_encode(array('status' => 'success' , 'message' => 'Data berhasil disimpan.'));

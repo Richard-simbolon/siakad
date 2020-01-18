@@ -114,6 +114,7 @@ class DosenNilai extends Controller
                 DB::table('nilai_mahasiswa')->updateOrInsert($where , $item);
             }
             DB::commit();
+            $this->change_sync_status_kelas_perkuliahan($post['kelas_perkuliahan_detail_id']);
             return json_encode(array('status' => 'success' , 'message' => 'Data berhasil disimpan.'));
         } catch(\Exception $e){
             DB::rollBack(); 
