@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\MahasiswaModel;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
@@ -39,7 +40,10 @@ class HomeController extends Controller
         $semester_aktif = SemesterModel::where('status_semester' , 'enable')->first();
         
         if(strtolower($login_type)=="mahasiswa"){
-
+            
+            if(Cache::get('underconstuctormode') == '1'){
+                return abort(404);
+            }
             $kurikulum = MahasiswaModel::join('master_kelas' ,'master_kelas.id' ,'mahasiswa.kelas_id')
             ->select('master_kelas.*','mahasiswa.nama','mahasiswa.id')
             ->where('nim' , Auth::user()->id)->first();
@@ -66,6 +70,11 @@ class HomeController extends Controller
             return view('home', compact('data','semester' ,'ip' , 'total_sks_kurikulum','menu_active'));
 
         }else if(strtolower($login_type)=="dosen") {
+
+            if(Cache::get('underconstuctormode') == '1'){
+                return abort(503, 'Sedang dalam perbaikan.');
+            }
+
             $data = DosenModel::where('nidn_nup_nidk' , '=', Auth::user()->id)
                 ->leftJoin('master_jenis_pegawai', 'master_jenis_pegawai.id', '=', 'dosen.jenis_pegawai')
                 ->select('dosen.*','master_jenis_pegawai.title as nama_jenis_pegawai')

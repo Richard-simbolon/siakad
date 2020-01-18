@@ -95,6 +95,7 @@ class NilaiMahasiswa extends Controller
             $where['kelas_perkuliahan_id'] = $post['kelas_perkuliahan_id'];
             $where['kelas_perkuliahan_detail_id'] = $post['kelas_perkuliahan_detail_id'];
             $where['mahasiswa_id'] = $key;
+
             $item['nilai_uts'] = $item['nilai_uts'] ? $item['nilai_uts'] : 0;
             $item['nilai_uas'] = $item['nilai_uas'] ? $item['nilai_uas'] : 0;
             $item['nilai_tugas'] = $item['nilai_tugas'] ? $item['nilai_tugas'] : 0;
@@ -107,6 +108,8 @@ class NilaiMahasiswa extends Controller
             $item['kelas_perkuliahan_id'] = $post['kelas_perkuliahan_id'];
             DB::table('nilai_mahasiswa')->updateOrInsert($where , $item);
         }
+        
+        $this->change_sync_status_kelas_perkuliahan($post['kelas_perkuliahan_detail_id']);
 
         return json_encode(["status"=> "success", "message"=> 'Data berhasil disimpan.']);
 

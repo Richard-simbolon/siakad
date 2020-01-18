@@ -292,4 +292,5 @@ Route::get('dosen/sinc_pendidikan', 'Dosen@sinc_pendidikan')->name('sinc_pendidi
 Route::get('dosen/sinc_sertifikasi', 'Dosen@sinc_sertifikasi')->name('sinc_sertifikasi');
 Route::get('dosen/sinc_penelitian', 'Dosen@sinc_penelitian')->name('sinc_penelitian');
 
-Route::get('useronline', 'UserOnline@index')->name('index');
+Route::post('underconstructor', 'SettingMenu@underconstructor')->name('sinc_penelitian');
+

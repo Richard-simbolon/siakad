@@ -38,6 +38,9 @@ class DosenNilai extends Controller
             if(!$this->user){
                 Redirect::to('login')->send();
             }
+            if(Cache::get('underconstuctormode') == '1'){
+                return abort(404);
+            }
             if($this->user->login_type != 'dosen'){
                 return abort(404);
             }else{
@@ -114,6 +117,7 @@ class DosenNilai extends Controller
                 DB::table('nilai_mahasiswa')->updateOrInsert($where , $item);
             }
             DB::commit();
+            $this->change_sync_status_kelas_perkuliahan($post['kelas_perkuliahan_detail_id']);
             return json_encode(array('status' => 'success' , 'message' => 'Data berhasil disimpan.'));
         } catch(\Exception $e){
             DB::rollBack(); 

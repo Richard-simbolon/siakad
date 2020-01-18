@@ -182,7 +182,7 @@ class Kelas extends Controller
                     $post = $request->all();
                     $kelas = KelasModel::where('row_status' , 'active')
                     ->where('jurusan_id',$post['jurusan'])
-                    ->where('angkatan_id',$post['angkatan'])
+                    ->where('angkatan_id', substr($post['angkatan'] , 0 ,-1))
                     ->get();
                     $html = '<option value="0">-- Pilih Kelas --</option>';
                     if($kelas){
@@ -192,10 +192,6 @@ class Kelas extends Controller
                    }
                    return $html;
                 }
-
-
-                
-
 
             }
         

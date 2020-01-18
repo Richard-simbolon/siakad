@@ -149,6 +149,51 @@ $(document).ready(function(){
          });
     });
 
+    $(document).on('click' , '#underconstructor' , function(){
+        var alert = $(this).attr('char');
+        Swal.fire({
+            title: 'Mode Perbaikan',
+            text: "Ganti module mahasiswa dan dosen ke mode "+alert,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#08976d',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ganti'
+          }).then((result) => {
+                if (result.value) {
+                    Swal.fire({
+                        title: "Sedang memproses..",
+                        imageUrl: "../assets/media/ajaxloader.gif",
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    });
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('#csrf_').val()
+                        }
+                    });
+                    $.ajax({
+                        type:'POST',
+                        //dataType:'json',
+                        url:'/underconstructor',
+                        data:{'status':$('#u_status').val()},
+                        success:function(result) {
+                            var res = JSON.parse(result);
+                            swal.fire({
+                                "title": "",
+                                "text": res.msg,
+                                "type": res.status,
+                                "confirmButtonClass": "btn btn-secondary"
+                            });
+                            window.location.reload();
+                        }
+                     });
+                }
+            
+          });
+    });
+    
+
     $(document).on('change' ,'.update_list_matakuliah' ,function(){
         var _id = $(this).val();
         if(_id == ''){

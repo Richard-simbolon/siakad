@@ -11,6 +11,7 @@ use App\SettingModel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Artisan;
 use League\Flysystem\Config;
+use Illuminate\Support\Facades\Cache;
 
 class SettingMenu extends Controller
 {
@@ -304,5 +305,18 @@ class SettingMenu extends Controller
             $field =  DB::getSchemaBuilder()->getColumnListing($tablename);
             echo json_encode($field);
         }
+    }
+
+    public function underconstructor(){
+        //echo Cache::get('underconstuctormode');
+        if(Cache::get('underconstuctormode') == '1'){
+            Cache::forever('underconstuctormode' , '0');
+            return json_encode(["status"=> "success", "msg"=> 'Berhasil mengganti ke mode perbaikan.']);
+        }else{
+            Cache::forever('underconstuctormode' , '1');
+            return json_encode(["status"=> "success", "msg"=> 'Berhasil mengganti ke mode publikasi.']);
+        }
+        //if(){}
+        
     }
 }
