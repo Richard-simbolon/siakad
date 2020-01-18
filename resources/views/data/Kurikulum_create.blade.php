@@ -37,6 +37,19 @@
     <!-- begin:: Content -->
     <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
         <div class="row">
+            <div class="col-xl-12">
+                <div class="alert alert-light alert-warning" style="background-color: #c9e4b061;border-color: #c9e4b061;" role="alert">
+                    <div class="alert-icon">
+                        <i class="flaticon-warning" style="color:#000000;"></i>
+                    </div>
+                    <div class="alert-text">
+                        <h5>Pemberitahuan</h5>
+                        <p>Pada saat menyimpan kurikulum baru akan secara otomatis disinkronisasi ke Forlap Dikti. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-lg-12">
                 <!--begin::Portlet-->
                 <div class="kt-portlet">
@@ -64,6 +77,7 @@
                         </div>
                     </div>
                     <!--begin::Form-->
+
                     <div class="kt-portlet__body">
                         <form class="kt-form">
                             <div class="row">

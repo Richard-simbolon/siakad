@@ -66,7 +66,7 @@
                                                 <div class="form-group ">
                                                     <label>NIM</label>
                                                     <div class="input-group">
-                                                        <input type="text" id="nim" class="form-control" placeholder="Search for...">
+                                                        <input type="text" id="nim" class="form-control" placeholder="Cari Berdasarkan NIM">
                                                         <input type="hidden" id="mahasiswa_id" name="mahasiswa_id" value="">
                                                         <input type="hidden" id="row_status" name="row_status" value="active">
                                                         <div class="input-group-append">

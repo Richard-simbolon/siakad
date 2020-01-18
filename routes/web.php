@@ -174,7 +174,12 @@ Route::post('/kelasperkuliahan/listmatakuliah', 'KelasPerkuliahan@listmatakuliah
 
 //aktivitas perkuliahan
 Route::get('/data/aktivitasperkuliahan', 'AktivitasPerkuliahan@index')->name('index');
+Route::get('/data/aktivitasperkuliahan/create', 'AktivitasPerkuliahan@create')->name('create');
+Route::get('/data/aktivitasperkuliahan/edit/{id}', 'AktivitasPerkuliahan@edit')->name('edit');
 Route::post('data/aktivitasperkuliahan/paging', 'AktivitasPerkuliahan@paging')->name('pagination');
+Route::post('data/aktivitasperkuliahan/save', 'AktivitasPerkuliahan@save')->name('save');
+Route::post('data/aktivitasperkuliahan/update', 'AktivitasPerkuliahan@update')->name('update');
+Route::post('data/aktivitasperkuliahan/delete', 'AktivitasPerkuliahan@delete')->name('delete');
 //end of aktivitas perkuliahan
 
 Route::post('kurikulum/carimatakuliah', 'Kurikulum@carimatakuliah')->name('CariMatakuliah');
