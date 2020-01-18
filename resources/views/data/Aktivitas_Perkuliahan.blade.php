@@ -53,6 +53,14 @@
                                     &nbsp;Aktivitas Perkuliahan
                                 </h3>
                             </div>
+                            <div class="kt-portlet__head-toolbar">
+                                <div class="dropdown dropdown-inline show">
+                                    <a href="/data/aktivitasperkuliahan/create" class="btn btn-success">
+                                        <i class="la la-plus"></i> Tambah &nbsp;
+                                    </a>
+                                </div>
+                            </div>
+
                         </div>
                         <!--begin::Form-->
                         <div class="kt-portlet__body">
@@ -70,6 +78,7 @@
                                     <th style="text-align: center">IPK</th>
                                     <th style="text-align: center">SKS Semester</th>
                                     <th style="text-align: center">SKS Total</th>
+                                    <th style="text-align: center">Aksi</th>
                                 </tr>
                                 </thead>
                             </table>

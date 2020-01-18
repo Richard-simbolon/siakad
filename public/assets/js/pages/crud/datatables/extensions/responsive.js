@@ -1084,14 +1084,7 @@ var KTDatatablesExtensionsResponsive = function() {
                 { data: 'nama', name: 'nama' },
                 { data: 'jurusan', name: 'jurusan' },
                 { data: 'angkatan', name: 'angkatan' },
-                { data: 'semester', name: 'semester', render: function(data, type, full, meta) {
-                        if(full.semester){
-                            return smstr[full.semester];
-                        }else{
-                            return '-';
-                        }
-                    }, 
-                },
+                { data: 'semester', name: 'semester'},
                 { data: 'status', name: 'status' },
                 { data: 'ips', name: 'ips', render: function(data, type, full, meta) {
                         if(full.ips){
@@ -1118,10 +1111,21 @@ var KTDatatablesExtensionsResponsive = function() {
                         
                     }, 
                 },
-                { data: 'skssemester', name: 'skssemester' },
-                { data: 'total', name: 'total' },
+                { data: 'sks_semester', name: 'sks_semester' },
+                { data: 'sks_total', name: 'sks_total' },
             ],
             columnDefs: [
+                {
+                    targets: 11,
+                    title: 'Actions',
+                    orderable: false,
+                    className: "text-center",
+                    render: function(data, type, full, meta) {
+                        return `
+                       <a class="btn btn-" href="/data/aktivitasperkuliahan/edit/`+full.id+`"><i class="la la-edit"></i></a>
+                       `;
+                    },
+                },
                 {
                     targets: 0,
                     className: "text-center"

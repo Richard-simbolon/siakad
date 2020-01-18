@@ -142,7 +142,7 @@ class KelasPerkuliahan extends Controller
         $data_kelas = DB::table('kelas_perkuliahan_mata_kuliah')
         ->select('kelas_perkuliahan_mata_kuliah.*' ,'master_kelas.title', 'kelas_perkuliahan.program_studi_id', 'kelas_perkuliahan.semester_id' , 'mata_kuliah.id_matkul', 'mata_kuliah.sks_mata_kuliah as sks_substansi_total', 'mata_kuliah.tipe_mata_kuliah' ,'kelas_perkuliahan.tanggal_mulai_efektif' ,'kelas_perkuliahan.tanggal_akhir_efektif' ,'dosen.id_dosen' ,'dosen_penugasan.id_registrasi as id_registrasi_dosen')
         ->leftJoin('kelas_perkuliahan' ,'kelas_perkuliahan.id' ,'kelas_perkuliahan_mata_kuliah.kelas_perkuliahan_id')
-        ->leftJoin('master_kelas' , 'master_kelas.id' , 'kelas_perkuliahan.kelas_id')
+        ->join('master_kelas' , 'master_kelas.id' , 'kelas_perkuliahan.kelas_id')
         ->leftJoin('mata_kuliah' , 'mata_kuliah.id' , 'kelas_perkuliahan_mata_kuliah.mata_kuliah_id')
         ->leftJoin('dosen' , 'dosen.id' , '=' ,'kelas_perkuliahan_mata_kuliah.dosen_id')
         ->leftJoin('dosen_penugasan' , 'dosen_penugasan.dosen_id' , '=' ,'kelas_perkuliahan_mata_kuliah.dosen_id')
@@ -155,6 +155,7 @@ class KelasPerkuliahan extends Controller
             foreach(static::$webservice as $key => $val){
                 $data[$val] = $item->$key;
             }
+
             $realisasi = AbsensiMahasiswaModel::where('kelas_perkuliahan_detail_id' , $item->id)->count();
             $item->realisasi_tatap_muka = $realisasi;
             $item->id_jenis_evaluasi = $evaluasi->id_jenis_evaluasi;
