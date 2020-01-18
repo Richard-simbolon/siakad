@@ -30,6 +30,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        date_default_timezone_set('Asia/Jakarta');
+
         $menu_active = 'dashboard';
 
         $login_type = Auth::user()->login_type;
@@ -98,7 +100,21 @@ class HomeController extends Controller
             return view('home_dosen', compact('data','semester', 'matakuliah','jumlah_sks', 'kelas','menu_active'));
         }
 
-        return view('home_admin', compact('menu_active'));
+        $date = date('Y-m-d');
+        $date_time = date_create(date('Y-m-d H:m:s'));
+        date_add($date_time, date_interval_create_from_date_string('-15 minutes'));
+        $filter_date = date_format($date_time, 'Y-m-d H:i:s');
+        $data_login = array(
+            "mahasiswa_online" => MahasiswaModel::where('last_activity', '>=', $filter_date)->count(),
+            "dosen_online" => DosenModel::where('last_activity', '>=', $filter_date)->count(),
+            "mahasiswa_online_today" => MahasiswaModel::where('last_activity', '>=', $date)->count(),
+            "dosen_online_today" => DosenModel::where('last_activity', '>=', $date)->count(),
+            "mahasiswa_total_visit" => MahasiswaModel::where('last_activity', '!=', 'null')->count(),
+            "dosen_total_visit" => DosenModel::where('last_activity', '!=', 'null')->count(),
+
+        );
+
+        return view('home_admin', compact('menu_active', 'data_login'));
     }
 
     public function getCalender(){

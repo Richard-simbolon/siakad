@@ -22,6 +22,106 @@
         <!-- begin:: Content -->
         <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
 
+            <div class="kt-portlet">
+                <div class="kt-portlet__body  kt-portlet__body--fit">
+                    <div class="row row-no-padding row-col-separator-xl">
+                        <div class="col-xl-3">
+
+                            <!--begin:: Widgets/Daily Sales-->
+                            <div class="kt-portlet kt-portlet--height-fluid">
+                                <div class="kt-widget14">
+                                    <div class="kt-widget14__header">
+                                        <div style="float: left;width: 65%">
+                                            <h3 class="kt-widget14__title">
+                                                <span class="dot-online"></span> Mahasiswa
+                                            </h3>
+                                            <span class="kt-widget14__desc">
+                                            Jumlah mahasiswa sedang online
+                                        </span>
+                                        </div>
+                                        <div style="float: left;width: 35%;text-align: center">
+                                            <h1>{{$data_login['mahasiswa_online']}}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--end:: Widgets/Daily Sales-->
+                        </div>
+                        <div class="col-xl-3">
+
+                            <!--begin:: Widgets/Daily Sales-->
+                            <div class="kt-portlet kt-portlet--height-fluid">
+                                <div class="kt-widget14">
+                                    <div class="kt-widget14__header">
+                                        <div style="float: left;width: 65%">
+                                            <h3 class="kt-widget14__title">
+                                                <span class="dot-online"></span> Dosen
+                                            </h3>
+                                            <span class="kt-widget14__desc">
+                                            Jumlah dosen sedang online
+                                        </span>
+                                        </div>
+                                        <div style="float: left;width: 35%;text-align: center">
+                                            <h1>{{$data_login['dosen_online']}}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end:: Widgets/Profit Share-->
+                        </div>
+                        <div class="col-xl-3">
+
+                            <!--begin:: Widgets/Daily Sales-->
+                            <div class="kt-portlet kt-portlet--height-fluid">
+                                <div class="kt-widget14">
+                                    <div class="kt-widget14__header">
+                                        <div style="float: left;width: 65%">
+                                            <h3 class="kt-widget14__title">
+                                                <span class="dot-visitor"></span> Visitor Hari Ini
+                                            </h3>
+                                            <span class="kt-widget14__desc">
+                                                Dosen : {{$data_login['mahasiswa_online_today']}}<br/>
+                                                Mahasiswa : {{$data_login['dosen_online_today']}}
+                                        </span>
+                                        </div>
+                                        <div style="float: left;width: 35%;text-align: center">
+                                            <h1>{{$data_login['mahasiswa_online_today'] + $data_login['dosen_online_today']}}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--end:: Widgets/Revenue Change-->
+                        </div>
+                        <div class="col-xl-3">
+
+                            <!--begin:: Widgets/Daily Sales-->
+                            <div class="kt-portlet kt-portlet--height-fluid">
+                                <div class="kt-widget14">
+                                    <div class="kt-widget14__header">
+                                        <div style="float: left;width: 65%">
+                                            <h3 class="kt-widget14__title">
+                                                <span class="dot-visitor"></span> Total Visitor
+                                            </h3>
+                                            <span class="kt-widget14__desc">
+                                                Dosen : {{$data_login['mahasiswa_total_visit']}} <br/>
+                                                Mahasiswa : {{$data_login['dosen_total_visit']}}
+                                        </span>
+                                        </div>
+                                        <div style="float: left;width: 35%;text-align: center">
+                                            <h1>{{$data_login['mahasiswa_total_visit'] + $data_login['dosen_total_visit']}}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--end:: Widgets/Revenue Change-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!--Begin::Section-->
             <div class="kt-portlet">
                 <div class="kt-portlet__body  kt-portlet__body--fit">
@@ -238,6 +338,43 @@
 
     <style>
         .m-content{width:100%}
+        .swal2-image{
+            margin:0!important;
+        }
+        .dot {
+            height: 12px;
+            width: 12px;
+            margin-right: 5px;
+            background-color: #fff;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .dot-online {
+            height: 12px;
+            width: 12px;
+            margin-right: 5px;
+            background-color: #85ff00;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .dot-visitor {
+            height: 12px;
+            width: 12px;
+            margin-right: 5px;
+            background-color: #009688;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        @keyframes blink {
+            to {
+                visibility: hidden;
+            }
+        }
+        @-webkit-keyframes blink {
+            to {
+                visibility: hidden;
+            }
+        }
     </style>
 
 
