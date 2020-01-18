@@ -39,6 +39,7 @@ use App\TahunAjaranModel;
 use Intervention\Image\Facades\Image as InterventionImage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use Dompdf\Image\Cache;
 
 class DosenModule extends Controller
 {
@@ -56,6 +57,9 @@ class DosenModule extends Controller
             $this->user = Auth::user();
             if(!$this->user){
                 Redirect::to('login')->send();
+            }
+            if(Cache::get('underconstuctormode') == '1'){
+                return abort(403, 'Sedang dalam perbaikan.');
             }
             if($this->user->login_type != 'dosen'){
                 return abort(404);

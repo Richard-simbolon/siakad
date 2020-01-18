@@ -103,7 +103,7 @@
                                                     <div class="form-group">
                                                         <label>Periode Masuk*</label>
                                                         <div class="form-group">
-                                                            <select name="mahasiswa[id_periode_masuk]" class="form-control kt-select2">
+                                                            <select name="mahasiswa[id_periode_masuk]" class="form-control kt-select2 search-class" id="periode_masuk_search">
                                                                 <option value="">-- Pilih Periode Masuk --</option>
                                                                 @foreach ($master['periode_masuk'] as $item)
                                                                     <option value="{{$item['id']}}">{{$item['title']}}</option>
@@ -116,7 +116,7 @@
                                                     <div class="form-group">
                                                         <label>Program Studi*</label>
                                                         <div class="form-group">
-                                                            <select name="mahasiswa[jurusan_id]" class="form-control kt-select2">
+                                                            <select name="mahasiswa[jurusan_id]" class="form-control kt-select2 search-class" id="jurusan_search">
                                                                 <option value="">-- Pilih Jurusan --</option>
                                                                 @foreach ($master['jurusan'] as $item)
                                                                     <option value="{{$item['id']}}">{{$item['title']}}</option>
@@ -136,7 +136,7 @@
                                                 <div class="col-xl-6">
                                                     <div class="form-group">
                                                         <label>Kelas*</label>
-                                                        <select name="mahasiswa[kelas_id]" class="form-control kt-select2">
+                                                        <select name="mahasiswa[kelas_id]" class="form-control kt-select2" id="class-mhs">
                                                             <option value="">Select</option>
                                                             @foreach ($master['kelas'] as $item)
                                                                 <option value="{{$item['id']}}" > {{$item['title']}} </option>
@@ -770,7 +770,29 @@
         function isi_nama_ibu(v){
             $("#nama_ibu").val(v.val());
         }
+
+        $(document).on('change' , '.search-class' , function(){
+            if($('#periode_masuk_search').val() == '' || $('#jurusan_search').val() == ''){
+                return false;
+            }
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('#csrf_').val()
+                }
+            });
+            $.ajax({
+                type:'POST',
+                url:'/kelas/listkelas',
+                data:{'jurusan': $('#jurusan_search').val(), 'angkatan':$('#periode_masuk_search').val()},
+                success:function(result) {
+                    //console.log(result);
+                    $('#class-mhs').html(result);
+                }
+            });
+        });
+        
     </script>
+    
     <script src="{{asset('assets/js/pages/custom/wizard/wizard-3.js')}}" type="text/javascript"></script>
 @stop
 

@@ -17,6 +17,9 @@ class DosenPembimbing extends Controller
             if(!$this->user){
                 Redirect::to('login')->send();
             }
+            if(Cache::get('underconstuctormode') == '1'){
+                return abort(404);
+            }
             if($this->user->login_type != 'dosen'){
                 return abort(404);
             }else{
