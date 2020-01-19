@@ -161,14 +161,14 @@
                                 @if (count($data) > 0 )
                                     @foreach ($data as $item)
                                     <?php $i++;
-                                    $sks += $item->bobot_mata_kuliah;
+                                    $sks += $item->sks_mata_kuliah;
                                     ?>
                                         <tr>
                                             <td style="text-align: center">{{$i}}</td>
                                             <td>{{$item->kode_mata_kuliah}}</td>
                                             <td>{{$item->matakuliah_title}}</td>
                                             <td>{{$item->kelas_title}}</td>
-                                            <td style="text-align: center">{{$item->bobot_mata_kuliah}}</td>
+                                            <td style="text-align: center">{{$item->sks_mata_kuliah}}</td>
                                             <td>{{$item->nama}}</td>
                                         </tr>
                                     @endforeach

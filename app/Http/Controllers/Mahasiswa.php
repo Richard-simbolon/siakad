@@ -202,10 +202,10 @@ class Mahasiswa extends Controller
 
 
     public function sinc(){
-        
+        ini_set('max_execution_time', 300);
         $token = $this->check_auth_siakad();
-        echo $token; exit;
-        $data = array('act'=>"GetBiodataMahasiswa" , "token"=>$token, "filter"=> "","limit"=>"1" , "offset" =>0);
+        //echo $token; exit;
+        $data = array('act'=>"GetBiodataMahasiswa" , "token"=>$token, "filter"=> "","limit"=>"" , "offset" =>0);
         $result_string = $this->runWS($data, 'json');
         $result = json_decode($result_string , true);
         if(!$result){
@@ -219,9 +219,15 @@ class Mahasiswa extends Controller
                     $service_data = [];
                     foreach(static::$webservice as $key=>$val){
                         foreach(static::$webservice[$key] as $key2=>$val2){
-                            $service_data[$key][$key2] = $item[$val2];
+                            if($val2 == 'nama_ibu_kandung'){
+                               $service_data[$key][$key2] = $item['nama_ibu'];
+                            }else{
+                                $service_data[$key][$key2] = $item[$val2];
+                            }
+                            
                         }
                     }
+                    $service_data['mahasiswa']['password'] = Hash::make($item['tanggal_lahir']);
                     $mahasiswa = MahasiswaModel::updateOrCreate(array('id_mahasiswa' => $service_data['mahasiswa']['id_mahasiswa']), $service_data['mahasiswa']);
                     $service_data['ibu']['mahasiswa_id'] = $mahasiswa->id;
                     $service_data['ibu']['kategori'] = 'ibu';
@@ -238,14 +244,16 @@ class Mahasiswa extends Controller
                     ->insert(array('title' => 'GetBiodataMahasiswa' ,'created_by'=> Auth::user()->id ,'created_at'=>date('Y-m-d H:i:s')));
                     //$this->sinkron_log('sync_semester','sukses', count($result['data']));
                     DB::commit();
-                    return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
+                    //
                 } catch(\Exception $e){
                     DB::rollBack(); 
                     throw $e;
                     return json_encode(array('status' => 'error' , 'msg' => 'Terjadi kesalahan mensinkronkan data, silahkan coba lagi.'));
                 }  
             }
+            
         }
+        return json_encode(array('status' => 'success' , 'msg' => 'Data Berhasil Disinkronisai.'));
         
     }
 
@@ -1075,7 +1083,7 @@ class Mahasiswa extends Controller
 
 
         $ip_smstr_prev = JadwalPerkuliahanModel::leftJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.mata_kuliah_id' ,'=' ,'view_jadwal_kelas_perkuliahan.mata_kuliah_id')
-        ->select('kurikulum_mata_kuliah.semester' ,'view_jadwal_kelas_perkuliahan.semester_id',DB::raw('SUM(view_jadwal_kelas_perkuliahan.bobot_mata_kuliah) as sks'))
+        ->select('kurikulum_mata_kuliah.semester' ,'view_jadwal_kelas_perkuliahan.semester_id',DB::raw('SUM(view_jadwal_kelas_perkuliahan.sks_mata_kuliah) as sks'))
         ->where('kelas_id' , $mahasiswa->kelas_id)
         ->where('semester_id' , $semester_active->id)
         ->groupby('semester_id','kurikulum_mata_kuliah.semester')
@@ -1133,7 +1141,7 @@ class Mahasiswa extends Controller
         ->where('kurikulum.id' , $kurikulum->kurikulum_id)->where('nilai_mahasiswa.semester_id' , $semester_aktif->id)->get();
         
         $ip_smstr_prev = JadwalPerkuliahanModel::leftJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.mata_kuliah_id' ,'=' ,'view_jadwal_kelas_perkuliahan.mata_kuliah_id')
-        ->select('kurikulum_mata_kuliah.semester' ,'view_jadwal_kelas_perkuliahan.semester_id',DB::raw('SUM(view_jadwal_kelas_perkuliahan.bobot_mata_kuliah) as sks'))
+        ->select('kurikulum_mata_kuliah.semester' ,'view_jadwal_kelas_perkuliahan.semester_id',DB::raw('SUM(view_jadwal_kelas_perkuliahan.sks_mata_kuliah) as sks'))
         ->where('kelas_id' , $mahasiswa->kelas_id)
         ->where('semester_id' , $semester_aktif->id)
         ->groupby('semester_id','kurikulum_mata_kuliah.semester')
@@ -1190,7 +1198,7 @@ class Mahasiswa extends Controller
 
 
         $ip_smstr_prev = JadwalPerkuliahanModel::leftJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.mata_kuliah_id' ,'=' ,'view_jadwal_kelas_perkuliahan.mata_kuliah_id')
-        ->select('kurikulum_mata_kuliah.semester' ,'view_jadwal_kelas_perkuliahan.semester_id',DB::raw('SUM(view_jadwal_kelas_perkuliahan.bobot_mata_kuliah) as sks'))
+        ->select('kurikulum_mata_kuliah.semester' ,'view_jadwal_kelas_perkuliahan.semester_id',DB::raw('SUM(view_jadwal_kelas_perkuliahan.sks_mata_kuliah) as sks'))
         //->where('kelas_id' , $kurikulum->kelas_id)
         ->where('semester_id' , $request->all()['id'])
         ->groupby('semester_id','kurikulum_mata_kuliah.semester')
@@ -1225,7 +1233,7 @@ class Mahasiswa extends Controller
             $t_sks_praktek = 0;
             foreach($data as $item){
                 $i++;
-                $sks += $item->bobot_mata_kuliah;
+                $sks += $item->sks_mata_kuliah;
 
                 $nangka = 0;
                 $index = 0;
@@ -1252,13 +1260,13 @@ class Mahasiswa extends Controller
 
                 if($nangka < 45){
                     $nhuruf = 'E';
-                    $nipk += 0 * $item->bobot_mata_kuliah;
-                    $indexvsks = 0 * $item->bobot_mata_kuliah;
+                    $nipk += 0 * $item->sks_mata_kuliah;
+                    $indexvsks = 0 * $item->sks_mata_kuliah;
                     $index = 0;
                 }elseif($nangka > 44 && $nangka<= 59){
                     $nhuruf = 'D';
-                    $nipk += 1 * $item->bobot_mata_kuliah;
-                    $indexvsks = 1 * $item->bobot_mata_kuliah;
+                    $nipk += 1 * $item->sks_mata_kuliah;
+                    $indexvsks = 1 * $item->sks_mata_kuliah;
                     $index = 1;
                 }elseif($nangka > 59 && $nangka<= 69){
                     if((int)($kurikulum->angkatan) < 2018 && $nangka > 65 && $nangka <= 69){
@@ -1266,8 +1274,8 @@ class Mahasiswa extends Controller
                     }else{
                         $nhuruf = 'C';
                     }
-                    $nipk += 2 * $item->bobot_mata_kuliah;
-                    $indexvsks = 2 * $item->bobot_mata_kuliah;
+                    $nipk += 2 * $item->sks_mata_kuliah;
+                    $indexvsks = 2 * $item->sks_mata_kuliah;
                     $index = 2;
                 }elseif($nangka > 69 && $nangka<= 79){
                     if((int)($kurikulum->angkatan) < 2018 && $nangka > 75 && $nangka<= 79){
@@ -1275,41 +1283,41 @@ class Mahasiswa extends Controller
                     }else{
                         $nhuruf = 'B';
                     }
-                    $nipk += 3 * $item->bobot_mata_kuliah;
-                    $indexvsks = 3 * $item->bobot_mata_kuliah;
+                    $nipk += 3 * $item->sks_mata_kuliah;
+                    $indexvsks = 3 * $item->sks_mata_kuliah;
                     $index = 3;
                 }elseif($nangka > 79 && $nangka<= 100){
                     $nhuruf = 'A';
-                    $nipk += 4 * $item->bobot_mata_kuliah;
-                    $indexvsks = 4 * $item->bobot_mata_kuliah;
+                    $nipk += 4 * $item->sks_mata_kuliah;
+                    $indexvsks = 4 * $item->sks_mata_kuliah;
                     $index = 4;
                 }else{
                     $nhuruf = 'E';
-                    $nipk += 0 * $item->bobot_mata_kuliah;
+                    $nipk += 0 * $item->sks_mata_kuliah;
                     $index = 5;
                 }
 
                 if($item->tipe_mata_kuliah == 'praktek' || $item->tipe_mata_kuliah == 'skripsi' ||$item->tipe_mata_kuliah == 'seminar' ||$item->tipe_mata_kuliah == 'pkl'){
                     $sksteori = 0; 
-                    $skspraktek = $item->bobot_mata_kuliah;
-                    $jumlahpr = $item->bobot_mata_kuliah;
+                    $skspraktek = $item->sks_mata_kuliah;
+                    $jumlahpr = $item->sks_mata_kuliah;
                     
                     $nilaiteoriangka = 0;
                     $nilaiteorimutu = '-';  
                     $nilaipraktekangka = $nangka;
                     $nilaipraktekmutu = $nhuruf;
-                    $t_sks_praktek += $item->bobot_mata_kuliah;
+                    $t_sks_praktek += $item->sks_mata_kuliah;
                     
                 }else{
-                    $sksteori = $item->bobot_mata_kuliah; 
+                    $sksteori = $item->sks_mata_kuliah; 
                     $skspraktek = '-';
-                    $jumlahpr = $item->bobot_mata_kuliah;
+                    $jumlahpr = $item->sks_mata_kuliah;
 
                     $nilaiteoriangka = $nangka;
                     $nilaiteorimutu = $nhuruf;  
                     $nilaipraktekangka = "-";
                     $nilaipraktekmutu = '-';
-                    $t_sks_teori += $item->bobot_mata_kuliah;
+                    $t_sks_teori += $item->sks_mata_kuliah;
                 }
                 
                 $html .= '
@@ -1469,7 +1477,7 @@ class Mahasiswa extends Controller
         ->get();
 
         $ip_smstr_prev = JadwalPerkuliahanModel::leftJoin('kurikulum_mata_kuliah' ,'kurikulum_mata_kuliah.mata_kuliah_id' ,'=' ,'view_jadwal_kelas_perkuliahan.mata_kuliah_id')
-        ->select('kurikulum_mata_kuliah.semester' ,'view_jadwal_kelas_perkuliahan.semester_id',DB::raw('SUM(view_jadwal_kelas_perkuliahan.bobot_mata_kuliah) as sks'))
+        ->select('kurikulum_mata_kuliah.semester' ,'view_jadwal_kelas_perkuliahan.semester_id',DB::raw('SUM(view_jadwal_kelas_perkuliahan.sks_mata_kuliah) as sks'))
         ->where('kelas_id' , $mahasiswa->kelas_id)
         ->where('semester_id' , $semester_active->id)
         ->groupby('semester_id','kurikulum_mata_kuliah.semester')
@@ -1523,7 +1531,7 @@ class Mahasiswa extends Controller
             $t_sks_praktek = 0;
             foreach($data as $item){
                 $i++;
-                $sks += $item->bobot_mata_kuliah;
+                $sks += $item->sks_mata_kuliah;
 
                 $nangka = 0;
                 $index = 0;
@@ -1550,13 +1558,13 @@ class Mahasiswa extends Controller
 
                 if($nangka < 45){
                     $nhuruf = 'E';
-                    $nipk += 0 * $item->bobot_mata_kuliah;
-                    $indexvsks = 0 * $item->bobot_mata_kuliah;
+                    $nipk += 0 * $item->sks_mata_kuliah;
+                    $indexvsks = 0 * $item->sks_mata_kuliah;
                     $index = 0;
                 }elseif($nangka > 44 && $nangka<= 59){
                     $nhuruf = 'D';
-                    $nipk += 1 * $item->bobot_mata_kuliah;
-                    $indexvsks = 1 * $item->bobot_mata_kuliah;
+                    $nipk += 1 * $item->sks_mata_kuliah;
+                    $indexvsks = 1 * $item->sks_mata_kuliah;
                     $index = 1;
                 }elseif($nangka > 59 && $nangka<= 69){
                     if((int)($kurikulum->angkatan) < 2018 && $nangka > 65 && $nangka <= 69){
@@ -1564,8 +1572,8 @@ class Mahasiswa extends Controller
                     }else{
                         $nhuruf = 'C';
                     }
-                    $nipk += 2 * $item->bobot_mata_kuliah;
-                    $indexvsks = 2 * $item->bobot_mata_kuliah;
+                    $nipk += 2 * $item->sks_mata_kuliah;
+                    $indexvsks = 2 * $item->sks_mata_kuliah;
                     $index = 2;
                 }elseif($nangka > 69 && $nangka<= 79){
                     if((int)($kurikulum->angkatan) < 2018 && $nangka > 75 && $nangka <= 79){
@@ -1573,41 +1581,41 @@ class Mahasiswa extends Controller
                     }else{
                         $nhuruf = 'B';
                     }
-                    $nipk += 3 * $item->bobot_mata_kuliah;
-                    $indexvsks = 3 * $item->bobot_mata_kuliah;
+                    $nipk += 3 * $item->sks_mata_kuliah;
+                    $indexvsks = 3 * $item->sks_mata_kuliah;
                     $index = 3;
                 }elseif($nangka > 79 && $nangka<= 100){
                     $nhuruf = 'A';
-                    $nipk += 4 * $item->bobot_mata_kuliah;
-                    $indexvsks = 4 * $item->bobot_mata_kuliah;
+                    $nipk += 4 * $item->sks_mata_kuliah;
+                    $indexvsks = 4 * $item->sks_mata_kuliah;
                     $index = 4;
                 }else{
                     $nhuruf = 'E';
-                    $nipk += 0 * $item->bobot_mata_kuliah;
+                    $nipk += 0 * $item->sks_mata_kuliah;
                     $index = 5;
                 }
 
                 if($item->tipe_mata_kuliah == 'praktek' || $item->tipe_mata_kuliah == 'skripsi' ||$item->tipe_mata_kuliah == 'seminar' ||$item->tipe_mata_kuliah == 'pkl'){
                     $sksteori = 0; 
-                    $skspraktek = $item->bobot_mata_kuliah;
-                    $jumlahpr = $item->bobot_mata_kuliah;
+                    $skspraktek = $item->sks_mata_kuliah;
+                    $jumlahpr = $item->sks_mata_kuliah;
                     
                     $nilaiteoriangka = 0;
                     $nilaiteorimutu = '-';  
                     $nilaipraktekangka = $nangka;
                     $nilaipraktekmutu = $nhuruf;
-                    $t_sks_praktek += $item->bobot_mata_kuliah;
+                    $t_sks_praktek += $item->sks_mata_kuliah;
                     
                 }else{
-                    $sksteori = $item->bobot_mata_kuliah; 
+                    $sksteori = $item->sks_mata_kuliah; 
                     $skspraktek = '-';
-                    $jumlahpr = $item->bobot_mata_kuliah;
+                    $jumlahpr = $item->sks_mata_kuliah;
 
                     $nilaiteoriangka = $nangka;
                     $nilaiteorimutu = $nhuruf;  
                     $nilaipraktekangka = "-";
                     $nilaipraktekmutu = '-';
-                    $t_sks_teori += $item->bobot_mata_kuliah;
+                    $t_sks_teori += $item->sks_mata_kuliah;
                 }
                 
             }

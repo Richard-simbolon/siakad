@@ -192,7 +192,7 @@
                                                     foreach ($g as $key => $item) {
                                 
                                                         $i++;
-                                                        $sks += $item->bobot_mata_kuliah;
+                                                        $sks += $item->sks_mata_kuliah;
                                                         $nangka = 0;
                                                         $nhuruf = 'E';
                                                         $indexvsks = 0;
@@ -217,13 +217,13 @@
                                                         }
                                                         if($nangka < 45){
                                                             $nhuruf = 'E';
-                                                            $nipk += 0 * $item->bobot_mata_kuliah;
-                                                            $indexvsks = 0 * $item->bobot_mata_kuliah;
+                                                            $nipk += 0 * $item->sks_mata_kuliah;
+                                                            $indexvsks = 0 * $item->sks_mata_kuliah;
                                                             $index = 0;
                                                         }elseif($nangka > 44 && $nangka <  60){
                                                             $nhuruf = 'D';
-                                                            $nipk += 1 * $item->bobot_mata_kuliah;
-                                                            $indexvsks = 1 * $item->bobot_mata_kuliah;
+                                                            $nipk += 1 * $item->sks_mata_kuliah;
+                                                            $indexvsks = 1 * $item->sks_mata_kuliah;
                                                             $index = 1;
                                                         }elseif($nangka > 59 && $nangka< 70){
                                                             if((int)($mahasiswa->angkatan_title) < 2018 && $nangka > 65 && $nangka < 70){
@@ -231,8 +231,8 @@
                                                             }else{
                                                                 $nhuruf = 'C';
                                                             }
-                                                            $nipk += 2 * $item->bobot_mata_kuliah;
-                                                            $indexvsks = 2 * $item->bobot_mata_kuliah;
+                                                            $nipk += 2 * $item->sks_mata_kuliah;
+                                                            $indexvsks = 2 * $item->sks_mata_kuliah;
                                                             $index = 2;
                                                         }elseif($nangka > 69 && $nangka < 80){
                                                             if((int)($mahasiswa->angkatan_title) < 2018 && $nangka > 75 && $nangka < 80){
@@ -240,33 +240,33 @@
                                                             }else{
                                                                 $nhuruf = 'B';
                                                             }
-                                                            $nipk += 3 * $item->bobot_mata_kuliah;
-                                                            $indexvsks = 3 * $item->bobot_mata_kuliah;
+                                                            $nipk += 3 * $item->sks_mata_kuliah;
+                                                            $indexvsks = 3 * $item->sks_mata_kuliah;
                                                             $index = 3;
                                                         }elseif($nangka > 79 && $nangka <= 100){
                                                             $nhuruf = 'A';
-                                                            $nipk += 4 * $item->bobot_mata_kuliah;
-                                                            $indexvsks = 4 * $item->bobot_mata_kuliah;
+                                                            $nipk += 4 * $item->sks_mata_kuliah;
+                                                            $indexvsks = 4 * $item->sks_mata_kuliah;
                                                             $index = 4;
                                                         }else{
                                                             $nhuruf = 'E';
-                                                            $nipk += 0 * $item->bobot_mata_kuliah;
+                                                            $nipk += 0 * $item->sks_mata_kuliah;
                                                             $index = 5;
                                                         }
                     
                                                         if($item->tipe_mata_kuliah == 'praktek' || $item->tipe_mata_kuliah == 'skripsi' ||$item->tipe_mata_kuliah == 'seminar' ||$item->tipe_mata_kuliah == 'pkl'){
                                                             $sksteori = 0; 
-                                                            $skspraktek = $item->bobot_mata_kuliah;
-                                                            $jumlahpr = $item->bobot_mata_kuliah;
+                                                            $skspraktek = $item->sks_mata_kuliah;
+                                                            $jumlahpr = $item->sks_mata_kuliah;
                                                             
                                                             $nilaiteoriangka = 0;
                                                             $nilaiteorimutu = '-';  
                                                             $nilaipraktekangka = $nangka;
                                                             $nilaipraktekmutu = $nhuruf;
                                                         }else{
-                                                            $sksteori = $item->bobot_mata_kuliah; 
+                                                            $sksteori = $item->sks_mata_kuliah; 
                                                             $skspraktek = '-';
-                                                            $jumlahpr = $item->bobot_mata_kuliah;
+                                                            $jumlahpr = $item->sks_mata_kuliah;
                     
                                                             $nilaiteoriangka = $nangka;
                                                             $nilaiteorimutu = $nhuruf;  
