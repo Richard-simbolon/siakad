@@ -62,6 +62,19 @@ trait AuthenticatesUsers
         }*/
 
         if ($this->attemptLogin($request)) {
+            date_default_timezone_set('Asia/Jakarta');
+            $date = date('Y-m-d H:m:s');
+            $data = array(
+                "last_login" => $date,
+                "last_activity" => $date
+            );
+            if($request->login_type_role == 'dosen'){
+                DB::table('dosen')->where('nidn_nup_nidk','=', $request->login)->update($data);
+            }elseif ($request->login_type_role == 'mahasiswa'){
+                DB::table('mahasiswa')->where('nim','=', $request->login)->update($data);
+            }else{
+                DB::table('administrator')->where('username','=', $request->login)->update($data);
+            }
             return $this->sendLoginResponse($request);
         }
 
