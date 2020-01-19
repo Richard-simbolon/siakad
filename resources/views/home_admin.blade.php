@@ -21,38 +21,42 @@
 
         <!-- begin:: Content -->
         <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
-
             <div class="kt-portlet">
                 <div class="kt-portlet__body  kt-portlet__body--fit">
                     <div class="row row-no-padding row-col-separator-xl">
                         <div class="col-xl-3">
-
                             <!--begin:: Widgets/Daily Sales-->
                             <div class="kt-portlet kt-portlet--height-fluid">
-                                <div class="kt-widget14">
+                                <div class="kt-widget14" style="position: relative;">
                                     <div class="kt-widget14__header">
                                         <div style="float: left;width: 65%">
                                             <h3 class="kt-widget14__title">
                                                 <span class="dot-online"></span> Mahasiswa
                                             </h3>
                                             <span class="kt-widget14__desc">
-                                            Jumlah mahasiswa sedang online
-                                        </span>
+                                                Jumlah mahasiswa sedang online
+                                            </span>
                                         </div>
-                                        <div style="float: left;width: 35%;text-align: center">
+                                        <div style="float: left;width: 35%;text-align: center;position: relative">
                                             <h1>{{$data_login['mahasiswa_online']}}</h1>
                                         </div>
                                     </div>
+                                    <div style="position: absolute;bottom: 5px;right: 10px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24"/>
+                                                <path d="M18.5,6 C19.3284271,6 20,6.67157288 20,7.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 C17.6715729,20 17,19.3284271 17,18.5 L17,7.5 C17,6.67157288 17.6715729,6 18.5,6 Z M12.5,11 C13.3284271,11 14,11.6715729 14,12.5 L14,18.5 C14,19.3284271 13.3284271,20 12.5,20 C11.6715729,20 11,19.3284271 11,18.5 L11,12.5 C11,11.6715729 11.6715729,11 12.5,11 Z M6.5,15 C7.32842712,15 8,15.6715729 8,16.5 L8,18.5 C8,19.3284271 7.32842712,20 6.5,20 C5.67157288,20 5,19.3284271 5,18.5 L5,16.5 C5,15.6715729 5.67157288,15 6.5,15 Z" fill="#000000"/>
+                                            </g>
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
-
                             <!--end:: Widgets/Daily Sales-->
                         </div>
                         <div class="col-xl-3">
-
                             <!--begin:: Widgets/Daily Sales-->
                             <div class="kt-portlet kt-portlet--height-fluid">
-                                <div class="kt-widget14">
+                                <div class="kt-widget14" style="position: relative;">
                                     <div class="kt-widget14__header">
                                         <div style="float: left;width: 65%">
                                             <h3 class="kt-widget14__title">
@@ -66,15 +70,22 @@
                                             <h1>{{$data_login['dosen_online']}}</h1>
                                         </div>
                                     </div>
+                                    <div style="position: absolute;bottom: 5px;right: 10px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24"/>
+                                                <path d="M18.5,6 C19.3284271,6 20,6.67157288 20,7.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 C17.6715729,20 17,19.3284271 17,18.5 L17,7.5 C17,6.67157288 17.6715729,6 18.5,6 Z M12.5,11 C13.3284271,11 14,11.6715729 14,12.5 L14,18.5 C14,19.3284271 13.3284271,20 12.5,20 C11.6715729,20 11,19.3284271 11,18.5 L11,12.5 C11,11.6715729 11.6715729,11 12.5,11 Z M6.5,15 C7.32842712,15 8,15.6715729 8,16.5 L8,18.5 C8,19.3284271 7.32842712,20 6.5,20 C5.67157288,20 5,19.3284271 5,18.5 L5,16.5 C5,15.6715729 5.67157288,15 6.5,15 Z" fill="#000000"/>
+                                            </g>
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
                             <!--end:: Widgets/Profit Share-->
                         </div>
                         <div class="col-xl-3">
-
                             <!--begin:: Widgets/Daily Sales-->
                             <div class="kt-portlet kt-portlet--height-fluid">
-                                <div class="kt-widget14">
+                                <div class="kt-widget14" style="position: relative;">
                                     <div class="kt-widget14__header">
                                         <div style="float: left;width: 65%">
                                             <h3 class="kt-widget14__title">
@@ -89,16 +100,25 @@
                                             <h1>{{$data_login['mahasiswa_online_today'] + $data_login['dosen_online_today']}}</h1>
                                         </div>
                                     </div>
+                                    <div style="position: absolute;bottom: 5px;right: 10px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24"/>
+                                                <rect fill="#000000" opacity="0.3" x="7" y="4" width="3" height="13" rx="1.5"/>
+                                                <rect fill="#000000" opacity="0.3" x="12" y="9" width="3" height="8" rx="1.5"/>
+                                                <path d="M5,19 L20,19 C20.5522847,19 21,19.4477153 21,20 C21,20.5522847 20.5522847,21 20,21 L4,21 C3.44771525,21 3,20.5522847 3,20 L3,4 C3,3.44771525 3.44771525,3 4,3 C4.55228475,3 5,3.44771525 5,4 L5,19 Z" fill="#000000" fill-rule="nonzero"/>
+                                                <rect fill="#000000" opacity="0.3" x="17" y="11" width="3" height="6" rx="1.5"/>
+                                            </g>
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
-
                             <!--end:: Widgets/Revenue Change-->
                         </div>
                         <div class="col-xl-3">
-
                             <!--begin:: Widgets/Daily Sales-->
                             <div class="kt-portlet kt-portlet--height-fluid">
-                                <div class="kt-widget14">
+                                <div class="kt-widget14" style="position: relative;">
                                     <div class="kt-widget14__header">
                                         <div style="float: left;width: 65%">
                                             <h3 class="kt-widget14__title">
@@ -113,13 +133,24 @@
                                             <h1>{{$data_login['mahasiswa_total_visit'] + $data_login['dosen_total_visit']}}</h1>
                                         </div>
                                     </div>
+                                    <div style="position: absolute;bottom: 5px;right: 10px;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="kt-svg-icon">
+                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <rect x="0" y="0" width="24" height="24"/>
+                                                <rect fill="#000000" opacity="0.3" x="7" y="4" width="3" height="13" rx="1.5"/>
+                                                <rect fill="#000000" opacity="0.3" x="12" y="9" width="3" height="8" rx="1.5"/>
+                                                <path d="M5,19 L20,19 C20.5522847,19 21,19.4477153 21,20 C21,20.5522847 20.5522847,21 20,21 L4,21 C3.44771525,21 3,20.5522847 3,20 L3,4 C3,3.44771525 3.44771525,3 4,3 C4.55228475,3 5,3.44771525 5,4 L5,19 Z" fill="#000000" fill-rule="nonzero"/>
+                                                <rect fill="#000000" opacity="0.3" x="17" y="11" width="3" height="6" rx="1.5"/>
+                                            </g>
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
-
                             <!--end:: Widgets/Revenue Change-->
                         </div>
                     </div>
                 </div>
+
             </div>
 
             <!--Begin::Section-->
