@@ -253,6 +253,9 @@ Route::get('admin/jadwalkuliah', 'AdminJadwalPerkuliahan@index')->name('Jadwal P
 Route::get('admin/administrator', 'Administrator@index')->name('Jadwal Perkuliahan');
 Route::post('admin/jadwalkuliah/paging', 'AdminJadwalPerkuliahan@paging')->name('Jadwal Perkuliahan');
 Route::post('administrator/change_password', 'Administrator@change_password')->name('change_password');
+
+Route::get('aktivitasperkuliahan/sinc', 'AktivitasPerkuliahan@sinc')->name('aktivitasperkuliahan');
+
 //Route::post('module/administrator/create', 'Administrator@create')->name('Jadwal Perkuliahan');
 
 Route::get('data/sinkronisasi', 'Sinkronisasi@index')->name('Sinkronisasi Data');
@@ -277,9 +280,10 @@ Route::get('sync_mata_kuliah', 'Matakuliah@add_mat_kul_sinc')->name('sync_mata_k
 
 // KELAS PERKULIAHAN
 Route::get('sinc_kelas_perkulaihan_mata_kuliah', 'KelasPerkuliahan@sinc_kelas_perkulaihan_mata_kuliah')->name('sinc_kelas_perkulaihan_mata_kuliah');
-
+//KURIKULUM SINC
 Route::get('kurikulum_sinc', 'Kurikulum@kurikulum_sinc')->name('kurikulum_sinc');
-
+//AKTIVITAS MAHASISWA
+Route::get('sinc_siakadtoforlapaktivitasmahasiswa', 'AktivitasPerkuliahan@sinc_siakadtoforlap')->name('sinc_siakadtoforlap');
 
 Route::get('sinc_krs', 'Mahasiswa@sinc_krs')->name('sinc_krs');
 Route::get('sinc_kelas_perkuliahan', 'KelasPerkuliahan@sinc_kelas_perkuliahan')->name('sinc_kelas_perkuliahan');
@@ -293,3 +297,4 @@ Route::get('dosen/sinc_sertifikasi', 'Dosen@sinc_sertifikasi')->name('sinc_serti
 Route::get('dosen/sinc_penelitian', 'Dosen@sinc_penelitian')->name('sinc_penelitian');
 
 Route::post('underconstructor', 'SettingMenu@underconstructor')->name('sinc_penelitian');
+
