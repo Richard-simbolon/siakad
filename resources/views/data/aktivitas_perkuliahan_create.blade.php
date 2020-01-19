@@ -117,7 +117,7 @@
                                                     <div class="form-group">
                                                         <select name="status" class="form-control form-control-sm kt-select2">
                                                             @foreach ($master['status'] as $item)
-                                                                <option value="{{$item['title']}}" > {{$item['title']}} </option>
+                                                                <option value="{{$item['id']}}" > {{$item['title']}} </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -129,7 +129,7 @@
                                                 <div class="form-group">
                                                     <label>IPS</label>
                                                     <div class="form-group">
-                                                        <input type="number" max="4" class="form-control" onchange="check_ipk($(this))" name="ips" placeholder="Isikan IPS">
+                                                        <input type="number" min="0" max="4" class="form-control" onchange="check_ipk($(this))" name="ips" placeholder="Isikan IPS">
                                                     </div>
                                                 </div>
                                             </div>
@@ -137,7 +137,7 @@
                                                 <div class="form-group">
                                                     <label>IPK</label>
                                                     <div class="form-group">
-                                                        <input type="number" max="4" class="form-control" onchange="check_ipk($(this))" name="ipk" placeholder="Isikan IPK">
+                                                        <input type="number" min="0" max="4" class="form-control" onchange="check_ipk($(this))" name="ipk" placeholder="Isikan IPK">
                                                     </div>
                                                 </div>
                                             </div>
@@ -145,7 +145,7 @@
                                                 <div class="form-group">
                                                     <label>Jumlah SKS Semester</label>
                                                     <div class="form-group">
-                                                        <input type="number" class="form-control" name="sks_semester" placeholder="Isikan SKS Semester">
+                                                        <input type="number" min="0" class="form-control" name="sks_semester" placeholder="Isikan SKS Semester">
                                                     </div>
                                                 </div>
                                             </div>
@@ -153,7 +153,7 @@
                                                 <div class="form-group">
                                                     <label>Jumlah SKS Total</label>
                                                     <div class="form-group">
-                                                        <input type="number" class="form-control" name="sks_total" id="sks_total" placeholder="Isikan SKS Total">
+                                                        <input type="number" min="0" class="form-control" name="sks_total" id="sks_total" placeholder="Isikan SKS Total">
                                                     </div>
                                                 </div>
                                             </div>

@@ -13,7 +13,7 @@
                 "id","row_status","title","updated_at" ,"created_at","created_by", "update_by"
             ];
 
-
+            public $incrementing = false;
 
             public function scopeget_row(){
                 return [

@@ -77,9 +77,6 @@
                                                         <input type="text"  id="nim" class="form-control" value="{{$data['nim']}}" placeholder="Cari Berdasarkan NIM"  disabled="disabled">
                                                         <input type="hidden" id="mahasiswa_id" name="mahasiswa_id" value="{{$data['mahasiswa_id']}}">
                                                         <input type="hidden" id="row_status" name="row_status" value="active">
-                                                        {{--<div class="input-group-append">--}}
-                                                            {{--<button class="btn btn-success" id="btn_cari" type="button">Cari!</button>--}}
-                                                        {{--</div>--}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -118,7 +115,7 @@
                                                     <div class="form-group">
                                                         <select name="status" class="form-control form-control-sm kt-select2">
                                                             @foreach ($master['status'] as $item)
-                                                                <option value="{{$item['title']}}" {{ $item['id'] == $data['status'] ? 'selected' : '' }}> {{$item['title']}} </option>
+                                                                <option value="{{$item['id']}}" {{ $item['id'] == $data['status'] ? 'selected' : '' }}> {{$item['title']}} </option>
                                                             @endforeach
                                                         </select>
                                                     </div>

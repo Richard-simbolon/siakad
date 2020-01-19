@@ -259,7 +259,8 @@ class AktivitasPerkuliahan extends Controller
             ->join('mahasiswa','mahasiswa.id','mahasiswa_aktivitas_perkuliahan.mahasiswa_id')
             ->join('master_jurusan','master_jurusan.id', 'mahasiswa.jurusan_id')
             ->join('master_semester','master_semester.id','mahasiswa_aktivitas_perkuliahan.semester_id')
-            ->select('mahasiswa_aktivitas_perkuliahan.*','mahasiswa.nim','mahasiswa.nama', 'master_jurusan.title as jurusan','master_semester.title as semester','master_semester.id_tahun_ajaran as angkatan'   )
+            ->join('master_status_mahasiswa','master_status_mahasiswa.id','mahasiswa_aktivitas_perkuliahan.status' )
+            ->select('mahasiswa_aktivitas_perkuliahan.*','master_status_mahasiswa.title as status','mahasiswa.nim','mahasiswa.nama', 'master_jurusan.title as jurusan','master_semester.title as semester','master_semester.id_tahun_ajaran as angkatan'   )
             ->get())->addIndexColumn()->make(true);
     }
 }
