@@ -25,8 +25,8 @@ class DosenUploadUjian extends Controller
             if(!$this->user){
                 Redirect::to('login')->send();
             }
-            if(Cache::get('underconstuctormode') == '1'){
-                return abort(404);
+            if(!$this->setUserActivity()){
+                Redirect::to('/')->send();
             }
             if($this->user->login_type != 'dosen'){
                 return abort(404);
