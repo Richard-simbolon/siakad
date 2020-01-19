@@ -58,8 +58,8 @@ class DosenModule extends Controller
             if(!$this->user){
                 Redirect::to('login')->send();
             }
-            if(Cache::get('underconstuctormode') == '1'){
-                return abort(403, 'Sedang dalam perbaikan.');
+            if(!$this->setUserActivity()){
+                Redirect::to('/')->send();
             }
             if($this->user->login_type != 'dosen'){
                 return abort(404);

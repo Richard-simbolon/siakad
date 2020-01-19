@@ -40,9 +40,10 @@ class HomeController extends Controller
         $semester_aktif = SemesterModel::where('status_semester' , 'enable')->first();
         
         if(strtolower($login_type)=="mahasiswa"){
-            
+
             if(Cache::get('underconstuctormode') == '1'){
-                return abort(404);
+                //return abort(503, 'Sedang dalam perbaikan.');
+                return view('auth/maintanance');
             }
             $kurikulum = MahasiswaModel::join('master_kelas' ,'master_kelas.id' ,'mahasiswa.kelas_id')
             ->select('master_kelas.*','mahasiswa.nama','mahasiswa.id')
@@ -72,7 +73,8 @@ class HomeController extends Controller
         }else if(strtolower($login_type)=="dosen") {
 
             if(Cache::get('underconstuctormode') == '1'){
-                return abort(503, 'Sedang dalam perbaikan.');
+                //return abort(503, 'Sedang dalam perbaikan.');
+                return view('auth/maintanance');
             }
 
             $data = DosenModel::where('nidn_nup_nidk' , '=', Auth::user()->id)

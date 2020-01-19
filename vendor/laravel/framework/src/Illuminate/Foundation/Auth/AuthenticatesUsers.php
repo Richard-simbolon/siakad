@@ -5,6 +5,7 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\ValidationException;
 
 trait AuthenticatesUsers
@@ -32,7 +33,11 @@ trait AuthenticatesUsers
     public function login(Request $request)
     {
         $this->validateLogin($request);
-
+        if(($request->login_type_role != 'jurusan' && $request->login_type_role !='admin')) {
+            if (Cache::get('underconstuctormode') == '1') {
+                return view('auth/maintanance');
+            }
+        }
         $userCheck = DB::table('auth')->where('login','=', $request->login)->first();
 
         if($userCheck){

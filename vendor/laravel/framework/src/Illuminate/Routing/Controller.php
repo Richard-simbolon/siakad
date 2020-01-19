@@ -285,32 +285,38 @@ abstract class Controller
             ];
         }
 
-        $this->setUserActivity();
+        //$this->setUserActivity();
 
         return new ControllerMiddlewareOptions($options);
     }
 
 
     public function setUserActivity(){
-        if(session('last_activity')){
-            date_default_timezone_set('Asia/Jakarta');
-            $time=time();
-            $time_check=$time-600;
-            if(session('last_activity') < $time_check){
-                $type = Auth::user()->login_type;
-                $last_activity = date("Y-m-d H:m:s");
-                if(strtolower($type) == 'dosen'){
-                    DB::table('dosen')->where('nidn_nup_nidk','=', Auth::user()->id)->update(array("last_activity"=>$last_activity));
-                }elseif (strtolower($type)== 'mahasiswa'){
-                    DB::table('mahasiswa')->where('nim','=', Auth::user()->id)->update(array("last_activity"=>$last_activity));
-                }else{
-                    DB::table('administrator')->where('username','=', Auth::user()->id)->update(array("last_activity"=>$last_activity));
-                }
-                session(['last_activity' => time()]);
+        date_default_timezone_set('Asia/Jakarta');
+        $time=time();
+        $time_check=$time-600;
+        $type = Auth::user()->login_type;
+        if(strtolower($type) == 'dosen' || strtolower($type) == 'mahasiswa') {
+            if (Cache::get('underconstuctormode') == '1') {
+                return false;
             }
+        }
+        if(session('last_activity') < $time_check){
+
+            $last_activity = date("Y-m-d H:m:s");
+            if(strtolower($type) == 'dosen'){
+                DB::table('dosen')->where('nidn_nup_nidk','=', Auth::user()->id)->update(array("last_activity"=>$last_activity));
+            }elseif (strtolower($type)== 'mahasiswa'){
+                DB::table('mahasiswa')->where('nim','=', Auth::user()->id)->update(array("last_activity"=>$last_activity));
+            }else{
+                DB::table('administrator')->where('username','=', Auth::user()->id)->update(array("last_activity"=>$last_activity));
+            }
+            session(['last_activity' => time()]);
         }else{
             session(['last_activity' => time()]);
         }
+
+        return true;
     }
 
     /**
